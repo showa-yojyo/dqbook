@@ -1,0 +1,11 @@
+html-chunk/
+www/
+
+*.pdf
+*.html
+*.tar.bz2
+*.xls
+*.zip
+*.sh
+
+version.xml
