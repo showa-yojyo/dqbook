@@ -29,8 +29,7 @@
 XSLTPROC = xsltproc
 XMLLINT = xmllint
 INSTALL_DIR = $(DESTDIR)/usr/share/doc/OVERRIDE_ME_WITH_SOMETHING_SUITABLE  # 要らない
-#INSTALL_DATA = cp -r
-INSTALL_DATA = rsync -au --exclude=.svn
+INSTALL_DATA = cp -r
 MKDIR = mkdir -p
 RUN_HHC = ~/bin/runhhc.bat
 
