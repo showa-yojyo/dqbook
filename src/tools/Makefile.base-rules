@@ -8,7 +8,7 @@ all-html: html html-chunk html-help
 all-html-arch: html-arch html-chunk-arch
 install: install-html install-html-chunk install-html-help install-pdf install-ps
 install-arch: install-html-arch install-html-chunk-arch
-prefab: version log install-html-chunk install-html-chunk-arch
+prefab: version install-html-chunk install-html-chunk-arch
 
 # Build targets
 $(VERSION_SOURCE): version
@@ -27,15 +27,9 @@ version:
 	  mv $(VERSION_SOURCE).tmp $(VERSION_SOURCE); \
 	fi
 
-# <book> からは独立した HTML ファイルを作成するためのターゲット
-
-$(LOG_TARGET): log
-log:
-	@touch $(LOG_TARGET)
-
 # Rule html:
 
-html: valid $(LOG_TARGET) $(HTML_TARGET)
+html: valid $(HTML_TARGET)
 $(HTML_TARGET): $(ALL_SOURCE) $(STYLESHEET) $(IMAGES)
 	$(ENSURE_XSL)
 	$(XSLTPROC) $(HTML_XSLTPROC_OPTS) --output $(HTML_TARGET) \
@@ -45,7 +39,7 @@ $(HTML_TARGET): $(ALL_SOURCE) $(STYLESHEET) $(IMAGES)
 #
 # The trailing slash on the xsltproc --output option is essential to
 # output pages into the directory
-html-chunk: valid $(LOG_TARGET) $(HTML_CHUNK_TARGET)
+html-chunk: valid $(HTML_CHUNK_TARGET)
 $(HTML_CHUNK_TARGET): $(ALL_SOURCE) $(STYLESHEET) $(IMAGES)
 	$(MKDIR) $(HTML_CHUNK_DIR)
 	$(IFIMAGES) $(MKDIR) $(HTML_CHUNK_DIR)/image $(ENDIF)
@@ -148,7 +142,7 @@ clean: clean-html clean-arch clean-fo clean-pdf clean-ps
 	rm -f $(VERSION_SOURCE)
 
 clean-html:
-	rm -f $(HTML_TARGET) $(LOG_TARGET)
+	rm -f $(HTML_TARGET)
 	rm -rf $(HTML_CHUNK_DIR)
 
 clean-arch:

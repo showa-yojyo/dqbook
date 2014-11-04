@@ -39,7 +39,6 @@ GITVERSION = git show -s --pretty=format:%H
 # You should not normally need to edit anything below here.
 SHELL = /bin/sh
 
-#NAME = OVERRIDE_ME_WITH_THE_SHORT_FILESYSTEM_NAME_OF_YOUR_BOOK
 NAME = dqbook
 DIR = ./book
 IMAGES = $(DIR)/image/
@@ -76,9 +75,6 @@ RUN_FOP = /cygdrive/c/fop-0.94/fop.sh
 
 XML_SOURCE = $(DIR)/$(NAME).xml
 VERSION_SOURCE = $(DIR)/version.xml
-
-LOG_TARGET = $(DIR)/changelog.html
-RUNSVNLOG = $(TOOLS_DIR)/bin/mkchangelog.py
 
 ALL_SOURCE = $(DIR)/*.xml
 STYLESHEET = $(DIR)/*.css
