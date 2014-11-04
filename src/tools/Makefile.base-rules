@@ -1,6 +1,5 @@
-# 「ドラクエ命」ドキュメント生成用 Makefile.base-rules
-#
-# 同じく svnbook から拝借したものだ
+# This is a part of the Makefile that generates "dqbook".
+# We filched this build system from svnbook, Subversion document.
 
 # Grouping targets
 all: all-html pdf ps
@@ -65,7 +64,6 @@ $(HHP_TARGET): $(ALL_SOURCE) $(STYLESHEET) $(IMAGES)
 	  $(XSL_DIR)/htmlhelp.xsl $(XML_SOURCE)
 
 # Rule html-arch:
-# 丸パクリでよかろう
 
 html-arch: valid $(HTML_ARCH_TARGET)
 $(HTML_ARCH_TARGET): $(HTML_TARGET) $(IMAGES)
@@ -75,7 +73,6 @@ $(HTML_ARCH_TARGET): $(HTML_TARGET) $(IMAGES)
 	rm -rf $(HTML_ARCH_BASENAME)
 
 # Rule html-arch:
-# 丸パクリでよかろう
 
 html-chunk-arch: valid $(HTML_CHUNK_ARCH_TARGET)
 $(HTML_CHUNK_ARCH_TARGET): $(HTML_CHUNK_TARGET) $(IMAGES)
@@ -159,7 +156,7 @@ clean-ps:
 
 # Utility targets
 
-# VERSION_SOURCE は $(DIR)/version.xml のことだが、
-# これを Make の過程で自動生成するようだ。
+# VERSION_SOURCE is $(DIR)/version.xml, which is automatically generated
+# in processing the main target.
 valid: $(VERSION_SOURCE)
 	$(XMLLINT) --noout --nonet --valid $(XML_SOURCE)

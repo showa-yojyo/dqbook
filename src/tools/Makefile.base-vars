@@ -1,6 +1,5 @@
-# 「ドラクエ命」ドキュメント生成用 Makefile.base-vars
-#
-# 同じく svnbook から拝借したものだ
+# This is a part of the Makefile that generates "dqbook".
+# We filched this build system from svnbook, Subversion document.
 
 # This file -  Makefile.base-vars - together with the file Makefile.base-rules,
 # make up a reusable buildsystem for DocBook XML books.
@@ -28,12 +27,10 @@
 # Paths which you may wish to customize:
 XSLTPROC = xsltproc
 XMLLINT = xmllint
-INSTALL_DIR = $(DESTDIR)/usr/share/doc/OVERRIDE_ME_WITH_SOMETHING_SUITABLE  # 要らない
 INSTALL_DATA = cp -r
 MKDIR = mkdir -p
 RUN_HHC = ~/bin/runhhc.bat
 
-# 作業コピーのバージョン情報を出力するツール
 GITVERSION = git show -s --pretty=format:%H
 
 # You should not normally need to edit anything below here.
@@ -65,12 +62,12 @@ HTML_CHUNK_ARCH_BASENAME = $(OUTNAME)-html-chunk
 HTML_ARCH_TARGET = $(DIR)/$(HTML_ARCH_BASENAME)$(ARCH_EXT)
 HTML_CHUNK_ARCH_TARGET = $(DIR)/$(HTML_CHUNK_ARCH_BASENAME)$(ARCH_EXT)
 
-# 以下三つはビルド環境が整っていない
+# These targets are not available now.
 PDF_TARGET = $(DIR)/$(OUTNAME).pdf
 PS_TARGET = $(DIR)/$(OUTNAME).ps
 FO_TARGET = $(DIR)/$(OUTNAME).fo
 
-# 環境次第で値が変わる
+# This variable depends on the building environment.
 RUN_FOP = /cygdrive/c/fop-0.94/fop.sh
 
 XML_SOURCE = $(DIR)/$(NAME).xml
@@ -78,7 +75,7 @@ VERSION_SOURCE = $(DIR)/version.xml
 
 ALL_SOURCE = $(DIR)/*.xml
 STYLESHEET = $(DIR)/*.css
-# TODO: $(DIR)/data が必要だろう
+# TODO: $(DIR)/data might be required.
 
 INSTALL_SUBDIR = $(INSTALL_DIR)/$(NAME)
 
