@@ -4,7 +4,7 @@
   <!ENTITY % vers SYSTEM "version.xml">
   %vers;
 
-  <!ENTITY docroot "http://www.geocities.jp/showa_yojyo/dq">
+  <!ENTITY docroot "https://showa-yojyo.github.io/dqbook">
 
   <!ENTITY preface                    SYSTEM "preface.xml">
   <!ENTITY hack                       SYSTEM "dq_hack.xml">
@@ -118,14 +118,9 @@
 		<copyright>
 			<year>2002-&today.year;</year>
 			<holder>
-				<ulink url="http://www.geocities.jp/showa_yojyo/">プレハブ小屋</ulink>
+				<ulink url="https://showa-yojyo.github.io/">プレハブ小屋</ulink>
 			</holder>
 		</copyright>
-		<legalnotice>
-			<simplelist>
-				<member><ulink url="&docroot;/dqbook-html-chunk.tar.bz2">HTML 通常版ダウンロード (tar.bz2)</ulink></member>
-			</simplelist>
-		</legalnotice>
 		<pubdate>&today.date;</pubdate>
 		<releaseinfo>Version &book.version;</releaseinfo>
 	</bookinfo>
