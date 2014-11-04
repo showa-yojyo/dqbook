@@ -34,7 +34,6 @@ MKDIR = mkdir -p
 RUN_HHC = ~/bin/runhhc.bat
 
 # 作業コピーのバージョン情報を出力するツール
-SVNVERSION = svnversion -n
 GITVERSION = git show -s --pretty=format:%H
 
 # You should not normally need to edit anything below here.
