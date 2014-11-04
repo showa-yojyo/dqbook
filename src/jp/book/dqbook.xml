@@ -127,7 +127,7 @@
 			</simplelist>
 		</legalnotice>
 		<pubdate>&today.date;</pubdate>
-		<releaseinfo>&git.version;</releaseinfo>
+		<releaseinfo>Version &book.version;</releaseinfo>
 	</bookinfo>
 
 	&preface;
