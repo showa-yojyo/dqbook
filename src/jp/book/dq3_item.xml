@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.item"><?dbhtml filename="dq3_item.html" ?>
+<title>アイテム解析</title>
+<indexterm><primary>アイテム</primary><secondary>DQ3</secondary></indexterm>
+<para>
+本章の目的は、すべてのアイテムデータを抽出し、
+構造体の各フィールドを完全解析することである。
+</para>
+
+<section id="dq3.item.hack">
+<title>解析</title>
+<para>
+アイテム解析は定番中の定番なので、すでに先人の手が入っている
+（例えば <xref linkend="dqref.url1"/>）。
+基礎データは解析済であるので、以下ではより細部の解析を試みる。
+</para>
+
+<section id="dq3.item.hack.C40043">
+<title><varname>$C40043</varname> アイテム構造体</title>
+<para>
+	アドレス <varname>$C40043</varname> に全アイテムのデータが定義されている。
+	1 アイテム当たりが占めるデータ量は <literal>#$0013</literal> byte であり、
+	これが <literal>#$E5</literal> (229) 個配列されている。
+</para>
+<para>
+	アイテム構造体のメモリレイアウトは以下のようになっている。
+</para>
+<table class="memorylayout">
+	<caption>$C40043 アイテム構造体</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th>
+			<td colspan="8" rowspan="2">名前文字列 ID (2byte)</td>
+		</tr>
+		<tr><th>01</th></tr>
+		<tr><th>02</th>
+			<td colspan="8">アイテム種別 (1byte)</td>
+		</tr>
+		<tr><th>03</th>
+			<td colspan="8">装備パラメータ種別 (1byte)</td>
+		</tr>
+		<tr><th>04</th>
+			<td colspan="8" rowspan="2">装備によるパラメータ増加値 (2byte)</td>
+		</tr>
+		<tr><th>05</th></tr>
+		<tr><th>06</th>
+			<td colspan="8">職業による装備可能性（次のバイトの下位に続く）</td>
+		</tr>
+		<tr><th>07</th>
+			<td colspan="1">整理フラグ</td>
+			<td colspan="2">性別 (2bit)</td>
+			<td colspan="1">呪いフラグ</td>
+			<td colspan="1">希少フラグ</td>
+			<td colspan="1">可処分フラグ</td>
+			<td colspan="1">消耗フラグ</td>
+			<td colspan="1">（続き）</td>
+		</tr>
+		<tr><th>08</th>
+			<td colspan="8">戦闘行動 ID（次のバイト下位へ続く）</td>
+		</tr>
+		<tr><th>09</th>
+			<td colspan="1">大事フラグ<!-- C44FA5 --></td>
+			<td colspan="6"><varname>$FEE82C</varname> 構造体 ID<!-- 戦闘時のグラフィックとか音とか--> (6bit)</td>
+			<td colspan="1">（続き）</td>
+		</tr>
+		<tr><th>0A</th>
+			<td colspan="8" rowspan="3">価格 (3byte)</td>
+		</tr>
+		<tr><th>0B</th></tr>
+		<tr><th>0C</th></tr>
+		<tr><th>0D</th>
+			<td colspan="8" rowspan="2">職業による使用可能性 (2byte)</td>
+		</tr>
+		<tr><th>0E</th></tr>
+		<tr><th>0F</th>
+			<td colspan="8">移動時「つかう」処理 ID (1byte)</td>
+		</tr>
+		<tr><th>10</th>
+			<td colspan="8">「みる」「みせる」処理 ID (1byte)</td>
+		</tr>
+		<tr><th>11</th>
+			<td colspan="7">アイコン ID (7bit)</td>
+			<td colspan="1">謎ビット</td>
+		</tr>
+		<tr><th>12</th>
+			<td colspan="8">性格 ID (1byte)</td>
+		</tr>
+	</tbody>
+</table>
+
+<glosslist>
+	<glossentry>
+	<glossterm>名前文字列 ID</glossterm>
+	<glossdef>
+		<para>
+			アイテムの名前を表す<link linkend="dq3.str">文字列 ID</link> である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>アイテム種別</glossterm>
+	<glossdef>
+		<para>
+			アイテムの種類を表す数値である。以下のようになっている。
+			<table class="lighttable">
+				<caption>アイテム種別</caption>
+				<thead>
+					<tr><th>値</th><th>意味</th></tr>
+				</thead>
+				<tbody>
+					<tr><td><code>0</code></td><td>ぶき          </td></tr>
+					<tr><td><code>1</code></td><td>よろい        </td></tr>
+					<tr><td><code>2</code></td><td>たて          </td></tr>
+					<tr><td><code>3</code></td><td>かぶと        </td></tr>
+					<tr><td><code>4</code></td><td>そうしょくひん</td></tr>
+					<tr><td><code>5</code></td><td>どうぐ        </td></tr>
+				</tbody>
+			</table>
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>装備パラメータ種別</glossterm>
+	<glossdef>
+		<para>
+			あるキャラクターがその道具を装備することができるとき、
+			装備することによって、
+			そのキャラクターの増加するパラメータが何であるかを示す値である。
+
+			<table class="lighttable">
+				<caption>装備パラメータ種別</caption>
+				<thead>
+					<tr><th>値</th><th>増加するパラメータ</th></tr>
+				</thead>
+				<tbody>
+					<tr><td><code>0</code></td><td>（なし）      </td></tr>
+					<tr><td><code>1</code></td><td>こうげきりょく</td></tr>
+					<tr><td><code>2</code></td><td>すばやさ      </td></tr>
+					<tr><td><code>3</code></td><td>しゅびりょく  </td></tr>
+					<tr><td><code>4</code></td><td>かしこさ      </td></tr>
+					<tr><td><code>5</code></td><td>うんのよさ    </td></tr>
+					<tr><td><code>6</code></td><td>たいりょく    </td></tr>
+				</tbody>
+			</table>
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>装備によるパラメータ増加値</glossterm>
+	<glossdef>
+		<para>
+			あるキャラクターがその道具を装備することができるとき、
+			装備することによって、
+			そのキャラクターのパラメータがどれだけ増加するかを示す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>職業による装備可能性</glossterm>
+	<glossdef>
+		<para>
+			このアイテムが装備可能であるとき、
+			キャラクターの職業によって装備ができるか、そうでないかを示す値である。
+			1 ビットのフィールドが職業一つに対応しており、
+			このフィールドの値が 1 のときに限り装備可能である。
+		</para>
+		<para>
+			<table class="memorylayout">
+				<caption>アイテム構造体 職業による装備可能性</caption>
+				<colgroup>
+					<col span="1" width="12%"/>
+					<col span="7" width="11%"/>
+				</colgroup>
+				<thead>
+					<tr><th>Byte:Bit</th>
+						<th>80</th>
+						<th>40</th>
+						<th>20</th>
+						<th>10</th>
+						<th>08</th>
+						<th>04</th>
+						<th>02</th>
+						<th>01</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr><th>06</th>
+						<td colspan="1">遊び人</td>
+						<td colspan="1">商人</td>
+						<td colspan="1">賢者</td>
+						<td colspan="1">武闘家</td>
+						<td colspan="1">僧侶</td>
+						<td colspan="1">魔法使い</td>
+						<td colspan="1">戦士</td>
+						<td colspan="1">勇者</td>
+					</tr>
+					<tr><th>07</th>
+						<td colspan="7"></td>
+						<td colspan="1">盗賊</td>
+					</tr>
+				</tbody>
+			</table>
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>消耗フラグ</glossterm>
+	<glossdef>
+		<para>
+			その道具に対する「つかう」コマンドが成功したときに、
+			その道具を消耗しないのであれば 1 が、
+			そうでなければ 0 が格納されている。
+			<!-- br -->
+			例 「やくそう」は 0 であるが「けんじゃのいし」は 1 である。
+			<!-- br -->
+			例 「めざめのこな」等は 1 である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>可処分フラグ</glossterm>
+	<glossdef>
+		<para>
+			その道具を「すてる」ことができるかどうかを示す値である。
+			1 ならば捨てられるが、0 ならば捨てることができない。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>希少フラグ</glossterm>
+	<glossdef>
+		<para>
+			その道具がいわゆるレアアイテムであるかどうかを示す値である。
+			1 ならばレアであり、
+			店屋でその道具を売ろうとすると、店屋から確認の問い合わせを食らう。
+			<!-- br -->
+			プログラムの中では上記の可処分フラグを優先的に参照する場合が多いようだ。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>呪いフラグ</glossterm>
+	<glossdef>
+		<para>
+			あるキャラクターがその道具を装備できるとする。
+			もしその道具を装備した場合、呪われるか否かを示す値である。
+			このフィールドは 1 ならば、呪いがかかっている道具である。
+			<!-- br -->
+			ちなみに、そのような道具は 8 種類存在する。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>性別</glossterm>
+	<glossdef>
+		<para>
+			その道具を装備するために、
+			キャラクターに性別に関する条件がつくか否かを示す値である。
+
+			<table class="lighttable">
+				<caption>性別</caption>
+				<thead>
+					<tr><th>値</th><th>意味</th></tr>
+				</thead>
+				<tbody>
+					<tr><td><code>0</code></td><td>おとこ専用</td></tr>
+					<tr><td><code>1</code></td><td>おんな専用</td></tr>
+					<tr><td><code>2</code></td><td>指定なし  </td></tr>
+				</tbody>
+			</table>
+
+			ちなみに装備用のアイテムではないので問題はないのだが、
+			「あたまがさえるほん」のこのフィールドの値はなぜか 1 である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>整理フラグ</glossterm>
+	<glossdef>
+		<para>
+			「さくせん→どうぐせいり→だれの」コマンドにおいて、
+			その道具がキャラクターの持ち物リストにあるとき、
+			それをふくろに収納するかどうかを示す値である。
+			1 ならばふくろに移すが、0 ならばそのままキャラクターの持ち物リストに残す。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>戦闘行動 ID</glossterm>
+	<glossdef>
+		<para>
+			戦闘中にその道具を「つかう」と起こる戦闘行動の ID である。
+			特に効果のない道具の値は <literal>#$6B</literal> であることを憶えておくとよい。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>大事フラグ</glossterm>
+	<glossdef>
+		<para>
+			「どうぐ」コマンドでキャラクターの持ち物リストをカーソルが動くときに、
+			画面右上に小さく表示するウィンドウの中身を
+			「だいじなもの／ひつようなときにつかおう」
+			にするかどうかを示す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm><varname>$FEE82C</varname> 構造体 ID</glossterm>
+	<glossdef>
+		<para>
+			<xref linkend="dqref.url3"/> によると、
+			戦闘時のグラフィックとか音とかを定義する構造体のデータ ID と思われる。
+			詳細調査中。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>価格</glossterm>
+	<glossdef>
+		<para>
+			その道具を店屋で買うときに必要な価格である。
+		</para>
+	</glossdef>
+	</glossentry><!-- br -->
+
+	<glossentry>
+	<glossterm>職業による使用可能性</glossterm>
+	<glossdef>
+		<para>
+			キャラクターの職業によって、
+			このアイテムを戦闘中に「つかう」ことができるかどうかを示す値である。
+			1 ビットのフィールドが職業一つに対応しており、
+			このフィールドの値が 1 のときに限り装備可能である。
+		</para>
+		<para>
+			<table class="memorylayout">
+				<caption>アイテム構造体 職業による使用可能性</caption>
+				<colgroup>
+					<col span="1" width="12%"/>
+					<col span="7" width="11%"/>
+				</colgroup>
+				<thead>
+					<tr><th>Byte:Bit</th>
+						<th>80</th>
+						<th>40</th>
+						<th>20</th>
+						<th>10</th>
+						<th>08</th>
+						<th>04</th>
+						<th>02</th>
+						<th>01</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr><th>0D</th>
+						<td colspan="1">遊び人</td>
+						<td colspan="1">商人</td>
+						<td colspan="1">賢者</td>
+						<td colspan="1">武闘家</td>
+						<td colspan="1">僧侶</td>
+						<td colspan="1">魔法使い</td>
+						<td colspan="1">戦士</td>
+						<td colspan="1">勇者</td>
+					</tr>
+					<tr><th>0E</th>
+						<td colspan="7">0</td>
+						<td colspan="1">盗賊</td>
+					</tr>
+				</tbody>
+			</table>
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>移動時「つかう」処理 ID</glossterm>
+	<glossdef>
+		<para>
+			移動時における「つかう」コマンドによる処理を指示する値である。
+			端的に言えば<emphasis>ジャンプテーブル <varname>$C30B31</varname> のインデックス</emphasis>である。
+		</para>
+		<para>
+			「すごろくけん」(ID: <literal>#$00E4</literal>) を例を挙げる。
+			ダンプによると、このフィールドの値は <literal>#$0058</literal> である。
+		</para>
+<programlisting>
+C3/0B31:    970DC9  // 0000
+C3/0B34:    990DC9  // 0001
+C3/0B37:    AB0DC9  // 0002
+...
+<emphasis>C3/0C39:    161DC9  // 0058</emphasis>
+</programlisting>
+		<para>
+			<varname>$C91D16</varname> のコードが「すごろくけん」を移動時に「つかう」処理を実装していることがわかる。
+		</para>
+<programlisting>
+C9/1D16:    22D4A8C1    JSR $C1A8D4    <co id="dq3.item.co.1" />
+C9/1D1A:    9A0D
+C9/1D1C:    22D4A8C1    JSR $C1A8D4    <co id="dq3.item.co.2" />
+C9/1D20:    9C0D
+C9/1D22:    22F740C3    JSR $C340F7
+C9/1D26:    18          CLC 
+C9/1D27:    6B          RTL
+</programlisting>
+<calloutlist>
+  <callout arearefs="dq3.item.co.1">
+    <para>
+      メッセージ <literal>#$0D9C</literal> を表示する。すなわち
+      <literal>[C0]は [B5]を[AD]にぎりしめた！[AF][AC]</literal>
+    </para>
+  </callout>
+  <callout arearefs="dq3.item.co.2">
+    <para>
+      メッセージ <literal>#$0D9C</literal> を表示する。すなわち
+      <literal>なんだか 胸が わくわくする。[AC]</literal>
+    </para>
+  </callout>
+</calloutlist>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>「みる」「みせる」処理 ID</glossterm>
+	<glossdef>
+		<para>
+			パーティに職業が商人であるキャラクターがいるときに、
+			道具を「みる」または「みせる」ときの処理を指示する値である。
+			端的に言えば<emphasis>ジャンプテーブル <varname>$C30C66</varname> のインデックス</emphasis>である。
+		</para>
+		<para>
+			以下に「やくそう」(ID: <literal>#$00B8</literal>) の「みる」処理のコードを記す。
+		</para>
+<programlisting>
+C9/276A:    BFBD25C9    LDA $C925BD,X       <co id="dq3.item.co.11" />
+C9/276E:    225AA9C1    JSR $C1A95A
+C9/2772:    BF8925C9    LDA $C92589,X       <co id="dq3.item.co.12" />
+C9/2776:    225AA9C1    JSR $C1A95A
+C9/277A:    208127      JSR $2781           <co id="dq3.item.co.13" />
+C9/277D:    20A827      JSR $27A8           <co id="dq3.item.co.14" />
+C9/2780:    6B          RTL
+</programlisting>
+<calloutlist>
+  <callout arearefs="dq3.item.co.11">
+    <para>
+      「やくそう」を鑑定するときには、<varname>X</varname> の値は 0 だ。
+       従って <varname>$C925BD</varname> の値である <literal>#$0E10</literal> をメッセージ ID として <varname>A</varname> に取る。
+       それをサブルーチン <varname>JSR $C1A95A</varname> の呼び出しにより表示する。
+    </para>
+    <para>
+      すなわち、<literal>[CD][C0]「これは 体力を 回復する[AD]くすりのようです。[AF][AC]</literal>
+      を表示する。
+    </para>
+  </callout>
+  <callout arearefs="dq3.item.co.12">
+    <para>
+      同様にして、メッセージ <literal>#$0DC1</literal> を表示する。
+      <literal>[CD][C0]「でも いちど使うと[AD]なくなってしまうようですね。[AF][AC]</literal>
+    </para>
+  </callout>
+  <callout arearefs="dq3.item.co.13">
+    <para>
+      サブルーチン <varname>$2781</varname> を呼び出し、売値鑑定の処理を行う。
+    </para>
+  </callout>
+  <callout arearefs="dq3.item.co.14">
+    <para>
+      サブルーチン <varname>$27A8</varname> を呼び出し、呪い鑑定の処理を行う。
+    </para>
+  </callout>
+</calloutlist>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>謎ビット</glossterm>
+	<glossdef>
+		<para>
+			いくら解析しても、このフィールドを参照しているコードがない……。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>アイコン ID</glossterm>
+	<glossdef>
+		<para>
+			ダンプリストの観察結果や、
+			参照位置周辺の処理（コードで言うとバンク <varname>$C5</varname> と <varname>$C6</varname> に二箇所ずつある）の流れからすると、
+			プレイヤーが「しらべる」コマンドで何らかのアイテムを発見したときや、
+			すごろくイベントでアイテムを見つけたときに
+			画面上に描画する小さな画像（便宜的にアイコンと呼ぶ）の ID ではないかと思われる。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>性格 ID</glossterm>
+	<glossdef>
+		<para>
+			その道具が装備品であれば、キャラクターがそれを装備したときに変化する性格の性格 ID である。
+			<!-- br -->
+			その道具が本であれば、キャラクターがそれを「つかう」と変化する性格の性格 ID である。
+			これはサブルーチン <varname>$C452E3</varname> からコードを辿っていくとわかる。
+			「エッチなほん」に関しては、サブルーチン <varname>$C45319</varname> で性別により性格を振り分けている。
+		</para>
+	</glossdef>
+	</glossentry>
+</glosslist>
+
+</section> <!-- dq3.item.hack.C40043 -->
+</section> <!-- dq3.item.hack -->
+</section> <!-- dq3.item -->

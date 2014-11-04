@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq5.item"><?dbhtml filename="dq5_item.html" ?>
+<title>アイテム解析</title>
+<indexterm><primary>アイテム</primary><secondary>DQ5</secondary></indexterm>
+
+<para>
+	ドラクエ5 におけるアイテムの表現方法の特徴は、
+	アイテムを構成するすべてのパラメータ・データを、まとめて一つの構造体に配列して<emphasis>いない</emphasis>ところにある。
+	その代わり、各パラメータ・データそれぞれを配列しているような感じである。
+</para>
+<para>
+	アイテムに関係するパラメータ・データの配列のアドレスが
+	バンク $23 内のある領域に連続して出現するため、
+	そこにあるすべての配列だけでアイテムデータを構成すると考えてよいだろう。
+	なお、アイテム名を表す文字列は別のところにある（<xref linkend="dq5.data.str.23C6C9"/>参照）。
+</para>
+
+<section id="dq5.item.23B081">
+<title>$23B081 アイテム価格配列</title>
+<para>
+	アドレス $23B081 に 1byte データの配列がある。
+	配列長はアイテム ID 総数と同じく 216 である。
+	これはアイテム価格そのものが配列されているのではなく、
+	価格を 10 の N 乗で割ったものが配列されている（意図は不明）。
+	ドラクエ 5 では、各アイテムの値段データを以下のような形で内部的に格納している。
+	$23B081 から格納されているのは P のデータである。
+</para>
+<programlisting>
+P * Q, (where 0 &lt;= P and P &lt; 256; 0 &lt;= Q and Q &lt; 65536)
+</programlisting>
+<para>
+	プログラムはこの配列のインデックスを次の配列（<xref linkend="dq5.item.23B159"/>参照）内から取得する。
+</para>
+</section> <!-- dq5.item.23B081 -->
+
+<section id="dq5.item.23B159">
+<title>$23B159 アイテム各種フラグ配列</title>
+<para>
+	アドレス $23B159 に 1byte データの配列がある。
+	配列長はアイテム ID 総数と同じく 216 である。
+	この配列の各データは、そのアイテムに関する各種フラグビット列である。
+</para>
+<para>
+	メモリレイアウトは次のとおりである。
+</para>
+<table class="memorylayout">
+	<caption>$23B159 配列 アイテム各種データ メモリレイアウト</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th>
+			<td>「つかう」表示</td>
+			<td>仲間につかう</td>
+			<td>消耗品</td>
+			<td>処分不可</td>
+			<td>下取不可</td>
+			<td>不明</td>
+			<td colspan="2">値段 Q</td>
+		</tr>
+	</tbody>
+</table>
+<glosslist>
+	<glossentry>
+	<glossterm>「つかう」表示</glossterm>
+	<glossdef>
+		<para>
+			例えば、移動中に「ひのきのぼう」をつかうと、
+			最初に表示されるメッセージは
+			「○○○○は ひのきのぼうを つかった！」となる。
+			これが一般的なメッセージであるが、アイテムによっては例えば
+			「○○○○は においぶくろを あけた！」のように、
+			多少凝った文言を表示する。
+			それを区別するためのフラグである。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>仲間につかう</glossterm>
+	<glossdef>
+		<para>
+			1 であるアイテムは、使用者以外の仲間を対象にできる。
+			例えば「やくそう」「どくけしそう」はこのビットが 1 である。
+			それに対し、「ちからのたね」「せかいじゅのしずく」「キメラのつばさ」など、
+			仲間一人を特定しないで「つかう」アイテムは 0 である。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>消耗品</glossterm>
+	<glossdef>
+		<para>
+			1 であるアイテムは消耗品である。
+			例えば「せかいじゅのは」を死んでいる仲間に対してつかうと、
+			生き返った後に「せかいじゅのは」がなくなる。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>処分不可</glossterm>
+	<glossdef>
+		<para>
+			1 であるアイテムは、「すてる」と「それを捨てるなんてとんでもない！」と表示される。
+			また、特定のキャラクターに渡せないアイテムでもある。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>下取不可</glossterm>
+	<glossdef>
+		<para>
+			店屋に売りたくても買い取ってくれないアイテムであれば 1 である。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>不明</glossterm>
+	<glossdef>
+		<para>
+			プログラム中で読み取られている様子がない。しかし、
+			データ表を調べると 3 ビット目の値と一致している。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>値段 Q</glossterm>
+	<glossdef>
+		<para>
+			<xref linkend="dq5.item.23B081"/>で述べたアイテム価格表現における
+			Q のデータを格納する配列 $21A47B のインデックスである。
+			$21A47B に存在する 2byte データの配列長 4 の配列である。
+			C 言語風に書くと、以下のようなものである。
+		</para>
+<programlisting>
+Q[4] = {1, 10, 100, 1000};
+</programlisting>
+	</glossdef>
+	</glossentry>
+</glosslist>
+</section> <!-- dq5.item.23B159 -->
+
+<section id="dq5.item.23B231">
+<title>$23B231 アイテム種別配列</title>
+<para>
+	アドレス $23B231 に1byte データの配列がある。
+	配列長はアイテム ID 総数と同じく 216 である。
+	これも基本的には各種フラグを詰め合わせた値の配列である。
+	メモリレイアウトを以下に示す。
+</para>
+<table class="memorylayout">
+	<caption>$23B231 アイテム種別配列 1 バイトのメモリレイアウト</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th>
+			<td colspan="1">移動時つかう</td>
+			<td colspan="1">戦闘時つかう</td>
+			<td colspan="1">戦闘時対象</td>
+			<td colspan="1">戦闘時だれに直後</td>
+			<td colspan="1">呪い</td>
+			<td colspan="3">種別</td>
+		</tr>
+	</tbody>
+</table>
+<glosslist>
+	<glossentry>
+	<glossterm>移動時つかう</glossterm>
+	<glossdef>
+		<para>
+			1 のとき、このアイテムを移動中に「つかう」と、
+			「しかし 今は 何も おこらなかった……！」と表示される。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>戦闘時つかう</glossterm>
+	<glossdef>
+		<para>
+			1 のとき、このアイテムを戦闘中に「つかう」と、
+			「だれに」ウィンドウが表示される。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>戦闘時対象</glossterm>
+	<glossdef>
+		<para>
+			戦闘中に「つかう」ときの対象が、味方側か敵側なのかを表す。
+			1 のとき、対象が敵側であることを示す。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>戦闘時だれに直後</glossterm>
+	<glossdef>
+		<para>
+			詳細不明。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>呪い</glossterm>
+	<glossdef>
+		<para>
+			1 であるアイテムは呪いがかけられている。
+			すなわち、このアイテムを装備するキャラクターは、呪い状態になることを意味する。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>種別</glossterm>
+	<glossdef>
+		<para>
+			プログラムは 3bit の値でアイテム種別を取り扱う。
+			大体以下のように分類されているようだ。
+		</para>
+		<table class="lighttable">
+			<caption>アイテム種別</caption>
+			<thead>
+				<tr><th>値</th><th>種別</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>0</td><td>ぶき</td></tr>
+				<tr><td>1</td><td>よろい</td></tr>
+				<tr><td>2</td><td>たて</td></tr>
+				<tr><td>3</td><td>かぶと</td></tr>
+				<tr><td>4</td><td>一般？</td></tr>
+				<tr><td>5</td><td>ほしふるうでわ</td></tr>
+				<tr><td>6</td><td>ビアンカのリボン</td></tr>
+				<tr><td>7</td><td>一般装飾品？</td></tr>
+			</tbody>
+		</table>
+	</glossdef>
+	</glossentry>
+</glosslist>
+</section> <!-- dq5.item.23B231 -->
+
+<section id="dq5.item.23B309">
+<title>$23B309 インパス参照 1 配列</title>
+<para>
+	アドレス $23B309 に 1byte データの配列がある。
+	配列長はアイテム ID 総数と同じく 216 である。
+	インパスをアイテムに対して適用した際に表示するメッセージを制御するためのビット群からなる値である。
+</para>
+<table class="memorylayout">
+	<caption>$23B309 インパス参照 1 メモリレイアウト</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th>
+			<td colspan="1">非消耗判定</td>
+			<td colspan="1">売値表示</td>
+			<td colspan="6">特別効果メッセージ</td>
+		</tr>
+	</tbody>
+</table>
+<glosslist>
+	<glossentry>
+	<glossterm>非消耗判定</glossterm>
+	<glossdef>
+		<para>
+			インパスによる鑑定中に
+			「何回つかってもなくならないらしい」メッセージを含めるビットである。
+			1 のときに表示する。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>売値表示</glossterm>
+	<glossdef>
+		<para>
+			インパスによる鑑定中に
+			「もし店屋に売れば」メッセージを含めるビットである。
+			1 のときに表示する。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>特別効果メッセージ</glossterm>
+	<glossdef>
+		<para>
+			この 6bit の値は、インパスによる鑑定中に、何らかの特別効果があることを教えるメッセージを制御する。
+			値とメッセージの対応の一例を以下に示す。
+		</para>
+		<table class="lighttable">
+			<caption>特別効果メッセージ</caption>
+			<thead>
+				<tr><th>値</th><th>メッセージ</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>0</td><td>表示一切なし</td></tr>
+				<tr><td>1</td><td>特別な効果はないようだ</td></tr>
+				<tr><td>2</td><td>特別な効果があるようだ</td></tr>
+				<tr><td>3</td><td>伝説の勇者が～</td></tr>
+				<tr><td>4</td><td>これで急所をつけば～</td></tr>
+			</tbody>
+		</table>
+	</glossdef>
+	</glossentry>
+</glosslist>
+</section> <!-- dq5.item.23B309 -->
+
+<section id="dq5.item.23B3E1">
+<title>$23B3E1 インパス参照 2 配列</title>
+<para>
+	アドレス $23B3E1 に 1byte データの配列がある。
+	配列長はアイテム ID 総数と同じく 216 である。
+	前項の続きのようなものである。
+</para>
+<table class="memorylayout">
+	<caption>$23B3E1 インパス参照 2 メモリレイアウト</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th>
+			<td colspan="1">種別表示</td>
+			<td colspan="1">装備可能性表示</td>
+			<td colspan="6">戦闘時表示メッセージ</td>
+		</tr>
+	</tbody>
+</table>
+<glosslist>
+	<glossentry>
+	<glossterm>非消耗判定</glossterm>
+	<glossdef>
+		<para>
+			インパスによる鑑定メッセージ中に
+			「何回つかってもなくならないらしい」メッセージを表示するビットである。
+			1 のときに表示する。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>装備可能性表示</glossterm>
+	<glossdef>
+		<para>
+			インパスによる鑑定メッセージ中に
+			「これを装備できるのは……」メッセージを表示するビットである。
+			1 のときに表示する。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>戦闘時表示メッセージ</glossterm>
+	<glossdef>
+		<para>
+			これはインパスとは関係ないメンバーである。
+			1 のアイテムに対しては、戦闘時に「つかう」と特殊なメッセージを表示することになることを示すビットである。
+		</para>
+	</glossdef>
+	</glossentry>
+</glosslist>
+</section> <!-- dq5.item.23B3E1 -->
+
+<section id="dq5.item.23B4B9">
+<title>$23B4B9 アイテム上昇パラメータ配列</title>
+<para>
+	アドレス $23B4B9 に 1byte データの配列がある。
+	配列長はアイテム ID 総数と同じく 216 である。
+	アイテムが武器であれば攻撃力の上昇値、
+	身に着けるものならば守備力の上昇値……といったパラメータの配列である。
+</para>
+</section> <!-- dq5.item.23B4B9 -->
+
+<section id="dq5.item.23B591">
+<title>$23B591 アイテム装備可能フラグ（人間）配列</title>
+<para>
+	アドレス $23B591 に 1byte データの配列がある。
+	配列長はアイテム ID 総数と同じく 216 である。
+	各アイテムを装備できる人間の仲間キャラクターを示すフラグをまとめたものである
+	<footnote>
+		<para>
+			これとは別に、アドレス $21A632 にある 1byte 値の配列が各キャラクターに対応するマスク値を定義する。
+		</para>
+	</footnote>。
+</para>
+<table class="lighttable">
+	<caption>装備可能マスク</caption>
+	<thead>
+		<tr>
+			<th>マスク</th>
+			<th>キャラクター</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th><code>80</code></th><td>主人公             </td></tr>
+		<tr><th><code>40</code></th><td>ビアンカ ビアンカ幼</td></tr>
+		<tr><th><code>20</code></th><td>ヘンリー           </td></tr>
+		<tr><th><code>10</code></th><td>フローラ           </td></tr>
+		<tr><th><code>08</code></th><td>サンチョ           </td></tr>
+		<tr><th><code>04</code></th><td>ピピン             </td></tr>
+		<tr><th><code>02</code></th><td>クーパー           </td></tr>
+		<tr><th><code>01</code></th><td>アニー             </td></tr>
+		<tr><th><code>00</code></th><td>パパス ベラ        </td></tr>
+	</tbody>
+</table>
+</section> <!-- dq5.item.23B591 -->
+
+<section id="dq5.item.23B669">
+<title>$23B669 アイテム装備可能フラグ（モンスター）配列</title>
+<para>
+	アドレス $23B669 に 2byte データの配列がある。
+	配列長はアイテム ID 総数と同じく 216 である。
+	各アイテムを装備できるモンスターの仲間キャラクターを示すフラグマスクである
+	<footnote>
+		<para>
+			わかりにくいのを承知で書かせてもらうと、
+			アドレス $23AED1 にある 9byte 構造体データの最後の 1byte の下位 4 ビットが各キャラクターに対応するマスクである。
+			この 4 ビット値が、アドレス $21A63E にあるモンスター装備マスク配列のインデックスとなる。
+		</para>
+	</footnote>。
+</para>
+<table class="lighttable">
+	<caption>装備可能マスク</caption>
+	<thead>
+		<tr>
+			<th>マスク</th>
+			<th>仲間モンスター</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th><code>8000</code></th><td>ベビーパンサー キラーパンサー</td>                                                        </tr>
+		<tr><th><code>4000</code></th><td>スライム ホイミスライム はぐれメタル ベホマスライム キングスライム スライムベホマズン</td></tr>
+		<tr><th><code>2000</code></th><td>ドラキー ダンスニードル ばくだんベビー</td>                                               </tr>
+		<tr><th><code>1000</code></th><td>ドラゴンキッズ</td>                                                                       </tr>
+		<tr><th><code>0800</code></th><td>ブラウニー オークキング エリミネーター</td>                                               </tr>
+		<tr><th><code>0400</code></th><td>スライムナイト ソルジャーブル アンクルホーン</td>                                         </tr>
+		<tr><th><code>0200</code></th><td>まほうつかい ネーレウス</td>                                                              </tr>
+		<tr><th><code>0100</code></th><td>パペットマン ゴーレム</td>                                                                </tr>
+		<tr><th><code>0080</code></th><td>クックルー キメラ ホークブリザード</td>                                                   </tr>
+		<tr><th><code>0040</code></th><td>くさったしたい ばくだんいわ</td>                                                          </tr>
+		<tr><th><code>0020</code></th><td>イエティ ビックアイ ミニデーモン アームライオン</td>                                      </tr>
+		<tr><th><code>0010</code></th><td>おどるほうせき メガザルロック</td>                                                        </tr>
+		<tr><th><code>0008</code></th><td>ケンタラウス</td>                                                                         </tr>
+		<tr><th><code>0004</code></th><td>ドラゴンマッド グレイトドラゴン</td>                                                      </tr>
+		<tr><th><code>0002</code></th><td>キラーマシン ヘルバトラー</td>                                                            </tr>
+		<tr><th><code>0001</code></th><td>メッサーラ シュプリンガー ライオネック</td>                                               </tr>
+	</tbody>
+</table>
+</section> <!-- dq5.item.23B669 -->
+</section> <!-- dq5.item -->

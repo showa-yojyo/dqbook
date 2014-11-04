@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq5.data.fight_ring"><?dbhtml filename="dq5_fight_ring.html" ?>
+<title>格闘場</title>
+<indexterm><primary>格闘場</primary><secondary>DQ5</secondary></indexterm>
+<para>
+	<xref linkend="appendix.b" />
+</para>
+<para>
+	このデータの格納アドレスは $23DA97 (ロムイメージでは $11DA97) である。
+</para>
+</section> <!-- dq5.data.fight_ring -->
+

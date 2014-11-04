@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.window"><?dbhtml filename="dq3_window.html" ?>
+<title>ウィンドウ解析</title>
+<indexterm><primary>ウィンドウ</primary><secondary>DQ3</secondary></indexterm>
+<para>
+ウィンドウシステムを可能な限り解析する。
+解析の初期段階でウィンドウ解析を済ませておくべきだったと記者は反省している。
+というのも、逆アセンブリコードを解析する際に、
+ウィンドウ表示サブルーチン呼び出しがそれと識別できると、
+サブルーチンの役割が直感的に判明することが十分期待できるからだ。
+</para>
+<para>
+結論を先に述べると、ウィンドウ構造体のメンバー解析が非常に手こずってしまった。
+未解析の各フィールドの意味は、おいおい特定していくつもりだ。
+</para>
+
+<section id="dq3.window.hack">
+<title>解析</title>
+<para>
+記者がその昔、<literal>65816</literal> コードの知識もまるでない時代に、
+<acronym>ROM</acronym> イメージをバイナリエディタでテキトーに改竄し、
+偶然にウィンドウデータの格納位置を発見したのが出発点だ。
+メモリ空間ベースで言うと <varname>$C30000</varname> からしばらくウィンドウデータだ。
+アセンブリコードの解析能力が身についた現在となっては、
+その構造体の内部にアクセスするコードを検査し、その様子を解釈することで、
+どのようにしてウィンドウデータを扱っているのかを見ていく。
+</para>
+
+<section id="dq3.window.hack.C31753">
+<title><varname>$C31753</varname> ウィンドウ構造体アクセスサブルーチン</title>
+<para>
+構造体アドレス取得のために用いる汎用サブルーチン <varname>$C90501</varname> 呼び出しを
+<acronym>ROM</acronym> イメージからすべて抽出したリストを眺めていると、
+<code>00 00 C3</code> という値を「引数」として指定している箇所がただひとつあった。
+そのサブルーチン呼び出しを含むのが、サブルーチン <varname>$C31753</varname> だ。
+</para>
+<para>
+サブルーチン <varname>$C31753</varname> のアセンブリコードを中身を解析すると
+このサブルーチンだけでウィンドウ一個のすべてのメンバーデータを読み取っていることが判明した。
+ここにそのサブルーチン全体のコードを示したいところだが、紙面の都合で省くことにした。
+メンバー数が少なくないため、サブルーチン全体が長い。
+従って、<link linkend="dq3.window.hack.C30000">構造体のメモリレイアウト</link>はすぐに解析できることになる。
+所定のメモリに各メンバーデータをストアして、それだけでサブルーチンは制御を呼び出し元に戻す。
+</para>
+</section> <!-- dq3.window.hack.C31753 -->
+
+<section id="dq3.window.hack.sr">
+<title>ウィンドウ関連のサブルーチン</title>
+<para>
+プログラム中に現れる、ウィンドウ関連のサブルーチン呼び出しを以下に示す。
+</para>
+<table class="lighttable">
+	<caption>ウィンドウ関連のサブルーチン</caption>
+	<thead>
+		<tr><th>サブルーチン</th><th>意味</th></tr>
+	</thead>
+	<tbody>
+		<tr><td><varname>$C3165B</varname></td><td><varname>A</varname> レジスタが示す ID のウィンドウを表示する。</td></tr>
+		<tr><td><varname>$C32251</varname></td><td>「引数」に示す ID のウィンドウを表示する。<literal>1</literal> 個。</td></tr>
+		<tr><td><varname>$C3226F</varname></td><td>「引数」に示す ID のウィンドウを表示する。<literal>2</literal> 個。</td></tr>
+		<tr><td><varname>$C32296</varname></td><td>「引数」に示す ID のウィンドウを表示する。<literal>3</literal> 個。</td></tr>
+	</tbody>
+</table>
+<para>
+サブルーチン <varname>$C3165B</varname> はアキュームレータにウィンドウ ID をロードしてから呼び出すと、
+そのウィンドウを表示するというものだ。
+以下の使用例は、ゲーム最初の性格診断実装から引用したものだ。
+プレイヤーにより入力済みの「月」に基づいて、表示する「日」ウィンドウを決定する。
+</para>
+<programlisting>
+C9/31A3:   2288A9C1    JSR $C1A988         ■[D4][AD]    うまれた日を おしえてください。[AC]
+C9/31A7:   600B
+(...)
+C9/31B3:   0A          ASL A               <co id="dq3.window.co.1" />
+C9/31B4:   AA          TAX
+(...)
+C9/31C5:   BF8B32C9    LDA $C9328B,X       ; ウィンドウ ID の配列。以下を参照。
+C9/31C9:   225B16C3    JSR $C3165B         <co id="dq3.window.co.2" />
+(...)
+; LDA $C9328B,X のためのウィンドウ ID の配列
+C9/328B:   3F00  ; 1 月は 31 日まである
+C9/328D:   4100  ; 2 月は 29 日まである可能性がある
+C9/328F:   3F00  ; 3 月は 31 日まである
+C9/3291:   4000  ; 4 月は 30 日まである
+C9/3293:   3F00  ; ...
+C9/3295:   4000
+C9/3297:   3F00
+C9/3299:   3F00
+C9/329B:   4000
+C9/329D:   3F00
+C9/329F:   4000
+C9/32A1:   3F00
+</programlisting>
+<calloutlist>
+  <callout arearefs="dq3.window.co.1">
+    <para>
+      プレイヤーが誕生月を選択したとすると、その月の値マイナス <literal>1</literal> が
+      <varname>A</varname> レジスタに格納されている。<code>X = 2A</code> により、
+      その月に対応するカレンダーウィンドウをマップしてある配列
+      <varname>$C9328B</varname> にアクセスするためのインデックスを決める。
+    </para>
+
+    <segmentedlist>
+      <title>ウィンドウ ID と対応するウィンドウの中身</title>
+      <?dbhtml list-presentation="table"?>
+      <segtitle>ID</segtitle><segtitle>Window</segtitle>
+
+      <seglistitem><seg><literal>#$003F</literal></seg><seg>なんにちうまれウィンドウ 31 日までバージョン</seg></seglistitem>
+      <seglistitem><seg><literal>#$0040</literal></seg><seg>なんにちうまれウィンドウ 30 日までバージョン</seg></seglistitem>
+      <seglistitem><seg><literal>#$0041</literal></seg><seg>なんにちうまれウィンドウ 29 日までバージョン</seg></seglistitem>
+    </segmentedlist>
+  </callout>
+  <callout arearefs="dq3.window.co.2">
+    <para>
+      サブルーチン <varname>$C3165B</varname> 呼び出しにより、
+      <varname>A</varname> レジスタに格納されている値をウィンドウ ID とするウィンドウを画面に表示する。
+    </para>
+  </callout>
+</calloutlist>
+
+<para>
+サブルーチン <varname>$C32251</varname> は本来のリターン位置にある
+<literal>1</literal> バイトをウィンドウ ID として解釈して、そのウィンドウを表示するというものだ。
+もちろん、リターン後のプログラムカウンターの位置を適切に修正する処理も含む。
+以下に、<varname>$C32251</varname> の使用例として、冒険の書を新規作成する処理部の抜粋を示す。
+<code>JSR $C32251</code> の次の <literal>1</literal> バイトが命令でないことに注意して読んで欲しい。
+</para>
+<programlisting>
+C3/BDEA:    225122C3    JSR $C32251         ■(RTL+1) ウィンドウ一枚表示
+C3/BDEE:    47          ; ぼうけんのしょ（空の冒険の書のリスト）
+C3/BDEF:    B06D        BCS $BE5E
+C3/BDF1:    8578        STA $78
+C3/BDF3:    2245C3C3    JSR $C3C345         ■名前入力関連の処理
+C3/BDF7:    225122C3    JSR $C32251         ■(RTL+1) ウィンドウ一枚表示
+C3/BDFB:    3A          ; 名前設定 文字リストウィンドウ
+C3/BDFC:    B0EC        BCS $BDEA
+C3/BDFE:    227FC3C3    JSR $C3C37F         ■名前入力関連の処理 (memmov)
+C3/BE02:    226BC6C3    JSR $C3C66B         ■「ロト」テスト
+C3/BE06:    900D        BCC $BE15
+C3/BE08:    22D4A8C1    JSR $C1A8D4         ■あなたのなまえを いれてください。[AC]
+C3/BE0C:    2901
+C3/BE0E:    22F740C3    JSR $C340F7
+C3/BE12:    4CF7BD      JMP $BDF7
+C3/BE15:    223FEBC3    JSR $C3EB3F         ■入力が予約名かどうかチェック
+C3/BE19:    B0ED        BCS $BE08
+C3/BE1B:    225122C3    JSR $C32251         ■(RTL+1) ウィンドウ一枚表示
+C3/BE1F:    4D          ; おとこ・おんな
+C3/BE20:    B0D5        BCS $BDF7
+C3/BE22:    22D5C3C3    JSR $C3C3D5         ■a = (a == #$0063 ? 0 : 1)
+C3/BE26:    8D5F40      STA $405F
+C3/BE29:    A90B00      LDA #$000B
+C3/BE2C:    8D6140      STA $4061
+C3/BE2F:    A90300      LDA #$0003
+C3/BE32:    8DBA33      STA $33BA
+C3/BE35:    225122C3    JSR $C32251         ■(RTL+1) ウィンドウ一枚表示
+C3/BE39:    4A          ; ひょうじそくど
+C3/BE3A:    B0DF        BCS $BE1B
+C3/BE3C:    8D6740      STA $4067
+C3/BE3F:    A96100      LDA #$0061
+C3/BE42:    8DBA33      STA $33BA
+C3/BE45:    225122C3    JSR $C32251         ■(RTL+1) ウィンドウ一枚表示
+C3/BE49:    4B          ; ステレオ・モノラル
+</programlisting>
+
+<para>
+サブルーチン <varname>$C3226F</varname>, <varname>$C32296</varname> は上述サブルーチン <varname>$C32251</varname> の複数枚バージョンだ。
+それぞれ <literal>1</literal> バイト * <literal>2</literal>, 
+<literal>1</literal> バイト * <literal>3</literal> をウィンドウ ID の配列としてコード中に埋め込み、
+それらのウィンドウを同時に表示するというものだ。
+</para>
+<para>
+ここで挙げたサブルーチンはすべて「ウィンドウを表示する」ものだが、
+逆にウィンドウ ID を指定して「ウィンドウを消去する」サブルーチンが別に存在する。
+</para>
+</section> <!-- dq3.window.hack.sr -->
+
+<section id="dq3.window.hack.C30000">
+<title><varname>$C30000</varname> ウィンドウ構造体</title>
+<para>
+アドレス <varname>$C30000</varname> からすべてのウィンドウ構造体データが定義されている。
+構造体オブジェクトひとつが占めるデータサイズは <literal>#$000C</literal> バイトだ。
+ウィンドウオブジェクトが <literal>#$00C0</literal> 個配列されている。
+いつものように ID がゼロのオブジェクトはダミーだ。
+</para>
+<para>
+ウィンドウ構造体のメモリレイアウトは以下のようになっている。
+"..." となっている部分は、データフィールドがバイト境界をまたぐことを示す。
+</para>
+<para>
+ここはまだ書きかけだ。
+</para>
+
+<table class="memorylayout">
+	<caption>$C30000 ウィンドウ構造体</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th>
+			<td colspan="3">...</td>
+			<td colspan="5">X 座標</td>
+		</tr>
+		<tr><th>01</th>
+			<td colspan="1">...</td>
+			<td colspan="5">幅</td>
+			<td colspan="2">Y 座標</td>
+		</tr>
+		<tr><th>02</th>
+			<td colspan="2"><code>JSR ($3BB7,X)</code></td>
+			<td colspan="2"><code>JSR ($1ACC,X)</code></td>
+			<td colspan="4">高さ</td>
+		</tr>
+		<tr><th>03</th>
+			<td colspan="1"><code>$2A40 | #$1000</code></td>
+			<td colspan="1"><code>$2A40 | #$0100</code></td>
+			<td colspan="2">カーソルタイプ</td>
+			<td colspan="4">カーソル位置保存処理</td>
+		</tr>
+		<tr><th>04</th>
+			<td colspan="1"><code>$2A40 | #$4000</code></td>
+			<td colspan="1">効果音</td>
+			<td colspan="1"><code>$2A40 | #$0400</code></td>
+			<td colspan="4">最大項目数</td>
+			<td colspan="1"><code>$2A40 | #$0200</code></td>
+		</tr>
+		<tr><th>05</th>
+			<td colspan="5"><code>JSR ($41D3,X)</code></td>
+			<td colspan="3"><varname>$28A8,X</varname></td>
+		</tr>
+		<tr><th>06</th>
+			<td colspan="8">サブウィンドウ ID <code>[0]</code></td>
+		</tr>
+		<tr><th>07</th>
+			<td colspan="8">サブウィンドウ ID <code>[1]</code></td>
+		</tr>
+		<tr><th>08</th>
+			<td colspan="8">サブウィンドウ ID <code>[2]</code></td>
+		</tr>
+		<tr><th>09</th>
+			<td colspan="8" rowspan="2">描画ルーチン</td>
+		</tr>
+		<tr><th>0A</th>
+		</tr>
+		<tr><th>0B</th>
+			<td colspan="8"><varname>$29C8,X</varname></td>
+		</tr>
+	</tbody>
+</table>
+<variablelist>
+	<varlistentry>
+	<term>X 座標</term>
+	<listitem>
+		<para>
+			そのウィンドウが収まる最小矩形の左上頂点の X 座標だ。
+			座標系はスクリーン座標系だが、単位はピクセルではないようだ。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>Y 座標</term>
+	<listitem>
+		<para>
+			上述「X 座標」フィールドの Y バージョンだ。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>幅</term>
+	<listitem>
+		<para>
+			そのウィンドウが収まる最小矩形の、X 軸に平行な辺の長さだ。
+			単位はピクセルではない。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>高さ</term>
+	<listitem>
+		<para>
+			上述「幅」フィールドの高さバージョンだ。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term><code>JSR ($1ACC,X)</code></term>
+	<listitem>
+		<para>
+			サブルーチンテーブル <varname>$C31ACC</varname> のインデックスだ。
+		</para>
+		<table class="lighttable">
+			<caption>JSR ($1ACC,X)</caption>
+			<thead>
+				<tr><th>値</th><th>処理</th></tr>
+			</thead>
+			<tbody>
+				<tr><td><literal>0</literal></td><td><code>$29B0,Y = $33B8; $2998,Y = $33BA</code></td></tr>
+				<tr><td><literal>1</literal></td><td rowspan="2"><code>$2998,Y = $33B8; $29B0,Y = $33BA</code></td></tr>
+				<tr><td><literal>2</literal></td></tr>
+				<tr><td><literal>3</literal></td><td>何もしない</td></tr>
+			</tbody>
+		</table>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term><code>JSR ($3BB7,X)</code></term>
+	<listitem>
+		<para>
+			サブルーチンテーブル <varname>$C33BB7</varname> のインデックスだ。
+			<varname>$33BC</varname>, <varname>$33BE</varname> のセットする値の決め方に影響する。
+			おそらくウィンド表示直後のカーソル位置を決めるサブルーチンなのではないかと思う。
+		</para>
+		<table class="lighttable">
+			<caption>JSR ($3BB7,X)</caption>
+			<thead>
+				<tr><th>値</th><th>処理</th></tr>
+			</thead>
+			<tbody>
+				<tr><td><literal>0</literal></td><td><varname>$33BC</varname> と <varname>$33BE</varname> を何かの計算結果とする</td></tr>
+				<tr><td><literal>1</literal></td><td>上述 <literal>0</literal> における <varname>$33BC</varname> と <varname>$33BE</varname> を入れ替えた処理 </td></tr>
+				<tr><td><literal>2</literal></td><td><code>$33BC = $2998,Y; $33BE = $29B0,Y</code></td></tr>
+				<tr><td><literal>3</literal></td><td>何もしない</td></tr>
+			</tbody>
+		</table>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>カーソル位置保存処理<!-- JSR ($3BBF,X) --></term>
+	<listitem>
+		<para>
+			サブルーチンテーブル <varname>$C33BBF</varname> のインデックスだ。
+			プレイヤーがウィンドウでの項目選択を行った直後に呼び出されるサブルーチンであり、
+			ここで、カーソル位置を特定のアドレスにセーブする。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>カーソルタイプ</term>
+	<listitem>
+		<para>
+			ウィンドウが持つカーソルの種類を示す値だ。
+		</para>
+		<table class="lighttable">
+			<caption>カーソルタイプ</caption>
+			<thead>
+				<tr><th>値</th><th>カーソル</th></tr>
+			</thead>
+			<tbody>
+				<tr><td><literal>0</literal></td><td>カーソルを持たない</td></tr>
+				<tr><td><literal>1</literal></td><td>カーソルを持つ</td></tr>
+				<tr><td><literal>2</literal></td><td>＊マークが文字上を動くタイプのカーソルを持つ</td></tr>
+				<tr><td><literal>3</literal></td><td><literal>0</literal> と似ている</td></tr>
+			</tbody>
+		</table>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term><code>$2A40 | #$0100</code></term>
+	<listitem>
+		<para>
+			To be written.
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term><code>$2A40 | #$1000</code></term>
+	<listitem>
+		<para>
+			To be written.
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term><code>$2A40 | #$0200</code></term>
+	<listitem>
+		<para>
+			To be written.
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>最大項目数</term>
+	<listitem>
+		<para>
+			ウィンドウの 1 ページにある項目の数の最大値だ。
+			カーソル位置保存サブルーチンが、
+			選択項目のカーソル位置が（場合によってはページをまたぐので）
+			最初の項目から何番目に相当するのかを計算するために用いる。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term><code>$2A40 | #$0400</code></term>
+	<listitem>
+		<para>
+			To be written.
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>効果音</term>
+	<listitem>
+		<para>
+			ウィンドウ表示時に効果音 (ID: <literal>#$0050</literal>) を鳴らすか否かを表す。
+			これが <literal>1</literal> である代表的なものは
+			「はい・いいえ」ウィンドウだ。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term><code>$2A40 | #$4000</code></term>
+	<listitem>
+		<para>
+			To be written.
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term><varname>$28A8,X</varname></term>
+	<listitem>
+		<para>
+			To be written.
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term><code>JSR ($41D3,X)</code></term>
+	<listitem>
+		<para>
+			サブルーチンテーブル <varname>$C341D3</varname> のインデックスだ。
+			他のサブルーチンテーブルにも、この値がインデックスとして用いられている。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>サブウィンドウ ID</term>
+	<listitem>
+		<para>
+			このウィンドウと同時に表示する他のウィンドウの ID だ。
+			一度に複数の<link linkend="dq3.window.hack.sr">ウィンドウを表示するためのサブルーチン</link>が存在するが、
+			それと混同してはならない。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>描画ルーチン</term>
+	<listitem>
+		<para>
+			このウィンドウの中身を、つまり項目とそれらの並び方を決めるサブルーチンのアドレスだ。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term><varname>$29C8,X</varname></term>
+	<listitem>
+		<para>
+			不明。
+			すべてのウィンドウデータは、
+			このフィールドが <literal>0</literal> なので実質未使用とみなせる。
+		</para>
+	</listitem>
+	</varlistentry>
+</variablelist>
+</section> <!-- dq3.window.hack.C30000 -->
+</section> <!-- dq3.window.hack -->
+</section> <!-- dq3.window -->

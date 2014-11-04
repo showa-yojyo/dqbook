@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<chapter id="dq3"><?dbhtml filename="dq3.html" ?>
+	<title>ドラクエ3</title>
+	<para>
+		基本的にスーファミ版ドラクエ3 に関する解析について述べた文書である。 
+		モンスターメダルの文書のみ、ゲームボーイ版ドラクエ3 に関する記述である。
+	</para>
+
+	<!-- DEBUG -->
+	&dq3_debug;
+
+	<!-- TEXT -->
+	&dq3_message_battle;
+	&dq3_message;
+	&dq3_str;
+
+	<!-- BANK $C2 -->
+	&dq3_monster;
+	&dq3_caption;
+	&dq3_damage;
+
+	<!-- BANK $C3 -->
+	&dq3_window;
+	&dq3_king;
+	&dq3_sistersave;
+	&dq3_shop;
+	&dq3_overcharge;
+	&dq3_inn;
+	&dq3_church;
+	&dq3_pub;
+	&dq3_entry;
+	&dq3_bank;
+	&dq3_classchange;
+	&dq3_rename;
+	&dq3_matchmake;
+	&dq3_stadium;
+	&dq3_tipster;
+	&dq3_medal;
+
+	<!-- BANK $C4 -->
+	&dq3_item;
+	&dq3_class;
+	&dq3_character;
+
+	<!-- BANK $C8 -->
+	&dq3_people;
+
+	<!-- BANK $CB -->
+	&dq3_pond;
+
+	<!-- YET MODIFIED DOCS
+	&dq3_scene;
+	&dq3_act;
+	&dq3_zodiac;   -->
+
+	<!-- DEPRECATED DOCS -->
+	&dq3_gallery;
+	&dq3_monster_medal_dq4;
+</chapter>

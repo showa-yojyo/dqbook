@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<chapter id="dq5"><?dbhtml filename="dq5.html" ?>
+<title>ドラクエ5</title>
+<para>
+	本章では、SFC ドラクエ5 に関する内容を扱っていく。
+	記者の個人的な考えだが、ドラクエ5 は
+	SFC で動くドラクエシリーズの中で、
+	最も逆アセンブル解析の難しいシリーズであると思う。
+	65816 逆アセンブルを試みればわかるが、
+	目まぐるしく MX レジスタビットが ON/OFF を繰り返すため、
+	「本物」のコードを抽出することがなかなか難しい。
+	ここをどうクリアするかが、本作を解析する最大の問題である。
+</para>
+
+&dq5_gallery;
+&dq5_message_battle;
+&dq5_message;
+&dq5_str;
+<!-- &dq5_monster; 封印 -->
+&dq5_act;
+&dq5_store;
+&dq5_flow_encounter;
+&dq5_encounter;
+&dq5_chara_monster_init;
+&dq5_encounter_special;
+<!-- &dq5_fight_ring; 封印 -->
+&dq5_item;
+&dq5_chara_spell;
+</chapter> <!-- dq5 -->

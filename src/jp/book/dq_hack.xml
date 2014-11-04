@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq.hack"><?dbhtml filename="dq_hack.html" ?>
+<title>ドラクエ解析</title>
+
+<section id="dq.hack.env">
+<title>解析環境</title>
+<para>
+	この項では、記者の解析環境を紹介する。
+	貧弱。
+</para>
+<table class="lighttable">
+	<caption>記者の解析環境 2007</caption>
+	<thead>
+		<tr>
+			<th>環境</th>
+			<th>内容</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>PC</th>
+			<td>SHARP 製 Mebius</td>
+		</tr>
+		<tr>
+			<th>OS</th>
+			<td>Windows XP Home Edition Version 2002 Service Pack 1</td>
+		</tr>
+		<tr>
+			<th>CPU</th>
+			<td>1.53 GHz (!?)</td>
+		</tr>
+		<tr>
+			<th>メモリ</th>
+			<td>768 MB くらい。うち 512 MB は増設による。</td>
+		</tr>
+		<tr>
+			<th>HDD</th>
+			<td>30 GB くらい</td>
+		</tr>
+	</tbody>
+</table>
+</section> <!-- dq.hack.env -->
+
+<section id="dq.hack.rom">
+<title>ロムイメージファイル</title>
+<indexterm><primary>ロムイメージ</primary><secondary>スーファミ ROM イメージ</secondary></indexterm>
+
+<para>
+	ゲームショップ等で流通している正規のファミコン・スーパーファミコンのカートリッジから、
+	特殊なハードウェアを介して PC 上にデータを吸い出し、それをファイルにしたものをロムイメージファイルと呼ぶ。
+	一般の定義と違うかもしれないが、あまり深く説明したくないのでこの程度の説明で勘弁願いたい。
+</para>
+<para>
+	ファミコンで動作する正規のドラクエシリーズは、以下の 4 作である。
+	当サイトでは、これらのプログラムを改造・解析する気はないので、入手手段等については論じない。
+	正味の話、記者が所有していないロムイメージファイルもある。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			ドラゴンクエスト (1986)
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			ドラゴンクエスト II 悪霊の神々 (1987)
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			ドラゴンクエスト III そして伝説へ (1988)
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			ドラゴンクエスト IV 導かれし者たち (1990)
+		</para>
+	</listitem>
+</itemizedlist>
+<para>
+	スーパーファミコンでプレイする正規のドラクエシリーズは、
+	現時点でリメイク作品も含めて以下の 4 作である。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			ドラゴンクエスト V 天空の花嫁 (1992)
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			ドラゴンクエスト I・II (1993)
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			ドラゴンクエスト VI 幻の大地 (1995)
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			ドラゴンクエスト III そして伝説へ (1996)
+		</para>
+	</listitem>
+</itemizedlist>
+<para>
+	ドラゴンクエスト I・II に関しては、
+	当サイトがロムイメージを調達できないため解析を行わない
+	（読者が所有している場合でも、気を利かせて小サイトに送っていただかなくてよろしい）。
+	その他のシリーズを中心に記事を準備・公表するものとする。
+</para>
+<para>
+	自分でロムイメージを作成する能力は一般にはないため、既に先人が吸い出したものを拝借するケースが多い。
+	入手経路はネットを通じるものが多い。海外の怪しいサイトに置いてあることが多い。
+	「本物」の解析を目的とするのならば、ハックロムをつかまされないように注意すること。
+	このテのサイトからロムイメージファイルをダウンロードすることによって所有することは法律的には問題があるようだが、
+	すでに正規のカートリッジを正規のルートで購入した過去があるので、
+	自分だけが使用する分には道徳的には問題ない。
+</para>
+<para>
+	記者の場合は「気付いたらハードディスクにあった」のである。
+</para>
+</section> <!-- dq.hack.rom -->
+
+<section id="dq.hack.ref">
+<title>参考書籍</title>
+<indexterm><primary>アクションリプレイ</primary></indexterm>
+<indexterm><primary>ゲームラボ</primary></indexterm>
+
+<para>
+	小サイトの蔵書から改造・解析の参考になるであろう書籍を、
+	書籍名だけで申し訳ないがここに挙げる。
+	ドラクエデータの調査に役立つと判断したものを購入していた。
+</para>
+<glosslist>
+	<glossentry>
+		<glossterm>アクションリプレイ 1999 Vol.4, 株式会社ブレイン・ストーム</glossterm>
+		<glossdef>
+			<para>
+				「PAR でドラクエを遊ぶ」と題して、パラメータ最大化等の基本的な改造コードを掲載している。
+			</para>
+			<para>
+				記者はドラクエ 6 のデバッグフロアの侵入方法を読んだとき、少々感動した記憶がある。
+				この雑誌では冒険の書のセーブ地点を書き換える方法が紹介されているのだが、
+				記者が考えたアプローチは、フロア切替時のフロア番号だけを書き換えるというものだった。
+				改造者のセンスの違いを感じた。
+			</para>
+			<para>
+				東京某所の古本屋で購入。半額の 500 円だったと記憶している。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>ゲームラボ 10 月号 (2000) 株式会社三才ブックス</glossterm>
+		<glossdef>
+			<para>
+				巻頭特集として、ドラクエ 7 の改造コードを各種掲載している。
+				パラメータ最大等の基本的な改造のほか、デバッグモード ON の方法を掲載している。
+			</para>
+			<para>
+				記者はこれだけのためにこの号を購入した。
+				エミュレータでもデバッグモードを再現できて、非常に喜んだ記憶がある。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>ゲームラボ 1 月号 (2002) 株式会社三才ブックス</glossterm>
+		<glossdef>
+			<para>
+				特集「裏ゲーマー養成講座」第 1 部 ハードの撃ワザ 検証＆実験集のワンコーナーとして、
+				「驚速！ 2 時間 50 分でクリアできる！ ドラクエIV」なる記事が組まれている。
+				プレステ版のドラクエ 4 である。
+			</para>
+			<para>
+				プレイチャートや、基本的な改造コードが掲載されている一方、
+				前作のデバッグモードのようなものが、プログラムに残っていないらしいことが触れられている。
+			</para>
+		</glossdef>
+	</glossentry>
+</glosslist>
+<para>
+	ここで紹介する資料の他にも、すぐれたものがあるかもしれない。
+	もし読者がそういうものをご存知ならば、是非
+	<ulink url="mailto:showa_yojyo@hotmail.com?subject=dq.hack">小サイト</ulink>
+	に情報を提供していただきたい。
+</para>
+</section> <!-- dq.hack.ref -->
+</section> <!-- dq.hack -->

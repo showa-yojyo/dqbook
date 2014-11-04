@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq5.data.encounter"><?dbhtml filename="dq5_encounter.html" ?>
+<title>タイルエンカウント表</title>
+<indexterm><primary>エンカウント</primary><secondary>DQ5</secondary></indexterm>
+<indexterm><primary>タイルエンカウント</primary><secondary>DQ5</secondary></indexterm>
+<indexterm><primary>タイル戦闘</primary><secondary>DQ5</secondary></indexterm>
+<para> 
+	ROM アドレス $2396F3 (イメージファイルオフセット $1196F3) に、
+	22 byte の構造体データの配列がある。
+	配列のサイズは 85 である。
+	この構造体を<emphasis>タイルエンカウント定義構造体</emphasis>と呼ぶことにする。
+	以後、単にエンカウント構造体と書く。
+	この構造体のメモリレイアウトは次のようになっている。
+</para>
+<table class="memorylayout">
+	<caption>$2396F3 タイルエンカウント定義構造体</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th><td colspan="8">レベル</td></tr>
+		<tr><th>01</th><td colspan="2">グループ数決定用データ 0</td><td colspan="3">匹数決定用データ 0</td><td colspan="3">モンスターID 決定用データ 0</td></tr>
+		<tr><th>02</th><td colspan="2">グループ数決定用データ 1</td><td colspan="3">匹数決定用データ 1</td><td colspan="3">モンスターID 決定用データ 1</td></tr>
+		<tr><th>03</th><td colspan="2">グループ数決定用データ 2</td><td colspan="3">匹数決定用データ 2</td><td colspan="3">モンスターID 決定用データ 2</td></tr>
+		<tr><th>04</th><td colspan="2">戦闘初期に使用するのだが……</td><td colspan="3">匹数決定用データ 3</td><td colspan="3">モンスターID 決定用データ 3</td></tr>
+		<tr><th>05</th><td rowspan="3">遭遇決定係数ID</td><td>未使用 (=0)</td><td colspan="3">匹数決定用データ 4</td><td colspan="3">モンスターID 決定用データ 4</td></tr>
+		<tr><th>06</th><td>未使用 (=0)</td><td colspan="3">匹数決定用データ 5</td><td colspan="3">モンスターID 決定用データ 5</td></tr>
+		<tr><th>07</th><td>未使用 (=0)</td><td colspan="3">匹数決定用データ 6</td><td colspan="3">モンスターID 決定用データ 6</td></tr>
+		<tr><th>08</th><td>仲間チェック有無</td><td>未使用 (=0)</td><td colspan="3">匹数決定用データ 7</td><td colspan="3">モンスターID 決定用データ 7</td></tr>
+		<tr><th>09</th><td>謎 (全データ0)</td><td>未使用 (=0)</td><td colspan="3">匹数決定用データ 8</td><td colspan="3">モンスターID 決定用データ 8</td></tr>
+		<tr><th>0A</th><td colspan="2">未使用</td><td colspan="3">匹数決定用データ 9</td><td colspan="3">モンスターID 決定用データ 9</td></tr>
+		<tr><th>0B</th><td colspan="5">特別モンスター表 アクセス用</td><td colspan="3">モンスターID 決定用データ A</td></tr>
+		<tr><th>0C</th><td colspan="8">モンスターID [0]</td></tr>
+		<tr><th>0D</th><td colspan="8">モンスターID [1]</td></tr>
+		<tr><th>0E</th><td colspan="8">モンスターID [2]</td></tr>
+		<tr><th>0F</th><td colspan="8">モンスターID [3]</td></tr>
+		<tr><th>10</th><td colspan="8">モンスターID [4]</td></tr>
+		<tr><th>11</th><td colspan="8">モンスターID [5]</td></tr>
+		<tr><th>12</th><td colspan="8">モンスターID [6]</td></tr>
+		<tr><th>13</th><td colspan="8">モンスターID [7]</td></tr>
+		<tr><th>14</th><td colspan="8">モンスターID [8]</td></tr>
+		<tr><th>15</th><td colspan="8">モンスターID [9]</td></tr>
+	</tbody>
+</table>
+<glosslist>
+	<glossentry>
+	<glossterm>レベル</glossterm>
+	<glossdef>
+		<para>
+			dq_analyzer - スーパーファミコン版ドラゴンクエスト データ解析プログラム
+			<xref linkend="dqref.url1"/>
+			で解説されている。
+		</para>
+		<table class="lighttable">
+			<caption>レベル</caption>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>レベル</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><th>00</th><td> 0</td></tr>
+				<tr><th>01</th><td> 1</td></tr>
+				<tr><th>02</th><td> 2</td></tr>
+				<tr><th>03</th><td> 2</td></tr>
+				<tr><th>04</th><td> 3</td></tr>
+				<tr><th>05</th><td> 3</td></tr>
+				<tr><th>06</th><td> 4</td></tr>
+				<tr><th>07</th><td> 6</td></tr>
+				<tr><th>08</th><td> 5</td></tr>
+				<tr><th>09</th><td> 5</td></tr>
+				<tr><th>0A</th><td> 7</td></tr>
+				<tr><th>0B</th><td> 4</td></tr>
+				<tr><th>0C</th><td> 8</td></tr>
+				<tr><th>0D</th><td> 9</td></tr>
+				<tr><th>0E</th><td> 9</td></tr>
+				<tr><th>0F</th><td>10</td></tr>
+				<tr><th>10</th><td>10</td></tr>
+				<tr><th>11</th><td>11</td></tr>
+				<tr><th>12</th><td>12</td></tr>
+				<tr><th>13</th><td>12</td></tr>
+				<tr><th>14</th><td> 8</td></tr>
+				<tr><th>15</th><td>13</td></tr>
+				<tr><th>16</th><td>14</td></tr>
+				<tr><th>17</th><td>15</td></tr>
+				<tr><th>18</th><td>14</td></tr>
+				<tr><th>19</th><td>16</td></tr>
+				<tr><th>1A</th><td>16</td></tr>
+				<tr><th>1B</th><td>17</td></tr>
+				<tr><th>1C</th><td>17</td></tr>
+				<tr><th>1D</th><td>18</td></tr>
+				<tr><th>1E</th><td>18</td></tr>
+				<tr><th>1F</th><td>19</td></tr>
+				<tr><th>20</th><td>19</td></tr>
+				<tr><th>21</th><td>20</td></tr>
+				<tr><th>22</th><td>18</td></tr>
+				<tr><th>23</th><td>21</td></tr>
+				<tr><th>24</th><td>22</td></tr>
+				<tr><th>25</th><td>23</td></tr>
+				<tr><th>26</th><td>23</td></tr>
+				<tr><th>27</th><td>24</td></tr>
+				<tr><th>28</th><td>24</td></tr>
+				<tr><th>29</th><td>24</td></tr>
+				<tr><th>2A</th><td>25</td></tr>
+				<tr><th>2B</th><td>25</td></tr>
+				<tr><th>2C</th><td>25</td></tr>
+				<tr><th>2D</th><td>26</td></tr>
+				<tr><th>2E</th><td>26</td></tr>
+				<tr><th>2F</th><td>27</td></tr>
+				<tr><th>30</th><td>27</td></tr>
+				<tr><th>31</th><td>27</td></tr>
+				<tr><th>32</th><td>28</td></tr>
+				<tr><th>33</th><td>29</td></tr>
+				<tr><th>34</th><td>30</td></tr>
+				<tr><th>35</th><td>30</td></tr>
+				<tr><th>36</th><td>31</td></tr>
+				<tr><th>37</th><td>32</td></tr>
+				<tr><th>38</th><td>32</td></tr>
+				<tr><th>39</th><td>33</td></tr>
+				<tr><th>3A</th><td>34</td></tr>
+				<tr><th>3B</th><td>35</td></tr>
+				<tr><th>3C</th><td>35</td></tr>
+				<tr><th>3D</th><td>36</td></tr>
+				<tr><th>3E</th><td>36</td></tr>
+				<tr><th>3F</th><td>37</td></tr>
+				<tr><th>40</th><td>37</td></tr>
+				<tr><th>41</th><td>38</td></tr>
+				<tr><th>42</th><td>39</td></tr>
+				<tr><th>43</th><td>39</td></tr>
+				<tr><th>44</th><td>39</td></tr>
+				<tr><th>45</th><td>37</td></tr>
+				<tr><th>46</th><td>38</td></tr>
+				<tr><th>47</th><td>40</td></tr>
+				<tr><th>48</th><td>41</td></tr>
+				<tr><th>49</th><td>41</td></tr>
+				<tr><th>4A</th><td>42</td></tr>
+				<tr><th>4B</th><td>42</td></tr>
+				<tr><th>4C</th><td>42</td></tr>
+				<tr><th>4D</th><td>43</td></tr>
+				<tr><th>4E</th><td>43</td></tr>
+				<tr><th>4F</th><td>48</td></tr>
+				<tr><th>50</th><td>50</td></tr>
+				<tr><th>51</th><td>23</td></tr>
+				<tr><th>52</th><td>25</td></tr>
+				<tr><th>53</th><td>32</td></tr>
+				<tr><th>54</th><td>35</td></tr>
+			</tbody>
+		</table>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>モンスターID 決定用データ 0～A</glossterm>
+	<glossdef>
+		<para>
+			戦闘初期状態における、各グループの構成モンスターを同構造体データ内の「モンスターID 0～9」から選択するためのインデックス値を決めるためのデータ。
+			詳しくは、<ulink url="./dq5_flow_encounter.html#dq5.flow.encounter">フロー</ulink>を参照。
+		</para>
+		<table class="lighttable">
+			<caption>モンスター出現率</caption>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>データ 0</th>
+					<th>データ 1</th>
+					<th>データ 2</th>
+					<th>データ 3</th>
+					<th>データ 4</th>
+					<th>データ 5</th>
+					<th>データ 6</th>
+					<th>データ 7</th>
+					<th>データ 8</th>
+					<th>データ 9</th>
+					<th>データ A</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><th>00</th><td>4</td><td>7</td><td>4</td><td>0</td><td>0</td><td>7</td><td>4</td><td>4</td><td>0</td><td>0</td><td>0</td></tr> <!-- sum=30 -->
+				<tr><th>01</th><td>5</td><td>4</td><td>3</td><td>5</td><td>4</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>0</td></tr> <!-- sum=36 -->
+				<tr><th>02</th><td>4</td><td>4</td><td>4</td><td>4</td><td>2</td><td>4</td><td>2</td><td>6</td><td>5</td><td>3</td><td>0</td></tr> <!-- sum=38 -->
+				<tr><th>03</th><td>3</td><td>7</td><td>3</td><td>3</td><td>7</td><td>3</td><td>7</td><td>3</td><td>3</td><td>7</td><td>0</td></tr> <!-- sum=46 -->
+				<tr><th>04</th><td>2</td><td>4</td><td>2</td><td>2</td><td>2</td><td>4</td><td>4</td><td>2</td><td>4</td><td>0</td><td>0</td></tr> <!-- sum=26 -->
+				<tr><th>05</th><td>4</td><td>4</td><td>3</td><td>3</td><td>0</td><td>7</td><td>7</td><td>3</td><td>3</td><td>0</td><td>0</td></tr> <!-- sum=34 -->
+				<tr><th>06</th><td>7</td><td>7</td><td>7</td><td>3</td><td>4</td><td>7</td><td>7</td><td>7</td><td>0</td><td>0</td><td>0</td></tr> <!-- sum=49 -->
+				<tr><th>07</th><td>0</td><td>7</td><td>7</td><td>2</td><td>2</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr> <!-- sum=38 -->
+				<tr><th>08</th><td>7</td><td>7</td><td>7</td><td>7</td><td>4</td><td>4</td><td>7</td><td>4</td><td>5</td><td>7</td><td>0</td></tr> <!-- sum=59 -->
+				<tr><th>09</th><td>4</td><td>4</td><td>3</td><td>3</td><td>2</td><td>4</td><td>4</td><td>3</td><td>3</td><td>0</td><td>0</td></tr> <!-- sum=30 -->
+				<tr><th>0A</th><td>7</td><td>7</td><td>7</td><td>3</td><td>0</td><td>7</td><td>7</td><td>3</td><td>5</td><td>0</td><td>0</td></tr> <!-- sum=46 -->
+				<tr><th>0B</th><td>4</td><td>7</td><td>4</td><td>7</td><td>4</td><td>7</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td></tr> <!-- sum=43 -->
+				<tr><th>0C</th><td>2</td><td>4</td><td>6</td><td>5</td><td>5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td></tr> <!-- sum=38 -->
+				<tr><th>0D</th><td>4</td><td>4</td><td>1</td><td>4</td><td>2</td><td>2</td><td>4</td><td>1</td><td>4</td><td>5</td><td>0</td></tr> <!-- sum=31 -->
+				<tr><th>0E</th><td>7</td><td>0</td><td>7</td><td>4</td><td>2</td><td>2</td><td>0</td><td>4</td><td>7</td><td>4</td><td>6</td></tr> <!-- sum=43 -->
+				<tr><th>0F</th><td>4</td><td>2</td><td>4</td><td>4</td><td>0</td><td>4</td><td>2</td><td>4</td><td>4</td><td>4</td><td>4</td></tr> <!-- sum=36 -->
+				<tr><th>10</th><td>4</td><td>2</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td></tr> <!-- sum=39 -->
+				<tr><th>11</th><td>4</td><td>2</td><td>4</td><td>4</td><td>6</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td></tr> <!-- sum=36 -->
+				<tr><th>12</th><td>4</td><td>4</td><td>4</td><td>4</td><td>2</td><td>4</td><td>4</td><td>4</td><td>2</td><td>4</td><td>0</td></tr> <!-- sum=36 -->
+				<tr><th>13</th><td>4</td><td>4</td><td>5</td><td>5</td><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>0</td></tr> <!-- sum=40 -->
+				<tr><th>14</th><td>4</td><td>4</td><td>4</td><td>2</td><td>4</td><td>0</td><td>4</td><td>3</td><td>3</td><td>5</td><td>0</td></tr> <!-- sum=33 -->
+				<tr><th>15</th><td>2</td><td>4</td><td>4</td><td>4</td><td>4</td><td>2</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td></tr> <!-- sum=36 -->
+				<tr><th>16</th><td>4</td><td>3</td><td>4</td><td>5</td><td>2</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>0</td></tr> <!-- sum=36 -->
+				<tr><th>17</th><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>0</td></tr> <!-- sum=38 -->
+				<tr><th>18</th><td>5</td><td>5</td><td>4</td><td>3</td><td>2</td><td>6</td><td>4</td><td>4</td><td>4</td><td>2</td><td>0</td></tr> <!-- sum=39 -->
+				<tr><th>19</th><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>5</td><td>4</td><td>4</td></tr> <!-- sum=45 -->
+				<tr><th>1A</th><td>5</td><td>5</td><td>5</td><td>4</td><td>3</td><td>2</td><td>5</td><td>5</td><td>5</td><td>4</td><td>4</td></tr> <!-- sum=47 -->
+				<tr><th>1B</th><td>6</td><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>5</td><td>3</td><td>0</td></tr> <!-- sum=40 -->
+				<tr><th>1C</th><td>1</td><td>3</td><td>4</td><td>5</td><td>2</td><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td><td>0</td></tr> <!-- sum=34 -->
+				<tr><th>1D</th><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>4</td><td>4</td><td>3</td><td>0</td></tr> <!-- sum=36 -->
+				<tr><th>1E</th><td>4</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>5</td><td>2</td><td>0</td></tr> <!-- sum=37 -->
+				<tr><th>1F</th><td>3</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>5</td><td>3</td><td>4</td><td>3</td><td>0</td></tr> <!-- sum=36 -->
+				<tr><th>20</th><td>4</td><td>5</td><td>4</td><td>2</td><td>3</td><td>4</td><td>4</td><td>2</td><td>4</td><td>2</td><td>0</td></tr> <!-- sum=34 -->
+				<tr><th>21</th><td>4</td><td>4</td><td>4</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>2</td><td>2</td><td>0</td></tr> <!-- sum=34 -->
+				<tr><th>22</th><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>3</td><td>3</td><td>4</td><td>3</td><td>3</td><td>0</td></tr> <!-- sum=34 -->
+				<tr><th>23</th><td>4</td><td>4</td><td>4</td><td>2</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>2</td><td>0</td></tr> <!-- sum=34 -->
+				<tr><th>24</th><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>5</td><td>0</td></tr> <!-- sum=40 -->
+				<tr><th>25</th><td>2</td><td>2</td><td>4</td><td>2</td><td>4</td><td>4</td><td>6</td><td>3</td><td>3</td><td>4</td><td>0</td></tr> <!-- sum=34 -->
+				<tr><th>26</th><td>2</td><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td><td>0</td></tr> <!-- sum=34 -->
+				<tr><th>27</th><td>4</td><td>4</td><td>4</td><td>3</td><td>2</td><td>4</td><td>4</td><td>4</td><td>2</td><td>0</td><td>0</td></tr> <!-- sum=31 -->
+				<tr><th>28</th><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td></tr> <!-- sum=36 -->
+				<tr><th>29</th><td>4</td><td>2</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>2</td><td>4</td><td>0</td></tr> <!-- sum=36 -->
+				<tr><th>2A</th><td>3</td><td>4</td><td>4</td><td>4</td><td>6</td><td>4</td><td>3</td><td>3</td><td>4</td><td>2</td><td>0</td></tr> <!-- sum=37 -->
+				<tr><th>2B</th><td>4</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>0</td></tr> <!-- sum=35 -->
+				<tr><th>2C</th><td>3</td><td>4</td><td>4</td><td>4</td><td>0</td><td>4</td><td>4</td><td>2</td><td>4</td><td>2</td><td>0</td></tr> <!-- sum=31 -->
+				<tr><th>2D</th><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>4</td><td>4</td><td>4</td><td>3</td><td>0</td><td>0</td></tr> <!-- sum=31 -->
+				<tr><th>2E</th><td>4</td><td>4</td><td>4</td><td>7</td><td>7</td><td>4</td><td>4</td><td>4</td><td>2</td><td>3</td><td>0</td></tr> <!-- sum=43 -->
+				<tr><th>2F</th><td>3</td><td>3</td><td>4</td><td>2</td><td>6</td><td>4</td><td>3</td><td>4</td><td>2</td><td>0</td><td>0</td></tr> <!-- sum=31 -->
+				<tr><th>30</th><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>4</td><td>4</td><td>4</td><td>3</td><td>0</td><td>0</td></tr> <!-- sum=31 -->
+				<tr><th>31</th><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>2</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td></tr> <!-- sum=37 -->
+				<tr><th>32</th><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>0</td></tr> <!-- sum=38 -->
+				<tr><th>33</th><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td><td>2</td><td>4</td><td>2</td><td>3</td><td>7</td></tr> <!-- sum=41 -->
+				<tr><th>34</th><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td><td>2</td><td>3</td><td>0</td><td>3</td><td>0</td></tr> <!-- sum=31 -->
+				<tr><th>35</th><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>1</td><td>0</td></tr> <!-- sum=35 -->
+				<tr><th>36</th><td>4</td><td>4</td><td>4</td><td>4</td><td>1</td><td>4</td><td>4</td><td>4</td><td>4</td><td>1</td><td>0</td></tr> <!-- sum=34 -->
+				<tr><th>37</th><td>4</td><td>4</td><td>4</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td></tr> <!-- sum=34 -->
+				<tr><th>38</th><td>4</td><td>2</td><td>4</td><td>4</td><td>4</td><td>3</td><td>2</td><td>4</td><td>4</td><td>0</td><td>0</td></tr> <!-- sum=31 -->
+				<tr><th>39</th><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td></tr> <!-- sum=40 -->
+				<tr><th>3A</th><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>2</td><td>0</td></tr> <!-- sum=38 -->
+				<tr><th>3B</th><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>2</td><td>0</td></tr> <!-- sum=38 -->
+				<tr><th>3C</th><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>7</td></tr> <!-- sum=42 -->
+				<tr><th>3D</th><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>2</td><td>4</td><td>4</td><td>3</td><td>3</td><td>0</td></tr> <!-- sum=35 -->
+				<tr><th>3E</th><td>1</td><td>4</td><td>4</td><td>4</td><td>4</td><td>1</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td></tr> <!-- sum=34 -->
+				<tr><th>3F</th><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td></tr> <!-- sum=35 -->
+				<tr><th>40</th><td>4</td><td>4</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>4</td><td>4</td><td>0</td></tr> <!-- sum=32 -->
+				<tr><th>41</th><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td></tr> <!-- sum=40 -->
+				<tr><th>42</th><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td></tr> <!-- sum=36 -->
+				<tr><th>43</th><td>3</td><td>4</td><td>2</td><td>4</td><td>0</td><td>4</td><td>4</td><td>0</td><td>4</td><td>0</td><td>0</td></tr> <!-- sum=25 -->
+				<tr><th>44</th><td>2</td><td>4</td><td>4</td><td>4</td><td>4</td><td>2</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td></tr> <!-- sum=36 -->
+				<tr><th>45</th><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>2</td></tr> <!-- sum=42 -->
+				<tr><th>46</th><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>2</td><td>6</td></tr> <!-- sum=44 -->
+				<tr><th>47</th><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td></tr> <!-- sum=40 -->
+				<tr><th>48</th><td>4</td><td>4</td><td>4</td><td>3</td><td>2</td><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td><td>0</td></tr> <!-- sum=36 -->
+				<tr><th>49</th><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr> <!-- sum=43 -->
+				<tr><th>4A</th><td>4</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>2</td><td>4</td><td>0</td></tr> <!-- sum=34 -->
+				<tr><th>4B</th><td>3</td><td>4</td><td>4</td><td>3</td><td>0</td><td>4</td><td>4</td><td>3</td><td>3</td><td>4</td><td>4</td></tr> <!-- sum=36 -->
+				<tr><th>4C</th><td>4</td><td>2</td><td>4</td><td>4</td><td>4</td><td>3</td><td>1</td><td>2</td><td>3</td><td>4</td><td>4</td></tr> <!-- sum=35 -->
+				<tr><th>4D</th><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td><td>4</td><td>4</td><td>0</td><td>4</td><td>4</td></tr> <!-- sum=39 -->
+				<tr><th>4E</th><td>4</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td></tr> <!-- sum=36 -->
+				<tr><th>4F</th><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr> <!-- sum=44 -->
+				<tr><th>50</th><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr> <!-- sum=42 -->
+				<tr><th>51</th><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td></tr> <!-- sum=40 -->
+				<tr><th>52</th><td>4</td><td>4</td><td>0</td><td>4</td><td>4</td><td>4</td><td>2</td><td>0</td><td>4</td><td>4</td><td>0</td></tr> <!-- sum=30 -->
+				<tr><th>53</th><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr> <!-- sum=43 -->
+				<tr><th>54</th><td>4</td><td>0</td><td>4</td><td>4</td><td>4</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>2</td></tr> <!-- sum=34 -->
+			</tbody>
+		</table>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>匹数決定用データ 0～9</glossterm>
+	<glossdef>
+		<para>
+			戦闘初期状態における、各グループの構成モンスター匹数を決める配列の共通するインデックスを与えるためのデータ。
+			
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>グループ数決定用データ 0～2</glossterm>
+	<glossdef>
+		<para>
+			戦闘初期状態における、登場グループ数を決めるためのデータ。
+			複数グループを出現させるときに、プログラムはこのデータを参照する。
+			詳しくは、<link linkend="dq5.flow.encounter">フロー</link>を参照。
+		</para>
+		<table class="lighttable">
+			<caption>グループ数決定用データ</caption>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>データ 0</th>
+					<th>データ 1</th>
+					<th>データ 2</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><th>00</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>01</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>02</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>03</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>04</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>05</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>06</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>07</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>08</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>09</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>0A</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>0B</th><td>3</td><td>2</td><td>1</td></tr>
+				<tr><th>0C</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>0D</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>0E</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>0F</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>10</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>11</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>12</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>13</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>14</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>15</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>16</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>17</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>18</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>19</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>1A</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>1B</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>1C</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>1D</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>1E</th><td>3</td><td>2</td><td>1</td></tr>
+				<tr><th>1F</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>20</th><td>3</td><td>1</td><td>1</td></tr>
+				<tr><th>21</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>22</th><td>3</td><td>2</td><td>1</td></tr>
+				<tr><th>23</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>24</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>25</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>26</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>27</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>28</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>29</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>2A</th><td>3</td><td>0</td><td>0</td></tr>
+				<tr><th>2B</th><td>3</td><td>2</td><td>1</td></tr>
+				<tr><th>2C</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>2D</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>2E</th><td>3</td><td>2</td><td>1</td></tr>
+				<tr><th>2F</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>30</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>31</th><td>3</td><td>2</td><td>1</td></tr>
+				<tr><th>32</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>33</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>34</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>35</th><td>3</td><td>1</td><td>1</td></tr>
+				<tr><th>36</th><td>3</td><td>2</td><td>1</td></tr>
+				<tr><th>37</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>38</th><td>3</td><td>1</td><td>1</td></tr>
+				<tr><th>39</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>3A</th><td>3</td><td>3</td><td>1</td></tr>
+				<tr><th>3B</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>3C</th><td>3</td><td>3</td><td>0</td></tr>
+				<tr><th>3D</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>3E</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>3F</th><td>3</td><td>3</td><td>0</td></tr>
+				<tr><th>40</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>41</th><td>3</td><td>3</td><td>1</td></tr>
+				<tr><th>42</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>43</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>44</th><td>3</td><td>3</td><td>1</td></tr>
+				<tr><th>45</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>46</th><td>0</td><td>3</td><td>0</td></tr>
+				<tr><th>47</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>48</th><td>3</td><td>2</td><td>1</td></tr>
+				<tr><th>49</th><td>3</td><td>2</td><td>1</td></tr>
+				<tr><th>4A</th><td>3</td><td>3</td><td>0</td></tr>
+				<tr><th>4B</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>4C</th><td>0</td><td>3</td><td>0</td></tr>
+				<tr><th>4D</th><td>3</td><td>2</td><td>1</td></tr>
+				<tr><th>4E</th><td>3</td><td>1</td><td>1</td></tr>
+				<tr><th>4F</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>50</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>51</th><td>3</td><td>1</td><td>0</td></tr>
+				<tr><th>52</th><td>3</td><td>2</td><td>0</td></tr>
+				<tr><th>53</th><td>3</td><td>2</td><td>1</td></tr>
+				<tr><th>54</th><td>1</td><td>3</td><td>0</td></tr>
+			</tbody>
+		</table>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>戦闘初期に使用するのだが……</glossterm>
+	<glossdef>
+		<para>
+			意味を解析できなかったデータ。現在調査中。
+			予想だが、モンスターの初期状態（いきなりマホカンタがかけられている等）
+			設定フラグではないだろうか。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>エンカウント決定係数 ID</glossterm>
+	<glossdef>
+		<para>
+			ROM アドレス $23EA44 に定義されている、<emphasis>エンカウント決定係数</emphasis>配列のインデックスである。
+			この値は移動中に戦闘モードに突入するか、移動モードを続行するかを決めるアルゴリズムに関与する。
+		</para>
+		<para>
+			トヘロスやせいすいの効果がないときには、一歩移動するたびに、以下のような計算をする。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					まず、P = ((エンカウント決定係数) * F) &gt;&gt; 6 (2byte) と置く。ここで、
+					F は 歩行地点における地点の地形、前回戦闘終了後からの歩数等から決まる数値を表す。
+					この値は、歩けば歩くほど増加し、ある値で頭打ちとなるようだ
+					（今試してみると、サンタローズの洞窟で歩き回ったときに、0, 0, 0, 0, 0, 0, 1, 1, 3, 3, 4, 4, 4, ...
+					のような感じで推移していた）。
+					説明のため、P の下位バイト、上位バイトをそれぞれ PL, PH とおくと、
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							PH != 0 であれば、エンカウント決定である。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							そうでなければ、乱数 R を取得する(範囲は [0, 255]) 。
+						</para>
+						<itemizedlist>
+							<listitem>
+								<para>
+									R &gt;= PL ならば、移動モードの続行である。
+								</para>
+							</listitem>
+							<listitem>
+								<para>
+									そうでなければ、エンカウント決定である。
+								</para>
+							</listitem>
+						</itemizedlist>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+		<para>
+			エンカウント決定係数は 1byte 値の配列である。例えば 96 のときは算術的には 
+			P = F * 1.5 ということになるが、この値が 255 を超えればもうエンカウント決定ということなのである。
+		</para>
+<programlisting>
+エンカウント決定係数[] = {16, 22, 43, 64, 80, 96, 112, 128};
+// 言い換えれば {-75%, -66.7%, -33.3%, 0%, +25%, +50%, +75%, +100%}
+</programlisting>
+		<para> 
+			※エンカウント決定ロジックならびに決定係数の数値的特徴のご指摘をこぶん C 様より頂きました。
+			篤く御礼を申し上げます―――――。
+		</para>
+		<table class="lighttable">
+			<caption>エンカウント決定係数 ID</caption>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>係数ID</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><th>00</th><td>3</td></tr>
+				<tr><th>01</th><td>3</td></tr>
+				<tr><th>02</th><td>3</td></tr>
+				<tr><th>03</th><td>3</td></tr>
+				<tr><th>04</th><td>3</td></tr>
+				<tr><th>05</th><td>3</td></tr>
+				<tr><th>06</th><td>3</td></tr>
+				<tr><th>07</th><td>5</td></tr>
+				<tr><th>08</th><td>2</td></tr>
+				<tr><th>09</th><td>3</td></tr>
+				<tr><th>0A</th><td>5</td></tr>
+				<tr><th>0B</th><td>3</td></tr>
+				<tr><th>0C</th><td>3</td></tr>
+				<tr><th>0D</th><td>3</td></tr>
+				<tr><th>0E</th><td>4</td></tr>
+				<tr><th>0F</th><td>3</td></tr>
+				<tr><th>10</th><td>3</td></tr>
+				<tr><th>11</th><td>3</td></tr>
+				<tr><th>12</th><td>3</td></tr>
+				<tr><th>13</th><td>3</td></tr>
+				<tr><th>14</th><td>3</td></tr>
+				<tr><th>15</th><td>3</td></tr>
+				<tr><th>16</th><td>3</td></tr>
+				<tr><th>17</th><td>3</td></tr>
+				<tr><th>18</th><td>3</td></tr>
+				<tr><th>19</th><td>3</td></tr>
+				<tr><th>1A</th><td>3</td></tr>
+				<tr><th>1B</th><td>3</td></tr>
+				<tr><th>1C</th><td>3</td></tr>
+				<tr><th>1D</th><td>3</td></tr>
+				<tr><th>1E</th><td>3</td></tr>
+				<tr><th>1F</th><td>3</td></tr>
+				<tr><th>20</th><td>5</td></tr>
+				<tr><th>21</th><td>3</td></tr>
+				<tr><th>22</th><td>2</td></tr>
+				<tr><th>23</th><td>3</td></tr>
+				<tr><th>24</th><td>3</td></tr>
+				<tr><th>25</th><td>2</td></tr>
+				<tr><th>26</th><td>3</td></tr>
+				<tr><th>27</th><td>3</td></tr>
+				<tr><th>28</th><td>3</td></tr>
+				<tr><th>29</th><td>3</td></tr>
+				<tr><th>2A</th><td>3</td></tr>
+				<tr><th>2B</th><td>3</td></tr>
+				<tr><th>2C</th><td>3</td></tr>
+				<tr><th>2D</th><td>3</td></tr>
+				<tr><th>2E</th><td>3</td></tr>
+				<tr><th>2F</th><td>3</td></tr>
+				<tr><th>30</th><td>3</td></tr>
+				<tr><th>31</th><td>3</td></tr>
+				<tr><th>32</th><td>3</td></tr>
+				<tr><th>33</th><td>2</td></tr>
+				<tr><th>34</th><td>3</td></tr>
+				<tr><th>35</th><td>3</td></tr>
+				<tr><th>36</th><td>3</td></tr>
+				<tr><th>37</th><td>3</td></tr>
+				<tr><th>38</th><td>3</td></tr>
+				<tr><th>39</th><td>3</td></tr>
+				<tr><th>3A</th><td>3</td></tr>
+				<tr><th>3B</th><td>3</td></tr>
+				<tr><th>3C</th><td>3</td></tr>
+				<tr><th>3D</th><td>3</td></tr>
+				<tr><th>3E</th><td>3</td></tr>
+				<tr><th>3F</th><td>3</td></tr>
+				<tr><th>40</th><td>2</td></tr>
+				<tr><th>41</th><td>3</td></tr>
+				<tr><th>42</th><td>3</td></tr>
+				<tr><th>43</th><td>3</td></tr>
+				<tr><th>44</th><td>3</td></tr>
+				<tr><th>45</th><td>6</td></tr>
+				<tr><th>46</th><td>5</td></tr>
+				<tr><th>47</th><td>3</td></tr>
+				<tr><th>48</th><td>3</td></tr>
+				<tr><th>49</th><td>3</td></tr>
+				<tr><th>4A</th><td>3</td></tr>
+				<tr><th>4B</th><td>2</td></tr>
+				<tr><th>4C</th><td>3</td></tr>
+				<tr><th>4D</th><td>3</td></tr>
+				<tr><th>4E</th><td>3</td></tr>
+				<tr><th>4F</th><td>3</td></tr>
+				<tr><th>50</th><td>2</td></tr>
+				<tr><th>51</th><td>3</td></tr>
+				<tr><th>52</th><td>3</td></tr>
+				<tr><th>53</th><td>3</td></tr>
+				<tr><th>54</th><td>3</td></tr>
+			</tbody>
+		</table>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>仲間チェック有無フラグ</glossterm>
+	<glossdef>
+		<para>
+			戦闘終了後にモンスターが立ち上がるかどうかのチェックをするか否かを意味するデータ。
+			光の教団神殿内部や、エビルマウンテンでの通常戦闘で
+			モンスターを仲間にできないのは、フロアの属性ではないのである。
+		</para>
+		<para>
+			仲間チェックが行われないエンカウント ID は、
+			0, 1, 3～11, 13～16, 71, 74～78 である。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>謎（全データがゼロ）</glossterm>
+	<glossdef>
+		<para>
+			事実上未使用データである。
+			しかし、プログラムではこの値をチェックして、ゼロでなければ何かをしている。
+			いずれコードを改竄してプログラムを実行し、
+			この値が非ゼロであるときに何が起こるのかを観察する予定。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>特別モンスター表 アクセス用</glossterm>
+	<glossdef>
+		<para>
+			<link linkend="dq5.data.encounter.special">特別エンカウント構造体</link>配列のインデックスである。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>モンスターID 0～9</glossterm>
+	<glossdef>
+		<para>
+			戦闘の初期状態で、そこにいるモンスター候補のモンスターID である。
+			エンカウント構造体 85 個から、モンスター名だけを抽出した表は以下のとおり。
+			各エンカウント構造体データにおいて、
+			未使用部分を意味するためか、モンスターID = 0 のスライムを設定してある。
+			例外として、ID = 0（幼少時のサンタローズの洞窟の浅い階）ではなぜか、
+			がいこつへいが採用されている。
+			詳しくは、<link linkend="dq5.flow.encounter">フロー</link>を参照。
+		</para>
+		<table class="lighttable">
+			<caption>出現モンスター</caption>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>0</th>
+					<th>1</th>
+					<th>2</th>
+					<th>3</th>
+					<th>4</th>
+					<th>5</th>
+					<th>6</th>
+					<th>7</th>
+					<th>8</th>
+					<th>9</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><th>00</th><td>スライム</td><td>とげぼうず</td><td>せみもぐら</td><td>スライム</td><td>がいこつへい</td><td>スライム</td><td>とげぼうず</td><td>せみもぐら</td><td>スライム</td><td>がいこつへい</td></tr>
+				<tr><th>01</th><td>スライム</td><td>とげぼうず</td><td>せみもぐら</td><td>ドラキー</td><td>おおきづち</td><td>とげぼうず</td><td>せみもぐら</td><td>ドラキー</td><td>おおきづち</td><td>いっかくうさぎ</td></tr>
+				<tr><th>02</th><td>グリーンワーム</td><td>バブルスライム</td><td>おおねずみ</td><td>いっかくうさぎ</td><td>ドラキー</td><td>グリーンワーム</td><td>ドラキー</td><td>おおねずみ</td><td>おおきづち</td><td>いっかくうさぎ</td></tr>
+				<tr><th>03</th><td>グリーンワーム</td><td>くびながイタチ</td><td>バブルスライム</td><td>おおねずみ</td><td>ベビーパンサー</td><td>グリーンワーム</td><td>くびながイタチ</td><td>バブルスライム</td><td>おおねずみ</td><td>ベビーパンサー</td></tr>
+				<tr><th>04</th><td>スカルサーペント</td><td>ナイトウイプス</td><td>バブルスライム</td><td>おおねずみ</td><td>くびながイタチ</td><td>スカルサーペント</td><td>ナイトウイプス</td><td>おおねずみ</td><td>ドラキー</td><td>スライム</td></tr>
+				<tr><th>05</th><td>ゴースト</td><td>おばけキャンドル</td><td>スカルサーペント</td><td>ナイトウイプス</td><td>スライム</td><td>ゴースト</td><td>おばけキャンドル</td><td>スカルサーペント</td><td>ナイトウイプス</td><td>スライム</td></tr>
+				<tr><th>06</th><td>ガップリン</td><td>つちわらし</td><td>マッドプラント</td><td>バブルスライム</td><td>ホイミスライム</td><td>ガップリン</td><td>つちわらし</td><td>マッドプラント</td><td>スライム</td><td>スライム</td></tr>
+				<tr><th>07</th><td>スライム</td><td>まほうつかい</td><td>サボテンボール</td><td>マッドプラント</td><td>つちわらし</td><td>スライム</td><td>まほうつかい</td><td>サボテンボール</td><td>つちわらし</td><td>マッドプラント</td></tr>
+				<tr><th>08</th><td>メラリザード</td><td>スピニー</td><td>つちわらし</td><td>ナイトウイプス</td><td>メラリザード</td><td>メラリザード</td><td>スピニー</td><td>つちわらし</td><td>おおきづち</td><td>メラリザード</td></tr>
+				<tr><th>09</th><td>ラーバキング</td><td>スカンカー</td><td>メラリザード</td><td>スピニー</td><td>ガップリン</td><td>ラーバキング</td><td>スカンカー</td><td>メラリザード</td><td>スピニー</td><td>スライム</td></tr>
+				<tr><th>0A</th><td>ドラキーマ</td><td>アルミラージ</td><td>カパーラナーガ</td><td>まほうつかい</td><td>スライム</td><td>ドラキーマ</td><td>アルミラージ</td><td>カパーラナーガ</td><td>カパーラナーガ</td><td>スライム</td></tr>
+				<tr><th>0B</th><td>おばけねずみ</td><td>マッドプラント</td><td>くびながイタチ</td><td>ホイミスライム</td><td>ベビーパンサー</td><td>おばけねずみ</td><td>くびながイタチ</td><td>メラリザード</td><td>スライム</td><td>スライム</td></tr>
+				<tr><th>0C</th><td>ホイミスライム</td><td>スカンカー</td><td>ダンスニードル</td><td>おばけねずみ</td><td>まほうつかい</td><td>おばけねずみ</td><td>まほうつかい</td><td>ダンスニードル</td><td>スカンカー</td><td>スライム</td></tr>
+				<tr><th>0D</th><td>スライムナイト</td><td>ダンスニードル</td><td>ベビーニュート</td><td>トンネラー</td><td>わらいぐさ</td><td>スライムナイト</td><td>ダンスニードル</td><td>ベビーニュート</td><td>トンネラー</td><td>アルミラージ</td></tr>
+				<tr><th>0E</th><td>ブラウニー</td><td>スライム</td><td>ベビーニュート</td><td>わらいぐさ</td><td>スライムナイト</td><td>ブラウニー</td><td>スライム</td><td>ベビーニュート</td><td>ブラウニー</td><td>スライムナイト</td></tr>
+				<tr><th>0F</th><td>どぐうせんし</td><td>ダークアイ</td><td>ブラウニー</td><td>ベビーニュート</td><td>スライム</td><td>どぐうせんし</td><td>ダークアイ</td><td>ブラウニー</td><td>わらいぶくろ</td><td>ベビーニュート</td></tr>
+				<tr><th>10</th><td>がいこつへい</td><td>わらいぶくろ</td><td>どぐうせんし</td><td>ダークアイ</td><td>がいこつへい</td><td>がいこつへい</td><td>わらいぶくろ</td><td>スライムナイト</td><td>どぐうせんし</td><td>カパーラナーガ</td></tr>
+				<tr><th>11</th><td>ベビーニュート</td><td>わらいぶくろ</td><td>ブラウニー</td><td>スライム</td><td>ガスミンク</td><td>ベビーニュート</td><td>ブラウニー</td><td>スライム</td><td>ガスミンク</td><td>スライム</td></tr>
+				<tr><th>12</th><td>ガスミンク</td><td>ばくだんベビー</td><td>ピッキー</td><td>おばけきのこ</td><td>ドラキー</td><td>ピッキー</td><td>おばけきのこ</td><td>ばくだんベビー</td><td>ガスミンク</td><td>がいこつへい</td></tr>
+				<tr><th>13</th><td>ともしびこぞう</td><td>エビルアップル</td><td>ドラキー</td><td>おばけきのこ</td><td>ガスミンク</td><td>ともしびこぞう</td><td>エビルアップル</td><td>ドラキー</td><td>ピッキー</td><td>おばけきのこ</td></tr>
+				<tr><th>14</th><td>スライム</td><td>アルミラージ</td><td>ブラウニー</td><td>どぐうせんし</td><td>ともしびこぞう</td><td>スライム</td><td>アルミラージ</td><td>ブラウニー</td><td>スライム</td><td>がいこつへい</td></tr>
+				<tr><th>15</th><td>くさったしたい</td><td>アウルベアー</td><td>ガメゴン</td><td>メタルスライム</td><td>ブラウニー</td><td>くさったしたい</td><td>アウルベアー</td><td>ガメゴン</td><td>メタルスライム</td><td>スライム</td></tr>
+				<tr><th>16</th><td>イエティ</td><td>ダンスニードル</td><td>ドラゴンキッズ</td><td>スライムナイト</td><td>アウルベアー</td><td>イエティ</td><td>ダンスニードル</td><td>ドラゴンキッズ</td><td>スライムナイト</td><td>アウルベアー</td></tr>
+				<tr><th>17</th><td>くさったしたい</td><td>まどうし</td><td>スライムナイト</td><td>ガメゴン</td><td>クックルー</td><td>くさったしたい</td><td>まどうし</td><td>インスペクター</td><td>スライムナイト</td><td>イエティ</td></tr>
+				<tr><th>18</th><td>さんぞくウルフ</td><td>クックルー</td><td>まどうし</td><td>アウルベアー</td><td>エビルアップル</td><td>さんぞくウルフ</td><td>クックルー</td><td>まどうし</td><td>アウルベアー</td><td>エビルアップル</td></tr>
+				<tr><th>19</th><td>さんぞくウルフ</td><td>エビルプラント</td><td>ドラゴンキッズ</td><td>インスペクター</td><td>スライムナイト</td><td>エビルプラント</td><td>ドラゴンキッズ</td><td>エンプーサ</td><td>メタルスライム</td><td>インスペクター</td></tr>
+				<tr><th>1A</th><td>エンプーサ</td><td>ビックアイ</td><td>さまようよろい</td><td>エビルプラント</td><td>インスペクター</td><td>まどうし</td><td>ビックアイ</td><td>さまようよろい</td><td>メタルスライム</td><td>ガメゴン</td></tr>
+				<tr><th>1B</th><td>まほうつかい</td><td>さんぞくウルフ</td><td>さまようよろい</td><td>モーザ</td><td>メタルライダー</td><td>ドラゴンキッズ</td><td>さんぞくウルフ</td><td>さまようよろい</td><td>モーザ</td><td>メタルライダー</td></tr>
+				<tr><th>1C</th><td>ミステリドール</td><td>デスパロット</td><td>メタルライダー</td><td>モーザ</td><td>エンプーサ</td><td>ミステリドール</td><td>デスパロット</td><td>メタルライダー</td><td>モーザ</td><td>ビックアイ</td></tr>
+				<tr><th>1D</th><td>エビルプラント</td><td>ミステリドール</td><td>まほうつかい</td><td>デスパロット</td><td>メタルライダー</td><td>ビックアイ</td><td>ドロヌーバ</td><td>ビッグスロース</td><td>まほうつかい</td><td>メタルスライム</td></tr>
+				<tr><th>1E</th><td>ビッグスロース</td><td>とつげきへい</td><td>メタルスライム</td><td>デススパーク</td><td>ビックアイ</td><td>ドロヌーバ</td><td>ビッグスロース</td><td>とつげきへい</td><td>デススパーク</td><td>ベビーパンサー</td></tr>
+				<tr><th>1F</th><td>モーザ</td><td>デスパロット</td><td>パペットマン</td><td>スモールグール</td><td>さんぞくウルフ</td><td>パペットマン</td><td>スモールグール</td><td>ミステリドール</td><td>デススパーク</td><td>さまようよろい</td></tr>
+				<tr><th>20</th><td>パペットマン</td><td>リビングデッド</td><td>スモールグール</td><td>キラーパンサー</td><td>おばけきのこ</td><td>パペットマン</td><td>スモールグール</td><td>リビングデッド</td><td>リビングデッド</td><td>キラーパンサー</td></tr>
+				<tr><th>21</th><td>とつげきへい</td><td>キラーパンサー</td><td>グレゴール</td><td>ビッグスロース</td><td>パペットマン</td><td>とつげきへい</td><td>デススパーク</td><td>グレゴール</td><td>デスパロット</td><td>スモールグール</td></tr>
+				<tr><th>22</th><td>ビックアイ</td><td>ドロヌーバ</td><td>へびこうもり</td><td>リビングデッド</td><td>デススパーク</td><td>ビックアイ</td><td>ドロヌーバ</td><td>へびこうもり</td><td>リビングデッド</td><td>デススパーク</td></tr>
+				<tr><th>23</th><td>まものつかい</td><td>メタルハンター</td><td>ベロゴン</td><td>へびこうもり</td><td>グレゴール</td><td>スモールグール</td><td>メタルハンター</td><td>ベロゴン</td><td>ランスアーミー</td><td>へびこうもり</td></tr>
+				<tr><th>24</th><td>ダークマンモス</td><td>ばくだんいわ</td><td>ランスアーミー</td><td>ベロゴン</td><td>キメラ</td><td>ダークマンモス</td><td>まものつかい</td><td>ランスアーミー</td><td>メタルハンター</td><td>キメラ</td></tr>
+				<tr><th>25</th><td>ばくだんいわ</td><td>ランスアーミー</td><td>マドルーパー</td><td>おどるほうせき</td><td>ホースデビル</td><td>ホースデビル</td><td>まものつかい</td><td>へびこうもり</td><td>メタルスライム</td><td>キメラ</td></tr>
+				<tr><th>26</th><td>ほのおのせんし</td><td>ばくだんいわ</td><td>マドルーパー</td><td>まものつかい</td><td>ホースデビル</td><td>ホースデビル</td><td>ほのおのせんし</td><td>マドルーパー</td><td>おどるほうせき</td><td>メタルハンター</td></tr>
+				<tr><th>27</th><td>ベホマスライム</td><td>ガスダンゴ</td><td>マドルーパー</td><td>へびこうもり</td><td>おどるほうせき</td><td>ガスダンゴ</td><td>マドルーパー</td><td>ランスアーミー</td><td>ベホマスライム</td><td>スライム</td></tr>
+				<tr><th>28</th><td>ベホマスライム</td><td>ガスダンゴ</td><td>マーマン</td><td>ベロゴン</td><td>スライム</td><td>ガスダンゴ</td><td>オーク</td><td>マーマン</td><td>オクトリーチ</td><td>メタルスライム</td></tr>
+				<tr><th>29</th><td>ベホマスライム</td><td>ガスダンゴ</td><td>まものつかい</td><td>オーク</td><td>オクトリーチ</td><td>オーク</td><td>プチイール</td><td>まものつかい</td><td>マーマン</td><td>オクトリーチ</td></tr>
+				<tr><th>2A</th><td>ベホマスライム</td><td>オーク</td><td>マドルーパー</td><td>ほのおのせんし</td><td>ケムケムベス</td><td>ケムケムベス</td><td>スライム</td><td>スライム</td><td>ほのおのせんし</td><td>スライム</td></tr>
+				<tr><th>2B</th><td>キングスライム</td><td>スライム</td><td>ベホマスライム</td><td>メタルスライム</td><td>スライム</td><td>バブルスライム</td><td>キングスライム</td><td>スライム</td><td>スライム</td><td>メタルスライム</td></tr>
+				<tr><th>2C</th><td>ケムケムベス</td><td>まほうじじい</td><td>ドラゴンマッド</td><td>パオーム</td><td>スライム</td><td>まほうじじい</td><td>ドラゴンマッド</td><td>パオーム</td><td>ケムケムベス</td><td>パオーム</td></tr>
+				<tr><th>2D</th><td>リントブルム</td><td>ダックカイト</td><td>まほうじじい</td><td>ドラゴンマッド</td><td>スライム</td><td>リントブルム</td><td>ダックカイト</td><td>まほうじじい</td><td>オーク</td><td>スライム</td></tr>
+				<tr><th>2E</th><td>リントブルム</td><td>ダックカイト</td><td>しにがみへい</td><td>デッドエンペラー</td><td>デッドエンペラー</td><td>リントブルム</td><td>ダックカイト</td><td>しにがみへい</td><td>デッドエンペラー</td><td>メタルハンター</td></tr>
+				<tr><th>2F</th><td>ダックカイト</td><td>しにがみへい</td><td>デッドエンペラー</td><td>リントブルム</td><td>ミニデーモン</td><td>しにがみへい</td><td>ドラゴンマッド</td><td>ミニデーモン</td><td>ほのおのせんし</td><td>スライム</td></tr>
+				<tr><th>30</th><td>ミニデーモン</td><td>メイジキメラ</td><td>ダックカイト</td><td>メッサーラ</td><td>スライム</td><td>ミニデーモン</td><td>メイジキメラ</td><td>メッサーラ</td><td>はぐれメタル</td><td>スライム</td></tr>
+				<tr><th>31</th><td>ミニデーモン</td><td>メイジキメラ</td><td>ベロゴンロード</td><td>メッサーラ</td><td>はぐれメタル</td><td>ミニデーモン</td><td>メイジキメラ</td><td>ベロゴンロード</td><td>メッサーラ</td><td>ベロゴンロード</td></tr>
+				<tr><th>32</th><td>パオーム</td><td>ストーンマン</td><td>のろいのマスク</td><td>オークキング</td><td>メッサーラ</td><td>パオーム</td><td>ストーンマン</td><td>のろいのマスク</td><td>オークキング</td><td>メイジキメラ</td></tr>
+				<tr><th>33</th><td>ガボット</td><td>デビルダンサー</td><td>オークキング</td><td>のろいのマスク</td><td>メッサーラ</td><td>ジェリーマン</td><td>ガボット</td><td>デビルダンサー</td><td>ガボット</td><td>はぐれメタル</td></tr>
+				<tr><th>34</th><td>シールドヒッポ</td><td>ホークマン</td><td>オークキング</td><td>デビルダンサー</td><td>メイジキメラ</td><td>シールドヒッポ</td><td>ホークマン</td><td>のろいのマスク</td><td>スライム</td><td>ベロゴンロード</td></tr>
+				<tr><th>35</th><td>シールドヒッポ</td><td>ホークマン</td><td>アームライオン</td><td>バルーン</td><td>ダックカイト</td><td>シールドヒッポ</td><td>ホークマン</td><td>アームライオン</td><td>バルーン</td><td>アームライオン</td></tr>
+				<tr><th>36</th><td>マムー</td><td>エリミネーター</td><td>デンタザウルス</td><td>ボスガルム</td><td>はぐれメタル</td><td>マムー</td><td>エリミネーター</td><td>デンタザウルス</td><td>ボスガルム</td><td>はぐれメタル</td></tr>
+				<tr><th>37</th><td>シャドーサタン</td><td>ゴーレム</td><td>エリミネーター</td><td>デンタザウルス</td><td>ボスガルム</td><td>シャドーサタン</td><td>ゴーレム</td><td>デンタザウルス</td><td>リザードマン</td><td>スライム</td></tr>
+				<tr><th>38</th><td>シャドーサタン</td><td>ゴーレム</td><td>リザードマン</td><td>ひくいどり</td><td>バルーン</td><td>シャドーサタン</td><td>ゴーレム</td><td>リザードマン</td><td>ひくいどり</td><td>スライム</td></tr>
+				<tr><th>39</th><td>ゾンビナイト</td><td>ネクロマンサー</td><td>ブリザードマン</td><td>しびれくらげ</td><td>マザーオクト</td><td>ゾンビナイト</td><td>ネクロマンサー</td><td>ブリザードマン</td><td>しびれくらげ</td><td>マザーオクト</td></tr>
+				<tr><th>3A</th><td>ガネーシャ</td><td>マドハンド</td><td>ケンタラウス</td><td>じゃしんのへいたい</td><td>ネクロマンサー</td><td>ガネーシャ</td><td>マドハンド</td><td>ケンタラウス</td><td>じゃしんのへいたい</td><td>はぐれメタル</td></tr>
+				<tr><th>3B</th><td>スライムベホマズン</td><td>ビヒーモス</td><td>リザードマン</td><td>バルーン</td><td>シャドーサタン</td><td>ゴーレム</td><td>ジェリーマン</td><td>ケンタラウス</td><td>ビヒーモス</td><td>ひくいどり</td></tr>
+				<tr><th>3C</th><td>ソルジャーブル</td><td>ガーゴイル</td><td>スライムベホマズン</td><td>ビヒーモス</td><td>スライム</td><td>じゃしんのへいたい</td><td>ソルジャーブル</td><td>ガーゴイル</td><td>ビヒーモス</td><td>エリミネーター</td></tr>
+				<tr><th>3D</th><td>サターンヘルム</td><td>グレイトマムー</td><td>イズライール</td><td>ソルジャーブル</td><td>ゾンビナイト</td><td>サターンヘルム</td><td>グレイトマムー</td><td>イズライール</td><td>ソルジャーブル</td><td>ゾンビナイト</td></tr>
+				<tr><th>3E</th><td>サターンヘルム</td><td>グレイトマムー</td><td>イズライール</td><td>サウルスロード</td><td>りゅうせんし</td><td>サターンヘルム</td><td>グレイトマムー</td><td>イズライール</td><td>サウルスロード</td><td>りゅうせんし</td></tr>
+				<tr><th>3F</th><td>イズライール</td><td>シルバーデビル</td><td>ラムポーン</td><td>ドラゴンゾンビ</td><td>メガザルロック</td><td>シルバーデビル</td><td>ラムポーン</td><td>ドラゴンゾンビ</td><td>メガザルロック</td><td>スライム</td></tr>
+				<tr><th>40</th><td>オーガヘッド</td><td>アンクルホーン</td><td>スライム</td><td>メガザルロック</td><td>ラムポーン</td><td>オーガヘッド</td><td>アンクルホーン</td><td>スライム</td><td>メタルスライム</td><td>おどるほうせき</td></tr>
+				<tr><th>41</th><td>へびておとこ</td><td>グレンデル</td><td>バルバロッサ</td><td>ホークブリザード</td><td>シルバーデビル</td><td>へびておとこ</td><td>グレンデル</td><td>バルバロッサ</td><td>ホークブリザード</td><td>ドラゴンゾンビ</td></tr>
+				<tr><th>42</th><td>ゴールデンドラゴン</td><td>ホークブリザード</td><td>へびておとこ</td><td>ドラゴンゾンビ</td><td>スライム</td><td>ゴールデンドラゴン</td><td>ホークブリザード</td><td>へびておとこ</td><td>ドラゴンゾンビ</td><td>りゅうせんし</td></tr>
+				<tr><th>43</th><td>ゴールデンドラゴン</td><td>ブラックドラゴン</td><td>オーガヘッド</td><td>グレンデル</td><td>スライム</td><td>ゴールデンドラゴン</td><td>ブラックドラゴン</td><td>スライム</td><td>シルバーデビル</td><td>スライム</td></tr>
+				<tr><th>44</th><td>ゴールデンドラゴン</td><td>ブラックドラゴン</td><td>メタルドラゴン</td><td>アンクルホーン</td><td>メガザルロック</td><td>ゴールデンドラゴン</td><td>ブラックドラゴン</td><td>メタルドラゴン</td><td>アンクルホーン</td><td>シュプリンガー</td></tr>
+				<tr><th>45</th><td>ムーンフェイス</td><td>サウルスロード</td><td>ボスガルム</td><td>バルバロッサ</td><td>リザードマン</td><td>ひくいどり</td><td>ゾンビナイト</td><td>ムーンフェイス</td><td>イズライール</td><td>サターンヘルム</td></tr>
+				<tr><th>46</th><td>レッドイーター</td><td>ブルーイーター</td><td>シルバーデビル</td><td>ガーゴイル</td><td>エビルマスター</td><td>エビルマスター</td><td>マドハンド</td><td>ソルジャーブル</td><td>サウルスロード</td><td>はぐれメタル</td></tr>
+				<tr><th>47</th><td>あくましんかん</td><td>ダークシャーマン</td><td>エビルスピリッツ</td><td>シュプリンガー</td><td>メタルドラゴン</td><td>ダークシャーマン</td><td>エビルスピリッツ</td><td>シュプリンガー</td><td>ブラックドラゴン</td><td>バルバロッサ</td></tr>
+				<tr><th>48</th><td>グレイトドラゴン</td><td>キラーマシン</td><td>バズズ</td><td>ホークブリザード</td><td>ゴールデンドラゴン</td><td>グレイトドラゴン</td><td>キラーマシン</td><td>バズズ</td><td>ホークブリザード</td><td>メタルドラゴン</td></tr>
+				<tr><th>49</th><td>れんごくちょう</td><td>ガメゴンロード</td><td>ギガンテス</td><td>バザックス</td><td>エビルスピリッツ</td><td>れんごくちょう</td><td>ガメゴンロード</td><td>ギガンテス</td><td>バザックス</td><td>キラーマシン</td></tr>
+				<tr><th>4A</th><td>ライオネック</td><td>スライム</td><td>シュプリンガー</td><td>エビルスピリッツ</td><td>バズズ</td><td>ライオネック</td><td>シュプリンガー</td><td>ギガンテス</td><td>エビルスピリッツ</td><td>バズズ</td></tr>
+				<tr><th>4B</th><td>ライオネック</td><td>フレアドラゴン</td><td>スカルドン</td><td>ダークシャーマン</td><td>スライム</td><td>フレアドラゴン</td><td>スカルドン</td><td>ダークシャーマン</td><td>エビルマスター</td><td>グレイトドラゴン</td></tr>
+				<tr><th>4C</th><td>スカルドン</td><td>マヌハーン</td><td>ガルバ</td><td>あくましんかん</td><td>ゴルバ</td><td>スカルドン</td><td>マヌハーン</td><td>ダークシャーマン</td><td>フレアドラゴン</td><td>ガメゴンロード</td></tr>
+				<tr><th>4D</th><td>ゴルバ</td><td>フレアドラゴン</td><td>スカルドン</td><td>ワイトキング</td><td>キラーマシン</td><td>ワイトキング</td><td>ギガンテス</td><td>バズズ</td><td>スライム</td><td>メタルキング</td></tr>
+				<tr><th>4E</th><td>ワイトキング</td><td>スライム</td><td>ガルバ</td><td>スカルドン</td><td>フレアドラゴン</td><td>ムーンフェイス</td><td>グレイトドラゴン</td><td>れんごくちょう</td><td>ゴールデンドラゴン</td><td>キラーマシン</td></tr>
+				<tr><th>4F</th><td>ライオネック</td><td>スカルドン</td><td>メガザルロック</td><td>エビルスピリッツ</td><td>シュプリンガー</td><td>ヘルバトラー</td><td>ライオネック</td><td>グレイトドラゴン</td><td>メカバーン</td><td>ギガンテス</td></tr>
+				<tr><th>50</th><td>マヌハーン</td><td>メカバーン</td><td>あくましんかん</td><td>セルゲイナス</td><td>キラーマシン</td><td>フレアドラゴン</td><td>メカバーン</td><td>ヘルバトラー</td><td>セルゲイナス</td><td>メタルキング</td></tr>
+				<tr><th>51</th><td>プクプク</td><td>たまてがい</td><td>オクトリーチ</td><td>マーマン</td><td>シードッグ</td><td>プクプク</td><td>たまてがい</td><td>オクトリーチ</td><td>マーマン</td><td>シードッグ</td></tr>
+				<tr><th>52</th><td>しびれくらげ</td><td>ゆうれいせんちょう</td><td>スライム</td><td>しんかいりゅう</td><td>マーマン</td><td>しびれくらげ</td><td>ゆうれいせんちょう</td><td>スライム</td><td>しんかいりゅう</td><td>マーマン</td></tr>
+				<tr><th>53</th><td>キラーシェル</td><td>オクトリーチ</td><td>ネーレウス</td><td>マーマンダイン</td><td>プチイール</td><td>キラーシェル</td><td>オクトリーチ</td><td>ネーレウス</td><td>マーマンダイン</td><td>プチイール</td></tr>
+				<tr><th>54</th><td>キャプテンクック</td><td>スライム</td><td>グロンデプス</td><td>マザーオクト</td><td>ネーレウス</td><td>スライム</td><td>グロンデプス</td><td>マザーオクト</td><td>ネーレウス</td><td>マーマンダイン</td></tr>
+			</tbody>
+		</table>
+	</glossdef>
+	</glossentry>
+</glosslist>
+<para> 
+	各エンカウントデータに対応するグループ構成モンスター数の候補は、
+	計算によると次のようになる。
+	最初は大きめの値をとることがあるようだ。
+	これはあとで補正されて、適切な匹数に抑えられる。
+</para>
+<table class="lighttable">
+	<caption>グループ構成数</caption>
+	<thead>
+	<tr>
+		<th>ID</th>
+		<th>0</th>
+		<th>1</th>
+		<th>2</th>
+		<th>3</th>
+		<th>4</th>
+		<th>5</th>
+		<th>6</th>
+		<th>7</th>
+		<th>8</th>
+		<th>9</th>
+	</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th><td>1,2</td><td>1</td><td>1</td><td>8</td><td>1～5</td><td>2,3</td><td>1,2</td><td>1,2</td><td>1</td><td>4～7</td></tr>
+		<tr><th>01</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1</td><td>1</td><td>2,3</td><td>2,3</td><td>2,3</td><td>1,2</td><td>1,2</td></tr>
+		<tr><th>02</th><td>1,2</td><td>1</td><td>1</td><td>1,2</td><td>1～3</td><td>2,3</td><td>3,4</td><td>1,2</td><td>2,3</td><td>2,3</td></tr>
+		<tr><th>03</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1～3</td><td>1</td><td>2,3</td><td>2,3</td><td>2,3</td><td>2,3</td><td>2,3</td></tr>
+		<tr><th>04</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>2,3</td><td>2,3</td><td>3,4</td><td>4～7</td><td>1</td></tr>
+		<tr><th>05</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1～3</td><td>8</td><td>3,4</td><td>2,3</td><td>3,4</td><td>3,4</td><td>1</td></tr>
+		<tr><th>06</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1</td><td>3,4</td><td>3,4</td><td>3,4</td><td>1</td><td>1</td></tr>
+		<tr><th>07</th><td>8</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1～3</td><td>1</td><td>3,4</td><td>3,4</td><td>4～7</td><td>4～7</td></tr>
+		<tr><th>08</th><td>1～3</td><td>1,2</td><td>1,2</td><td>1～3</td><td>1,2</td><td>4～7</td><td>2,3</td><td>4～7</td><td>4～7</td><td>3,4</td></tr>
+		<tr><th>09</th><td>1,2</td><td>1</td><td>1～3</td><td>1</td><td>1,2</td><td>3,4</td><td>3,4</td><td>4～7</td><td>3,4</td><td>1</td></tr>
+		<tr><th>0A</th><td>1,2</td><td>1～3</td><td>1,2</td><td>1,2</td><td>8</td><td>3,4</td><td>4～7</td><td>4～7</td><td>3,4</td><td>1</td></tr>
+		<tr><th>0B</th><td>1～3</td><td>1</td><td>1～3</td><td>1</td><td>1～3</td><td>4～7</td><td>4～7</td><td>2,3</td><td>1</td><td>1</td></tr>
+		<tr><th>0C</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1</td><td>4～7</td><td>3,4</td><td>3,4</td><td>4～7</td><td>1</td></tr>
+		<tr><th>0D</th><td>1</td><td>1,2</td><td>1</td><td>1,2</td><td>1,2</td><td>2,3</td><td>3,4</td><td>1,2</td><td>3,4</td><td>3,4</td></tr>
+		<tr><th>0E</th><td>1,2</td><td>8</td><td>1</td><td>1～3</td><td>1,2</td><td>4～7</td><td>1</td><td>2,3</td><td>3,4</td><td>2,3</td></tr>
+		<tr><th>0F</th><td>1</td><td>1,2</td><td>1～3</td><td>1,2</td><td>8</td><td>2,3</td><td>3,4</td><td>3,4</td><td>1</td><td>3,4</td></tr>
+		<tr><th>10</th><td>1,2</td><td>1</td><td>1</td><td>1,2</td><td>1,2</td><td>2,3</td><td>1,2</td><td>3,4</td><td>2,3</td><td>3,4</td></tr>
+		<tr><th>11</th><td>1,2</td><td>1</td><td>1,2</td><td>1～4</td><td>1,2</td><td>2,3</td><td>2,3</td><td>4～7</td><td>2,3</td><td>1</td></tr>
+		<tr><th>12</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1～3</td><td>2,3</td><td>2,3</td><td>2,3</td><td>2,3</td><td>2,3</td></tr>
+		<tr><th>13</th><td>1,2</td><td>1,2</td><td>1～4</td><td>1,2</td><td>1,2</td><td>3,4</td><td>3,4</td><td>4～7</td><td>3,4</td><td>3,4</td></tr>
+		<tr><th>14</th><td>1～4</td><td>1～3</td><td>1～3</td><td>1,2</td><td>1,2</td><td>1</td><td>4～7</td><td>4～7</td><td>8</td><td>3,4</td></tr>
+		<tr><th>15</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1</td><td>1～3</td><td>3,4</td><td>2,3</td><td>2,3</td><td>1,2</td><td>8</td></tr>
+		<tr><th>16</th><td>1,2</td><td>1,2</td><td>1</td><td>1,2</td><td>1,2</td><td>2,3</td><td>3,4</td><td>2,3</td><td>4～7</td><td>3,4</td></tr>
+		<tr><th>17</th><td>1～3</td><td>1,2</td><td>1～3</td><td>1～3</td><td>1,2</td><td>3,4</td><td>2,3</td><td>3,4</td><td>4～7</td><td>3,4</td></tr>
+		<tr><th>18</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>3,4</td><td>3,4</td><td>3,4</td><td>3,4</td><td>4～7</td></tr>
+		<tr><th>19</th><td>1～3</td><td>1,2</td><td>1,2</td><td>1～3</td><td>1～3</td><td>3,4</td><td>3,4</td><td>3,4</td><td>1,2</td><td>4～7</td></tr>
+		<tr><th>1A</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1</td><td>1,2</td><td>4～7</td><td>3,4</td><td>3,4</td><td>1,2</td><td>4～7</td></tr>
+		<tr><th>1B</th><td>1～3</td><td>1～3</td><td>1,2</td><td>1,2</td><td>1,2</td><td>3,4</td><td>4～7</td><td>3,4</td><td>3,4</td><td>2,3</td></tr>
+		<tr><th>1C</th><td>1,2</td><td>1～3</td><td>1,2</td><td>1,2</td><td>1,2</td><td>3,4</td><td>4～7</td><td>3,4</td><td>4～7</td><td>3,4</td></tr>
+		<tr><th>1D</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1～3</td><td>4～7</td><td>3,4</td><td>3,4</td><td>4～7</td><td>3,4</td></tr>
+		<tr><th>1E</th><td>1,2</td><td>1～3</td><td>1～3</td><td>1,2</td><td>1～3</td><td>3,4</td><td>4～7</td><td>3,4</td><td>3,4</td><td>1</td></tr>
+		<tr><th>1F</th><td>1～3</td><td>1,2</td><td>1～3</td><td>1～3</td><td>1～4</td><td>3,4</td><td>3,4</td><td>2,3</td><td>3,4</td><td>4～7</td></tr>
+		<tr><th>20</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1</td><td>1～4</td><td>3,4</td><td>3,4</td><td>4～7</td><td>2,3</td><td>3,4</td></tr>
+		<tr><th>21</th><td>1～3</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>3,4</td><td>3,4</td><td>3,4</td><td>4～7</td><td>4～7</td></tr>
+		<tr><th>22</th><td>1～3</td><td>1～3</td><td>1,2</td><td>1～3</td><td>1～3</td><td>4～7</td><td>4～7</td><td>3,4</td><td>3,4</td><td>3,4</td></tr>
+		<tr><th>23</th><td>1</td><td>1</td><td>1～3</td><td>1,2</td><td>1,2</td><td>3,4</td><td>2,3</td><td>4～7</td><td>3,4</td><td>3,4</td></tr>
+		<tr><th>24</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1～3</td><td>1,2</td><td>4～7</td><td>1,2</td><td>4～7</td><td>3,4</td><td>3,4</td></tr>
+		<tr><th>25</th><td>1,2</td><td>1～3</td><td>1～3</td><td>1</td><td>1,2</td><td>2,3</td><td>3,4</td><td>4～7</td><td>3,4</td><td>3,4</td></tr>
+		<tr><th>26</th><td>1～3</td><td>1,2</td><td>1～3</td><td>1,2</td><td>1～3</td><td>3,4</td><td>3,4</td><td>4～7</td><td>3,4</td><td>4～7</td></tr>
+		<tr><th>27</th><td>1</td><td>1～3</td><td>1～3</td><td>1,2</td><td>1,2</td><td>3,4</td><td>4～7</td><td>4～7</td><td>1,2</td><td>1</td></tr>
+		<tr><th>28</th><td>1,2</td><td>1～3</td><td>1,2</td><td>1,2</td><td>8</td><td>3,4</td><td>3,4</td><td>3,4</td><td>4～7</td><td>4～7</td></tr>
+		<tr><th>29</th><td>1～4</td><td>1～3</td><td>1,2</td><td>1～3</td><td>1～3</td><td>3,4</td><td>4～7</td><td>3,4</td><td>4～7</td><td>4～7</td></tr>
+		<tr><th>2A</th><td>1,2</td><td>1～3</td><td>1～3</td><td>1～3</td><td>1～3</td><td>3,4</td><td>3,4</td><td>4～7</td><td>4～7</td><td>8</td></tr>
+		<tr><th>2B</th><td>1</td><td>8</td><td>1～3</td><td>1,2</td><td>1～5</td><td>4～7</td><td>3,4</td><td>4～7</td><td>8</td><td>4～7</td></tr>
+		<tr><th>2C</th><td>1～3</td><td>1～3</td><td>1,2</td><td>1～3</td><td>8</td><td>3,4</td><td>3,4</td><td>4～7</td><td>4～7</td><td>3,4</td></tr>
+		<tr><th>2D</th><td>1～3</td><td>1,2</td><td>1～3</td><td>1,2</td><td>8</td><td>3,4</td><td>3,4</td><td>4～7</td><td>4～7</td><td>1</td></tr>
+		<tr><th>2E</th><td>1～3</td><td>1～3</td><td>1,2</td><td>1</td><td>1</td><td>4～7</td><td>4～7</td><td>4～7</td><td>1</td><td>4～7</td></tr>
+		<tr><th>2F</th><td>1～4</td><td>1～5</td><td>1</td><td>1～3</td><td>1,2</td><td>4～7</td><td>3,4</td><td>3,4</td><td>4～7</td><td>1</td></tr>
+		<tr><th>30</th><td>1～3</td><td>1～3</td><td>1,2</td><td>1,2</td><td>8</td><td>4～7</td><td>3,4</td><td>3,4</td><td>1</td><td>1</td></tr>
+		<tr><th>31</th><td>1,2</td><td>1,2</td><td>1～3</td><td>1,2</td><td>1</td><td>4～7</td><td>4～7</td><td>4～7</td><td>4～7</td><td>3,4</td></tr>
+		<tr><th>32</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>3,4</td><td>3,4</td><td>3,4</td><td>3,4</td><td>4～7</td></tr>
+		<tr><th>33</th><td>1～3</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1</td><td>3,4</td><td>4～7</td><td>4～7</td><td>1</td></tr>
+		<tr><th>34</th><td>1～3</td><td>1～3</td><td>1,2</td><td>1～3</td><td>1～4</td><td>3,4</td><td>3,4</td><td>3,4</td><td>1</td><td>4～7</td></tr>
+		<tr><th>35</th><td>1～3</td><td>1～3</td><td>1,2</td><td>1,2</td><td>1～3</td><td>3,4</td><td>4～7</td><td>3,4</td><td>4～7</td><td>4～7</td></tr>
+		<tr><th>36</th><td>1～3</td><td>1～3</td><td>1,2</td><td>1,2</td><td>1</td><td>4～7</td><td>1,2</td><td>3,4</td><td>4～7</td><td>1</td></tr>
+		<tr><th>37</th><td>1,2</td><td>1</td><td>1,2</td><td>1,2</td><td>1～3</td><td>3,4</td><td>1,2</td><td>3,4</td><td>3,4</td><td>1</td></tr>
+		<tr><th>38</th><td>1,2</td><td>1</td><td>1～3</td><td>1,2</td><td>1,2</td><td>3,4</td><td>1,2</td><td>4～7</td><td>3,4</td><td>1</td></tr>
+		<tr><th>39</th><td>1,2</td><td>1</td><td>1,2</td><td>1～4</td><td>1～3</td><td>3,4</td><td>3,4</td><td>3,4</td><td>8</td><td>4～7</td></tr>
+		<tr><th>3A</th><td>1,2</td><td>1～3</td><td>1,2</td><td>1,2</td><td>1,2</td><td>3,4</td><td>4～7</td><td>3,4</td><td>4～7</td><td>1,2</td></tr>
+		<tr><th>3B</th><td>1</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>3,4</td><td>1</td><td>3,4</td><td>3,4</td><td>4～7</td></tr>
+		<tr><th>3C</th><td>1～3</td><td>1,2</td><td>1,2</td><td>1～3</td><td>8</td><td>4～7</td><td>4～7</td><td>4～7</td><td>4～7</td><td>4～7</td></tr>
+		<tr><th>3D</th><td>1,2</td><td>1～3</td><td>1</td><td>1～3</td><td>1～3</td><td>3,4</td><td>3,4</td><td>3,4</td><td>4～7</td><td>4～7</td></tr>
+		<tr><th>3E</th><td>1,2</td><td>1～3</td><td>1,2</td><td>1,2</td><td>1～3</td><td>3,4</td><td>4～7</td><td>3,4</td><td>4～7</td><td>4～7</td></tr>
+		<tr><th>3F</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1</td><td>1</td><td>3,4</td><td>4～7</td><td>3,4</td><td>3,4</td><td>1</td></tr>
+		<tr><th>40</th><td>1,2</td><td>1,2</td><td>8</td><td>1,2</td><td>1～3</td><td>3,4</td><td>3,4</td><td>1</td><td>8</td><td>3,4</td></tr>
+		<tr><th>41</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1</td><td>1,2</td><td>4～7</td><td>3,4</td><td>3,4</td><td>3,4</td><td>3,4</td></tr>
+		<tr><th>42</th><td>1</td><td>1～3</td><td>1～3</td><td>1,2</td><td>8</td><td>1,2</td><td>3,4</td><td>4～7</td><td>3,4</td><td>4～7</td></tr>
+		<tr><th>43</th><td>1</td><td>1,2</td><td>1</td><td>1～3</td><td>8</td><td>1,2</td><td>3,4</td><td>1</td><td>4～7</td><td>1</td></tr>
+		<tr><th>44</th><td>1</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1</td><td>1,2</td><td>3,4</td><td>2,3</td><td>3,4</td><td>2,3</td></tr>
+		<tr><th>45</th><td>1～3</td><td>1,2</td><td>1～3</td><td>1,2</td><td>1～3</td><td>3,4</td><td>4～7</td><td>3,4</td><td>3,4</td><td>3,4</td></tr>
+		<tr><th>46</th><td>1～3</td><td>1～3</td><td>1,2</td><td>1,2</td><td>1</td><td>2,3</td><td>4～7</td><td>4～7</td><td>4～7</td><td>1,2</td></tr>
+		<tr><th>47</th><td>1</td><td>1,2</td><td>1,2</td><td>1～3</td><td>1,2</td><td>3,4</td><td>3,4</td><td>4～7</td><td>3,4</td><td>3,4</td></tr>
+		<tr><th>48</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1～3</td><td>1,2</td><td>3,4</td><td>3,4</td><td>3,4</td><td>4～7</td><td>3,4</td></tr>
+		<tr><th>49</th><td>1,2</td><td>1～3</td><td>1～3</td><td>1～3</td><td>1</td><td>3,4</td><td>4～7</td><td>3,4</td><td>4～7</td><td>3,4</td></tr>
+		<tr><th>4A</th><td>1～3</td><td>8</td><td>1～3</td><td>1,2</td><td>1,2</td><td>3,4</td><td>4～7</td><td>3,4</td><td>3,4</td><td>3,4</td></tr>
+		<tr><th>4B</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>8</td><td>2,3</td><td>3,4</td><td>4～7</td><td>3,4</td><td>3,4</td></tr>
+		<tr><th>4C</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>3,4</td><td>3,4</td><td>4～7</td><td>3,4</td><td>3,4</td></tr>
+		<tr><th>4D</th><td>1,2</td><td>1</td><td>1,2</td><td>1</td><td>1,2</td><td>1</td><td>3,4</td><td>3,4</td><td>1</td><td>1</td></tr>
+		<tr><th>4E</th><td>1</td><td>8</td><td>1～3</td><td>1,2</td><td>1,2</td><td>4～7</td><td>3,4</td><td>3,4</td><td>3,4</td><td>3,4</td></tr>
+		<tr><th>4F</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1</td><td>1～3</td><td>2</td><td>3,4</td><td>4～7</td><td>2,3</td><td>3,4</td></tr>
+		<tr><th>50</th><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1～3</td><td>4～7</td><td>3,4</td><td>3,4</td><td>2,3</td><td>1,2</td></tr>
+		<tr><th>51</th><td>1～3</td><td>1,2</td><td>1,2</td><td>1,2</td><td>1,2</td><td>4～7</td><td>3,4</td><td>4～7</td><td>3,4</td><td>3,4</td></tr>
+		<tr><th>52</th><td>1～3</td><td>1</td><td>8</td><td>1</td><td>1～3</td><td>3,4</td><td>1</td><td>1</td><td>2,3</td><td>3,4</td></tr>
+		<tr><th>53</th><td>1,2</td><td>1～3</td><td>1</td><td>1,2</td><td>1～3</td><td>3,4</td><td>4～7</td><td>2,3</td><td>3,4</td><td>4～7</td></tr>
+		<tr><th>54</th><td>1</td><td>8</td><td>1</td><td>1～3</td><td>1,2</td><td>1</td><td>2,3</td><td>4～7</td><td>3,4</td><td>3,4</td></tr>
+	</tbody>
+</table>
+</section> <!-- dq5.data.encounter -->
+

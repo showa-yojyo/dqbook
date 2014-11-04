@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.character"><?dbhtml filename="dq3_character.html" ?>
+<title>性格解析</title>
+<indexterm><primary>性格</primary><secondary>DQ3</secondary></indexterm>
+<para>
+性格構造体 <varname>$C424BC</varname> のメンバー解析を行う。
+性格に関係しそうなデータと言われて、名前文字列 ID とレベルアップ時のパラメータ上昇に関係する値、
+あとは性別データくらいしか思い浮かばないかもしれないが、
+ドラクエらしい風変わりなパラメータも、しっかりとこの構造体が定義している。
+</para>
+
+<section id="dq3.character.hack">
+<title>解析</title>
+<para>
+性格構造体の存在に気付くのは、次の 4 通りが考えられるので、
+ロムイメージ解析の比較的早い段階で、データ定義位置を特定できるだろう。
+</para>
+<itemizedlist>
+<listitem><simpara>ダーマでの転職処理の解析</simpara></listitem>
+<listitem><simpara>ルイーダの酒場の処理の解析</simpara></listitem>
+<listitem><simpara>レベルアップ処理の解析</simpara></listitem>
+<listitem><simpara>すごろくで性格が変わるイベントの解析</simpara></listitem>
+</itemizedlist>
+
+<para>
+次に、構造体のメモリレイアウトを調べる。
+すなわち、各メンバーをビットフィールドとして見るときの長さ、
+それらがどのように構造体内部で配置されているかを解析していく。
+それには、構造体内部データをプログラムがどのように取得しているかをすべて見ればよい。
+<varname>$C426F0</varname> が各性格構造体データの格納アドレス値の配列となっていることもすぐに気付くので、
+性格構造体データの各メンバー取得の方法として、
+構造体データの値を取得する汎用サブルーチンを利用していることがわかる。
+以下に、プログラムが「性格 ID を与えて、それが性別制限がある場合にその性別を取得する」という処理を引用する。
+このようなパターンを、力任せにロムイメージから検索しつくせばよい。
+</para>
+
+<programlisting>
+C4/6C15:    DA          PHX
+C4/6C16:    AA          TAX
+C4/6C17:    227205C9    JSR $C90572    <co id="dq3.character.co.1" />
+C4/6C1B:    01
+C4/6C1C:    0C00        <co id="dq3.character.co.2" />
+C4/6C1E:    F026C4      <co id="dq3.character.co.3" />
+C4/6C21:    0700        <co id="dq3.character.co.4" />
+C4/6C23:    030000      <co id="dq3.character.co.5" />
+C4/6C26:    FA          PLX
+C4/6C27:    6B          RTL
+</programlisting>
+<calloutlist>
+<callout arearefs="dq3.character.co.1">
+<para>
+ドラクエ 3 の全プログラムコード内において、
+サブルーチン <varname>$C90572</varname> の呼び出し行の直後には、
+必ず <literal>11</literal> バイトの「実引数」が静的に与えられている。
+この値を見ることで、ROM 内に静的に存在する構造体データ配列の定義が解析できる。
+配列のインデックスを <varname>X</varname> レジスタで与える。
+これは取りも直さず性格 ID そのものだ。
+</para>
+</callout>
+<callout arearefs="dq3.character.co.2">
+<para>
+この行の <literal>2</literal> バイトで示される数は、
+性格構造体データ一個当たりのバイトサイズを示している。
+<literal>#$00C0</literal> すなわち <literal>12</literal> バイトだ。
+</para>
+</callout>
+<callout arearefs="dq3.character.co.3">
+<para>
+この行の <literal>3</literal> バイトで示される数は、
+構造体配列の存在するアドレスを示している。
+この場合「性格構造体データ配列は ROM 内のアドレス <varname>$C426F0</varname> に置かれている」
+と解釈できる。
+</para>
+</callout>
+<callout arearefs="dq3.character.co.4">
+<para>
+この行の <literal>2</literal> バイトで示される数は、
+一つの構造体データ内のどの位置のバイト列にアクセスするのかを意味する。
+構造体データの先頭アドレスからのバイト単位でのオフセット量で指示している。
+この場合は <literal>7</literal> バイト目を要求している。
+</para>
+</callout>
+<callout arearefs="dq3.character.co.5">
+<para>
+データをバイト単位でなく、より細かい粒度で欲しい場合にビットマスクを指示する。
+この場合、上記のバイト列が表現する数値に <literal>#$000003</literal> で AND マスクをかけ、
+下位 <literal>2</literal> ビットを得ることになる。
+</para>
+</callout>
+</calloutlist>
+
+
+<section id="dq3.character.hack.C424BC">
+<title><varname>$C424BC</varname> 性格構造体</title>
+<para>
+アドレス <varname>$C424BC</varname> からすべての性格構造体データが定義されている。
+ひとつの構造体データが占めるデータサイズは <literal>#$000C</literal> バイト であり、
+<literal>#$2F</literal> (<literal>47</literal>) 個配列されている。
+</para>
+<para>
+また、アドレス <varname>$C426F0</varname> からは、各データへの先頭アドレスを格納する配列となっている。
+ただし、<varname>$C426F0</varname> (<literal>1</literal>バイト) だけはデータバンク <literal>#$C2</literal> を意味する。
+</para>
+<para>
+性格構造体のメモリレイアウトは以下のようになっている。
+"..." となっている部分は、データフィールドがバイト境界をまたぐことを示す。
+</para>
+<table class="memorylayout">
+<caption>$C424BC 性格構造体</caption>
+<colgroup>
+<col span="1" width="12%"/>
+<col span="7" width="11%"/>
+</colgroup>
+<thead>
+<tr><th>Byte:Bit</th>
+<th>80</th>
+<th>40</th>
+<th>20</th>
+<th>10</th>
+<th>08</th>
+<th>04</th>
+<th>02</th>
+<th>01</th>
+</tr>
+</thead>
+<tbody>
+<tr><th>00</th>
+<td colspan="8" rowspan="2">文字列 ID</td>
+</tr>
+<tr><th>01</th>
+</tr>
+<tr><th>02</th>
+<td colspan="8">ちから上昇補正</td>
+</tr>
+<tr><th>03</th>
+<td colspan="8">すばやさ上昇補正</td>
+</tr>
+<tr><th>04</th>
+<td colspan="8">たいりょく上昇補正</td>
+</tr>
+<tr><th>05</th>
+<td colspan="8">かしこさ上昇補正</td>
+</tr>
+<tr><th>06</th>
+<td colspan="8">うんのよさ上昇補正</td>
+</tr>
+<tr><th>07</th>
+<td colspan="1">...</td>
+<td colspan="1">性格変化 女</td>
+<td colspan="1">性格変化 男</td>
+<td colspan="3">登録所台詞</td>
+<td colspan="2">性別</td>
+</tr>
+<tr><th>08</th>
+<td colspan="1">...</td>
+<td colspan="4">武闘家転職</td>
+<td colspan="3">戦士転職...</td>
+</tr>
+<tr><th>09</th>
+<td colspan="1">...</td>
+<td colspan="4">魔法使い転職</td>
+<td colspan="3">僧侶転職...</td>
+</tr>
+<tr><th>0A</th>
+<td colspan="1">...</td>
+<td colspan="4">商人転職</td>
+<td colspan="3">賢者転職...</td>
+</tr>
+<tr><th>0B</th>
+<td colspan="1">未使用</td>
+<td colspan="4">盗賊転職</td>
+<td colspan="3">遊び人転職...</td>
+</tr>
+</tbody>
+</table>
+<glosslist>
+<glossentry>
+<glossterm>文字列 ID</glossterm>
+<glossdef>
+<para>
+性格の名前を表す<link linkend="dq3.str">文字列 ID</link> である。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>ちから上昇補正</glossterm>
+<glossdef>
+<para>
+キャラクターのレベルアップ時に「ちから」を上昇させるときに参照するフィールドである。
+「ちから」に対する補正係数のような役割を果たす。
+レベルアップによる「ちから」の変更アルゴリズムは、
+おおまかに書けば以下のようになっている。
+当フィールドは以下の強調した箇所にのみ影響すると考えてよいが、
+このフィールドの値のみで補正されるわけではないため、
+厳密な解説を与えることが（記者の能力では）難しい。
+</para>
+<itemizedlist>
+<listitem><simpara>レベルに相応しい「ちから」の値を計算する。</simpara></listitem>
+<listitem>
+<para>
+相応しい値が現在の「ちから」の値に比べて、
+<itemizedlist>
+<listitem>
+<para>
+それ以上であれば：
+<emphasis>
+「ちから端数」の増分値と「ちから」の増分値を、職業・レベル・性格・（正規分布系）乱数により、それぞれ決定する。
+</emphasis>
+</para>
+</listitem>
+<listitem>
+<para>
+それ未満であれば：
+「ちから端数」増分値をレベルそのものとし、
+「ちから」増分値を <literal>0</literal> または <literal>1</literal> とする。
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+<listitem><simpara>「ちから端数」「ちから」をそれぞれ上で求めた値で加算</simpara></listitem>
+<listitem><simpara>この時点で「ちから」が相応しい値未満であれば：</simpara>
+<itemizedlist>
+<listitem><simpara>「ちから」= 相応しい値</simpara></listitem>
+<listitem><simpara>「ちから端数」= 0</simpara></listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+<para>
+ちなみに「ちから端数」というのは、「ちから」同様にキャラクター構造体 <varname>$7E3925</varname> のフィールドである。
+ナンバーズくじのキャリーオーバーのような役割を果たす。
+上記にあるように、レベルアップごとに増加していき、
+<literal>255</literal> を越えた時点で「ちから」本体がさらに <literal>1</literal> ポイント加算されるようなイメージでよい。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>すばやさ上昇補正</glossterm>
+<glossdef>
+<para>
+上述「ちから」のすばやさ版である。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>たいりょく上昇補正</glossterm>
+<glossdef>
+<para>
+上述「ちから」のたいりょく版である。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>かしこさ上昇補正</glossterm>
+<glossdef>
+<para>
+上述「ちから」のかしこさ版である。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>うんのよさ上昇補正</glossterm>
+<glossdef>
+<para>
+上述「ちから」のうんのよさ版である。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>性別</glossterm>
+<glossdef>
+<para>
+登録所で新規キャラクターを登録する際に、
+その初期性格を決定するために参照するフィールドである。
+<link linkend="dq3.entry.hack.C3E134">性格を決定</link>の項を参照。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>登録所台詞</glossterm>
+<glossdef>
+<para>
+ルイーダの酒場二階の登録所で新規キャラクターを登録する際に、
+登録屋が性格を評価する台詞 ID 配列 <varname>$C3E2EA</varname> のインデックスである。
+<link linkend="dq3.entry.hack.C3E2D0">登録屋が性格を告げるサブルーチン</link>の項を参照。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>性格変化 男</glossterm>
+<glossdef>
+<para>
+すごろくの「？」マスのランダムイベントのひとつである
+「はげしい炎は すべてを無に帰し～」において、
+性格変更処理サブルーチン <varname>$C56D90</varname> が参照するフィールドである。
+</para>
+<para>
+すごろくを攻略しているキャラクターの性別が男のとき、
+このフィールドが <literal>1</literal> である性格のどれかランダムに変えられる。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>性格変化 女</glossterm>
+<glossdef>
+<para>
+上述「性格変化 男フィールド」の女版である。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>戦士転職</glossterm>
+<glossdef>
+<para>
+ダーマの神殿でキャラクターが戦士に転職するときに、
+性格によっては神官の台詞が変わるときがある。
+このフィールドはそれを決める値である。
+詳しくは、<link linkend="dq3.classchange.hack.C3E5F8">性格によっては神官がコメントを出すサブルーチン</link>の項を参照。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>武闘家転職</glossterm>
+<glossdef>
+<para>
+上述した「戦士転職」フィールドの武闘家版である。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>僧侶転職</glossterm>
+<glossdef>
+<para>
+上述した「戦士転職」フィールドの僧侶版である。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>魔法使い転職</glossterm>
+<glossdef>
+<para>
+上述した「戦士転職」フィールドの魔法使い版である。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>賢者転職</glossterm>
+<glossdef>
+<para>
+上述した「戦士転職」フィールドの賢者版である。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>商人転職</glossterm>
+<glossdef>
+<para>
+上述した「戦士転職」フィールドの商人版である。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>遊び人転職</glossterm>
+<glossdef>
+<para>
+上述した「戦士転職」フィールドの遊び人版である。
+</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
+<glossterm>盗賊転職</glossterm>
+<glossdef>
+<para>
+上述した「戦士転職」フィールドの盗賊版である。
+</para>
+</glossdef>
+</glossentry>
+</glosslist>
+</section> <!-- dq3.character.hack.C424BC -->
+</section> <!-- dq3.character.hack -->
+
+<section id="dq3.character.data">
+<title>データ</title>
+<para>
+<xref linkend="appendix.b" />
+</para>
+</section> <!-- dq3.character.data -->
+
+</section> <!-- dq3.character -->
+

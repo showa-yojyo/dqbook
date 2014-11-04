@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq6.monster"><?dbhtml filename="dq6_monster.html" ?>
+<title>モンスター</title>
+<indexterm><primary>モンスター</primary><secondary>DQ6</secondary></indexterm>
+<para>
+	この文書では、<varname>$C20154</varname> に定義されているモンスター構造体の解析結果を説明する。
+	先人の手で「モンスター構造体データが <varname>$C20154</varname> に存在する」ことが判明している。
+	これを出発点に、可能な限り、構造体の仕組みを解明する。
+</para>
+<para>
+	以下のことは、解析前に既知だと仮定する。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			モンスター構造体データが <varname>$C20154</varname> に存在する
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			モンスターデータの個数は #$100 である
+		</para>
+	</listitem>
+</itemizedlist>
+
+<section id="dq6.monster.hack">
+<title>解析</title>
+<para>
+	モンスター構造体の各メンバー解析の方法は、
+	アイテムや戦闘行動のデータ構造体等のそれと同じ方法をとる。
+	これらの構造体は、密接に関連しているメンバーが存在するので、
+	実際には同時に解析することになった。
+</para>
+
+<section id="dq6.monster.hack.C22B54">
+<title><varname>$C22B54</varname> - モンスター構造体へのポインタ配列</title>
+<para>
+	<link linkend="dq6.item.hack.C41A3D">アイテム構造体へのポインタ配列</link>や、
+	<link linkend="dq6.act.hack.C8EE67">戦闘行動構造体へのポインタ配列</link>と同じ役割を果たす。
+	格納されているデータは、モンスター ID に対応するモンスターのデータが格納されているアドレスだ。
+	ただし、この値を <literal>#$C20154</literal> に加算したものが正確なアドレスだ。
+</para>
+<programlisting>
+C2/2B54:    0000 // 0000 [表示なし]
+C2/2B56:    2A00 // 0001 ぶちスライム
+C2/2B58:    5400 // 0002 ファーラット
+C2/2B5A:    7E00 // 0003 マンドラゴラ
+C2/2B5C:    A800 // 0004 おばけなめくじ
+C2/2B5E:    D200 // 0005 ねずこうもり
+C2/2B60:    FC00 // 0006 リップス
+C2/2B62:    2601 // 0007 オニオーン
+C2/2B64:    5001 // 0008 テンツク
+C2/2B66:    7A01 // 0009 きりかぶこぞう
+...
+</programlisting>
+</section> <!-- dq6.monster.hack.C22B54 -->
+
+<section id="dq6.monster.hack.C2F119">
+<title><code>JSL $C2F119</code> によるデータ取得</title>
+<para>
+	<varname>X</varname> をモンスター ID にセットした直後に呼び出し、
+	さらに構造体のアドレスを <varname>2</varname> バイトの「実引数」を指定してから、
+	そこに格納されている値をアキュームレータにロードするサブルーチンの呼び出しだ。
+</para>
+<para>
+	下の例は、アドレス <literal>#$C20178 + sizeof(モンスター構造体) * x</literal> から値を取得するものだ。
+	実装は、上式の乗算部分をあらかじめ配列しておいた
+	<link linkend="dq6.monster.hack.C22B54"><varname>$C22B54</varname> モンスターデータポインタ配列</link>
+	に格納されている値を利用している。
+</para>
+<programlisting>
+C2/EC22:    DA          PHX 
+C2/EC23:    AA          TAX 
+C2/EC24:    2219F1C2    JSR $C2F119         ■(RTL+2) a = モンスターID X の最大 HP
+            7801        // $C20178: HP
+C2/EC2A:    FA          PLX 
+C2/EC2B:    60          RTS
+</programlisting>
+</section> <!-- dq6.monster.hack.C2F119 -->
+
+<section id="dq6.monster.hack.C2F120">
+<title><code>JSL $C2F120</code> によるデータ取得</title>
+<para>
+	<link linkend="dq6.monster.hack.C2F119"><code>JSL $C2F119</code> によるデータ取得</link>の
+	<varname>Y</varname> バージョンだ。
+</para>
+</section> <!-- dq6.monster.hack.C2F120 -->
+
+<section id="dq6.monster.hack.C2F136">
+<title><code>JSL $C2F136</code> によるデータ取得</title>
+<para>
+	<varname>X</varname> をモンスター ID でセットした直後に呼び出し、
+	さらに構造体のアドレスを <literal>4</literal> バイトの「実引数」を指定してから、
+	そこに格納されている値をアキュームレータにロードするサブルーチンの呼び出しだ。
+	<literal>4</literal> バイトの内訳は、最初の <literal>2</literal> バイトが構造体内部のどこかを指すアドレスであり、
+	最後の <literal>2</literal> バイトがビットマスクだ。
+	マスク後、それを右シフトして数値化したものをアキュームレータにロードする。
+</para>
+<programlisting>
+C2/6FE1:    AA          TAX 
+C2/6FE2:    2236F1C2    JSR $C2F136         ■(RTL+4) a = モンスター ID X の「みかわし」
+            6501
+            1C00        // みかわし
+</programlisting>
+</section> <!-- dq6.monster.hack.C2F136 -->
+
+<section id="dq6.monster.hack.C2F13D">
+<title><code>JSL $C2F13D</code> によるデータ取得</title>
+<para>
+	<link linkend="dq6.monster.hack.C2F136"><code>JSL $C2F136</code> によるデータ取得</link>の
+	<varname>Y</varname> バージョンだ。
+</para>
+</section> <!-- dq6.monster.hack.C2F13D -->
+
+<section id="dq6.monster.hack.C2F153">
+<title><code>JSL $C2F153</code> によるデータ取得</title>
+<para>
+	<varname>X</varname> をモンスター ID でセットした直後に呼び出し、
+	さらに構造体のアドレスを <literal>4</literal> バイトの「実引数」を指定してから、
+	そこに格納されている値をアキュームレータにロードするサブルーチンの呼び出しだ。
+	<literal>4</literal> バイトの内訳は、最初の <literal>2</literal> バイトが構造体内部のどこかを指すアドレスであり、
+	最後の <literal>2</literal> バイトがビットマスクだ。
+	マスク後の値をアキュームレータにロードする。
+</para>
+<para>
+	このサブルーチンは、どこからも呼び出されている気配がない。
+</para>
+</section> <!-- dq6.monster.hack.C2F153 -->
+
+<section id="dq6.monster.hack.C2F15A">
+<title><code>JSL $C2F15A</code> によるデータ取得</title>
+<para>
+	<link linkend="dq6.monster.hack.C2F153"><code>JSL $C2F153</code> によるデータ取得</link>の
+	<varname>Y</varname> バージョンだ。
+</para>
+<para>
+	このサブルーチンは、どこからも呼び出されている気配がない。
+</para>
+</section> <!-- dq6.monster.hack.C2F15A -->
+
+<section id="dq6.monster.hack.C20154">
+<title><varname>$C20154</varname> - モンスター構造体</title>
+<para>
+	構造体一個あたりのデータ格納レイアウトを以下に示す。
+</para>
+<table class="memorylayout">
+	<caption>$C20154 モンスター構造体 メモリレイアウト</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th>
+			<td colspan="8">次のバイトの下位ビットへ続く</td>
+		</tr>
+		<tr><th>01</th>
+			<td colspan="4">不明 B <literal>[00]</literal></td>
+			<td colspan="2">耐性<literal>[00]</literal>:メラ</td>
+			<td colspan="1">不明 A <literal>[00]</literal></td>
+			<td colspan="1">戦闘行動<literal>[0]</literal></td>
+		</tr>
+		<tr><th>02</th>
+			<td colspan="8">次のバイトの下位ビットへ続く</td>
+		</tr>
+		<tr><th>03</th>
+			<td colspan="4">不明 B <literal>[01]</literal></td>
+			<td colspan="2">耐性<literal>[01]</literal>:ギラ</td>
+			<td colspan="1">不明 A <literal>[01]</literal></td>
+			<td colspan="1">戦闘行動<literal>[1]</literal></td>
+		</tr>
+		<tr><th>04</th>
+			<td colspan="8">次のバイトの下位ビットへ続く</td>
+		</tr>
+		<tr><th>05</th>
+			<td colspan="4">不明 B <literal>[02]</literal></td>
+			<td colspan="2">耐性<literal>[02]</literal>:イオ</td>
+			<td colspan="1">不明 A <literal>[02]</literal></td>
+			<td colspan="1">戦闘行動<literal>[2]</literal></td>
+		</tr>
+		<tr><th>06</th>
+			<td colspan="8">次のバイトの下位ビットへ続く</td>
+		</tr>
+		<tr><th>07</th>
+			<td colspan="4">不明 B <literal>[03]</literal></td>
+			<td colspan="2">耐性<literal>[03]</literal>:ヒャド</td>
+			<td colspan="1">不明 A <literal>[03]</literal></td>
+			<td colspan="1">戦闘行動<literal>[3]</literal></td>
+		</tr>
+		<tr><th>08</th>
+			<td colspan="8">次のバイトの下位ビットへ続く</td>
+		</tr>
+		<tr><th>09</th>
+			<td colspan="4">不明 B <literal>[04]</literal></td>
+			<td colspan="2">耐性<literal>[04]</literal>:バギ</td>
+			<td colspan="1">不明 A <literal>[04]</literal></td>
+			<td colspan="1">戦闘行動<literal>[4]</literal></td>
+		</tr>
+		<tr><th>0A</th>
+			<td colspan="8">次のバイトの下位ビットへ続く</td>
+		</tr>
+		<tr><th>0B</th>
+			<td colspan="4">不明 B <literal>[05]</literal></td>
+			<td colspan="2">耐性<literal>[05]</literal>:デイン</td>
+			<td colspan="1">不明 A <literal>[05]</literal></td>
+			<td colspan="1">戦闘行動<literal>[5]</literal></td>
+		</tr>
+		<tr><th>0C</th>
+			<td colspan="8">次のバイトの下位ビットへ続く</td>
+		</tr>
+		<tr><th>0D</th>
+			<td colspan="7">レベル</td>
+			<td colspan="1">すばやさ</td>
+		</tr>
+		<tr><th>0E</th>
+			<td colspan="8">次のバイトの下位ビットへ続く</td>
+		</tr>
+		<tr><th>0F</th>
+			<td colspan="3">行動タイプ</td>
+			<td colspan="3">アイテム確率</td>
+			<td colspan="2">攻撃力</td>
+		</tr>
+		<tr><th>10</th>
+			<td colspan="8">次のバイトの下位ビットへ続く</td>
+		</tr>
+		<tr><th>11</th>
+			<td colspan="3">仲間確率</td>
+			<td colspan="3">みかわし</td>
+			<td colspan="2">守備力</td>
+		</tr>
+		<tr><th>12</th>
+			<td colspan="4">次のバイトの下位ビットへ続く</td>
+			<td colspan="2">耐性<literal>[07]</literal>:ラリホー</td>
+			<td colspan="2">耐性<literal>[06]</literal>:マヌーサ</td>
+		</tr>
+		<tr><th>13</th>
+			<td colspan="8">ゴールド</td>
+		</tr>
+		<tr><th>14</th>
+			<td colspan="8">次のバイトの下位ビットへ続く</td>
+		</tr>
+		<tr><th>15</th>
+			<td colspan="1">メタル系</td>
+			<td colspan="2">耐性<literal>[0A]</literal>:マホトラ</td>
+			<td colspan="2">耐性<literal>[09]</literal>:ニフラム</td>
+			<td colspan="2">耐性<literal>[08]</literal>:ザキ</td>
+			<td colspan="1">不明 C <literal>[00]</literal></td>
+		</tr>
+		<tr><th>16</th>
+			<td colspan="8">次のバイトの下位ビットへ続く</td>
+		</tr>
+		<tr><th>17</th>
+			<td colspan="1">ドラゴン系</td>
+			<td colspan="2">耐性<literal>[0D]</literal>:ルカニ</td>
+			<td colspan="2">耐性<literal>[0C]</literal>:メダパニ</td>
+			<td colspan="2">耐性<literal>[0B]</literal>:マホトーン</td>
+			<td colspan="1">不明 C <literal>[01]</literal></td>
+		</tr>
+		<tr><th>18</th>
+			<td colspan="2">耐性<literal>[11]</literal>:踊りふうじ</td>
+			<td colspan="2">耐性<literal>[10]</literal>:やすみ</td>
+			<td colspan="2">耐性<literal>[0F]</literal>:毒</td>
+			<td colspan="2">耐性<literal>[0E]</literal></td>
+		</tr>
+		<tr><th>19</th>
+			<td colspan="2">耐性<literal>[15]</literal>:まひ</td>
+			<td colspan="2">耐性<literal>[14]</literal>:たたき</td>
+			<td colspan="2">耐性<literal>[13]</literal>:吹雪</td>
+			<td colspan="2">耐性<literal>[12]</literal>:炎</td>
+		</tr>
+		<tr><th>1A</th>
+			<td colspan="2">耐性<literal>[19]</literal></td>
+			<td colspan="2">耐性<literal>[18]</literal></td>
+			<td colspan="2">耐性<literal>[17]</literal></td>
+			<td colspan="2">耐性<literal>[16]</literal>:ぐんたい</td>
+		</tr>
+		<tr><th>1B</th>
+			<td colspan="2">耐性<literal>[1D]</literal></td>
+			<td colspan="2">耐性<literal>[1C]</literal></td>
+			<td colspan="2">耐性<literal>[1B]</literal></td>
+			<td colspan="2">耐性<literal>[1A]</literal></td>
+		</tr>
+		<tr><th>1C</th>
+			<td colspan="1">未使用</td>
+			<td colspan="1">スライム系</td>
+			<td colspan="1">そら系</td>
+			<td colspan="1">ゾンビ系</td>
+			<td colspan="2">初期確率</td>
+			<td colspan="2">耐性<literal>[1E]</literal></td>
+		</tr>
+		<tr><th>1D</th>
+			<td colspan="2">集中攻撃</td>
+			<td colspan="2">自動回復</td>
+			<td colspan="2">複数回</td>
+			<td colspan="2">不明 D</td>
+		</tr>
+		<tr><th>1E</th>
+			<td colspan="8">モンスターイメージ ID</td>
+		</tr>
+		<tr><th>1F</th>
+			<td colspan="8">MP</td>
+		</tr>
+		<tr><th>20</th>
+			<td colspan="8">アイテム ID</td>
+		</tr>
+		<tr><th>21</th>
+			<td colspan="8">次のバイトの下位ビットへ続く</td>
+		</tr>
+		<tr><th>22</th>
+			<td colspan="1">未使用</td>
+			<td colspan="4">不明 B <literal>[06]</literal></td>
+			<td colspan="1">初期状態</td>
+			<td colspan="2">パレット ID</td>
+		</tr>
+		<tr><th>23</th>
+			<td colspan="8">未使用</td>
+		</tr>
+		<tr><th>24</th>
+			<td rowspan="2" colspan="8">HP</td>
+		</tr>
+		<tr><th>25</th></tr>
+		<tr><th>26</th>
+			<td rowspan="2" colspan="8">経験値</td>
+		</tr>
+		<tr><th>27</th></tr>
+		<tr><th>28</th>
+			<td rowspan="2" colspan="8">モンスター名文字列 ID</td>
+		</tr>
+		<tr><th>29</th></tr>
+	</tbody>
+</table>
+<para>
+	不明 A, B, C, D のメンバーは、解読していないが、
+	それ以外のメンバーは解読に成功したので、それぞれに名前をつけておいた。
+	以下、その説明をする。
+</para>
+<glosslist>
+	<glossentry>
+		<glossterm>戦闘行動<literal>[00-05]</literal></glossterm>
+		<glossdef>
+			<para>
+				モンスターが戦闘中にとり得る<link linkend="dq6.act">戦闘行動 ID</link>
+				のリスト。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>耐性<literal>[00-1E]</literal></glossterm>
+		<glossdef>
+			<para>
+				モンスターの呪文耐性だ。
+				プログラム中では耐性 <literal>0E</literal>, <literal>17-1E</literal> は未参照のようだ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>すばやさ</glossterm>
+		<glossdef>
+			<para>
+				モンスターのすばやさだ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>レベル</glossterm>
+		<glossdef>
+			<para>
+				モンスターのレベルだ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>攻撃力</glossterm>
+		<glossdef>
+			<para>
+				戦闘におけるモンスターの攻撃力の初期値だ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>アイテム確率</glossterm>
+		<glossdef>
+			<para>
+				戦闘終了後にモンスターが宝箱を落とすことがある。
+				その確率を決定するために用いられる値を格納する配列のインデックスだ。
+				解説については Shingo Endo 氏解析資料 <xref linkend="dqref.url1"/> に詳しい。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>行動タイプ</glossterm>
+		<glossdef>
+			<para>
+				正直に言うと、ここは解読し切っていない。
+				しかし、モンスターの行動パターンを決めるメンバーだ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>守備力</glossterm>
+		<glossdef>
+			<para>
+				戦闘におけるモンスターの守備力の初期値だ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>みかわし</glossterm>
+		<glossdef>
+			<para>
+				モンスターがある種の攻撃
+				（戦闘行動の「かわす」フラグが <literal>1</literal> のものと考えられる）
+				をかわす確率を決める値を格納する配列のインデックス値（添え字）だ。
+				下のサブルーチン終了時点での <varname>carry</varname> が、「みかわし」するかどうかを決める。
+				これによると、みかわし値が <literal>4</literal> だと完璧に攻撃を避けられるように見える。
+				もっとも、メンバーのサイズは <literal>2</literal> ビットしかないので、あり得ない。
+			</para>
+<programlisting>
+.dataarea LDA $C27001,X - みかわし確率テーブル
+C2/7001:    00
+C2/7002:    03
+C2/7003:    0C
+C2/7004:    30
+C2/7005:    C0
+@end
+..routine みかわし確率計算
+C2/7006:    48          PHA 
+C2/7007:    A9BF00      LDA #$00BF
+C2/700A:    22280FC0    JSR $C00F28         ■乱数
+C2/700E:    C301        CMP $01,S
+C2/7010:    68          PLA 
+C2/7011:    60          RTS
+@end</programlisting>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>仲間確率</glossterm>
+		<glossdef>
+			<para>
+				戦闘終了後に、倒したモンスターが起き上がって仲間になりたそうにすることがある。
+				その確率を決定するために用いられる値を格納する配列のインデックスだ。
+				解説については Shingo Endo 氏解析資料 <xref linkend="dqref.url1"/> に詳しい。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>ゴールド</glossterm>
+		<glossdef>
+			<para>
+				戦闘終了後に、モンスターから得られるゴールドの金額だ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>メタル系</glossterm>
+		<glossdef>
+			<para>
+				このビットが <literal>1</literal> であるモンスターに対しては、基本ダメージ値が
+				<itemizedlist>
+					<listitem>
+						<para>
+							「メタルぎり」で <literal>1.5</literal> 倍になる。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							「せいすい」でゼロとなる。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>ドラゴン系</glossterm>
+		<glossdef>
+			<para>
+				このビットが <literal>1</literal> であるモンスターに対しては、基本ダメージ値が
+				<itemizedlist>
+					<listitem>
+						<para>
+							「ドラゴンぎり」で <literal>1.5</literal> 倍になる。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							「ドラゴンキラー」装備時の攻撃で <literal>1.5</literal> 倍になる。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>初期確率</glossterm>
+		<glossdef>
+			<para>
+				このビットが <literal>1</literal> であるモンスターには、
+				戦闘開始時にラリホーまたはマホカンタがあらかじめ効いていることがある。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>ゾンビ系</glossterm>
+		<glossdef>
+			<para>
+				このビットが <literal>1</literal> であるモンスターに対しては、基本ダメージ値が
+				<itemizedlist>
+					<listitem>
+						<para>
+							「ゾンビぎり」で <literal>1.5</literal> 倍になる。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							「ゾンビキラー」装備時の攻撃で <literal>1.5</literal> 倍になる。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							「グランドクロス」で <literal>333/256</literal> 倍になる。約 <literal>1.3</literal> 倍。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>そら系</glossterm>
+		<glossdef>
+			<para>
+				このビットが <literal>1</literal> であるモンスターに対しては、基本ダメージ値が
+				「とびひざげり」で <literal>1.5</literal> 倍になる。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>スライム系</glossterm>
+		<glossdef>
+			<para>
+				このビットが <literal>1</literal> であるモンスターはスライム系らしい。
+				「らしい」というのは、全モンスター構造体データをダンプして確認した結果、
+				このビットが立っているモンスターが、
+				「～スライム」
+				「スライム～」
+				「はぐれメタル」
+				「メタルキング」
+				「チャンプ」
+				であるので、そう判断したに過ぎないということだ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>複数回</glossterm>
+		<glossdef>
+			<para>
+				モンスターが <literal>1</literal> ターンに行動する回数が <literal>1</literal> でないとき、
+				この値が重要な意味を持つ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>自動回復</glossterm>
+		<glossdef>
+			<para>
+				ターン終了後、秘密裡に HP が回復するモンスターがいる。
+				それについては、回復度を表現する構造体配列のインデックスを示す。
+			</para>
+<programlisting>
+.routine a = HP の自動回復分 @$258B
+C2/C431:    08          PHP 
+省略
+C2/C43B:    AE8B25      LDX $258B           // 今はモンスター ID と思ってよい 
+C2/C43E:    22A7EFC2    JSR $C2EFA7         ■(RTL+4) $64 = a = $7E##[arg00-01],@x &amp; arg[02-03]
+            4F20
+            FF01
+C2/C446:    C90001      CMP #$0100
+C2/C449:    B00B        BCS $C456           if(a &lt; 0100h){
+C2/C44B:    AA          TAX 
+C2/C44C:    2236F1C2    JSR $C2F136             ■(RTL+4) a = $C2##arg[00-01],@x &amp; arg[02-03]
+            7101
+            3000        // 自動回復
+C2/C454:    8009        BRA $C45F           }
+省略
+C2/C45F:    0A          ASL A
+C2/C460:    AA          TAX                 x = a &lt;&lt;= 1;
+C2/C461:    BF7FC4C2    LDA $C2C47F,X
+C2/C465:    EB          XBA
+C2/C466:    29FF00      AND #$00FF          AH = 00h, AL = 下にある配列上位バイト;
+C2/C469:    22280FC0    JSR $C00F28         ■乱数系
+C2/C46D:    48          PHA 
+C2/C46E:    BF7FC4C2    LDA $C2C47F,X
+C2/C472:    29FF00      AND #$00FF
+C2/C475:    18          CLC 
+C2/C476:    6301        ADC $01,S
+C2/C478:    8301        STA $01,S           a = 乱数 + 下にある配列下位バイト;
+C2/C47A:    68          PLA                 // 戻り値
+省略
+C2/C47E:    6B          RTL
+@end
+.dataarea $C2C47F,X - 自動回復
+C2/C47F:   0000 //  0 + rnd(0..0)
+C2/C481:   1008 // 16 + rnd(0..8)
+C2/C483:   2C0C // 44 + rnd(0..12)
+C2/C485:   5A14 // 90 + rnd(0..20)
+@end</programlisting>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>集中攻撃</glossterm>
+		<glossdef>
+			<para>
+				このメンバーが <literal>0</literal> でないモンスターは、
+				誰を攻撃するのかを決めるための（特別な）サブルーチンを呼ぶことがある。
+				そのサブルーチンのアドレス配列のインデックス <literal>+ 1</literal> を持つ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>モンスターグラフィック ID</glossterm>
+		<glossdef>
+			<para>
+				詳細は調査していないが、画面に描画するグラフィックを決める値だ。
+				例えば、「バブルスライム」「はぐれメタル」におけるこのメンバーの値は同じだ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>MP</glossterm>
+		<glossdef>
+			<para>
+				モンスターの最大 MP だ。
+				ただし、<literal>255</literal> が格納されているものについては、
+				モンスターパラメータの初期化時に <literal>65535</literal> にセットする。
+				これはプログラムにより、MP が無制限であることを意味する。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>アイテム ID</glossterm>
+		<glossdef>
+			<para>
+				戦闘終了後に最後に倒したモンスターが宝箱を落とすことがある。
+				その<link linkend="dq6.item">アイテム ID</link>
+				だ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>初期状態</glossterm>
+		<glossdef>
+			<para>
+				初期確率ビットが <literal>1</literal> であるモンスターが、
+				戦闘開始直後にラリホーまたはマホカンタ状態であることがある。
+				そのどちらの状態なのかを示すビットだ。
+				<table class="lighttable">
+					<caption>初期状態</caption>
+					<tbody>
+						<tr><td><literal>0</literal></td><td>ラリホー</td></tr>
+						<tr><td><literal>1</literal></td><td>マホカンタ</td></tr>
+					</tbody>
+				</table>
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>HP</glossterm>
+		<glossdef>
+			<para>
+				モンスターの最大 HP だ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>経験値</glossterm>
+		<glossdef>
+			<para>
+				戦闘終了後に倒したモンスターから得られる経験値だ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>モンスター名文字列 ID</glossterm>
+		<glossdef>
+			<para>
+				ウィンドウに表示するモンスター名を表す<link linkend="dq6.str">文字列データの ID</link>
+				だ。
+			</para>
+		</glossdef>
+	</glossentry>
+</glosslist>
+</section> <!-- dq6.monster.hack.C20154 -->
+</section> <!-- dq6.monster.hack -->
+
+<section id="dq6.monster.todo">
+<title>TODO リスト</title>
+<itemizedlist>
+	<listitem>
+		<para>
+			不明メンバー A, B, C, D の解析
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			「すばやさ」
+			「レベル」
+			「行動タイプ」
+			「スライム系」
+			「複数回」
+			「集中攻撃」の完全な意味を知る
+		</para>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq6.monster.todo -->
+</section> <!-- dq6.monster -->

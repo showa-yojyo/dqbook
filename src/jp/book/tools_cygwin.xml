@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="tools.cygwin"><?dbhtml filename="tools_cygwin.html" ?>
+<title>Cygwin</title>
+<indexterm><primary>Cygwin</primary></indexterm>
+
+<figure>
+	<title>Cygwin Console Window</title>
+	<graphic width="472px" fileref="./image/tools.cygwin.png"/>
+</figure>
+
+<para>
+	Linux 環境でゲーム機エミュレータが可能な読者は、
+	この節を読むのを飛ばして結構だ（そんなに長いものでもないが）。
+</para>
+<para>
+	サイズの巨大な逆アセンブルしたテキストファイルをいくつも抱え込むと、
+	どうしても高度なテキスト処理能力が欲しくなる。
+	そして、それは愛用のテキストエディタが処理する以上の能力がなければ意味がない。
+	そこで、知名度も実績も十二分にあるテキスト処理用の GNU ツールを利用することを考えた。
+	Windows 環境で解析作業をするので、<ulink url="http://cygwin.com/">Cygwin</ulink> をインストールしておく。
+</para>
+<para>
+	各種ツールを利用するのは Cygwin コンソール上からだけとは限らない。
+	現代的な各種 IDE や高水準なテキストエディタが提供する「外部プログラム呼び出し」機能、
+	すなわち利用者がコマンドラインを指示し、
+	メニュー項目選択時もしくは即時にそれらを起動するという作りになっている。
+	そこから <command>awk</command>, <command>sed</command> のような軽いテキスト処理コマンドを呼び出してもよし、
+	逆アセンブリコード処理専用のシェルスクリプトを書いて、それを呼び出すもよし、だ。
+</para>
+<para>
+	高水準アプリがマクロ言語によるテキスト処理機能を提供する場合もある。
+	しかし、本書ではそういうものを利用するという考えはしない。
+</para>
+<para>
+	以降、本書で Cygwin コンソールを利用する状況を説明する場合、シェルは Bash とする。
+	プロンプト (PS1) は <prompt>$ </prompt> で表記する。
+</para>
+
+<section id="tools.cygwin.radix">
+<title>基数変換ツールとして利用</title>
+<indexterm><primary>printf</primary><secondary>Cygwin</secondary></indexterm>
+
+<para>
+	C/C++ の関数相当の機能を有する <command>printf</command> コマンドを利用することができる。
+	電卓でまかなえる陳腐な例だが、十進数を十六進数に変換するには以下のようにする。
+</para>
+
+<screen><prompt>$ </prompt><userinput>printf "%X\n" 1000000</userinput> <co id="tools.cygwin.radix.co.1"/>
+F4240 <co id="tools.cygwin.radix.co.2"/>
+</screen>
+<calloutlist>
+	<callout arearefs="tools.cygwin.radix.co.1">
+		<para>
+			<command>printf</command> に書式文字列と <literal>1000000</literal> を渡す。
+		</para>
+	</callout>
+	<callout arearefs="tools.cygwin.radix.co.2">
+		<para>
+			文字列 <literal>F4240</literal> が標準出力に表示される。
+			これが十進数 <literal>1000000</literal> の十六進数表現だ。
+		</para>
+	</callout>
+</calloutlist>
+</section> <!-- tools.cygwin.radix -->
+
+<section id="tools.cygwin.seq">
+<title>連番生成ツールとして利用</title>
+<indexterm><primary>seq</primary><secondary>Cygwin</secondary></indexterm>
+<para>
+	しばしば連番をテキストファイルにコメントしておきたい状況になる。
+	そういう場合にはエクセルを起動でも構わぬが、好みで <command>seq</command> を用いる。
+</para>
+<screen><prompt>$ </prompt><userinput>seq 4</userinput> <co id="tools.cygwin.seq.co.1"/>
+1
+2
+3
+4
+<prompt>$ </prompt><userinput>seq 10 3 20</userinput> <co id="tools.cygwin.seq.co.2"/>
+10
+13
+16
+19
+<prompt>$ </prompt><userinput>seq 0x3925 0x3C 0x3BFF | xargs printf "7E%04X\n"</userinput> <co id="tools.cygwin.seq.co.3"/>
+7E3925
+7E3961
+7E399D
+7E39D9
+&hellip; 省略
+7E3BF5
+</screen>
+<calloutlist>
+	<callout arearefs="tools.cygwin.seq.co.1">
+		<para>
+			<command>seq</command> に単一の整数 N を与えると、1 から N まで 1 ずつ増加する連番が得られる。
+		</para>
+	</callout>
+	<callout arearefs="tools.cygwin.seq.co.2">
+		<para>
+			<command>seq</command> に3 つパラメータを渡す場合、それぞれの意味は FIRST, INCREMENT, LAST として処理される。
+		</para>
+	</callout>
+	<callout arearefs="tools.cygwin.seq.co.3">
+		<para>
+			ドラクエ3 の通称 3925 構造体のアドレスを書きたくなって <command>seq</command> を利用したとする。
+			バンクは皆 $7E なので入力には含めず、出力書式に込めることにした。
+			勇者のアドレスが $7E3925 で、ルイーダの酒場にいる順番に <literal>+$3C</literal> ずつアドレスが増えていくので、
+			FIRST, INCREMENT パラメータは <literal>0x3925</literal>, <literal>0x3C</literal> を与えた。
+			LAST には最後の仲間のアドレスを指定するべきだが、それを計算するのが面倒なので、とりあえず値を指定しておく。
+		</para>
+		<para>
+			出力結果を十六進数で表示したいのだが、<command>seq</command> の書式指定オプションはそれをサポートしない。
+			よって、前項で説明した <command>printf</command> にパイプラインを作る。
+			仲間の人数がわかっていれば、<command>head</command> にさらなるパイプラインを作ってもよい。
+		</para>
+		<para>
+			<literal>7E3925, 7E3961, &hellip;</literal> と望みの結果が得られた。
+		</para>
+	</callout>
+</calloutlist>
+</section> <!-- tools.cygwin.seq -->
+
+<section id="tools.cygwin.od">
+<title>構造体データ配列をテキストダンプする</title>
+<indexterm><primary>od</primary><secondary>Cygwin</secondary></indexterm>
+
+<para>
+	ドラクエのスーファミ ROM イメージから、特定の構造体データ配列をすべてテキストダンプしたいことがある。
+	例えば、ドラクエ3 のモンスター構造体配列（<xref linkend="dq3.monster.hack.C20000"/>）を見たくなったとしよう。
+	まずは頭を使わずにコンソールから直接コマンドラインを入力してみよう。
+</para>
+<screen><prompt>$ </prompt><userinput>od --address-radix=x1 \ <co id="tools.cygwin.od.co.1"/>
+    --skip-bytes=$(( 0x20000 )) \ <co id="tools.cygwin.od.co.2"/>
+    --format=uC \ <co id="tools.cygwin.od.co.3"/>
+    --read-bytes=$(( 0x25 * 0xA0 )) \ <co id="tools.cygwin.od.co.4"/>
+    --output-duplicates \ <co id="tools.cygwin.od.co.5"/>
+    --width=$(( 0x25 )) \ <co id="tools.cygwin.od.co.6"/>
+    dq3.smc | sed -e '$d'</userinput> <co id="tools.cygwin.od.co.7"/>
+</screen>
+<calloutlist>
+	<callout arearefs="tools.cygwin.od.co.1">
+		<para>
+			<command>od</command> が出力するアドレスを十六進数で表示させるのオプション。
+		</para>
+	</callout>
+	<callout arearefs="tools.cygwin.od.co.2">
+		<para>
+			モンスター配列の先頭のアドレスを <option>--skip-bytes</option> オプションに渡す。
+		</para>
+	</callout>
+	<callout arearefs="tools.cygwin.od.co.3">
+		<para>
+			ダンプを 1 バイト単位で行い、符合なし整数として解釈させる。
+		</para>
+	</callout>
+	<callout arearefs="tools.cygwin.od.co.4">
+		<para>
+			読み込むことになる総バイト数。シェルに計算させた結果を渡す。
+			ここで <literal>0xA0</literal> はモンスター総数のつもりだ。
+		</para>
+	</callout>
+	<callout arearefs="tools.cygwin.od.co.5">
+		<para>
+			これを指定しないと、同じデータが連続して表れた場合に省略されてしまう。
+		</para>
+	</callout>
+	<callout arearefs="tools.cygwin.od.co.6">
+		<para>
+			モンスター構造体のサイズ。C/C++ で言うところの sizeof の値。
+		</para>
+	</callout>
+	<callout arearefs="tools.cygwin.od.co.7">
+		<para>
+			ロムイメージファイル名を渡してダンプする。
+			最後の <command>sed</command> は、出力の最後の行がゴミなので、それを消しているだけだ。
+		</para>
+	</callout>
+</calloutlist>
+<para>
+	構造体データ配列のダンプのたびに上記のような長いコマンドラインを入力するのは面倒なので、
+	通常はこれを不変部分と可変部分を分離してスクリプトにしておく。
+	具体的には、ロムイメージファイル、オフセット、sizeof 構造体、そして配列長が可変である。
+	これらはスクリプトの引数として指定できるようにしておけばよい。
+</para>
+<para>
+	<application>DisPel</application> の <option>-d</option> オプションによるダンプの方が指定は楽なのだが、
+	<command>od</command> の <option>--size</option> オプションに相当する値の上限がどうやら 255 らしいので、
+	キャラクターのレベルアップ構造体データ等の巨大なデータのダンプができない。
+</para>
+</section> <!-- tools.cygwin.od -->
+
+<!-- 
+<section id="tools.cygwin.addrconv">
+<title>スーファミ LoROM アドレス変換スクリプトを書く</title>
+
+<para>
+	ドラクエ5 のメモリマッピングは LoROM だ。HiROM とは違って、
+	ROM イメージファイルで見えたデータのアドレスと、
+	デバッガや逆アセンブリコードでのアドレスの対応が頭の中でパッと出てこないのが困る。
+	そこで対応早見表を作成しておき、解析作業時に常にそれを見えるようにしておくことになる。
+	以下に変換公式を記す。
+</para>
+<para>
+	TBW
+</para>
+</section>  tools.cygwin.addrconv -->
+
+<section id="tools.cygwin.wrapper">
+<title>DisPel のラッパースクリプトを書く</title>
+
+<para>
+	特定の ROM イメージに対して <application>DisPel</application> をコンソールから起動する作業を続けていると、
+	やがて位置オプションの指定が面倒なことに気付く。例えばドラクエ3 の場合は
+	<option>-h</option>, <option>-s</option> は必ず指定するし、
+	古いバージョンの <application>DisPel</application> を利用しているのならば、
+	ROM イメージは普通はヘッダを削っておくものだから <option>-n</option> も指定する。
+	指定するたびに違う値になるのは、逆アセンブル範囲を示す部分だけだ。
+	そこで、以下のようにスクリプトを書いておき、<command>dispel</command> を直接利用するのではなく、
+	これを利用することにすると多少は楽だ。
+</para>
+<programlisting>#!/bin/bash
+#
+# script: disdq3
+# example:
+#   disdq3 -b C2
+#   disdq3 -r C20000-C28000
+
+DISPEL=~/bin/dispel.exe
+ROM=~/data/dq3.smc
+
+# このスクリプトに渡されたすべてのコマンドライン引数を
+# DisPel にそのまま引き渡す
+#
+# DisPel のバージョンが v1 未満の場合は -n は不要となるので注意
+$DISPEL -n -h -s -p $* "$(cygpath -d $ROM)"
+</programlisting>
+</section> <!-- tools.cygwin.wrapper -->
+
+</section> <!-- tools.cygwin -->

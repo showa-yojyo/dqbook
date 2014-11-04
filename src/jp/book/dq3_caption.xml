@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.caption"><?dbhtml filename="dq3_caption.html" ?>
+<title>行動説明テキスト構造体</title>
+<indexterm><primary>行動</primary><secondary>説明テキスト</secondary></indexterm>
+<indexterm><primary>行動説明テキスト</primary><secondary>DQ3</secondary></indexterm>
+<para>
+	移動モードで「じゅもん」コマンドを選択し、
+	移動モードで利用可能な呪文を覚えているキャラクターにカーソルを合わせると、
+	そのキャラクターの習得している移動モードで利用可能な呪文リストウィンドウが表示される。
+	そして、それと同時にカーソルが示す呪文を唱えるために必要な <acronym>MP</acronym> と、
+	<emphasis>その呪文の効果を簡潔に説明するテキスト</emphasis>が小さなウィンドウに表示される。
+	あるいは、戦闘モードでも、または「じゅもん」ではなく「どうぐ」に対してでも、
+	それらを説明するテキストが同様にして表示される。
+	そのようなテキストを指示するデータ構造体を、
+	ここでは<emphasis>行動説明テキスト構造体</emphasis>と呼ぶことにする。
+</para>
+<para>
+	この構造体は行動構造体の導出属性であるゆえ、もはや重要な解析対象ではない。
+	従って、この節は非常に短くなる。
+</para>
+
+<section id="dq3.caption.hack">
+<title>解析</title>
+<para>
+	行動説明テキスト構造体は、行動構造体のフィールドを解析する時に発見したものであるため、
+	解析パターンに関する話は特にない。
+	ちなみに現時点では、本書で行動構造体解析について特に述べていない。
+	これについては先行する研究 <xref linkend="dqref.url3"/>
+	を当たるといい。
+</para>
+
+<section id="dq3.caption.hack.C2398E">
+<title><varname>$C2398E</varname> 行動説明テキスト構造体</title>
+<para>
+	アドレス <varname>$C2398E</varname> からすべての行動説明テキスト構造体データが定義されている。
+	ひとつの構造体データが占めるデータサイズは 6byte であり、
+	<literal>#$49</literal> (73) 個配列されている。
+</para>
+<para>
+	行動説明テキスト構造体のメモリレイアウトは以下のようになっている。
+</para>
+<table class="memorylayout">
+	<caption>$C2398E 行動説明テキスト構造体</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th>
+			<td colspan="8" rowspan="2">1 行目文字列 ID</td>
+		</tr>
+		<tr><th>01</th>
+		</tr>
+		<tr><th>02</th>
+			<td colspan="8" rowspan="2">2 行目文字列 ID</td>
+		</tr>
+		<tr><th>03</th>
+		</tr>
+		<tr><th>04</th>
+			<td colspan="8" rowspan="2">3 行目文字列 ID</td>
+		</tr>
+		<tr><th>05</th>
+		</tr>
+	</tbody>
+</table>
+
+<glosslist>
+	<glossentry>
+	<glossterm>N 行目文字列 ID</glossterm>
+	<glossdef>
+		<para>
+			説明ウィンドウの N 行目に表示する内容を表す<link linkend="dq3.str">文字列 ID</link> である。
+		</para>
+	</glossdef>
+	</glossentry>
+</glosslist>
+
+<para>
+	例を挙げると、行動「ルーラ」の説明テキスト構造体データは以下の表のようになっている。
+</para>
+<table class="lighttable">
+	<caption>ルーラ</caption>
+	<thead>
+		<tr><th>Address</th><th>文字列 ID</th><th>文字列</th></tr>
+	</thead>
+	<tbody>
+		<tr><td><varname>$C23AC0</varname></td><td><literal>#$0298</literal></td><td>いちどいった</td></tr>
+		<tr><td><varname>$C23AC2</varname></td><td><literal>#$0299</literal></td><td>まちや しろに</td></tr>
+		<tr><td><varname>$C23AC4</varname></td><td><literal>#$029A</literal></td><td>とんでゆく</td></tr>
+	</tbody>
+</table>
+
+</section> <!-- dq3.caption.hack.C2398E -->
+</section> <!-- dq3.caption.hack -->
+</section> <!-- dq3.caption -->

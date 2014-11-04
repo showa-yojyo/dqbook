@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.debug"><?dbhtml filename="dq3_debug.html" ?>
+<title>デバッグモード解析</title>
+<indexterm><primary>デバッグモード</primary><secondary>DQ3</secondary></indexterm>
+<para>
+	ドラクエ3 のデバッグモードについて解析する。
+	<!-- TODO: make reference -->
+	Shingo Endo 氏がドラクエ6 の解析文書で指摘している
+	「<varname>$C1FFFE</varname> の値によるプログラムの処理分岐」が、ドラクエ3 においても存在する。
+</para>
+
+<section id="dq3.debug.hack">
+<title>解析</title>
+<para>
+	最初に <varname>$C1FFFE</varname> の参照位置をすべて洗い出し、
+	周囲のコードを解析してデバッグモードにおける処理を特定していく。
+	必要ならば ROM イメージを改竄して、デバッグモード相当のプログラムを実行していくのが本章の狙いである。
+</para>
+
+<section id="dq3.debug.hack.C1FFFE">
+<title><varname>$C1FFFE</varname> 参照位置一覧</title>
+<para>
+	プログラムが <varname>$C1FFFE</varname> の値をみるときは、
+	<code>LDA $C1FFFE</code> の形で参照すると推測できる。
+	そこで、単純に ROM イメージを "<literal>AF FE FF C1</literal>" で検索してみると、
+	割と参照位置が多く存在することを知る。
+</para>
+<para>
+	以下に、
+	参照位置のアドレス、
+	ロードした <varname>$C1FFFE</varname> の値を扱う命令コード、
+	コードをおおまかに解読して推測した役割の表を示す。
+</para>
+<table class="lighttable">
+	<caption>$C1FFFE 参照位置一覧</caption>
+	<thead>
+		<tr><th>参照位置</th><th>命令</th><th>処理</th></tr>
+	</thead>
+	<tbody>
+		<tr><td><varname>$C02795</varname></td><td><code>BPL       </code></td><td>負の値がロードされると、サブルーチン呼び出し元に戻れない（<link linkend="dq3.debug.crack">改竄</link>の項を参照）</td></tr>
+		<tr><td><varname>$C02DB1</varname></td><td><code>BPL       </code></td><td><varname>$7E3500</varname> &amp; <literal>0004h</literal> ルーラ関係？</td></tr>
+		<tr><td><varname>$C1C9BD</varname></td><td><code>BPL       </code></td><td>負の値がロードされると、<link linkend="dq3.debug.hack.FFFF.sugoroku">すごろく「？」イベントの操作が可能になる</link></td></tr>
+		<tr><td><varname>$C315B0</varname></td><td><code>BPL       </code></td><td>負の値がロードされると、へんげのつえで何に化けるかの指定が有効になる</td></tr>
+		<tr><td><varname>$C31EA0</varname></td><td><code>AND #$8000</code></td><td>負の値がロードされると、「ＲＯＭバージョン」ミニウィンドウ表示が有効になる</td></tr>
+		<tr><td><varname>$C43C89</varname></td><td><code>CMP #$0001</code></td><td>1 がロードされると、キャラクターのレベルアップが 5 までに制限される</td></tr>
+		<tr><td><varname>$C46293</varname></td><td><code>CMP #$0001</code></td><td>1 がロードされると、ふくろの処理に関する何かが無効になる？</td></tr>
+		<tr><td><varname>$C463D4</varname></td><td><code>CMP #$0001</code></td><td>1 がロードされると、冒険の書を保存（消去も）できなくなる</td></tr>
+		<tr><td><varname>$C46536</varname></td><td><code>BPL       </code></td><td>負の値がロードされると、新しい「ぼうけんのしょ３」が<link linkend="dq3.debug.hack.FFFF.log3">風変わりな設定</link>になる</td></tr>
+		<tr><td><varname>$C56723</varname></td><td><code>BPL       </code></td><td>負の値がロードされると、<link linkend="dq3.debug.hack.FFFF.sugoroku">すごろくでサイコロの出目操作が有効になる</link></td></tr>
+		<tr><td><varname>$C6066C</varname></td><td><code>BPL       </code></td><td>負の値がロードされると、「このフロアにあるマップや歩行属性は○○ワード大き過ぎます」テスト有効</td></tr>
+		<tr><td><varname>$C650FC</varname></td><td><code>BPL       </code></td><td>要呼び出し調査</td></tr>
+		<tr><td><varname>$C65284</varname></td><td><code>BPL       </code></td><td>要呼び出し調査</td></tr>
+		<tr><td><varname>$C6FFF3</varname></td><td><code>CMP #$0000</code></td><td>負の値がロードされると、サブルーチン呼び出し元に戻れない（<link linkend="dq3.debug.crack">改竄</link>の項を参照）</td></tr>
+		<tr><td><varname>$C73C2E</varname></td><td><code>STA $C18B </code></td><td>1 がロードされると、まほうのたま使用時点で「すべてをつかさどる者」が出てきてゲームオーバー</td></tr>
+		<tr><td><varname>$C767E6</varname></td><td><code>BMI $67F8 </code></td><td rowspan="2">負の値がロードされると、L ボタンで<link linkend="dq3.debug.hack.FFFF.menu">デバッグメニューウィンドウを表示できる</link></td></tr>
+		<tr><td><varname>$C767EF</varname></td><td><code>BMI $67F8 </code></td></tr>
+		<tr><td><varname>$C76816</varname></td><td><code>BPL       </code></td><td>負の値がロードされると、R ボタンで座標ウィンドウを表示できる</td></tr>
+		<tr><td><varname>$C76862</varname></td><td><code>BPL       </code></td><td>負の値がロードされると、<link linkend="dq3.debug.hack.FFFF.sugoroku">すごろくでサイコロの出目を操作できる</link></td></tr>
+		<tr><td><varname>$C76E8A</varname></td><td><code>CMP #$FFFF</code></td><td rowspan="2"><literal>FFFFh</literal> と <literal>8000h</literal> との違いで、ある特定のフラグをリセットするかセットするかという処理になる</td></tr>
+		<tr><td><varname>$C76F27</varname></td><td><code>CMP #$8000</code></td></tr>
+	</tbody>
+</table>
+<para>
+	以下では、<varname>$C1FFFE</varname> に何か負の値が格納されている状態を<link linkend="dq3.debug.hack.FFFF">デバッグモード</link>、
+	<varname>$C1FFFE</varname> に <literal>0001h</literal> が格納されている状態を<link linkend="dq3.debug.hack.0001">ゲームショーモード</link>とそれぞれ呼ぶことにする。
+</para>
+</section>  <!-- dq3.debug.hack.C1FFFE -->
+
+<section id="dq3.debug.hack.FFFF">
+<title>デバッグモード</title>
+<para>
+	<varname>$C1FFFE</varname> を <literal>FFFFh</literal> 等の負の値で書き換えた場合、
+	先に述べたように、デバッグメニューの利用、すごろくの各種インチキ操作を含む、
+	プレイヤーにとってかなりの利益が得られる操作が可能となる。
+	以下の項では、解析で判明したそれらの利用方法を説明する。
+</para>
+
+<section id="dq3.debug.hack.FFFF.menu">
+<title>デバッグメニュー使用可能</title>
+<figure>
+	<title>デバッグメニュー</title>
+	<graphic width="240px" fileref="./image/dq3.debug.menu.png"/>
+</figure>
+<para>
+	移動モードにおいて、ウィンドウが一枚も出ていない状態でコントローラの L ボタンを押すと、
+	図のような<emphasis>デバッグメニューウィンドウ</emphasis>が画面上に出現する。
+	各メニューアイテムを簡単に説明する。
+</para>
+<glosslist>
+	<glossentry>
+	<glossterm>いんちきルーラ</glossterm>
+	<glossdef>
+		<figure><title>いんちきルーラ</title><graphic width="240px" fileref="./image/dq3.debug.fake.rura.png"/></figure>
+		<para>
+			まず、行き先リストウィンドウ (ID: <literal>0002h</literal>) をサブメニューとして表示する。
+			明らかに、通常のルーラよりも行き先候補が多い。
+			サブメニューウィンドウのいずれかの項目を選択すると、
+			そこを目的地とするルーラ処理を行う。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>いんちきリレミト</glossterm>
+	<glossdef>
+		<para>
+			だれの MP を消費することもなしにリレミト処理を行う。
+			パーティ内にリレミトを唱えられるキャラクターがいる必要はない。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>いんちきラナルータ</glossterm>
+	<glossdef>
+		<para>
+			上述「いんちきリレミト」のラナルータ版である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>おみせ</glossterm>
+	<glossdef>
+		<figure><title>おみせ</title><graphic width="240px" fileref="./image/dq3.debug.shop.png"/></figure>
+		<para>
+			図のようなサブメニューを表示する。
+			選択する項目により、店屋の共通処理が始まる。
+		</para>
+		<para>
+			「ぶきや」「ぼうぐや」「どうぐや」「よろずや」の処理については<link linkend="dq3.shop">店屋解析</link>を参照。
+			「しんぷ」「シスター」は<link linkend="dq3.church">教会解析</link>、
+			「やどや」は<link linkend="dq3.inn">宿屋解析</link>、
+			「ぎんこう」は<link linkend="dq3.bank">ゴールド銀行解析</link>、
+			「なかまとうろくじょ」は<link linkend="dq3.entry">仲間登録所解析</link>、
+			「ルイーダのさかば」は<link linkend="dq3.pub">ルイーダの酒場解析</link>、
+			「ダーマのしんでん」は<link linkend="dq3.classchange">転職解析</link>、
+			「なまえかえや」は<link linkend="dq3.rename">命名神解析</link>、
+			「かくとうじょう」は<link linkend="dq3.stadium">格闘場解析</link>、
+			「よそうや」は<link linkend="dq3.tipster">予想屋解析</link>、
+			「ふっかけみせや」は<link linkend="dq3.overcharge">ふっかけ店屋解析</link>、
+			「マッチメイク」は<link linkend="dq3.matchmake">格闘場マッチメイク解析</link>、
+			「メダルおじさん」は<link linkend="dq3.medal">メダルおじさん解析</link>、
+			「シスターセーブ」は<link linkend="dq3.sistersave">シスターセーブ解析</link>、
+			「おうさま」は<link linkend="dq3.king">王様解析</link>をそれぞれ参照。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>レベルアップ</glossterm>
+	<glossdef>
+		<figure><title>レベルアップ</title><graphic width="240px" fileref="./image/dq3.debug.level.png"/></figure>
+		<para>
+			この項目を選択すると、コマンドウィンドウで「つよさ」を選択したときと同じサブウィンドウ群が出る。
+			さらにこの状態でキャラクターを選択すると、「つよさ」ウィンドウが出る代わりに、
+			数値入力ウィンドウが出現する（上記画像）。
+			ここで 1 から 99 までの値を入力すると、選択したキャラクターのレベルがその値となる。
+			キャラクターのパラメータや、習得呪文もそれらしいものになる。
+			従ってレベルダウンも可能である。
+			0 の入力はキャンセル扱いになり、100 以上の値の入力は 99 が入力されたものとみなされる。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>てんしょく</glossterm>
+	<glossdef>
+		<para>
+			特に処理はない。
+			コードとしてはキャリーフラグをリセットするだけなので、処理は本当に何もない。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>せいかく</glossterm>
+	<glossdef>
+		<figure><title>せいかく</title><graphic width="240px" fileref="./image/dq3.debug.character.png"/></figure>
+		<para>
+			この項目を選択すると、コマンドウィンドウで「つよさ」を選択したときと同じサブウィンドウ群が出る。
+			さらにこの状態でキャラクターを選択すると、「つよさ」ウィンドウが出る代わりに、
+			<link linkend="dq3.character.data">性格リスト</link>ウィンドウ (ID: <literal>00A7h</literal>) が出現する（上記画像）。
+			どれか性格を選択すると、選択キャラクターの素の性格がそれに設定される。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>おかね</glossterm>
+	<glossdef>
+		<para>
+			金額入力ウィンドウが出現する。
+			ここで入力した値が、そのまま現在のパーティの所持金として設定される。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>フラグショップ</glossterm>
+	<glossdef>
+		<figure><title>フラグショップ</title><graphic width="240px" fileref="./image/dq3.debug.flag.png"/></figure>
+		<para>
+			図のようなサブメニューを表示する。
+			ここで項目を選択すると、その項目が示すゲーム状態になっていることが保証されるらしい。
+			また、項目によっては対話的にオプションを要求
+			（オープニングで王様に会った？等）
+			してくるものもある。
+		</para>
+		<para>
+			ゲーム中に利用するフラグ全般については、別の章で説明する。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ひとじょうたい</glossterm>
+	<glossdef>
+		<figure><title>ひとじょうたい</title><graphic width="240px" fileref="./image/dq3.debug.status.party.png"/></figure>
+		<para>
+			「だれを」ウィンドウが出現して、パーティ内キャラクターのだれか一人を選択することになる。
+			ここでキャラクターを選択すると、ステータスを「しに・まひ・どく」の中から設定することができる。
+			基本的に設定したくない状態だけがある。
+		</para>
+		<para>
+			「しに」を選択すると、キャラクターの HP がゼロにすることで死なせる。
+			「まひ」「どく」はキャラクター状態ビットを ON にする処理である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ゲームじょうたい</glossterm>
+	<glossdef>
+		<figure><title>ゲームじょうたい</title><graphic width="240px" fileref="./image/dq3.debug.status.game.png"/></figure>
+		<para>
+			現在いるフロアの情報を表示するウィンドウ (ID: <literal>007Dh</literal>) が出現する。
+			例えば「ルーラ」では｢できる」「できない」「あたまをぶつける」のどれかが表示される。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>どうぐふくろ</glossterm>
+	<glossdef>
+		<para>
+			アイテム ID が <literal>0000h</literal> から <literal>00E4h</literal> までの道具を一個ずつふくろに追加する。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>せんたくせんとう</glossterm>
+	<glossdef>
+		<figure><title>せんたくせんとう</title><graphic width="240px" fileref="./image/dq3.debug.enc.monster.png"/></figure>
+		<para>
+			<link linkend="dq3.monster">モンスター</link>せんたくウィンドウ (ID: <literal>00D1h</literal>) が出現する。
+			ここでモンスターを示す項目を選択すると、さらに数値入力ウィンドウが出現する。
+			数値を入力すると、再びモンスターせんたくウィンドウがアクティブになる。
+		</para>
+		<para>
+			モンスターと数値のペアを 4 回入力すると、さらに数値入力ウィンドウが出現する
+			（同じ場所に出てくるため、わかりにくい）。
+			ここで入力するのは、戦闘シーンの背景グラフィックの ID である。
+			ゼロを入力するとランダムに背景が決まり、
+			<literal>004Ah</literal> 以上の値を入力すると <literal>0049h</literal> を入力した扱いになる。
+		</para>
+		<para>
+			グラフィック ID を入力すると、戦闘モードに切り替わる。
+			登場するモンスターの群れは、先程指示したモンスターグループとなる。
+			各グループのモンスター頭数が、指定数値を考慮したものになっている。
+			画面背景も、指定のものになっている。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>タイルせんとう</glossterm>
+	<glossdef>
+		<figure><title>タイルせんとう</title><graphic width="240px" fileref="./image/dq3.debug.enc.tile.png"/></figure>
+		<para>
+			数値入力ウィンドウが出現する。
+			このウィンドウを出した場所によって、あらかじめゼロでない数値が表示されているかもしれない。
+			ここで <literal>0069h</literal> 未満の数値を入力すると、いきなり戦闘モードに切り替わり、
+			登場するモンスターの群れは、先程指定した数値をタイルエンカウント ID とするものに基づく。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>モンスターをみる</glossterm>
+	<glossdef>
+		<figure><title>モンスターをみる</title><graphic width="248px" fileref="./image/dq3.debug.monster.ani.png"/></figure>
+		<para>
+			画面が切り替わり、モンスターのグラフィックを見るモードになる。
+			モンスターを選択すると、アニメーション個数だけリストされたミニウィンドウが出現する。
+			ここで番号を選択すると、そのモンスターに対応するアニメーションが再現される。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ぜんかいふく</glossterm>
+	<glossdef>
+		<para>
+			パーティ全員の毒・マヒ状態を回復して、
+			HP と MP を完全に回復する。
+			死んでいるキャラクターにもこの回復を適用するが、
+			カンオケグラフィックの更新が次のキャラクター再描画の機会まで発生しない。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>プログラムスタート</glossterm>
+	<glossdef>
+		<para>
+			名前とは裏腹に、このデバッグメニューウィンドウを消去して、
+			再びデバッグメニューウィンドウを表示するという処理になっている。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>サウンド</glossterm>
+	<glossdef>
+		<para>
+			数値入力ウィンドウが出現する。
+			ここで入力した数値を ID とする BGM なり効果音なりが演奏される。
+			ゼロの入力は単に無視される。
+			入力値が <literal>017Fh</literal> 以上のときは、<literal>017Eh</literal> が入力されたとして扱われる。
+			演奏ストップ機能はないらしい。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ほこうせってい</glossterm>
+	<glossdef>
+		<figure><title>ほこうせってい</title><graphic width="240px" fileref="./image/dq3.debug.enable.cancel.png"/></figure>
+		<para>
+			図のようなメッセージが出現する。
+			「はい」と答えると、キャンセル歩行ができる (<varname>$7E3500</varname> |= <literal>0002h</literal>) ようになり、
+			「いいえ」はその逆 (<varname>$7E3500</varname> &amp;= ~<literal>0002h</literal>) となる。
+		</para>
+		<para>
+			キャンセル歩行が有効であるとは、SELECT ボタンを押しながら十字キーを押すことで、
+			壁や水場等の通過できない地形を通過することができる状態を指すようだ。
+			船で移動中の場合は、上陸しないでそのまま移動し続けることになる。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>エンカウントせってい</glossterm>
+	<glossdef>
+		<figure><title>エンカウントせってい</title><graphic width="240px" fileref="./image/dq3.debug.enable.enc.png"/></figure>
+		<para>
+			図のようなメッセージが出現する。
+			「いいえ」と答えると、フィールドやダンジョンを歩いていても敵が一切出現しなく (<varname>$7E3500</varname> &amp;= ~<literal>0001h</literal>) なる。
+			「はい」はその逆 (<varname>$7E3500</varname> |= <literal>0001h</literal>) である。
+			通常のゲームモードでは「はい」の状態である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>スタートフロアせってい</glossterm>
+	<glossdef>
+		<figure><title>スタートフロアせってい</title><graphic width="240px" fileref="./image/dq3.debug.enable.startfloor.png"/></figure>
+		<para>
+			図のようなメッセージが出現する。
+			「はい」と答えると、
+			冒険の書を選択してゲームを開始する時点でのフロアが、
+			テストフロア (ID: <literal>0001h</literal>) となるフラグ (<varname>$7E3500</varname> |= <literal>0004h</literal>) が立つ。
+			「いいえ」はその逆となる。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ざひょうウィンドウ</glossterm>
+	<glossdef>
+		<figure><title>ざひょうウィンドウ</title><graphic width="240px" fileref="./image/dq3.debug.coord.png"/></figure>
+		<figure><title>ざひょうウィンドウ</title><graphic width="240px" fileref="./image/dq3.debug.enable.coord.png"/></figure>
+		<para>
+			図のようなメッセージが出現する。
+			「はい」と答えると、移動モードにおいて R ボタンを押したときに、
+			画面右下に現在の座標を表示するウィンドウ (ID: 007C) が出現するようになる。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ひとひょうじ</glossterm>
+	<glossdef>
+		<figure><title>ひとひょうじ</title><graphic width="240px" fileref="./image/dq3.debug.enable.people.png"/></figure>
+		<para>
+			図のようなメッセージが出現する。
+			「いいえ」と答えると、パーティキャラクターを含む、人のグラフィックが描画されなくなる。
+			通常は「はい」の状態である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ＲＯＭバージョン</glossterm>
+	<glossdef>
+		<figure><title>ＲＯＭバージョン</title><graphic width="240px" fileref="./image/dq3.debug.romver.png"/></figure>
+		<para>
+			ＲＯＭバージョンの情報を示すウィンドウが画面右上に出現する。
+			デバッグモードでは、このデバッグメニューから表示しなくても、
+			冒険の書メニュー画面や、王様に冒険の書を記録させるときにもこの
+			ＲＯＭバージョンウィンドウが出現する。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>プレゼンよう</glossterm>
+	<glossdef>
+		<para>
+			画面がエンディングの終盤付近（スタッフロール終了後くらい）に切り替わる。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>へんげのつえ</glossterm>
+	<glossdef>
+		<para>
+			数値入力ウィンドウが出現する。
+			ここで 9 未満の数値を入力すると、
+			次に「へんげのつえ」を使ったときに化けるグラフィック (<varname>$7EC36B</varname>) がそれになる。
+			人オブジェクトのグラフィック ID ではなく、「へんげのつえ」処理規定の ID である。
+		</para>
+	</glossdef>
+	</glossentry>
+</glosslist>
+<para>
+	サブルーチン <varname>$C1CB19</varname> がデバッグメニューウィンドウの入力処理を行う。
+	デバッグメニューの項目名文字列 ID と、処理アドレスの対応テーブルが <varname>$C8D4B0</varname> に定義されている。
+</para>
+</section> <!-- dq3.debug.hack.FFFF.menu -->
+
+<section id="dq3.debug.hack.FFFF.sugoroku">
+<title>すごろくでインチキ</title>
+<figure>
+	<title>この後にサイコロを振ること</title>
+	<graphic width="240px" fileref="./image/dq3.debug.sugoroku.dice.png"/>
+</figure>
+<figure>
+	<title>サイコロ操作の画像と似てしまった</title>
+	<graphic width="240px" fileref="./image/dq3.debug.sugoroku.question.png"/>
+</figure>
+<para>
+	ウィンドウを出す前に L ボタンを押すと、図のように数値入力ウィンドウが出現する
+	（末尾のＧが実にデバッグモードらしい雰囲気をかもしている）。
+	ここに 1 以上 6 以下の値を入力すると、
+	<emphasis>次からサイコロを振ったときの目が入力値と同じになる</emphasis>。
+	ちなみに 0 とキャンセルボタン押しは、この数値入力ウィンドウのキャンセルとなる。
+	7 以上の値を入力すると 6 になる。
+</para>
+<para>
+	「？」マスに止まった直後、図のように数値入力ウィンドウが出現する。
+	ここに 32 以下の値を入力すると、
+	本来ランダムであるハズの「？」イベントが、
+	<emphasis>入力した値を ID とするイベントが発生する</emphasis>。
+	ID 値と発生するイベントの対応については、すごろく解析の章で説明する。
+</para>
+</section> <!-- dq3.debug.hack.FFFF.sugoroku -->
+
+<section id="dq3.debug.hack.FFFF.log3">
+<title>「ぼうけんのしょ３」新規作成で謎のパーティになる</title>
+<figure>
+	<title>謎のパーティ</title>
+	<graphic width="240px" fileref="./image/dq3.debug.motsuo.png"/>
+</figure>
+<para>
+	「ぼうけんのしょ３」を新規作成すると、最後のステレオ・モノラル選択直後、
+	<emphasis>性格診断から始まらず</emphasis>に、図のフロア（テスト）からゲームが始まる。
+	勇者の性格は「まけずぎらい」である。レベルはすでに 99 である。
+	そして、3 人の仲間「モツオ」「はげまる」「いんちき」とパーティを組んでいる状態である。
+	レベル 99 の戦士、魔法使い、遊び人である。呪文はすべて習得済みであり、
+	なぜか性格が空白になっていたりする。
+</para>
+</section> <!-- dq3.debug.hack.FFFF.log3 -->
+</section> <!-- dq3.debug.hack.FFFF -->
+
+<section id="dq3.debug.hack.0001">
+<title>ゲームショーモード</title>
+<figure>
+	<title>まほうのたま使用直後</title>
+	<graphic width="240px" fileref="./image/dq3.debug.bomb.png"/>
+</figure>
+<para>
+	おそらく <varname>$C1FFFE</varname> が <literal>0001h</literal> になっているビルドは、
+	ドラクエ 3 の発売以前にゲームショー等でプログラムを動作させるためのものだと思われる。
+	<!--
+	（1996 年秋に開催されたゲームショーでは、このモードはなかったと記憶しているので、
+	それ以前のゲームショーのバージョンで利用されていたと推測する）。
+	-->
+	試しに後述の<link linkend="dq3.debug.crack">改竄</link>を施した上で、
+	最初からゲームをプレイしていくと、すぐに以下のことに気付く。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>王様やシスターが冒険の書を記録しなくなる（彼らの台詞は通常通りにもかかわらず）</para>
+	</listitem>
+	<listitem>
+		<para>パーティのレベルが 5 を上限に、レベルアップしなくなる（経験値は普通に増えていくにもかかわらず）</para>
+	</listitem>
+	<listitem>
+		<para>
+			いざないの洞くつで「まほうのたま」を設置すると、
+			なぜか「すべてをつかさどる者」の台詞 (ID: 0FAC-0FB1) が出現して、ゲームが終了する
+			（画面暗転後、ENIX のロゴマーク表示）。
+			そして、冒険の書選択画面になる。
+		</para>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.debug.hack.0001 -->
+</section> <!-- dq3.debug.hack -->
+
+<section id="dq3.debug.crack">
+<title>改竄</title>
+<para>
+	改竄作業は <varname>$C1FFFE</varname> の 2byte 値書き換えを含む。
+	この値を少なくとも負の値 (e.g. <literal>FFFFh</literal>) にしないと、デバッグモードでのみ有効なコードを処理させることができなくなる。
+	しかし、この値を負の値にすることで特定のサブルーチンが無限ループに陥るようにプログラムされている。
+	よって、そのようなすべてのサブルーチンのコードをも改竄する必要がある。
+</para>
+<para>
+	まず、<varname>$C1FFFE</varname> に相当するメモリを負の値、例えば <literal>FFFFh</literal> に書き換える。
+	バイナリエディタを用いるのが単純でよいだろう。
+	ROM イメージファイルを編集モードで開き、
+	ファイルオフセット <literal>1FFFEh</literal> バイトにある 2 バイトを
+	<literal>FF FF</literal> と上書きするだけである。
+</para>
+<para>
+	次にプログラムコードの改竄を行う。
+	まずサブルーチン <varname>$C6FFEC</varname> に含まれる以下のコードの分岐命令を適当に変更する必要がある。
+	これもバイナリエディタで適当に編集するだけでよい。
+	記者の場合は、<varname>$C6FFFA</varname> にある <code>BEQ</code> 命令 (Opcode <code>F0</code>) を
+	<code>BRA</code> 命令 (Opcode <code>80</code>) に改竄して動作を確認した。
+</para>
+<programlisting>
+C6/FFEC:    C230        REP #$30
+C6/FFEE:    F47E7E      PEA $7E7E
+C6/FFF1:    AB          PLB 
+C6/FFF2:    AB          PLB 
+C6/FFF3:    AFFEFFC1    LDA $C1FFFE         // リリース版では常に 0
+C6/FFF7:    C90000      CMP #$0000
+C6/FFFA:    F003        BEQ $FFFF           if($C1FFFE != 0000h){
+                                                for(;;){
+C6/FFFC:    EA          NOP                         ;
+C6/FFFD:    80FD        BRA $FFFC               }
+                                            }
+C6/FFFF:    6B          RTL
+</programlisting>
+<para>
+	最後の改竄箇所は以下のサブルーチンのどこかの分岐命令である。
+	プログラム改造の定石に従い、<code>BPL</code> 命令を他の命令（例えば <code>BRA</code> 命令）に書き換えるのがよい。
+</para>
+<programlisting>
+// ここへは JMP で飛んでくる
+C0/2774:    C230        REP #$30
+C0/2776:    AFE07D7E    LDA $7E7DE0
+C0/277A:    1A          INC A
+C0/277B:    1A          INC A
+C0/277C:    8FE07D7E    STA $7E7DE0
+C0/2780:    C90800      CMP #$0008
+C0/2783:    90D8        BCC $275D
+C0/2785:    AFE47F7E    LDA $7E7FE4
+C0/2789:    F0C7        BEQ $2752
+C0/278B:    E220        SEP #$20
+C0/278D:    A901        LDA #$01
+C0/278F:    8FDE7F7E    STA $7E7FDE         $7E7FDE = 01h
+C0/2793:    C220        REP #$20
+                                            for(;;){
+C0/2795:    AFFEFFC1    LDA $C1FFFE             // リリース版では $C1FFFE == 0
+C0/2799:    1009        BPL $27A4               if($C1FFFE &lt; 0){
+C0/279B:    AFF87F7E    LDA $7E7FF8                 // デバッグ版のみここを通る
+C0/279F:    290010      AND #$1000
+C0/27A2:    D008        BNE $27AC                   if($7E7FF8 &amp; 1000h) break
+                                                }
+C0/27A4:    AFDE7F7E    LDA $7E7FDE
+C0/27A8:    F0A8        BEQ $2752               if($7E7FDE == 0) goto ...
+C0/27AA:    80E9        BRA $2795           }
+                                            for(;;){
+C0/27AC:    AFDE7F7E    LDA $7E7FDE
+C0/27B0:    F0E3        BEQ $2795               if($7E7FDE == 0) goto 最初のループ
+C0/27B2:    80F8        BRA $27AC           }
+</programlisting>
+<para>
+	もしお使いの環境の PAR コード改造機能が、
+	RAM に加えて ROM の任意のアドレスの値を書き換えることを許していれば、
+	ROM イメージのバイナリデータを書き換える代わりに、
+	以下のコードを必要に応じて入力するとよい。
+</para>
+<table class="lighttable">
+	<caption>デバッグモードのための PAR コード改造</caption>
+	<thead>
+		<tr><th>Address</th><th>Value</th></tr>
+	</thead>
+	<tbody>
+		<tr><td><varname>$C1FFFE</varname></td><td><literal>FFFF</literal> (2byte)</td></tr>
+		<tr><td><varname>$C6FFFA</varname></td><td><literal>80</literal> (1byte)</td></tr>
+		<tr><td><varname>$C02799</varname></td><td><literal>80</literal> (1byte)</td></tr>
+	</tbody>
+</table>
+</section> <!-- dq3.debug.crack -->
+</section> <!-- dq3.debug -->

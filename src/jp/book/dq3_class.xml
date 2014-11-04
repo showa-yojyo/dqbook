@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.class"><?dbhtml filename="dq3_class.html" ?>
+<title>職業構造体解析</title>
+<indexterm><primary>職業</primary><secondary>DQ3</secondary></indexterm>
+<indexterm><primary>レベル</primary><secondary>DQ3</secondary></indexterm>
+<indexterm><primary>キャラクター</primary><secondary>DQ3</secondary></indexterm>
+<para>
+	職業構造体（a.k.a. レベルアップ構造体）<varname>$C4179E</varname> のメンバー解析を行う。
+</para>
+
+<section id="dq3.class.hack">
+<title>解析</title>
+<para>
+	職業構造体は、言うまでもなくレベルアップ時の処理に密接な関係を持つ。
+</para>
+
+<section id="dq3.class.hack.C4179E">
+<title><varname>$C4179E</varname> 職業構造体</title>
+<para>
+	アドレス <varname>$C4179E</varname> からすべての職業構造体データが定義されている。
+	ひとつの構造体データが占めるデータサイズは <literal>#$0173</literal> byte と非常に巨大だ。
+	これが 9 個配列されている。
+	注意しなければならないのは、職業構造体にはいわゆるヌルデータの概念がないという事実だ。
+	ID がゼロの職業は、普通に有効なデータ（戦士のもの）である。
+</para>
+<para>
+	また、アドレス <varname>$C424A9</varname> からは、各データの先頭アドレスを格納する配列となっている。
+	ただし、<varname>$C424A9</varname> (1byte) だけはデータバンク <literal>#$C2</literal> を意味する。
+</para>
+<para>
+	職業構造体のメモリレイアウトは以下のようになっている。
+	巨大な構造体であるので、記述を一部簡略化してある。
+</para>
+
+<table class="memorylayout">
+	<caption>$C4179E 職業構造体</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th>
+			<td colspan="8" rowspan="2">文字列 ID</td>
+		</tr>
+		<tr><th>01</th>
+		</tr>
+		<tr><th>02</th>
+			<td colspan="8">グラフィック 男</td>
+		</tr>
+		<tr><th>03</th>
+			<td colspan="8">グラフィック 女</td>
+		</tr>
+		<tr><th>04</th>
+			<td colspan="8">グラフィック 水着</td>
+		</tr>
+		<tr><th>05</th>
+			<td colspan="8">未解析</td>
+		</tr>
+		<tr><th>06</th>
+			<td colspan="8">初期性格決定テーブルの ID [0]</td>
+		</tr>
+		<tr><th>07</th>
+			<td colspan="8">初期性格決定テーブルの ID [1]</td>
+		</tr>
+		<tr><th>08</th>
+			<td colspan="8">初期性格決定テーブルの ID [2]</td>
+		</tr>
+		<tr><th>09</th>
+			<td colspan="8">初期性格決定テーブルの ID [3]</td>
+		</tr>
+		<tr><th>0A</th>
+			<td colspan="8">初期性格決定テーブルの ID [4]</td>
+		</tr>
+		<tr><th>0B</th>
+			<td colspan="8" rowspan="3">習得呪文配列先頭アドレス</td>
+		</tr>
+		<tr><th>0C</th>
+		</tr>
+		<tr><th>0D</th>
+		</tr>
+		<tr><th>0E</th>
+			<td colspan="8">習得呪文配列サイズ</td>
+		</tr>
+		<tr><th>0F</th>
+			<td colspan="8" rowspan="3">レベル 2 経験値</td>
+		</tr>
+		<tr><th>10</th>
+		</tr>
+		<tr><th>11</th>
+		</tr>
+		<tr><th>12</th>
+			<td colspan="8" rowspan="3">レベル 3 経験値</td>
+		</tr>
+		<tr><th>13</th>
+		</tr>
+		<tr><th>14</th>
+		</tr>
+		<tr><th>...</th>
+			<td colspan="8">レベル N 経験値のフィールドが続く...</td>
+		</tr>
+		<tr><th>132</th>
+			<td colspan="8" rowspan="3">レベル 99 経験値</td>
+		</tr>
+		<tr><th>133</th>
+		</tr>
+		<tr><th>134</th>
+		</tr>
+		<tr><th>135</th>
+			<td colspan="8">男キャラ Lv 1 のちから</td>
+		</tr>
+		<tr><th>136</th>
+			<td colspan="8">女キャラ Lv 1 のちから</td>
+		</tr>
+		<tr><th>137</th>
+			<td colspan="8">ちから成長 レベル境界値[0]</td>
+		</tr>
+		<tr><th>138</th>
+			<td colspan="8">ちから成長幅 [0]</td>
+		</tr>
+		<tr><th>139</th>
+			<td colspan="8">ちから成長 レベル境界値[1]</td>
+		</tr>
+		<tr><th>13A</th>
+			<td colspan="8">ちから成長幅 [1]</td>
+		</tr>
+		<tr><th>13B</th>
+			<td colspan="8">ちから成長 レベル境界値[2]</td>
+		</tr>
+		<tr><th>13C</th>
+			<td colspan="8">ちから成長幅 [2]</td>
+		</tr>
+		<tr><th>13D</th>
+			<td colspan="8">ちから成長 レベル境界値[3]</td>
+		</tr>
+		<tr><th>13E</th>
+			<td colspan="8">ちから成長幅 [3]</td>
+		</tr>
+		<tr><th>13F</th>
+			<td colspan="8">ちから成長 レベル境界値[4]</td>
+		</tr>
+		<tr><th>140</th>
+			<td colspan="8">ちから成長幅 [4]</td>
+		</tr>
+		<tr><th>141</th>
+			<td colspan="8">男キャラ Lv 1 のすばやさ</td>
+		</tr>
+		<tr><th>142</th>
+			<td colspan="8">女キャラ Lv 1 のすばやさ</td>
+		</tr>
+		<tr><th>143</th>
+			<td colspan="8">すばやさ成長 レベル境界値[0]</td>
+		</tr>
+		<tr><th>144</th>
+			<td colspan="8">すばやさ成長幅 [0]</td>
+		</tr>
+		<tr><th>145</th>
+			<td colspan="8">すばやさ成長 レベル境界値[1]</td>
+		</tr>
+		<tr><th>146</th>
+			<td colspan="8">すばやさ成長幅 [1]</td>
+		</tr>
+		<tr><th>147</th>
+			<td colspan="8">すばやさ成長 レベル境界値[2]</td>
+		</tr>
+		<tr><th>148</th>
+			<td colspan="8">すばやさ成長幅 [2]</td>
+		</tr>
+		<tr><th>149</th>
+			<td colspan="8">すばやさ成長 レベル境界値[3]</td>
+		</tr>
+		<tr><th>14A</th>
+			<td colspan="8">すばやさ成長幅 [3]</td>
+		</tr>
+		<tr><th>14B</th>
+			<td colspan="8">すばやさ成長 レベル境界値[4]</td>
+		</tr>
+		<tr><th>14C</th>
+			<td colspan="8">すばやさ成長幅 [4]</td>
+		</tr>
+		<tr><th>14D</th>
+			<td colspan="8">男キャラ Lv 1 のたいりょく</td>
+		</tr>
+		<tr><th>14E</th>
+			<td colspan="8">女キャラ Lv 1 のたいりょく</td>
+		</tr>
+		<tr><th>14F</th>
+			<td colspan="8">たいりょく成長 レベル境界値[0]</td>
+		</tr>
+		<tr><th>150</th>
+			<td colspan="8">たいりょく成長幅 [0]</td>
+		</tr>
+		<tr><th>151</th>
+			<td colspan="8">たいりょく成長 レベル境界値[1]</td>
+		</tr>
+		<tr><th>152</th>
+			<td colspan="8">たいりょく成長幅 [1]</td>
+		</tr>
+		<tr><th>153</th>
+			<td colspan="8">たいりょく成長 レベル境界値[2]</td>
+		</tr>
+		<tr><th>154</th>
+			<td colspan="8">たいりょく成長幅 [2]</td>
+		</tr>
+		<tr><th>155</th>
+			<td colspan="8">たいりょく成長 レベル境界値[3]</td>
+		</tr>
+		<tr><th>156</th>
+			<td colspan="8">たいりょく成長幅 [3]</td>
+		</tr>
+		<tr><th>157</th>
+			<td colspan="8">たいりょく成長 レベル境界値[4]</td>
+		</tr>
+		<tr><th>158</th>
+			<td colspan="8">たいりょく成長幅 [4]</td>
+		</tr>
+		<tr><th>159</th>
+			<td colspan="8">たいりょく成長 レベル境界値[5]</td>
+		</tr>
+		<tr><th>15A</th>
+			<td colspan="8">たいりょく成長幅 [5]</td>
+		</tr>
+		<tr><th>15B</th>
+			<td colspan="8">男キャラ Lv 1 のかしこさ</td>
+		</tr>
+		<tr><th>15C</th>
+			<td colspan="8">女キャラ Lv 1 のかしこさ</td>
+		</tr>
+		<tr><th>15D</th>
+			<td colspan="8">かしこさ成長 レベル境界値[0]</td>
+		</tr>
+		<tr><th>15E</th>
+			<td colspan="8">かしこさ成長幅 [0]</td>
+		</tr>
+		<tr><th>15F</th>
+			<td colspan="8">かしこさ成長 レベル境界値[1]</td>
+		</tr>
+		<tr><th>160</th>
+			<td colspan="8">かしこさ成長幅 [1]</td>
+		</tr>
+		<tr><th>161</th>
+			<td colspan="8">かしこさ成長 レベル境界値[2]</td>
+		</tr>
+		<tr><th>162</th>
+			<td colspan="8">かしこさ成長幅 [2]</td>
+		</tr>
+		<tr><th>163</th>
+			<td colspan="8">かしこさ成長 レベル境界値[3]</td>
+		</tr>
+		<tr><th>164</th>
+			<td colspan="8">かしこさ成長幅 [3]</td>
+		</tr>
+		<tr><th>165</th>
+			<td colspan="8">かしこさ成長 レベル境界値[4]</td>
+		</tr>
+		<tr><th>166</th>
+			<td colspan="8">かしこさ成長幅 [4]</td>
+		</tr>
+		<tr><th>167</th>
+			<td colspan="8">男キャラ Lv 1 のうんのよさ</td>
+		</tr>
+		<tr><th>168</th>
+			<td colspan="8">女キャラ Lv 1 のうんのよさ</td>
+		</tr>
+		<tr><th>169</th>
+			<td colspan="8">うんのよさ成長 レベル境界値[0]</td>
+		</tr>
+		<tr><th>16A</th>
+			<td colspan="8">うんのよさ成長幅 [0]</td>
+		</tr>
+		<tr><th>16B</th>
+			<td colspan="8">うんのよさ成長 レベル境界値[1]</td>
+		</tr>
+		<tr><th>16C</th>
+			<td colspan="8">うんのよさ成長幅 [1]</td>
+		</tr>
+		<tr><th>16D</th>
+			<td colspan="8">うんのよさ成長 レベル境界値[2]</td>
+		</tr>
+		<tr><th>16E</th>
+			<td colspan="8">うんのよさ成長幅 [2]</td>
+		</tr>
+		<tr><th>16F</th>
+			<td colspan="8">うんのよさ成長 レベル境界値[3]</td>
+		</tr>
+		<tr><th>170</th>
+			<td colspan="8">うんのよさ成長幅 [3]</td>
+		</tr>
+		<tr><th>171</th>
+			<td colspan="8">うんのよさ成長 レベル境界値[4]</td>
+		</tr>
+		<tr><th>172</th>
+			<td colspan="8">うんのよさ成長幅 [4]</td>
+		</tr>
+	</tbody>
+</table>
+<variablelist>
+	<varlistentry>
+	<term>文字列 ID</term>
+	<listitem>
+		<para>
+			職業の名前を表す<link linkend="dq3.str">文字列 ID</link> である。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>グラフィック 男</term>
+	<listitem>
+		<para>
+			この職業の男キャラクターのキャラクターグラフィック構造体 (<varname>$C893D4</varname>) の ID である。
+		</para>
+		<para>
+			以下の同類フィールドの説明ではいちいち断らないが、
+			サブルーチン <varname>$C63084</varname> を解析すればわかるように、
+			この値はそのキャラクターが死んでいるとき、
+			ぬいぐるみ着用時、
+			レムオル系使用時や、
+			各種イベント時（例えばロマリア王様モード）等は使用されない。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>グラフィック 女</term>
+	<listitem>
+		<para>
+			上述「グラフィック 男」フィールドの女キャラクター版である。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>グラフィック 水着</term>
+	<listitem>
+		<para>
+			この職業の女キャラクターが、以下のどれかを装備している場合に表示されるキャラクターグラフィックの、
+			キャラクターグラフィック構造体 (<varname>$C893D4</varname>) の ID である。
+		</para>
+		<itemizedlist>
+			<listitem><simpara>あぶないみずぎ</simpara></listitem>
+			<listitem><simpara>しんぴのビキニ</simpara></listitem>
+			<listitem><simpara>まほうのビキニ</simpara></listitem>
+		</itemizedlist>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>未解析</term>
+	<listitem>
+		<para>
+			未解析。
+		</para>
+		<para>
+			各職業に対して、非ゼロの値が格納されていることから、
+			未使用ではない可能性が強い。
+			遺憾ながら、記者はこのフィールドを参照しているコードを発見することができなかった。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>初期性格決定テーブルの ID [0..4]</term>
+	<listitem>
+		<para>
+			この職業のキャラクターを仲間登録所で新規に作成する際に参照される。
+			<link linkend="dq3.entry.hack.C3DFF9">性格条件群の決定</link>の項以下を参照。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>習得呪文配列先頭アドレス</term>
+	<listitem>
+		<para>
+			この職業のキャラクターが、レベルアップ時に習得する可能性のあるレベルと、
+			習得呪文のペアを定義する配列のアドレスである。
+			厳密には、呪文 ID を直接保持するわけではなく、
+			<varname>$7E3925</varname> 構造体データの一部である「習得済み呪文フラグ」の位置を指示する配列 (<varname>$C456AC</varname>) のインデックスを保持する。
+		</para>
+		<para>
+			フラグと呪文の対応関係を解析するのであれば、
+			まずはサブルーチン <varname>$C458C8</varname> から始めて、
+			呼び出しの深いほうに解析していくとよい。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>習得呪文配列サイズ</term>
+	<listitem>
+		<para>
+			上述「習得呪文配列」のサイズである。
+			例えば賢者の習得呪文配列サイズは、魔法使いのそれと僧侶のそれの和に等しい。
+			しかし、三者の習得呪文配列はいずれも異なる。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>レベル N 経験値</term>
+	<listitem>
+		<para>
+			この職業のキャラクターが、レベル N であるための必要最低限の経験値である。
+			N は 2 から 99 までの値である。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>男キャラ Lv 1 のちから</term>
+	<listitem>
+		<para>
+			この職業の男キャラクターを仲間登録所で新規に作成する際、ちからパラメータの初期値となる。
+			つまり、タネを使ってそのキャラクターのパラメータを上げる前に、
+			ウィンドウで確認できる値の 16 倍の値である。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>女キャラ Lv 1 のちから</term>
+	<listitem>
+		<para>
+			上述「男キャラ Lv 1 のちから」フィールドの女版である。
+		</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>ちから成長 レベル境界値[0..4]</term>
+	<term>ちから成長幅 [0..4]</term>
+	<listitem>
+		<para>
+			レベルアップ時に再設定されるちからパラメータの値（の基準値）を計算するのに用いられるフィールドである。
+			例えば、この職業のキャラクターのレベルアップ直後のパラメータ基準値は、
+			キャラクターのレベルが「レベル境界値 [k] を越えていて、かつレベル境界値 [k + 1] 未満」と仮定の下で、
+			以下のように評価される。
+		</para>
+<programlisting>
+基準値 = (上述レベル 1 の値
+        + 成長幅[0]     * (レベル境界値[0]     - 2)
+       + 成長幅[1]     * (レベル境界値[1]     - レベル境界値[0])
+       + ...  
+       + 成長幅[k - 1] * (レベル境界値[k - 1] - レベル境界値[k - 2])
+       + 成長幅[k]     * (現在レベル           - レベル境界値[k]))
+       / 16
+</programlisting>
+	</listitem>
+	</varlistentry>
+
+	<varlistentry>
+	<term>男キャラ Lv 1 のすばやさ</term>
+	<listitem>
+		<para>上述「男キャラ Lv 1 のちから」フィールドのすばやさ版である。</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>女キャラ Lv 1 のすばやさ</term>
+	<listitem>
+		<para>上述「女キャラ Lv 1 のちから」フィールドのすばやさ版である。</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>すばやさ成長 レベル境界値[0..4]</term>
+	<term>すばやさ成長幅 [0..4]</term>
+	<listitem>
+		<para>上述「ちから成長 レベル境界値」「ちから成長幅」フィールドのすばやさ版である。</para>
+	</listitem>
+	</varlistentry>
+
+	<varlistentry>
+	<term>男キャラ Lv 1 のたいりょく</term>
+	<listitem>
+		<para>上述「男キャラ Lv 1 のちから」フィールドのたいりょく版である。</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>女キャラ Lv 1 のたいりょく</term>
+	<listitem>
+		<para>上述「女キャラ Lv 1 のちから」フィールドのたいりょく版である。</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>たいりょく成長 レベル境界値[0..5]</term>
+	<term>たいりょく成長幅 [0..5]</term>
+	<listitem>
+		<para>上述「ちから成長 レベル境界値」「ちから成長幅」フィールドのたいりょく版である。</para>
+	</listitem>
+	</varlistentry>
+
+	<varlistentry>
+	<term>男キャラ Lv 1 のかしこさ</term>
+	<listitem>
+		<para>上述「男キャラ Lv 1 のちから」フィールドのかしこさ版である。</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>女キャラ Lv 1 のかしこさ</term>
+	<listitem>
+		<para>上述「女キャラ Lv 1 のちから」フィールドのかしこさ版である。</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>かしこさ成長 レベル境界値[0..4]</term>
+	<term>かしこさ成長幅 [0..4]</term>
+	<listitem>
+		<para>上述「ちから成長 レベル境界値」「ちから成長幅」フィールドのかしこさ版である。</para>
+	</listitem>
+	</varlistentry>
+
+	<varlistentry>
+	<term>男キャラ Lv 1 のうんのよさ</term>
+	<listitem>
+		<para>上述「男キャラ Lv 1 のちから」フィールドのうんのよさ版である。</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>女キャラ Lv 1 のうんのよさ</term>
+	<listitem>
+		<para>上述「女キャラ Lv 1 のちから」フィールドのうんのよさ版である。</para>
+	</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term>うんのよさ成長 レベル境界値[0..4]</term>
+	<term>うんのよさ成長幅 [0..4]</term>
+	<listitem>
+		<para>上述「ちから成長 レベル境界値」「ちから成長幅」フィールドのうんのよさ版である。</para>
+	</listitem>
+	</varlistentry>
+</variablelist>
+
+</section> <!-- dq3.class.hack.C4179E -->
+</section> <!-- dq3.class.hack -->
+
+<section id="dq3.class.todo">
+<title>TODO リスト</title>
+<itemizedlist>
+	<listitem>
+		<para>
+			職業構造体 5byte 目にある 1byte 部分の参照位置特定
+		</para>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.class.todo -->
+
+</section> <!-- dq3.class -->

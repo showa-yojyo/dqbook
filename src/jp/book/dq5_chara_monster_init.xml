@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq5.data.chara.monster.init"><?dbhtml filename="dq5_chara_monster_init.html" ?>
+<title>仲間モンスターパラメータ初期値表</title>
+<indexterm><primary>キャラクター</primary><secondary>DQ5</secondary></indexterm>
+<para> 
+	ROM アドレス $23AED1 (イメージファイルオフセット $11AED1) に、
+	9 byte データの配列がある。サイズは 42 である。
+	このデータは、仲間モンスターのパラメータで、レベルの上昇によって
+	変化することのないタイプの値を格納しているアドレスである。
+	内容を見ると、初期値に関するものが多いので、ここでは
+	仲間モンスターパラメータ初期値構造体と呼ぶ。
+</para>
+<para> 
+	仲間モンスターパラメータ初期値構造体のメモリレイアウトは以下のとおり。
+</para>
+<table class="memorylayout">
+	<caption>仲間モンスターパラメータ初期値構造体</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th> 0</th><td colspan="8">レベル初期値</td></tr>
+		<tr><th> 1</th><td colspan="8">レベル上限値</td></tr>
+		<tr><th> 2</th><td colspan="8">ちから初期値</td></tr>
+		<tr><th> 3</th><td colspan="8">みのまもり初期値</td></tr>
+		<tr><th> 4</th><td colspan="8">かしこさ初期値</td></tr>
+		<tr><th> 5</th><td colspan="8">うんのよさ初期値</td></tr>
+		<tr><th> 6</th><td colspan="8">さいだい HP 初期値</td></tr>
+		<tr><th> 7</th><td colspan="8">さいだい MP 初期値</td></tr>
+		<tr><th> 8</th><td colspan="2">（不明）</td>
+			<td colspan="2">さいだい HP 初期値</td>
+			<td colspan="4">装備可能フラグ ID</td>
+		</tr>
+	</tbody>
+</table>
+<glosslist>
+	<glossentry>
+	<glossterm>レベル初期値</glossterm>
+	<glossdef>
+		<para>
+			仲間にした時点における、その仲間モンスターのレベルである。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>レベル上限値</glossterm>
+	<glossdef>
+		<para>
+			仲間モンスターを限界までレベルアップした時点における、
+			その仲間モンスターのレベルである。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>ちから初期値</glossterm>
+	<glossdef>
+		<para>
+			仲間にした時点における、その仲間モンスターのちからパラメータの値である。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>みのまもり初期値</glossterm>
+	<glossdef>
+		<para>
+			仲間にした時点における、
+			その仲間モンスターのみのまもりパラメータの値である。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>かしこさ初期値</glossterm>
+	<glossdef>
+		<para>
+			仲間にした時点における、
+			その仲間モンスターのかしこさパラメータの値である。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>うんのよさ初期値</glossterm>
+	<glossdef>
+		<para>
+			仲間にした時点における、
+			その仲間モンスターのうんのよさパラメータの値である。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>さいだい HP 初期値</glossterm>
+	<glossdef>
+		<para>
+			仲間にした時点における、
+			その仲間モンスターのさいだい HP パラメータの値である。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>さいだい MP 初期値</glossterm>
+	<glossdef>
+		<para>
+			仲間にした時点における、
+			その仲間モンスターのさいだい MP パラメータの値である。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>不明</glossterm>
+	<glossdef>
+		<para>
+			このビットは、現在解析中である。
+			2bit 長と断定したわけではないので、注意してもらいたい。
+		</para>
+	</glossdef>
+	</glossentry>
+	<glossentry>
+	<glossterm>装備可能フラグ ID</glossterm>
+	<glossdef>
+		<para>
+			アドレス $21A63E にあるモンスター装備マスク配列のインデックスである。
+		</para>
+	</glossdef>
+	</glossentry>
+</glosslist>
+<para>
+	仲間モンスターパラメータ初期値構造体データを以下に示す。
+</para>
+<table class="lighttable">
+	<caption>仲間モンスターパラメータ初期値</caption>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>モンスター</th>
+			<th>レベル初期値</th>
+			<th>レベル上限値</th>
+			<th>ちから</th>
+			<th>みのまもり</th>
+			<th>かしこさ</th>
+			<th>うんのよさ</th>
+			<th>さいだい HP</th>
+			<th>さいだい MP</th>
+			<th>不明</th>
+			<th>装備可能フラグID</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th><td>ベビーパンサー</td><td>1</td><td>20</td><td>24</td><td>9</td><td>7</td><td>9</td><td>39</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><th>01</th><td>キラーパンサー</td><td>15</td><td>99</td><td>67</td><td>52</td><td>21</td><td>45</td><td>115</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><th>02</th><td>スライム</td><td>1</td><td>99</td><td>8</td><td>5</td><td>1</td><td>3</td><td>8</td><td>0</td><td>0</td><td>1</td></tr>
+		<tr><th>03</th><td>ドラキー</td><td>1</td><td>99</td><td>11</td><td>9</td><td>15</td><td>10</td><td>10</td><td>0</td><td>1</td><td>2</td></tr>
+		<tr><th>04</th><td>まほうつかい</td><td>4</td><td>99</td><td>19</td><td>21</td><td>25</td><td>30</td><td>40</td><td>16</td><td>0</td><td>6</td></tr>
+		<tr><th>05</th><td>ホイミスライム</td><td>4</td><td>99</td><td>26</td><td>28</td><td>6</td><td>19</td><td>59</td><td>22</td><td>0</td><td>1</td></tr>
+		<tr><th>06</th><td>ダンズニードル</td><td>3</td><td>25</td><td>37</td><td>31</td><td>12</td><td>62</td><td>43</td><td>0</td><td>1</td><td>2</td></tr>
+		<tr><th>07</th><td>スライムナイト</td><td>1</td><td>99</td><td>44</td><td>45</td><td>20</td><td>25</td><td>40</td><td>6</td><td>0</td><td>5</td></tr>
+		<tr><th>08</th><td>ブラウニー</td><td>1</td><td>99</td><td>35</td><td>10</td><td>12</td><td>13</td><td>47</td><td>0</td><td>0</td><td>4</td></tr>
+		<tr><th>09</th><td>ばくだんベビー</td><td>1</td><td>15</td><td>49</td><td>46</td><td>10</td><td>33</td><td>42</td><td>0</td><td>1</td><td>2</td></tr>
+		<tr><th>0A</th><td>くさったしたい</td><td>5</td><td>30</td><td>58</td><td>8</td><td>10</td><td>0</td><td>90</td><td>0</td><td>1</td><td>9</td></tr>
+		<tr><th>0B</th><td>イエティ</td><td>1</td><td>40</td><td>56</td><td>46</td><td>8</td><td>25</td><td>48</td><td>0</td><td>1</td><td>10</td></tr>
+		<tr><th>0C</th><td>ドラゴンキッド</td><td>1</td><td>30</td><td>59</td><td>46</td><td>5</td><td>20</td><td>52</td><td>0</td><td>1</td><td>3</td></tr>
+		<tr><th>0D</th><td>クックルー</td><td>1</td><td>20</td><td>54</td><td>42</td><td>21</td><td>50</td><td>43</td><td>5</td><td>1</td><td>8</td></tr>
+		<tr><th>0E</th><td>ビックアイ</td><td>1</td><td>20</td><td>62</td><td>47</td><td>18</td><td>42</td><td>64</td><td>10</td><td>1</td><td>10</td></tr>
+		<tr><th>0F</th><td>はぐれメタル</td><td>1</td><td>8</td><td>61</td><td>255</td><td>15</td><td>255</td><td>6</td><td>30</td><td>0</td><td>1</td></tr>
+		<tr><th>10</th><td>パペットマン</td><td>1</td><td>30</td><td>60</td><td>71</td><td>3</td><td>30</td><td>52</td><td>0</td><td>1</td><td>7</td></tr>
+		<tr><th>11</th><td>キメラ</td><td>3</td><td>60</td><td>68</td><td>58</td><td>27</td><td>33</td><td>78</td><td>12</td><td>1</td><td>8</td></tr>
+		<tr><th>12</th><td>ばくだんいわ</td><td>5</td><td>20</td><td>60</td><td>16</td><td>10</td><td>27</td><td>160</td><td>4</td><td>0</td><td>9</td></tr>
+		<tr><th>13</th><td>おどるほうせき</td><td>2</td><td>7</td><td>56</td><td>120</td><td>5</td><td>84</td><td>55</td><td>74</td><td>1</td><td>11</td></tr>
+		<tr><th>14</th><td>ベホマスライム</td><td>2</td><td>50</td><td>49</td><td>62</td><td>18</td><td>65</td><td>74</td><td>42</td><td>0</td><td>1</td></tr>
+		<tr><th>15</th><td>キングスライム</td><td>3</td><td>30</td><td>72</td><td>69</td><td>29</td><td>43</td><td>148</td><td>20</td><td>0</td><td>1</td></tr>
+		<tr><th>16</th><td>ドラゴンマッド</td><td>4</td><td>40</td><td>83</td><td>45</td><td>10</td><td>15</td><td>130</td><td>0</td><td>1</td><td>13</td></tr>
+		<tr><th>17</th><td>ミニデーモン</td><td>3</td><td>30</td><td>55</td><td>66</td><td>5</td><td>78</td><td>89</td><td>12</td><td>1</td><td>10</td></tr>
+		<tr><th>18</th><td>メッサーラ</td><td>4</td><td>50</td><td>83</td><td>87</td><td>43</td><td>28</td><td>107</td><td>21</td><td>1</td><td>15</td></tr>
+		<tr><th>19</th><td>キングオーク</td><td>4</td><td>30</td><td>90</td><td>65</td><td>36</td><td>101</td><td>100</td><td>30</td><td>0</td><td>4</td></tr>
+		<tr><th>1A</th><td>アームライオン</td><td>3</td><td>30</td><td>91</td><td>72</td><td>6</td><td>32</td><td>83</td><td>0</td><td>1</td><td>10</td></tr>
+		<tr><th>1B</th><td>エリミネーター</td><td>3</td><td>30</td><td>77</td><td>64</td><td>11</td><td>57</td><td>91</td><td>0</td><td>1</td><td>4</td></tr>
+		<tr><th>1C</th><td>ゴーレム</td><td>5</td><td>50</td><td>120</td><td>110</td><td>25</td><td>90</td><td>210</td><td>0</td><td>0</td><td>7</td></tr>
+		<tr><th>1D</th><td>ケンタラウス</td><td>3</td><td>50</td><td>89</td><td>84</td><td>25</td><td>54</td><td>122</td><td>22</td><td>1</td><td>12</td></tr>
+		<tr><th>1E</th><td>スライムベホマズン</td><td>3</td><td>20</td><td>95</td><td>114</td><td>50</td><td>107</td><td>141</td><td>135</td><td>0</td><td>1</td></tr>
+		<tr><th>1F</th><td>ソルジャーブル</td><td>3</td><td>30</td><td>91</td><td>80</td><td>35</td><td>56</td><td>151</td><td>0</td><td>1</td><td>5</td></tr>
+		<tr><th>20</th><td>メガザルロック</td><td>3</td><td>20</td><td>107</td><td>175</td><td>15</td><td>125</td><td>205</td><td>17</td><td>1</td><td>11</td></tr>
+		<tr><th>21</th><td>アンクルホーン</td><td>4</td><td>40</td><td>95</td><td>85</td><td>50</td><td>93</td><td>175</td><td>38</td><td>1</td><td>5</td></tr>
+		<tr><th>22</th><td>ホークブリザード</td><td>3</td><td>25</td><td>86</td><td>90</td><td>10</td><td>46</td><td>166</td><td>22</td><td>1</td><td>8</td></tr>
+		<tr><th>23</th><td>シュプリンガー</td><td>3</td><td>50</td><td>110</td><td>90</td><td>30</td><td>71</td><td>187</td><td>23</td><td>1</td><td>15</td></tr>
+		<tr><th>24</th><td>グレイトドラゴン</td><td>3</td><td>60</td><td>130</td><td>110</td><td>81</td><td>92</td><td>230</td><td>0</td><td>1</td><td>13</td></tr>
+		<tr><th>25</th><td>キラーマシン</td><td>4</td><td>30</td><td>170</td><td>185</td><td>40</td><td>60</td><td>177</td><td>0</td><td>1</td><td>14</td></tr>
+		<tr><th>26</th><td>ライオネック</td><td>3</td><td>23</td><td>101</td><td>106</td><td>100</td><td>117</td><td>202</td><td>23</td><td>0</td><td>15</td></tr>
+		<tr><th>27</th><td>ギガンテス</td><td>2</td><td>7</td><td>115</td><td>80</td><td>10</td><td>30</td><td>260</td><td>0</td><td>1</td><td>4</td></tr>
+		<tr><th>28</th><td>ヘルバトラー</td><td>3</td><td>99</td><td>147</td><td>159</td><td>71</td><td>99</td><td>305</td><td>75</td><td>0</td><td>14</td></tr>
+		<tr><th>29</th><td>ネーレウス</td><td>3</td><td>50</td><td>48</td><td>67</td><td>45</td><td>2</td><td>115</td><td>57</td><td>1</td><td>6</td></tr>
+	</tbody>
+</table>
+<para>
+	<emphasis>参考資料</emphasis>: 
+	解析資料 (sfcdq5k) <xref linkend="dqref.url2"/>
+</para>
+</section> <!-- dq5.data.chara.monster.init -->
+

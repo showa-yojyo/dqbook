@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<glossary id="gloss" lang="ja"><?dbhtml filename="glossary.html" ?>
+<title>用語集</title>
+<para>
+	本書で用いる用語を以下にまとめておく。
+	一般的に用いられる用語はインターネットからいくらでも調べることができるハズなので、
+	そのようなものについては徹底的に除外した。
+	厳密性よりある種のわかりやすさを優先した結果、微妙に嘘の入った解説がある。
+	そこは読者各位のご賢察を期待する。
+</para>
+
+<!-- TODO: consider glossdiv -->
+
+<glossentry id="gloss.65816">
+	<glossterm>65816</glossterm>
+	<glossdef>
+		<para>
+			<acronym>SFC</acronym> に採用されている <acronym>CPU</acronym> のこと。
+			ファミコンの <acronym>CPU</acronym> である 6502 のエミュレーション機能を有するという特徴がある。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.65186 -->
+
+<glossentry id="gloss.bgrep">
+	<glossterm>BGREP</glossterm>
+	<glossdef>
+		<para>
+			<application>Stirling</application> が実装する機能の一つ。
+			バイナリファイルからバイナリデータを検索するコマンドメニューの名前だ。
+			バイナリファイルのテキストダンプは <command>od</command> 等の CLI ツールで行うのだが、
+			バイナリデータのサーチだけは <application>Stirling</application> だけが頼りだ。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.bgrep -->
+
+<glossentry id="gloss.dispel">
+	<glossterm>DisPel</glossterm>
+	<glossdef>
+		<para>
+			本書が利用する <acronym>SFC</acronym> ドラクエロム用の逆アセンブラー。
+			現時点で <ulink url="https://github.com/pelrun/Dispel">https://github.com/pelrun/Dispel</ulink> よりソースコードを入手できる。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.dispel -->
+
+<glossentry id="gloss.dos">
+	<glossterm>DOS コンソール</glossterm>
+	<glossdef>
+		<para>
+			<application>Windows XP</application> のヘルプによれば、正式名称は「コマンドプロンプトウィンドウ」らしい。
+			逆アセンブルツールがコンソールアプリである場合、
+			操作性が今一つなこれの世話になる必要はない。
+			最低限 <application>Cygwin</application> (<command>bash</command>) を利用するのが基本だろう。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.dos -->
+
+<glossentry id="gloss.dqutils">
+	<glossterm>dqutils</glossterm>
+	<glossdef>
+		<para>
+			本書記者の <acronym>PC</acronym> にある、ドラクエ <acronym>ROM</acronym> 内の構造体データ配列をテキスト出力するツールスクリプト群。
+			<application>Cygwin</application> (<command>bash</command>) で実装してあるが、
+			いずれ Python 版を作成して配布される可能性がある。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.dqutils -->
+
+<glossentry id="gloss.dq.analyzer">
+	<glossterm>dq_analyzer</glossterm>
+	<glossdef>
+		<para>
+			<citetitle>Index of /~s-endo/</citetitle> で配布されている
+			「スーパーファミコン版ドラゴンクエスト データ解析プログラム」。
+			C 言語で記述されたコンソールプログラムだが、本書ではソースコードの方を指すことが多い。
+			<acronym>SFC</acronym> ドラクエ各シリーズの各種データをテキスト化してファイルに格納する。
+		</para>
+		<para>
+			ドラクエ解析の始祖ではなかろうか。リスペクト。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.dq.analyzer -->
+
+<glossentry id="gloss.gsd">
+	<glossterm>GSD</glossterm>
+	<glossdef>
+		<para>
+			<application>Snes9x</application> にトレースログ機能を含むデバッグ機能を実装したもの。
+			<acronym>SFC</acronym> ドラクエシリーズの解析作業で主に用いるエミュレータだ。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.gsd -->
+
+<glossentry id="gloss.id">
+	<glossterm>ID</glossterm>
+	<glossdef>
+		<para>
+			辞書の意味でも通じるが、より具体的には、データが格納されている配列のインデックスであることが多い。
+			例えばドラクエ3 のモンスターデータ「スライム」について、
+			「スライムは ID が 0 である」と表現することがある。
+			これを本書の用途として「スライムのデータがモンスター構造体データ配列のインデックス 0 に格納されている」とすることができる。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.id -->
+
+<glossentry id="gloss.npc">
+	<glossterm>NPC</glossterm>
+	<glossdef>
+		<para>
+			NonPlayable Character の頭文字からなる略語
+			<footnote><para>文法的には UnPlayable Character ではあるまいか。</para></footnote>。
+			本書では「プレイヤーが直接操作することができないゲームキャラクター」の意味で用いる。
+			街の人々はここに含まれないものとする。
+			ドラクエ5 のパパスは NPC の例だ。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.npc -->
+
+<glossentry id="gloss.par.code">
+	<glossterm>PAR コード</glossterm>
+	<glossdef>
+		<para>
+			略語を展開して表記すると Pro-Action Replay コード。<acronym>RAM</acronym> 領域のメモリ解析の産物だ。
+			プログラムの <acronym>RAM</acronym> 領域の特定のアドレスの値を動的に書き換えるツールを意味する場合と、
+			そのアドレスと値を対にした概念を意味する場合がある。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.par.code -->
+
+<glossentry id="gloss.peers.snes9x">
+	<glossterm>Peer's Snes9x Tracer</glossterm>
+	<glossdef>
+		<para>
+			<application>Snes9x</application> にトレースログ機能を実装したもの。
+			後続の <application>GSD</application> も同機能を引き続き搭載しているが、
+			記者の経験上、<application>Peer's</application> のほうが長い出力トレースが得られることが多い。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.peers.snes9x -->
+
+<glossentry id="gloss.rom.image">
+	<glossterm>ROM イメージ</glossterm>
+	<glossdef>
+		<para>
+			スーファミソフトのカートリッジデータを PC で扱えるようにファイル化したもの。
+			単に <acronym>ROM</acronym> と言う場合もこの意味で用いていることがある。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.rom.image -->
+
+<glossentry id="gloss.sfc">
+	<glossterm>SFC</glossterm>
+	<glossdef>
+		<para>
+			本書では Super Famicom すなわちスーパーファミコンの頭文字略語として用いる。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.sfc -->
+
+<glossentry id="gloss.snes">
+	<glossterm>SNES</glossterm>
+	<glosssee otherterm="gloss.sfc">SFC</glosssee>
+</glossentry> <!-- gloss.snes -->
+
+<glossentry id="gloss.snes9x">
+	<glossterm>Snes9x</glossterm>
+	<glossdef>
+		<para>
+			Windows アプリの形で実装したスーファミエミュレータの一つ。
+			これよりも多機能な「子孫」がいるので、解析作業に用いることはもはやないだろう。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.snes9x -->
+
+<glossentry id="gloss.window">
+	<glossterm>ウィンドウ</glossterm>
+	<glossdef>
+		<para>
+			ドラクエでは、「背景色が黒く、白い枠を持つ矩形領域」だ。
+			画面に同時に複数表示される。メニューになっていたり、
+			メッセージを表示したりすることが主な用途だ。
+		</para>
+		<para>
+			解析作業ではウィンドウ構造体データ配列を発見することと、
+			デバッグメニューウィンドウを初期に発見することが肝要だ。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.window -->
+
+<glossentry id="gloss.encount">
+	<glossterm>エンカウント</glossterm>
+	<glossdef>
+		<para>
+			英語の encounter に由来する。これは辞書によれば「偶然出くわす」といった意味合いのようだ。
+			ドラクエでは（主語が逆転するが）「まもののむれが あらわれた！」となること。
+			換言すれば、移動モードから戦闘モードに移行することだ。
+		</para>
+		<glossseealso otherterm="gloss.tile.encount"/>
+	</glossdef>
+</glossentry> <!-- gloss.encount -->
+
+<glossentry id="gloss.offset">
+	<glossterm>オフセット</glossterm>
+	<glossdef>
+		<para>
+			メモリ空間またはロムイメージファイルにおいて、
+			現在注目している位置（アドレス）と、基準となる位置との差を意味する。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.offset -->
+
+<glossentry id="gloss.character">
+	<glossterm>キャラクター</glossterm>
+	<glossdef>
+		<para>
+			本書ではゲームにおける登場人物の意味で用いる。
+			文字 (letter) の意味では使用しない。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.character -->
+
+<glossentry id="gloss.state.save">
+	<glossterm>ステートセーブ</glossterm>
+	<glossdef>
+		<para>
+			エミュレータでゲームプログラムを実行する場合、
+			ユーザーが期待すれば、任意の時点でプログラムを中断・再開することができる。
+			これは、その時点でのメモリの内容やレジスタの値といった、
+			「プロセス」の状態をすべて保存して、それを再現することで実現している。
+			この保存をステートセーブと言う。
+		</para>
+		<para>
+			エミュレータは、この「状態」をファイルの形で保存する。
+			このバイナリファイルを差分発見的手法で解析することがある。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.state.save -->
+
+<glossentry id="gloss.tile.encount">
+	<glossterm>タイルエンカウント</glossterm>
+	<glossdef>
+		<para>
+			初出はドラクエ3 のデバッグメニューにある「タイルせんとう」である。
+			フィールド上のある区画やダンジョンの各階には、
+			常にその場所固有のモンスターの組み合わせしか出現しない。
+			このようなエンカウントの仕組みをタイルエンカウントと呼ぶ。
+		</para>
+		<glossseealso otherterm="gloss.encount"/>
+	</glossdef>
+</glossentry> <!-- gloss.tile.encount -->
+
+<glossentry id="gloss.damage">
+	<glossterm>ダメージ</glossterm>
+	<glossdef>
+		<para>
+			HP や MP が戦闘行動の結果として増減するとき、その差のこと。
+			本書ではパラメータの回復方向に変化する値に対しても、それをダメージと呼ぶので、
+			読者は注意して欲しい。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.damage -->
+
+<glossentry id="gloss.debug.menu">
+	<glossterm>デバッグメニュー</glossterm>
+	<glossdef>
+		<para>
+			ドラクエではデバッグ用途専用のメニューウィンドウを実装するシリーズがある。
+			これが製品版になっても残されているシリーズがあるため、
+			解析マニアはメニューウィンドウを出現させる方法を見つけることに執心することが多い。
+			自力で見つけるととてもうれしいものだ。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.debug.menu -->
+
+<glossentry id="gloss.debug.mode">
+	<glossterm>デバッグモード</glossterm>
+	<glossdef>
+		<para>
+			狭義にはデバッグビルドによるプログラムで起動したゲームセッション全体を意味するが、
+			本書では何らかのデバッグ作業専用の機能を出現した状態、もしくはいつでもその機能を使用できる状態を指す。
+		</para>
+		<para>
+			ドラクエでは妙に高機能なデバッグモードが存在することが多い。
+		</para>
+		<glossseealso otherterm="gloss.debug.menu"/>
+	</glossdef>
+</glossentry> <!-- gloss.debug.mode -->
+
+<glossentry id="gloss.dqviewer">
+	<glossterm>ドラクエビューワ</glossterm>
+	<glossdef>
+		<para>
+			<citetitle>ドラクエ解析サイト『ソニタウン』</citetitle> で配布されていた
+			「ドラクエ1～7のマップ,モンスター,メッセージ 表示ソフト」。
+			<application>HSP</application> で記述された Windows <acronym>GUI</acronym> プログラムだ。
+			スクリプトも同時配布されていた。
+			ドラクエ各シリーズの各種データを画像化して表示する。
+		</para>
+		<para>
+			サイトのほうは残念ながら閉鎖されている。
+			本書執筆・ドラクエ解析の第一次情報としてとにかくお世話になったツールだ。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.dqviewer -->
+
+<glossentry id="gloss.hack.rom">
+	<glossterm>ハックロム</glossterm>
+	<glossdef>
+		<para>
+			オリジナルの状態から 1 バイトでもデータが変更されているロムイメージ。
+			本物と紛い物との差を知るには、差し当たり <application>Snes9x</application> の ROM Information メニューを調べてみること。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.hack.rom -->
+
+<glossentry id="gloss.baka.image">
+	<glossterm>バカ画像</glossterm>
+	<glossdef>
+		<para>
+			本来のプログラムでは起こり得ないゲーム状態を何らかの手段により捏造し、そのゲーム画面を画像化したもの。
+			同様に、ゲーム画面を動画として編集したものをバカ動画という。
+			何も知らぬ輩に黙ってそのようなものを見せると、なぜか反感を買うことが多い。注意することだ。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.baka.image -->
+
+<glossentry id="gloss.parameter">
+	<glossterm>パラメータ</glossterm>
+	<glossdef>
+		<para>
+			通常はプログラミング言語の関数における仮引数の意味だが、
+			ドラクエの話をする場合、数値の形で表現されたキャラクターの能力値を指すことが多い。
+			本書でも主に後者の意味で用いる。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.parameter -->
+
+<glossentry id="gloss.bit">
+	<glossterm>ビット</glossterm>
+	<glossdef>
+		<para>
+			例えばあるキャラクターが呪われていることを表現するために、
+			どこかのアドレスの値の 1 バイト中のあるビットが
+			0 なのか 1 なのかで決めるようなことがある。
+			このデータの持たせ方の欠点は、値へのアクセスが面倒なことにある。
+			解析側からしても、若干面倒なので勘弁願いたい。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.bit -->
+
+<glossentry id="gloss.field">
+	<glossterm>フィールド</glossterm>
+	<glossdef>
+		<para>
+			ゲームの文脈で用いられる場合、世界地図に対応するマップ全体を指す。
+		</para>
+		<para>
+			解析の文脈で用いられる用語としては、構造体のメンバーデータと同義。
+			Java 言語での言い回しだ。
+		</para>
+		<glossseealso otherterm="gloss.member"/>
+	</glossdef>
+</glossentry> <!-- gloss.field -->
+
+<glossentry id="gloss.flag">
+	<glossterm>フラグ</glossterm>
+	<glossdef>
+		<para>
+			ゲーム進行の何らかのコンテキストの状態を 0 か 1 で表現・保持するもの。
+			例えば「まほうのたまを手に入れた状態」とか「一度エンディングを見た状態」のようなものだ。
+			ドラクエ (<acronym>SFC</acronym>) の場合、ビットで表現することが多い。
+		</para>
+		<glossseealso otherterm="gloss.bit"/>
+	</glossdef>
+</glossentry> <!-- gloss.flag -->
+
+<glossentry id="gloss.floor">
+	<glossterm>フロア</glossterm>
+	<glossdef>
+		<para>
+			本書では、階段を上り下りしたり、建物の出入口を越えたりすると切り変わる
+			（フローミを意識して欲しい）、いわゆるマップの構成単位を指す。
+			フィールドマップ全体もワンフロアとする。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.floor -->
+
+<glossentry id="gloss.pointer.array">
+	<glossterm>ポインタ配列</glossterm>
+	<glossdef>
+		<para>
+			本書ローカル用語。
+			その型がアドレスである配列のこと。
+			2 バイト型と 3 バイト型があり、前者はバンクが別の方式で与えられるのに対して、
+			後者はまんま絶対アドレス値で配列されている。
+			サイズの小さくない構造体データの格納アドレスを示しているので、
+			データ解析の重要な手掛かりとなる。
+			プログラミングの観点からすれば、
+			このようにしてデータアクセスの間接レベルを上げることで、
+			メンテナンスを楽にする意味があるのかもしれない。
+		</para>
+		<glossseealso otherterm="gloss.array"/>
+	</glossdef>
+</glossentry> <!-- gloss.pointer.array -->
+
+<glossentry id="gloss.message">
+	<glossterm>メッセージ</glossterm>
+	<glossdef>
+		<para>
+			本書では、文章の形でウィンドウに表示される、
+			台詞やら対話的プロンプト文やらをひっくるめてメッセージと呼ぶ。
+			ドラクエ5 (<acronym>SFC</acronym>) 以降、大きいフォントでテキストが描画される。
+		</para>
+		<para>
+			メッセージデータ抽出は本書の重要な目的のひとつである。
+		</para>
+		<glossseealso otherterm="gloss.large.font"/>
+	</glossdef>
+</glossentry> <!-- gloss.message -->
+
+<glossentry id="gloss.memory.layout">
+	<glossterm>メモリレイアウト</glossterm>
+	<glossdef>
+		<para>
+			本書ローカル用語。構造体解析において、各メンバーのメモリ配置がどのようになっているのかを説明する表。
+			C 言語でいうビットフィールドが頻出するような、細切れのデータメンバーが寄せ集まった様子を思い描いて欲しい。
+		</para>
+		<glossseealso otherterm="gloss.member"/>
+	</glossdef>
+</glossentry> <!-- gloss.memory.layout -->
+
+<glossentry id="gloss.memory.space">
+	<glossterm>メモリ空間</glossterm>
+	<glossdef>
+		<para>
+			プログラム部分もデータ部分も <acronym>RAM</acronym> 領域も全部ひっくるめたメモリ領域全体をメモリ空間と（本書は）呼ぶ。
+			<acronym>SFC</acronym> 解析では、<acronym>ROM</acronym> イメージがメモリ空間 4 メガのどのパートに格納されるのかが、
+			ゲームによって決まっている。逆アセンブリ作業はそれを調べるところから開始するのだ。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.memory.space -->
+
+<glossentry id="gloss.member">
+	<glossterm>メンバー</glossterm>
+	<glossdef>
+		<para>
+			構造体解析の文脈で用いる場合、構造体のデータメンバーの意味である。
+			主人公のパーティの話題のときは、当然パーティの構成員の意味になる。
+		</para>
+		<glossseealso otherterm="gloss.structure"/>
+	</glossdef>
+</glossentry> <!-- gloss.member -->
+
+<glossentry id="gloss.walk.mode">
+	<glossterm>移動モード</glossterm>
+	<glossdef>
+		<para>
+			非戦闘モードの意味。
+		</para>
+		<glossseealso otherterm="gloss.battle.mode"/>
+	</glossdef>
+</glossentry> <!-- gloss.walk.mode -->
+
+<glossentry id="gloss.crack">
+	<glossterm>改造</glossterm>
+	<glossdef>
+		<para>
+			本書では <acronym>ROM</acronym> に書いてあるプログラムコードを編集して、本物の動作をさせないようにすることを改造と呼ぶ。
+			<acronym>ROM</acronym> に定義されている静的なデータを編集するのも改造には違いないが、それは面白くないことが多い。
+		</para>
+		<glossseealso otherterm="gloss.hack.rom"/>
+	</glossdef>
+</glossentry> <!-- gloss.crack -->
+
+<glossentry id="gloss.cracking.code">
+	<glossterm>改造コード</glossterm>
+	<glosssee otherterm="gloss.par.code">PAR コード</glosssee>
+</glossentry> <!-- gloss.cracking.code -->
+
+<glossentry id="gloss.common.subroutine">
+	<glossterm>共通処理サブルーチン</glossterm>
+	<glossdef>
+		<para>
+			本書ローカル用語。共通処理を実装するサブルーチンの意味。
+			狭義には店屋の処理くらいしか思いつかないが、
+			広義には算術処理サブルーチンや乱数調整サブルーチンなど多数ある。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.common.subroutine -->
+
+<glossentry id="gloss.structure">
+	<glossterm>構造体</glossterm>
+	<glossdef>
+		<para>
+			本書では、<acronym>SFC</acronym> ドラクエシリーズのモンスターやアイテムといったデータの構造が、
+			C 言語の構造体のようになっていると捉えている。
+			そのため、データ構造の説明に「構造体」「メンバー」といった用語を借用している。
+			「名前 ID はモンスター構造体のメンバーである」のように用いる。
+		</para>
+		<glossseealso otherterm="gloss.memory.layout"/>
+		<glossseealso otherterm="gloss.member"/>
+	</glossdef>
+</glossentry> <!-- gloss.structure -->
+
+<glossentry id="gloss.people.object">
+	<glossterm>人オブジェクト</glossterm>
+	<glossdef>
+		<para>
+			正式な意味はドラクエ7 のデバッグメニューにある同名項目から推測するしかないのだが、
+			本書では「フロア上にいるキャラクターであり、仲間キャラクターではない者」の意味で用いる。
+		</para>
+		<glossseealso otherterm="gloss.character"/>
+		<glossseealso otherterm="gloss.floor"/>
+	</glossdef>
+</glossentry> <!-- gloss.people.object -->
+
+<glossentry id="gloss.battle.mode">
+	<glossterm>戦闘モード</glossterm>
+	<glossdef>
+		<para>
+			ドラクエ全シリーズにおいて、誰かと戦闘しているゲーム状態のことを指す。
+			このモードの解析だけで、データ解析作業全体の 90 パーセントを占める。
+		</para>
+		<glossseealso otherterm="gloss.walk.mode"/>
+	</glossdef>
+</glossentry> <!-- gloss.battle.mode -->
+
+<glossentry id="gloss.battle.action">
+	<glossterm>戦闘行動</glossterm>
+	<glossdef>
+		<para>
+			戦闘モードにおいて、各キャラクター・モンスターがとる一回あたりの行動。
+			移動行動という考え方もあるが、行動を表現する構造体が共通であるため、話がややこしい。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.battle.action -->
+
+<glossentry id="gloss.large.font">
+	<glossterm>大きいフォント</glossterm>
+	<glossdef>
+		<para>
+			移動モードにおいて、行動の結果出力されるメッセージ表示に用いられるフォント。
+			大きいフォントと普通のフォントでは、文字コード体系が異なる。
+		</para>
+		<glossseealso otherterm="gloss.character.code"/>
+		<glossseealso otherterm="gloss.message"/>
+	</glossdef>
+</glossentry> <!-- gloss.large.font -->
+
+<glossentry id="gloss.array">
+	<glossterm>配列</glossterm>
+	<glossdef>
+		<para>
+			あらゆるプログラミング言語で存在する概念であるが、
+			解析で配列と言う場合、暗黙の了承の下に C 言語の配列モデルが置かれる。
+			すなわち、同じ長さのバイト列が、メモリ空間内の特定の区間中、
+			途切れることなく整列しているものだ。
+		</para>
+		<para>
+			ドラクエ (<acronym>SFC</acronym>) の場合、
+			構造体データの配列を <acronym>ROM</acronym> 領域から発見することが重要だ。
+		</para>
+	</glossdef>
+</glossentry> <!-- gloss.array -->
+
+<glossentry id="gloss.character.code">
+	<glossterm>文字コード</glossterm>
+	<glossdef>
+		<para>
+			ドラクエ (<acronym>SFC</acronym>) の場合も、文字を表現するために内部的には数値を用いている。
+			ある文字に対応する数値を、その文字のコードと呼ぶ。
+			また、プログラムで使用することができるすべての文字コード体系それ自体を文字コードを呼ぶこともある。
+		</para>
+		<glossseealso otherterm="gloss.large.font"/>
+		<glossseealso otherterm="gloss.string"/>
+	</glossdef>
+</glossentry> <!-- gloss.character.code -->
+
+<glossentry id="gloss.string">
+	<glossterm>文字列</glossterm>
+	<glossdef>
+		<para>
+			本書では、ウィンドウに描画するテキストのうち、単語の形をとるものを文字列を呼ぶ。
+			「やくそう」「はなす」「だれに」「アリアハン」等は文字列だが、
+			「それを すてるなんて とんでもない！」等のメッセージウィンドウで見られる文章の形をとるものは
+			（もちろん奇妙だが）本書の立場では文字列ではない。
+		</para>
+		<glossseealso otherterm="gloss.message"/>
+	</glossdef>
+</glossentry> <!-- gloss.string -->
+
+</glossary> <!-- gloss -->

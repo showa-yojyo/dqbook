@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.bank"><?dbhtml filename="dq3_bank.html" ?>
+<title>ゴールド銀行解析</title>
+<indexterm><primary>ゴールド銀行</primary><secondary>DQ3</secondary></indexterm>
+<para>
+	ゴールド銀行の窓口業務処理について解析した結果を述べる。
+	アリアハンのルイーダの酒場入口近くにあるカウンターが銀行の窓口だが、
+	以下で述べるのは、窓口のオッサンの（人オブジェクトとしての）処理ではなく、
+	あくまでも銀行としての振る舞いである。
+</para>
+<para>
+	銀行解析の目的は、普通にプレイしている分にはまずお目にかからない例外的な状況における処理を探すことだ。
+	パーティーにカウンターストップ上限の <literal>99,9999</literal> ゴールドに近い額を持たせて、
+	その上で預金を引き出そうとしたときに銀行が何を言うのかを見た読者は多いだろう。
+	しかし、その逆、つまり銀行に預けられる金額の上限値を通常のプレイで確認した者は少ないと思う。
+	預金上限の金額はいくらで、その上限値を超える金額を預けようとすると何が起こるのか、
+	といったようなことを、逆アセンブリ解析を通じて知るのもいいだろう。
+</para>
+
+<section id="dq3.bank.hack">
+<title>解析</title>
+<para>
+	<link linkend="dq3.bank.hack.C3E2F2">銀行処理の基点</link>はサブルーチン <varname>$C3E2F2</varname> である。
+	ここから台詞表示を含む窓口処理の実装がなされている。
+	そのサブルーチンのヘルパーサブルーチンとして、
+	<link linkend="dq3.bank.hack.C3E39E">「あずける」処理</link>を実装する <code>JSR</code> 型サブルーチン <varname>$C3E39E</varname> と、
+	<link linkend="dq3.bank.hack.C3E410">「ひきだす」処理</link>を実装する <code>JSR</code> 型サブルーチン <varname>$C3E410</varname> を利用する。
+</para>
+<para>
+	銀行処理周りの台詞表示はすべてサブルーチン <varname>$C1A92E</varname> 呼び出しで実現している。
+	このサブルーチンは、呼び出しコード直後に 2 バイトの定数を埋め込むことで、
+	その定数を<link linkend="dq3.message">メッセージ ID</link> として解釈する。
+</para>
+<para>
+	以下の記述では、銀行の預金単位が <literal>1000</literal> ゴールド単位であることをいちいち断らない。
+	例えば <literal>9999</literal> という金額は、ゲーム的には <literal>99,990,000</literal> ゴールドのことである。
+</para>
+
+<section id="dq3.bank.hack.C3E2F2">
+<title>ゴールド銀行共通処理</title>
+<para>
+	サブルーチン <varname>$C3E2F2</varname> は、基本的に銀行の窓口に「はなす」とすぐに開始される処理である。
+	以下のように実装されている。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			最初のあいさつ
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					初めて話し掛けたときには、特別な台詞 (<literal>#$0AFF</literal>) を聞くことになる。
+					銀行に話しかけたことがあることを示すフラグビットは <code>$7E353C &amp; #$02</code> である。
+					このフラグのテストは汎用サブルーチン <varname>$C909AE</varname> で行い、
+					セットは汎用サブルーチン <varname>$C908F0</varname> で行う。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					二度目以降は、銀行のあいさつはメッセージ ID <literal>#$0B00</literal> のものとする。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			預金残高をパーティに告げて、用を尋ねる。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					銀行への預金残高を、汎用サブルーチン <varname>$C45BBA</varname> 呼び出しで行う。引数は <literal>#$FF</literal> である。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					預金残高がゼロか否かで、用件を尋ねる台詞のメッセージ ID が異なる。
+					預金がある場合は <literal>#$0B01</literal> で、ゼロの場合は <literal>#$0B02</literal> を用いる。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			「あずける」「ひきだす」メニューウィンドウを表示し、入力を待つ。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					キャンセルボタンを押したとき、最後のあいさつ処理へ移る。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「あずける」選択時は、サブルーチン <link linkend="dq3.bank.hack.C3E39E"><varname>$C3E39E</varname></link> を呼び出す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「ひきだす」選択時は、サブルーチン <link linkend="dq3.bank.hack.C3E410"><varname>$C3E410</varname></link> を呼び出す。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			用事（キャンセルを含む）が済んだ後は、
+			パーティの口座残高を告げ、あいさつをして窓口処理を終了する。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					銀行への預金残高を、汎用サブルーチン <varname>$C45BBA</varname> 呼び出しで行う。引数は <literal>#$FF</literal> である。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					預金残高がゼロか否かで、用件を尋ねる台詞のメッセージ ID が異なる。
+					預金がある場合は <literal>#$0B0E</literal> で、ゼロの場合は <literal>#$0B0B</literal> を用いる。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.bank.hack.C3E2F2 -->
+
+<section id="dq3.bank.hack.C3E39E">
+<title>「あずける」処理</title>
+<para>
+	「あずける」を選択したときの処理はサブルーチン <varname>$C3E39E</varname> に定義されている。
+	それは以下のようになっている。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			汎用サブルーチン <varname>$C45BBA</varname> で残高金額をチェックし、
+			<literal>10000</literal> 以上の値がセットされているときには、
+			メッセージ ID <literal>#$0B03</literal> の台詞を表示して当処理を終了し、共通処理に戻る。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			そうでないときは、いくらお預かりしましょうかの台詞を表示した後に、
+			金額入力ウィンドウを表示し、数値入力モードに入る。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					入力をキャンセル、もしくは入力金額がゼロの場合、台詞
+					「おやめになるのですね」を表示して、当処理を終了する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					それ以外の場合、まずは入力金額、パーティの所持金、預金残高を汎用ルーチン <varname>$C45BEB</varname> で比較する。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							入力金額がパーティの所持金以下かつ銀行の金庫に余裕がある場合、
+							「責任をもってお預かりします」台詞を表示し、
+							「あずける」処理を終了する。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							入力金額が、銀行の金庫の限界を超えるような値である場合、
+							<literal>(9999 + carry - 預金残高)</literal> を計算した後に、
+							「申しわけありませんが～」の台詞で、入金可能金額の上限を告げる。
+							そのあと、制御を「いくらお預かり～」まで戻す。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							それ以外の場合、すなわち入力金額がパーティの所持金を越える場合は、
+							「失礼ですが～」台詞を表示し、制御を「いくらお預かり～」まで戻す。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.bank.hack.C3E39E -->
+
+<section id="dq3.bank.hack.C3E410">
+<title>「ひきだす」処理</title>
+<para>
+	「ひきだす」を選択したときの処理はサブルーチン <varname>$C3E410</varname> に定義されている。
+	それは以下のようになっている。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			汎用サブルーチン <varname>$C45BBA</varname> で残高金額をチェックし、
+			<literal>0</literal> がセットされている場合は、
+			「お客さまのお金は 1 ゴールドもお預かりしていません」の台詞
+			(ID = <literal>#$0B08</literal>) を表示して当処理を終了、共通処理に戻る。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			残高が <literal>0</literal> でない場合は、<varname>$7EBE81</varname> に残高金額をセットする。そして
+			「現在～ゴールドをお預かりしていますが、いくらお引き出ししますか」の台詞
+			(ID = <literal>#$0B09</literal>) を表示する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			金額入力ウィンドウを表示し、入力待ちとなる。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					入力モードがキャンセル終了もしくは、入力金額がゼロである場合、
+					「おやめになるのですね」の台詞 (ID = <literal>#$0B0D</literal>) を表示して、
+					当処理を終了、共通処理に制御を戻す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					入力金額がゼロでない場合、
+					入力金額、パーティの所持金、預金残高を汎用ルーチン <varname>$C45C5A</varname> で比較する。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							入力金額が預金残高以下かつ、パーティの現在の所持金に加えても、
+							所持金総額がその上限を超えない場合、引き出し処理は成功となる。
+							「はいどうぞ」の台詞 (ID = <literal>#$0B0C</literal>) を表示して、当処理を抜ける。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							入力金額が預金残高以下ではあるが、
+							引き出したい金額をパーティの所持金に加算すると所持可能金額上限を超える場合、
+							引き出し処理は失敗となる。
+							「そんなにたくさん～」の台詞 (ID = <literal>#$0B0B</literal>) を表示して、
+							当処理の最初に制御を戻す。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							それ以外の場合、
+							すなわち入力金額が預金残高を越える値である場合は、引き出し処理は失敗となる。
+							「そんなにお預かりしておりませんが」の台詞 (ID = <literal>#$0B0A</literal>) を表示し、
+							当処理の最初に制御を戻す。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.bank.hack.C3E410 -->
+</section> <!-- dq3.bank.hack -->
+</section> <!-- dq3.bank -->

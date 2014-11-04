@@ -1,0 +1,21 @@
+# 「ドラクエ命」ドキュメント生成用 Makefile
+# svnbook からのパクリ
+#
+# This is a Makefile fragment, which is expected to be included by the
+# locale-specific Makefiles located at ../LOCALE_CODE/Makefile .  As a result,
+# the relative paths contained within are relative to the LOCALE_CODE
+# directory, and *not* to the tools directory, where this file itself resides.
+#
+# 今のところ LOCALE_CODE=jp しか作るつもりはない
+
+include ../tools/Makefile.base-vars
+NAME = dqbook
+OUTNAME = dqbook
+DIR = ./book
+IMAGES = $(DIR)/image/
+INSTALL_DIR = ../../www
+include ../tools/Makefile.base-rules
+
+# オリジナルの Makefile.base には以下、互換性のために
+# いくつかのターゲットルールが記されていた。
+

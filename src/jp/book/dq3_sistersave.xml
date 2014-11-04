@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.sistersave"><?dbhtml filename="dq3_sistersave.html" ?>
+<title>シスターセーブ解析</title>
+<indexterm><primary>冒険の書</primary><secondary>DQ3</secondary></indexterm>
+<indexterm><primary>シスターセーブ</primary><secondary>DQ3</secondary></indexterm>
+<para>
+シスターセーブとは、アリアハンのルイーダの酒場にいるシスターの行う、
+冒険の書への記録サブルーチンを示す。
+このシスターの「はなす」処理は冒険の進行状況とかを考慮した上で台詞がけっこう変わったりするが、
+本節で見るのはそこではなく、その先のいつもの処理だ。
+</para>
+
+<section id="dq3.sistersave.hack">
+<title>解析</title>
+<para>
+シスターセーブの「共通」処理サブルーチンという言い方は奇妙な感じがするが、
+<link linkend="dq3.shop.hack">店屋</link>や<link linkend="dq3.church.hack">教会</link>などの、
+各種共通処理サブルーチンと同列の扱いでコードを配置しているため、
+特定の人物からのみしか利用されないとしても、これも共通処理と呼ぶことにする。
+</para>
+<para>
+台詞表示にクセがあり、このシスターは一人しかいないので、
+メッセージ ID は固定値のセットで実装して構わないはずだが、
+なぜか <code>LDA addr,X</code> 命令でメッセージ ID を定数領域からロードしてから、
+汎用メッセージ表示サブルーチン <varname>$C1A95A</varname> を利用している。
+</para>
+
+<section id="dq3.sistersave.hack.C3C251">
+<title>シスターセーブ共通処理サブルーチン</title>
+<para>
+サブルーチン <varname>$C3C251</varname> がシスターセーブ処理の主な実装だ。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			事前条件として、<varname>A</varname> レジスタの値に台詞種別 ID がセット済みであること。
+			ただし、すぐにわかるようにこのセットには実質的な意味はない。
+			（台詞の種類が一種類しかないから）
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			もし <varname>A</varname> レジスタの値が <literal>1</literal> 以上ならば、<code>A = 0</code> とする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<varname>$2BB2</varname> と <varname>X</varname> レジスタの両方に <varname>A</varname> レジスタの値（つまりゼロ）をセットする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>LDA $C3C2F6,X</code> でシスターの台詞のメッセージ ID をロードし、
+			サブルーチン <varname>$C1A95A</varname> 呼び出しにより台詞
+			「あなたの旅の せいかを 冒険の書に きろくなさいますか？」
+			を表示する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			はい・いいえウィンドウを表示して、プレイヤーの入力を待つ。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					キャンセル抜け or いいえ ⇒【終了】へ制御を移す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					それ以外 ⇒ 次へ制御を進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			汎用サブルーチン <varname>$C45E67</varname> を呼び出す。
+			ウィンドウに冒険の書をリストする準備と思われるが、詳細は未解析。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>LDA $C3C2FA,X</code> でシスターの台詞のメッセージ ID をロードし、
+			サブルーチン <varname>$C1A95A</varname> 呼び出しにより台詞
+			「では なん番の冒険の書に書きとめますか？」
+			を表示する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			冒険の書リストをウィンドウに表示して、プレイヤーの入力待ちとなる。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					いずれかの冒険の書を選択した ⇒【セーブ】へ制御を進める。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					それ以外 ⇒ 次へ制御を進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			<code>LDA $C3C2FE,X</code> でシスターの台詞のメッセージ ID をロードし、
+			サブルーチン <varname>$C1A95A</varname> 呼び出しにより台詞
+			「おやめに なるのですね」
+			を表示する。
+			その後【終了】へ制御を移す。
+		</para>
+	</listitem>
+
+	<listitem>
+		<para>【セーブ】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					文脈から判断すれば、ここは選択した冒険の書に必要なデータを保存する処理だ。
+					逆アセンブルコードを以下に転載する。
+					バンク <varname>$C4</varname> のサブルーチンは解析していないが、
+					冒険の書を解析したければ、見ればよい。
+					なお、<varname>$33A0</varname> と <varname>$33A2</varname> は、
+					最後に冒険の書にセーブした場所の情報のような値だと思われる。
+				</para>
+<programlisting>
+C3/C2AB:    ACA033      LDY $33A0
+C3/C2AE:    22CE2BC4    JSR $C42BCE         <co id="dq3.sistersave.co.1" />
+C3/C2B2:    FD
+C3/C2B3:    ACA233      LDY $33A2
+C3/C2B6:    222C2CC4    JSR $C42C2C         <co id="dq3.sistersave.co.2" />
+C3/C2BA:    FD
+C3/C2BB:    224E62C4    JSR $C4624E         <co id="dq3.sistersave.co.3" />
+C3/C2BF:    FF
+</programlisting>
+<calloutlist>
+  <callout arearefs="dq3.sistersave.co.1"><para>未解析サブルーチン。</para></callout>
+  <callout arearefs="dq3.sistersave.co.2"><para>未解析サブルーチン。</para></callout>
+  <callout arearefs="dq3.sistersave.co.3"><para>未解析サブルーチン。</para></callout>
+</calloutlist>
+			</listitem>
+			<listitem>
+				<para>
+					効果音 (ID: <literal>#$002B</literal>) を鳴らし、終わるまで待つ。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<code>LDA $C3C2FC</code> でシスターの台詞のメッセージ ID をロードし、
+					サブルーチン <varname>$C1A95A</varname> 呼び出しにより台詞
+					「たしかに きろくしました」
+					を表示する。次の【終了】に制御を進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>【終了】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<code>LDA $C3C2F8,X</code> でシスターの台詞のメッセージ ID をロードし、
+					サブルーチン <varname>$C1A95A</varname> 呼び出しにより台詞
+					「あなたの旅に神のごかごが ありますように」
+					を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					サブルーチンの呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.sistersave.hack.C3C251 -->
+
+<section id="dq3.sistersave.hack.lines">
+<title>シスターセーブ用台詞のメッセージ ID</title>
+<para>
+	<link linkend="dq3.sistersave.hack.C3C251">共通処理サブルーチン</link>内から
+	<code>LDA addr,X</code> によって参照されるメッセージ ID を以下に載せる。
+</para>
+<programlisting>
+C3/C2F6:    4E0B  ; [D6][D1]あなたの旅の せいかを[AD]冒険の書に きろくなさいますか？[AC]
+C3/C2F8:    4F0B  ; [D6][D1]あなたの旅に[AD]神のごかごが ありますように。[AC]
+C3/C2FA:    500B  ; [D6][D1]では なん番の 冒険の書に[AD]書きとめますか？[AC]
+C3/C2FC:    510B  ; [D6][D1]たしかに きろくしました。[AF][AC]
+C3/C2FE:    520B  ; [D6][D1]おやめに なるのですね。[AF][AC]
+</programlisting>
+</section> <!-- dq3.sistersave.hack.lines -->
+</section> <!-- dq3.sistersave.hack -->
+</section> <!-- dq3.sistersave -->

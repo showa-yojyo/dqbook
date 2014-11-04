@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.church"><?dbhtml filename="dq3_church.html" ?>
+<title>教会解析</title>
+<indexterm><primary>教会</primary><secondary>DQ3</secondary></indexterm>
+<para>
+	教会にいる神父や（ドラクエ3 では稀だが）シスターに「はなす」ときのプログラムを解析する。
+	教会の仕事は仲間パーティーの状態異常を回復するという、非常にわかりやすいものだ。
+	そんなプログラムを解析する意味などあるのかと思われるかもしれないが、
+	ドラクエの基本処理はやはりおさえておきたい。
+</para>
+
+<section id="dq3.church.hack">
+<title>解析</title>
+<para>
+	「はなす」対象が神父であるかシスターであるかによらず、同じサブルーチンを呼び出すことで彼らの仕事を実現している。
+	唯一の違いは、ウィンドウに表示する台詞が異なるだけである。
+	台詞表示サブルーチンは、<varname>A</varname> レジスタの値をメッセージ ID として処理する <varname>$C1A95A</varname> を用いる。
+</para>
+<programlisting>
+C3/D50C:    DC0A    ; [D6]たのもしき 神のしもべよ[AD]わが教会に
+C3/D50E:    EE0A    ; [D6]ここは 神にみちびかれし[AD]迷える小羊たちの
+
+C3/D510:    DE0A    ; [D6]どなたを この世へ[AD]呼びもどすのじゃな？[AF]
+C3/D512:    F00A    ; [D6]どなたを 生きかえらせて[AD]ほしいのですか？[AF]
+
+C3/D514:    DF0A    ; [D6]ごじょうだんを。[C0]どのは[AD]生きていらっしゃる！[AF]
+C3/D516:    F10A    ; [D6]あら？ [C0]さんは[AD]生きていますわ。[AF]
+</programlisting>
+<para>
+	こういう具合に、神父とシスターの同じ状況に話す台詞 ID が交互に配列されてある。
+	そのために、教会処理の先頭で <varname>X</varname> レジスタの値を固定しておき、
+	サブルーチン <varname>$C1A95A</varname> を呼び出すときには、
+	常にその直前に <code>LDA addr,x</code> 命令で表示直前に ID を変える。
+	以下の説明で引用する台詞は、特に断らない限り神父のものを使う。
+</para>
+
+<section id="dq3.church.hack.C3D466">
+<title>教会処理神父バージョン</title>
+<para>
+	教会にいる神父に「はなす」ときになされる通常の処理は、
+	サブルーチン <varname>$C3D466</varname> である。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			<varname>A</varname> レジスタに <literal>0000h</literal> をロードする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.church.hack.C3D49C">教会処理共通サブルーチン</link>を呼び出す。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			サブルーチン呼び出し元へ制御を戻す。
+		</para>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.church.hack.C3D466 -->
+
+<section id="dq3.church.hack.C3D481">
+<title>教会処理シスターバージョン</title>
+<para>
+	教会にいるシスターに「はなす」ときになされる通常の処理は、
+	サブルーチン <varname>$C3D481</varname> である。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			<varname>A</varname> レジスタに <literal>0002h</literal> をロードする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.church.hack.C3D49C">教会処理共通サブルーチン</link>を呼び出す。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			サブルーチン呼び出し元へ制御を戻す。
+		</para>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.church.hack.C3D481 -->
+
+<section id="dq3.church.hack.C3D49C">
+<title>教会処理共通サブルーチン</title>
+<para>
+	サブルーチン <varname>$C3D49C</varname> は、神父とシスターのおつとめ処理の実装だ。
+	呼び出し前に <varname>A</varname> レジスタに「表示台詞タイプ」をロードしておくのが事前条件になっている。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			<code>X = A</code> とする。これは上述の台詞表示のための対応である。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			汎用サブルーチン <varname>$C79190</varname> を呼び出すことで昼夜チェックを行う。
+			それにより「はなす」による最初のあいさつを変えて表示する。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					夜ならば <code>A = $C3D550,X</code>
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					昼ならば <code>A = $C3D50C,X</code>
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			【メニュー】
+		</para>
+		<para>
+			ウィンドウ「いきかえらせる・どくのちりょう・のろいをとく・やめる」を表示し、入力を待つ。
+			プレイヤーの入力が以下のいずれでもない場合は、制御を次に進める。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					キャンセルボタンで抜けた場合は【終了】に制御を進める。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「いきかえらせる」を選択した場合は、【いきかえらせる】に制御を進める。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「どくのちりょう」を選択した場合は、【どくのちりょう】に制御を進める。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「のろいをとく」を選択した場合は、【のろいをとく】に制御を進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			【終了】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					メッセージ ID を <varname>$C3D540,X</varname> からロードし、台詞「では お気をつけて～」を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					サブルーチン呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			【いきかえらせる】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<link linkend="dq3.church.hack.C3D554">サブルーチン <varname>$D554</varname></link> を呼び出し、制御を【ほかに】へ進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			【どくのちりょう】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<link linkend="dq3.church.hack.C3D5DD">サブルーチン <varname>$D5DD</varname></link> を呼び出し、制御を【ほかに】へ進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			【のろいをとく】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<link linkend="dq3.church.hack.C3D64A">サブルーチン <varname>$D64A</varname></link> を呼び出し、制御を次（【ほかに】と同じ位置）に進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			【ほかに】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					メッセージ ID を <varname>$C3D53C,X</varname> からロードし、台詞「ほかにご用は～」を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					制御を【メニュー】に戻す。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.church.hack.C3D49C -->
+
+<section id="dq3.church.hack.C3D554">
+<title>「いきかえらせる」サブルーチン</title>
+<para>
+	サブルーチン <varname>$D554</varname> は教会処理「いきかえらせる」の実装である。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			メッセージ ID を <varname>$C3D510,X</varname> からロードし、
+			メッセージ表示サブルーチンを呼び出すことで、
+			台詞「どなたをこの世へ呼びもどすのじゃな？」を言わせる。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			「だれを」ウィンドウを表示して、プレイヤーの入力を待つ。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					キャンセルボタンを押したときには、
+					メッセージ ID を <varname>$C3D538,X</varname> からロードし、
+					メッセージ表示サブルーチンを呼び出すことで、
+					台詞「なんとやめると申されるか」を言わせる。
+					その後、サブルーチン呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					パーティのメンバーを選択したときは、制御を次へ進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			選択メンバーの生死状態を示すビットをテストするために
+			汎用サブルーチン <varname>$C43F87</varname> を呼び出し、<varname>A</varname> レジスタの値の <literal>0010h</literal> の位を見る。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					もしビットが立っていない場合、
+					メッセージ ID を <varname>$C3D514,X</varname> からロードし、
+					メッセージ表示サブルーチンを呼び出すことで、
+					台詞「○○どのは生きていらっしゃる」を言わせる。
+					その後、サブルーチン呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					ビットが立っている場合は、次へ制御を進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.church.hack.C3D700">サブルーチン <varname>$C3D700</varname></link> 呼び出しにより、寄付金を設定する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.church.hack.C3D6B7">サブルーチン <varname>$C3D6B7</varname></link> 呼び出しにより、寄付をよろしいかな処理を走らせる。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					寄付を支払っていない場合、制御をサブルーチン呼び出し元に戻す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					寄付を支払った場合は、制御を次へ進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			汎用サブルーチン <varname>$C44045</varname> 呼び出しにより、
+			選択メンバーの（少なくとも）死亡状態フラグをセットする
+			（詳細未調査）。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			汎用サブルーチン <varname>$C43231</varname> 呼び出しにより、
+			選択メンバーの HP を最大 HP と同じにする
+			（詳細未調査）。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			汎用サブルーチン <varname>$C43337</varname> 呼び出しにより、
+			選択メンバーの MP を最大 MP と同じにする
+			（詳細未調査）。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			メッセージ ID を <varname>$C3D518,X</varname> からロードし、
+			メッセージ表示サブルーチンを呼び出すことで、
+			台詞「おお わが主よ！全知全能の神よ！」を言わせる。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			例の効果音を鳴らす。鳴り終わったら、制御を次へ進める。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			サブルーチン <varname>$C3BD64</varname> を呼び出す。
+			パーティの描画を更新するものと思われるが未調査。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			メッセージ ID を <varname>$C3D51C,X</varname> からロードし、
+			メッセージ表示サブルーチン（ここだけは <varname>$C1A900</varname> を用いる）を呼び出すことで、
+			「○○は よみがえった！」を表示する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			制御をサブルーチン呼び出し元に戻す。
+		</para>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.church.hack.C3D554 -->
+
+<section id="dq3.church.hack.C3D5DD">
+<title>「どくのちりょう」サブルーチン</title>
+<para>
+	サブルーチン <varname>$D5DD</varname> は教会処理「どくのちりょう」の実装である。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			メッセージ ID を <varname>$C3D520,X</varname> からロードし、
+			メッセージ表示サブルーチンを呼び出すことで、
+			台詞「どなたの毒を とるのじゃな？」を言わせる。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			「だれを」ウィンドウを表示して、プレイヤーの入力を待つ。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					キャンセルボタンを押したときには、
+					メッセージ ID を <varname>$C3D520,X</varname> からロードし、
+					メッセージ表示サブルーチンを呼び出すことで、
+					台詞「なんとやめると申されるか」を言わせる。
+					その後、サブルーチン呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					パーティのメンバーを選択したときは、制御を次へ進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			選択メンバーが毒にかかっているかどうかを示すビットをテストするために
+			汎用サブルーチン <varname>$C43F87</varname> を呼び出し、<varname>A</varname> レジスタの値の <literal>0001h</literal> の位を見る。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					もしビットが立っていない場合、
+					メッセージ ID を <varname>$C3D524,X</varname> からロードし、
+					メッセージ表示サブルーチンを呼び出すことで、
+					台詞「○○どのは毒におかされていませんぞ」を言わせる。
+					その後、サブルーチン呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					ビットが立っている場合は、次へ制御を進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.church.hack.C3D74C">サブルーチン <varname>$C3D74C</varname></link> 呼び出しにより、寄付金を設定する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.church.hack.C3D6B7">サブルーチン <varname>$C3D6B7</varname></link> 呼び出しにより、寄付をよろしいかな処理を走らせる。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					寄付を支払っていない場合、制御をサブルーチン呼び出し元に戻す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					寄付を支払った場合は、制御を次へ進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			汎用サブルーチン <varname>$C440B0</varname> 呼び出しにより、
+			選択メンバーの毒にかかっていることを示すビットをリセットする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			メッセージ ID を <varname>$C3D528,X</varname> からロードし、
+			メッセージ表示サブルーチンを呼び出すことで、
+			台詞「おお神よ おちからを！」を言わせる。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			例の効果音を鳴らす。
+			鳴り終わるのを待って、制御をサブルーチン呼び出し元に戻す。
+		</para>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.church.hack.C3D5DD -->
+
+<section id="dq3.church.hack.C3D64A">
+<title>「のろいをとく」サブルーチン</title>
+<para>
+	サブルーチン <varname>$D64A</varname> は教会処理「のろいをとく」の実装である。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			メッセージ ID を <varname>$C3D544,X</varname> からロードし、
+			メッセージ表示サブルーチンを呼び出すことで、
+			台詞「どなたの呪いを とくのじゃな？」を言わせる。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			「だれを」ウィンドウを表示して、プレイヤーの入力を待つ。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					キャンセルボタンを押したときには、
+					メッセージ ID を <varname>$C3D538,X</varname> からロードし、
+					メッセージ表示サブルーチンを呼び出すことで、
+					台詞「なんとやめると申されるか」を言わせる。
+					その後、サブルーチン呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					パーティのメンバーを選択したときは、制御を次へ進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			選択メンバーが呪われているかどうかを示すビットをテストするために
+			汎用サブルーチン <varname>$C43F87</varname> を呼び出し、<varname>A</varname> レジスタの値の <literal>0004h</literal> の位を見る。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					もしビットが立っていない場合、
+					メッセージ ID を <varname>$C3D548,X</varname> からロードし、
+					メッセージ表示サブルーチンを呼び出すことで、
+					台詞「○○どのは呪われてはいませんぞ」を言わせる。
+					その後、サブルーチン呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					ビットが立っている場合は、次へ制御を進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.church.hack.C3D733">サブルーチン <varname>$C3D733</varname></link> 呼び出しにより、寄付金を設定する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.church.hack.C3D6B7">サブルーチン <varname>$C3D6B7</varname></link> 呼び出しにより、寄付をよろしいかな処理を走らせる。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					寄付を支払っていない場合、制御をサブルーチン呼び出し元に戻す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					寄付を支払った場合は、制御を次へ進める。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			汎用サブルーチン <varname>$C44168</varname> 呼び出しにより、
+			選択メンバーの、呪われている状態であることを示すビットをリセットする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			メッセージ ID を <varname>$C3D54C,X</varname> からロードし、
+			メッセージ表示サブルーチンを呼び出すことで、
+			台詞「おお神よ おちからを！」を言わせる。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			例の効果音を鳴らす。
+			鳴り終わるのを待って、制御をサブルーチン呼び出し元に戻す。
+		</para>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.church.hack.C3D64A -->
+
+<section id="dq3.church.hack.C3D6B7">
+<title>「寄付をよろしいかな」サブルーチン</title>
+<para>
+	サブルーチン <varname>$C3D6B7</varname> は、各メニューに共通する寄付要求の実装である。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			メッセージ ID を <varname>$C3D52C,X</varname> からロードし、かつ
+			呼び出し前に <varname>$70</varname> にセット済みの寄付金額を用いて
+			メッセージ表示サブルーチンを呼び出すことで、
+			台詞「さすれば わが教会に○○ゴールドの ご寄付を」を言わせる。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+			キャンセルボタン抜けもしくは「いいえ」選択の場合、制御を【No】まで進める。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			汎用サブルーチン <varname>$C45B66</varname> に <varname>$70</varname> を引数として渡すことと、
+			サブルーチン <varname>$C32209</varname> 呼び出しによって、
+			所持金から寄付金を減じることを試みる。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					所持金更新に失敗した場合、
+					メッセージ ID を <varname>$C3D530,X</varname> からロードし、
+					台詞「寄付をするにはお金がたりないでは～」を言わせる。
+				</para>
+				<para>
+					【Finish】へ制御を進める。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					所持金更新に成功した場合、制御を呼び出し元に戻す。
+					このとき、<varname>Carry</varname> ビットはリセットされていることに注意。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			【No】
+		</para>
+		<para>
+			メッセージ ID を <varname>$C3D534,X</varname> からロードし、
+			台詞「教会への寄付は神への感謝の気持ち～」を言わせる。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			【Finish】
+		</para>
+		<para>
+			<varname>Carry</varname> ビットをセットして制御を呼び出し元に戻す。
+		</para>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.church.hack.C3D6B7 -->
+
+<section id="dq3.church.hack.C3D700">
+<title>「いきかえらせる」- 寄付金計算サブルーチン</title>
+<para>
+	サブルーチン <varname>$C3D700</varname> は選択したメンバーを生き返らせるための寄付金額を計算する。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			汎用サブルーチン <varname>$C42FEB</varname> により、選択メンバーのレベルを <varname>A</varname> レジスタにロードする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			レベルの値を <varname>A</varname> レジスタの上位バイト (<varname>AH</varname>) と下位バイト (<varname>AL</varname>) に移す。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			汎用乗算サブルーチン <varname>$C01098</varname> により、積 <code>A = AH * AL</code> を計算する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>$70 = A</code> とする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			汎用除算サブルーチン <varname>$C0121C</varname> により、<code>$70 /= 000Ah</code> とする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>$70 += 1</code> とする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<varname>A</varname> レジスタに値 <literal>000Ah</literal> をロードし、
+			汎用乗算サブルーチン <varname>$C010D6</varname> により、<code>$70 *= A</code> とする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			制御を呼び出し元に戻す。
+		</para>
+	</listitem>
+</itemizedlist>
+<para>
+	このことから、生き返らせるための寄付金は、
+	<emphasis>(Lv<superscript>2</superscript> / 10 + 1) * 10</emphasis>
+	と憶えておけばよいことがわかる。
+</para>
+</section> <!-- dq3.church.hack.C3D700 -->
+
+<section id="dq3.church.hack.C3D733">
+<title>「のろいをとく」- 寄付金計算サブルーチン</title>
+<para>
+	サブルーチン <varname>$C3D733</varname> は選択したメンバーの呪いを解くために寄付をする金額を計算する。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			汎用サブルーチン <varname>$C42FEB</varname> により、選択メンバーのレベルを <varname>A</varname> レジスタにロードする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			レベルの値を <varname>A</varname> レジスタの上位バイト (<varname>AH</varname>) に移す。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			値 <literal>1Eh</literal> を <varname>A</varname> レジスタの下位バイト (<varname>AL</varname>) に移す。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			汎用乗算サブルーチン <varname>$C01098</varname> により、積 <code>A = AH * AL</code> を計算する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<varname>A</varname> レジスタにロード済みの積を <varname>$70</varname> にロードする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			さらに <varname>$72</varname> にゼロをロードする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			制御を呼び出し元に戻す。
+		</para>
+	</listitem>
+</itemizedlist>
+<para>
+	このことから、呪いを解くための寄付金は、
+	<emphasis>レベル * 30</emphasis>
+	と憶えておけばよいことがわかる。
+</para>
+</section> <!-- dq3.church.hack.C3D733 -->
+
+<section id="dq3.church.hack.C3D74C">
+<title>「どくのちりょう」- 寄付金計算サブルーチン</title>
+<para>
+	サブルーチン <varname>$C3D74C</varname> は選択したメンバーの解毒をするために寄付をする金額を計算する。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			汎用サブルーチン <varname>$C42FEB</varname> により、選択メンバーのレベルを <varname>A</varname> レジスタにロードする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			値 <code>A &gt;&gt; 2 + 4</code> を <varname>$70</varname> にロードする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			さらに <varname>$72</varname> にゼロをロードする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			制御を呼び出し元に戻す。
+		</para>
+	</listitem>
+</itemizedlist>
+<para>
+	このことから、毒の治療に必要な寄付金は、
+	<emphasis>レベル / 4 + 4</emphasis>
+	と憶えておけばよいことがわかる。
+</para>
+</section> <!-- dq3.church.hack.C3D74C -->
+</section> <!-- dq3.church.hack -->
+</section> <!-- dq3.church -->

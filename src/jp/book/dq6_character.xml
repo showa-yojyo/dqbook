@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq6.character"><?dbhtml filename="dq6_character.html" ?>
+<title>仲間キャラクター</title>
+<indexterm><primary>キャラクター</primary><secondary>DQ6</secondary></indexterm>
+<para>
+	ここでは、<varname>$C8BD12</varname> に定義されている構造体、
+	仲間キャラクター（の定数データの一部）構造体について述べる。
+</para>
+
+<section id="dq6.character.hack">
+<title>解析</title>
+<para>
+	<link linkend="dq6.monster">モンスター構造体</link>の解析を先に行うのが望ましいと思われる。
+	なぜなら、仲間キャラクター構造体の一部メンバーと同じ意味を持つメンバーが存在し、
+	それの意味の特定には、モンスター構造体のメンバーの意味を知っている必要があるからである。
+</para>
+<para>
+	例によって、仲間キャラクターの ID に対して、
+	その仲間キャラクター構造体データのアドレスからなる配列が存在する。
+	それは <varname>$C8C5B8</varname> にある。
+	これはいつものようにサブルーチン <varname>$C92AB5</varname> 等によってアクセスする。
+</para>
+
+<section id="dq6.character.hack.C8C5B8">
+<title><varname>$C8C5B8</varname> - キャラクター構造体へのポインタ配列</title>
+<para>
+	格納されている値は、仲間キャラクター ID に対応するキャラクターのデータが格納されているアドレスである。
+	ただし、この値に <literal>#$C80000</literal> を加算したものが、正確なアドレスとなる。
+</para>
+<programlisting>
+C8/C5B8:    C8    // DB
+C8/C5B9:    12BD  // 00 なし
+C8/C5BB:    2DBD  // 01 じぶん
+C8/C5BD:    48BD  // 02 ハッサン
+C8/C5BF:    63BD  // 03 ミレーユ
+C8/C5C1:    7EBD  // 04 チャモロ
+C8/C5C3:    99BD  // 05 バーバラ
+C8/C5C5:    B4BD  // 06 テリー
+C8/C5C7:    CFBD  // 07 アモス
+C8/C5C9:    EABD  // 08 マリリン
+C8/C5CB:    05BE  // 09 ルージュ
+C8/C5CD:    20BE  // 0A いいだま
+C8/C5CF:    3BBE  // 0B ミッチー
+C8/C5D1:    56BE  // 0C ピエール
+C8/C5D3:    71BE  // 0D タイゾー
+C8/C5D5:    8CBE  // 0E ハヤーカ
+C8/C5D7:    A7BE  // 0F ジュン
+...
+</programlisting>
+</section> <!-- dq6.character.hack.C8C5B8 -->
+
+<section id="dq6.character.hack.C8BD12">
+<title><varname>$C8BD12</varname> - キャラクター構造体</title>
+<para>
+	構造体一個あたりのデータ格納レイアウトを以下に示す。
+</para>
+<table class="memorylayout">
+	<caption>$C8BD12 キャラクター構造体 メモリレイアウト</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th>
+			<td colspan="8" rowspan="2">キャラクターの名前を示す文字列 ID</td>
+		</tr>
+		<tr><th>01</th>
+		</tr>
+		<tr><th>02</th>
+			<td colspan="8" rowspan="2">何者なのかを示す文字列 ID</td>
+		</tr>
+		<tr><th>03</th>
+		</tr>
+		<tr><th>04</th>
+			<td colspan="1">未使用</td>
+			<td colspan="2">他人操作</td>
+			<td colspan="1">未使用？</td>
+			<td colspan="1">パーティ常駐</td>
+			<td colspan="1">モンスター</td>
+			<td colspan="2">性別</td>
+		</tr>
+		<tr><th>05</th>
+			<td colspan="8">レベル初期値</td>
+		</tr>
+		<tr><th>06</th>
+			<td colspan="8">レベルアップ ID</td>
+		</tr>
+		<tr><th>07</th>
+			<td colspan="2">耐性<literal>[02]</literal>:イオ</td>
+			<td colspan="2">耐性<literal>[01]</literal>:ギラ</td>
+			<td colspan="2">耐性<literal>[00]</literal>:メラ</td>
+			<td colspan="1">別れフラグ</td>
+			<td colspan="1">未使用</td>
+		</tr>
+		<tr><th>08</th>
+			<td colspan="2">耐性<literal>[06]</literal>:マヌーサ</td>
+			<td colspan="2">耐性<literal>[05]</literal>:デイン</td>
+			<td colspan="2">耐性<literal>[04]</literal>:バギ</td>
+			<td colspan="2">耐性<literal>[03]</literal>:ヒャド</td>
+		</tr>
+		<tr><th>09</th>
+			<td colspan="2">耐性<literal>[0A]</literal>:マホトラ</td>
+			<td colspan="2">耐性<literal>[09]</literal>:ニフラム</td>
+			<td colspan="2">耐性<literal>[08]</literal>:ザキ</td>
+			<td colspan="2">耐性<literal>[07]</literal>:ラリホー</td>
+		</tr>
+		<tr><th>0A</th>
+			<td colspan="2">耐性<literal>[0E]</literal></td>
+			<td colspan="2">耐性<literal>[0D]</literal>:ルカニ</td>
+			<td colspan="2">耐性<literal>[0C]</literal>:メダパニ</td>
+			<td colspan="2">耐性<literal>[0B]</literal>:マホトーン</td>
+		</tr>
+		<tr><th>0B</th>
+			<td colspan="2">耐性<literal>[12]</literal>:炎</td>
+			<td colspan="2">耐性<literal>[11]</literal>:踊りふうじ</td>
+			<td colspan="2">耐性<literal>[10]</literal>:やすみ</td>
+			<td colspan="2">耐性<literal>[0F]</literal>:毒</td>
+		</tr>
+		<tr><th>0C</th>
+			<td colspan="2">耐性<literal>[16]</literal>:ぐんたい</td>
+			<td colspan="2">耐性<literal>[15]</literal>:まひ</td>
+			<td colspan="2">耐性<literal>[14]</literal>:たたき</td>
+			<td colspan="2">耐性<literal>[13]</literal>:吹雪</td>
+		</tr>
+		<tr><th>0D</th>
+			<td colspan="2">次のバイト下位へ続く</td>
+			<td colspan="2">自動回復</td>
+			<td colspan="2">複数回</td>
+			<td colspan="2">不明 D</td>
+		</tr>
+		<tr><th>0E</th>
+			<td colspan="3">次のバイト下位へ続く</td>
+			<td colspan="4">行動関係？</td>
+			<td colspan="1">みかわし</td>
+		</tr>
+		<tr><th>0F</th>
+			<td colspan="5">未使用</td>
+			<td colspan="3">行動関係？</td>
+		</tr>
+		<tr><th>10</th>
+			<td colspan="8">初期の装備アイテム ID <literal>[00]</literal></td>
+		</tr>
+		<tr><th>11</th>
+			<td colspan="8">初期の装備アイテム ID <literal>[01]</literal></td>
+		</tr>
+		<tr><th>12</th>
+			<td colspan="8">初期の装備アイテム ID <literal>[02]</literal></td>
+		</tr>
+		<tr><th>13</th>
+			<td colspan="8">初期の装備アイテム ID <literal>[03]</literal></td>
+		</tr>
+		<tr><th>14</th>
+			<td colspan="8">初期の装備アイテム ID <literal>[04]</literal></td>
+		</tr>
+		<tr><th>15</th>
+			<td colspan="3">装備状態</td>
+			<td colspan="5">装備グループ ID</td>
+		</tr>
+		<tr><th>16</th>
+			<td colspan="8">次のバイト下位へ続く</td>
+		</tr>
+		<tr><th>17</th>
+			<td colspan="4">次のバイト下位へ続く</td>
+			<td colspan="4">移動時画像 ID</td>
+		</tr>
+		<tr><th>18</th>
+			<td colspan="4">次のバイト下位へ続く</td>
+			<td colspan="4">戦闘時画像 ID</td>
+		</tr>
+		<tr><th>19</th>
+			<td colspan="1">未使用</td>
+			<td colspan="1">格闘場</td>
+			<td colspan="6">?</td>
+		</tr>
+		<tr><th>1A</th>
+			<td colspan="8"><varname>$C40014</varname> 配列 インデックス</td>
+		</tr>
+	</tbody>
+</table>
+<para>
+	不明 D のメンバーは、解読していないモンスター構造体の同名メンバーと同じ意味を持つ。
+	それ以外のメンバーはおおまかに解読をしたので、それぞれに名前をつけておいた。
+	以下、その説明をする。
+</para>
+<glosslist>
+	<glossentry>
+		<glossterm>キャラクターの名前を示す文字列 ID</glossterm>
+		<glossdef>
+			<para>
+				「ハッサン」「ミレーユ」
+				「スラリン」等の<link linkend="dq6.str.data">文字列データ ID</link>
+				である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>何者なのか示す文字列 ID</glossterm>
+		<glossdef>
+			<para>
+				「さすらいのけんし」「いえでむすめ」
+				「ファーラット」「くさったしたい」等の<link linkend="dq6.str.data">文字列データ ID</link>
+				である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>性別</glossterm>
+		<glossdef>
+			<para>
+				そのキャラクターの性別を表す数値が格納されている。
+				このパラメータは、
+				「つよさ」ウィンドウの表示、
+				アイテム装備、およびおしゃれコンテストのエントリーに影響する。
+			</para>
+			<table class="lighttable">
+				<caption>性別</caption>
+				<thead>
+					<tr><th>値</th><th>性別</th></tr>
+				</thead>
+				<tbody>
+					<tr><td><literal>#$00</literal></td><td>おとこ</td></tr>
+					<tr><td><literal>#$01</literal></td><td>おんな</td></tr>
+					<tr><td><literal>#$02</literal></td><td>？？？</td></tr>
+				</tbody>
+			</table>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>モンスター</glossterm>
+		<glossdef>
+			<para>
+				このメンバーを参照しているコードが発見できなかったので、意味は不明としておくのが正しい。
+				しかし、モンスター系統のキャラクターにだけ <literal>1</literal> が格納されているので、
+				暫定的にモンスターフラグとみなしておく。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>パーティ常駐</glossterm>
+		<glossdef>
+			<para>
+				そのキャラクターが常にパーティにいる必要があることを示すフラグである。
+				この値は主人公とバーバラだけ <literal>1</literal> である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>他人操作</glossterm>
+		<glossdef>
+			<para>
+				この値が <literal>2</literal> であるかどうかで、
+				命名神処理とルイーダ処理の一部に影響があるようだ。
+				しかし、全キャラクターについてこの値は <literal>1</literal> であるので、
+				事実上未使用データである。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>レベル初期値</glossterm>
+		<glossdef>
+			<para>
+				そのキャラクターが初めてパーティに加わるときのレベルから <literal>1</literal> を引いた値である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>レベルアップ ID</glossterm>
+		<glossdef>
+			<para>
+				キャラクターのレベルアップ処理に参照する構造体
+				(<varname>$FFB6C2</varname>) データ ID である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>別れフラグ</glossterm>
+		<glossdef>
+			<para>
+				ルイーダの酒場に預けたキャラクターと別れるときにチェックするフラグ。
+				ちなみに、これとは別のフラグを先にチェックして、
+				そのテストを通過したときに初めて参照されるものである。
+				この値が <literal>1</literal> のキャラクターとは、別れることができる。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>耐性</glossterm>
+		<glossdef>
+			<para>
+				モンスターの各「耐性」メンバーと同様である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>複数回</glossterm>
+		<glossdef>
+			<para>
+				モンスターの「複数回」メンバーと同様である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>自動回復</glossterm>
+		<glossdef>
+			<para>
+				モンスターの「自動回復」メンバーと同様である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>みかわし</glossterm>
+		<glossdef>
+			<para>
+				モンスターの「みかわし」メンバーと同様である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<!--
+	<glossentry>
+		<glossterm>行動関係？</glossterm>
+		<glossdef>
+			<para>
+			</para>
+		</glossdef>
+		</glossentry>
+	<glossentry>
+	<glossterm>行動関係？</glossterm>
+		<glossdef>
+			<para>
+			</para>
+		</glossdef>
+	</glossentry>
+		-->
+	<glossentry>
+		<glossterm>初期の装備アイテム ID</glossterm>
+		<glossdef>
+			<para>
+				キャラクターが初めてパーティに加わるときに、
+				装備しているアイテムの<link linkend="dq6.item">アイテム ID</link>
+				である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>装備グループ ID</glossterm>
+		<glossdef>
+			<para>
+				キャラクターがあるアイテムを装備できるか否かを決める値である。
+				アイテム構造体の<link linkend="dq6.item.hack.C4003D">装備グループフラグ</link>と関係する。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>装備状態</glossterm>
+		<glossdef>
+			<para>
+				初期の装備アイテムの、装備しているものがどれなのかを示す値。
+				詳細は未調査。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>移動時画像 ID</glossterm>
+		<glossdef>
+			<para>
+				キャラクターの移動時に画面に描画される画像の ID である。
+				ドラクエビューア
+				<xref linkend="dqref.url2"/>
+				で画像が確認できる。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>戦闘時画像 ID</glossterm>
+		<glossdef>
+			<para>
+				詳細は未調査だが、
+				戦闘時に、敵方が仲間キャラクターに変身するためにモシャスを使用したときに
+				参照する画像の ID と思われる。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>格闘場</glossterm>
+		<glossdef>
+			<para>
+				キャラクターがスライム格闘場に選手として参加できるか否かを示すフラグである。
+				1 でないと選手として試合に参加できない。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm><varname>$C40014</varname> 配列 インデックス</glossterm>
+		<glossdef>
+			<para>
+				キャラクターに対する何かの（多分モンスター名）文字列の ID を得るための構造体
+				(<varname>$C40000</varname>) のアドレスを格納する配列 (<varname>$C40014</varname>) のインデックスである。
+				こう書いてもわかりにくいので、データそのものを以下に示す。
+				人間系統の仲間キャラクターと、スライムのルーキーだけ <literal>0</literal> なのが興味深い。
+			</para>
+<programlisting>
+.dataarea  キャラクターグループ モンスター名を表す文字列 ID
+C4/0000:   00 // 00: 人間＆ルーキー
+C4/0001:   7E // 01: キラーマシン２
+C4/0002:   9D // 02: ランプのまおう
+C4/0003:   7D // 03: ボストロール
+C4/0004:   4B // 04: ウィンドマージ
+C4/0005:   6A // 05: キングスライム
+C4/0006:   61 // 06: ドランゴ
+C4/0007:   56 // 07: ダークホーン
+C4/0008:   19 // 08: どろにんぎょう
+C4/0009:   17 // 09: スライムナイト
+C4/000A:   2F // 0A: ホイミスライム
+C4/000B:   5B // 0B: キメイラ
+C4/000C:   33 // 0C: くさったしたい
+C4/000D:   89 // 0D: はぐれメタル
+C4/000E:   0F // 0E: スライム
+C4/000F:   50 // 0F: ばくだんいわ
+C4/0010:   41 // 10: スーパーテンツク
+C4/0011:   02 // 11: ファーラット
+C4/0012:   06 // 12: リップス
+C4/0013:   4A // 13: レッサーデーモン
+@end
+.dataarea $C4000 構造体へのポインタ配列
+C4/0014:   C4
+C4/0015:   0000 // 00: 人間＆ルーキー
+C4/0017:   0100 // 01: キラーマシン２
+C4/0019:   0200 // 02: ランプのまおう
+C4/001B:   0300 // 03: ボストロール
+C4/001D:   0400 // 04: ウィンドマージ
+C4/001F:   0500 // 05: キングスライム
+C4/0021:   0600 // 06: ドランゴ
+C4/0023:   0700 // 07: ダークホーン
+C4/0025:   0800 // 08: どろにんぎょう
+C4/0027:   0900 // 09: スライムナイト
+C4/0029:   0A00 // 0A: ホイミスライム
+C4/002B:   0B00 // 0B: キメイラ
+C4/002D:   0C00 // 0C: くさったしたい
+C4/002F:   0D00 // 0D: はぐれメタル
+C4/0031:   0E00 // 0E: スライム
+C4/0033:   0F00 // 0F: ばくだんいわ
+C4/0035:   1000 // 10: スーパーテンツク
+C4/0037:   1100 // 11: ファーラット
+C4/0039:   1200 // 12: リップス
+C4/003B:   1300 // 13: レッサーデーモン
+@end</programlisting>
+		</glossdef>
+	</glossentry>
+</glosslist>
+</section> <!-- dq6.character.hack.C8BD12 -->
+</section> <!-- dq6.character.hack -->
+
+<section id="dq6.character.todo">
+<title>TODO リスト</title>
+<itemizedlist>
+	<listitem>
+		<para>
+			不明メンバー D の解析
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			行動関係メンバーの解析
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			構造体末端の未解析部分の解析
+		</para>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq6.character.todo -->
+</section> <!-- dq6.character -->

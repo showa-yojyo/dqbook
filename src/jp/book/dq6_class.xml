@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq6.class"><?dbhtml filename="dq6_class.html" ?>
+<title>職業解析</title>
+<indexterm><primary>職業</primary><secondary>DQ6</secondary></indexterm>
+<para>
+	職業データの解析を行う。
+	ここでは、職業データがアドレス <varname>$C41C3E</varname> に存在することが判明してからの解析作業の解説に絞る。
+	なお、職業データのアドレスを特定するには、ダーマの神殿でのやりとりを解析していく等すれば、
+	比較的容易にできる。
+</para>
+
+<section id="dq6.class.hack">
+<title>解析</title>
+<para>
+	職業構造体へのアクセスは、以下のように行われることが多い。
+	だから、各メンバをどのように参照しているのかを調べるために、
+	<command>grep "LDA $C400"</command> して、検索結果周辺のサブルーチンを解析する必要がある。
+</para>
+<programlisting>
+C4/70FB:    BF0226C4    LDA $C42602,X       // 職業構造体へのポインタ
+C4/70FF:    8D1E4A      STA $4A1E
+C4/7102:    AA          TAX 
+C4/7103:    E220        SEP #$20
+C4/7105:    BF6900C4    LDA $C40069,X       // 職業構造体内部
+</programlisting>
+<para>
+	<varname>$C42602</varname> はポインタの配列のような感じになっている。
+	例えば<varname>$C41D2C</varname>から、職業構造体せんしのオブジェクトが格納されている。
+</para>
+<programlisting>
+C4/2601:    C4    // DB
+C4/2602:    3E1C  // 00: なし
+C4/2604:    B51C  // 01: 本来の自分
+C4/2606:    2C1D  // 02: せんし
+C4/2608:    A31D  // 03: ぶとうか
+C4/260A:    1A1E  // 04: まほうつかい
+C4/260C:    911E  // 05: そうりょ
+C4/260E:    081F  // 06: おどりこ
+C4/2610:    7F1F  // 07: とうぞく
+C4/2612:    F61F  // 08: まものつかい
+C4/2614:    6D20  // 09: しょうにん
+C4/2616:    E420  // 0A: あそびにん
+C4/2618:    5B21  // 0B: バトルマスター
+C4/261A:    D221  // 0C: まほうせんし
+C4/261C:    4922  // 0D: パラディン
+C4/261E:    C022  // 0E: けんじゃ
+C4/2620:    3723  // 0F: レンジャー
+C4/2622:    AE23  // 10: スーパースター
+C4/2624:    2524  // 11: ゆうしゃ
+C4/2626:    9C24  // 12: ドラゴン
+C4/2628:    1325  // 13: はぐれメタル
+C4/262A:    8A25  // 14: なし
+</programlisting>
+
+<section id="dq6.class.hack.C41C3E">
+<title>構造体 <varname>$C41C3E</varname> - 職業構造体</title>
+<para>
+	構造体一個あたりのデータ格納レイアウトを以下に示す。
+	なお、丸かっこ内の数字は各データが占有するバイト長を示す。
+</para>
+<table class="memorylayout">
+	<caption>$C41C3E  職業構造体 メモリレイアウト</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th><td rowspan="2" colspan="8">職業名文字列 ID (<literal>2</literal>)</td></tr>
+		<tr><th>01</th></tr>
+		<tr><th>02</th><td rowspan="2" colspan="8">オフセット (<literal>2</literal>)</td></tr>
+		<tr><th>03</th></tr>
+		<tr><th>04</th><td rowspan="3" colspan="8">マスク (<literal>3</literal>)</td></tr>
+		<tr><th>05</th></tr>
+		<tr><th>06</th></tr>
+		<tr><th>07</th><td rowspan="2" colspan="8">シフトビット (<literal>2</literal>)</td></tr>
+		<tr><th>08</th></tr>
+		<tr><th>09</th><td rowspan="2" colspan="8">職業経験値の最大値 (<literal>2</literal>)</td></tr>
+		<tr><th>0A</th></tr>
+		<tr><th>0B</th><td rowspan="2" colspan="8">職業経験値 熟練度 <literal>2</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>0C</th></tr>
+		<tr><th>0D</th><td rowspan="2" colspan="8">職業経験値 熟練度 <literal>3</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>0E</th></tr>
+		<tr><th>0F</th><td rowspan="2" colspan="8">職業経験値 熟練度 <literal>4</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>10</th></tr>
+		<tr><th>11</th><td rowspan="2" colspan="8">職業経験値 熟練度 <literal>5</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>12</th></tr>
+		<tr><th>13</th><td rowspan="2" colspan="8">職業経験値 熟練度 <literal>6</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>14</th></tr>
+		<tr><th>15</th><td rowspan="2" colspan="8">職業経験値 熟練度 <literal>7</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>16</th></tr>
+		<tr><th>17</th><td rowspan="2" colspan="8">職業経験値 熟練度 <literal>8</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>18</th></tr>
+		<tr><th>19</th><td rowspan="2" colspan="8">職業熟練度 <literal>1</literal> のランク名文字列 ID (<literal>2</literal>)</td></tr>
+		<tr><th>1A</th></tr>
+		<tr><th>1B</th><td rowspan="2" colspan="8">職業熟練度 <literal>2</literal> のランク名文字列 ID (<literal>2</literal>)</td></tr>
+		<tr><th>1C</th></tr>
+		<tr><th>1D</th><td rowspan="2" colspan="8">職業熟練度 <literal>3</literal> のランク名文字列 ID (<literal>2</literal>)</td></tr>
+		<tr><th>1E</th></tr>
+		<tr><th>1F</th><td rowspan="2" colspan="8">職業熟練度 <literal>4</literal> のランク名文字列 ID (<literal>2</literal>)</td></tr>
+		<tr><th>20</th></tr>
+		<tr><th>21</th><td rowspan="2" colspan="8">職業熟練度 <literal>5</literal> のランク名文字列 ID (<literal>2</literal>)</td></tr>
+		<tr><th>22</th></tr>
+		<tr><th>23</th><td rowspan="2" colspan="8">職業熟練度 <literal>6</literal> のランク名文字列 ID (<literal>2</literal>)</td></tr>
+		<tr><th>24</th></tr>
+		<tr><th>25</th><td rowspan="2" colspan="8">職業熟練度 <literal>7</literal> のランク名文字列 ID (<literal>2</literal>)</td></tr>
+		<tr><th>26</th></tr>
+		<tr><th>27</th><td rowspan="2" colspan="8">職業熟練度 <literal>8</literal> のランク名文字列 ID (<literal>2</literal>)</td></tr>
+		<tr><th>28</th></tr>
+		<tr><th>29</th><td rowspan="2" colspan="8">呪文・特技習得経験値[00] (<literal>2</literal>)</td></tr>
+		<tr><th>2A</th></tr>
+		<tr><th>2B</th><td colspan="8">習得する呪文・特技 表示用<literal>[00]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>2C</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[01]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>2D</th></tr>
+		<tr><th>2E</th><td colspan="8">習得する呪文・特技 表示用<literal>[01]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>2F</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[02]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>30</th></tr>
+		<tr><th>31</th><td colspan="8">習得する呪文・特技 表示用<literal>[02]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>32</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[03]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>33</th></tr>
+		<tr><th>34</th><td colspan="8">習得する呪文・特技 表示用<literal>[03]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>35</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[04]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>36</th></tr>
+		<tr><th>37</th><td colspan="8">習得する呪文・特技 表示用<literal>[04]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>38</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[05]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>39</th></tr>
+		<tr><th>3A</th><td colspan="8">習得する呪文・特技 表示用<literal>[05]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>3B</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[06]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>3C</th></tr>
+		<tr><th>3D</th><td colspan="8">習得する呪文・特技 表示用<literal>[06]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>3E</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[07]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>3F</th></tr>
+		<tr><th>40</th><td colspan="8">習得する呪文・特技 表示用<literal>[07]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>41</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[08]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>42</th></tr>
+		<tr><th>43</th><td colspan="8">習得する呪文・特技 表示用<literal>[08]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>44</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[09]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>45</th></tr>
+		<tr><th>46</th><td colspan="8">習得する呪文・特技 表示用<literal>[09]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>47</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[0A]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>48</th></tr>
+		<tr><th>49</th><td colspan="8">習得する呪文・特技 表示用<literal>[0A]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>4A</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[0B]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>4B</th></tr>
+		<tr><th>4C</th><td colspan="8">習得する呪文・特技 表示用<literal>[0B]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>4D</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[0C]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>4E</th></tr>
+		<tr><th>4F</th><td colspan="8">習得する呪文・特技 表示用<literal>[0C]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>50</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[0D]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>51</th></tr>
+		<tr><th>52</th><td colspan="8">習得する呪文・特技 表示用<literal>[0D]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>53</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[0E]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>54</th></tr>
+		<tr><th>55</th><td colspan="8">習得する呪文・特技 表示用<literal>[0E]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>56</th><td rowspan="2" colspan="8">呪文・特技習得経験値<literal>[0F]</literal> (<literal>2</literal>)</td></tr>
+		<tr><th>57</th></tr>
+		<tr><th>58</th><td colspan="8">習得する呪文・特技 表示用<literal>[0F]</literal> ID (<literal>1</literal>)</td></tr>
+		<tr><th>59</th><td rowspan="2" colspan="8">職業レベル最大時のさいだいＨＰ加算ポイント (<literal>2</literal>)</td></tr>
+		<tr><th>5A</th></tr>
+		<tr><th>5B</th><td rowspan="2" colspan="8">職業レベル最大時のさいだいＭＰ加算ポイント (<literal>2</literal>)</td></tr>
+		<tr><th>5C</th></tr>
+		<tr><th>5D</th><td rowspan="2" colspan="8">職業レベル最大時のちから加算ポイント (<literal>2</literal>)</td></tr>
+		<tr><th>5E</th></tr>
+		<tr><th>5F</th><td rowspan="2" colspan="8">職業レベル最大時のすばやさ加算ポイント (<literal>2</literal>)</td></tr>
+		<tr><th>60</th></tr>
+		<tr><th>61</th><td rowspan="2" colspan="8">職業レベル最大時のかしこさ加算ポイント (<literal>2</literal>)</td></tr>
+		<tr><th>62</th></tr>
+		<tr><th>63</th><td rowspan="2" colspan="8">職業レベル最大時のみのまもり加算ポイント (<literal>2</literal>)</td></tr>
+		<tr><th>64</th></tr>
+		<tr><th>65</th><td rowspan="2" colspan="8">職業レベル最大時のかっこよさ加算ポイント (<literal>2</literal>)</td></tr>
+		<tr><th>66</th></tr>
+		<tr><th>67</th><td colspan="8">ちから倍率 (<literal>1</literal>)</td></tr>
+		<tr><th>68</th><td colspan="8">未使用 (<literal>1</literal>)</td></tr>
+		<tr><th>69</th><td colspan="8">すばやさ倍率 (<literal>1</literal>)</td></tr>
+		<tr><th>6A</th><td colspan="8">未使用 (<literal>1</literal>)</td></tr>
+		<tr><th>6B</th><td colspan="8">みのまもり倍率 (<literal>1</literal>)</td></tr>
+		<tr><th>6C</th><td colspan="8">未使用 (<literal>1</literal>)</td></tr>
+		<tr><th>6D</th><td colspan="8">かしこさ倍率 (<literal>1</literal>)</td></tr>
+		<tr><th>6E</th><td colspan="8">未使用 (<literal>1</literal>)</td></tr>
+		<tr><th>6F</th><td colspan="8">かっこよさ倍率 (<literal>1</literal>)</td></tr>
+		<tr><th>70</th><td colspan="8">未使用 (<literal>1</literal>)</td></tr>
+		<tr><th>71</th><td colspan="8">さいだいＨＰ倍率 (<literal>1</literal>)</td></tr>
+		<tr><th>72</th><td colspan="8">未使用 (<literal>1</literal>)</td></tr>
+		<tr><th>73</th><td colspan="8">さいだいＭＰ倍率 (<literal>1</literal>)</td></tr>
+		<tr><th>74</th><td colspan="8">未使用 (<literal>1</literal>)</td></tr>
+		<tr><th>75</th><td rowspan="2" colspan="8">(Unknown) (<literal>1</literal>)</td></tr>
+		<tr><th>76</th></tr>
+	</tbody>
+</table>
+<para>
+	各メンバの意味は以下の通りである。
+</para>
+<glosslist>
+	<glossentry>
+		<glossterm>職業名文字列 ID</glossterm>
+		<glossdef>
+			<para>
+				職業名を表す<link linkend="dq6.str.data">文字列</link>（本来の自分、せんし、ぶとうか、etc.）の ID である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>オフセット</glossterm>
+		<glossdef>
+			<para>
+				その職業の職業経験値が、キャラクターの職業経験値データ格納アドレスの
+				先頭から何バイト目（の途中）から始まるのかを意味する値である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>マスク</glossterm>
+		<glossdef>
+			<para>
+				キャラクターの職業経験値を、上記オフセット位置から取得するときに
+				使うマスク値である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>シフトビット</glossterm>
+		<glossdef>
+			<para>
+				その職業の職業経験値が、キャラクターの職業経験値データ格納アドレスの
+				オフセットバイト目の何ビット目から始まるのかを意味する値である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>職業経験値の最大値</glossterm>
+		<glossdef>
+			<para>
+				その職業でいるときの職業経験値の上限。
+				職業経験値熟練度 <literal>8</literal> の値に等しくなるように設定されている。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>職業経験値 熟練度 <literal>N</literal> (N = <literal>2..8</literal>)</glossterm>
+		<glossdef>
+			<para>
+				職業経験値に対応する熟練度を計算するための数列である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>職業熟練度 <literal>N</literal> のランク名文字列 ID (N = <literal>1..8</literal>)</glossterm>
+		<glossdef>
+			<para>
+				職業熟練度に対応するランク名称（しゅぎょうちゅう、しんかん、しさい、etc.）
+				を表す文字列の ID である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>習得する呪文・特技 表示用 ID </glossterm>
+		<glossdef>
+			<para>
+				キャラクターの職業経験値がこのバイトの直後にある <literal>1</literal> バイト以上であるとき、
+				習得しているはずの呪文・特技のウィンドウ表示用 ID である。
+				構造体 <varname>$FFC96D</varname> 配列の ID である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>呪文・特技習得経験値</glossterm>
+		<glossdef>
+			<para>
+				このバイトの直前 <literal>2</literal> バイトにある呪文・特技を習得するのに必要な職業経験値である。
+				職業経験値が上がるときに、新たな呪文・特技を習得するかを判定するルーチンがあるのだが、
+				このルーチンは、この習得経験値バイトに <literal>#$9A</literal> が格納されていることを検知すると、
+				判定を中断する。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>職業レベル最大時のさいだいＨＰ加算ポイント</glossterm>
+		<glossdef>
+			<para>
+				職業熟練度が最大のときに、
+				キャラクターのさいだいＨＰ補正サブルーチンがこの値を加算のために用いる。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>職業レベル最大時のさいだいＭＰ加算ポイント</glossterm>
+		<glossdef>
+			<para>
+				職業熟練度が最大のときに、
+				キャラクターのさいだいＭＰ補正サブルーチンがこの値を加算のために用いる。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>職業レベル最大時のちから加算ポイント</glossterm>
+		<glossdef>
+			<para>
+				職業熟練度が最大のときに、
+				キャラクターのちから補正サブルーチンがこの値を加算のために用いる。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>職業レベル最大時のすばやさ加算ポイント</glossterm>
+		<glossdef>
+			<para>
+				職業熟練度が最大のときに、
+				キャラクターのすばやさ補正サブルーチンがこの値を加算のために用いる。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>職業レベル最大時のかしこさ加算ポイント</glossterm>
+		<glossdef>
+			<para>
+				職業熟練度が最大のときに、
+				キャラクターのかしこさ補正サブルーチンがこの値を加算のために用いる。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>職業レベル最大時のみのまもり加算ポイント</glossterm>
+		<glossdef>
+			<para>
+				職業熟練度が最大のときに、
+				キャラクターのみのまもり補正サブルーチンがこの値を加算のために用いる。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>職業レベル最大時のかっこよさ加算ポイント</glossterm>
+		<glossdef>
+			<para>
+				職業熟練度が最大のときに、
+				キャラクターのかっこよさ補正サブルーチンがこの値を加算のために用いる。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>ちから倍率</glossterm>
+		<glossdef>
+			<para>
+				キャラクターのちから補正サブルーチンが用いる値である。
+				そのキャラクターの通常のちからに乗ずる値 <literal>* 128</literal> である。
+				ただし、このバイトに <literal>#$FF</literal> が格納されているときは <literal>* 2.0</literal> とみなす。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>すばやさ倍率</glossterm>
+		<glossdef>
+			<para>
+				キャラクターのすばやさ補正サブルーチンが用いる値である。
+				値の使い方はちから倍率と同様である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>みのまもり倍率</glossterm>
+		<glossdef>
+			<para>
+				キャラクターのみのまもり補正サブルーチンが用いる値である。
+				値の使い方はちから倍率と同様である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>かしこさ倍率</glossterm>
+		<glossdef>
+			<para>
+				キャラクターのかしこさ補正サブルーチンが用いる値である。
+				値の使い方はちから倍率と同様である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>かっこよさ倍率</glossterm>
+		<glossdef>
+			<para>
+				キャラクターのかっこよさ補正サブルーチンが用いる値である。
+				値の使い方はちから倍率と同様である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>さいだいＨＰ倍率</glossterm>
+		<glossdef>
+			<para>
+				キャラクターのさいだいＨＰ補正サブルーチンが用いる値である。
+				値の使い方はちから倍率と同様である。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>さいだいＭＰ倍率</glossterm>
+		<glossdef>
+			<para>
+				キャラクターのさいだいＭＰ補正サブルーチンが用いる値である。
+				値の使い方はちから倍率と同様である。
+			</para>
+		</glossdef>
+	</glossentry>
+</glosslist>
+<para>
+	習得する呪文・特技 ID は表示用 ID を保持する構造体
+	<varname>$FFC96D</varname> のそれである。
+	この構造体については、ソニタウンの解析資料 <xref linkend="dqref.url2"/> に記述がある
+</para>
+<para>
+	別の項で改めて解説する予定だが、上に述べた、ちから、
+	すばやさ等の各パラメータの補正は以下の順に行われる。
+</para>
+<orderedlist>
+	<listitem>
+		<para>
+			キャラクターの素のパラメータポイントを取得（構造体 <varname>$7E4025</varname> 配列）
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			職業に就いていれば、職業に応じたポイントに倍率を適用する
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			職業熟練度が最大であれば、ポイントを加算する
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			キャラクターの装備品を考慮する
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			ここまでの補正結果がゼロだったら <literal>1</literal> にする
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			ここまでの補正結果がそのパラメータポイントの上限値を超えていたら、上限に丸める
+		</para>
+	</listitem>
+</orderedlist>
+</section> <!-- dq6.class.hack.C41C3E -->
+</section> <!-- dq6.class.hack -->
+
+<section id="dq6.class.todo">
+<title>TODO リスト</title>
+<itemizedlist>
+	<listitem>
+		<para>
+			職業構造体 <literal>[75, 77)</literal> の意味特定
+		</para>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq6.class.todo -->
+</section> <!-- dq6.class -->

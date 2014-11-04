@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.inn"><?dbhtml filename="dq3_inn.html" ?>
+<title>宿屋解析</title>
+<indexterm><primary>宿屋</primary><secondary>DQ3</secondary></indexterm>
+<para>
+	ドラクエ3 では宿屋の処理は三種類存在する。
+	街中にある宿屋、
+	商人が使える「おおごえ」でフィールドで出現することがある宿屋、
+	そして各すごろくにある宿屋マスの宿屋である。
+	いずれも、まず宿屋のあいさつがあり、
+	宿代を提示して……という一連の振る舞いが共通している。
+	その共通する処理を調べる。
+</para>
+
+<section id="dq3.inn.hack">
+<title>解析</title>
+<para>
+	いきなり結論から述べるが、
+	街中にある宿屋は共通して <varname>$C3D0F8</varname> サブルーチンを呼び出すことで実装してあり、
+	フィールドで遭遇する宿屋と、すごろくの宿屋マスの宿屋は共通サブルーチンで実装してある。
+</para>
+
+<section id="dq3.inn.hack.C3D0F8">
+<title>普通の宿屋</title>
+<para>
+	街中にある宿屋は共通して <varname>$C3D0F8</varname> サブルーチンを呼び出すことで実装してある。
+	このサブルーチンを呼び出す前に、<literal>A</literal> レジスタに宿屋 ID をセットしておく。
+	コードを解読した結果得た事実を下に列挙しておく。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			宿屋の最初のセリフは、昼か夜かで異なる
+			（サブルーチン <varname>$C79190</varname> 呼出し後の carry フラグで判断）。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.inn.hack.C3D2DB">宿屋構造体アクセス <varname>$C3D2DB</varname></link> で宿代の計算等をする。
+			呼び出し終了直後には
+			<varname>$70</varname> (3byte) に宿代が、<varname>$73</varname> (2byte) に復帰用座標情報構造体 ID がセットされている。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			宿泊するかとの問いに「いいえ」またはキャンセル抜けでウィンドウを閉じると、
+			宿屋が「さようなら旅の人～」のセリフを言い、窓口処理が終了する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			宿泊するかとの問いに「はい」を答えると、汎用サブルーチン <varname>$C45B66</varname> を呼び出し、
+			パーティの所持金と宿代との大小比較を行う。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					所持金が不足している場合には
+					「でもお金が足りないようですね」→「さようなら～」という流れになる。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					所持金が十分のときは、所持金から宿代が引かれる。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「それではごゆっくり」のセリフの後、パーティの生存メンバーの HP, MP が全回復する
+					（サブルーチン <varname>$C3D332</varname> 呼び出しによる）。
+				</para>
+			</listitem>
+			<listitem>
+			<para>
+				画面を暗転し、<varname>$73</varname> にセット済みの復帰座標 ID を元に、
+				パーティのメンバーの立ち位置を変更して画面が元に戻る。
+			</para>
+			</listitem>
+			<listitem>
+				<para>
+					（タイミングは不明）この間におなじみの宿屋の効果音が流れる。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「おはようございます」のセリフを表示し、
+					ウィンドウが閉じたら宿屋処理を終了する。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.inn.hack.C3D0F8 -->
+
+<section id="dq3.inn.hack.C3D1D6">
+<title>旅の宿屋</title>
+<para>
+	フィールドで「おおごえ」を使うと出現する旅の宿屋は、
+	サブルーチン <varname>$C3D1D6</varname> で実装されている。
+	このサブルーチンは、<varname>X</varname> レジスタに <literal>0</literal> をセットしてから
+	<link linkend="dq3.inn.hack.C3D20C">旅・すごろく宿屋共通サブルーチン</link>
+	を呼び出すだけで終わる。
+</para>
+</section> <!-- dq3.inn.hack.C3D1D6 -->
+
+<section id="dq3.inn.hack.C3D1F1">
+<title>すごろくの宿屋</title>
+<para>
+	すごろくの宿屋のマスに止まると、いきなり画面が変わって宿屋の処理に突入するが、
+	セリフ部分からの処理はサブルーチン <varname>$C3D1F1</varname> で実装されている。
+	このサブルーチンは、<literal>X</literal> レジスタに <literal>2</literal> をセットしてから
+	<link linkend="dq3.inn.hack.C3D20C">旅・すごろく宿屋共通サブルーチン</link>
+	を呼び出すだけで終わる。
+</para>
+</section> <!-- dq3.inn.hack.C3D1F1 -->
+
+<section id="dq3.inn.hack.C3D20C">
+<title>旅・すごろく宿屋共通</title>
+<para>
+	サブルーチン <varname>$C3D20C</varname> は、旅の宿屋とすごろくの宿屋の実装である。
+	このサブルーチンを呼び出す前に、
+	<literal>A</literal> レジスタと <literal>X</literal> レジスタに宿屋 ID と
+	「表示セリフタイプ」をそれぞれにセットしておく。
+	コードを解読した結果得た事実を下に列挙しておく。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			<link linkend="dq3.inn.hack.C3D0F8">普通の宿屋</link>サブルーチンのコードをコピー＆ペーストしてから、
+			差分だけを変更して作ったと思われる。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					宿屋のセリフ表示をサブルーチン <varname>$C1A95A</varname> 呼び出しで実現している。
+					これは <literal>A</literal> レジスタにメッセージ ID をセットしてから呼び出すものである。
+					例えば最初の台詞は <code>LDA $C3D2C3,X</code> でメッセージ ID をセットする。
+					旅の宿屋とすごろくの宿屋の違いは、
+					この <code>LDA</code> 命令の <literal>X</literal> の違いに他ならない。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					宿屋の第一声のセリフは昼夜を問わない。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+<para>
+	<literal>X</literal> レジスタが台詞の種別を表現する。
+	X = 0 は旅の宿屋のそれであり、
+	X = 2 はすごろくの宿屋のそれである。
+	一人の宿屋は 6 種類の台詞を話すため、
+	6 個のメッセージ ID 配列を用意している。
+</para>
+<glosslist>
+	<glossentry>
+		<glossterm><code>$C3D2C3,X</code></glossterm>
+		<glossdef>
+			<para>
+				最初の挨拶を表すメッセージ ID が 2 個からなる配列。
+				例えば旅の宿屋 (X = 0) の場合は、宿屋処理コードは
+				「おまたせしました。旅人の宿屋で ございます」
+				を表示する ID 値 <literal>0ABBh</literal> を参照することになる。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm><code>$C3D2C7,X</code></glossterm>
+		<glossdef>
+			<para>
+				宿代を言うためのメッセージ ID 配列。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm><code>$C3D2CB,X</code></glossterm>
+		<glossdef>
+			<para>
+				「さようなら旅の人」メッセージ ID 配列。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm><code>$C3D2CF,X</code></glossterm>
+		<glossdef>
+			<para>
+				パーティの所持金が不足しているときに宿屋が言う台詞のメッセージ ID 配列。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm><code>$C3D2D3,X</code></glossterm>
+		<glossdef>
+			<para>
+				「おやすみなさい」メッセージ ID 配列。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm><code>$C3D2D7,X</code></glossterm>
+		<glossdef>
+			<para>
+				「いってらっしゃい」メッセージ ID 配列。
+			</para>
+		</glossdef>
+	</glossentry>
+</glosslist>
+</section> <!-- dq3.inn.hack.C3D20C -->
+
+<section id="dq3.inn.hack.C3D2DB">
+<title>宿屋構造体アクセス</title>
+<para>
+	サブルーチン <varname>$C2D2DB</varname> では、与えられた宿屋 ID を元に以下の処理を行う。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			宿屋構造体 <varname>$C30A98</varname> データを読み取る
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<varname>$70</varname> (3byte) に宿代をセットし、さらにパーティの生存人数で乗じる。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<varname>$73</varname> に構造体 <varname>$C89BB7</varname>（復帰用座標情報構造体）ID をセットする。
+		</para>
+	</listitem>
+</itemizedlist>
+<para>
+	宿屋構造体 <varname>$C30A98</varname> のメモリレイアウトは以下の通り。
+</para>
+<table class="memorylayout">
+	<caption>$C30A98 宿屋構造体</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th>
+			<td colspan="8">一人頭の宿代（上位バイトの下位へ続く）</td>
+		</tr>
+		<tr><th>01</th>
+			<td colspan="6">復帰用座標情報 ID （上位バイトの下位へ続く）</td>
+			<td colspan="2">続き</td>
+		</tr>
+		<tr><th>02</th>
+			<td colspan="1">未使用</td>
+			<td colspan="7">続き</td>
+		</tr>
+	</tbody>
+</table>
+<para>
+	復帰用座標情報構造体 <varname>$C89BB7</varname> のデータは、
+	一晩明けたときのパーティの立ち位置を決めるために参照される。
+	構造体については先行研究
+	<xref linkend="dqref.url3"/>
+	を参照。
+</para>
+</section> <!-- dq3.inn.hack.C3D2DB -->
+</section> <!-- dq3.inn.hack -->
+</section> <!-- dq3.inn -->

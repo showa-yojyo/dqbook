@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.stadium"><?dbhtml filename="dq3_stadium.html" ?>
+<title>格闘場解析</title>
+<indexterm><primary>格闘場</primary><secondary>DQ3</secondary></indexterm>
+<para>
+本節は、格闘場の胴元の共通処理サブルーチンを解析する。
+</para>
+
+<section id="dq3.stadium.hack">
+<title>解析</title>
+<para>
+世界各地の格闘場受付（胴元）に「はなす」と呼び出されるサブルーチンは共通して
+<link linkend="dq3.stadium.hack.C3EE64"><varname>$C3EE64</varname></link> を呼び出す。
+</para>
+<para>
+サブルーチンでは、胴元の話す台詞を、
+<link linkend="dq3.message">メッセージ ID</link>
+<literal>2</literal> バイト 値を引数として渡すサブルーチン <varname>$C1A92E</varname> でウィンドウに表示する。
+逆アセンブルコードを解読する際には、ここを手掛かりとして処理を読み進めることができる。
+</para>
+
+<section id="dq3.stadium.hack.C3EE64">
+<title>格闘場共通処理サブルーチン</title>
+<para>
+サブルーチン <varname>$C3EE64</varname> では、
+パーティが受付に話しかけてから話し終わるまでの処理を実装する。
+格闘場の処理の本筋とは外れた処理コードを排除して、受付男処理のアウトラインを示す。
+</para>
+<itemizedlist>
+	<listitem>
+		<para><code>A = $337A</code></para>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.stadium.hack.C3EF29">賭け金計算サブルーチン</link>を呼び出す。
+		</para>
+	</listitem>
+	<listitem>
+		<para><code>$3376 = 掛札の金額</code></para>
+	</listitem>
+	<listitem>
+		<para>
+			メッセージ ID <literal>#$09BB</literal> の台詞を表示する。
+			「かけふだは一枚○○ゴールドだ。買うかい？」のような文言である。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			はい・いいえウィンドウを表示して、プレイヤーの入力を待つ。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					キャンセルボタン or いいえ ⇒【買わない】へ進む。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					それ以外 ⇒ 次へ進む。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			<varname>X</varname> レジスタと <varname>A</varname> レジスタに
+			<literal>0</literal> と 賭け金をそれぞれロードしてから
+			所持金変更サブルーチン <varname>$C45B66</varname> を呼び出し、
+			パーティの所持金から賭け金を徴収することを試みる。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					失敗した ⇒【所持金不足】へ進む。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					それ以外は（所持金から賭け金を徴収された状態で）次へ進む。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			出場モンスターリストをウィンドウに表示する。
+			プレイヤーの入力を待つ。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					キャンセルボタン抜け ⇒【途中でキャンセル】へ進む。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					それ以外 ⇒ 次へ進む。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			<code>$3374 = 選択したモンスターが何番目か</code> (<code>0..</code>)
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			ビットセット汎用サブルーチン <varname>$C902E9</varname> を呼び出すことで、
+			<code>$7E2011 &amp; #$000C</code> 部分に選択番号を詰め込む。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>$BE71 = 選択したモンスターのモンスター構造体 ID</code>
+			として、<link linkend="dq3.tipster.hack.C3F022">予想モンスターの名前を調べるサブルーチン</link>
+			<varname>$C3F022</varname> を呼び出す。
+			これは直後の台詞表示にモンスター名文字列を含むためである。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			ビットセット汎用サブルーチン <varname>$C902E9</varname> を呼び出すことで、
+			<code>$7E2011 &amp; #$0040</code> ビットを立てる
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			メッセージ ID <literal>#$09BE</literal> の台詞を表示する。
+			「毎度ありい！ スタジアムへ行っておくれ」のような文言である。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			意味不明のスタック値直接操作コードが走る。
+			この時点での <varname>$08,S</varname> は、サブルーチン呼び出し直後の <code>PHP</code> 命令でスタックしたものである。
+		</para>
+<programlisting>
+C3/EEE2:    09A308      ORA #$08A3
+C3/EEE5:    090100      ORA #$0001
+C3/EEE8:    8308        STA $08,S
+</programlisting>
+	</listitem>
+	<listitem>
+		<para>
+			【終了】へ進む。
+		</para>
+	</listitem>
+
+	<listitem>
+		<para>【所持金不足】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					メッセージ ID <literal>#$09BF</literal> の台詞を表示する。
+					「お金が足りないみたいだよ」のような文言である。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+				 	【また来てくれよな】へ進む。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【途中でキャンセル】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<varname>X</varname> レジスタと <varname>A</varname> レジスタに <literal>0</literal> と 賭け金をそれぞれロードしてから
+					所持金変更サブルーチン <varname>$C45B1A</varname> を呼び出し、
+					パーティの所持金を更新することを試みる。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【買わない】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					メッセージ ID <literal>#$09BC</literal> の台詞を表示する。
+					「なんだやめるのか」のような文言である。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					次の【また来てくれよな】へ進む。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>【また来てくれよな】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					メッセージ ID <literal>#$09BD</literal> の台詞を表示する。
+					「それじゃまた来てくれよな」のような文言である。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					スタック上のアドレスにある値 <varname>$08,S</varname> 
+					（サブルーチン呼び出し直後の <code>PHP</code> 命令で退避しておいた値）にマスク #$FFFE をかける。
+					当サブルーチン呼び出し元に制御を戻したときに、
+					<varname>Carry</varname> ビットがリセットされている (<code>CLC</code>) 状態にするのが目的である。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>【終了】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					サブルーチン呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+
+<para>
+最初唐突に参照される <varname>$337A</varname> が奇異に思えるが、
+これは<link linkend="dq3.matchmake">マッチメイク処理</link>を終えていることが事前条件になっているから問題ない。
+勇者のレベルがこのアドレスに既に格納されていると考えればよい。
+</para>
+<para>
+<varname>$7E2011</varname> は戦闘時のコンテキストで参照されることで有名なアドレスだが、
+このサブルーチンの解読から、一部のビットが格闘場処理のために機能していることが読み取れる。
+例えば、<code>$7E2011 &amp; #$0040</code> ビットが立っていることは、
+その戦闘が格闘場モードであることと同値だ。
+</para>
+<para>
+余計なお世話だが、所持金から代金を徴収するタイミングが尚早な印象を受けた。
+キャンセルが発生したときに、わざわざ所持金を元に戻している。
+徴収は「毎度あり」すなわち購入成功確定と同時でよいのではなかろうか。
+</para>
+
+</section> <!-- dq3.stadium.hack.C3EE64 -->
+
+<section id="dq3.stadium.hack.C3EF29">
+<title>賭け金計算サブルーチン</title>
+<para>
+サブルーチン <varname>$EF29</varname> は <varname>A</varname> レジスタの値を <literal>10</literal> 倍にして
+<varname>$BE81</varname> に <literal>3</literal> バイト長でセットするだけの仕事をする。
+この値が格闘場での賭け金となる。
+<varname>$BE81</varname> はメッセージ表示用サブルーチンが参照する値を格納するアドレスである。
+短いサブルーチンであるので、全コードを以下に載せる。
+</para>
+<programlisting>
+C3/EF29:    0A          ASL A
+C3/EF2A:    48          PHA            <co id="dq3.stadium.co.1" />
+C3/EF2B:    0A          ASL A
+C3/EF2C:    0A          ASL A          <co id="dq3.stadium.co.2" />
+C3/EF2D:    6301        ADC $01,S      <co id="dq3.stadium.co.3" />
+C3/EF2F:    9C82BE      STZ $BE82
+C3/EF32:    8D81BE      STA $BE81
+C3/EF35:    FA          PLX 
+C3/EF36:    60          RTS
+</programlisting>
+<calloutlist>
+  <callout arearefs="dq3.stadium.co.1">
+    <para>値 <code>A * 2</code> をスタックにプッシュ（倍プッシュ）する。</para>
+  </callout>
+  <callout arearefs="dq3.stadium.co.2">
+    <para>この時点での <varname>A</varname> の値は、サブルーチン開始直後の <literal>8</literal> 倍になっている。</para>
+  </callout>
+  <callout arearefs="dq3.stadium.co.3">
+    <para>
+      <varname>A</varname> にスタックの値を加算する。
+      これで <varname>A</varname> はサブルーチン開始直後の <literal>10</literal> 倍になっている。
+    </para>
+  </callout>
+</calloutlist>
+<para>
+	<varname>X</varname> レジスタに呼び出し直後の <varname>A</varname> レジスタの値を
+	<literal>2</literal> 倍したものがロードされることになるが、特に深い意味はない。
+</para>
+</section> <!-- dq3.stadium.hack.C3EF29 -->
+</section> <!-- dq3.stadium.hack -->
+</section> <!-- dq3.stadium -->

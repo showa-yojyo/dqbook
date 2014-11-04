@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % vers SYSTEM "version.xml">
+  %vers;
+
+  <!ENTITY docroot "http://www.geocities.jp/showa_yojyo/dq">
+
+  <!ENTITY preface                    SYSTEM "preface.xml">
+  <!ENTITY hack                       SYSTEM "dq_hack.xml">
+
+  <!ENTITY chapter_tools              SYSTEM "tools.xml">
+  <!ENTITY tools_emulator             SYSTEM "tools_emulator.xml">
+  <!ENTITY tools_disasm               SYSTEM "tools_disasm.xml">
+  <!ENTITY tools_cygwin               SYSTEM "tools_cygwin.xml">
+  <!ENTITY tools_editor               SYSTEM "tools_editor.xml">
+  <!ENTITY tools_python               SYSTEM "tools_python.xml">
+  <!ENTITY tools_utility              SYSTEM "tools_utility.xml">
+
+  <!ENTITY dq3                        SYSTEM "dq3.xml">
+  <!ENTITY dq3_act                    SYSTEM "dq3_act.xml">
+  <!ENTITY dq3_bank                   SYSTEM "dq3_bank.xml">
+  <!ENTITY dq3_caption                SYSTEM "dq3_caption.xml">
+  <!ENTITY dq3_character              SYSTEM "dq3_character.xml">
+  <!ENTITY dq3_church                 SYSTEM "dq3_church.xml">
+  <!ENTITY dq3_class                  SYSTEM "dq3_class.xml">
+  <!ENTITY dq3_classchange            SYSTEM "dq3_classchange.xml">
+  <!ENTITY dq3_damage                 SYSTEM "dq3_damage.xml">
+  <!ENTITY dq3_debug                  SYSTEM "dq3_debug.xml">
+  <!ENTITY dq3_entry                  SYSTEM "dq3_entry.xml">
+  <!ENTITY dq3_gallery                SYSTEM "dq3_gallery.xml">
+  <!ENTITY dq3_inn                    SYSTEM "dq3_inn.xml">
+  <!ENTITY dq3_item                   SYSTEM "dq3_item.xml">
+  <!ENTITY dq3_king                   SYSTEM "dq3_king.xml">
+  <!ENTITY dq3_matchmake              SYSTEM "dq3_matchmake.xml">
+  <!ENTITY dq3_medal                  SYSTEM "dq3_medal.xml">
+  <!ENTITY dq3_message                SYSTEM "dq3_message.xml">
+  <!ENTITY dq3_message_battle         SYSTEM "dq3_message_battle.xml">
+  <!ENTITY dq3_monster                SYSTEM "dq3_monster.xml">
+  <!ENTITY dq3_monster_medal_dq4      SYSTEM "dq3_monster_medal_dq4.xml">
+  <!ENTITY dq3_overcharge             SYSTEM "dq3_overcharge.xml">
+  <!ENTITY dq3_people                 SYSTEM "dq3_people.xml">
+  <!ENTITY dq3_pond                   SYSTEM "dq3_pond.xml">
+  <!ENTITY dq3_pub                    SYSTEM "dq3_pub.xml">
+  <!ENTITY dq3_rename                 SYSTEM "dq3_rename.xml">
+  <!ENTITY dq3_scene                  SYSTEM "dq3_scene.xml">
+  <!ENTITY dq3_shop                   SYSTEM "dq3_shop.xml">
+  <!ENTITY dq3_sistersave             SYSTEM "dq3_sistersave.xml">
+  <!ENTITY dq3_stadium                SYSTEM "dq3_stadium.xml">
+  <!ENTITY dq3_str                    SYSTEM "dq3_str.xml">
+  <!ENTITY dq3_tipster                SYSTEM "dq3_tipster.xml">
+  <!ENTITY dq3_window                 SYSTEM "dq3_window.xml">
+  <!ENTITY dq3_zodiac                 SYSTEM "dq3_zodiac.xml">
+
+  <!ENTITY dq4                        SYSTEM "dq4.xml">
+  <!ENTITY dq4_gallery                SYSTEM "dq4_gallery.xml">
+  <!ENTITY dq4_imm                    SYSTEM "dq4_imm.xml">
+  <!ENTITY dq4_level                  SYSTEM "dq4_level.xml">
+  <!ENTITY dq4_monster                SYSTEM "dq4_monster.xml">
+  <!ENTITY dq4_act                    SYSTEM "dq4_act.xml">
+  <!ENTITY dq4_item                   SYSTEM "dq4_item.xml">
+
+  <!ENTITY dq5                        SYSTEM "dq5.xml">
+  <!ENTITY dq5_act                    SYSTEM "dq5_act.xml">
+  <!ENTITY dq5_chara_monster_init     SYSTEM "dq5_chara_monster_init.xml">
+  <!ENTITY dq5_chara_spell            SYSTEM "dq5_chara_spell.xml">
+  <!ENTITY dq5_encounter              SYSTEM "dq5_encounter.xml">
+  <!ENTITY dq5_encounter_special      SYSTEM "dq5_encounter_special.xml">
+  <!ENTITY dq5_fight_ring             SYSTEM "dq5_fight_ring.xml">
+  <!ENTITY dq5_flow_encounter         SYSTEM "dq5_flow_encounter.xml">
+  <!ENTITY dq5_gallery                SYSTEM "dq5_gallery.xml">
+  <!ENTITY dq5_item                   SYSTEM "dq5_item.xml">
+  <!ENTITY dq5_message                SYSTEM "dq5_message.xml">
+  <!ENTITY dq5_message_battle         SYSTEM "dq5_message_battle.xml">
+  <!ENTITY dq5_monster                SYSTEM "dq5_monster.xml">
+  <!ENTITY dq5_store                  SYSTEM "dq5_store.xml">
+  <!ENTITY dq5_str                    SYSTEM "dq5_str.xml">
+
+  <!ENTITY dq6                        SYSTEM "dq6.xml">
+  <!ENTITY dq6_act                    SYSTEM "dq6_act.xml">
+  <!ENTITY dq6_bank                   SYSTEM "dq6_bank.xml">
+  <!ENTITY dq6_character              SYSTEM "dq6_character.xml">
+  <!ENTITY dq6_church                 SYSTEM "dq6_church.xml">
+  <!ENTITY dq6_class                  SYSTEM "dq6_class.xml">
+  <!ENTITY dq6_debug                  SYSTEM "dq6_debug.xml">
+  <!ENTITY dq6_encounter              SYSTEM "dq6_encounter.xml">
+  <!ENTITY dq6_inn                    SYSTEM "dq6_inn.xml">
+  <!ENTITY dq6_item                   SYSTEM "dq6_item.xml">
+  <!ENTITY dq6_level                  SYSTEM "dq6_level.xml">
+  <!ENTITY dq6_message                SYSTEM "dq6_message.xml">
+  <!ENTITY dq6_message_battle         SYSTEM "dq6_message_battle.xml">
+  <!ENTITY dq6_monster                SYSTEM "dq6_monster.xml">
+  <!ENTITY dq6_people                 SYSTEM "dq6_people.xml">
+  <!ENTITY dq6_rename                 SYSTEM "dq6_rename.xml">
+  <!ENTITY dq6_shop                   SYSTEM "dq6_shop.xml">
+  <!ENTITY dq6_str                    SYSTEM "dq6_str.xml">
+
+  <!ENTITY dq7                        SYSTEM "dq7.xml">
+  <!ENTITY dq7_act                    SYSTEM "dq7_act.xml">
+  <!ENTITY dq7_boss01                 SYSTEM "dq7_boss01.xml">
+  <!ENTITY dq7_ch2                    SYSTEM "dq7_ch2.xml">
+  <!ENTITY dq7_dbg                    SYSTEM "dq7_dbg.xml">
+  <!ENTITY dq7_dbg02                  SYSTEM "dq7_dbg02.xml">
+  <!ENTITY dq7_imm                    SYSTEM "dq7_imm.xml">
+  <!ENTITY dq7_item                   SYSTEM "dq7_item.xml">
+  <!ENTITY dq7_monster                SYSTEM "dq7_monster.xml">
+
+  <!ENTITY part01                     SYSTEM "part01.xml">
+  <!ENTITY part02                     SYSTEM "part02.xml">
+
+  <!ENTITY appendix_a                 SYSTEM "appendix_a.xml">
+  <!ENTITY appendix_b                 SYSTEM "appendix_b.xml">
+  <!ENTITY gloss                      SYSTEM "glossary.xml">
+]>
+<book id="index" lang="ja">
+	<title>ドラクエ命</title>
+	<bookinfo>
+		<copyright>
+			<year>2002-&today.year;</year>
+			<holder>
+				<ulink url="http://www.geocities.jp/showa_yojyo/">プレハブ小屋</ulink>
+			</holder>
+		</copyright>
+		<legalnotice>
+			<simplelist>
+				<member><ulink url="&docroot;/dqbook-html-chunk.tar.bz2">HTML 通常版ダウンロード (tar.bz2)</ulink></member>
+			</simplelist>
+		</legalnotice>
+		<pubdate>&today.date;</pubdate>
+		<releaseinfo>&git.version;</releaseinfo>
+	</bookinfo>
+
+	&preface;
+	&part01;
+	&part02;
+	&appendix_a;
+	&appendix_b;
+
+	&gloss;
+	<!-- &index; -->
+	<index id="dq.index"><?dbhtml filename="dq_index.html" ?>
+	</index> <!-- dq.index -->
+</book>

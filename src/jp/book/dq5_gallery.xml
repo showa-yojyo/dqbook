@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq5.gallery"><?dbhtml filename="dq5_gallery.html" ?>
+<title>バカ画像</title>
+<indexterm><primary>バカ画像</primary><secondary>DQ5</secondary></indexterm>
+<para>
+	ここでは、特殊な方法で撮影に成功したドラクエ5 にまつわるおバカな画像の数々を披露する。
+</para>
+
+<section id="dq5.gallery.barabara">
+<title>ミルドラースバラバラ殺人事件</title>
+<para>
+	このセクションでは、モンスターデータ定義領域外のデータを強引にモンスターデータとみなしたときに、
+	戦闘モードで出現するキャラクター画像を紹介する。
+</para>
+
+<section id="dq5.gallery.barabara.upperpart">
+<title>上半身</title>
+<figure>
+	<title>ミルドラース上半身 顔なし</title>
+	<graphic width="256px" fileref="./image/dq5_01.png"/>
+</figure>
+<figure>
+	<title>ミルドラース上半身 顔なし</title>
+	<graphic width="256px" fileref="./image/dq5_02.png"/>
+</figure>
+<para>
+	上の 2 枚の画像だが、これは連続写真ではない。
+	キャラクター画像としては、それぞれ別のモンスターとして定義されているのである。
+	ちなみに戦闘データは、ラスボスとしてのミルドラースと同じようである。
+	両方とも戦ってみたところやはり強く、
+	イオナズン、メラゾーマ、しゃくねつ、めいそう……と、
+	むしろ変身後のミルドラースの行動パターンをとることが観察できる。
+</para>
+<para>
+	なお、顔部分が描画されないことについては謎である。
+</para>
+</section> <!-- dq5.gallery.barabara.upperpart -->
+
+<section id="dq5.gallery.barabara.lowerpart">
+<title>下半身</title>
+<figure>
+	<title>ミルドラース下半身</title>
+	<graphic width="256px" fileref="./image/dq5_03.png"/>
+</figure>
+<para>
+	変身後のミスドラースの下半身のみのグラフィックを持つキャラクターが出現した。
+	モンスターデータの配置部分を超えたところのデータを無理に使わせたため、
+	得体のしれないグラフィックになった。
+</para>
+<para>
+	コイツは戦闘中「ぼーっとしている」だけで、何も攻撃してこない。
+	その上 HP もなんとゼロなので、だれが叩いても一撃の下に倒れることになる。
+</para>
+<para>
+	ここには紹介できないが、経験値はなんと 42920 ポイントもある。
+	インチキレベルアップに絶好なモンスターと思うかもしれないが、しかし困ったことがある。
+	こいつは戦闘終了後、100％の確率で「せいなるみずさし」を落としてくれる。
+	調子に乗ってレベルアップを繰り返していると、
+	仲間の持ち物がすぐに捨てることのできない「せいなるみずさし」でいっぱいになる。
+	非常にうっとうしい。
+</para>
+<figure>
+	<title>ミルドラースの宝箱は……</title>
+	<graphic width="256px" fileref="./image/dq5_04.png"/>
+</figure>
+<figure>
+	<title>せいなるみずさしを てにいれた</title>
+	<graphic width="256px" fileref="./image/dq5_05.png"/>
+</figure>
+</section> <!-- dq5.gallery.barabara.lowerpart -->
+</section> <!-- dq5.gallery.barabara -->
+
+<section id="dq5.gallery.err">
+<title>エラーデス!!</title>
+<figure>
+	<title>エラーデス!!</title>
+	<graphic width="256px" fileref="./image/dq5_error_desu.png"/>
+</figure>
+<para>
+	PAR コード改造による不正状況捏造系画像です。
+</para>
+<para>
+	キャラクターに「はなす」ときのメッセージを全部解析したときの話。
+	アドレス等を色々サーチしてみたが、どうも特定できない。
+	どうもドラクエ6 やドラクエ3 とは違ったスタイルで、
+	ウィンドウに表示するメッセージを扱っているものと思われる。
+	上の画像は、そんな不毛なサーチ作業中に生じた副産物である。
+	アドレス $7E00F0-$7E00F3 あたりの値をデタラメに入力しておくと、
+	極めてレアな小ウィンドウが画面中央付近に出現し、
+	「エラーデス!!」を拝むことができる。
+	（そしてゲームがストップする。）
+</para>
+</section> <!-- dq5.gallery.err -->
+
+<section id="dq5.gallery.goods">
+<title>謎のアイテム</title>
+<indexterm><primary>アイテム</primary><secondary>没アイテム</secondary></indexterm>
+<figure>
+	<title>謎のアイテム</title>
+	<graphic width="256px" fileref="./image/dq5_bzritem_01.png"/>
+</figure>
+<figure>
+	<title>なぜか武器に分類されているようだ</title>
+	<graphic width="256px" fileref="./image/dq5_bzritem_02.png"/>
+</figure>
+<para>
+	ドラクエ5 データの日の目の当たらないところに、
+	次の名前を持つアイテムが存在する。
+</para>
+<table class="lighttable">
+	<caption>謎のアイテム</caption>
+	<thead>
+		<tr><th>PAR</th><th>アイテム名</th></tr>
+	</thead>
+	<tbody>
+		<tr><td><code>BA</code></td><td><link linkend="dq5.gallery.goods.BA">まほうのふくろ</link></td></tr>
+		<tr><td><code>BE</code></td><td><link linkend="dq5.gallery.goods.BE">あくまのおもちゃ</link></td></tr>
+		<tr><td><code>C3</code></td><td><link linkend="dq5.gallery.goods.C3">モンスターほいほい</link></td></tr>
+		<tr><td><code>D4</code></td><td><link linkend="dq5.gallery.goods.D4">バロンのつのぶえ</link></td></tr>
+	</tbody>
+</table>
+<para>
+	これらはいわゆるボツアイテムのようである。
+	売値は一様に 0 ゴールドに設定されてある。
+	捨てることも可能である。
+	インパスの呪文による鑑定メッセージがまったく設定されていないという共通点もある。
+	まほうのふくろとモンスターほいほいはある程度特徴のある動作をするが、
+	あくまのおもちゃとバロンのつのぶえは名前が違うだけで、
+	データ内容はまったく同じであると考えてよい。
+</para>
+
+<section id="dq5.gallery.goods.BA">
+<title>まほうのふくろ</title>
+<para>
+	なぜか武器属性を持つ。装備できるキャラクターはいない。
+</para>
+<variablelist>
+	<varlistentry>
+		<term>移動中に使う</term>
+		<listitem>
+			<para>
+				「しかし ここでは 何も おこらなかった」と表示される。
+				これは戦闘中専用のアイテムであることを意味するメッセージである。
+			</para>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term>戦闘中に使う</term>
+		<listitem>
+			<para>
+				下の画像のようなことになる。
+				「○○○○は まほうのふくろを つかった!」のようなメッセージはなく、
+				いきなり空行。そのあとに「なんと なかみは ひのきのぼうだった!」と表示される。
+				さらに次のページで「なんと なかみは まだ できていない!」と表示される。
+			</para>
+			<figure>
+				<title>戦闘でまほうのふくろをつかう</title>
+				<graphic width="256px" fileref="./image/dq5_bzritem_03.png"/>
+			</figure>
+			<figure>
+				<title>ランダム効果を狙ったアイテムなのだろうか</title>
+				<graphic width="256px" fileref="./image/dq5_bzritem_04.png"/>
+			</figure>
+		</listitem>
+	</varlistentry>
+</variablelist>
+</section> <!-- dq5.gallery.goods.BA -->
+
+<section id="dq5.gallery.goods.BE">
+<title>あくまのおもちゃ</title>
+<variablelist>
+	<varlistentry>
+		<term>移動中に使う</term>
+		<listitem>
+			<para>
+				「しかし ここでは 何も おこらなかった」と表示される。
+			</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>戦闘中に使う</term>
+		<listitem>
+			<para>
+				空白ページが表示されたあと、「しかし なにも おこらなかった」と表示される。
+			</para>
+			<para>
+				なぜか武器属性を持つ。装備できるキャラクターはいない。
+			</para>
+		</listitem>
+	</varlistentry>
+</variablelist>
+</section> <!-- dq5.gallery.goods.BE -->
+
+<section id="dq5.gallery.goods.C3">
+<title>モンスターほいほい</title>
+<para>
+	どういうわけか、まほうのじゅうたんと同じ効果がある。
+	その割には店に買い取ってもらえたりと、なかなかの意味不明っぷりである。
+</para>
+<variablelist>
+	<varlistentry>
+		<term>移動中に使う</term>
+		<listitem>
+			<para>
+				フィールド上の広いところで使うと
+				「○○○○は モンスターほいほいを 使った!」→
+				「○○○○は まほうのじゅうたんを ひろげた!」という表示のあと、
+				移動モードがじゅうたん飛行になる。
+				そうでないところで使うと、さっきの表示の二つ目が
+				「ここでは ひろげられない!」となる。
+			</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>戦闘中に使う</term>
+		<listitem>
+			<para>
+				空白ページが表示されたあと、
+				「しかし なにも おこらなかった」と表示される。
+			</para>
+		</listitem>
+	</varlistentry>
+</variablelist>
+</section> <!-- dq5.gallery.goods.C3 -->
+
+<section id="dq5.gallery.goods.D4">
+<title>バロンのつのぶえ</title>
+<para>
+	なぜか武器属性を持つ。装備できるキャラクターはいない。
+</para>
+<variablelist>
+	<varlistentry>
+		<term>移動中に使う</term>
+		<listitem>
+			<para>
+				「しかし ここでは 何も おこらなかった」と表示される。
+			</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>戦闘中に使う</term>
+		<listitem>
+			<para>
+				空白ページが表示されたあと、
+				「しかし なにも おこらなかった」と表示される。
+			</para>
+		</listitem>
+	</varlistentry>
+</variablelist>
+</section> <!-- dq5.gallery.goods.D4 -->
+</section> <!-- dq5.gallery.goods -->
+</section> <!-- dq5.gallery -->
+

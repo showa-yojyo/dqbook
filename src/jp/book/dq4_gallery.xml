@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq4.gallery"><?dbhtml filename="dq4_gallery.html" ?>
+<title>バカ画像</title>
+<indexterm><primary>バカ画像</primary><secondary>DQ4</secondary></indexterm>
+<para>
+	特殊な方法で撮影に成功した珍画像を披露する。
+</para>
+
+<section id="dq4.gallery.brey">
+<title>悩殺ブライ</title>
+<figure>
+	<title>悩殺ブライ</title>
+	<graphic width="256px" fileref="./image/dq4_05.png"/>
+</figure>
+<para>
+	ブライの戦闘中の行動をハックして、導かれし者たちの誰かがメダパニ状態になったときの行動「投げキッス」をオーバーライド。
+	よりによってエビルプリースト戦で敢行。
+	エビルプリーストの頭上を見るとわかるように、ハートの絵が画面に揺れる演出も再現する。
+	悩殺が成功すると、それらしいダメージを与えることができるようだ。
+</para>
+</section> <!-- dq4.gallery.brey -->
+
+<section id="dq4.gallery.armorshop">
+<title>謎の防具屋</title>
+<figure>
+	<title>謎の防具屋</title>
+	<graphic width="256px" fileref="./image/dq4_01.png"/>
+</figure>
+<para>
+	これは特殊な装置なしで再現することが可能なバカ技である。
+	まず、ブランカの宿屋のカウンターに画像の位置で「はなす」と、
+	なぜか向かいの防具屋のオッサンが反応する。
+	カウンターごしに「はなす」という処理が、かなり特別な実装になっていると推測できる。
+</para>
+<para>
+	画像では宿屋のカウンターの隅と、向かいの防具屋のカウンターの間に、
+	別のキャラクター（兵士）をはさんでみた状態である。
+	これだけ離れた位置で「はなす」だけでも防具屋が反応する。
+</para>
+</section> <!-- dq4.gallery.armorshop -->
+
+<section id="dq4.gallery.rosa">
+<title>ロザリー無限増殖</title>
+<figure>
+	<title>ロザリー無限増殖</title>
+	<graphic width="256px" fileref="./image/dq4_02.png"/>
+</figure>
+<para>
+	ここからの画像はチートハック系である。
+	ご承知のように、あるアイテムを画面の位置で使うと「ロザリーが生き返る」というイベントがある。
+	そのアイテムを連続して「つかう」ことで、ロザリーを複数人仲間にすることができる。
+	とはいえ、ロザリーを 5 人以上仲間にすると村から出た瞬間にフリーズするようなので、
+	ふたりくらいにしておくのがよかろう。
+</para>
+<para>
+	なぜかルーラが「ふしぎなちから」で封じ込められる状態になる。
+	従って、自力での移動になる。
+	この状態で地底砦に行こうものなら、ロザリーのうちの一人が黒ロザリーになる。
+</para>
+</section> <!-- dq4.gallery.rosa -->
+
+<section id="dq4.gallery.cheat-king">
+<title>うらわざ改造王</title>
+<indexterm><primary>うらわざ改造王</primary></indexterm>
+<indexterm><primary>改造コードの星</primary></indexterm>
+<figure>
+	<title>うらわざ改造王</title>
+	<graphic width="256px" fileref="./image/dq4_03.png"/>
+</figure>
+<para>
+	ゲームラボなどで紹介されていた謎の称号である。
+	改造コードをフル活用しても、この称号がもらえるとは限らない。
+</para>
+<para>
+	もうひとつ「改造コードの星」なる称号も存在する。
+	プレイ時間を適当に小さくすると出るようだ。
+</para>
+</section> <!-- dq4.gallery.cheat-king -->
+
+<section id="dq4.gallery.npc">
+<title>NPC を人質にすると</title>
+<figure>
+	<title>NPCを人質にすると</title>
+	<graphic width="256px" fileref="./image/dq4_04.png"/>
+</figure>
+<para>
+	ガーデンブルグのイベント。このようなセリフを兵士に言われる。
+	これはパノンを指示されたときのための台詞だと思われる。
+</para>
+<para>
+	ちなみに収監後にさいごのカギでムリヤリ脱獄し、
+	一階に上がると、例の盗賊がまだタンスを物色中である。
+	台詞文字列の右端が詰まってカッコ悪い。
+</para>
+</section> <!-- dq4.gallery.npc -->
+</section> <!-- dq4.gallery -->
+

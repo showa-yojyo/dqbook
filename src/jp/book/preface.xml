@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<preface id="preface"><?dbhtml filename="preface.html" ?>
+<title>まえがき</title>
+
+<para>
+	本書は、記者が暇に任せて調べたドラクエの内部処理や、データ構造について解説している。
+	まだ執筆が終わっているわけではなく、現在進行中で解析作業および執筆をしている。
+	なぜこのような酔狂を行っているのかというと、半分成り行きなところがある。
+</para>
+<para>
+	そもそも記者はドラクエのゲーム中に登場する名もなき人々の台詞が好きで、
+	すべてのシリーズについて、その一覧を作成したいという野望がある。
+	幸いファミコンで遊べるシリーズ、つまり 1 から 4 までの各作品については、
+	ソニタウンのドラクエビューワ
+	<footnote>
+		<para>
+			ドラクエ解析サイト「ソニタウン」
+			<ulink url="http://www.geocities.jp/sonitown/">http://www.geocities.jp/sonitown/</ulink>
+		</para>
+	</footnote>
+	で、それも本物のフォントを用いて描画された状態で閲覧することができる。
+	まったく便利な世の中になったものだ。
+	本書では、スーファミで遊べるシリーズ、つまり 5, 6, 3 の各作品において、
+	人々の台詞集を ROM イメージから抽出することを試みる。
+	ドラクエ全シリーズの台詞集の「本物」を作成すること。
+	これが本書の第一目標である。
+</para>
+<para>
+	本書の第二の目標は、ドラクエ史中世以降のドラクエシリーズプログラムの解析手法を構築することにある。
+	特にスーファミとプレステで遊べるシリーズに関して力を入れていくつもりだ。
+</para>
+
+<simplesect id="preface.version">
+<title>各ドラクエの ROM バージョン</title>
+<para>
+	本書の内容のうち、プログラム解析を行っている項目では、
+	ドラクエのシリーズを問わず、すべて初期出荷分、いわば「初版」のロムデータを用いている。
+	このため、初期出荷でないロムに関しては、本書の内容が妥当でない箇所がいくつか存在するであろうことを最初に断っておく。
+</para>
+</simplesect> <!-- preface.version -->
+
+<simplesect id="preface.audience">
+<title>本書の想定読者</title>
+<para>
+	本書の内容は、PC で動作するゲーム機エミュレータでドラクエを遊び、
+	その一歩先の「プレイ」をしたいう者に向けて書かれている。
+	場合によっては、市販のマニアックな刊行物に掲載されているような改造コードを探す手段を提供する。
+</para>
+<para>
+	既にゲームプログラムの解析技術を有する者にとっては、本書の内容は非常に退屈かもしれない。
+	やっていることはごく初歩的で稚拙だし、グラフィックやサウンドの解析がない。
+	参考文献の品揃えも貧弱に見えるだろう。
+</para>
+</simplesect> <!-- preface.audience -->
+
+<simplesect id="preface.guide">
+<title>本書の構成</title>
+<para>
+	本書は、ドラクエのシリーズごとに 1 章を割り当てる構成をとった。
+	読者は興味のある作品だけを「いいとこ取り」で読むことができる。
+	次に各章の内容をまとめておこう。
+</para>
+<variablelist>
+	<varlistentry>
+		<term><link linkend="dq.hack">ドラクエ解析</link></term>
+		<listitem>
+			<para>
+				記者の解析環境が記してある章である。
+				肝心なことをまだ書いていないので、近々内容を拡充する。
+			</para>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><link linkend="dq3">ドラクエ3</link></term>
+		<listitem>
+			<para>
+				主に SFC ドラクエ3 をあらゆる方法で解析して得られたデータ、および事実を説明する。
+				おまけとして、バカ画像の陳列や GB 版のモンスターメダルデータに関する情報を提供する。
+			</para>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><link linkend="dq4">ドラクエ4</link></term>
+		<listitem>
+			<para>
+				PS ドラクエ4 の解析手法を説明する章になる予定。
+				現在は開店休業状態である。
+			</para>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><link linkend="dq5">ドラクエ5</link></term>
+		<listitem>
+			<para>
+				SFC ドラクエ5 をあらゆる方法で解析して得られたデータ、および事実を説明する。
+				おまけとして、バカ画像の陳列ページを用意してある。
+			</para>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><link linkend="dq6">ドラクエ6</link></term>
+		<listitem>
+			<para>
+				SFC ドラクエ6 をあらゆる方法で解析して得られたデータ、および事実を説明する。
+			</para>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><link linkend="dq7">ドラクエ7</link></term>
+		<listitem>
+			<para>
+				PS ドラクエ7 の解析手法を説明する章になる予定。
+				現在は開店休業状態である。
+			</para>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><link linkend="appendix.a">参考文献</link></term>
+		<listitem>
+			<para>
+				本書を執筆するにあたり、参考にした書物、雑誌、インターネット上にあるリソースの一覧を示す。
+			</para>
+		</listitem>
+	</varlistentry>
+</variablelist>
+
+</simplesect> <!-- preface.guide -->
+
+<simplesect id="preface.terminology">
+<title>本書の表記</title>
+<para>
+	本書では、各種アセンブリ言語のニーモニックや、変なプレフィックス・サフィックスを伴っての十六進数表記が頻繁に書かれる。
+	これら特別な意味を持つ用語・数値に関しては、地の文書に使われるフォントとは別のもので表記することにした。
+</para>
+<para>
+	本書での表記法は次の通り。
+</para>
+<variablelist>
+	<varlistentry>
+		<term><emphasis>イタリック体</emphasis></term>
+		<listitem>
+			<para>
+				本文中で強調したい用語に使う。
+			</para>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><varname>固定ピッチフォント</varname></term>
+		<listitem>
+			<para>
+				本文中で、何らかの変数名に使う。
+			</para>
+		</listitem>
+	</varlistentry>
+	<!--
+	<varlistentry>
+		<term></term>
+		<listitem>
+			<para>
+				
+			</para>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term></term>
+		<listitem>
+			<para>
+				
+			</para>
+		</listitem>
+	</varlistentry> -->
+</variablelist>
+<important>
+	<para>
+		重要な事項は、こういうブロックの中に示す。
+	</para>
+</important>
+<caution>
+	<para>
+		これは読者に注意を促す内容を含むブロックである。
+	</para>
+</caution>
+<warning>
+	<para>
+		さらに最上級の注意を喚起するためのブロックも用意してある。
+		読者がこの警告を無視した場合、
+		ROM イメージ等のデータの破損や、
+		システム破壊といった致命的な事態に陥るかもしれない。
+	</para>
+</warning>
+<para>
+	最後に、本書は現在執筆中であり、そのために、
+	この表記法に対応していないテキストが少なからず残っていることを断っておく。
+</para>
+</simplesect> <!-- preface.terminology -->
+
+<simplesect id="preface.contact">
+<title>意見と質問</title>
+<para>
+	本書の内容については、最大限の努力をもって検証および確認をしているが、
+	誤りや不正確な点、誤解や混乱を招くような表現、
+	単純な誤植に気付かれることもあるだろう。
+	本書を読んで気付かれた点については、
+	今後の版で修正できるように知らせていただければありがたい。
+	その他解析情報や当時の開発者からのタレコミも歓迎する。
+	記者への連絡先を以下に示す。
+</para>
+<para>
+	<email><ulink url="mailto:yojyo@hotmail.com">yojyo@hotmail.com</ulink></email>
+</para>
+</simplesect> <!-- preface.contact -->
+
+<simplesect id="preface.acknowledgments">
+<title>謝辞</title>
+<para>
+	SFC ドラクエシリーズの解析は、記者一人の力だけで成し得たものではない。
+	助けになったツールやドキュメントの作成者、執筆者、
+	貴重な情報や助言の提供者の皆様に篤く礼を申し上げる。
+</para>
+<variablelist>
+	<varlistentry>
+		<term>解析者 G 氏</term>
+		<listitem>
+			<para>
+				あまりにも偉大なアプリ「ドラクエビューア」
+				<xref linkend="dqref.url2"/>
+				で、大フォントテーブルを BMP ファイルに出力する機能を実装された。
+				本書の各シリーズメッセージ解析では、GSD の文字出力処理のステップ実行時に、
+				アキュームレータの値とフォントを照合するときに利用した。
+			</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>Shingo Endo 氏</term>
+		<listitem>
+			<para>
+				記者とはまったくネット上での面識がないが、
+				この場で勝手に感謝の意を表したい。
+			</para>
+			<para>
+				dq_analyzer <xref linkend="dqref.url1"/> は、
+				本書のほぼ全ての SFC ドラクエシリーズのセクションの第一情報源となっている。
+				特にメッセージ解析では、ソースコード <filename>dq6decode.c</filename>
+				に記述されている文字コード配列のおかげで、
+				メッセージ抽出プログラムの作成で省力できた。
+			</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>某地下サイト管理人氏</term>
+		<listitem>
+			<para>
+				65816 解析手法を基本から教えていただいた「恩師」である。
+			</para>
+			<para>
+				ドラクエ3 のメッセージ解析の概要を完全に把握されており、
+				記者は、主要なデータの構造・配置位置をそのサイトで知った。
+				さらに（別シリーズではあるが）メッセージアセンブリコードの解釈の添削までしていただいた。
+			</para>
+		</listitem>
+	</varlistentry>
+</variablelist>
+</simplesect> <!-- preface.acknowledgments -->
+
+</preface> <!-- preface -->

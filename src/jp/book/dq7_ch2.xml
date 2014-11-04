@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq7.chara.kiefer"><?dbhtml filename="dq7_ch2.html" ?>
+<title>キーファ</title>
+<indexterm><primary>キャラクター</primary><secondary>DQ7 キーファ</secondary></indexterm>
+<para>
+	キーファはストーリーの途中でパーティを離脱するため、極めるプレイヤーは多くない。
+	そこで改造等の汚い手を使い、通常ならできないようなことを試してみた。
+	以下、その結果を記す。
+</para>
+<para>
+	なお、この文書の内容がプレイヤーの役に立つことは、基本的にほとんどない。
+	ここで得られる知識は、参考程度に留めておくような程度のものである。
+</para>
+
+<section id="dq7.chara.kiefer.spell">
+<title>呪文</title>
+<para>
+	次の表は、キーファが習得する呪文または特技の、到達レベルと呪文または特技の名前の一覧である。
+</para>
+<table class="lighttable">
+	<caption>キーファ 呪文習得レベル</caption>
+	<thead>
+		<tr><th>レベル</th><th>呪文/特技</th></tr>
+	</thead>
+	<tbody>
+		<tr><td>5</td><td>かえん斬り</td></tr>
+		<tr><td>9</td><td>受けながし</td></tr>
+		<tr><td>12</td><td>気合いため</td></tr>
+		<tr><td>15</td><td>ゾンビ斬り</td></tr>
+		<tr><td>20</td><td>しんくう斬り</td></tr>
+	</tbody>
+</table>
+</section> <!-- dq7.chara.kiefer.spell -->
+
+<section id="dq7.chara.kiefer.talk">
+<title>戦闘中のセリフデータ</title>
+<para>
+	次のファイルは<link linkend="dq7.dbg.menu.talkbattle">デバッグモード</link>を利用して、キーファが戦闘中にはなす台詞をまとめたものである。
+	ざっと数えてみたところ 700 以上のデータが存在するようだが、
+	ゲーム中では展開の都合上、お目にかかれないもののほうが多い。
+	<xref linkend="appendix.b" />
+</para>
+</section> <!-- dq7.chara.kiefer.talk -->
+
+<section id="dq7.chara.kiefer.equip">
+<title>強力な装備</title>
+<para>
+	キーファが装備可能な武器、防具のリストで、パラメータが上位に属するものを挙げていく。
+</para>
+
+<section id="dq7.chara.kiefer.equip.weapon">
+<title>武器</title>
+<table class="lighttable">
+	<caption>キーファ 装備可能な武器一覧</caption>
+	<thead>
+		<tr><th>アイテム名</th><th>攻撃力</th></tr>
+	</thead>
+	<tbody>
+		<tr><td>オチェアーノの剣</td><td>+140</td></tr>
+		<tr><td>メタルキングの剣</td><td>+130</td></tr>
+		<tr><td>はかいの鉄球</td><td>+125</td></tr>
+		<tr><td>王者のつるぎ</td><td>+120</td></tr>
+		<tr><td>もろはのつるぎ</td><td>+117</td></tr>
+		<tr><td>まじんのかなづち</td><td>+115</td></tr>
+		<tr><td>ビッグボウガン</td><td>+110</td></tr>
+		<tr><td>はかいのつるぎ</td><td>+110</td></tr>
+		<tr><td>バスタードソード</td><td>+109</td></tr>
+		<tr><td>ふぶきのつるぎ</td><td>+105</td></tr>
+	</tbody>
+</table>
+</section> <!-- dq7.chara.kiefer.equip.weapon -->
+
+<section id="dq7.chara.kiefer.equip.armor">
+<title>鎧</title>
+<table class="lighttable">
+	<caption>キーファ 装備可能な鎧一覧</caption>
+	<thead>
+		<tr><th>アイテム名</th><th>攻撃力</th></tr>
+	</thead>
+	<tbody>
+	<tr><td>メタルキングよろい</td><td>+115</td></tr>
+	<tr><td>王家のよろい</td><td>+105</td></tr>
+	<tr><td>ミラーアーマー</td><td>+95</td></tr>
+	<tr><td>ギガントアーマー</td><td>+92</td></tr>
+	<tr><td>まじんのよろい</td><td>+85</td></tr>
+	<tr><td>しんぴのよろい</td><td>+75</td></tr>
+	<tr><td>炎のよろい</td><td>+70</td></tr>
+	<tr><td>じごくのよろい</td><td>+65</td></tr>
+	<tr><td>プラチナメイル</td><td>+63</td></tr>
+	<tr><td>ドラゴンメイル</td><td>+60</td></tr>
+	</tbody>
+</table>
+</section> <!-- dq7.chara.kiefer.equip.weapon -->
+
+<section id="dq7.chara.kiefer.equip.shield">
+<title>盾</title>
+<table class="lighttable">
+	<caption>キーファ 装備可能な盾一覧</caption>
+	<thead>
+		<tr><th>アイテム名</th><th>攻撃力</th></tr>
+	</thead>
+	<tbody>
+	<tr><td>メタルキングのたて</td><td>+70</td></tr>
+	<tr><td>はめつのたて</td><td>+57</td></tr>
+	<tr><td>みかがみのたて</td><td>+50</td></tr>
+	<tr><td>なげきのたて</td><td>+42</td></tr>
+	<tr><td>ちからのたて</td><td>+40</td></tr>
+	</tbody>
+</table>
+</section> <!-- dq7.chara.kiefer.equip.shield -->
+
+<section id="dq7.chara.kiefer.equip.helmet">
+<title>兜</title>
+<table class="lighttable">
+	<caption>キーファ 装備可能な兜一覧</caption>
+	<thead>
+		<tr><th>アイテム名</th><th>攻撃力</th></tr>
+	</thead>
+	<tbody>
+	<tr><td>メタルキングヘルム</td><td>+60</td></tr>
+	<tr><td>グレートヘルム</td><td>+45</td></tr>
+	<tr><td>バーサカヘルム</td><td>+42</td></tr>
+	<tr><td>ちりょくのかぶと</td><td>+37</td></tr>
+	<tr><td>ミスリルヘルム</td><td>+32</td></tr>
+	</tbody>
+</table>
+</section> <!-- dq7.chara.kiefer.equip.helmet -->
+</section> <!-- dq7.chara.kiefer.equip -->
+
+<section id="dq7.chara.kiefer.param">
+<title>レベルパラメータ対応表</title>
+<indexterm><primary>レベル</primary><secondary>DQ7 キーファ</secondary></indexterm>
+<para>
+	キーファの各レベルにおける
+	「ちから」「さいだい HP」などの各種パラメータおよび、
+	そのレベルであるために必要な経験値をまとめた。
+	<xref linkend="appendix.b" />
+</para>
+</section> <!-- dq7.chara.kiefer.param -->
+</section> <!-- dq7.chara.kiefer -->
+

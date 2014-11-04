@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.pond"><?dbhtml filename="dq3_pond.html" ?>
+<title>オルレラの泉</title>
+<indexterm><primary>オルレラの泉</primary></indexterm>
+
+<caution>
+<para>
+この節は現在執筆中。
+</para>
+</caution>
+
+<para>
+フィールド上で、ムオルの村辺りから海を渡り北東の湖の左下ら辺に足を踏み入れると、
+画面が切り替わり、神秘的な雰囲気の泉が現れる。
+そして、泉の中心付近に立ち入ると、先頭キャラクターが武器を泉に落としてしまい、
+直ちに泉の精霊を自称するオルレラなる存在が出現する。
+</para>
+<para>
+その後、パーティーメンバーとオルレラとの間で、落し物についての質疑応答が始まる。
+これは有名な童話を下敷きにしているのは明白なのだが、
+オリジナルの童話の結論とは異なり、嘘つきに取り返しの付かない損害を受けるわけでもなく、
+また、正直者にありがたい利益があるわけでもない。
+</para>
+<para>
+このイベントはそもそもファミコン版にはなかった。
+リメイク版でわざわざ新しく導入したイベントであるハズなのに、
+しかし実際プレイしてみると童話よりもつまらない結末になる。
+これはどうしたことだろうか。
+それとも、うまく立ち回れば意外な結果を引き起こせるのだろうか。
+このイベントを処理するコードをおおまかに解析し、ある程度の真実を明らかにするのが本稿の目的だ。
+</para>
+
+<section id="dq3.pond.CCED57">
+<title>イベント開始サブルーチン</title>
+<para>
+オルレラの泉イベントを開始するサブルーチンコードの発見は、トレースログの単純な分析による。
+このサブルーチンの呼び出しタイミングは、
+パーティーがフィールドマップから、この泉のフロアへ進入した時点だとみなして構わない。
+</para>
+<para>
+サブルーチン <varname>$CCED57</varname> の処理コードを以下に示す。
+</para>
+<programlisting>
+CC/ED57:    AD5435      LDA $3554
+CC/ED5A:    292000      AND #$0020
+CC/ED5D:    D003        BNE $ED62
+CC/ED5F:    4C69ED      JMP $ED69     <co id="dq3.pond.co.flag" />
+
+CC/ED62:    2281A5CB    JSR $CBA581   <co id="dq3.pond.co.second" />
+CC/ED66:    4C6DED      JMP $ED6D
+
+CC/ED69:    22D6A5CB    JSR $CBA5D6   <co id="dq3.pond.co.first" />
+CC/ED6D:    6B          RTL
+</programlisting>
+<calloutlist>
+  <callout arearefs="dq3.pond.co.flag">
+    <para>
+    変数 <varname>$7E3554</varname> の特定のビットの ON/OFF により、呼び出すサブルーチンを選択する。
+    後述の通り、このフラグのセットはサブルーチン <varname>$CBA5D6</varname> が行う（<xref linkend="dq3.pond.CBA5D6" />）。
+    </para>
+  </callout>
+  <callout arearefs="dq3.pond.co.second">
+    <para>
+    オルレラ出現が二度目以降である場合、初回とは異なる会話になる。
+    それを実装するサブルーチンが <varname>$CBA581</varname>（<xref linkend="dq3.pond.CBA581" />）だ。
+    </para>
+  </callout>
+  <callout arearefs="dq3.pond.co.first">
+    <para>
+    オルレラが初めてパーティーの前に姿を現わす場合の処理をするサブルーチン
+    <varname>$CBA5D6</varname>（<xref linkend="dq3.pond.CBA5D6" />）を呼びだす。
+    </para>
+  </callout>
+</calloutlist>
+</section> <!-- dq3.pond.CCED57 -->
+
+<section id="dq3.pond.CBA5D6">
+<title>オルレラとの初回でのやりとり</title>
+<para>
+サブルーチン <varname>$CBA5D6</varname> は、先頭キャラクターが武器を落としてから、
+オルレラが出現して消えていくまでを処理する。
+アセンブルコードを掲載しても面白くないゆえ、ポイントを以下に示すのみとする。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+    先頭キャラクターが武器を泉に落とすところから、
+    オルレラが泉から姿を現し、名を名乗るシーンまではサブルーチン
+    <varname>$CBA509</varname> の呼び出しで実現している。
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+    オルレラのイベント一連のサブルーチンで共通した方式なのだが、
+    台詞とナレーションの表示はすべて BRK 命令による。
+    すなわち、メッセージ ID を表す 2 バイトの仮想的な実引数を取るパターンだ。
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+    サブルーチン <varname>$CDAC66</varname> の呼び出しは、「はい・いいえ」ウィンドウの表示と入力待ち処理を実現する。
+    プレイヤーが「はい」を選択したときに限り、レジスターの Carry ビットが立つ。
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+    先頭キャラクターが落とした武器を示すアイテム ID が格納されているのは <varname>$7E362A</varname> だ。
+    一連の処理では、この値が「ひのきのぼう」または「まじんのオノ」であるときに、処理が分岐してくる。
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+    このサブルーチンから呼びだすサブルーチンの中で、
+    オルレラが何かを行う処理がいくつかある。
+    それを呼び出しの起こるのが早い順番に挙げると、以下のようになる。
+    </para>
+
+    <variablelist>
+      <varlistentry>
+        <term><varname>$CBA509</varname></term>
+        <listitem>
+          <para>
+          先頭キャラクターが武器を泉に落とすところから、
+          オルレラが泉から姿を現し、名を名乗るシーンまでを処理する。
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>$CBA66B</varname></term>
+        <listitem>
+          <para>
+          オルレラが泉に落とした武器そのものを返す処理。最も一般的な場合のもの。
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>$CBA69F</varname></term>
+        <listitem>
+          <para>
+          オルレラが「あなたは欲がないようですね」と言い、
+          「ひのきのぼう」を受け渡す処理。
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>$CBA6D3</varname></term>
+        <listitem>
+          <para>
+          再び泉に潜り、「まじんのオノ」を提示するところからの処理。
+          ここは少々込み入った処理になる。
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.pond.CBA5D6 -->
+
+
+<section id="dq3.pond.CBA581">
+<title>オルレラとの二回目以降でのやりとり</title>
+<para>
+サブルーチン <varname>$CBA581</varname> は、パーティーが再び武器を泉に落としたときの処理を行う。
+今度のオルレラは、すぐには武器を見つけてくれない。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+    初回同様、最初にサブルーチン <varname>$CBA509</varname> の呼び出しでオルレラの出現までの処理を行う。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+    二度目以降はオルレラが「以前にも落としたのでは？」のような質問をするのがポイント。
+    ここで「はい・いいえ」ウィンドウを表示して、プレイヤーの回答を待つ。
+    </para>
+  </listitem>
+
+  <listitem>
+    <para>
+    このサブルーチンから呼びだすサブルーチンの中で、
+    オルレラが何かを行う処理がふたつある。
+    </para>
+    <variablelist>
+      <varlistentry>
+        <term><varname>$CBA786</varname></term>
+        <listitem>
+          <para>
+          オルレラが落としたものを拾ってくると言い水に潜るが、
+          落し物が見つからなかったという展開になる場合の処理。
+          落とした武器がパーティーに戻るまでを制御する。
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>$CBA6BB</varname></term>
+        <listitem>
+          <para>
+          オルレラがわざと武器を再び落とされたことを知り、怒る結果になるときの処理。
+          怒りながらも、パーティーが落とした武器をそのまま返す。
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.pond.CBA5D6 -->
+
+</section> <!-- dq3.pond -->

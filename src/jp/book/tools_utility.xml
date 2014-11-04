@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="tools.utility"><?dbhtml filename="tools_utility.html" ?>
+<title>その他便利なツール</title>
+<para>
+	解析作業にとっては必須ではないが、あれば何かと便利なツールを紹介する。
+	この手のツールは、便利度に個人差があると思われる。
+</para>
+
+<section id="tools.utility.calc">
+<title>電卓</title>
+<indexterm><primary>電卓</primary></indexterm>
+
+<para>
+	Windows ユーザーにはおなじみだと思われる。
+	一応説明すると、スタート→プログラム→アクセサリ→電卓 で起動できる。
+	初めて起動したら、表示→関数電卓 を選択すること。
+	電卓は 16 進数の演算や、16 進数と 10 進数の変換を脳内でできないときに使用する。
+	解析作業中は常に起動しておくのが基本である。
+</para>
+<para>
+	記者は Ctrl + Alt + C で電卓を一発起動できるように、ショートカットキーを定義してある。
+	クイック起動やサイドバー等にショートカットアイコンを置くのもよいだろう。
+</para>
+<para>
+なお、もし貴女が Python IDLE を常に立ち上げっぱなしで解析作業をする習慣があれば、
+当然電卓ではなく、Python IDLE のほうを利用して基数変換なり何なりをするべきだ。
+蛇足ではあるが、一応お断りしておく。
+</para>
+</section> <!-- tools.utility.calc -->
+
+<section id="tools.utility.cdmanip">
+<title>CD Manipulator</title>
+<indexterm><primary>CD Manipulator</primary></indexterm>
+<indexterm><primary>ロムイメージ</primary><secondary>CD-ROM イメージ作成ツール</secondary></indexterm>
+
+<figure>
+	<title>CD Manipulator</title>
+	<graphic width="445px" fileref="./image/dq.hack.tool.cdmanip.png"/>
+</figure>
+<para>
+	CD-ROM のイメージ作成およびライティングソフトである。フリーソフト。
+	入手先は <ulink url="http://www.storeroom.info/cdm/">http://www.storeroom.info/cdm/</ulink> と思われる。
+</para>
+<para>
+	ドラクエ 4 (PS), 7 を <link linkend="tools.emulator.epsxe">ePSXe</link> でプレイする際に、
+	直接 CD-ROM からデータをロードするのは煩わしい。
+	あらかじめイメージファイルを作成しておき、それからプレイするのが具合がよいようだ。
+	ゲーム CD をドライブに挿し込んでおき、CD &gt; イメージ作成 メニューを選択。
+	保存ファイル名を適宜決めて、それですべて終わる。
+</para>
+</section> <!-- tools.utility.cdmanip -->
+
+<section id="tools.utility.excel">
+<title>Microsoft Office Excel</title>
+<para>
+	説明不要の表計算アプリ。
+	解析用途の計算マクロを仕込んで使うというわけではなく、
+	アセンブリニーモニックの早見表を作成したり、
+	構造体メモリレイアウトのメモとして使ったりという用途だ。
+	記者が使用しているのは Excel 2003 である。
+	しかしバージョンの新旧はある意味どうでもよい。
+</para>
+<para>
+	以下のような「メモ」ブックを作成しておき、解析作業中に常に読み書きできる状態にする。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			65816 命令セット・特殊レジスタカンニング表
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			（例えば）ドラクエ各シリーズの ROM/RAM アドレス・各種構造体定義表
+		</para>
+	</listitem>
+</itemizedlist>
+<para>
+	ひとつのドラクエシリーズに対して、似たようなデータシートを頻繁に追加することになるので、
+	テンプレートシートを自作しておくと、後の作業の効率がよくなる。
+</para>
+<para>
+	記者は Ctrl + Alt + E でエクセルを一発起動できるように、ショートカットキーを定義してある。
+	クイック起動やサイドバー等にショートカットアイコンを置くのもよいだろう。
+</para>
+</section> <!-- tools.utility.excel -->
+</section> <!-- tools.utility -->

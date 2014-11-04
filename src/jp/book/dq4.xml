@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<chapter id="dq4"><?dbhtml filename="dq4.html" ?>
+<title>ドラクエ4</title>
+<para>
+	本章では、PS ドラクエ4 に関する内容を扱っていく。
+</para>
+<caution>
+	<para>
+		この章は大昔に書いたまま、文書としてのメンテナンスをしていない。
+		従って、解析内容（主にデータだが）はほとんど間違っていると考えてもらいたい。
+	</para>
+</caution>
+
+&dq4_gallery;
+<!-- ドキュメントを書くまでは封印
+&dq4_imm;
+&dq4_level;
+&dq4_monster;
+&dq4_act;
+&dq4_item;
+ -->
+</chapter> <!-- dq4 -->

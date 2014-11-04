@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<appendix id="appendix.a"><?dbhtml filename="appendix_a.html" ?>
+<title>参考文献</title>
+<para>
+	本書執筆にあたって参考にした参考文献を以下に示す。
+</para>
+
+<bibliography id="dqref">
+<title>参考文献</title>
+<para>
+	参考にした書籍、雑誌、Web サイトを以下に示す。
+</para>
+
+<bibliodiv id="dqref.periodicals">
+<title>雑誌</title>
+	<biblioentry lang="ja" id="dqref.ActionReplay99">
+		<abbrev>ActionReplay99</abbrev>
+		<title>アクションリプレイ 1999 Vol.4</title>
+		<biblioset>
+			<subtitle>PAR でドラクエを遊ぶ</subtitle>
+			<publishername>株式会社ブレイン・ストーム</publishername>
+			<pubdate>1999</pubdate>
+		</biblioset>
+	</biblioentry>
+
+	<biblioentry lang="ja" id="dqref.GameLabo00">
+		<abbrev>GameLabo00</abbrev>
+		<title>ゲームラボ</title>
+		<biblioset>
+			<volumenum>2000 年 10 月号</volumenum>
+			<publishername>株式会社三才ブックス</publishername>
+			<pubdate>2000</pubdate>
+		</biblioset>
+	</biblioentry>
+
+	<biblioentry lang="ja" id="dqref.GameLabo02">
+		<abbrev>GameLabo02</abbrev>
+		<title>ゲームラボ</title>
+		<biblioset>
+			<volumenum>2002 年 1 月号</volumenum>
+			<publishername>株式会社三才ブックス</publishername>
+			<pubdate>2002</pubdate>
+		</biblioset>
+	</biblioentry>
+</bibliodiv> <!-- dqref.periodicals -->
+
+<bibliodiv id="dqref.www">
+<title>インターネット</title>
+	<biblioentry lang="ja" id="dqref.url1">
+		<abbrev>URL1</abbrev>
+		<title><ulink url="http://s-endo.skr.jp/">Index of /~s-endo/</ulink></title>
+		<subtitle>dq_analyzer - スーパーファミコン版ドラゴンクエスト データ解析プログラム</subtitle>
+		<biblioset>
+			<author lang="en">
+				<firstname>Shingo</firstname>
+				<surname>Endo</surname>
+			</author>
+			<pubdate>2004</pubdate>
+		</biblioset>
+	</biblioentry>
+
+	<biblioentry lang="ja" id="dqref.url2">
+		<abbrev>URL2</abbrev>
+		<title><ulink url="http://www.geocities.jp/sonitown/">ドラクエ解析サイト『ソニタウン』</ulink></title>
+		<subtitle>解析資料 DRAGON QUEST 3, 5, 6, 7; dqviewer.exe</subtitle>
+		<biblioset>
+			<author lang="en">
+				<firstname> </firstname>
+				<surname>解析者 G</surname>
+			</author>
+			<pubdate>2007</pubdate>
+		</biblioset>
+	</biblioentry>
+
+	<biblioentry lang="ja" id="dqref.url3">
+		<abbrev>URL3</abbrev>
+		<title><ulink url="http://www15.atwiki.jp/dq_binary/pages/1.html">DQバイナリ改造 @Wiki</ulink></title>
+	</biblioentry>
+</bibliodiv> <!-- dqref.www -->
+
+</bibliography> <!-- dqref -->
+</appendix> <!-- appendix.a -->

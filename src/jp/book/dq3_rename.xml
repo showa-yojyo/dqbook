@@ -1,0 +1,1201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.rename"><?dbhtml filename="dq3_rename.html" ?>
+<title>命名神解析</title>
+<indexterm><primary>命名神</primary><secondary>DQ3</secondary></indexterm>
+<para>
+本節ではドラクエ6 から引き継いだ機能である、パーティーキャラクターの名前を変更する処理について解析する。
+ドラクエ3 の場合はキャラクターのデフォルトの名前という概念がないので、
+対応するドラクエ6 の処理コードよりも量が少ないと予想して解析を開始したが、
+しかし期待は外れた。
+</para>
+
+<section id="dq3.rename.hack">
+<title>解析</title>
+<para>
+命名神に仕える神官（以下婆サン）に「はなす」とすぐに<link linkend="dq3.rename.hack.C3E8D3">命名神共通処理サブルーチン</link>が開始する。
+ここから処理をたどっていく。
+関係するサブルーチンは、婆サンの台詞表示にサブルーチン <varname>$C1A92E</varname> を用い、
+それ以外のメッセージ表示はサブルーチン <varname>$C1A8D4</varname> を用いる。
+これを手掛かりに処理の流れをつかむことができるので、そこから細かい処理を解読していくのが基本だ。
+</para>
+
+<section id="dq3.rename.hack.C3E8D3">
+<title>命名神共通処理サブルーチン</title>
+<para>
+サブルーチン <varname>$C3E8D3</varname> は、婆サンに「はなす」と始まる処理だ。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			台詞「わしは 命名神マリナン様につかえる神官じゃ（略）だれか 名前をかえるか？」(ID: <literal>#$09CD</literal>) を表示する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					キャンセルボタン ⇒【終了】へジャンプする。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「はい」⇒【だれをかえる】へジャンプする。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「いいえ」⇒【終了】へジャンプする。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【だれをかえる】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「だれの名前をかえたいと いうのじゃ？」(ID: <literal>#$09CE</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「だれの」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン ⇒【キャンセル抜け】へジャンプする。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					<code>$33D6 = 選択キャラクターの番号</code> とする。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<link linkend="dq3.rename.hack.C3EBCD">サブルーチン <varname>$C3EBCD</varname></link> を呼び出すことで、
+					選択したキャラクターの<emphasis>現在の名前</emphasis>が
+					命名神の怒りに触れているものかどうかをテストする。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							現在の名前が怒りに触れている名前 ⇒【既にダメな名前】へジャンプ。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							パーティーメンバーを選択⇒【名前を変える対象を選択した】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					台詞「むう それは……ふくろか？」(ID: <literal>#$09D7</literal>) を表示する。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【名前を変える対象を選択した】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					【名前を決める】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【既にダメな名前】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C1E32E</varname> 呼び出しにより効果音 (ID: <literal>#$002A</literal>) を鳴らす。終わるまで待つ。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					台詞「なんと！ その名は命名神の怒りにふれておる！」(ID: <literal>#$09E5</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン or 「いいえ」⇒【5000 ゴールドを拒否】
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					<code>X = #$1388, A = #$0000</code> として、所持金変更サブルーチン <varname>$C45B66</varname> を呼び出す。
+					これにより、パーティの現在の所持金から <literal>5000</literal> ゴールドを減らすことを試みる。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							所持金の変更に成功した ⇒【5000 ゴールド支払う】へジャンプ。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							所持金の変更に失敗した ⇒ 台詞「そんな大金はないようじゃな」(ID: <literal>#$09E9</literal>) を表示する。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【キャンセル抜け】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					【ほかに誰か】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【5000 ゴールド支払う】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					メッセージ「○○○○は ５０００ゴールドをさしだした」(ID: <literal>#$09E7</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					台詞「○○○○の新しい名前を教えてくれ」(ID: <literal>#$09E8</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【新しい名前】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【5000 ゴールドを拒否】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「ではやはりそのままじゃ」(ID: <literal>#$09E6</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【ほかに誰か】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【名前を変える】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「新しい名前をわしに教えてくれ」(ID: <literal>#$09CF</literal>) を表示する。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【新しい名前】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					「なまえをいれてください」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							何か名前を入力した状態で終わった ⇒【入力直後】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>【入力の名前が現在の名前と完全一致】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					【名前を変えるのをやめる】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【入力直後】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C3C37F</varname> を呼び出し、
+					<emphasis>プレイヤーが入力した文字列を <varname>$3332,X</varname> や <varname>$4056,X</varname> にコピーする。</emphasis>
+					ちなみに <varname>$3332,X</varname> と <varname>$4056,X</varname> はそれぞれキャラクターの名前文字列用、
+					ふくろの名前文字列用メモリだ。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					パーティ人数取得サブルーチン <varname>$C4297C</varname> を呼び出し、
+					現在のパーティの総人数を取得 (<varname>A</varname>) する。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<code>A == $33D6</code> ⇒【ふくろ】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					<code>A = $33D6</code> とする。
+					「だれの」ウィンドウで選択したキャラクターの番号だ。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C3DDE5</varname> を呼び出す。
+					これは「現在の名前と <varname>$3332,X</varname> と比較する」仕事をする。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							入力した名前が現在の選択キャラクターのそれと一致している
+							⇒【入力の名前が現在の名前と完全一致】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【ふくろ】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C3DDDC</varname> を呼び出す。
+					これは「現在の名前と <varname>$3332,X</varname> と比較する」仕事をするが、
+					ふくろに特化したコードが走ることになる。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							入力した名前が現在のふくろのそれと一致している
+							⇒【入力の名前が現在の名前と完全一致】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【ロトテスト】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					ロトテストサブルーチン <varname>$C3C66B</varname> を呼び出し、
+					入力した名前が「ロト」「ろと」「ロと」……等（アドレス <varname>$C3C6A4</varname> で定義）とマッチしないかテストする。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							マッチしない場合は【入力した名前が許されているか調べる】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【予約名が入力された】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「命名神がその名はイカンといっておる」(ID: <literal>#$09D9</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【他の名前にする？】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【入力した名前が許されているか調べる】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<link linkend="dq3.rename.hack.C3EB3F">サブルーチン <varname>$C3EB3F</varname></link> を呼び出して、
+					入力が予約名かどうかチェックする。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							入力が予約名 ⇒【予約名が入力された】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C3DDBF</varname> を呼び出して、
+					入力が仲間の名前と同じかチェックする。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							入力がどの仲間の名前とも異なる ⇒【入力がふざけた名前か調べる】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					台詞「その名前の者がおぬしの仲間にいるようじゃな」(ID: <literal>#$09DD</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【他の名前にする？】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【入力がふざけた名前か調べる】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<link linkend="dq3.rename.hack.C3EB2B">サブルーチン <varname>$C3EB2B</varname></link> を呼び出して、
+					入力がふざけた名前かどうかを調べる。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							ふざけていない名前であれば、【一文字テスト】へジャンプする。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					ふざけた名前であれば、台詞「本気でそのような名前をつけようというのか」(ID: <literal>#$09DE</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン or 「いいえ」⇒【他の名前にする？】
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【警告】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「命名神様の怒りにふれてもわしはしらんぞ」(ID: <literal>#$09DF</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン or 「いいえ」⇒【他の名前にする？】
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					台詞「……おお 命名神マリナンよ 新たなる名××××に神の祝福……うわっ！！」(ID: <literal>#$09E0</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C3EC66</varname> 呼び出しにより、画面を激しくフラッシュする。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C3EC0D</varname> 呼び出しにより、画面フラッシュをゆっくり戻す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C1E32E</varname> 呼び出しにより、効果音 (ID: <literal>#$002A</literal>) を鳴らす。終わるまで待つ。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					台詞「おぬしは 命名神の怒りにふれてしまったぞ！！」(ID: <literal>#$09E1</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【名前更新】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<!--
+	<listitem>
+		<para>【他の名前にする？】</para>
+	</listitem>
+	<itemizedlist>
+		<listitem>
+			<para>
+				
+			</para>
+		</listitem>
+	</itemizedlist>
+	-->
+
+	<listitem>
+		<para>【一文字テスト】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<link linkend="dq3.rename.hack.C3EBAB">サブルーチン <varname>$C3EBAB</varname></link> を呼び出して、
+					入力した名前が「ああああ」パターンかどうか調べる。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							複数の文字が使用されている ⇒【適切な名前が入力された】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					台詞「おぬし名前というものをなめておるのか」(ID: <literal>#$09E2</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン ⇒【なめていない】へジャンプ。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							「はい」⇒【警告】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【なめていない】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「では名をなめてはおらぬが～」(ID: <literal>#$09E3</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン ⇒【ほかの名にすることじゃ】へジャンプ。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							「はい」⇒【警告】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【ほかの名にすることじゃ】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「ならばほかの名にすることじゃ」(ID: <literal>#$09E4</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【新しい名前】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【適切な名前が入力された】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「○○○○の名前を××××にかえるのじゃな」(ID: <literal>#$09D0</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン or 「いいえ」⇒ 他の名前にする？
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					台詞「新たなる名に神の祝福を！！」(ID: <literal>#$09D1</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C3EC0D</varname> 呼び出しにより、画面フラッシュをゆっくり戻す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					台詞「これで○○○○は××××と名のることがゆるされたぞ！」(ID: <literal>#$09D2</literal>) を表示する。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【名前更新】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					パーティ人数取得サブルーチン <varname>$C4297C</varname> を呼び出し、
+					現在のパーティの総人数を取得 (<varname>A</varname>) する。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<code>A == $33D6</code> ⇒【ふくろ名前更新】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					<code>A = $33D6</code> とする。
+					「だれの」ウィンドウで選択したキャラクターの番号だ。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					キャラクターの名前更新サブルーチン <varname>$C42FAE</varname> を呼び出し、
+					選択キャラクターの名前を入力した名前に更新する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【ほかに誰か】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【ふくろ名前更新】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C455D2</varname> を呼び出し、ふくろの名前を入力した名前に更新する
+					（ちなみに <code>$368B,X = $4056,X</code> のような処理が走る）。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【ほかに誰か】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【名前を変えるのをやめる】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「なんじゃ名前をかえないのか？」(ID: <literal>#$09D8</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【ほかに誰か】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【他の名前にする？】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「他の名前にかえるか？」(ID: <literal>#$09D5</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン or 「いいえ」⇒【ほかに誰か】へジャンプ。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							その他 ⇒【名前を変える】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【ほかに誰か】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「他にだれか名前をかえたい者はおるか？」(ID: <literal>#$09D3</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン or 「いいえ」⇒【終了】へジャンプ。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							その他 ⇒【だれをかえる】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【終了】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「名前をかえたくなったら いつでも来るがよいぞ」(ID: <literal>#$09D4</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+<para>
+名前変更の本流サブルーチンは、ほぼ一枚岩の処理だった。
+</para>
+</section> <!-- dq3.rename.hack.C3E8D3 -->
+
+
+<section id="dq3.rename.hack.C3EB2B">
+<title>入力がふざけた名前かチェック</title>
+<para>
+	サブルーチン <varname>$C3EB2B</varname> は、プレイヤーが入力した名前がふざけたものであるかどうかをテストする。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			<code>$70 = #$001E</code>
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>$72 = #$00C30AF5</code> （これは <literal>4</literal> バイト長で代入の意味）
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.rename.hack.C3EB53">名前テスト共通サブルーチン <varname>$C3EB53</varname></link>
+			を呼び出す。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			呼び出し元に制御を戻す。
+		</para>
+	</listitem>
+</itemizedlist>
+<para>
+<varname>$72</varname> の示す値の型は、見るからに絶対アドレスだ。
+実際 <varname>$C30AF5</varname> 周辺をダンプして、既に解析済みの文字列表と照合すれば、
+これが<link linkend="dq3.str">文字列 ID</link> の配列であることがわかる。
+内容は以下の通り、エロ＆バカ系統の単語が配列されている。
+平仮名と片仮名が入り交じっていることに注意したい。
+</para>
+<programlisting>
+C3/0AF5:    F602  ; ちんこ
+C3/0AF7:    F702  ; きんたま
+C3/0AF9:    F802  ; ちんちん
+C3/0AFB:    F902  ; あほ
+C3/0AFD:    FA02  ; ちんぽこ
+C3/0AFF:    FB02  ; ちんポこ
+C3/0B01:    FC02  ; へんたい
+C3/0B03:    FD02  ; ちんぼ
+C3/0B05:    FE02  ; ちんボ
+C3/0B07:    FF02  ; ちかん
+C3/0B09:    0003  ; おめこ
+C3/0B0B:    0103  ; まんこ
+C3/0B0D:    0203  ; おまんこ
+C3/0B0F:    0303  ; あそこ
+C3/0B11:    0403  ; うんこ
+C3/0B13:    0503  ; でべそ
+C3/0B15:    0603  ; デべそ
+C3/0B17:    0703  ; うんち
+C3/0B19:    0803  ; はなたれ
+C3/0B1B:    0903  ; おしっこ
+C3/0B1D:    0A03  ; せっくす
+C3/0B1F:    0B03  ; ばか
+C3/0B21:    0C03  ; バか
+C3/0B23:    0D03  ; おしり
+C3/0B25:    0E03  ; まぬけ
+C3/0B27:    0F03  ; あなる
+C3/0B29:    1003  ; きちがい
+C3/0B2B:    1103  ; すけべ
+C3/0B2D:    1203  ; きちガい
+C3/0B2F:    1303  ; すけべ
+</programlisting>
+</section> <!-- dq3.rename.hack.C3EB2B -->
+
+
+<section id="dq3.rename.hack.C3EB3F">
+<title>入力が予約名かどうかチェック</title>
+<para>
+サブルーチン <varname>$C3EB3F</varname> は、プレイヤーが入力した名前が、
+ゲームにより予約された名前であるかどうかをテストする。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			<code>$70 = <literal>#$0016</literal></code>
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>$72 = <literal>#$00C31368</literal></code> （これは <literal>4</literal> バイト長で代入の意味）
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.rename.hack.C3EB53">名前テスト共通サブルーチン <varname>$C3EB53</varname></link>
+			を呼び出す。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			呼び出し元に制御を戻す。
+		</para>
+	</listitem>
+</itemizedlist>
+<para>
+<link linkend="dq3.rename.hack.C3EB2B">前項</link>と同様に、
+<varname>$C31368</varname> に予約名を表現する文字列の文字列 ID 配列が存在する。
+内容は以下の通り、重要キャラクターの名前を表す単語が配列されている
+ここでも平仮名と片仮名が入り交じっていることに注意したい。
+</para>
+<programlisting>
+C3/1368:    2403  ; おるてが
+C3/136A:    2503  ; かんだた
+C3/136C:    2603  ; がらい
+C3/136E:    2703  ; おるてガ
+C3/1370:    2803  ; かんダた
+C3/1372:    2903  ; ガらい
+C3/1374:    2A03  ; えりっく
+C3/1376:    2B03  ; おりびあ
+C3/1378:    2C03  ; ばらもす
+C3/137A:    2D03  ; ぞーま
+C3/137C:    2E03  ; おりビあ
+C3/137E:    2F03  ; バらもす
+C3/1380:    3003  ; ゾーま
+C3/1382:    3103  ; ひみこ
+C3/1384:    3203  ; るびす
+C3/1386:    3303  ; のるど
+C3/1388:    3403  ; ばこた
+C3/138A:    3503  ; ぜにす
+C3/138C:    3603  ; るビす
+C3/138E:    3703  ; のるド
+C3/1390:    3803  ; バこた
+C3/1392:    3903  ; ゼにす
+</programlisting>
+</section> <!-- dq3.rename.hack.C3EB3F -->
+
+
+<section id="dq3.rename.hack.C3EB53">
+<title>名前テスト共通サブルーチン</title>
+<para>
+	サブルーチン <varname>$C3EB53</varname> は、呼び出し元が指定する文字列型配列から、文字列を検索する。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>【事前条件】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<varname>$70</varname> は配列のサイズ、すなわち検索対象となる文字列の個数を指定する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<varname>$72</varname> は、<literal>3</literal> バイト長で、その配列の存在するアドレスを指定する。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			文字列の格納アドレス配列アクセスサブルーチン <varname>$C1BA53</varname> と
+			文字列 Peeking サブルーチン <varname>$C1BACC</varname> を反復的に呼び出して、
+			<code>[$72],Y</code> (<code>Y == $70 * 2 ... 0</code>) と
+			<varname>$3332,X</varname> にある文字のペアを比較していく。
+			ただし、一つのペアにつき、最高二度比較を行う。
+			一度目は素の文字コードを比較し、
+			それらが一致していなければ、<code>[$72],Y</code> 側の文字コードを
+			<code>#$0043 - #$000C</code> 分だけ加算した値と比較する
+			（それぞれの値は「ア」と「あ」の文字コードだ）。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					一致する文字列が見つかるか、配列を最後まで調べつくすまでは、上記処理を繰り返す。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			呼び出し元に制御を戻す。
+		</para>
+	</listitem>
+
+	<listitem>
+		<para>【事後条件】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					一致するものがあれば、そのときに限り <varname>Carry</varname> ビットがセットされている。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+<para>
+これは平仮名と片仮名を区別せずに文字列を比較するアルゴリズムのように読める。
+</para>
+</section> <!-- dq3.rename.hack.C3EB53 -->
+
+<section id="dq3.rename.hack.C3EBAB">
+<title>入力が一文字しか使っていないか調べるサブルーチン</title>
+<para>
+サブルーチン <varname>$C3EBAB</varname> は、プレイヤーが入力した名前が、
+<itemizedlist>
+	<listitem>
+		<para>
+			ちょうど <literal>4</literal> 文字分の長さを持っていて
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			使われている文字数が <literal>1</literal> であるか
+		</para>
+	</listitem>
+</itemizedlist>
+を調べる。
+</para>
+
+<itemizedlist>
+	<listitem>
+		<para>
+			<varname>A</varname> レジスタへのアクセスモードを <literal>1</literal> バイトモードにする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>X = 0</code>
+		</para>
+	</listitem>
+	<listitem>
+		<para>【文字を比較】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<code>$3332,X == #$AC</code> ⇒【X をチェック】へジャンプ。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<code>$3333,X != $3332,X</code> ⇒【X をチェック】へジャンプ。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<code>++X</code>
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【文字を比較】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>【X をチェック】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<code>X &lt; 3:</code>
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<varname>A</varname> レジスタへのアクセスモードを <literal>2</literal> バイトモードにする。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<varname>Carry</varname> ビットをクリアする。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							呼び出し元に制御を戻す。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					<code>X &gt;= 3:</code>
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<varname>A</varname> レジスタへのアクセスモードを <literal>2</literal> バイトモードにする。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<varname>Carry</varname> ビットをセットする。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							呼び出し元に制御を戻す。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+<para>
+	「ああああ」のようなパターンの名前のときに <varname>Carry</varname> ビットをセットする。
+	「あ」「ああ」「あああ」パターンには関与しない。
+</para>
+</section> <!-- dq3.rename.hack.C3EBAB -->
+
+<section id="dq3.rename.hack.C3EBCD">
+<title>選択キャラの現在の名前を先にチェック</title>
+<para>
+	サブルーチン <varname>$C3EBCD</varname> は、指定したキャラクターの現在の名前が、
+	命名神の怒りにふれているものかどうかをテストする。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>【事前条件】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<varname>Overflow</varname> ビットがセットされていれば、ふくろの名前を調べるものとする。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			<varname>A</varname> に文字列 ID をセットする：
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					ふくろの名前文字列を調べたければ、<code>A = #$0020</code> をセットする。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					パーティメンバーの名前文字列を調べたければ、
+					サブルーチン <varname>$C42F5E</varname> を呼び出し、
+					キャラクター (<varname>A</varname>) の名前文字列 ID を取得 (<varname>A</varname>) する。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			<code>$33D8 = A</code> として、
+			サブルーチン <varname>$C1BA53</varname> を呼び出して、文字列格納アドレス配列へアクセスする
+			（<varname>$BA</varname> に文字列のあるアドレスがセットされる）。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			サブルーチン <varname>$C1BACC</varname> を反復して呼び出すことで、
+			<emphasis>配列 <varname>$3332,X</varname> にキャラクターまたはふくろの名前を示す文字列を格納する。</emphasis>
+			配列の最後には <literal>#$AC</literal> がセットされている状態になる。
+		</para>
+	</listitem>
+
+	<listitem>
+		<para>
+			<link linkend="dq3.rename.hack.C3EB2B">サブルーチン <varname>$C3EB2B</varname></link> を呼び出して、
+			ふざけた名前かどうかを調べる。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					ふざけた名前 ⇒【怒りにふれている】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.rename.hack.C3EBAB">サブルーチン <varname>$C3EBAB</varname></link> を呼び出して、
+			名前が「ああああ」パターンかどうか調べる。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					「ああああ」パターンの名前 ⇒【怒りにふれている】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【怒りにふれている】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<varname>Carry</varname> ビットをセットする。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【問題なし】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<varname>Carry</varname> ビットをクリアする。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>【事後条件】</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					命名神の怒りにふれている名前であれば、<varname>Carry</varname> ビットがセットされている。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.rename.hack.C3EBCD -->
+</section> <!-- dq3.rename.hack -->
+</section> <!-- dq3.rename -->

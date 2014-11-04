@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq6.shop"><?dbhtml filename="dq6_shop.html" ?>
+<title>店屋解析</title>
+<indexterm><primary>店屋</primary><secondary>DQ6</secondary></indexterm>
+<para>
+	武器屋や道具屋などの各店のデータが、
+	プログラム内でどのように表現されているかについて解析し、
+	すべての店のデータのリストを見る手順を示す。
+</para>
+
+<section id="dq6.shop.hack">
+<title>解析</title>
+<para>
+	PAR サーチを利用する方法も考えられるが、
+	<link linkend="dq6.people.hack.trace">人オブジェクト解析</link>
+	の過程を再利用するのがいいだろう。
+	おあつらえ向けなことに、
+	<link linkend="dq6.debug.floor.028A">店屋セリフチェック用のフロア</link>が存在する。
+	これを利用して、GSD の Breakpoint を下記命令に Exec 条件でセットし、
+	当フロアに進入する。
+</para>
+<para>
+	すると、このフロアにいる人数分だけ一時停止するはずなので、
+	「はなす」の処理を行うサブルーチンのアドレス、
+	すなわち <varname>$0006B0</varname> に格納されているもの、をすべて記憶しておく。
+	そして、それらのアセンブリコードを観察すると、
+	よく似たリストがいくつかあるのがわかるだろう。
+	（下記コードリスト中の一部のコメントは、
+	記者の作業用メモなので、この時点では判明していない事実である）
+</para>
+<programlisting>
+// デバッグフロア 左上 あらくれ
+CD/FE4C:    A24700      LDX #$0047
+CD/FE4F:    22BEF5C5    JSR $C5F5BE         // 店屋共通処理
+CD/FE53:    6B          RTL
+
+// デバッグフロア 左上 剣士
+CD/FE54:    A24800      LDX #$0048
+CD/FE57:    22BEF5C5    JSR $C5F5BE         // 店屋共通処理
+CD/FE5B:    6B          RTL
+
+// デバッグフロア 左上 商人
+CD/FE5C:    A24900      LDX #$0049
+CD/FE5F:    22BEF5C5    JSR $C5F5BE         // 店屋共通処理
+CD/FE63:    6B          RTL
+
+// デバッグフロア 左上 じいさん 左
+CD/FE64:    A24A00      LDX #$004A
+CD/FE67:    22BEF5C5    JSR $C5F5BE         // 店屋共通処理
+CD/FE6B:    6B          RTL
+</programlisting>
+<para>
+	サブルーチン <varname>$C5F5BE</varname> は店屋処理そのものであり、
+	<varname>X</varname> レジスタの値が店の ID 値であることは明白である。
+</para>
+
+<section id="dq6.shop.hack.C5F5BE">
+<title>サブルーチン <varname>$C5F5BE</varname> - 店共通処理</title>
+<para>
+	サブルーチン <varname>$C5F5BE</varname> 全体を、ツールを使って一気に逆アセンブルすると失敗する。
+	なぜなら、<literal>JSL $C92C39</literal> が何回も登場するからである。
+	人オブジェクト解析でも少し触れたが、まとめるとこういうことである：
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			<literal>JSL $C92C39</literal> の次の命令の位置は、本来のそれより <literal>11</literal> バイト先にズレる。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			その <literal>11</literal> バイトには、サブルーチン
+			<varname>$C92C39</varname> がスタックポインタ (<varname>S</varname>) を介して参照する定数データである。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<literal>[00]</literal>: 値がゼロであるときに、これ以降の記述の意味が正しい。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<literal>[01-02]</literal>: 構造体データのサイズ。バイト単位で示す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<literal>[03-05]</literal>: 最初の構造体データの格納位置。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<literal>[06-07]</literal>: 構造体の何バイト目のデータをロードするかを示す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<literal>[08]</literal>: ロードした値の <literal>1</literal> バイト目にかけるマスク。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<literal>[09-0A]</literal>: （必要ならば）ロードした値の <literal>2-3</literal> バイト目にかけるマスク。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+<para>
+	これを踏まえて <varname>$C5F5BE</varname> のアセンブリリストを「整形」すると、
+	サブルーチンの最初のほうは以下のとおりになる。
+</para>
+<programlisting>
+// x: 店 ID
+// JSL $C92C39 は人オブジェクト解析で既に解析済
+C5/F5BE:    08          PHP 
+C5/F5BF:    C230        REP #$30
+C5/F5C1:    48          PHA 
+C5/F5C2:    DA          PHX 
+C5/F5C3:    5A          PHY 
+C5/F5C4:    8B          PHB 
+C5/F5C5:    F47E7E      PEA $7E7E
+C5/F5C8:    AB          PLB 
+C5/F5C9:    AB          PLB 
+C5/F5CA:    8E753B      STX $3B75           $7E3B75 = x;
+C5/F5CD:    22B52AC9    JSR $C92AB5         // まだ見ていない
+            00
+            0800
+            938B
+            C5
+            0000
+C5/F5D9:    8D793B      STA $3B79           $7E3B79 = a;
+C5/F5DC:    22392CC9    JSR $C92C39         ■a = $C58B93[02] &amp; 0xFF;
+            00          // regular
+            0800        // size: 8 byte
+            938B
+            C5          // $C58B93[02] &amp; 0xFF: 売り物 1
+            0200
+            FF
+            0000
+C5/F5EB:    8D7B3B      STA $3B7B           $7E3B7B = a;
+C5/F5EE:    22392CC9    JSR $C92C39         ■a = $C58B93[03] &amp; 0xFF;
+            00
+            0800
+            938B
+            C5          // $C58B93[03] &amp; 0xFF: 売り物 2
+            0300
+            FF
+            0000
+
+（同様に売り物をセットしていく……コード省略）
+
+C5/F648:    20B1FC      JSR $FCB1           // まだ見ていない
+C5/F64B:    D045        BNE $F692           if(zero が立っていない)
+                                                goto LF692;
+C5/F64D:    009E        BRK #$9E            // 「ここは コインを 品物にかえる～」
+C5/F64F:    19
+</programlisting>
+</section> <!-- dq6.shop.hack.C5F5BE -->
+
+<section id="dq6.shop.hack.C58B93">
+<title>構造体 <varname>$C58B93</varname> - 店データ構造体</title>
+<para>
+	構造体 <varname>$C58B93</varname> のメンバの意味を特定する。
+	アセンブリコードを追うのではなく、
+	データを改竄することで、メンバの意味を知れば十分だ。
+	この構造体の各メンバは、以下の表のとおりである。
+</para>
+<table class="memorylayout">
+	<caption>構造体 $C58B93 - 店データ構造体 メモリレイアウト</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th><td rowspan="2" colspan="8">店の種別</td></tr>
+		<tr><th>01</th></tr>
+		<tr><th>02</th><td colspan="8">売り物 1</td></tr>
+		<tr><th>03</th><td colspan="8">売り物 2</td></tr>
+		<tr><th>04</th><td colspan="8">売り物 3</td></tr>
+		<tr><th>05</th><td colspan="8">売り物 4</td></tr>
+		<tr><th>06</th><td colspan="8">売り物 5</td></tr>
+		<tr><th>07</th><td colspan="8">売り物 6</td></tr>
+	</tbody>
+</table>
+<para>
+	記者がソニタウンの解析資料
+	<xref linkend="dqref.url2"/>
+	の内容と照合した結果、
+	意味が一致していたので、これでよいだろう。
+</para>
+<glosslist>
+	<glossentry>
+		<glossterm>店の種別</glossterm>
+		<glossdef>
+			<para>
+				店の種別を決定する値である。
+				店の人のしゃべるセリフの集合が定義されている配列が <literal>5</literal> 個存在するのだが、
+				そのどれを用いるかを指定する値と考えればよい。
+			</para>
+			<table class="lighttable">
+				<caption>店の種別</caption>
+				<thead>
+					<tr><th>値</th><th>店の種別</th></tr>
+				</thead>
+				<tbody>
+					<tr><td><literal>#$0000</literal></td><td>未使用</td></tr>
+					<tr><td><literal>#$0001</literal></td><td>武器屋</td></tr>
+					<tr><td><literal>#$0002</literal></td><td>防具屋</td></tr>
+					<tr><td><literal>#$0003</literal></td><td>道具屋</td></tr>
+					<tr><td><literal>#$0004</literal></td><td>よろず屋</td></tr>
+					<tr><td><literal>#$0005</literal></td><td>カジノコイン景品交換所</td></tr>
+				</tbody>
+			</table>
+			<para>
+				これら配列 <literal>5</literal> つのポインタの配列は <varname>$C5FD3B</varname> に存在する。
+			</para>
+<programlisting>
+店屋のセリフセットのアドレスの配列
+C5/FD3B:    45FD  // 0001
+C5/FD3D:    7BFD  // 0002
+C5/FD3F:    B1FD  // 0003
+C5/FD41:    E7FD  // 0004
+C5/FD43:    1DFE  // 0005
+</programlisting>
+			<para>
+				<literal>#$0001</literal> は武器屋だが、<varname>$C5FD45</varname> を見ると、
+				確かに武器屋のセリフの ID の配列であることがわかる。
+				同様にして、防具屋、道具屋、よろず屋、カジノ交換所のセリフ ID 配列が定義されている。
+				ただし、カジノ交換所のセリフ ID 配列は、
+				ほとんど道具屋のそれと同じである。
+				必要な部分だけカジノ固有のセリフ ID で差し替えられている。
+			</para>
+<programlisting>
+0001: 武器屋セリフ配列
+C5/FD45:    4818  // 0000: [DE]ここは 武器の店だ。[AD]どんな用だい？
+C5/FD47:    6218  // 0001: [DE]じゃあ また 来てくれよな！
+C5/FD49:    4918  // 0002: [DE]どれに するかね？[AF][D5]
+C5/FD4B:    6118  // 0003: [DE]ほかにも 用は あるかい？
+C5/FD4D:    4A18  // 0004: [DE]おっと それを買うには[AD]お金が～
+C5/FD4F:    4B18  // 0005: [DE][B5]だな。[AF][D5]
+C5/FD51:    4D18  // 0006: [DE]だれが 持つかね？[AF][D5]
+C5/FD53:    5318  // 0007: [DE]さっそく そうび するかい？
+C5/FD55:    5418  // 0008: [DE][B3]は [B5]を[AD]そうび させてもらった！[AF][D5]
+C5/FD57:    5218  // 0009: [DE][B3]は これを[AD]そうびできないが～
+C5/FD59:    5618  // 000A: [DE]じゃあ [B3]の[AD]ひつぎの中に～
+C5/FD5B:    5518  // 000B: [DE]ほらよ！ [B3]さん！[AF][D5]
+C5/FD5D:    5718  // 000C: [DE]よし！ じゃあ[AD]馬車の中の～
+C5/FD5F:    5118  // 000D: [DE]じゃあ その [C3] の中に～
+C5/FD61:    4F18  // 000E: [DE]少し 持ちものを へらして～
+C5/FD63:    4E18  // 000F: [DE]ん？ [B3]は[AD]それ以上～
+C5/FD65:    5918  // 0010: [DE]おや？ [B3]さんは[AD]なんにも 持っていないぜ！[AF][D5]
+C5/FD67:    5818  // 0011: [DE]だれが 売ってくれるんだい？[AF][D5]
+C5/FD69:    5B18  // 0012: [DE]どれを 売るんだい？[AF][D5]
+C5/FD6B:    5E18  // 0013: [DE][B5]だな。[AD][BB]ゴールドで[AD]引きとろう～
+C5/FD6D:    6018  // 0014: [DE]それは ざんねんだな。[AF][D5]
+C5/FD6F:    5F18  // 0015: [DE]よし！ たしかに買いとったぜ。[AF][D5]
+C5/FD71:    5C18  // 0016: [DE]わるいが それは うちでは～
+C5/FD73:    5A18  // 0017: [DE]おや？ その[C3]には[AD]なんにも～
+C5/FD75:    5D18  // 0018: [DE]おっと！ 買いとりたいが[AD]それ以上 お金を～
+C5/FD77:    4C18  // 0019: [DE]これは 戦いのときに[AD]どうぐとして～
+C5/FD79:    5018  // 001A: [DE]ほかの人が 持つかね？
+</programlisting>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>売り物 N</glossterm>
+		<glossdef>
+			<para>
+				メンバ「売り物 N (= <literal>1,2,3,4,5,6</literal>)」は、
+				その店のメニューの N 番目に来るものである。
+				値は、そのアイテム ID である。
+				アイテム ID とアイテム名の対応は、
+				いつもお世話になっているドラクエビューア
+				<xref linkend="dqref.url2"/>
+				で確認できる。
+			</para>
+		</glossdef>
+	</glossentry>
+</glosslist>
+</section> <!-- dq6.shop.hack.C58B93 -->
+</section> <!-- dq6.shop.hack -->
+</section> <!-- dq6.shop -->

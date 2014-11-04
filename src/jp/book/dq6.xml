@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<chapter id="dq6"><?dbhtml filename="dq6.html" ?>
+<title>ドラクエ6</title>
+<para>
+	本章では、SFC ドラクエ6 に関する内容を扱っていく。
+</para>
+
+&dq6_debug;
+&dq6_str;
+&dq6_message_battle;
+&dq6_message;
+&dq6_people;
+&dq6_shop;
+&dq6_inn;
+&dq6_church;
+&dq6_bank;
+&dq6_rename;
+&dq6_class;
+&dq6_item;
+&dq6_act;
+&dq6_monster;
+&dq6_character;
+&dq6_encounter;
+&dq6_level;
+</chapter> <!-- dq6 -->

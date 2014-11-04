@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="tools.disasm"><?dbhtml filename="tools_disasm.html" ?>
+<title>逆アセンブラ</title>
+<para>
+	ここでは逆アセンブラツールをごく簡単に紹介する。
+	逆アセンブラのプログラミングは CPU の仕様書があれば可能であるため、
+	既に気合いの入ったマニアの手により、いくつかの逆アセンブルツールが開発・配布されている。
+	後発の解析人としては、そのツールを再利用するのがよい。
+</para>
+
+<section id="tools.disasm.dispel">
+<title>DisPel</title>
+<indexterm><primary>DisPel</primary></indexterm>
+<indexterm><primary>逆アセンブラ</primary><secondary>DisPel</secondary></indexterm>
+
+<caution>
+<para>本書のダンプコードおよび本セクションの記述は、
+いずれもバージョン 0.99 の <application>DisPel</application> に準拠している。
+<application>DisPel</application> の最新版のソースコードが下記のサイトから入手可能だが、
+ニーモニックが小文字で出力されるように変更されていたり、
+<option>-n</option> コマンドラインオプションの仕様が変更されていたりするので、
+自分で <application>DisPel</application> をビルドして利用している読者は混乱せぬよう留意されたい。
+</para>
+<para>
+<ulink url="https://github.com/pelrun/Dispel">pelrun/Dispel - GitHub</ulink>
+</para>
+</caution>
+
+<figure>
+	<title>DisPel</title>
+	<graphic width="502px" fileref="./image/dq.hack.tool.dispel.png"/>
+</figure>
+<para>
+	<glossterm linkend="gloss.65816">65816</glossterm>/SMC 逆アセンブラ。
+	<application>DisPel</application> はコンソールアプリである。
+	すなわち、<glossterm linkend="gloss.rom.image">ROM イメージファイル</glossterm>を引数にとり、
+	アセンブリコードをテキスト形式で出力するプログラムである。
+	アセンブリと聞いても何のことやらさっぱりだというのであれば、計算機の基礎知識から勉強するハメになる。
+</para>
+<para>
+	解析道の先人は、外国のサイトから 65816 に関する文書を検索して、
+	言語仕様を把握してから解析に着手したという――。
+</para>
+<para>
+	DisPel の特徴は以下のとおり。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			アドレス指定による逆アセンブル範囲の指定。バンク丸ごとも可能
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			REP/SEP 命令を意識した逆アセンブル
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			バンク境界の適切な処理
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			自動で HiROM/LoROM を判断する
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			「本物」の SNES アドレッシング
+		</para>
+	</listitem>
+</itemizedlist>
+<para>
+	記者は <filename>DisPel.exe</filename> を
+	<glossterm linkend="gloss.dos"><acronym>DOS</acronym> コンソール</glossterm>上から使うことはない。
+	Xyzzy（<xref linkend="tools.editor.xyzzy"/>参照）上から
+	sns-mode を介してアドレス範囲を絞った逆アセンブルを行い、コードの解析を行う。
+</para>
+
+<section id="tools.disasm.dispel.sample">
+<title>サンプル</title>
+<para>
+	DisPel を逆アセンブラとして使うことを決めたならば、
+	環境変数 <envar>PATH</envar> に含まれている適当なフォルダに実行ファイル <filename>DisPel.exe</filename> を移動することになる。
+	ここまではエクスプローラで簡単にできる。
+	しかし、コードの出力をするにはコマンドプロンプトウィンドウを開く必要がある。
+	それを開いたら、ドラクエ3 の ROM イメージファイル（ここでは <filename>sfcdq3.smc</filename> とする）のあるフォルダに移動して、
+	例えば以下のように入力すると、バンク $C3 の逆アセンブリコードを得ることになる。
+	ちなみに実際はこの領域はプログラムではなく、ウィンドウ関連のデータ定義域なので、以下の出力は無意味だ。
+</para>
+<screen><prompt>&gt; </prompt><userinput>dispel -n -h -s -b C3 -p sfcdq3.smc</userinput>
+C3/0000:	2184    	AND ($84,X)
+C3/0002:	50C0    	BVC $FFC4
+C3/0004:	200000  	JSR $0000
+C3/0007:	0000    	BRK #$00
+C3/0009:	5562    	EOR $62,X
+C3/000B:	00AA    	BRK #$AA
+C3/000D:	B052    	BCS $0061
+C3/000F:	8020    	BRA $0031
+C3/0011:	0000    	BRK #$00
+C3/0013:	0000    	BRK #$00
+&hellip;
+</screen>
+<para>
+	上記の例では <application>DisPel</application> の自動判定機能に頼らず、明示的にオプションを指示した。
+	ドラクエ3 とドラクエ6 はメモリマッピングが同じ (HiROM, FastROM) である。
+	ともに <option>-h -s</option> オプションを指定すればよい。
+	ドラクエ5 の場合は LoROM, SlowROM であるため、代わりに <option>-l -i</option> を利用する。
+</para>
+<para>
+	あるアドレスからの逆アセンブリコードを得たい場合は、
+	オプション <option>-r</option> で SNES アドレス値を指定することに加え、
+	プログラムとしてのその地点における MX レジスタフラグの状態を加味してやらねばらない。
+	M レジスタビットが立っている場合、オプション <option>-a</option> を、
+	X レジスタビットが立っている場合、オプション <option>-x</option> を与える必要がある。
+</para>
+</section> <!-- tools.disasm.dispel.sample -->
+</section> <!-- tools.disasm.dispel -->
+</section> <!-- tools.disasm -->

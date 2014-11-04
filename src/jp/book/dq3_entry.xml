@@ -1,0 +1,2093 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.entry"><?dbhtml filename="dq3_entry.html" ?>
+<title>仲間登録所解析</title>
+<indexterm><primary>仲間登録所</primary><secondary>DQ3</secondary></indexterm>
+<para>
+	このセクションではルイーダの酒場二階に開設されている登録所の処理を解析する。
+	新規キャラクターの追加処理において、リメイク版は、オリジナル版とは決定的に違う処理を含んでいる。
+	それはタネ・木の実による能力パラメーターの調整処理であり、それに依存する初期性格の決定という処理が伴う。
+	この過程を可能な限り詳細に調査していこう。
+</para>
+
+<section id="dq3.entry.hack">
+<title>解析</title>
+<para>
+	まだアリアハン王に旅立ちの報告を済ませていない等の、特殊なイベント中でない限り、
+	登録屋に「はなす」とすぐに<link linkend="dq3.entry.hack.C3DAEB">登録所共通処理サブルーチン</link>が開始する。
+	ここから処理をたどっていき、どのように仲間キャラクターが追加・削除されるのかを調べていく。
+</para>
+<para>
+	<link linkend="dq3.entry.hack.C3DAEB">登録所共通処理サブルーチン</link>および、
+	それが呼び出すすべてのサブルーチンは、
+	登録屋による台詞表示と、
+	システムメッセージ表示には、
+	メッセージ表示サブルーチンとして <varname>$C1A92E</varname> と
+	<varname>$C1A8D4</varname> をそれぞれ用いるようだ。
+	この事実を利用して、逆アセンブルコードと台詞メッセージ表とをにらめっこしながら処理を読み解いていくことになる。
+</para>
+
+<section id="dq3.entry.hack.C3DAEB">
+<title>登録所共通処理サブルーチン</title>
+<para>
+	サブルーチン <varname>$C3DAEB</varname> は、登録屋に「はなす」と通常始まる処理だ。
+	キャラクター新規追加処理をメインとするプログラムの体裁をとっている。
+	一枚岩の長いアセンブリコードを文章化すると、大体以下のような感じになった。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			台詞「ここは冒険者たちの登録所」(ID: <literal>#$0B31</literal>) を表示する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			フラグチェックサブルーチン <varname>$C909AE</varname> を呼び出し、
+			<varname>$7E353A</varname> の最下位ビットから見て <literal>#$0014</literal> ビット目をテストする。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					フラグが未セット⇒
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							台詞「あなたが仲間にしたい人をさがしだし～」(ID: <literal>#$0B32</literal>) を表示する。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							フラグセットサブルーチン <varname>$C908F0</varname> を呼び出し、
+							<varname>$7E353A</varname> の最下位ビットから見て <literal>#$0014</literal> ビット目をセットする。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			台詞「新しい人を名簿に登録しますか」(ID: <literal>#$0B33</literal>) を表示する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					キャンセルボタン or 「いいえ」⇒【またおいで】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【新しく登録する】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<link linkend="dq3.entry.hack.C3DD13">キャラクター削除サブルーチン <varname>$C3DD13</varname></link> を呼び出す。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャラクターがいっぱいだが、削除しなかった ⇒【またおいで】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					台詞「どんな人をご希望ですか？」(ID: <literal>#$0B34</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C3C345</varname> を呼び出すことで、名前文字列入力用バッファを初期化する。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【名前入力ループ】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					「なまえをいれてください」ウィンドウを表示し、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン ⇒【まだ登録する？】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C3C37F</varname> を呼び出し、
+					<emphasis>プレイヤーが入力した文字列を配列 <varname>$3332,X</varname> にコピーする。</emphasis>
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					ロトテストサブルーチン <varname>$C3C66B</varname> を呼び出し、
+					入力した名前が「ロト」「ろと」「ロと」……等（アドレス <varname>$C3C6A4</varname> で定義）とマッチしないかテストする。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							マッチしない ⇒【入力と予約名と照合】へジャンプ。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							マッチする ⇒ 
+						</para>
+						<itemizedlist>
+							<listitem>
+								<para>
+									台詞「ロト！？ ロトでございますか！？」(ID: <literal>#$09C8</literal>) を表示する。
+								</para>
+							</listitem>
+							<listitem>
+								<para>
+									【名前入力ループ】へジャンプ。<emphasis>入力ウィンドウは変更されていない。</emphasis>
+								</para>
+							</listitem>
+						</itemizedlist>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<!--
+	<listitem>
+		<para>
+			【またおいで】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					【またおいで】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【やっぱりやめる】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					【やっぱりやめる】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>   -->
+	<!--
+	<listitem>
+		<para>
+			【BBB】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					TODO
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem> -->
+
+	<!--
+	<listitem>
+		<para>
+			【まだ登録する？】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					【まだ登録する？】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist> 
+	</listitem>  -->
+
+	<listitem>
+		<para>
+			【入力と予約名と照合】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<link linkend="dq3.rename.hack.C3EB3F">サブルーチン <varname>$C3EB3F</varname></link> を呼び出して、
+					入力が予約名かどうかチェックする。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							入力が予約名でない ⇒【入力と同名のキャラクター検索】へジャンプ。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							入力が予約名である ⇒
+						</para>
+						<itemizedlist>
+							<listitem>
+								<para>
+									台詞「申し訳ありませんがその名前の人を～」(ID: <literal>#$0B45</literal>) を表示する。
+								</para>
+							</listitem>
+							<listitem>
+								<para>
+									【別の人を探す？】へジャンプ。
+								</para>
+							</listitem>
+						</itemizedlist>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【入力と同名のキャラクター検索】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C3DDBF</varname> を呼び出して、入力と同じ名前の仲間キャラクターがいるかテストする。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							いない ⇒【同名チェックをクリア】へジャンプ。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							いる ⇒
+						</para>
+						<itemizedlist>
+							<listitem>
+								<para>
+									台詞「その人ならすでに登録されていますが」(ID: <literal>#$0B44</literal>) を表示する。
+								</para>
+							</listitem>
+							<listitem>
+								<para>
+									【別の人を探す？】へジャンプ。
+								</para>
+							</listitem>
+						</itemizedlist>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【別の人を探す？】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン or 「いいえ」⇒【またおいで】へジャンプ。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							「はい」⇒【新しく登録する】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【同名チェックをクリア】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					「おとこ・おんな」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン ⇒【名前入力ループ】へジャンプ。<emphasis>入力ウィンドウは変更されていない。</emphasis>
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C3C3D5</varname> を呼び出して、プレイヤーの入力を
+					「おとこ」だったら <literal>0</literal> へ、「おんな」だったら <literal>1</literal> へ変換する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<code>$405F = A;</code> 性別
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					職業リストウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン ⇒【同名チェックをクリア】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			<code>$4063 = A;</code> 職業 ID
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>$4061 = 0;</code> 詳細不明
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>$4054 = 2;</code> 詳細不明
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			サブルーチン <varname>$C441AE</varname> を呼び出し、
+			新規作成キャラクターのデータ格納領域を <varname>$3925</varname> 系統のアドレスに割り当てる
+			（同時に決定分のパラメータをセットする）。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>$2BB4 = A;</code> キャラクターのデータアドレス
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			サブルーチン <varname>$C42F5E</varname> を呼び出し、
+			キャラクター (<varname>A</varname>) の ID を取得 (<varname>A</varname>) する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			新規作成キャラクター (<varname>A</varname>) の名前・職業・性別・レベルを表示するウィンドウと、
+			ちから～さいだいＭＰまでのパラメータリストを表示するウィンドウを表示する。
+		</para>
+	</listitem>
+	
+	<listitem>
+		<para>
+			台詞「ご希望の条件だとこの人が見つかりましたが～」(ID: <literal>#$0B35</literal>) を表示する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					キャンセルボタン or 「いいえ」⇒【その人ではダメ】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			フラグチェックサブルーチン <varname>$C909AE</varname> を呼び出し、
+			<varname>$7E353A</varname> の最下位ビットから見て <literal>#$0015</literal> ビット目をテストする。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					フラグが未セット⇒
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							台詞「お仲間には王さまから特別に激励の品が～」(ID: <literal>#$0B36</literal>) を表示する。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							フラグセットサブルーチン <varname>$C908F0</varname> を呼び出し、
+							<varname>$7E353A</varname> の最下位ビットから見て <literal>#$0015</literal> ビット目をセットする。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			台詞「では ○○○○さんへのたねの使い方はどうしますか？」(ID: <literal>#$0B37</literal>) を表示する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>A = #$003F</code>
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			乱数取得サブルーチン <varname>$C0133E</varname> を呼び出し、乱数を取得 (<varname>A</varname>) する。
+			<varname>A</varname> レジスタには <literal>0</literal> 以上 <literal>63</literal> 以下のいずれかの値がロードされる。
+			<emphasis><literal>1/64</literal> の確率で新規作成キャラに <literal>6</literal> 回タネ・木の実が使えることを意味する。</emphasis>
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<code>A != 0</code> ⇒ <code>A = 5</code>
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<code>A == 0</code> ⇒ <code>A = 6</code>
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			【タネ個数決定直後】へジャンプ。
+		</para>
+	</listitem>
+
+	<listitem>
+		<para>
+			【その人ではダメ】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					表示ウィンドウ周りの処理を行う（詳細不明）。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【まだ登録する？】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【タネ個数決定直後】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<code>$2BB2 = A;</code> 使えるタネ・木の実の個数
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「じぶんで やる・おまかせにする」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン ⇒【まだ登録する？】へジャンプ。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							「じぶんで やる」⇒【じぶんで】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					<code>$2A60 = 1;</code> 「登録屋がタネを使う」フラグ
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【タネ蒔き】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<!--
+	<listitem>
+		<para>
+			【まだ登録する？】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					【まだ登録する？】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist> 
+	</listitem>  -->
+
+	<listitem>
+		<para>
+			【じぶんで】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「使える回数は ○回です。ではどうぞ」(ID: <literal>#$0B38</literal>) を表示する。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【タネ蒔き】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					以下の反復処理を行う。反復回数はタネ・木の実の個数、つまり <varname>$2BB2</varname> だ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<code>A = 4</code>
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							乱数取得サブルーチン <varname>$C0133E</varname> を用いて、<literal>0</literal> 以上 <literal>4</literal> 以下の乱数を得る。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<code>$2A62 = A;</code> 乱数
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<emphasis>プレイヤーまたは登録屋がパラメータ種別を入力するのを待つ。</emphasis>
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<link linkend="dq3.entry.hack.C3DE20">サブルーチン <varname>$DE20</varname></link> を呼び出すことで、
+							選択パラメータの増分を決定する。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+
+			<listitem>
+				<para>
+					メッセージ「[CE][D6][AF][AC]」(ID: <literal>#$0150</literal>) を表示する。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<code>$2A60 != 0</code> ⇒
+						</para>
+						<itemizedlist>
+							<listitem>
+								<para>
+									台詞「さて……。おわりました」(ID: <literal>#$0B3E</literal>) を表示する。
+								</para>
+							</listitem>
+							<listitem>
+								<para>
+									<code>$2A60 = 0</code>
+								</para>
+							</listitem>
+						</itemizedlist>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					<code>A = $2BB4;</code> キャラクター ID
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<link linkend="dq3.entry.hack.C3DE95">サブルーチン <varname>$C3DE95</varname></link> を呼び出し、
+					<emphasis>新規作成キャラクターの初期性格を決定する。</emphasis>
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<link linkend="dq3.entry.hack.C3E2D0">サブルーチン <varname>$E2D0</varname></link> を呼び出し、
+					登録屋に性格を言わせる。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					台詞「では○○○○さんを登録します。よろしいですか？」(ID: <literal>#$0B39</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン or 「いいえ」⇒【登録しない】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					<emphasis>サブルーチン <varname>$C44566</varname> を呼び出し、新規作成キャラクターを正式に登録する。</emphasis>
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					台詞「たしかに登録しました」(ID: <literal>#$0B3A</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【まだ登録する？】 へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【登録しない】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「それは残念です」(ID: <literal>#$0B3B</literal>) を表示する。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【まだ登録する？】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「他の人も名簿に登録しますか？」(ID: <literal>#$0B3C</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン or 「いいえ」⇒【またおいで】へジャンプ。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							「はい」⇒【新しく登録する】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【やっぱりやめる】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「おや やめるのですね」(ID: <literal>#$0B46</literal>) を表示する。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【またおいで】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「では新しい仲間を欲しくなったとき またおいでください」(ID: <literal>#$0B47</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+
+<para>
+オリジナル版に比べると、キャラクターの追加処理が遥かに複雑になっている。
+名前の決定に関しては、有名な新規作成キャラクターの名前の「ロトテスト」に加えて、「予約名との照合テスト」が仕様追加されている。
+これはリメイク版では改名機能システムが追加されているので、そちらで利用されている機能を登録所システムにも採り入れたということだろう。
+</para>
+<para>
+さらに、キャラクターの能力値をプレイヤーがある程度底上げできるという、面白い仕様がここには追加されている。
+タネ・木の実を定数個を使ってよいというルールがある。
+この個数は通常 <literal>5</literal> だが、<literal>1/64</literal> という決して高くない確率で <literal>6</literal> になる。
+この事実一つとっても、ドラクエというゲームが不思議なバランス感覚を有する設計の上にあるものだということを強く認識させられる。
+</para>
+</section> <!-- dq3.entry.hack.C3DAEB -->
+
+<section id="dq3.entry.hack.C3DD13">
+<title>キャラクター削除サブルーチン</title>
+<para>
+	サブルーチン <varname>$C3DD13</varname> は、既存のキャラクターのいずれかを削除することができる処理だ。
+	<!-- <varname>$C3DAC4</varname> という、共通処理よりもアドレスの若いサブルーチン呼び出しを含む。-->
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			サブルーチン <varname>$C4467F</varname> を呼び出し、登録済みのキャラクター数が上限に達しているか (<varname>Carry</varname>) 調べる。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					上限に達していない場合は【終了】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「これ以上登録するにはだれかを名簿から外さないと～」(ID: <literal>#$0B3F</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン or 「いいえ」⇒【やめる】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【誰を外す】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「誰を外しますか？」(ID: <literal>#$0B40</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					ウィンドウ「だれを」を表示し、酒場にいるキャラクターだけをリストする。
+					そしてプレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン ⇒【やめる】へジャンプ。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							キャラクターを選択 ⇒ <varname>$33D6</varname> = 選択番号
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					キャラクター登録 ID 取得サブルーチン <varname>$C42F5E</varname> を呼び出し、
+					選択キャラクター (<varname>A</varname>) の登録 ID を取得 (<varname>X</varname>) する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<code>$BE77 = X</code>
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					キャラクターデータ格納アドレス取得サブルーチン <varname>$C429DA</varname> を呼び出し、
+					選択キャラクター (<varname>A</varname>) のアドレスを取得 (<varname>X</varname>) する。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<emphasis><code>X == $3604</code> ⇒【削除不可】へジャンプ。</emphasis>
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					主人公判定サブルーチン <varname>$C42DA1</varname> を呼び出し、
+					選択キャラクター (<varname>A</varname>) が主人公であるか否かを調べる。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							主人公である ⇒【主人公が選択された】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+
+			<listitem>
+				<para>
+					台詞「○○○○さんを外すのですね？そうすると２度と会えないかも～」(ID: <literal>#$0B41</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							キャンセルボタン or 「いいえ」⇒【やめる】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					サブルーチン <varname>$C3DAC4</varname> を呼び出し、選択キャラクター (<varname>A</varname>) のすべての所持品をふくろへ移す。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<emphasis>キャラクター削除サブルーチン <varname>$C445F8</varname> を呼び出し、選択キャラクター (<varname>X</varname>) を削除する。</emphasis>
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					台詞「残念ですが○○○○さんを外しました。これで新しい人を登録できます」(ID: <literal>#$0B42</literal>) を表示する。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【終了】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<varname>Carry</varname> ビットをクリアする。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【やめる】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「おや気が変わりましたか」(ID: <literal>#$0B43</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<varname>Carry</varname> ビットをセットする。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【主人公が選択された】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「えっ○○○○さんをっ！？無茶を言わないでください」(ID: <literal>#$0B4C</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【誰を外す】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【削除不可】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					台詞「申し訳ありませんがその人を消すことはできません」(ID: <literal>#$0B4D</literal>) を表示する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					【誰を外す】へジャンプ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【事後条件】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					キャラクターを削除した場合に限り、<varname>Carry</varname> ビットはセット状態。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+
+<para>
+オリジナル版の処理を踏襲したものになっている。
+削除できないキャラクターがいるらしいことが、プログラムコードから確認できる。
+これはバークに預けた商人キャラクターのはずだ。
+</para>
+</section> <!-- dq3.entry.hack.C3DD13 -->
+
+<section id="dq3.entry.hack.C3DDBF">
+<title>入力が仲間の名前と同じかチェック</title>
+<para>
+	サブルーチン <varname>$C3DDBF</varname> は入力した名前を持つ仲間キャラクターが既に存在するかどうかを調べる。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			キャラクター人数取得サブルーチン <varname>$C4297C</varname> を呼び出し、
+			パーティとルイーダの酒場にいるキャラクターの人数 (<code>$36E2 + $36E4</code>) を得る (<varname>$78</varname>) 。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			【<code>for A in $78 - 1 .. 0</code>】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					名前文字列照合サブルーチン <varname>$C3DDE5</varname> を呼び出し、
+					キャラクター (<varname>A</varname>) の名前と、プレイヤーが入力した名前文字列 <varname>$3332,X</varname> と比較する。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							入力文字列がキャラクター (<varname>A</varname>) のそれと完全に一致 ⇒【終了】へジャンプ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			<varname>Carry</varname> ビットをクリアする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			【終了】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					呼び出し元に制御を戻す。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			【事後条件】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					入力した名前を持つキャラクターが既にいる場合に限り、<varname>Carry</varname> ビットがセットされている。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+</section> <!-- dq3.entry.hack.C3DDBF -->
+
+<section id="dq3.entry.hack.C3DE20">
+<title>パラメータ増加処理サブルーチン</title>
+<para>
+	サブルーチン <varname>$DE20</varname> は、作成キャラクターに対し、
+	「ちから」「すばやさ」といった指定のパラメータを上げる処理だ。
+	これは「何ポイント上がった」というメッセージ表示を含む。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			【事前条件】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<varname>A</varname> レジスタはタネウィンドウで選択した項目の番号を示す。
+					実際は <literal>0</literal> 以上 <literal>4</literal> 以下の値がセットされている。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			<code>A = $C3DE40,(A * 2)</code> として、
+			<varname>A</varname> レジスタにタネウィンドウで選択した項目のアイテムのアイテム構造体 ID をセットする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			サブルーチン <varname>$C45254</varname> を呼び出し、
+			<emphasis>このアイテムに対応する戦闘行動構造体 ID を取得 (<varname>A</varname>) する。</emphasis>
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>X = A</code>
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<emphasis>ダメージ値サブルーチン <varname>$C90B3A</varname> を呼び出し、
+			行動 (<varname>X</varname>) によるダメージを決定 (<varname>A</varname>) する。</emphasis>
+			文脈上、これはダメージと呼ばず、パラメータ上昇値と呼ぶことにする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			メッセージ表示用に <code>$BE81 = A</code> とし、パラメータ上昇値を覚えておく。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>X = (呼び出し直後の A) * 2</code> とする。ジャンプテーブルのインデックスをセットだ。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>Y = $2BB4</code> とする。作成キャラクターを示す何かの値だ。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			ジャンプテーブル <varname>$DE45</varname> に従いジャンプ (<varname>X</varname>) する。
+			呼び出し元に制御を戻すのはジャンプ先のどこかになる。
+		</para>
+	</listitem>
+</itemizedlist>
+<para>
+	配列 <varname>$C3DE40,X</varname> は以下のようになっている。
+	タネウィンドウで表示するアイテムリストに対応するアイテム ID を配列したものだ。
+</para>
+<programlisting>
+C3/DE40:    B2  ; ちからのたね
+C3/DE41:    B3  ; すばやさのたね
+C3/DE42:    B4  ; スタミナのたね
+C3/DE43:    B6  ; かしこさのたね
+C3/DE44:    B5  ; ラックのたね
+</programlisting>
+<para>
+	ジャンプテーブル <varname>$DE45</varname> は、
+	各パラメータに対応するパラメータ上昇処理コードのアドレス配列だ。
+	以下にジャンプテーブルを示す。
+</para>
+<programlisting>
+C3/DE45:    4FDE  ; ちから
+C3/DE47:    5DDE  ; すばやさ
+C3/DE49:    6BDE  ; たいりょく
+C3/DE4B:    79DE  ; かしこさ
+C3/DE4D:    87DE  ; うんのよさ
+</programlisting>
+<para>
+	これを見ると、例えば「ちから」を上げる場合は <varname>$DE4F</varname> にジャンプすることがわかる。
+	実装は以下のようになっていて、キャラクターの能力値上限を更新し、
+	メッセージを表示するという処理だ。
+	その他のパラメータに関しても、同様のコードになっている。
+</para>
+<programlisting>
+C3/DE4F:    226834C4    JSR $C43468 ; (RTL+3) キャラクター::ちからアップ
+C3/DE53:    06FDFF
+C3/DE56:    22D4A8C1    JSR $C1A8D4 ; [B2]の ちからが[AD][BB]あがった！[AC]
+C3/DE5A:    CF00
+C3/DE5C:    60          RTS
+</programlisting>
+</section> <!-- dq3.entry.hack.C3DE20 -->
+
+<section id="dq3.entry.hack.C3DE95">
+<title>性格決定サブルーチン</title>
+<para>
+	サブルーチン <varname>$C3DE95</varname> は、作成キャラクターの初期の性格を決定する処理だ。
+	説明を詳細にし過ぎるすると解析の要点がボケる恐れがあるので、ここでは記述の粒度を粗くする。
+	概略は以下の通り。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			下の表に示すアドレスに、
+			新規作成キャラクター (<varname>A</varname>) に関する表の値をそれぞれ取得または計算し、セットする。
+		</para>
+		<table class="lighttable">
+			<caption>$C3DE95 前半部処理</caption>
+			<thead>
+				<tr><th>Address</th><th>Value</th></tr>
+			</thead>
+			<tbody>
+				<tr><td><varname>$2BB8</varname></td><td>職業 ID</td></tr>
+				<tr><td><varname>$2BBA</varname></td><td>性別</td></tr>
+				<tr><td><varname>$2BBC</varname></td><td>キャラクター ID</td></tr>
+				<tr><td><varname>$2BBE,X</varname> (<code>X = 0,2,4,6,8</code>)</td>
+					<td>パラメータ種別を表す数値。以下の通り。
+						<itemizedlist>
+							<listitem>
+								<para>
+									<code>$2BBE = #$0000</code>: ちから
+								</para>
+							</listitem>
+							<listitem>
+								<para>
+									<code>$2BC0 = #$0001</code>: すばやさ
+								</para>
+							</listitem>
+							<listitem>
+								<para>
+									<code>$2BC2 = #$0002</code>: たいりょく
+								</para>
+							</listitem>
+							<listitem>
+								<para>
+									<code>$2BC4 = #$0003</code>: かしこさ
+								</para>
+							</listitem>
+							<listitem>
+								<para>
+									<code>$2BC6 = #$0004</code>: うんのよさ
+								</para>
+							</listitem>
+						</itemizedlist>
+					</td>
+				</tr>
+				<tr><td><varname>$2BC8,X</varname> (<code>X = 0,2,4,6,8</code>)</td>
+					<td>パラメータ値の増分（後述）。
+						ちから、すばやさ、たいりょく、かしこさ、うんのよさの順に格納する。
+					</td></tr>
+				<tr><td><varname>$2BD2,X</varname> (<code>X = 0,2,4,6,8</code>)</td>
+					<td>パラメータ値デフォルト。
+						<emphasis>職業構造体で定義されているレベル <literal>1</literal> での各パラメータの値</emphasis>を格納する。
+						パラメータ種別の格納順序は上記 (<varname>$2BC8,X</varname>) と合わせる。
+					</td></tr>
+			</tbody>
+		</table>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.entry.hack.C3DF8E">サブルーチン <varname>$DF8E</varname></link> を呼び出すことで、
+			新規作成キャラクターの<emphasis>パラメータ増分値配列 <varname>$2BC8,X</varname> を降順にソートする。</emphasis>
+			かつ、対になっている配列 <varname>$2BBE,X</varname> と <varname>$2BD2,X</varname> も対応関係を保つように並び替える。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.entry.hack.C3DFF9">サブルーチン <varname>$DFF9</varname></link> を呼び出すことで、
+			新規作成キャラクターの<emphasis>性格条件群 ID を決定 (<varname>A</varname>) する。</emphasis>
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.entry.hack.C3E018">サブルーチン <varname>$E018</varname></link> を呼び出すことで、
+			性格条件群構造体 ID (<varname>A</varname>) のデータから、
+			<emphasis>性格グループ構造体 ID を決定 (<varname>A</varname>) する。</emphasis>
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<link linkend="dq3.entry.hack.C3E134">サブルーチン <varname>$E134</varname></link> を呼び出すことで、
+			決定した<emphasis>性格グループ構造体データから、性格を決定する。</emphasis>
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>X = $2BB4</code>
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			キャラクター性格セットサブルーチン <varname>$C42ED6</varname> を呼び出し、
+			<emphasis>新規キャラクター (<varname>X</varname>) の性格 ID をキャラクターデータ内にセット (<varname>A</varname>) する。</emphasis>
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			【事後条件】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<varname>A</varname> == 決定した性格の性格構造体 ID
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+<para>
+	パラメータ値の増分とは、
+	タネ・木の実を使ったことによる能力パラメータの増加ポイントということだ。
+	このサブルーチンでは、
+	それらを「タネを使い切ったときの値」と「タネを全然使っていないときの値」の差をとることで得ている。
+</para>
+
+<section id="dq3.entry.hack.C3DF8E">
+<title>パラメータ増分値配列を降順ソート</title>
+<para>
+	サブルーチン <varname>$DF8E</varname> は前項サブルーチンで初期化した三配列を、ある基準に従ってソートする。
+	ゲームロジックとは直接関係のない処理なので、
+	アルゴリズムに興味のない読者は読み飛ばして構わない。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			【事前条件】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<varname>$2BBE,X</varname> (<code>X = 0,2,4,6,8</code>) が<link linkend="dq3.entry.hack.C3DE95">前項</link>の説明のようにセット済
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<varname>$2BC8,X</varname> (<code>X = 0,2,4,6,8</code>) が<link linkend="dq3.entry.hack.C3DE95">前項</link>の説明のようにセット済
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<varname>$2BD2,X</varname> (<code>X = 0,2,4,6,8</code>) が<link linkend="dq3.entry.hack.C3DE95">前項</link>の説明のようにセット済
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【古典的なバブルソート】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<emphasis>パラメータ増分値配列 <varname>$2BC8,X</varname> に対して、降順ソートを行う。</emphasis>
+					すなわち、大きいほうが前に来るように隣接要素を交換する。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							隣接する二項が等しい場合、
+							<emphasis>初期パラメータ値配列 <varname>$2BD2,X</varname> において</emphasis>隣接する二項の大小比較を行う。
+							これも、大きいほうが前に来るように隣接要素を交換する。
+						</para>
+						<itemizedlist>
+							<listitem>
+								<para>
+									そこでも隣接する二項が等しい場合、
+									<code>A = #$0001</code> とした上で、乱数取得サブルーチン <varname>$C0133E</varname> を呼び出す。
+									これにより、乱数 <literal>0</literal> または <literal>1</literal> を得る。
+									<emphasis><literal>0</literal> の場合に限り、隣接する二要素を交換する。</emphasis>
+								</para>
+							</listitem>
+						</itemizedlist>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	
+	<listitem>
+		<para>
+			【事後条件】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<varname>$2BBE,X</varname> と <varname>$2BC8,X</varname> と <varname>$2BD2,X</varname> が各
+					<varname>X</varname> (<code>X = 0,2,4,6,8</code>) について、それぞれ対応している。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<emphasis><varname>$2BC6,X</varname> &gt; <varname>$2BC8,X</varname> (for <code>X = 2,4,6,8</code>)</emphasis>
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							ただし <code>$2BC6,X == $2BC8,X</code> のときは
+							<code>$2BD0,X &gt;= $2BD2,X</code> が成り立つ。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+<para>
+	上のロジックで、配列内の隣接要素の交換はサブルーチン <varname>$DFCF</varname> の呼び出しにより行う。
+	三配列間の対応関係を保つべく、三配列それぞれに対して隣接要素交換操作を行う。
+</para>
+</section> <!-- dq3.entry.hack.C3DF8E -->
+
+<section id="dq3.entry.hack.C3DFF9">
+<title>性格条件群の決定</title>
+<para>
+	サブルーチン <varname>$DFF9</varname> は、新規作成キャラクターのための性格条件群構造体データを決定する。
+	かいつまんで言うと、初期性格候補一覧が定義されたデータ
+	（これを性格条件群と呼ぶ）を選択する処理だ。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			【事前条件】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<emphasis><varname>$2BBE</varname> == 最も増分が大きいパラメータの種別</emphasis>
+					<literal>0..4</literal> のどれか。
+					すなわち、ちから、すばやさ、たいりょく、かしこさ、うんのよさのいずれかだ。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			<code>X = $C3E00E,X</code> (where <code>X == $2BBE</code>) に対して、
+			職業構造体サブルーチン <varname>$C46AFD</varname> を呼び出し、
+			作成キャラクターの職業に対応する職業構造体データの
+			<varname>X</varname> バイト目の値 <code>&amp; #$00FF</code> を取得 (<varname>A</varname>) する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			【事後条件】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<emphasis><varname>A</varname> == 性格条件群構造体 ID</emphasis>
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+<para>
+	配列 <varname>$C3E00E,X</varname> は <literal>#$0006</literal> から <literal>#$000A</literal> の値が連続して配列されているだけだ。
+	取りも直さず、
+	職業構造体のメモリレイアウトにおいて <literal>#$0006</literal> バイト目から <literal>#$000A</literal> バイト目は、
+	<emphasis>性格条件群構造体 ID</emphasis> の配列になっていることがわかる。
+</para>
+</section> <!-- dq3.entry.hack.C3DFF9 -->
+
+<section id="dq3.entry.hack.C3E018">
+<title>性格グループ構造体 ID 決定</title>
+<para>
+	サブルーチン <varname>$E018</varname> は新規作成キャラクターの初期性格の性格 ID を決定する。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			【事前条件】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<varname>A</varname> == <link linkend="dq3.entry.data.C30EFD"><varname>$C30EFD</varname> 構造体</link>の ID
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			<code>X = A</code>
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			構造体アクセス汎用サブルーチン <varname>$C9050D</varname> を呼び出し、
+			<link linkend="dq3.entry.data.C30EFD"><varname>$C30EFD</varname> 構造体</link>データを格納しているアドレスを取得 (<varname>$78</varname>) する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			【判定 0】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					データの二位フラグ <code>[0]</code> を見る。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							1 ⇒
+							作成キャラクターのパラメータ種別 <code>[0]</code> の増分が、
+							<emphasis>五種類のパラメータの中で二番目に増加が大きいものであるか調べる。</emphasis>
+						</para>
+						<itemizedlist>
+							<listitem>
+								<para>
+									YES ⇒ <code>A = ID [0]</code> をセットし、呼び出し元に制御を戻す。
+								</para>
+							</listitem>
+							<listitem>
+								<para>
+									NO ⇒【判定 1】へジャンプ。
+								</para>
+							</listitem>
+						</itemizedlist>
+					</listitem>
+					<listitem>
+						<para>
+							0 ⇒
+							作成キャラクターのパラメータ種別 <code>[0]</code> の増分が、
+							<emphasis>閾値 <code>[0]</code> 以上であるか調べる。</emphasis>
+						</para>
+						<itemizedlist>
+							<listitem>
+								<para>
+									YES ⇒ <code>A = ID [0]</code> をセットし、呼び出し元に制御を戻す。
+								</para>
+							</listitem>
+						</itemizedlist>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			【判定 1】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					【判定 0】と同様。説明省略。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			【判定 2】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					【判定 1】と同様。説明省略。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			【判定 3】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					【判定 2】と同様。説明省略。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			【判定 4】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					【判定 3】と同様。説明省略。
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			呼び出し元に制御を戻す。
+		</para>
+	</listitem>
+
+	<listitem>
+		<para>
+			【事後条件】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<emphasis><varname>A</varname> == 性格 ID</emphasis>
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+<para>
+こう書いておいてなんだが、上記プログラムコードの書き下しは理解しにくい。
+最低限 <varname>$C30EFD</varname> 構造体のダンプを手許に置いて、
+それを見ながらコードを机上トレースしないと、ここでの処理が感覚でわからぬのではないかと思う。
+</para>
+</section> <!-- dq3.entry.hack.C3E018 -->
+
+<section id="dq3.entry.hack.C3E134">
+<title>性格を決定</title>
+<para>
+	サブルーチン <varname>$E134</varname> は、新規作成キャラクターの初期の性格を決める。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			【事前条件】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<varname>A</varname> == <link linkend="dq3.entry.data.C30FFC"><varname>$C30FFC</varname> 構造体</link> ID
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<code>2BBA == 0 || $2BBA == 1</code>（性別）
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			<code>X = A</code>
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			汎用構造体アドレス取得サブルーチン <varname>$C9050D</varname> 呼び出しにより、
+			指定 ID (<varname>X</varname>) に対する構造体 <varname>$C30FFC</varname> のデータアドレスを (<varname>$78</varname>) 得る。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			下の表の各アドレスにある値をゼロにセットする。
+		</para>
+		<table class="lighttable">
+			<caption>$E134 ゼロクリア表</caption>
+			<thead>
+				<tr><th>Address</th><th>Value</th></tr>
+			</thead>
+			<tbody>
+				<tr><td><varname>$2BBE</varname></td><td>配列 <varname>$2BD2,X</varname> の要素数を表すために用いる</td></tr>
+				<tr><td><varname>$2BC0</varname></td><td>配列 <varname>$2BD2,X</varname> の各要素の和</td></tr>
+				<tr><td><varname>$2BC2,X</varname> (<code>X = 0,2,..E</code>)</td><td>性格 ID の配列</td></tr>
+				<tr><td><varname>$2BD2,X</varname> (<code>X = 0,2,..E</code>)</td><td>配列 <varname>$2BC2,X</varname> の各要素の「重み」</td></tr>
+			</tbody>
+		</table>
+	</listitem>
+	<listitem>
+		<para>
+			下の表の各アドレスに、構造体データの各フィールドをセットする。
+			これらの値は性格 ID だ。
+		</para>
+		<table class="lighttable">
+			<caption>$E134 配列表 1</caption>
+			<thead>
+				<tr><th>Address</th><th>Value</th></tr>
+			</thead>
+			<tbody>
+				<tr><td><varname>$2BC2</varname></td><td>構造体データ<code>[#$0004] &amp; #$00FF</code></td></tr>
+				<tr><td><varname>$2BC4</varname></td><td>構造体データ<code>[#$0005] &amp; #$00FF</code></td></tr>
+				<tr><td><varname>$2BC6</varname></td><td>構造体データ<code>[#$0006] &amp; #$00FF</code></td></tr>
+				<tr><td><varname>$2BC8</varname></td><td>構造体データ<code>[#$0007] &amp; #$00FF</code></td></tr>
+				<tr><td><varname>$2BCA</varname></td><td>構造体データ<code>[#$0008] &amp; #$00FF</code></td></tr>
+				<tr><td><varname>$2BCC</varname></td><td>構造体データ<code>[#$0009] &amp; #$00FF</code></td></tr>
+				<tr><td><varname>$2BCE</varname></td><td>構造体データ<code>[#$000A] &amp; #$00FF</code></td></tr>
+				<tr><td><varname>$2BD0</varname></td><td>構造体データ<code>[#$000B] &amp; #$00FF</code></td></tr>
+			</tbody>
+		</table>
+	</listitem>
+	<listitem>
+		<para>
+			下の表の各アドレスに、
+			サブルーチン <varname>$C90717</varname> を用いることで構造体データの各フィールドを
+			（必要に応じて右シフトされた値を）セットする。
+			これらの値は、上記配列に格納されている各性格の「重み」だ。
+		</para>
+		<table class="lighttable">
+			<caption>$E134 配列表 2</caption>
+			<thead>
+				<tr><th>Address</th><th>Value</th></tr>
+			</thead>
+			<tbody>
+				<tr><td><varname>$2BD2</varname></td><td>構造体データ<code>[#$0000] &amp; #$000F</code></td></tr>
+				<tr><td><varname>$2BD4</varname></td><td>構造体データ<code>[#$0000] &amp; #$00F0</code></td></tr>
+				<tr><td><varname>$2BD6</varname></td><td>構造体データ<code>[#$0001] &amp; #$000F</code></td></tr>
+				<tr><td><varname>$2BD8</varname></td><td>構造体データ<code>[#$0001] &amp; #$00F0</code></td></tr>
+				<tr><td><varname>$2BDA</varname></td><td>構造体データ<code>[#$0002] &amp; #$000F</code></td></tr>
+				<tr><td><varname>$2BDC</varname></td><td>構造体データ<code>[#$0002] &amp; #$00F0</code></td></tr>
+				<tr><td><varname>$2BDE</varname></td><td>構造体データ<code>[#$0003] &amp; #$000F</code></td></tr>
+				<tr><td><varname>$2BD0</varname></td><td>構造体データ<code>[#$0003] &amp; #$00F0</code></td></tr>
+			</tbody>
+		</table>
+	</listitem>
+
+	<listitem>
+		<para>
+			性格 ID 配列 <varname>$2BC2,X</varname> に対して以下の反復処理を行う。
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<code>A = $2BC2,X</code>
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<code>A == 0</code> ⇒ 反復処理を次へ進める
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					性格サブルーチン <varname>$C46BED</varname> を呼び出して、性格 (<varname>A</varname>) の性別情報を取得 (<varname>A</varname>) する。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							もしその性格が新規作成キャラクターのそれと相容れないものであれば、
+							<emphasis>配列 <varname>$2BC2,X</varname> と <varname>$2BD2,X</varname> を前方へ詰める。</emphasis>
+							そして反復処理を次へ進める。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			<listitem>
+				<para>
+					「重みの和」を加算する： <code>$2BC0 += $2BD2,X</code>
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<varname>$2BD2,X</varname> に今の和を格納する： <code>$2BD2,X = $2BC0</code>
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【乱数取得】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					乱数の範囲を決める： <code>A = $2BC0 - 1</code>
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					乱数取得サブルーチン <varname>$C0135F</varname> を呼び出し、乱数を取得 (<varname>A</varname>) する。
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					配列 <varname>$2BD2,X</varname> (<code>X = 0,..,<varname>$2BBE</varname></code>) に対して、
+					<varname>A</varname> を超える値を前方から検索する。
+					この配列は単調増加だ。
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							そのような値を検索できたならば、
+							<varname>$2BC2,X</varname> の値を <varname>A</varname> にロードして、呼び出し元に制御を戻す。
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							見つからなかった場合は、
+							<varname>$2BC2</varname> の値を <varname>A</varname> にロードして、呼び出し元に制御を戻す。
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+
+	<listitem>
+		<para>
+			【事後条件】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<code>A == 性格 ID</code>
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+</itemizedlist>
+<para>
+	紙面の都合上説明できないが
+	「配列 <varname>$2BC2,X</varname> と <varname>$2BD2,X</varname> を前方へ詰める」のは、
+	補助サブルーチン <varname>$C3E2B4</varname> の呼び出しで行う。
+</para>
+<para>
+	キャラクターの能力値、およびそのバランスだけで初期性格が一意に決まるのではないことが読み取れる。
+	ちょっとした乱数的要素も性格決定に関与する。
+</para>
+</section> <!-- dq3.entry.hack.C3E134 -->
+
+</section> <!-- dq3.entry.hack.C3DE95 -->
+
+<section id="dq3.entry.hack.C3E2D0">
+<title>登録屋が性格を告げるサブルーチン</title>
+<para>
+	サブルーチン <varname>$E2D0</varname> は、
+	性格が決まったばかりのキャラクターに対する寸評を登録屋が与える処理だ。
+	これは見方を変えれば、ゲームからプレイヤーに向けてのレポート処理だ。
+</para>
+<itemizedlist>
+	<listitem>
+		<para>
+			【事前条件】
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<varname>A</varname> == 性格 ID
+				</para>
+			</listitem>
+		</itemizedlist>
+	</listitem>
+	<listitem>
+		<para>
+			性格名文字列 ID 取得サブルーチン <varname>$C42F28</varname> を呼び出し、
+			性格 (<varname>A</varname>) の名前文字列 ID を取得 (<varname>X</varname>) する。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			次のメッセージ表示のため、<code>$BE77 = X</code> とする。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			性格構造体の <literal>7</literal>バイト目 &amp; <literal>#$001C</literal> ビット取得サブルーチン
+			<varname>$C46C28</varname> を呼び出す。
+		</para>
+	</listitem>
+	<listitem>
+		<para>
+			<code>A = $C3E2EA,X</code> (where <code>X = A * 2</code>) とし、
+			<varname>A</varname> の値をメッセージ ID と解釈する台詞表示サブルーチン <varname>$C1A95A</varname> を呼び出す。
+		</para>
+	</listitem>
+</itemizedlist>
+<para>
+	配列 <varname>$C3E2EA,X</varname> は小さいので、すぐに中身を確認できる。
+	登録屋は性格の名前によって、台詞回しを微妙に変える。
+</para>
+<programlisting>
+C3/E2EA:    480B  ; [D6]なかなか [B2][AD]のようですね。[AF][AC]
+C3/E2EC:    490B  ; [D6]なかなか [B2][AD]なようですね。[AF][AC]
+C3/E2EE:    4A0B  ; [D6]なかなか [B2][AD]ようですね。[AF][AC]
+C3/E2F0:    4B0B  ; [D6]なかなか [B2]さん[AD]のようですね。[AF][AC]
+</programlisting>
+</section> <!-- dq3.entry.hack.C3E2D0 -->
+
+</section> <!-- dq3.entry.hack -->
+
+<section id="dq3.entry.data">
+<title>データ</title>
+
+<section id="dq3.entry.data.C30EFD">
+<title><varname>$C30EFD</varname> 構造体 - 登録所・性格条件群</title>
+<para>
+	アドレス <varname>$C30EFD</varname> には登録所処理で参照される構造体データが定義されている。
+	この構造体のメモリレイアウトは以下の通り。
+</para>
+<table class="memorylayout">
+	<caption>$C30EFD 構造体 - 登録所・性格条件群</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th>
+			<td colspan="1">二位フラグ<code>[0]</code></td>
+			<td colspan="7">増分の閾値<code>[0]</code></td>
+		</tr>
+		<tr><th>01</th>
+			<td colspan="8">パラメータ種別<code>[0]</code></td>
+		</tr>
+		<tr><th>02</th>
+			<td colspan="8"><varname>$C30FFC</varname> 構造体 ID <code>[0]</code></td>
+		</tr>
+		<tr><th>03</th>
+			<td colspan="1">二位フラグ<code>[1]</code></td>
+			<td colspan="7">増分の閾値<code>[1]</code></td>
+		</tr>
+		<tr><th>04</th>
+			<td colspan="8">パラメータ種別<code>[1]</code></td>
+		</tr>
+		<tr><th>05</th>
+			<td colspan="8"><varname>$C30FFC</varname> 構造体 ID <code>[1]</code></td>
+		</tr>
+		<tr><th>06</th>
+			<td colspan="1">二位フラグ<code>[2]</code></td>
+			<td colspan="7">増分の閾値<code>[2]</code></td>
+		</tr>
+		<tr><th>07</th>
+			<td colspan="8">パラメータ種別<code>[2]</code></td>
+		</tr>
+		<tr><th>08</th>
+			<td colspan="8"><varname>$C30FFC</varname> 構造体 ID <code>[2]</code></td>
+		</tr>
+		<tr><th>09</th>
+			<td colspan="1">二位フラグ<code>[3]</code></td>
+			<td colspan="7">増分の閾値<code>[3]</code></td>
+		</tr>
+		<tr><th>0A</th>
+			<td colspan="8">パラメータ種別<code>[3]</code></td>
+		</tr>
+		<tr><th>0B</th>
+			<td colspan="8"><varname>$C30FFC</varname> 構造体 ID <code>[3]</code></td>
+		</tr>
+		<tr><th>0C</th>
+			<td colspan="1">二位フラグ<code>[4]</code></td>
+			<td colspan="7">増分の閾値<code>[4]</code></td>
+		</tr>
+		<tr><th>0D</th>
+			<td colspan="8">パラメータ種別<code>[4]</code></td>
+		</tr>
+		<tr><th>0E</th>
+			<td colspan="8"><varname>$C30FFC</varname> 構造体 ID <code>[4]</code></td>
+		</tr>
+	</tbody>
+</table>
+<para>
+	各フィールドの意味は以下の通りだが、決してわかりやすいものではない。
+</para>
+<glosslist>
+	<glossentry>
+		<glossterm>増分の閾値<code>[i]</code></glossterm>
+		<glossdef>
+			<para>
+				二位フラグ<code>[i] == 0</code> のとき、判定サブルーチンは登録時のタネによるパラメータ種別<code>[i]</code>
+				のパラメータ増分値がこの値以上であるかを調べる。
+			</para>
+			<para>
+				二位フラグ<code>[i] == 1</code> のとき、このフィールドは未使用。
+			</para>
+		</glossdef>
+	</glossentry>
+
+	<glossentry>
+		<glossterm>二位フラグ<code>[i]</code></glossterm>
+		<glossdef>
+			<para>
+				二位フラグ<code>[i] == 1</code> のとき、
+				新規作成キャラクターのパラメータ種別<code>[i]</code> の増分値が、
+				二番目に大きいパラメータであるか調べる。
+			</para>
+		</glossdef>
+	</glossentry>
+
+	<glossentry>
+		<glossterm>パラメータ種別 <code>[i]</code></glossterm>
+		<glossdef>
+			<para>
+				パラメータ種別を表す値だ。値とパラメータ名との対応は
+				<link linkend="dq3.entry.hack.C3DE95">性格決定サブルーチン</link>の表を参照。
+			</para>
+		</glossdef>
+	</glossentry>
+
+	<glossentry>
+		<glossterm><varname>$C30FFC</varname> 構造体 ID <code>[i]</code></glossterm>
+		<glossdef>
+			<para>
+				<link linkend="dq3.entry.data.C30FFC"><varname>$C30FFC</varname> 構造体</link>の ID だ。
+				そこから初期性格を絞り込む。
+			</para>
+		</glossdef>
+	</glossentry>
+</glosslist>
+</section> <!-- dq3.entry.data.C30EFD -->
+
+<section id="dq3.entry.data.C30FFC">
+<title><varname>$C30FFC</varname> 構造体 - 登録所・性格群</title>
+<para>
+	アドレス <varname>$C30FFC</varname> には登録所処理で参照される構造体データが定義されている。
+	新規作成キャラクターの初期性格を抽選するための表だ。
+	この構造体のメモリレイアウトは以下の通り。
+</para>
+<table class="memorylayout">
+	<caption>$C30FFC 構造体 - 登録所・性格群</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th>
+			<td colspan="4">性格<code>[1]</code> 確率</td>
+			<td colspan="4">性格<code>[0]</code> 確率</td>
+		</tr>
+		<tr><th>01</th>
+			<td colspan="4">性格<code>[3]</code> 確率</td>
+			<td colspan="4">性格<code>[2]</code> 確率</td>
+		</tr>
+		<tr><th>02</th>
+			<td colspan="4">性格<code>[5]</code> 確率</td>
+			<td colspan="4">性格<code>[4]</code> 確率</td>
+		</tr>
+		<tr><th>03</th>
+			<td colspan="4">性格<code>[7]</code> 確率</td>
+			<td colspan="4">性格<code>[6]</code> 確率</td>
+		</tr>
+		<tr><th>04</th>
+			<td colspan="8">性格<code>[0]</code></td>
+		</tr>
+		<tr><th>05</th>
+			<td colspan="8">性格<code>[1]</code></td>
+		</tr>
+		<tr><th>06</th>
+			<td colspan="8">性格<code>[2]</code></td>
+		</tr>
+		<tr><th>07</th>
+			<td colspan="8">性格<code>[3]</code></td>
+		</tr>
+		<tr><th>08</th>
+			<td colspan="8">性格<code>[4]</code></td>
+		</tr>
+		<tr><th>09</th>
+			<td colspan="8">性格<code>[5]</code></td>
+		</tr>
+		<tr><th>0A</th>
+			<td colspan="8">性格<code>[6]</code></td>
+		</tr>
+		<tr><th>0B</th>
+			<td colspan="8">性格<code>[7]</code></td>
+		</tr>
+	</tbody>
+</table>
+<para>
+	各フィールドの意味は以下の通り。
+</para>
+<glosslist>
+	<glossentry>
+		<glossterm>性格<code>[i]</code> 確率</glossterm>
+		<glossdef>
+			<para>
+				新規作成キャラクターの性格が性格<code>[i]</code> になる確率の分子。
+				分母は（性別によるなれる性格の違いを無視すれば）
+				性格<code>[0]</code> 確率から性格<code>[7]</code> 確率までの和だ。
+			</para>
+		</glossdef>
+	</glossentry>
+
+	<glossentry>
+		<glossterm>性格<code>[i]</code></glossterm>
+		<glossdef>
+			<para>
+				新規作成キャラクターのなり得る性格の性格 ID だ。
+			</para>
+		</glossdef>
+	</glossentry>
+</glosslist>
+
+</section> <!-- dq3.entry.data.C30FFC -->
+</section> <!-- dq3.entry.data -->
+</section> <!-- dq3.entry -->

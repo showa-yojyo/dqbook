@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="tools.editor"><?dbhtml filename="tools_editor.html" ?>
+<title>エディタ</title>
+<para>
+	エディタとは通常はテキストに対するそれを指す。
+	バイナリエディタの話題をする場合には、「バイナリ」を省略せずに記す。
+</para>
+<para>
+	記者の場合、巨大な逆アセンブリコードを、バンク単位ごとにテキストファイルとして保存しておくのが、
+	逆解析作業の最初の一歩となる。
+	例えば、戦闘ロジックを調べたいとしよう。
+	このとき、まずは戦闘ロジックのサブルーチンを含むバンクの逆アセンブリコードファイルをテキストエディタで開く。
+	同時に、戦闘にも関係するようなゲーム全般から参照されるサブルーチンのあるバンク、
+	さらに汎用的な目的で利用されるライブラリ的なサブルーチンを含むバンクの各コードファイルも開いている必要がある。
+	そういうふうにしてサブルーチンの呼び出し関係を追っていかないと、制御の構造がつかめない。
+	要するに、複数のファイルを同時に開くことができて、かつ頻繁にそれらの間を行ったり来たりする機能があるエディタでないと、
+	解析作業に支障をきたす（記者個人的には）。
+</para>
+<para>
+	逆解析作業に相応しいエディタに要求する機能を列挙する。これらは要件だと考えてもいい。
+	これらを大体満足するエディタをまず見つけ、確保してから、
+	逆アセンブリコード解析作業を始めるのが望ましい。
+	自分の好みに合ったエディタを求めて、インターネットを何ヶ月でもさまよう覚悟が欲しい。
+	それほどエディタ選択は重要だ。
+</para>
+<!--
+<simplelist type="horiz">
+	<member>Undo/Redo 無制限</member>
+	<member>マクロ言語のサポートもしくは外部プログラム起動機能</member>
+	<member>キーボードマクロ機能</member>
+	<member>インクリメンタルサーチ機能</member>
+	<member>同時に複数のバッファを開ける</member>
+	<member>開いているすべてのバッファに対しての grep 機能</member>
+	<member>矩形編集機能</member>
+	<member>セッション保存機能</member>
+</simplelist>
+<para>
+	以下は実装されていることが望ましい機能だ。
+</para>
+<simplelist>
+	<member>メジャーモードをユーザーが実装可能</member>
+	<member>ctags に相当する機能</member>
+</simplelist>
+-->
+<para>
+	バイナリエディタに関しては、それほど高機能な要件を課さない。
+	というのも、バイナリエディタを用いて行う作業がそれほど多くはないからだ。
+	以下のもので十分だろう。
+</para>
+<variablelist>
+	<varlistentry>
+		<term>複数回 Undo/Redo 機能</term>
+		<listitem>
+			<para>
+				ロムイメージを不用意に変更した場合、オリジナルの状態にまで復元できることが大前提となる。
+				もっと言うと、復元時点でそのことが視覚的に確認できるとよい。
+			</para>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term>検索機能</term>
+		<listitem>
+			<para>
+				開いたファイルの中からバイト列パターンを指定して検索し、
+				それが見つかればそのアドレスへジャンプするような機能と、
+				<command>grep</command> のように、特定のフォルダから同様に検索し、
+				ファイル名と検出したアドレスのすべてを一覧表示する機能が要る。
+				ここでは後者の機能を BGREP と呼ぶことにする。
+			</para>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term>軽さ</term>
+		<listitem>
+			<para>
+				例えば CD-ROM に収めてある巨大なデータファイルを開いても、
+				スクロールバーが滑らかに動くことを強く勧める。
+				そうでなければ、作業にならない。
+			</para>
+		</listitem>
+	</varlistentry>
+	<!--
+	<varlistentry>
+		<term></term>
+		<listitem>
+			<para>
+				
+			</para>
+		</listitem>
+	</varlistentry>
+	-->
+</variablelist>
+
+<section id="tools.editor.xyzzy">
+<title>Xyzzy</title>
+<indexterm><primary>Xyzzy</primary><secondary>sns-mode</secondary></indexterm>
+<indexterm><primary>テキストエディタ</primary><secondary>Xyzzy</secondary></indexterm>
+
+<figure>
+	<title>Xyzzy</title>
+	<graphic width="578px" fileref="./image/dq.hack.tool.xyzzy.png"/>
+</figure>
+
+<para>
+	あえて一言で表現すれば、Windows 環境で起動するテキストエディタである。作者の Web サイト
+	<ulink url="http://www.jsdlab.co.jp/~kamei/">やる気のない謎のぺぇじ</ulink>
+	<footnote>
+	<para>このサイトのタイトルは不定だ。いちいち注釈を入れるのもバカらしい。</para>
+	</footnote>
+	で常時入手可能である。
+	詳しい説明およびアプリのスナップショットや利点については、同サイトよりリンクがある Wiki サイトを参照。
+</para>
+<para>
+	Xyzzy と DisPel を、
+	某ドラクエ解析系秘密サイトで配布されている sns-mode というメジャーモードを組み合わせて使うことにより、
+	逆アセンブルコードの解析・編集の効率が格段に上がる。
+</para>
+</section> <!-- tools.editor.xyzzy -->
+
+<section id="tools.editor.stirling">
+<title>Stirling</title>
+<indexterm><primary>Stirling</primary></indexterm>
+<indexterm><primary>バイナリエディタ</primary><secondary>Stirling</secondary></indexterm>
+
+<para>
+	Stirling はフリーのバイナリエディタである。README には
+	<ulink url="http://www2c.airnet.ne.jp/dds2">http://www2c.airnet.ne.jp/dds2</ulink> から入手可能とあるようだが、
+	記者は Vector あたりから入手した記憶がある。
+	このバイナリエディタの特徴は色々あるが、
+	個人的には複数回 Undo/Redo 機能が完璧に実装されているのがうれしかった。
+</para>
+<para>
+	記者は逆アセンブルを知らない時代に、ロムイメージファイル内のデータとおぼしき部位を改造し、
+	エミュレータで動作の変更を見るといった、偶発的な解析を行うのに用いていた。
+	当然現在ではそのような利用はしていない。BGREP の機能を主に活用している。
+	例えば、特定のサブルーチンを呼び出す箇所をすべて特定することができる。
+</para>
+</section> <!-- tools.editor.stirling -->
+</section> <!-- tools.editor -->

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<chapter id="dq7"><?dbhtml filename="dq7.html" ?>
+<title>ドラクエ7</title>
+<para>
+	本章では、ドラクエ7 に関する内容を扱っていく。
+</para>
+<caution>
+	<para>
+		この章は大昔に書いたまま、文書としてのメンテナンスをしていない。
+		従って、解析内容（主にデータだが）はほとんど間違っていると考えてもらいたい。
+	</para>
+</caution>
+
+&dq7_dbg;
+<!-- &dq7_imm; ドキュメント書くまで封印 -->
+&dq7_ch2;
+&dq7_boss01;
+<!-- ドキュメント書くまで封印
+&dq7_dbg02;
+&dq7_monster;
+&dq7_act;
+&dq7_item;
+ -->
+</chapter> <!-- dq7 -->

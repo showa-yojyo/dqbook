@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq6.inn"><?dbhtml filename="dq6_inn.html" ?>
+<title>宿屋解析</title>
+<indexterm><primary>宿屋</primary><secondary>DQ6</secondary></indexterm>
+<para>
+	解析作業の結果、宿屋の実装について判明したことを述べる。
+	また、すべての宿屋のデータをリストを見る手順を示す。
+</para>
+
+<section id="dq6.inn.hack">
+<title>解析</title>
+<para>
+	<link linkend="dq6.shop.hack">店屋解析</link>と同じ手順を踏む。
+	すなわち、「はなす」コマンドの処理ルーチンのアセンブリコード解析である。
+	二人以上の宿屋に「はなす」コマンドを実行して、
+	実行パスの共通部分を探し当て、宿屋のデータが存在することから確かめる。
+</para>
+<para>
+	<link linkend="dq6.debug.floor.028A">戦闘シーン動作チェック用のフロア</link>の女戦士と、
+	<link linkend="dq6.debug.floor.028A">店屋セリフチェック用のフロア</link>のおばさんが宿屋なので、
+	彼女らの処理ルーチンを調べることにする。
+	例によって、GSD で <varname>$C0CACA</varname> の <literal>JMP</literal> 命令に Breakpoint Exec をセットすれば、
+	処理ルーチンの入口にたどり着ける。
+</para>
+<programlisting>
+// デバッグフロア 上 女戦士
+CD/FEDE:    A22300      LDX #$0023          x = 0023h;  // 宿屋 ID
+CD/FEE1:    2221CFC7    JSR $C7CF21         // 宿屋処理
+CD/FEE5:    6B          RTL
+</programlisting>
+<programlisting>
+// デバッグフロア 左上 おばさん
+CD/FE44:    A22300      LDX #$0023          x = 0023h;  // 宿屋 ID
+CD/FE47:    2221CFC7    JSR $C7CF21         // 宿屋処理
+CD/FE4B:    6B          RTL
+</programlisting>
+<para>
+	ID が同じで面白くないが、上のコードを比較した結果、
+	宿屋の処理は店屋の実装と似たものになっていることが推測する。
+</para>
+
+<section id="dq6.inn.hack.C7CF21">
+<title>サブルーチン <varname>$C7CF21</varname> - 宿屋共通処理</title>
+<para>
+	このサブルーチンは長めなので、
+	「はい・いいえ」ウィンドウの表示処理までだけを掲載した。
+	かなりの数の <literal>JSL</literal> 命令は、
+	サブルーチン先から PC が戻ってくる位置が何バイトが先にずれる。
+	下のコードリストは、それを加味して逆アセンブルしたものである。
+	ずれる理由は、人オブジェクト解析や店屋解析で見たのと同じである。
+	また、各 <literal>JSL</literal> 命令が参照するデータの意味も、似たようなものである。
+</para>
+<programlisting>
+C7/CF21:    08          PHP 
+C7/CF22:    C230        REP #$30
+C7/CF24:    48          PHA 
+C7/CF25:    DA          PHX 
+C7/CF26:    5A          PHY 
+C7/CF27:    8B          PHB 
+C7/CF28:    F47E7E      PEA $7E7E
+C7/CF2B:    AB          PLB 
+C7/CF2C:    AB          PLB 
+                                            // 宿屋 ID をセット
+C7/CF2D:    8E753B      STX $3B75           $7E3B75 = x;
+                                            // a に $C58E0B 構造体データのどれかの
+                                            // 先頭のアドレス値をセット
+C7/CF30:    22B52AC9    JSR $C92AB5         ■a = C58E0Bh + 0004h * x;
+            00          // ($09,S),01h
+            0400        // ($09,S),02h
+            0B8E        // ($09,S),04h
+            C5          // ($09,S),06h
+            0000        // ($09,S),07h
+C7/CF3C:    8D793B      STA $3B79           $7E3B79 = a;
+C7/CF3F:    A90200      LDA #$0002          a = 0002h;
+C7/CF42:    223672C3    JSR $C37236         ●未調査
+C7/CF46:    A90000      LDA #$0000          a = 0000h;  // ある配列の添字
+C7/CF49:    20BAD0      JSR $D0BA           ■ようこそ 旅の宿に～
+C7/CF4C:    A00000      LDY #$0000          y = 0000h;
+C7/CF4F:    221C2BC4    JSR $C42B1C         ●未調査
+            02FE
+                                            do{
+C7/CF55:    CA          DEX                     --x;
+C7/CF56:    300F        BMI $CF67               if(x &amp; 8000h) break;
+C7/CF58:    22A34CC4    JSR $C44CA3             ●未調査
+            02FEFF
+C7/CF5F:    290100      AND #$0001              a &amp;= 0001h;
+C7/CF62:    D0F1        BNE $CF55
+C7/CF64:    C8          INY                     ++y;
+C7/CF65:    80EE        BRA $CF55           }
+
+C7/CF67:    8C3E30      STY $303E           $7E303E = y;
+C7/CF6A:    AE753B      LDX $3B75           x = $7E3B75;  // ID
+C7/CF6D:    22392CC9    JSR $C92C39         ■a = $C58E02 データのどれか[02];
+            00
+            0400
+            0B8E
+            C5          // $C58E0B[02] &amp; FFh | $C58E0B[03] ?
+            0200
+            FF
+            0100
+C7/CF7C:    8570        STA $70             $70 = a;  // 一人当たりの宿代
+C7/CF7E:    A27000      LDX #$0070          x = 0070h;
+C7/CF81:    AD3E30      LDA $303E           a = $7E303E;
+C7/CF84:    229C0CC0    JSR $C00C9C         ■$00,X *= a;
+C7/CF88:    A570        LDA $70
+C7/CF8A:    8D7A38      STA $387A           $7E387A = a;
+C7/CF8D:    8D3E30      STA $303E           $7E303E = a;
+C7/CF90:    8D2E5A      STA $5A2E           $7E5A2E = a;
+C7/CF93:    AD305A      LDA $5A30
+C7/CF96:    2900FF      AND #$FF00
+C7/CF99:    8D305A      STA $5A30           $7E5A30 &amp;= 0xFF00;
+C7/CF9C:    A90100      LDA #$0001          a = 0001h;  // ある配列の添字
+C7/CF9F:    20BAD0      JSR $D0BA           ■ひと晩 [BB]ゴールドですが～
+C7/CFA2:    22E980C3    JSR $C380E9         ■はい・いいえ
+</programlisting>
+<para>
+	説明が面倒なので、結論だけ記していく。
+	<literal>JSL $C92AB5</literal> と <literal>JSL $C92C39</literal> では、
+	指定 ID の宿屋データを <literal>LDA</literal> 目的でアクセスしている。
+	宿屋構造体については後述。
+</para>
+<para>
+	<literal>JSR $D0BA</literal> は、セリフ表示の ID を ROM アドレスから取得するものである。
+	宿屋のセリフ配列は <literal>2</literal> つしかない。
+	このうちのどちらを使うかを決定するのが宿屋構造体の最初のメンバである。
+</para>
+<para>
+	サブルーチンの掲載は省略して、データ領域のみを掲載する：
+</para>
+<programlisting>
+宿屋のセリフ配列アドレスの配列
+C7/D0DD:    E1D0   // 0001: 宿屋のセリフ配列
+C7/D0DF:    EDD0   // 0002: マウントスノーの宿屋の剣士のセリフ配列
+</programlisting>
+<programlisting>
+0001: 標準の宿屋セリフ配列
+C7/D0E1:    FD18  // 0000: [DE]ようこそ 旅の宿に。[AF]
+C7/D0E3:    FE18  // 0001: [DE]ひと晩 [BB]ゴールドですが～
+C7/D0E6:    FF18  // 0002: [DE]さようなら 旅の人。[AD]お気をつけて～
+C7/D0E7:    0019  // 0003: [DE]でも お金が[AD]たりないようですね～
+C7/D0E9:    0119  // 0004: [DE]それでは ごゆっくり～
+C7/D0EB:    0219  // 0005: [DE]おはようございます～</programlisting>
+<programlisting>
+0002: マウントスノーの宿屋の剣士のセリフ配列
+C7/D0ED:    3D02  // 0000: この町の ありさまは[AD]いったい～
+C7/D0F0:    3E02  // 0001: おぬしらも 泊まっていくか？[AD]宿代の～
+C7/D0F2:    4202  // 0002: そうか ならば[AD]好きに するが いい。
+C7/D0F4:    4102  // 0003: わしも タダで 泊まって[AD]いるわけでは ない～
+C7/D0F6:    3F02  // 0004: よかろう。[AD]ゆっくり 休むが いい。
+C7/D0F8:    4002  // 0005: [D4][DE][D3]たちは 目がさめた。
+</programlisting>
+</section> <!-- dq6.inn.hack.C7CF21 -->
+
+<section id="dq6.inn.hack.C58E0B">
+<title>構造体 <varname>$C58E0B</varname> - 宿屋データ構造体</title>
+<para>
+	構造体 <varname>$C58E0B</varname> が宿屋のデータである。
+	データ長が <literal>4</literal> バイトしかないので、メンバの意味の特定は
+	データを改竄することで、どう動きが変わるのかを見れば十分わかる。
+	この構造体の各メンバは、以下の表のとおりである。
+</para>
+<table class="memorylayout">
+	<caption>構造体 $C58E0B - 宿屋データ構造体 メモリレイアウト</caption>
+	<colgroup>
+		<col span="1" width="12%"/>
+		<col span="7" width="11%"/>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th><td rowspan="2" colspan="8">セリフ種別</td></tr>
+		<tr><th>01</th></tr>
+		<tr><th>02</th><td rowspan="2" colspan="8">宿代</td></tr>
+		<tr><th>03</th></tr>
+	</tbody>
+</table>
+<glosslist>
+	<glossentry>
+		<glossterm>セリフ種別</glossterm>
+		<glossdef>
+			<para>
+				メンバ「セリフ種別」は、かなり特殊なデータである。
+				というのも、普通は <literal>1</literal> がセットされているのだが、
+				マウントスノーのイベントで、凍りついた宿屋のおかみの代わりに
+				宿代を預かってくれた旅の剣士を憶えているだろうか。
+				彼の宿屋データのみ <literal>2</literal> がセットされている。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>宿代</glossterm>
+		<glossdef>
+			<para>
+				メンバ「宿代」は、その宿屋に泊まるために必要なゴールドを決定する値である。
+				この値にパーティの有効人数を乗じたものが、そのまま宿代となる。
+			</para>
+		</glossdef>
+	</glossentry>
+</glosslist>
+</section> <!-- dq6.inn.hack.C58E0B -->
+</section> <!-- dq6.inn.hack -->
+</section> <!-- dq6.inn -->

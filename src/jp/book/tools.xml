@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<chapter id="tools"><?dbhtml filename="tools.html" ?>
+<title>解析ツール</title>
+<para>
+	本章では、記者が解析作業に用いているツールをいくつか紹介していく。
+	解析初心者の読者には、以下の内容が解析ツール選択の参考になれば幸いだ。
+	解析中級者以上の読者には、ここに挙げるツール群と自分との違いを確認するとよいだろう。
+	また、もっとよいツールを知っているというのであれば、
+	是非詳しい情報を記者にお寄せいただきたい。
+</para>
+<para>
+	記者が改造・解析に使用するツールを専門ツールとユーティリティツールを混ぜて紹介する。
+	重要度の高い順に紹介する。
+</para>
+
+&tools_emulator;
+&tools_disasm;
+&tools_cygwin;
+&tools_editor;
+&tools_python;
+&tools_utility;
+
+</chapter> <!-- tools -->

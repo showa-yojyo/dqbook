@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section id="dq3.monster"><?dbhtml filename="dq3_monster.html" ?>
+<title>モンスター解析</title>
+<indexterm><primary>モンスター</primary><secondary>DQ3</secondary></indexterm>
+<para>
+	本節の目的は、すべてのモンスターデータを抽出し、
+	モンスター構造体の各フィールドを完全解析することなのだが、
+	構造体フィールドの中でも、特に戦闘中の振る舞いに関わるデータらしきフィールドの意味特定が極めて困難ゆえ、
+	かなり不完全な状態になっている。
+	それでも、構造体データが配列の形で表現されていること、そのアドレス、
+	および構造体のメモリレイアウトくらいならば、なんとか解析可能だ。
+	読者にとって何かの足しになるかもしれないので、以下に記す。
+</para>
+
+<section id="dq3.monster.hack">
+<title>解析</title>
+<para>
+	モンスター解析は定番中の定番なので、すでに先人の手が入っている
+	（例えば Shingo Endo 氏の解析資料 <xref linkend="dqref.url1"/> を参照）。
+	そこで、以下ではより細部の解析を試みる。
+</para>
+
+<section id="dq3.monster.hack.C20000">
+<title><varname>$C20000</varname> モンスター構造体</title>
+<para>
+	アドレス <varname>$C20000</varname> に全モンスターのデータが定義されている。
+	モンスター一種類当たりが占めるデータ量は <literal>#$0025</literal> byte であり、
+	これが <literal>#$A0</literal> (160) 個配列されている。
+</para>
+<para>
+	モンスター構造体のメモリレイアウトは以下のようになっている。
+	"..." となっている部分は、データフィールドがバイト境界をまたぐことを示す。
+	例えば「ゴールド」フィールドは、構造体先頭から <literal>#$05</literal> バイト目のビット全部と、
+	その次のバイトである <literal>#$06</literal> バイト目の下位 2 ビットを結合したビット列で構成されていることを示す。
+</para>
+
+<table class="memorylayout">
+	<caption>モンスター構造体メモリレイアウト</caption>
+	<colgroup>
+		<col span="1" width="12%"></col>
+		<col span="7" width="11%"></col>
+	</colgroup>
+	<thead>
+		<tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th>00</th>
+			<td colspan="8" rowspan="2">名前文字列 ID (2byte)</td>
+		</tr>
+		<tr><th>01</th>
+		</tr>
+		<tr><th>02</th>
+			<td colspan="1">ゾンビ</td>
+			<td colspan="1">ドラゴン</td>
+			<td colspan="6">レベル</td>
+		</tr>
+		<tr><th>03</th>
+			<td colspan="8" rowspan="2">経験値 (2byte)</td>
+		</tr>
+		<tr><th>04</th>
+		</tr>
+		<tr><th>05</th>
+			<td colspan="8">...</td>
+		</tr>
+		<tr><th>06</th>
+			<td colspan="6">...</td>
+			<td colspan="2">ゴールド...</td>
+		</tr>
+		<tr><th>07</th>
+			<td colspan="4">...</td>
+			<td colspan="4">攻撃力...</td>
+		</tr>
+		<tr><th>08</th>
+			<td colspan="2">...</td>
+			<td colspan="6">守備力...</td>
+		</tr>
+		<tr><th>09</th>
+			<td colspan="8">パレット...</td>
+		</tr>
+		<tr><th>0A</th>
+			<td colspan="8">すばやさ</td>
+		</tr>
+		<tr><th>0B</th>
+			<td colspan="8">最大 MP</td>
+		</tr>
+		<tr><th>0C</th>
+			<td colspan="8">アイテム ID</td>
+		</tr>
+		<tr><th>0D</th>
+			<td colspan="8"><varname>$C54F80</varname> 構造体 ID</td>
+		</tr>
+		<tr><th>0E</th>
+			<td colspan="8">...</td>
+		</tr>
+		<tr><th>0F</th>
+			<td colspan="7">...</td>
+			<td colspan="1">行動[0]...</td>
+		</tr>
+		<tr><th>10</th>
+			<td colspan="6">...</td>
+			<td colspan="2">行動[1]</td>
+		</tr>
+		<tr><th>11</th>
+			<td colspan="5">...</td>
+			<td colspan="3">行動[2]...</td>
+		</tr>
+		<tr><th>12</th>
+			<td colspan="4">...</td>
+			<td colspan="4">行動[3]...</td>
+		</tr>
+		<tr><th>13</th>
+			<td colspan="3">...</td>
+			<td colspan="5">行動[4]...</td>
+		</tr>
+		<tr><th>14</th>
+			<td colspan="2">...</td>
+			<td colspan="6">行動[5]...</td>
+		</tr>
+		<tr><th>15</th>
+			<td colspan="1">...</td>
+			<td colspan="7">行動[6]...</td>
+		</tr>
+		<tr><th>16</th>
+			<td colspan="8">行動[7]...</td>
+		</tr>
+		<tr><th>17</th>
+			<td colspan="8">行動のための何かフラグ [0..7]<!--  JMP ($C6B9,X) --></td>
+		</tr>
+		<tr><th>18</th>
+			<td colspan="4"><code>JSR ($CE37,X)</code></td>
+			<td colspan="4"><code>JSR ($CE37,X)</code></td>
+		</tr>
+		<tr><th>19</th>
+			<td colspan="4"><code>JSR ($CE37,X)</code></td>
+			<td colspan="4"><code>JSR ($CE37,X)</code></td>
+		</tr>
+		<tr><th>1A</th>
+			<td colspan="4"><code>JSR ($CE37,X)</code></td>
+			<td colspan="4"><code>JSR ($CE37,X)</code></td>
+		</tr>
+		<tr><th>1B</th>
+			<td colspan="4"><code>JSR ($CE37,X)</code></td>
+			<td colspan="4"><code>JSR ($CE37,X)</code></td>
+		</tr>
+		<tr><th>1C</th>
+			<td colspan="2">行動関係</td>
+			<td colspan="2">せんたく</td>
+			<td colspan="4"><code>JSR ($CE37,X)</code></td>
+		</tr>
+		<tr><th>1D</th>
+			<td colspan="2">複数回</td>
+			<td colspan="3">アイテム確率</td>
+			<td colspan="3">よけ</td>
+		</tr>
+		<tr><th>1E</th>
+			<td colspan="2">ヒャド</td>
+			<td colspan="2">メラ・ギラ・イオ</td>
+			<td colspan="2">集中攻撃</td>
+			<td colspan="2">自動回復</td>
+		</tr>
+		<tr><th>1F</th>
+			<td colspan="2">メガンテ</td>
+			<td colspan="2">ザキ</td>
+			<td colspan="2">デイン</td>
+			<td colspan="2">バギ</td>
+		</tr>
+		<tr><th>20</th>
+			<td colspan="2">マヌーサ</td>
+			<td colspan="2">ルカニ</td>
+			<td colspan="2">マホトーン</td>
+			<td colspan="2">ラリホー</td>
+		</tr>
+		<tr><th>21</th>
+			<td colspan="2">ニフラム</td>
+			<td colspan="2">ボミオス・バシルーラ</td>
+			<td colspan="2">メダパニ</td>
+			<td colspan="2">マホトラ</td>
+		</tr>
+		<tr><th>22</th>
+			<td colspan="8" rowspan="2">最大 HP (2byte)</td>
+		</tr>
+		<tr><th>23</th>
+		</tr>
+		<tr><th>24</th>
+			<td colspan="3">未使用</td>
+			<td colspan="4">限界登場数</td>
+			<td colspan="1">メタル</td>
+		</tr>
+	</tbody>
+</table>
+
+<glosslist>
+	<glossentry>
+	<glossterm>名前文字列 ID</glossterm>
+	<glossdef>
+		<para>
+			モンスターの名前を表す<link linkend="dq3.str">文字列 ID</link> である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>レベル</glossterm>
+	<glossdef>
+		<para>
+			モンスターのレベルである。
+			あやしいかげの正体モンスターの設定時などに利用する。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ドラゴン</glossterm>
+	<glossdef>
+		<para>
+			モンスターがドラゴン系であることを意味するビットである。
+			ドラゴンキラーを装備したキャラクターに直接攻撃を受けると、
+			ダメージ補正がかかることを意味する。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ゾンビ</glossterm>
+	<glossdef>
+		<para>
+			未使用ビットであるが、ゾンビ風モンスターにはこの値が 1 にセットされているので、
+			便宜上このフィールドをこの名前で呼ぶことにする。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>経験値</glossterm>
+	<glossdef>
+		<para>
+			モンスターを倒すことで得られる経験値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ゴールド</glossterm>
+	<glossdef>
+		<para>
+			モンスターを倒すことで得られるゴールドである。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>攻撃力</glossterm>
+	<glossdef>
+		<para>
+			モンスターの攻撃力である。
+			味方キャラクターの攻撃力に相当するパラメータである。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>守備力</glossterm>
+	<glossdef>
+		<para>
+			モンスターの守備力である。
+			味方キャラクターの守備力に相当するパラメータであるが、
+			すばやさはこの値とは関係がない。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>パレット</glossterm>
+	<glossdef>
+		<para>
+			モンスターのグラフィック描画における、色の塗り方の ID みたいなものらしい。
+			詳細は不明。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>すばやさ</glossterm>
+	<glossdef>
+		<para>
+			モンスターのすばやさである。
+			味方キャラクターのすばやさに相当するパラメータである。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>MP</glossterm>
+	<glossdef>
+		<para>
+			モンスターの最大 MP である。
+			ただし、この値が <literal>#$FF</literal> であることには特別な意味がある。
+			そのようなモンスターは、MP が初期化時に <literal>#$FFFF</literal> にセットされた上で、
+			いくら呪文を唱えても、MP を消費しないことを意味する。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>アイテム ID</glossterm>
+	<glossdef>
+		<para>
+			モンスターが持っている宝箱に入っているアイテムの<link linkend="dq3.item">アイテム ID</link> である。
+			この値がゼロであるモンスターは、宝箱を持っていない。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>グラフィック: <varname>$C54F80</varname> ID</glossterm>
+	<glossdef>
+		<para>
+			モンスターのイメージ構造体の ID ではないかと思われる。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>戦闘行動[0..7]</glossterm>
+	<glossdef>
+		<para>
+			モンスターが戦闘中にとる行動 ID の配列である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>行動のための何かフラグ<!--  JMP ($C6B9,X) --></glossterm>
+	<glossdef>
+		<para>
+			詳細不明。
+		</para>
+		<para>
+			戦闘行動[X] に対応するフラグの配列である。
+			戦闘行動[X] に対して、コード <varname>$C26782</varname>-<varname>$C2679C</varname> を処理するか否かを示す。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm><code>JSR ($CE37,X)</code></glossterm>
+	<glossdef>
+		<para>
+			詳細不明。
+		</para>
+		<para>
+			戦闘行動[X] に対応する何かの配列である。
+			戦闘行動よりも配列長が 1 だけ大きいが、
+			これは行動決定ルーチン内で 0 から 7 までの値を抽選するのに、
+			何らかの理由で失敗したときに参照される。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>せんたく</glossterm>
+	<glossdef>
+		<para>
+			詳細不明。
+		</para>
+		<para>
+			せんたくバカ、せんたくにんげん、せんたくかみがそれぞれ 0, 1, 2 なので、
+			便宜上このフィールドをこの名前で呼ぶことにする。
+		</para>
+		<table class="lighttable">
+			<caption>せんたく</caption>
+			<thead>
+				<tr><th>値</th><th>意味</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>00</td><td>せんたくバカ</td></tr>
+				<tr><td>01</td><td>せんたくにんげん</td></tr>
+				<tr><td>02</td><td>せんたくかみ</td></tr>
+			</tbody>
+		</table>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>行動関係</glossterm>
+	<glossdef>
+		<para>
+			各行動チャンスにおいて、戦闘行動[X] の X を決定する際のパラメータとして用いる。
+			ここのロジックを説明するのは無理なので、割愛させていただく。
+		</para>
+		<para>
+			この値が 2 であれば、別ロジックを適用する。
+			バラモスのように、行動をローテーションでとる。
+		</para>
+		<table class="lighttable">
+			<caption>行動関係</caption>
+			<thead>
+				<tr><th>値</th><th>パターン</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>00</td><td rowspan="3">標準的な方法で戦闘行動を決定をする</td></tr>
+				<tr><td>01</td></tr>
+				<tr><td>02</td></tr>
+				<tr><td>03</td><td>戦闘行動がローテーションとなる</td></tr>
+			</tbody>
+		</table>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>よけ</glossterm>
+	<glossdef>
+		<para>
+			モンスターがこちら側からの直接攻撃を「すばやく みをかわす」可能性を示す値である。
+			乱数（通常は高々 <literal>#$2F</literal>）とこの値との大小比較を行い、
+			乱数以上の値である場合に攻撃をかわすことになる。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>アイテム確率</glossterm>
+	<glossdef>
+		<para>
+			モンスターが宝箱を落とす確率を決める値、
+			確率分母を定義した配列のインデックスである。
+			Shingo Endo 氏の解析資料 <xref linkend="dqref.url1"/> に詳しい記載がある。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>複数回</glossterm>
+	<glossdef>
+		<para>
+			モンスターが各ターンに何度の戦闘行動を連続して行うかを示す値である。
+		</para>
+		<table class="lighttable">
+			<caption>複数回</caption>
+			<thead>
+				<tr><th>値</th><th>行動回数</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>00</td><td>そのターンの行動回数を 1 に固定する</td></tr>
+				<tr><td>01</td><td>そのターンの行動回数を乱数で決定し、1 または 2 とする</td></tr>
+				<tr><td>02</td><td>そのターンの行動回数を乱数で決定し、1, 2, 3 のいずれかとする</td></tr>
+				<tr><td>03</td><td>そのターンの行動回数を 2 に固定する</td></tr>
+			</tbody>
+		</table>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>自動回復</glossterm>
+	<glossdef>
+		<para>
+			モンスターが各ターン終了ごとに秘密裡に回復する HP の回復タイプを表す値である。
+		</para>
+		<table class="lighttable">
+			<caption>自動回復</caption>
+			<thead>
+				<tr><th>値</th><th>回復する HP</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>00</td><td>自動回復をしない</td></tr>
+				<tr><td>01</td><td>16 から 24</td></tr>
+				<tr><td>02</td><td>44 から 56</td></tr>
+				<tr><td>03</td><td>90 から 110</td></tr>
+			</tbody>
+		</table>
+
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>集中攻撃</glossterm>
+	<glossdef>
+		<para>
+			モンスターが集中攻撃をすることを示す値である。
+			2bit 長のフィールドだが、0 か 1 だけが設定されている。
+		</para>
+		<table class="lighttable">
+			<caption>集中攻撃</caption>
+			<thead>
+				<tr><th>値</th><th>集中攻撃</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>00</td><td>集中攻撃しない</td></tr>
+				<tr><td>01</td><td>キャラクターひとりに集中攻撃する</td></tr>
+			</tbody>
+		</table>
+
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>メラ・ギラ・イオ</glossterm>
+	<glossdef>
+		<para>
+			メラ・ギラ・イオ系属性を有する戦闘行動に対しての、呪文耐性を表す値である。
+		</para>
+		<para>
+			ドラクエ3 では属性を持つ戦闘行動によるダメージは All or Nothing で決まるため、
+			呪文耐性という言い回しはドラクエ3 においては適切ではないかもしれない。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ヒャド</glossterm>
+	<glossdef>
+		<para>
+			ヒャド系属性を有する戦闘行動に対しての、呪文耐性を表す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>バギ</glossterm>
+	<glossdef>
+		<para>
+			バギ系属性を有する戦闘行動に対しての、呪文耐性を表す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>デイン</glossterm>
+	<glossdef>
+		<para>
+			デイン系属性を有する戦闘行動に対しての、呪文耐性を表す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ザキ</glossterm>
+	<glossdef>
+		<para>
+			ザキ系属性を有する戦闘行動に対しての、呪文耐性を表す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>メガンテ</glossterm>
+	<glossdef>
+		<para>
+			メガンテ系属性を有する戦闘行動に対しての、呪文耐性を表す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ラリホー</glossterm>
+	<glossdef>
+		<para>
+			ラリホー系属性を有する戦闘行動に対しての、呪文耐性を表す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>マホトーン</glossterm>
+	<glossdef>
+		<para>
+			マホトーン系属性を有する戦闘行動に対しての、呪文耐性を表す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ルカニ</glossterm>
+	<glossdef>
+		<para>
+			ルカニ系属性を有する戦闘行動に対しての、呪文耐性を表す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>マヌーサ</glossterm>
+	<glossdef>
+		<para>
+			マヌーサ系属性を有する戦闘行動に対しての、呪文耐性を表す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>マホトラ</glossterm>
+	<glossdef>
+		<para>
+			マホトラ系属性を有する戦闘行動に対しての、呪文耐性を表す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>メダパニ</glossterm>
+	<glossdef>
+		<para>
+			メダパニ系属性を有する戦闘行動に対しての、呪文耐性を表す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ボミオス・バシルーラ</glossterm>
+	<glossdef>
+		<para>
+			ボミオス・バシルーラ系属性を有する戦闘行動に対しての、呪文耐性を表す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>ニフラム</glossterm>
+	<glossdef>
+		<para>
+			ニフラム系属性を有する戦闘行動に対しての、呪文耐性を表す値である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>HP</glossterm>
+	<glossdef>
+		<para>
+			モンスターの最大 HP である。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>メタル</glossterm>
+	<glossdef>
+		<para>
+			未使用ビットなのだが、ある種のモンスターがこの値が 1 になっている。
+			それらはメタルスライム、はぐれメタルであるので、
+			このフィールドをこの名前で呼ぶことにする。
+		</para>
+	</glossdef>
+	</glossentry>
+
+	<glossentry>
+	<glossterm>限界登場数</glossterm>
+	<glossdef>
+		<para>
+			ひとつの戦闘において、一度に存在し得る（グループを超えての）モンスターの総数である。
+			グラフィックの制約に関係している。
+		</para>
+	</glossdef>
+	</glossentry>
+
+</glosslist>
+
+</section> <!-- dq3.monster.hack.C20000 -->
+</section> <!-- dq3.monster.hack -->
+</section> <!-- dq3.monster -->
