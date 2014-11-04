@@ -121,11 +121,6 @@
 				<ulink url="https://showa-yojyo.github.io/">プレハブ小屋</ulink>
 			</holder>
 		</copyright>
-		<legalnotice>
-			<simplelist>
-				<member><ulink url="&docroot;/dqbook-html-chunk.tar.bz2">HTML 通常版ダウンロード (tar.bz2)</ulink></member>
-			</simplelist>
-		</legalnotice>
 		<pubdate>&today.date;</pubdate>
 		<releaseinfo>&git.version;</releaseinfo>
 	</bookinfo>
