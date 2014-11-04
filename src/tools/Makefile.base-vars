@@ -107,7 +107,3 @@ HTML_HELP_XSLTPROC_OPTS = --stringparam htmlhelp.hhp $(NAME).hhp \
 	--stringparam htmlhelp.hhc toc.hhc \
 	--stringparam htmlhelp.hhk index.hhk \
 	--stringparam htmlhelp.chm $(NAME).chm
-
-# Override in locale-specific Makefile to localize the word in the 
-# auto-generated version file.
-L10N_REVISION = Revision
