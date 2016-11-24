@@ -7,8 +7,127 @@
 <section id="dq6.debug.intro">
 <title>デバッグモードとは</title>
 <para>
-	ドラクエ6 では「デバッグフロア」という形で、デバッグ用のプログラムが存在している。
-	この文書は、それの包括的な解説を与える。
+プログラム中にはアドレス <varname>$C1FFFC</varname> を参照して何らかの処理を分岐するようなものがいくつかある。
+バンク <varname>$C1</varname> にあるデータはすべて読み取り専用なので、このような分岐命令の結果は常に一定となる。
+実際には <varname>$C1FFEC</varname> にある値は我々の使っている ROM では <literal>#$0000</literal> なのだが、
+仮にこの値が別のもの、特に負の値であったならば、既存のプログラムの挙動は次に示すように変化しただろう。
+  <itemizedlist>
+    <listitem>
+      <simpara>電源を入れた直後のオープニング、タイトル画面でのコントローラー入力が無視される。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>冒険の書を新規作成後、そのファイルで「ぼうけんをする」と、プロローグシーンではなく、後述するデバッグルームから始まる（注：他にも必要条件が存在する）。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>モンスターアニメーションと呼ばれるデバッグ機能が有効になる。そこでは戦闘開始直前に、登場する魔物の群れの指定が可能となる。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>各種フラグ（後述）の初期値をデバッグ作業仕様に設定する。また、いんちきせってい（後述）におけるそのようなフラグの値指定を有効にする。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>キャンセル歩行というデバッグ機能を有効にすることが可能になる。</simpara>
+    </listitem>
+    <listitem>
+      <simpara><varname>$C1FFFE</varname> の値が <literal>#$0001</literal> のときに限り、
+      移動中に <keycap>X</keycap> ボタンを押しても、人の話を覚えなくなる。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>移動中に <keycap>L</keycap> ボタンを押すと、デバッグウィンドウが出現する。
+      なお、デバッグウィンドウについては後述する。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>移動中に <keycap>R</keycap> ボタンを押すと、地図の代わりに座標ウィンドウが出現する。
+      これについては後述する。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>And more?</simpara>
+    </listitem>
+  </itemizedlist>
+</para>
+
+<para>
+この定数がプログラム中のどこに影響するかを調べるには、
+コード <literal>LDA $C1FFFE</literal> をロムイメージから <command>grep</command> するとよいだろう。
+参考までに、記者が調査した当該定数を参照するサブルーチンのアドレスを以下に示しておく：
+
+  <variablelist>
+    <varlistentry>
+      <term><varname>$C0250D</varname></term>
+      <listitem>
+        <simpara>デバッグフロアから開始する処理。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C23391</varname></term>
+      <listitem>
+        <simpara>戦闘モンスターの種類と頭数を指定する処理。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C301B5</varname></term>
+      <term><varname>$C302A8</varname></term>
+      <listitem>
+        <simpara>各種フラグの初期値の操作。
+        <literal>#$FFFF</literal> と <literal>#$8000</literal> の 2 通りの値の場合を想定。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C466FE</varname></term>
+      <listitem>
+        <simpara>解読中。パーティーメンバーの何かの設定に影響する？</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C6C288</varname></term>
+      <term><varname>$C6C2A4</varname></term>
+      <term><varname>$C6C471</varname></term>
+      <term><varname>$C6C48F</varname></term>
+      <listitem>
+        <simpara>セレクトボタンを押しながら移動すると、歩行不能な地点をも通行する処理。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C6C8F8</varname></term>
+      <listitem>
+        <simpara><varname>$C1FFFE</varname> の値が 1 ならばおぼえる処理を呼ばない。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C6CBCB</varname></term>
+      <listitem>
+        <simpara>デバッグメニュー表示処理。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C6CBF7</varname></term>
+      <listitem>
+        <simpara>座標ウィンドウ表示処理。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C7B737</varname></term>
+      <listitem>
+        <simpara>ある RAM アドレスに定数 <varname>$C1FFFE</varname> を代入する処理。
+        このサブルーチンがどのように利用されるのかは不明。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C9064A</varname></term>
+      <listitem>
+        <simpara>仲間モンスターフラグが立っているか調べる処理。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$CEFFEC</varname></term>
+      <listitem>
+        <simpara><varname>$C1FFFE</varname> が非ゼロならば COP し続ける。未調査。</simpara>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+
+<para>
+  本節では、定数 <varname>$C1FFFE</varname> の値が負の数であるような状況をデバッグモードと呼ぶことにする。
 </para>
 </section> <!-- dq6.debug.intro -->
 
