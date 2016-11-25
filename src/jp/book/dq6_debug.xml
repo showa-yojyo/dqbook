@@ -16,28 +16,43 @@
       <simpara>電源を入れた直後のオープニング、タイトル画面でのコントローラー入力が無視される。</simpara>
     </listitem>
     <listitem>
-      <simpara>冒険の書を新規作成後、そのファイルで「ぼうけんをする」と、プロローグシーンではなく、後述するデバッグルームから始まる（注：他にも必要条件が存在する）。</simpara>
+      <simpara>
+        冒険の書を新規作成後、そのファイルで「ぼうけんをする」と、プロローグシーンではなく、
+        <link linkend="dq6.debug.floor.0286">デバッグルーム</link>から始まる（注：他にも必要条件が存在する）。
+      </simpara>
     </listitem>
     <listitem>
-      <simpara>モンスターアニメーションと呼ばれるデバッグ機能が有効になる。そこでは戦闘開始直前に、登場する魔物の群れの指定が可能となる。</simpara>
+      <simpara>
+        <link linkend="dq6.debug.floor.0288">モンスターアニメーション</link>と呼ばれるデバッグ機能が有効になる。
+        そこでは戦闘開始直前に、登場する魔物の群れの指定が可能となる。
+      </simpara>
     </listitem>
     <listitem>
-      <simpara>各種フラグ（後述）の初期値をデバッグ作業仕様に設定する。また、いんちきせってい（後述）におけるそのようなフラグの値指定を有効にする。</simpara>
+      <simpara>
+        <link linkend="dq6.debug.menu.C908E9">各種フラグ</link> の初期値をデバッグ作業仕様に設定する。
+        また、におけるそのようなフラグの値指定を有効にする。
+      </simpara>
     </listitem>
     <listitem>
-      <simpara>キャンセル歩行というデバッグ機能を有効にすることが可能になる。</simpara>
+      <simpara>
+        <link linkend="dq6.debug.menu.C908E9">キャンセル歩行</link>というデバッグ機能を有効にすることが可能になる。
+      </simpara>
     </listitem>
     <listitem>
       <simpara><varname>$C1FFFE</varname> の値が <literal>#$0001</literal> のときに限り、
       移動中に <keycap>X</keycap> ボタンを押しても、人の話を覚えなくなる。</simpara>
     </listitem>
     <listitem>
-      <simpara>移動中に <keycap>L</keycap> ボタンを押すと、デバッグウィンドウが出現する。
-      なお、デバッグウィンドウについては後述する。</simpara>
+      <simpara>
+        移動中に <keycap>L</keycap> ボタンを押すと
+        <link linkend="dq6.debug.menu">デバッグウィンドウ</link> が出現する。
+      </simpara>
     </listitem>
     <listitem>
-      <simpara>移動中に <keycap>R</keycap> ボタンを押すと、地図の代わりに座標ウィンドウが出現する。
-      これについては後述する。</simpara>
+      <simpara>
+        移動中に <keycap>R</keycap> ボタンを押すと、地図の代わりに
+        <link linkend="dq6.debug.menu.C908E9">座標ウィンドウ</link> が出現する。
+      </simpara>
     </listitem>
     <listitem>
       <simpara>And more?</simpara>
@@ -130,6 +145,301 @@
   本節では、定数 <varname>$C1FFFE</varname> の値が負の数であるような状況をデバッグモードと呼ぶことにする。
 </para>
 </section> <!-- dq6.debug.intro -->
+
+<section id="dq6.debug.menu">
+<title>デバッグメニュー</title>
+<para>
+上で述べたように、デバッグモードでは移動中に <keycap>L</keycap> ボタンを押すと特殊なメニューウィンドウが出現する。
+本節ではアドレス <varname>$C90680</varname> で定義されている、
+各項目に対応する選択イベントハンドラーのマッピングが示すコードに基いて、
+各イベントハンドラーの振る舞いを簡単に説明する。
+</para>
+<figure>
+  <title>デバッグメニュー</title>
+  <graphic width="240px" fileref="./image/dq6.debug.menu.png"/>
+</figure>
+<para>
+
+<section id="dq6.debug.menu.C906BA">
+<title>いんちきルーラ</title>
+<para>
+不思議な力が働いたり、天井を頭にぶつけたりすることもなく、
+パーティーを指定する場所へ移動するコマンドだ。
+ルーラを利用できるメンバーがいなくてもよいし、MP がなくてもよい。
+</para>
+<figure>
+  <title>いんちきルーラ</title>
+  <graphic width="240px" fileref="./image/dq6.debug.menu.location.png"/>
+</figure>
+<para>
+通常版ルーラとは異なり、場所リストとして構造体 <varname>$C8997A</varname> のデータをすべて用いたものが
+ウィンドウの複数ページに亘り表示される。
+</para>
+</section> <!-- dq6.debug.menu.C906BA -->
+
+<section id="dq6.debug.menu.C906CF">
+<title>いんちきリレミト</title>
+<para>
+リレミト可能な場所に現在いるならば、リレミトを唱えたかのように振る舞うコマンドだ。
+リレミトを利用できるメンバーがいなくてもよいし、MP がなくてもよい。
+</para>
+</section> <!-- dq6.debug.menu.C906CF -->
+
+<section id="dq6.debug.menu.C906EB">
+<title>ＨＰ ＭＰ ＭＡＸ</title>
+<para>
+パーティーの各メンバーについて HP と MP を全回復し、毒、マヒ、死亡状態を回復するコマンドだ。
+</para>
+</section> <!-- dq6.debug.menu.C906EB -->
+
+<section id="dq6.debug.menu.C9071D">
+<title>レべルアップ</title>
+<para>
+パーティーメンバーを一人指定して、職業レベルとキャラクターレベルの設定を行うコマンドだ。
+ただし挙動に少々くせがある。
+</para>
+<figure>
+  <title>レべルアップ</title>
+  <graphic width="240px" fileref="./image/dq6.debug.menu.level.png"/>
+</figure>
+<para>
+「職業レベルアップだけを行ないますか？」で「はい」を選択すると、
+職業と職業経験値を入力することで、当該メンバーの職業状態を変更することになる。
+まずは対象となるメンバーを選択するためのウィンドウが表示される。
+次に職業リストが表示されるが、「？？？」と「やめる」については注意が要る。
+これらを選択するとそれぞれドラゴンとはぐれメタルが選択されたものとみなされる。
+最後に「キーばんめ」という数値入力ウィンドウが表示されるので、
+職業経験値の増加分を入力する。
+</para>
+<para>
+「職業レベルアップだけを行ないますか？」で「いいえ」を選択すると、
+想像に反してキャラクターのレベル変更と、副作用として職業経歴データの消去が起こる。
+まずは対象となるメンバーを選択するためのウィンドウが表示される。
+次に「キーばんめ」という数値入力ウィンドウが表示されるので、
+設定したいレベルをそのまま入力する。
+具体的な処理の内容は、対象メンバーのレベルをいったん初期化してから、
+指定のレベルに対応する経験値を算出して加算するというものだ。
+</para>
+<para>
+これらのレベルアップについては、プレイヤーに対する通知処理は発生しない。
+</para>
+</section> <!-- dq6.debug.menu.C9071D -->
+
+<section id="dq6.debug.menu.C907DA">
+<title>おかね</title>
+<para>
+金額を直接指定することで、所持金を変更するコマンドだ。
+残念なことに 0 から 99999 までの値しか指定できない。
+</para>
+</section> <!-- dq6.debug.menu.C907DA -->
+
+<section id="dq6.debug.menu.C907F3">
+<title>ふくろにいれる</title>
+<para>
+ふくろに収納することが可能な項目すべてに対して、
+収納品目数を 1 だけ増加または減少させるコマンドだ。
+</para>
+<para>
+このコマンドを選択すると突然「はい・いいえ」を選択させられる。
+「はい」を選べば各品目を 1 個追加するが、
+「いいえ」を選べば各品目を 1 個削除する。
+いずれの品目も収納品目数の限界を超えることがないように処理する。
+</para>
+</section> <!-- dq6.debug.menu.C907F3 -->
+
+<section id="dq6.debug.menu.C90818">
+<title>ひとじょうたい</title>
+<para>
+パーティーメンバーを一人指定して、健康状態を設定するコマンドだ。
+状態を「しに」「ねむり」「どく」「もうどく」から一つ選べる。
+</para>
+<figure>
+  <title>ひとじょうたい</title>
+  <graphic width="240px" fileref="./image/dq6.debug.menu.status.png"/>
+</figure>
+</section> <!-- dq6.debug.menu.C90818 -->
+
+<section id="dq6.debug.menu.C90862">
+<title>ゲームじょうたい</title>
+<para>
+次に示す各状態を示すウィンドウを表示するコマンドだ。
+  <figure>
+    <title>ゲームじょうたい</title>
+    <graphic width="240px" fileref="./image/dq6.debug.menu.context.png"/>
+  </figure>
+  <variablelist>
+    <varlistentry>
+      <term>ルーラ</term>
+      <listitem>
+        <simpara>
+          現在ルーラが使用可能な状況か否かを「できる」「できない」で示す。
+          具体的には <varname>$7E3D2B</varname> の 1 ビット目をテストする。
+        </simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>リレミト</term>
+      <listitem>
+        <simpara>
+          現在リレミトが使用可能な状況か否かを「できる」「できない」で示す。
+          具体的には <varname>$7E3D2B</varname> の 2 ビット目と
+          <varname>$7E3E28</varname> の 1 ビット目をテストする。
+          </simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>エンカウント</term>
+      <listitem>
+        <simpara>
+          移動中に戦闘がランダムに発生するか否かを「できる」「できない」で示す。
+          具体的には <varname>$7E3D2A</varname> の 5 ビット目と
+          <varname>$7E3E28</varname> の 2 ビット目をテストする。
+        </simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>ぜんめつふっき</term>
+      <listitem>
+        <simpara>パーティーが全滅したときに移動される地点の地名を示す。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>リセットふっき</term>
+      <listitem>
+        <simpara>現在の冒険の書でゲームを再開するとどこから始まるのかを地名で示す。</simpara>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</section> <!-- dq6.debug.menu.C90862 -->
+
+<section id="dq6.debug.menu.C908B4">
+<title>せんたくせんとう</title>
+<para>
+魔物の群れを指定して戦闘を開始するコマンドだ。デバッグルームにいる
+<link linkend="dq6.debug.floor.0289">ガイコツ</link> に話しかけるのと同じ処理を呼び出す。
+</para>
+</section> <!-- dq6.debug.menu.C908B4 -->
+
+<section id="dq6.debug.menu.C9086A">
+<title>タイルせんとう</title>
+<para>
+戦闘地域を指定して戦闘を開始するコマンドだ。
+この数値はすなわち <varname>$C6843C</varname> 配列の ID のことだ。
+</para>
+<para>
+「キーばんめ」という数値入力ウィンドウが表示されるので、ここで数値を入力する。
+現在いる場所が戦闘地域ならば、対応する値が初期値として示される。
+<literal>#$0005</literal> 未満の入力値は無効扱いとなり、何も起こらない。
+<literal>#$0075</literal> 以上の入力値は <literal>#$0074</literal> にクリップされて処理される。
+</para>
+<para>
+数値の入力が受け付けられると、現在どこにいようが直ちに魔物の群れが現れる。
+</para>
+</section> <!-- dq6.debug.menu.C9086A -->
+
+<section id="dq6.debug.menu.C908BD">
+<title>サウンドテスト</title>
+<para>
+サウンドを指定して音楽や効果音を再生するコマンドだ。
+「キーばんめ」という数値入力ウィンドウが表示されるので、ここで数値を入力する。
+</para>
+<para>
+数値の入力が受け付けられると、対応する音楽や効果音が再生される。
+なお、現在の BGM が必ずしも停止するとは限らない。
+<literal>#$00FE</literal> 以上の入力値は <literal>#$00FD</literal> にクリップされて処理される。
+</para>
+</section> <!-- dq6.debug.menu.C908BD -->
+
+<section id="dq6.debug.menu.C908E9">
+<title>いんちきせってい</title>
+<para>
+以下の項目を列挙するサブウィンドウを表示する。
+  <figure>
+    <title>いんちきせってい</title>
+    <graphic width="240px" fileref="./image/dq6.debug.menu.cheat.png"/>
+  </figure>
+  <variablelist>
+    <varlistentry>
+      <term>いんちきあるき</term>
+      <listitem>
+        <simpara>
+          これを選択すると何やら質問される。
+          「はい」を選択すると、移動時にキャンセル歩行が可能になるというものだ。
+          これは <keycap>SELECT</keycap> ボタンを押しながら十字キーを押すと、障害物の有無に関わらず
+          パーティーが通行できるというたいへん素晴らしい機能だ。
+          ただ、擬似的な地面の高低差がある箇所でこれを使いこなすのには若干の慣れが必要だ。
+          「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+          キャンセル歩行の利用が不可になる。
+        </simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>エンカウント</term>
+      <listitem>
+        <simpara>
+          これを選択すると何やら質問される。
+          「はい」を選択すると、戦闘地域において移動中にランダムに魔物の群れと遭遇するようになる。
+          「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+          戦闘地域において移動中に魔物の群れと遭遇することがなくなる。
+        </simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>スタートフロア</term>
+      <listitem>
+        <simpara>
+          これを選択すると何やら質問される。
+          「はい」を選択すると、冒険開始時時に <link linkend="dq6.debug.floor.0286">テスト</link> という場所からゲームが始まる。
+          この場所については後で詳しく述べる。
+          「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+          冒険開始時にプロローグ（ムドー城前のたき火のシーン）から始まる。
+        </simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>ざひょう</term>
+      <listitem>
+        <simpara>
+          これを選択すると何やら質問される。
+          「はい」を選択すると、移動時に <keycap>R</keycap> ボタンを押すことで画面右下に座標ウィンドウが表示されるようになる。
+          「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+          移動時に移動時に <keycap>R</keycap> ボタンを押すことで、もし所持していれば地図が表示されるようになる。
+        </simpara>
+        <figure>
+          <title>ざひょう</title>
+          <graphic width="240px" fileref="./image/dq6.debug.coords.png"/>
+        </figure>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>なかま</term>
+      <listitem>
+        <simpara>
+          これを選択すると何やら質問される。
+          「はい」を選択すると、各通常戦闘終了時に仲間になる可能性のある魔物が、
+          抽選処理をスキップして必ず起き上がるようになる。
+          「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+          そのようなことが起こらないようになる。
+        </simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>サウンドテスト</term>
+      <listitem>
+        <simpara>
+          これを選択すると、いきなり「はい・いいえ」が表示される。
+          返答に応じて <varname>$7E3D00</varname> の 6 ビット目の ON/OFF が切り替わる。
+          このフラグは戦闘中の BGM が再生されるかどうかを制御する。
+          通常戦闘曲、通常ボス戦曲、ラスボス戦曲の再生に影響する。
+        </simpara>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</section> <!-- dq6.debug.menu.C908E9 -->
+
+</section> <!-- dq6.debug.menu -->
 
 <section id="dq6.debug.access">
 <title>アクセス方法</title>
