@@ -54,7 +54,7 @@ C6/8F33:    348E  // 74
 </section> <!-- dq6.encounter.hack.C68E4A -->
 
 <section id="dq6.encounter.hack.C92C2D">
-<title>JSL $C92C2D によるデータ取得</title>
+<title><code>JSL $C92C2D</code> によるデータ取得</title>
 <para>
 	サブルーチン <varname>$C92C2D</varname> は、汎用的なデータ取得ルーチンを実装するものである。
 	具体的に言うと、
@@ -107,7 +107,7 @@ C3/C2B3:    60          RTS
 </section> <!-- dq6.encounter.hack.C92C2D -->
 
 <section id="dq6.encounter.hack.C92C39">
-<title>JSL $C92C39 によるデータ取得</title>
+<title><code>JSL $C92C39</code> によるデータ取得</title>
 <para>
 	<literal>JSL $C92C2D</literal> の <literal>X</literal> バージョンである。すなわち、
 	ある構造体データの ID = <literal>X</literal> の、あるメンバー」を取得するルーチンである。
