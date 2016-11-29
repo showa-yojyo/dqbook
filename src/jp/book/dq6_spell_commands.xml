@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="dq6.spell_commands"><?dbhtml filename="dq6_spell_commands.html" ?>
+<title>移動中の呪文コマンド処理</title>
+<para>
+本節では移動中に呪文を唱えるときに発生する処理を呪文ごとに見ていく。
+プレイヤーがコマンドメニューから「じゅもん」を選択し、
+どのパーティーにメンバーが唱えるのかを選択したあとに一つ呪文を選択する。
+すると十分な MP があるときに、プログラムは選択された呪文に対応するサブルーチンを呼び出す。
+</para>
+
+<section id="dq6.spell_commands.C3B814">
+<title>呪文ハンドラーテーブル</title>
+<para>
+呪文の文字列インデックスと処理コードの開始アドレスとの対応表はアドレス
+<varname>$C3B814</varname> に次のように定義されている。
+呪文ウィンドウで選択された呪文文字列のインデックスと行前半が一致すれば、
+プログラムカウンターを行後半のアドレスへ JMP させる。
+</para>
+<programlisting>
+C3/B814:    3000A4B9    ; ホイミ
+C3/B818:    330049BA    ; べホイミ
+C3/B81C:    360050BA    ; べホマ
+C3/B820:    390057BA    ; べホマラー
+C3/B824:    3A00CABA    ; べホマズン
+C3/B828:    3E00D1BA    ; キアリー
+C3/B82C:    3B004ABB    ; ザオラル
+C3/B830:    3C00F8BB    ; ザオリク
+C3/B834:    410070BC    ; ルーラ
+C3/B838:    9E004ABD    ; リレミト
+C3/B83C:    A900A6BD    ; くちぶえ
+C3/B840:    A100DEBD    ; トヘロス
+C3/B844:    A00010BE    ; トラマナ
+C3/B848:    A40024BE    ; フローミ
+C3/B84C:    A2007FBE    ; タカのめ
+C3/B850:    A500F9BE    ; とうぞくのはな
+C3/B854:    A80055BF    ; しのびあし
+C3/B858:    A30077BF    ; ねる
+C3/B85C:    A70095BF    ; おおごえ
+C3/B860:    AA0066C0    ; あなほり
+C3/B864:    9F0044C3    ; インパス
+C3/B868:    A6001BC7    ; レミラーマ
+C3/B86C:    AB0064C7    ; おもいだす
+C3/B870:    AD0079C7    ; もっとおもいだす
+C3/B874:    AC008EC7    ; ふかくおもいだす
+C3/B878:    AE00A3C7    ; わすれる
+</programlisting>
+</section> <!-- dq6.spell_commands.C3B814 -->
+
+<section id="dq6.spell_commands.desc">
+<title>解析</title>
+<para>
+以下、各呪文の処理を簡単に説明していく。
+その前に、実際にはハンドラーごとにコード化されているものの、
+各呪文に共通して見られる仕様傾向を列挙しておく。
+これらの事実についてはいちいち個々の呪文解説の項では、例外的な扱いがある場合を除き繰り返さない。
+
+<itemizedlist>
+  <listitem>
+    <simpara>サブルーチン <varname>$C3B8C5</varname> 呼び出しにより、特定の効果音 (ID: <literal>#$00B0</literal>) を鳴らす。</simpara>
+  </listitem>
+  <listitem>
+    <simpara>途中でキャンセルしたり、呪文の効果が無効であったりすると、呪文選択時に消費した MP を返還する。</simpara>
+  </listitem>
+  <listitem>
+    <simpara>コマンドの対象がパーティーメンバーの一人となるものについては、それをウィンドウ <literal>#$00CA</literal> で決定する。</simpara>
+  </listitem>
+</itemizedlist>
+</para>
+
+<section id="dq6.spell_commands.desc.C3B9A8">
+<title>ホイミ・べホイミ・ベホマ</title>
+<para>
+ホイミ・べホイミ・ベホマの各コマンドは開始直後に同一の処理 <varname>$C3B9A8</varname> に合流するので、まとめて解説する。
+</para>
+<para>
+これらの呪文は、対象者一人が死んでいなければ、そのメンバーの HP をある量だけ回復しようとするものだ。
+ここで、ある量とは指定する範囲にある数からランダムに選ぶものであり、
+ホイミ系 5 種の呪文に対する回復量テーブルは <varname>$C3B963</varname> において次のように定められている。
+<programlisting>
+C3/B963:    30001E002800 ; ホイミ
+C3/B969:    33004B005F00 ; べホイミ
+C3/B96F:    3600E703E703 ; べホマ
+C3/B975:    390064007800 ; べホマラー
+C3/B97B:    3A00E703E703 ; べホマズン
+</programlisting>
+
+十六進数を十進数で書き直し、表にまとめると次のようになる：
+  <table class="lighttable">
+    <caption><varname>$C3B963</varname> ホイミ系回復量テーブル</caption>
+    <thead>
+      <tr><th>コマンド</th><th>下限値</th><th>上限値</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>ホイミ    </td><td align="right"> 30</td><td align="right"> 40</td></tr>
+      <tr><td>べホイミ  </td><td align="right"> 75</td><td align="right"> 95</td></tr>
+      <tr><td>べホマ    </td><td align="right">999</td><td align="right">999</td></tr>
+      <tr><td>べホマラー</td><td align="right">100</td><td align="right">120</td></tr>
+      <tr><td>べホマズン</td><td align="right">999</td><td align="right">999</td></tr>
+    </tbody>
+  </table>
+</para>
+<para>
+乱数の適用は、ホイミ系専用サブルーチン <varname>$C3B8FC</varname> で行う。
+具体的には、汎用乱数系サブルーチン <varname>$C00F28</varname> を利用して回復量を決める。
+つまり、ゼロから回復量範囲の長さまでのいずれかの数をランダムに発生させ、
+これに下限値を加えた値を回復量とする。
+</para>
+<para>
+指定メンバーへの HP の回復処理自体はキャラクターのプロパティー設定サブルーチンの一種である
+<varname>$C44685</varname>で行う。
+回復量が過剰な場合はそこで対処することを期待する。
+</para>
+<para>
+最後に効果音 <literal>#$00CD</literal> を鳴らし、メッセージを表示して終了する。
+</para>
+</section> <!-- dq6.spell_commands.desc.C3B9A8 -->
+
+<section id="dq6.spell_commands.desc.C3BA5B">
+<title>べホマラー・べホマズン</title>
+<para>
+べホマラー・べホマズンの各コマンドは開始直後に同一の処理 <varname>$C3BA5B</varname> に合流するので、まとめて解説する。
+</para>
+<para>
+これらの呪文は、パーティーにいるメンバーを先頭から順番に、HP をある量だけ回復しようとするものだ。
+ただし、死んでいるメンバーは単にスキップする。
+また、回復量をメンバーごとに <xref linkend="dq6.spell_commands.desc.C3B9A8"/> のようにしてランダムに決定する。
+回復処理、効果音、メッセージについても同様だが、呪文を受けたメンバーごとに発生する。
+</para>
+<para>
+全員の回復メッセージを表示し終えた後、パーティーの HP/MP ウィンドウを表示してコマンドを終了する。
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BA5B -->
+
+<section id="dq6.spell_commands.desc.C3BAD1">
+<title>キアリー</title>
+<para>
+キアリーは、対象者一人が死んでいなければ、その毒状態をクリアするコマンドだ。
+</para>
+<para>
+サブルーチン <varname>$C44CA3</varname> により、指定メンバーの状態をテストする。
+「しに」状態ならばいつものようにキャンセル扱いとする。
+そうでなければ、指定メンバーの「もうどく」「どく」フラグがセットされているかをテストする。
+これらのフラグのどちらもセットされていないならば、「しかし 何も おこらなかった」を表示して終了する。
+この場合には MP の返還は発生しない。
+</para>
+<para>
+対象が本当に毒に冒されている場合には、
+キャラクターのプロパティー設定サブルーチンの一種であるサブルーチン
+<varname>$C44E2B</varname> により「もうどく」「どく」フラグをリセットする。
+</para>
+<para>
+最後にメッセージ <literal>#$16A9</literal> を表示し、コマンドを終了する。
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BAD1 -->
+
+<section id="dq6.spell_commands.desc.C3BB4A">
+<title>ザオラル</title>
+<para>
+ザオラルは対象者一人が死んでいれば、半分の確率で生き返らせ、HP を最大値の半分とするコマンドだ。
+</para>
+<para>
+サブルーチン <varname>$C44CA3</varname> により、指定メンバーの状態をテストする。
+「しに」状態でなければいつものようにキャンセル扱いとする。
+</para>
+<para>
+死んでいる場合にはサブルーチン <varname>$C00E97</varname> により乱数を発生させる。
+この値が奇数ならば（最下位ビットを調べる）、ザオラルの結果を失敗とする。
+メッセージ <literal>#$16A8</literal> を表示し、当然ながら MP を返還せずに終了とする。
+</para>
+<para>
+乱数が偶数ならば成功とする。この場合、次の一連の処理を行う：
+  <itemizedlist>
+    <listitem>
+      <simpara>サブルーチン <varname>$C44D34</varname> でメンバーの状態をすべてクリアする。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>サブルーチン <varname>$C44729</varname> でメンバーの最大 HP を取得する。
+      次に LSR 命令でその半分の値を計算する。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>サブルーチン <varname>$C44685</varname> でメンバーの HP を回復する。</simpara>
+    </listitem>
+  </itemizedlist>
+</para>
+<para>
+最後にメッセージ <literal>#$16A7</literal> を表示し、コマンドを終了する。
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BB4A -->
+
+<section id="dq6.spell_commands.desc.C3BBF8">
+<title>ザオリク</title>
+<para>
+ザオリクは対象者一人が死んでいれば、HP ごと完全回復するコマンドだ。
+処理内容は <xref linkend="dq6.spell_commands.desc.C3BB4A" /> で説明したものから、
+乱数関連と半減関連を取り除いたものになる。
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BBF8 -->
+
+<section id="dq6.spell_commands.desc.C3BC70">
+<title>ルーラ</title>
+<para>
+TBW
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BC70 -->
+
+<section id="dq6.spell_commands.desc.C3BD4A">
+<title>リレミト</title>
+<para>
+TBW
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BD4A -->
+
+<section id="dq6.spell_commands.desc.C3BDA6">
+<title>くちぶえ</title>
+<para>
+TBW
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BDA6 -->
+
+<section id="dq6.spell_commands.desc.C3BDDE">
+<title>トヘロス</title>
+<para>
+トヘロスは次の処理を行うコマンドだ：
+  <itemizedlist>
+    <listitem>
+      <simpara>トヘロス系カウンター <varname>$7E3BA9</varname> をリセットする。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>トヘロスフラグ <code>$7E3D2B &amp; #$0004</code> をセットする。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>せいすいフラグ <code>$7E3D2B &amp; #$0010</code> をリセットする。</simpara>
+    </listitem>
+  </itemizedlist>
+最後にメッセージ <literal>#$16B6</literal> を表示し、コマンドを終了する。
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BDDE -->
+
+<section id="dq6.spell_commands.desc.C3BE10">
+<title>トラマナ</title>
+<para>
+トラマナはトラマナフラグ <code>$7E3D2B &amp; #$0020</code> をセットするコマンドだ。
+実装はここというよりはサブルーチン <varname>$C7CC5C</varname> の呼び出しで済ませている。
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BE10 -->
+
+<section id="dq6.spell_commands.desc.C3BE24">
+<title>フローミ</title>
+<para>
+TBW
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BE24 -->
+
+<section id="dq6.spell_commands.desc.C3BE7F">
+<title>タカのめ</title>
+<para>
+TBW
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BE7F -->
+
+<section id="dq6.spell_commands.desc.C3BEF9">
+<title>とうぞくのはな</title>
+<para>
+TBW
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BEF9 -->
+
+<section id="dq6.spell_commands.desc.C3BF55">
+<title>しのびあし</title>
+<para>
+しのびあしは次の処理を行うコマンドだ：
+  <itemizedlist>
+    <listitem>
+      <simpara>しのびあし歩数 <varname>$7E3BAD</varname> をリセットする。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>しのびあしフラグ <code>$7E3D2B &amp; #$0008</code> をセットする。</simpara>
+    </listitem>
+  </itemizedlist>
+最後にメッセージ <literal>#$16B6</literal> を表示し、コマンドを終了する。
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BF55 -->
+
+<section id="dq6.spell_commands.desc.C3BF77">
+<title>ねる</title>
+<para>
+ねるは本人の状態をサブルーチン <varname>$C44F0D</varname> 呼び出しによってねむり状態にするコマンドだ。
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BF77 -->
+
+<section id="dq6.spell_commands.desc.C3BF95">
+<title>おおごえ</title>
+<para>
+おおごえは旅の店屋を呼びつけて営業をさせるコマンドだ。次のようなことを行う：
+
+  <itemizedlist>
+    <listitem>
+      <simpara>トヘロス・せいすい歩数 <varname>$7E3BA9</varname> をリセットする。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>サブルーチン <varname>$C7CC76</varname> を呼び出し、現在おおごえを利用可能かどうかを調べる。
+      無効な場合にはメッセージ <literal>#$16D5</literal> を表示してコマンドを終了する。
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>おおごえフラグ <code>$7E3D2B &amp; #$0040</code> をセットする。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>最近訪問した店と同じ品揃えの旅の店屋、
+      ある旅の宿屋、または旅の神父がそれぞれ確率 1/3 で現れる。</simpara>
+
+      <itemizedlist>
+        <listitem>
+          <simpara>店屋の場合には <varname>$7E3B77</varname> に格納済みの店屋 ID を参照する。
+          店の種別に合わせて出力メッセージ用に誰が現れるのかを決め、
+          <xref linkend="dq6.shop.hack.C5F5BE" /> を実行する。</simpara>
+        </listitem>
+        <listitem>
+          <simpara>宿屋の場合には ID <literal>#$0024</literal> の宿屋が現れる。
+          それから <xref linkend="dq6.inn.hack.C7CF21" /> を実行する。
+          宿賃は一人 100 ゴールドだ。</simpara>
+        </listitem>
+        <listitem>
+          <simpara>教会の場合には ID <literal>#$0006</literal> の教会が現れる。
+          つまり「おいのりをする」がない教会だ。
+          それから <xref linkend="dq6.church.hack.C3D3AE" /> を実行する。</simpara>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+    <listitem>
+      <simpara>おおごえフラグ <code>$7E3D2B &amp; #$0040</code> をリセットする。</simpara>
+    </listitem>
+  </itemizedlist>
+
+フラグをリセットしたら、コマンドを終了する。
+</para>
+</section> <!-- dq6.spell_commands.desc.C3BF95 -->
+
+<section id="dq6.spell_commands.desc.C3C066">
+<title>あなほり</title>
+<para>
+TBW
+</para>
+</section> <!-- dq6.spell_commands.desc.C3C066 -->
+
+<section id="dq6.spell_commands.desc.C3C344">
+<title>インパス</title>
+<para>
+TBW
+</para>
+</section> <!-- dq6.spell_commands.desc.C3C344 -->
+
+<section id="dq6.spell_commands.desc.C3C71B">
+<title>レミラーマ</title>
+<para>
+TBW
+</para>
+</section> <!-- dq6.spell_commands.desc.C3C71B -->
+
+<section id="dq6.spell_commands.desc.C7CDAF">
+<title>おもいだす・もっとおもいだす・ふかくおもいだす</title>
+<para>
+おもいだす・もっとおもいだす・ふかくおもいだすの各コマンドは同一の処理
+<varname>$C7CDAF</varname> に合流するので、まとめて解説する。
+</para>
+<para>
+今まで記憶したメッセージの ID は配列 <varname>$7E3EAC</varname> に最大 32 個格納されている。
+これらはこのメッセージを配列の先頭から高々規定個数分を連続してウィンドウに出力するコマンド群だ。
+メッセージ数の上限はコマンドによって異なり、次のようになっている：
+
+  <table class="lighttable">
+    <caption>おもいだす系コマンドのメッセージ数上限</caption>
+    <thead>
+      <tr><th>コマンド</th><th>上限</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>おもいだす      </td><td align="right"> 3</td></tr>
+      <tr><td>もっとおもいだす</td><td align="right">10</td></tr>
+      <tr><td>ふかくおもいだす</td><td align="right">32</td></tr>
+    </tbody>
+  </table>
+</para>
+<para>
+この配列には値 <literal>#$FFFF</literal> が混入していることがある。
+そのときにはこの値をスキップして次に行く（配列の末尾まで <literal>#$FFFF</literal> のはずだが）。
+また、メッセージ内の米印文字は星印文字に置換して出力する。
+</para>
+<para>
+この配列の中身 32 個が全て <literal>#$FFFF</literal> で埋まっている場合、
+このコマンドはメッセージ <literal>#$16DB</literal> を表示して終了する。
+</para>
+<para>
+プレイヤーがメッセージ出力中にキャンセルボタンを押した場合、
+出力するメッセージが残っていてもコマンドを終了する。
+また、配列内が事実上空のときにはメッセージ <literal>#$16DB</literal> を表示してコマンドを終了する。
+</para>
+</section> <!-- dq6.spell_commands.desc.C7CDAF -->
+
+<section id="dq6.spell_commands.desc.C3C7A3">
+<title>わすれる</title>
+<para>
+わすれるは、メッセージ配列 <varname>$7E3EAC</varname> の内容を対話的に削除するコマンドだ。
+</para>
+<para>
+この配列の中身 32 個が全て <literal>#$FFFF</literal> で埋まっている場合、
+このコマンドはメッセージ <literal>#$16DC</literal> を表示して終了する。
+</para>
+<para>
+候補メッセージがあるならば、画面に「？つまえ」ウィンドウおよびメッセージ出力ウィンドウを表示する。
+「？つまえ」ウィンドウは二種類あり、メッセージ個数が 1 ならば ID <literal>#$00A8</literal> のものを用いるが、
+普通は <literal>#$00A7</literal> のものを表示する。
+プレイヤーは十字キーの左右でメッセージをめくり、対象を一個決定する。
+</para>
+<para>
+何かメッセージを決定すると、ウィンドウ <literal>#$00A6</literal>「わすれる はい・いいえ」を表示する。
+プレイヤーが「はい」と答えると、サブルーチン <varname>$C6E125</varname> を呼び出すことで、
+現在表示されているメッセージをメッセージ配列 <varname>$7E3EAC</varname> から取り除き、
+それ以降のメッセージ ID をすべて最近覚えた方向にシフトし、
+配列の末尾に <literal>#$FFFF</literal> をセットするという一連の処理を実行する。
+</para>
+<para>
+画面に「？つまえ」ウィンドウが表示している間にプレイヤーがキャンセルボタンを押すか、
+わすれるためのメッセージ配列が空になったらコマンドを終了する。
+</para>
+</section> <!-- dq6.spell_commands.desc.C3C7A3 -->
+</section> <!-- dq6.spell_commands.desc -->
+</section> <!-- dq6.spell_commands -->

@@ -93,6 +93,7 @@
   <!ENTITY dq6_people                 SYSTEM "dq6_people.xml">
   <!ENTITY dq6_rename                 SYSTEM "dq6_rename.xml">
   <!ENTITY dq6_shop                   SYSTEM "dq6_shop.xml">
+  <!ENTITY dq6_spell_commands         SYSTEM "dq6_spell_commands.xml">
   <!ENTITY dq6_str                    SYSTEM "dq6_str.xml">
 
   <!ENTITY dq7                        SYSTEM "dq7.xml">
@@ -113,26 +114,26 @@
   <!ENTITY gloss                      SYSTEM "glossary.xml">
 ]>
 <book id="index" lang="ja">
-	<title>ドラクエ命</title>
-	<bookinfo>
-		<copyright>
-			<year>2002-&today.year;</year>
-			<holder>
-				<ulink url="https://showa-yojyo.github.io/">プレハブ小屋</ulink>
-			</holder>
-		</copyright>
-		<pubdate>&today.date;</pubdate>
-		<releaseinfo>Version &book.version;</releaseinfo>
-	</bookinfo>
+  <title>ドラクエ命</title>
+  <bookinfo>
+    <copyright>
+      <year>2002-&today.year;</year>
+      <holder>
+        <ulink url="https://showa-yojyo.github.io/">プレハブ小屋</ulink>
+      </holder>
+    </copyright>
+    <pubdate>&today.date;</pubdate>
+    <releaseinfo>Version &book.version;</releaseinfo>
+  </bookinfo>
 
-	&preface;
-	&part01;
-	&part02;
-	&appendix_a;
-	&appendix_b;
+  &preface;
+  &part01;
+  &part02;
+  &appendix_a;
+  &appendix_b;
 
-	&gloss;
-	<!-- &index; -->
-	<index id="dq.index"><?dbhtml filename="dq_index.html" ?>
-	</index> <!-- dq.index -->
+  &gloss;
+  <!-- &index; -->
+  <index id="dq.index"><?dbhtml filename="dq_index.html" ?>
+  </index> <!-- dq.index -->
 </book>
