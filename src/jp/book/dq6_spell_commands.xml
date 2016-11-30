@@ -86,7 +86,7 @@ C3/B97B:    3A00E703E703 ; べホマズン
 
 十六進数を十進数で書き直し、表にまとめると次のようになる：
   <table class="lighttable">
-    <caption><varname>$C3B963</varname> ホイミ系回復量テーブル</caption>
+    <caption>$C3B963 ホイミ系回復量テーブル</caption>
     <thead>
       <tr><th>コマンド</th><th>下限値</th><th>上限値</th></tr>
     </thead>
@@ -199,21 +199,144 @@ C3/B97B:    3A00E703E703 ; べホマズン
 <section id="dq6.spell_commands.desc.C3BC70">
 <title>ルーラ</title>
 <para>
-TBW
+ルーラはパーティーが訪問したことがある場所の一定の集合から一点を選択し、そこへ一瞬で移動するコマンドだ。
+次のような処理になっている：
+
+  <itemizedlist>
+    <listitem>
+      <simpara>
+      サブルーチン <varname>$C435B3</varname> を呼び出す。
+      これにより、パーティーが一度訪問したすべての移動先候補地点をアドレス <varname>$7E48D8</varname> に配列としてセットする。
+      </simpara>
+      <simpara>
+      なお、訪問情報は <varname>$7E3E60</varname> にビット列として保持されている。
+      また、すべての移動先候補地点は <varname>$C8A162</varname> に 1 バイト型の配列として定義されている。
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+      次に配列 <varname>$7E48D8</varname> に要素があれば、そこから移動先候補をいくつか取り除く。
+      サブルーチン <varname>$C7CAD5</varname> を実行することで、
+      パーティーが現在いるフィールド区分（フィールド、したフィールド、かいてい、はざま）に一致しない候補を検索し、取り除く。
+      この結果、移動先候補が全くなくなればメッセージ <literal>#$16D8</literal> を表示して、
+      コマンドをキャンセル扱いで終了する。
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        ルーラウィンドウを表示する。
+        候補先の個数に応じてウィンドウの ID を <literal>#$004E</literal> か <literal>#$004F</literal> に使い分ける。
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        呪文効果音を鳴らしたら、サブルーチン <varname>$C7C650</varname> を実行する。
+        このとき、次に述べるような失敗パターンがあり、いずれもコマンドキャンセル扱いとなる。
+      </simpara>
+      <itemizedlist>
+        <listitem>
+          <simpara>
+            天井に頭をぶつけるパターン。
+            この場合はメッセージ <literal>#$16AC</literal> を表示する。
+          </simpara>
+        </listitem>
+        <listitem>
+          <simpara>
+            不思議なちからで失敗するパターン。
+            この場合はメッセージ <literal>#$16D8</literal> を表示する。
+          </simpara>
+        </listitem>
+        <listitem>
+          <simpara>
+            特定の状況かつ特定の行き先について、パーティーにチャモロがいない（しに状態である）ために失敗するパターン。
+            この場合はメッセージ <literal>#$16AD</literal> を表示する。
+          </simpara>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+    <listitem>
+      <simpara>
+        以上をすべてクリアすれば画面を切り替えてコマンドを終了する。
+      </simpara>
+    </listitem>
+  </itemizedlist>
 </para>
 </section> <!-- dq6.spell_commands.desc.C3BC70 -->
 
 <section id="dq6.spell_commands.desc.C3BD4A">
 <title>リレミト</title>
 <para>
-TBW
+リレミトは現在パーティーがいる地域から「脱出」するコマンドだ。
+次のように処理する：
+
+  <itemizedlist>
+    <listitem>
+      <simpara>サブルーチン <varname>$C7C783</varname> を呼び出すことで、
+      パーティーが現在いる地域や状況がリレミトを許可するかどうかを調べる。
+      リレミトが意味のない場所ならばメッセージ <literal>#$16D6</literal> を、
+      何らかのイベント中であるなどの理由により禁止されているならばメッセージ
+      <literal>#$16D8</literal> を、それぞれ表示してコマンドを終了する。
+      この場合、消費済みの MP を呪文を唱えたメンバーに返還する。
+      </simpara>
+
+      <simpara>サブルーチン <varname>$C7C783</varname> のチェック内容は次のようなものだ：</simpara>
+      <itemizedlist>
+        <listitem>
+          <simpara><code>$7E5EE1 != #$0000</code> であるか。
+          ゼロでなければ、リレミトにより「何も起こらない」場である。
+          <link linkend="dq6.debug.menu.C906CF">いんちきリレミト</link>すら認めない場ということだ。
+          </simpara>
+        </listitem>
+        <listitem>
+          <simpara>現在「不思議なちから」が作用する場にいるか、
+          または <code>$7E3E28 &amp; #$0001</code> がセットされているかを調べる。
+          どちらかならば、リレミトに「不思議なちから」が作用する。
+          </simpara>
+        </listitem>
+        <listitem>
+          <simpara><code>$7E3D2B &amp; #$0002</code> がセットされているか。
+          セットされていればリレミトが発動する。
+          </simpara>
+        </listitem>
+      </itemizedlist>
+
+      <simpara>これらを全てクリアすればリレミトが発動する。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>許可されているならば、サブルーチン <varname>$C7C9CE</varname> を実行する。
+      これがリレミトの本体処理だ。</simpara>
+    </listitem>
+  </itemizedlist>
+
+リレミトが成功する条件が思いのほか複雑であることがわかる。
 </para>
 </section> <!-- dq6.spell_commands.desc.C3BD4A -->
 
 <section id="dq6.spell_commands.desc.C3BDA6">
 <title>くちぶえ</title>
 <para>
-TBW
+くちぶえは現在パーティーがいる戦闘地域に基いて、強制的に通常戦闘を引き起こすコマンドだ。
+次のように処理する：
+
+  <itemizedlist>
+    <listitem>
+      <simpara>サブルーチン <varname>$C79447</varname> を呼び出し、
+      適切なタイルせんとう ID を取得する。
+      <xref linkend="dq6.debug.menu.C9086A" />で既定値として表示される値とこの ID は同じだ。
+      この値がゼロだと、メッセージ「しかし 何も おこらなかった」を出力してコマンドを終了する。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>現在、通常戦闘が発生してよい状況なのかどうかをフラグ
+      <code>$7E3D2A &amp; #$0010</code> をテストすることで確認する。
+      なお、このフラグは <xref linkend="dq6.debug.menu.C908E9" />メニューにある「エンカウント」の操作対象そのものだ。
+      フラグがリセットされていると、メッセージ「しかし 何も おこらなかった」を出力してコマンドを終了する。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>フラグがセットされていれば、戦闘開始サブルーチン <varname>$C7952C</varname> を呼び出す。</simpara>
+    </listitem>
+  </itemizedlist>
+
+全くの個人的な感想だが、フラグのテストを ID 取得より先に処理して欲しい。
 </para>
 </section> <!-- dq6.spell_commands.desc.C3BDA6 -->
 
@@ -221,6 +344,7 @@ TBW
 <title>トヘロス</title>
 <para>
 トヘロスは次の処理を行うコマンドだ：
+
   <itemizedlist>
     <listitem>
       <simpara>トヘロス系カウンター <varname>$7E3BA9</varname> をリセットする。</simpara>
@@ -232,6 +356,7 @@ TBW
       <simpara>せいすいフラグ <code>$7E3D2B &amp; #$0010</code> をリセットする。</simpara>
     </listitem>
   </itemizedlist>
+
 最後にメッセージ <literal>#$16B6</literal> を表示し、コマンドを終了する。
 </para>
 </section> <!-- dq6.spell_commands.desc.C3BDDE -->
@@ -247,7 +372,50 @@ TBW
 <section id="dq6.spell_commands.desc.C3BE24">
 <title>フローミ</title>
 <para>
-TBW
+フローミはパーティーが現在いる場所のメッセージを表示するコマンドだ。
+次のように処理する：
+
+  <itemizedlist>
+    <listitem>
+      <simpara>サブルーチン <varname>$C7CAFA</varname> を呼び出し、
+      フローミ名とフローミ階数を得る。
+      このフローミ階数がゼロだと、呪文に意味がない旨を示すメッセージ
+      (ID <literal>#$16C5</literal>) を表示してコマンドを終了する。
+      この場合 MP の返還処理はない。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>フローミ階数の符号により、表示メッセージを若干変える。
+      正数の場合は単に ID <literal>#$16C3</literal> のメッセージを出力する。
+      負数の場合はいわゆる二の補数で表現された値の絶対値を計算してから
+      ID <literal>#$16C4</literal> のメッセージを出力する。
+      </simpara>
+<programlisting>
+C3/BE59:    49FFFF      EOR #$FFFF          <co id="dq6.spell_comannds.desc.C3BE24.co.1" />
+C3/BE5C:    1A          INC A               <co id="dq6.spell_comannds.desc.C3BE24.co.2" />
+C3/BE5D:    8D2E5A      STA $5A2E           <co id="dq6.spell_comannds.desc.C3BE24.co.3" />
+C3/BE60:    AD305A      LDA $5A30           <co id="dq6.spell_comannds.desc.C3BE24.co.4" />
+C3/BE63:    2900FF      AND #$FF00
+C3/BE66:    8D305A      STA $5A30
+C3/BE69:    22C22DC0    JSR $C02DC2         <co id="dq6.spell_comannds.desc.C3BE24.co.5" />
+C3/BE6D:    C416
+</programlisting>
+<calloutlist>
+  <callout arearefs="dq6.spell_comannds.desc.C3BE24.co.1 dq6.spell_comannds.desc.C3BE24.co.2">
+    <simpara>情報処理試験の基本問題でよく見かけるように、
+    負の整数はそのビットを反転させて 1 を加えれば絶対値を得る。</simpara>
+  </callout>
+  <callout arearefs="dq6.spell_comannds.desc.C3BE24.co.3 dq6.spell_comannds.desc.C3BE24.co.4">
+    <simpara><varname>$5A2E</varname> は次のメッセージ中の [BB] に当てはめる値。
+    一方 <varname>$5A30</varname> はこの場合は無視してよい。</simpara>
+  </callout>
+  <callout arearefs="dq6.spell_comannds.desc.C3BE24.co.5">
+    <simpara>メッセージ <literal>#$16C4</literal>: ここは [B2]の[AD]地下[BB]階のようだ。</simpara>
+  </callout>
+</calloutlist>
+    </listitem>
+  </itemizedlist>
+
+どちらかのメッセージを出力した後、コマンドを終了する。
 </para>
 </section> <!-- dq6.spell_commands.desc.C3BE24 -->
 
@@ -269,6 +437,7 @@ TBW
 <title>しのびあし</title>
 <para>
 しのびあしは次の処理を行うコマンドだ：
+
   <itemizedlist>
     <listitem>
       <simpara>しのびあし歩数 <varname>$7E3BAD</varname> をリセットする。</simpara>
@@ -277,6 +446,7 @@ TBW
       <simpara>しのびあしフラグ <code>$7E3D2B &amp; #$0008</code> をセットする。</simpara>
     </listitem>
   </itemizedlist>
+
 最後にメッセージ <literal>#$16B6</literal> を表示し、コマンドを終了する。
 </para>
 </section> <!-- dq6.spell_commands.desc.C3BF55 -->
