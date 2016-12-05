@@ -2,7 +2,7 @@
 
 <section id="dq3.monmedal.dq4"><?dbhtml filename="dq3_monster_medal_dq4.html" ?>
 <title>ドラクエ4 のモンスターメダル</title>
-<indexterm><primary>モンスターメダル</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.monmedal.dq4"><primary>モンスターメダル</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	<acronym>GB</acronym> 版ドラクエ3 で密かに存在する「ドラクエ4 のモンスターメダル」について記す。
 	あまり多くは語らない。
@@ -72,7 +72,7 @@
 <para>
 	少し試行錯誤すればわかるが、以下のような構成に基づいてデータが定義されているらしいことが判明している：
 </para>
-<table class="lighttable">
+<table id="table.dq3.monmedal.memory.regions" class="lighttable">
 	<caption>モンスターメダルデータ領域</caption>
 	<thead>
 		<tr><th>データ</th>
@@ -129,7 +129,7 @@
 	という具合に、各オフセットの値を上書きすることで簡単に改造できる。
 </para>
 
-<figure>
+<figure id="fig.dq3.medal.dq4.069">
 	<title>メタルスライム (DQ4)</title>
 	<graphic width="160px" fileref="./image/dq3.medal.dq4.069.png"/>
 </figure>

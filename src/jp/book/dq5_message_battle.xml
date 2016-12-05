@@ -2,8 +2,8 @@
 
 <section id="dq5.message.battle"><?dbhtml filename="dq5_message_battle.html" ?>
 <title>戦闘モードメッセージ解析</title>
-<indexterm><primary>メッセージ</primary><secondary>DQ5</secondary></indexterm>
-<indexterm><primary>ハフマン符号化</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.message.battle"><primary>メッセージ</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.message.battle.coding"><primary>ハフマン符号化</primary><secondary>DQ5</secondary></indexterm>
 
 <para>
 	この節では、戦闘時に画面下側のウィンドウに表示されるメッセージ文字列を解析して判明したことを述べる。
@@ -309,7 +309,7 @@
 <section id="dq5.message.battle.tree">
 <title>ハフマン木の表現</title>
 
-<figure>
+<figure id="fig.dq5.message.battle.huffman.thumb">
 	<title>戦闘メッセージ文字列 ハフマン木（サムネイル）</title>
 	<graphic width="380px" fileref="./image/dq5.message.battle.huffman.thumb.png" />
 </figure>
@@ -354,7 +354,7 @@
 	</listitem>
 	<listitem>
 		<para>ノードを 2byte の構造体で表現している。メモリレイアウトは以下のようになっている</para>
-		<table class="memorylayout">
+		<table id="table.dq5.message.battle.tree" class="memorylayout">
 			<caption>メモリレイアウト</caption>
 			<colgroup>
 				<col span="1" width="12%" />
@@ -448,7 +448,7 @@
 	本節で扱ったサブルーチンおよびデータ領域を以下に表としてまとめておく。
 	また、メッセージをテキストファイルとして再現したものを <xref linkend="appendix.b" /> に置く。
 </para>
-<table class="lighttable">
+<table id="table.dq5.message.battle.summary" class="lighttable">
 	<caption>戦闘メッセージ解析</caption>
 	<thead>
 		<tr><th>アドレス</th><th>分類</th><th>役割</th></tr>

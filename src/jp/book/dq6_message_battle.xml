@@ -2,7 +2,7 @@
 
 <section id="dq6.message.battle"><?dbhtml filename="dq6_message_battle.html" ?>
 <title>戦闘メッセージ解析</title>
-<indexterm><primary>メッセージ</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.message.battle"><primary>メッセージ</primary><secondary>DQ6</secondary></indexterm>
 
 <section id="dq6.message.battle.hack">
 <title>解析手順</title>

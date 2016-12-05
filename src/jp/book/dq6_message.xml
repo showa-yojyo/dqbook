@@ -2,7 +2,7 @@
 
 <section id="dq6.message"><?dbhtml filename="dq6_message.html" ?>
 <title>メッセージ解析</title>
-<indexterm><primary>メッセージ</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.message"><primary>メッセージ</primary><secondary>DQ6</secondary></indexterm>
 
 <section id="dq6.message.hack">
 <title>解析手順</title>
@@ -281,7 +281,7 @@ $C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:00AC     00ACh は終端を意味
 	ここで、ドラクエビューア <xref linkend="dqref.url2"/> が出力する
 	<filename>SFC_DQ6gra.bmp</filename> のフォントテーブルと、「わ」「ん」等の位置＝インデックスを照合してみる。
 </para>
-<table class="lighttable">
+<table id="table.dq6.message.dog" class="lighttable">
 	<caption>わんっ！</caption>
 	<thead>
 		<tr><th>文字</th><th>A</th><th>BMP</th></tr>

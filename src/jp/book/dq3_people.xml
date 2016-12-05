@@ -2,7 +2,7 @@
 
 <section id="dq3.people"><?dbhtml filename="dq3_people.html" ?>
 <title>人オブジェクト</title>
-<indexterm><primary>人オブジェクト</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.people"><primary>人オブジェクト</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	この節で述べるのは、街の人々の振る舞いを定義するデータ構造体についてのみである。
 	主人公やルイーダの酒場で仲間にするキャラクターの特性やパラメータ構造体には触れないため、

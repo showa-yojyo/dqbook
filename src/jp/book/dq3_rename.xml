@@ -2,7 +2,7 @@
 
 <section id="dq3.rename"><?dbhtml filename="dq3_rename.html" ?>
 <title>命名神解析</title>
-<indexterm><primary>命名神</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.rename"><primary>命名神</primary><secondary>DQ3</secondary></indexterm>
 <para>
 本節ではドラクエ6 から引き継いだ機能である、パーティーキャラクターの名前を変更する処理について解析する。
 ドラクエ3 の場合はキャラクターのデフォルトの名前という概念がないので、

@@ -2,7 +2,7 @@
 
 <section id="dq6.item"><?dbhtml filename="dq6_item.html" ?>
 <title>アイテム解析</title>
-<indexterm><primary>アイテム</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.item"><primary>アイテム</primary><secondary>DQ6</secondary></indexterm>
 <para>
 	アイテムデータの解析を行う。
 	なお、アイテムデータは既に先人の手によって解明されているため、
@@ -282,7 +282,7 @@ C3/C71A:    60          RTS
 <para>
 	構造体一個あたりのデータ格納レイアウトを以下に示す。
 </para>
-<table class="memorylayout">
+<table id="table.dq6.C4003D" class="memorylayout">
 	<caption>$C4003D アイテム構造体 メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -372,7 +372,7 @@ C3/C71A:    60          RTS
 				アイテムのおおまかな分類を示す値だ。
 				意味は次の通り。
 			</para>
-			<table class="lighttable">
+			<table id="table.dq6.C4003D.kind" class="lighttable">
 				<caption>品目分類</caption>
 				<thead>
 					<tr><th>値</th><th>分類</th></tr>
@@ -399,7 +399,7 @@ C3/C71A:    60          RTS
 				装備時にどのパラメータのポイントが上昇するのかを表す。
 				値とパラメータの対応は次の通り。
 			</para>
-			<table class="lighttable">
+			<table id="table.dq6.C4003D.param" class="lighttable">
 				<caption>パラメータ分類</caption>
 				<thead>
 					<tr><th>値</th><th>分類</th></tr>

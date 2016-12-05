@@ -2,7 +2,7 @@
 
 <section id="dq5.data.chara.monster.init"><?dbhtml filename="dq5_chara_monster_init.html" ?>
 <title>仲間モンスターパラメータ初期値表</title>
-<indexterm><primary>キャラクター</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.data.chara.monster.init"><primary>キャラクター</primary><secondary>DQ5</secondary></indexterm>
 <para> 
 	ROM アドレス $23AED1 (イメージファイルオフセット $11AED1) に、
 	9 byte データの配列がある。サイズは 42 である。
@@ -14,7 +14,7 @@
 <para> 
 	仲間モンスターパラメータ初期値構造体のメモリレイアウトは以下のとおり。
 </para>
-<table class="memorylayout">
+<table id="table.dq5.23AED1" class="memorylayout">
 	<caption>仲間モンスターパラメータ初期値構造体</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -139,7 +139,7 @@
 <para>
 	仲間モンスターパラメータ初期値構造体データを以下に示す。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23AED1.view" class="lighttable">
 	<caption>仲間モンスターパラメータ初期値</caption>
 	<thead>
 		<tr>

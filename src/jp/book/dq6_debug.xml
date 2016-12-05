@@ -2,7 +2,7 @@
 
 <section id="dq6.debug"><?dbhtml filename="dq6_debug.html" ?>
 <title>デバッグモード</title>
-<indexterm><primary>デバッグモード</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.debug"><primary>デバッグモード</primary><secondary>DQ6</secondary></indexterm>
 
 <section id="dq6.debug.intro">
 <title>デバッグモードとは</title>
@@ -154,7 +154,7 @@
 各項目に対応する選択イベントハンドラーのマッピングが示すコードに基いて、
 各イベントハンドラーの振る舞いを簡単に説明する。
 </para>
-<figure>
+<figure id="fig.dq6.debug.menu">
   <title>デバッグメニュー</title>
   <graphic width="240px" fileref="./image/dq6.debug.menu.png"/>
 </figure>
@@ -166,7 +166,7 @@
 パーティーを指定する場所へ移動するコマンドだ。
 ルーラを利用できるメンバーがいなくてもよいし、MP がなくてもよい。
 </para>
-<figure>
+<figure id="fig.dq6.debug.menu.location">
   <title>いんちきルーラ</title>
   <graphic width="240px" fileref="./image/dq6.debug.menu.location.png"/>
 </figure>
@@ -197,7 +197,7 @@
 パーティーメンバーを一人指定して、職業レベルとキャラクターレベルの設定を行うコマンドだ。
 ただし挙動に少々くせがある。
 </para>
-<figure>
+<figure id="fig.dq6.debug.menu.level">
   <title>レべルアップ</title>
   <graphic width="240px" fileref="./image/dq6.debug.menu.level.png"/>
 </figure>
@@ -252,7 +252,7 @@
 パーティーメンバーを一人指定して、健康状態を設定するコマンドだ。
 状態を「しに」「ねむり」「どく」「もうどく」から一つ選べる。
 </para>
-<figure>
+<figure id="fig.dq6.debug.menu.status">
   <title>ひとじょうたい</title>
   <graphic width="240px" fileref="./image/dq6.debug.menu.status.png"/>
 </figure>
@@ -262,7 +262,7 @@
 <title>ゲームじょうたい</title>
 <para>
 次に示す各状態を示すウィンドウを表示するコマンドだ。
-  <figure>
+  <figure id="fig.dq6.debug.menu.context">
     <title>ゲームじょうたい</title>
     <graphic width="240px" fileref="./image/dq6.debug.menu.context.png"/>
   </figure>
@@ -354,7 +354,7 @@
 <title>いんちきせってい</title>
 <para>
 以下の項目を列挙するサブウィンドウを表示する。
-  <figure>
+  <figure id="fig.dq6.debug.menu.cheat">
     <title>いんちきせってい</title>
     <graphic width="240px" fileref="./image/dq6.debug.menu.cheat.png"/>
   </figure>
@@ -405,7 +405,7 @@
           「いいえ」を選択するか、またはウィンドウをキャンセルすると、
           移動時に移動時に <keycap>R</keycap> ボタンを押すことで、もし所持していれば地図が表示されるようになる。
         </simpara>
-        <figure>
+        <figure id="fig.dq6.debug.coords">
           <title>ざひょう</title>
           <graphic width="240px" fileref="./image/dq6.debug.coords.png"/>
         </figure>
@@ -443,7 +443,7 @@
 
 <section id="dq6.debug.floor">
 <title>デバッグフロア</title>
-<indexterm><primary>デバッグフロア</primary></indexterm>
+<indexterm id="term.dq6.debug.floor"><primary>デバッグフロア</primary></indexterm>
 <para>
 この節ではデバッグコマンドが「インチキフロア」や「テスト」と呼ぶ部屋群について、
 そこへのアクセス手段および部屋群の概要を述べる。
@@ -479,7 +479,7 @@
 最初に、以下のコードを移動モード時に入力する。
 <literal>2</literal> バイト型としてセットする。
 </para>
-<table class="lighttable">
+<table id="table.dq6.debug.floor.access.floor" class="lighttable">
   <caption>フロア ID を改造</caption>
   <thead>
     <tr><th>アドレス</th><th>値</th></tr>
@@ -509,7 +509,7 @@
 すると<link linkend="dq6.debug.floor.0286">デバッグフロアのメインフロア</link>に出てくる。
 神父のセリフが終わったら、コードを OFF にする。
 </para>
-<table class="lighttable">
+<table id="table.dq6.debug.floor.access.reset" class="lighttable">
   <caption>$7E3E65 = 78h</caption>
   <thead>
     <tr><th>アドレス</th><th>値</th></tr>
@@ -535,7 +535,7 @@
 <code>$7E5E8E=86h, $7E5E8F=02h</code>
 とセットすればよい。
 </para>
-<table class="lighttable">
+<table id="table.dq6.debug.floor.code" class="lighttable">
   <caption>PAR コード</caption>
   <thead>
     <tr><th>コード</th><th>場所</th></tr>
@@ -565,7 +565,7 @@
 <para>
 このフロアではいろいろなことができるだけでなく、他のデバッグフロアに対するターミナルでもある。
 </para>
-<figure>
+<figure id="fig.dq6_f0286">
   <title>フロア <literal>#$0286</literal></title>
   <graphic width="240px" fileref="./image/dq6_f0286.png"/>
 </figure>
@@ -608,7 +608,7 @@
 バーテン。
 非常にマニアックな品揃えの道具の店だ。
 </para>
-<figure>
+<figure id="fig.dq6_f0286_02">
   <title>フロア <literal>#$0286</literal> の道具屋</title>
   <graphic width="240px" fileref="./image/dq6_f0286_02.png"/>
 </figure>
@@ -621,7 +621,7 @@ HP と MP と状態を回復し、
 最後に職業経験値を最大にする処理がなされる。
 再現条件が不明だが、この最後の処理でフリーズすることがある。
 </para>
-<figure>
+<figure id="fig.dq6_f0286_01">
   <title>フロア <literal>#$0286</literal> 画面右の青服の娘</title>
   <graphic width="240px" fileref="./image/dq6_f0286_01.png"/>
 </figure>
@@ -641,7 +641,7 @@ HP と MP と状態を回復し、
 「いいえ」で
 「どうせ その気が おきないのなら 捨てればいいのよ そんなもの。」となる。
 </para>
-<figure>
+<figure id="fig.dq6_f0286_03">
   <title>フロア <literal>#$0286</literal> 画面左の青服の娘</title>
   <graphic width="240px" fileref="./image/dq6_f0286_03.png"/>
 </figure>
@@ -655,7 +655,7 @@ HP と MP と状態を回復し、
 「はい」でラスボス直前の扉の前に移動させられる。
 なにもしないように返事をすると「いくぢなし……」となる。
 </para>
-<figure>
+<figure id="fig.dq6_f0286_04">
   <title>フロア <literal>#$0286</literal> 画面左の赤服の娘</title>
   <graphic width="240px" fileref="./image/dq6_f0286_04.png"/>
 </figure>
@@ -665,7 +665,7 @@ HP と MP と状態を回復し、
 → とりわけ デバッガーの方は えんりょして下さいね。」
 ちなみにここから先は<link linkend="dq6.debug.floor.028B">フラグチェック用フロア</link>だ。
 </para>
-<figure>
+<figure id="fig.dq6_f0286_05">
   <title>フロア <literal>#$0286</literal> 立入禁止の男</title>
   <graphic width="240px" fileref="./image/dq6_f0286_05.png"/>
 </figure>
@@ -673,7 +673,7 @@ HP と MP と状態を回復し、
 青服娘とバニーの間のテーブルは実は宝箱になっている。
 ここを調べるたびに「ちいさなメダル」が一枚入手できる。
 </para>
-<figure>
+<figure id="fig.dq6_f0286_chest">
   <title>フロア <literal>#$0286</literal> 宝箱</title>
   <graphic width="240px" fileref="./image/dq6_f0286_chest.png"/>
 </figure>
@@ -690,7 +690,7 @@ BGM はカジノのものと同じだ。
 一画面におさまるくらいの広さの部屋に、整然と井戸が <literal>10</literal> 個配置されている。
 それぞれに <literal>F01</literal> から <literal>F10</literal> まで名前がついている。
 </para>
-<figure>
+<figure id="fig.dq6_f0287">
   <title>フロア <literal>#$0287</literal></title>
   <graphic width="240px" fileref="./image/dq6_f0287.png"/>
 </figure>
@@ -702,11 +702,11 @@ BGM はカジノのものと同じだ。
 <literal>F04</literal> は海底フィールドの海底神殿の前にそれぞれ画面が切り替わる。
 それも通常のフィールドではなく、何かのチェック用に色がついている。
 </para>
-<figure>
+<figure id="fig.dq6_f0287_02">
   <title>フィールドがカラフル</title>
   <graphic width="240px" fileref="./image/dq6_f0287_02.png"/>
 </figure>
-<figure>
+<figure id="fig.dq6_f0287_04">
   <title>海底がカラフル</title>
   <graphic width="240px" fileref="./image/dq6_f0287_04.png"/>
 </figure>
@@ -725,7 +725,7 @@ BGM は冒険の書メニューのものと同じだ。
 なんか空の背景が映り込んでいる。
 ランドっぽい男が <literal>5</literal> 人とネコ <literal>1</literal> 匹がいる。
 </para>
-<figure>
+<figure id="fig.dq6_f0288_01">
   <title>フロア <literal>#$0288</literal></title>
   <graphic width="240px" fileref="./image/dq6_f0288_01.png"/>
 </figure>
@@ -750,7 +750,7 @@ BGM は冒険の書メニューのものと同じだ。
 <para>
 操作方法が独特で、モンスターの変更に <keycap>L</keycap> と <keycap>R</keycap> ボタンを用いる。
 </para>
-<figure>
+<figure id="fig.dq6_f0288_02">
   <title>モンスターアニメーション</title>
   <graphic width="256px" fileref="./image/dq6_f0288_02.png"/>
 </figure>
@@ -774,7 +774,7 @@ BGM はカジノのものと同じだ。
 
 <section id="dq6.debug.floor.0289">
 <title>戦闘デバッグ用フロア</title>
-<figure>
+<figure id="fig.dq6_f0289">
   <title>フロア <literal>#$0289</literal></title>
   <graphic width="240px" fileref="./image/dq6_f0289.png"/>
 </figure>
@@ -797,7 +797,7 @@ BGM はカジノのものと同じだ。
 さらに背景指定ウインドウが出る。
 決定後戦闘シーンに突入する。
 </para>
-<figure>
+<figure id="fig.dq6_f0289_02">
 <title>モンスター数の入力</title>
 <graphic width="240px" fileref="./image/dq6_f0289_02.png"/>
 </figure>
@@ -805,7 +805,7 @@ BGM はカジノのものと同じだ。
 神父は教会と同じ。冒険の書に記録すると、場所が「テスト」になる。
 リセットして再開するとこの場所からゲーム再開になる。
 </para>
-<figure>
+<figure id="fig.dq6_f0289_03">
   <title>冒険の書リスト</title>
   <graphic width="240px" fileref="./image/dq6_f0289_03.png"/>
 </figure>
@@ -830,11 +830,11 @@ BGM は洞窟のものと同じだ。
 教会（神父）、命名神につかえる神官、教会（シスター）、ゴールド銀行、おしゃれなカジヤ、宿屋、
 そして最後に何かのデバッグ用の老人がいる。
 </para>
-<figure>
+<figure id="fig.dq6_f028A_01">
   <title>フロア <literal>#$028A</literal></title>
   <graphic width="240px" fileref="./image/dq6_f028A_01.png"/>
   </figure>
-<figure>
+<figure id="fig.dq6_f028A_02">
   <title>スライムに 転職できるフラグを たてますか？</title>
   <graphic width="240px" fileref="./image/dq6_f028A_02.png"/>
 </figure>
@@ -842,7 +842,7 @@ BGM は洞窟のものと同じだ。
 それぞれの店の品揃えは次の通り。
 宿屋はひとり <literal>2</literal> ゴールドだ。
 </para>
-<table class="lighttable">
+<table id="table.dq6.debug.floor.028A" class="lighttable">
   <caption>店屋メニュー</caption>
   <thead>
     <tr><th>店の種類</th><th>アイテム</th></tr>
@@ -894,7 +894,7 @@ BGM は街のものと同じだ。
 
 <section id="dq6.debug.floor.028B">
 <title>フラグチェック用フロア（モンスターと男）</title>
-<figure>
+<figure id="fig.dq6_f028B">
   <title>フロア <literal>#$028B</literal></title>
   <graphic width="240px" fileref="./image/dq6_f028B.png"/>
 </figure>
@@ -906,7 +906,7 @@ BGM は街のものと同じだ。
 <para>
 このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq6.debug.floor.028B" class="lighttable">
   <caption>フラグチェック用フロア（モンスターと男）</caption>
   <thead>
     <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
@@ -933,7 +933,7 @@ BGM は街のものと同じだ。
 
 <section id="dq6.debug.floor.028C">
 <title>フラグチェック用フロア（モンスターと青い服の女）</title>
-<figure>
+<figure id="fig.dq6_f028C">
   <title>フロア <literal>#$028C</literal></title>
   <graphic width="240px" fileref="./image/dq6_f028C.png"/>
 </figure>
@@ -945,7 +945,7 @@ BGM は街のものと同じだ。
 <para>
 このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq6.debug.floor.028C" class="lighttable">
   <caption>フラグチェック用フロア（モンスターと青い服の女）</caption>
   <thead>
     <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
@@ -972,7 +972,7 @@ BGM は街のものと同じだ。
 
 <section id="dq6.debug.floor.028D">
 <title>フラグチェック用フロア（モンスターとターニア）</title>
-<figure>
+<figure id="fig.dq6_f028D">
   <title>フロア <literal>#$028D</literal></title>
   <graphic width="240px" fileref="./image/dq6_f028D.png"/>
 </figure>
@@ -984,7 +984,7 @@ BGM は街のものと同じだ。
 <para>
 このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq6.debug.floor.028D" class="lighttable">
   <caption>フラグチェック用フロア（モンスターとターニア）</caption>
   <thead>
     <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
@@ -1011,7 +1011,7 @@ BGM は街のものと同じだ。
 
 <section id="dq6.debug.floor.028E">
 <title>フラグチェック用フロア（老人）</title>
-<figure>
+<figure id="fig.dq6_f028E">
   <title>フロア <literal>#$028E</literal></title>
   <graphic width="240px" fileref="./image/dq6_f028E.png"/>
 </figure>
@@ -1023,7 +1023,7 @@ BGM は街のものと同じだ。
 <para>
 このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq6.debug.floor.028E" class="lighttable">
   <caption>フラグチェック用フロア（老人）</caption>
   <thead>
     <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
@@ -1050,7 +1050,7 @@ BGM は街のものと同じだ。
 
 <section id="dq6.debug.floor.028F">
 <title>フラグチェック用フロア（アモス）</title>
-<figure>
+<figure id="fig.dq6_f028F">
   <title>フロア <literal>#$028F</literal></title>
   <graphic width="240px" fileref="./image/dq6_f028F.png"/>
 </figure>
@@ -1062,7 +1062,7 @@ BGM は街のものと同じだ。
 <para>
 このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq6.debug.floor.028F" class="lighttable">
   <caption>フラグチェック用フロア（アモス）</caption>
   <thead>
     <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
@@ -1090,7 +1090,7 @@ BGM は街のものと同じだ。
 
 <section id="dq6.debug.floor.0290">
 <title>フラグチェック用フロア（ミレーユ）</title>
-<figure>
+<figure id="fig.dq6_f0290">
   <title>フロア <literal>#$0290</literal></title>
   <graphic width="240px" fileref="./image/dq6_f0290.png"/>
 </figure>
@@ -1102,7 +1102,7 @@ BGM は街のものと同じだ。
 <para>
 このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq6.debug.floor.0290" class="lighttable">
   <caption>フラグチェック用フロア（ミレーユ）</caption>
   <thead>
     <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
@@ -1129,7 +1129,7 @@ BGM は街のものと同じだ。
 
 <section id="dq6.debug.floor.0291">
 <title>フラグチェック用フロア（人魚）</title>
-<figure>
+<figure id="fig.dq6_f0291">
   <title>フロア <literal>#$0291</literal></title>
   <graphic width="240px" fileref="./image/dq6_f0291.png"/>
 </figure>
@@ -1141,7 +1141,7 @@ BGM は街のものと同じだ。
 <para>
 このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq6.debug.floor.0291" class="lighttable">
   <caption>フラグチェック用フロア（人魚）</caption>
   <thead>
     <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
@@ -1203,7 +1203,7 @@ BGM は街のものと同じだ。
 
 <section id="dq6.debug.floor.0292">
 <title>フラグチェック用フロア（ホルス）</title>
-<figure>
+<figure id="fig.dq6_f0292">
   <title>フロア <literal>#$0292</literal></title>
   <graphic width="240px" fileref="./image/dq6_f0292.png"/>
 </figure>
@@ -1216,7 +1216,7 @@ BGM は街のものと同じだ。
 <para>
 このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq6.debug.floor.0292" class="lighttable">
   <caption>フラグチェック用フロア（ホルス）</caption>
   <thead>
     <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
@@ -1243,7 +1243,7 @@ BGM は街のものと同じだ。
 
 <section id="dq6.debug.floor.0293">
 <title>フラグチェック用フロア（ランド）</title>
-<figure>
+<figure id="fig.dq6_f0293">
   <title>フロア <literal>#$0293</literal></title>
   <graphic width="240px" fileref="./image/dq6_f0293.png"/>
 </figure>
@@ -1255,7 +1255,7 @@ BGM は街のものと同じだ。
 <para>
 このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq6.debug.floor.0293" class="lighttable">
   <caption>フラグチェック用フロア（ランド）</caption>
   <thead>
     <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
@@ -1282,7 +1282,7 @@ BGM は街のものと同じだ。
 
 <section id="dq6.debug.floor.0294">
 <title>フラグチェック用フロア（王さま）</title>
-<figure>
+<figure id="fig.dq6_f0294">
   <title>フロア <literal>#$0294</literal></title>
   <graphic width="240px" fileref="./image/dq6_f0294.png"/>
 </figure>
@@ -1294,7 +1294,7 @@ BGM は街のものと同じだ。
 <para>
 このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq6.debug.floor.0294" class="lighttable">
   <caption>フラグチェック用フロア（王さま）</caption>
   <thead>
     <tr><th>セリフ</th><th>「はい」と答えると</th></tr>

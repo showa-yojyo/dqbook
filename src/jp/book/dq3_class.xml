@@ -2,9 +2,9 @@
 
 <section id="dq3.class"><?dbhtml filename="dq3_class.html" ?>
 <title>職業構造体解析</title>
-<indexterm><primary>職業</primary><secondary>DQ3</secondary></indexterm>
-<indexterm><primary>レベル</primary><secondary>DQ3</secondary></indexterm>
-<indexterm><primary>キャラクター</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.class.1"><primary>職業</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.class.2"><primary>レベル</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.class.3"><primary>キャラクター</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	職業構造体（a.k.a. レベルアップ構造体）<varname>$C4179E</varname> のメンバー解析を行う。
 </para>
@@ -33,7 +33,7 @@
 	巨大な構造体であるので、記述を一部簡略化してある。
 </para>
 
-<table class="memorylayout">
+<table id="table.dq3.C4179E" class="memorylayout">
 	<caption>$C4179E 職業構造体</caption>
 	<colgroup>
 		<col span="1" width="12%"/>

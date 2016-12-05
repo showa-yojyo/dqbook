@@ -2,7 +2,7 @@
 
 <section id="dq3.pond"><?dbhtml filename="dq3_pond.html" ?>
 <title>オルレラの泉</title>
-<indexterm><primary>オルレラの泉</primary></indexterm>
+<indexterm id="term.dq3.pond"><primary>オルレラの泉</primary></indexterm>
 
 <caution>
 <para>

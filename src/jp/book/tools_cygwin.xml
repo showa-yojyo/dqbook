@@ -2,9 +2,9 @@
 
 <section id="tools.cygwin"><?dbhtml filename="tools_cygwin.html" ?>
 <title>Cygwin</title>
-<indexterm><primary>Cygwin</primary></indexterm>
+<indexterm id="term.cygwin"><primary>Cygwin</primary></indexterm>
 
-<figure>
+<figure id="fig.tools.cygwin">
 	<title>Cygwin Console Window</title>
 	<graphic width="472px" fileref="./image/tools.cygwin.png"/>
 </figure>
@@ -39,7 +39,7 @@
 
 <section id="tools.cygwin.radix">
 <title>基数変換ツールとして利用</title>
-<indexterm><primary>printf</primary><secondary>Cygwin</secondary></indexterm>
+<indexterm id="term.printf"><primary>printf</primary><secondary>Cygwin</secondary></indexterm>
 
 <para>
 	C/C++ の関数相当の機能を有する <command>printf</command> コマンドを利用することができる。
@@ -66,7 +66,7 @@ F4240 <co id="tools.cygwin.radix.co.2"/>
 
 <section id="tools.cygwin.seq">
 <title>連番生成ツールとして利用</title>
-<indexterm><primary>seq</primary><secondary>Cygwin</secondary></indexterm>
+<indexterm id="term.seq"><primary>seq</primary><secondary>Cygwin</secondary></indexterm>
 <para>
 	しばしば連番をテキストファイルにコメントしておきたい状況になる。
 	そういう場合にはエクセルを起動でも構わぬが、好みで <command>seq</command> を用いる。
@@ -122,7 +122,7 @@ F4240 <co id="tools.cygwin.radix.co.2"/>
 
 <section id="tools.cygwin.od">
 <title>構造体データ配列をテキストダンプする</title>
-<indexterm><primary>od</primary><secondary>Cygwin</secondary></indexterm>
+<indexterm id="term.od"><primary>od</primary><secondary>Cygwin</secondary></indexterm>
 
 <para>
 	ドラクエのスーファミ ROM イメージから、特定の構造体データ配列をすべてテキストダンプしたいことがある。

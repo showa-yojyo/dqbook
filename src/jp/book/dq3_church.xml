@@ -2,7 +2,7 @@
 
 <section id="dq3.church"><?dbhtml filename="dq3_church.html" ?>
 <title>教会解析</title>
-<indexterm><primary>教会</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.church"><primary>教会</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	教会にいる神父や（ドラクエ3 では稀だが）シスターに「はなす」ときのプログラムを解析する。
 	教会の仕事は仲間パーティーの状態異常を回復するという、非常にわかりやすいものだ。

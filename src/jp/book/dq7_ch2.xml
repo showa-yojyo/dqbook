@@ -2,7 +2,7 @@
 
 <section id="dq7.chara.kiefer"><?dbhtml filename="dq7_ch2.html" ?>
 <title>キーファ</title>
-<indexterm><primary>キャラクター</primary><secondary>DQ7 キーファ</secondary></indexterm>
+<indexterm id="term.dq7.chara.kiefer"><primary>キャラクター</primary><secondary>DQ7 キーファ</secondary></indexterm>
 <para>
 	キーファはストーリーの途中でパーティを離脱するため、極めるプレイヤーは多くない。
 	そこで改造等の汚い手を使い、通常ならできないようなことを試してみた。
@@ -18,7 +18,7 @@
 <para>
 	次の表は、キーファが習得する呪文または特技の、到達レベルと呪文または特技の名前の一覧である。
 </para>
-<table class="lighttable">
+<table id="table.dq7.chara.kiefer.spell" class="lighttable">
 	<caption>キーファ 呪文習得レベル</caption>
 	<thead>
 		<tr><th>レベル</th><th>呪文/特技</th></tr>
@@ -51,7 +51,7 @@
 
 <section id="dq7.chara.kiefer.equip.weapon">
 <title>武器</title>
-<table class="lighttable">
+<table id="table.dq7.chara.kiefer.equip.weapon" class="lighttable">
 	<caption>キーファ 装備可能な武器一覧</caption>
 	<thead>
 		<tr><th>アイテム名</th><th>攻撃力</th></tr>
@@ -73,7 +73,7 @@
 
 <section id="dq7.chara.kiefer.equip.armor">
 <title>鎧</title>
-<table class="lighttable">
+<table id="table.dq7.chara.kiefer.equip.armor" class="lighttable">
 	<caption>キーファ 装備可能な鎧一覧</caption>
 	<thead>
 		<tr><th>アイテム名</th><th>攻撃力</th></tr>
@@ -95,7 +95,7 @@
 
 <section id="dq7.chara.kiefer.equip.shield">
 <title>盾</title>
-<table class="lighttable">
+<table id="table.dq7.chara.kiefer.equip.shield" class="lighttable">
 	<caption>キーファ 装備可能な盾一覧</caption>
 	<thead>
 		<tr><th>アイテム名</th><th>攻撃力</th></tr>
@@ -112,7 +112,7 @@
 
 <section id="dq7.chara.kiefer.equip.helmet">
 <title>兜</title>
-<table class="lighttable">
+<table id="table.dq7.chara.kiefer.equip.helmet" class="lighttable">
 	<caption>キーファ 装備可能な兜一覧</caption>
 	<thead>
 		<tr><th>アイテム名</th><th>攻撃力</th></tr>
@@ -130,7 +130,7 @@
 
 <section id="dq7.chara.kiefer.param">
 <title>レベルパラメータ対応表</title>
-<indexterm><primary>レベル</primary><secondary>DQ7 キーファ</secondary></indexterm>
+<indexterm id="term.dq7.chara.kiefer.param"><primary>レベル</primary><secondary>DQ7 キーファ</secondary></indexterm>
 <para>
 	キーファの各レベルにおける
 	「ちから」「さいだい HP」などの各種パラメータおよび、

@@ -2,8 +2,8 @@
 
 <section id="dq3.king"><?dbhtml filename="dq3_king.html" ?>
 <title>王様解析</title>
-<indexterm><primary>王様</primary></indexterm>
-<indexterm><primary>冒険の書</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.king"><primary>王様</primary></indexterm>
+<indexterm id="term.dq3.save.king"><primary>冒険の書</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	いろいろな国の城の王様・女王様に話すと、一言二言しゃべったあとにおなじみの処理に入る。
 	すなわち、パーティの各メンバーについて、次のレベルになるまでに必要な経験値を教えてから、

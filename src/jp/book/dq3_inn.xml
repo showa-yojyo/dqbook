@@ -2,7 +2,7 @@
 
 <section id="dq3.inn"><?dbhtml filename="dq3_inn.html" ?>
 <title>宿屋解析</title>
-<indexterm><primary>宿屋</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.inn"><primary>宿屋</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	ドラクエ3 では宿屋の処理は三種類存在する。
 	街中にある宿屋、
@@ -235,7 +235,7 @@
 <para>
 	宿屋構造体 <varname>$C30A98</varname> のメモリレイアウトは以下の通り。
 </para>
-<table class="memorylayout">
+<table id="table.dq3.C3D2DB" class="memorylayout">
 	<caption>$C30A98 宿屋構造体</caption>
 	<colgroup>
 		<col span="1" width="12%"/>

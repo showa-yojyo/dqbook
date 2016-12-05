@@ -2,7 +2,7 @@
 
 <section id="dq5.data.chara.spell"><?dbhtml filename="dq5_chara_spell.html" ?>
 <title>各キャラクター呪文・特技表</title>
-<indexterm><primary>キャラクター</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.data.chara.spell"><primary>キャラクター</primary><secondary>DQ5</secondary></indexterm>
 <para> 
 	ROM アドレス $23BD53 (イメージファイルオフセット $11BD53) に、
 	2 byte データの配列がある。サイズは 53 である。
@@ -18,7 +18,7 @@
 	それらの値をじゅもん・とくぎの名前に置き換えて表現したものである。
 	なお、キャラクター名の項目は、読みやすさのために追加したものである。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23BD53" class="lighttable">
 	<caption>各キャラクター呪文・特技表（移動時）</caption>
 	<thead>
 		<tr>
@@ -94,7 +94,7 @@
 <para>
 	戦闘時に使用するじゅもん・とくぎの一覧は次のとおりである。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23BDBD" class="lighttable">
 	<caption>キャラクター呪文・特技表（戦闘時）</caption>
 	<thead>
 		<tr>

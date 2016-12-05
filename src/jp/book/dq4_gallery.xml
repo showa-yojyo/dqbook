@@ -2,14 +2,14 @@
 
 <section id="dq4.gallery"><?dbhtml filename="dq4_gallery.html" ?>
 <title>バカ画像</title>
-<indexterm><primary>バカ画像</primary><secondary>DQ4</secondary></indexterm>
+<indexterm id="term.dq4.gallery"><primary>バカ画像</primary><secondary>DQ4</secondary></indexterm>
 <para>
 	特殊な方法で撮影に成功した珍画像を披露する。
 </para>
 
 <section id="dq4.gallery.brey">
 <title>悩殺ブライ</title>
-<figure>
+<figure id="fig.dq4_05">
 	<title>悩殺ブライ</title>
 	<graphic width="256px" fileref="./image/dq4_05.png"/>
 </figure>
@@ -23,7 +23,7 @@
 
 <section id="dq4.gallery.armorshop">
 <title>謎の防具屋</title>
-<figure>
+<figure id="fig.dq4_01">
 	<title>謎の防具屋</title>
 	<graphic width="256px" fileref="./image/dq4_01.png"/>
 </figure>
@@ -42,7 +42,7 @@
 
 <section id="dq4.gallery.rosa">
 <title>ロザリー無限増殖</title>
-<figure>
+<figure id="fig.dq4_02">
 	<title>ロザリー無限増殖</title>
 	<graphic width="256px" fileref="./image/dq4_02.png"/>
 </figure>
@@ -62,9 +62,9 @@
 
 <section id="dq4.gallery.cheat-king">
 <title>うらわざ改造王</title>
-<indexterm><primary>うらわざ改造王</primary></indexterm>
-<indexterm><primary>改造コードの星</primary></indexterm>
-<figure>
+<indexterm id="term.dq4.gallery.cheat-king"><primary>うらわざ改造王</primary></indexterm>
+<indexterm id="term.dq4.gallery.cheat-star"><primary>改造コードの星</primary></indexterm>
+<figure id="fig.dq4_03">
 	<title>うらわざ改造王</title>
 	<graphic width="256px" fileref="./image/dq4_03.png"/>
 </figure>
@@ -80,7 +80,7 @@
 
 <section id="dq4.gallery.npc">
 <title>NPC を人質にすると</title>
-<figure>
+<figure id="fig.dq4_04">
 	<title>NPCを人質にすると</title>
 	<graphic width="256px" fileref="./image/dq4_04.png"/>
 </figure>

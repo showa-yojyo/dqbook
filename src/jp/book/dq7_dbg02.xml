@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<section id="dq7.data.dokodemo"><?dbhtml filename="dq7_dbg02.html" ?>
+<section id="dq7.data.anywhere"><?dbhtml filename="dq7_dbg02.html" ?>
 <title>どこでもルーラ</title>
-<indexterm><primary>デバッグモード</primary><secondary>どこでもルーラ</secondary></indexterm>
-<indexterm><primary>どこでもルーラ</primary></indexterm>
+<indexterm id="term.dq7.data.anywhere.1"><primary>デバッグモード</primary><secondary>どこでもルーラ</secondary></indexterm>
+<indexterm id="term.dq7.data.anywhere.2"><primary>どこでもルーラ</primary></indexterm>
 <para>
 	<xref linkend="appendix.b" />
 </para>

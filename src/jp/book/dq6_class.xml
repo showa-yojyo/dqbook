@@ -2,7 +2,7 @@
 
 <section id="dq6.class"><?dbhtml filename="dq6_class.html" ?>
 <title>職業解析</title>
-<indexterm><primary>職業</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.class"><primary>職業</primary><secondary>DQ6</secondary></indexterm>
 <para>
 	職業データの解析を行う。
 	ここでは、職業データがアドレス <varname>$C41C3E</varname> に存在することが判明してからの解析作業の解説に絞る。
@@ -59,7 +59,7 @@ C4/262A:    8A25  // 14: なし
 	構造体一個あたりのデータ格納レイアウトを以下に示す。
 	なお、丸かっこ内の数字は各データが占有するバイト長を示す。
 </para>
-<table class="memorylayout">
+<table id="table.dq6.C41C3E" class="memorylayout">
 	<caption>$C41C3E  職業構造体 メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>

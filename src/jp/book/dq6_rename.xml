@@ -2,7 +2,7 @@
 
 <section id="dq6.rename"><?dbhtml filename="dq6_rename.html" ?>
 <title>命名神解析</title>
-<indexterm><primary>命名神</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.rename"><primary>命名神</primary><secondary>DQ6</secondary></indexterm>
 <para>
 	ここでは、命名神の処理について述べる。
 	特に、変な名前をつけようと試みるときの展開に注目したい。

@@ -2,7 +2,7 @@
 
 <section id="dq3.str"><?dbhtml filename="dq3_str.html" ?>
 <title>文字列</title>
-<indexterm><primary>文字列</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.str"><primary>文字列</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	ドラクエ3 の文字列データ解析および結果について説明する。
 </para>

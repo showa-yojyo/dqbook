@@ -2,7 +2,7 @@
 
 <section id="dq3.pub"><?dbhtml filename="dq3_pub.html" ?>
 <title>ルイーダの酒場解析</title>
-<indexterm><primary>ルイーダの酒場</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.pub"><primary>ルイーダの酒場</primary><secondary>DQ3</secondary></indexterm>
 <para>
 本節ではルイーダの酒場での定型処理を解析する。
 つまり、パーティーにいる仲間キャラクターを酒場から呼び出したり、

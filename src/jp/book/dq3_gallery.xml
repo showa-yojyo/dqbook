@@ -2,7 +2,7 @@
 
 <section id="dq3.gallery"><?dbhtml filename="dq3_gallery.html" ?>
 <title>バカ画像</title>
-<indexterm><primary>バカ画像</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.gallery"><primary>バカ画像</primary><secondary>DQ3</secondary></indexterm>
 <para>
 本節では特殊な方法で撮影に成功した珍画像の数々を披露する。
 </para>
@@ -13,7 +13,7 @@
 <section id="dq3.gallery.ortega.kinghydra">
 <title>Feat. キングヒドラ</title>
 
-<figure>
+<figure id="fig.dq3_57">
 	<title>オルテガ V.S. キングヒドラ</title>
 	<graphic width="248px" fileref="./image/dq3_57.png"/>
 </figure>
@@ -38,7 +38,7 @@
 デイン系の耐性があるとはさすが勇者。
 ゲーム中で一切参照されないはずの、こんな細かい耐性データ設定まで実装している芸の細かさに驚愕。
 </para>
-<figure>
+<figure id="fig.dq3_58">
 	<title>オルテガの攻撃</title>
 	<graphic width="248px" fileref="./image/dq3_58.png"/>
 </figure>
@@ -51,7 +51,7 @@
 
 <section id="dq3.gallery.ortega.henchman">
 <title>Feat. カンダタこぶん</title>
-<figure>
+<figure id="fig.dq3_59">
 	<title>オルテガとカンダタこぶん</title>
 	<graphic width="248px" fileref="./image/dq3_59.png"/>
 </figure>
@@ -65,8 +65,8 @@
 
 <section id="dq3.gallery.goods">
 <title>謎のアイテム</title>
-<indexterm><primary>アイテム</primary><secondary>没アイテム</secondary></indexterm>
-<figure>
+<indexterm id="term.dq3.gallery.goods"><primary>アイテム</primary><secondary>没アイテム</secondary></indexterm>
+<figure id="fig.dq3_19">
 	<title>謎のアイテム</title>
 	<graphic width="240px" fileref="./image/dq3_19.png"/>
 </figure>
@@ -94,11 +94,11 @@
 <section id="dq3.gallery.goods.squirt">
 <title>みずでっぽう</title>
 
-<figure>
+<figure id="fig.dq3_20">
 	<title>みずでっぽうをみる</title>
 	<graphic width="240px" fileref="./image/dq3_20.png"/>
 </figure>
-<figure>
+<figure id="fig.dq3_21">
 	<title>戦闘でみずでっぽうをつかう</title>
 	<graphic width="248px" fileref="./image/dq3_21.png"/>
 </figure>
@@ -121,7 +121,7 @@
 
 <section id="dq3.gallery.goods.crystal">
 <title>すいしょうだま</title>
-<figure>
+<figure id="fig.dq3_22">
 	<title>戦闘ですいしょうだまをつかう</title>
 	<graphic width="248px" fileref="./image/dq3_22.png"/>
 </figure>
@@ -138,15 +138,15 @@
 <section id="dq3.gallery.goods.orgel">
 <title>しのオルゴール</title>
 
-<figure>
+<figure id="fig.dq3_23">
 	<title>かなしいメロディがながれる</title>
 	<graphic width="248px" fileref="./image/dq3_23.png"/>
 </figure>
-<figure>
+<figure id="fig.dq3_24">
 	<title>敵のいきのねをとめた</title>
 	<graphic width="248px" fileref="./image/dq3_24.png"/>
 </figure>
-<figure>
+<figure id="fig.dq3_25">
 	<title>味方がしんでしまった</title>
 	<graphic width="248px" fileref="./image/dq3_25.png"/>
 </figure>
@@ -211,7 +211,7 @@
 
 <section id="dq3.gallery.sentaku">
 <title>せんたくスライム</title>
-<figure>
+<figure id="fig.dq3_31">
 	<title>せんたくスライム</title>
 	<graphic width="248px" fileref="./image/dq3_31.png"/>
 </figure>
@@ -231,13 +231,13 @@
 
 <section id="dq3.gallery.monmedal">
 <title>ドラクエ4 のモンスターメダル</title>
-<indexterm><primary>モンスターメダル</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.gallery.monmedal"><primary>モンスターメダル</primary><secondary>DQ3</secondary></indexterm>
 
-<figure>
+<figure id="fig.dq4g_01">
 	<title>「メダルをみる」ウィンドウ出現</title>
 	<graphic width="160px" fileref="./image/dq4g_01.png"/>
 </figure>
-<figure>
+<figure id="fig.dq4g_02">
 	<title>No.1 スライム (DQ4)</title>
 	<graphic width="160px" fileref="./image/dq4g_02.png"/>
 </figure>
@@ -250,11 +250,11 @@
 手作業でのデータ改竄については細心の注意が必要だ。
 </para>
 
-<figure>
+<figure id="fig.dq4g_03">
 	<title>No.74 ミステリードール (DQ4)</title>
 	<graphic width="160px" fileref="./image/dq4g_03.png"/>
 </figure>
-<figure>
+<figure id="fig.dq4g_04">
 	<title>No.172 ピサロナイト (DQ4)</title>
 	<graphic width="160px" fileref="./image/dq4g_04.png"/>
 </figure>
@@ -265,15 +265,15 @@
 番号 <literal>179</literal> から <literal>191</literal> までは、一般には聞いたことのないモンスターである。
 </para>
 
-<figure>
+<figure id="fig.dq4g_05">
 	<title>No.188 ヘマトフィリア</title>
 	<graphic width="160px" fileref="./image/dq4g_05.png"/>
 </figure>
-<figure>
+<figure id="fig.dq4_m190">
 	<title>No.190 エースドラゴン</title>
 	<graphic width="160px" fileref="./image/dq4_m190.png"/>
 </figure>
-<figure>
+<figure id="fig.dq4_m191">
 	<title>No.191 クインメドーサ</title>
 	<graphic width="160px" fileref="./image/dq4_m191.png"/>
 </figure>
@@ -285,11 +285,11 @@
 最大の謎フロア「犬小屋」の画像を紹介する。
 </para>
 
-<figure>
+<figure id="fig.dq3_kennel">
 	<title>ネコもいる犬小屋</title>
 	<graphic width="240px" fileref="./image/dq3_kennel.png"/>
 </figure>
-<figure>
+<figure id="fig.dq3_kennel_through">
 	<title>牢屋の扉をすり抜ける</title>
 	<graphic width="240px" fileref="./image/dq3_kennel_through.png"/>
 </figure>
@@ -311,7 +311,7 @@
 牢屋の扉は扉判定がいない。すなわち単なる床の模様である。
 </para>
 
-<figure>
+<figure id="fig.dq3_kennel_medal_list">
 	<title>右のツボはメダル景品リスト</title>
 	<graphic width="240px" fileref="./image/dq3_kennel_medal_list.png"/>
 </figure>
@@ -323,7 +323,7 @@
 そこにはアリアハンのメダルおじさんの家の本棚に置いてあるメダル景品リストと同じものがある。
 </para>
 
-<figure>
+<figure id="fig.dq3_kennel_sugoroku">
 	<title>すごろく</title>
 	<graphic width="240px" fileref="./image/dq3_kennel_sugoroku.png"/>
 </figure>
@@ -339,7 +339,7 @@
 左の牢屋の右端のイヌに話し掛けると、例外的にすごろくにならないようだ。
 </para>
 
-<figure>
+<figure id="fig.dq3_kennel_cat">
 	<title>ネコにはなす</title>
 	<graphic width="240px" fileref="./image/dq3_kennel_cat.png"/>
 </figure>
@@ -360,7 +360,7 @@
 <section id="dq3.gallery.turn.65535">
 <title>戦闘ターン数 65535</title>
 
-<figure>
+<figure id="fig.dq3.battle.abort.65535">
 	<title>戦闘ターン数 65535</title>
 	<graphic width="248px" fileref="./image/dq3.battle.abort.65535.png"/>
 </figure>

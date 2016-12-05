@@ -2,8 +2,8 @@
 
 <section id="dq4.data.exp"><?dbhtml filename="dq4_level.html" ?>
 <title>レベル経験値対応表</title>
-<indexterm><primary>キャラクター</primary><secondary>DQ4</secondary></indexterm>
-<indexterm><primary>レベル</primary><secondary>DQ4</secondary></indexterm>
+<indexterm id="term.dq4.data.characters"><primary>キャラクター</primary><secondary>DQ4</secondary></indexterm>
+<indexterm id="term.dq4.data.experience"><primary>レベル</primary><secondary>DQ4</secondary></indexterm>
 <para>
 	<xref linkend="appendix.b" />
 </para>

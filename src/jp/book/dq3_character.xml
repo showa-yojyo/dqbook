@@ -2,7 +2,7 @@
 
 <section id="dq3.character"><?dbhtml filename="dq3_character.html" ?>
 <title>性格解析</title>
-<indexterm><primary>性格</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.character"><primary>性格</primary><secondary>DQ3</secondary></indexterm>
 <para>
 性格構造体 <varname>$C424BC</varname> のメンバー解析を行う。
 性格に関係しそうなデータと言われて、名前文字列 ID とレベルアップ時のパラメータ上昇に関係する値、
@@ -106,7 +106,7 @@ C4/6C27:    6B          RTL
 性格構造体のメモリレイアウトは以下のようになっている。
 "..." となっている部分は、データフィールドがバイト境界をまたぐことを示す。
 </para>
-<table class="memorylayout">
+<table id="table.C424BC" class="memorylayout">
 <caption>$C424BC 性格構造体</caption>
 <colgroup>
 <col span="1" width="12%"/>

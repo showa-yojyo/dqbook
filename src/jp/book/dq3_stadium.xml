@@ -2,7 +2,7 @@
 
 <section id="dq3.stadium"><?dbhtml filename="dq3_stadium.html" ?>
 <title>格闘場解析</title>
-<indexterm><primary>格闘場</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.stadium"><primary>格闘場</primary><secondary>DQ3</secondary></indexterm>
 <para>
 本節は、格闘場の胴元の共通処理サブルーチンを解析する。
 </para>

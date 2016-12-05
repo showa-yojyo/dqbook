@@ -2,7 +2,7 @@
 
 <section id="dq5.data.str"><?dbhtml filename="dq5_str.html" ?>
 <title>文字列表</title>
-<indexterm><primary>文字列</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.data.str"><primary>文字列</primary><secondary>DQ5</secondary></indexterm>
 <para> 
 	この項では文字列データについて述べる。
 	ここで述べるのは、メッセージ表示用でないウィンドウに
@@ -68,7 +68,7 @@
 				ウィンドウ描画時に、どれかのアドレスからデータを取得するのである。
 				この文書にある文字列表の掲載順は、これに準じて構成した。
 			</para>
-			<table class="lighttable">
+			<table id="table.dq5.data.str.overview" class="lighttable">
 				<caption>アドレス表</caption>
 				<thead>
 					<tr>
@@ -103,7 +103,7 @@
 	ROM アドレス $23C5CE からは、仲間キャラクターの名前データが格納されている。
 	「だれの」ウィンドウ等に名前を表示する際にロードするデータである。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23C5CE" class="lighttable">
 	<caption>仲間の名前</caption>
 	<thead>
 		<tr>
@@ -130,7 +130,7 @@
 	ROM アドレス $23C5F9 からは、仲間キャラクターの職業・肩書・称号の名前データが格納されている。
 	「つよさみる」コマンドで表示する左上のウィンドウに表れる文字列である。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23C5F9" class="lighttable">
 	<caption>職業名</caption>
 	<thead>
 		<tr>
@@ -166,7 +166,7 @@
 	ROM アドレス $23C690 からは、性別名が格納されている。
 	「つよさみる」コマンドで表示する左上のウィンドウに表れる文字列である。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23C690" class="lighttable">
 	<caption>せいべつ</caption>
 	<thead>
 		<tr>
@@ -188,7 +188,7 @@
 	ROM アドレス $228000 からは、呪文名および特技名が格納されている。
 	「じゅもん」「とくぎ」ウィンドウに表示するためにロードするデータである。
 </para>
-<table class="lighttable">
+<table id="table.dq5.228000" class="lighttable">
 	<caption>じゅもん・とくぎの名前</caption>
 	<thead>
 		<tr>
@@ -378,7 +378,7 @@
 	ROM アドレス $23C6C9 からは、モンスター名が格納されている。
 	戦闘モード出力ウィンドウを始め、各種ウィンドウ表示時に参照される。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23C6C9" class="lighttable">
 	<caption>モンスター名</caption>
 	<thead>
 		<tr>
@@ -633,7 +633,7 @@
 	ROM アドレス $23CE0E からは、アイテム名が格納されている。
 	「どうぐ」ウィンドウ等の表示に使用されるデータである。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23CE0E" class="lighttable">
 	<caption>アイテム名</caption>
 	<thead>
 		<tr>
@@ -869,7 +869,7 @@
 	現在の作戦を表示する小ウィンドウや、戦闘時の「さくせん」ウィンドウで
 	使用されるデータである。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23D5B5" class="lighttable">
 	<caption>さくせん名</caption>
 	<thead>
 		<tr>
@@ -909,7 +909,7 @@
 	ROM アドレス $23C242 からは、仲間モンスターの名前データが格納されている。
 	ウィンドウに名前を表示する際に、これらのデータがロードされる。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23C242" class="lighttable">
 	<caption>仲間モンスターの名前</caption>
 	<thead>
 		<tr>
@@ -1098,7 +1098,7 @@
 	ルーラの「どこへ」ウィンドウに名前を表示する際に、
 	これらのデータがロードされる。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23D5F3" class="lighttable">
 	<caption>ルーラ行き先</caption>
 	<thead>
 		<tr>

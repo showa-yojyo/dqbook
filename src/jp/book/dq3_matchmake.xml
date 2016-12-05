@@ -2,8 +2,8 @@
 
 <section id="dq3.matchmake"><?dbhtml filename="dq3_matchmake.html" ?>
 <title>格闘場マッチメイク解析</title>
-<indexterm><primary>格闘場</primary><secondary>DQ3</secondary></indexterm>
-<indexterm><primary>格闘場マッチメイク</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.matchmake.1"><primary>格闘場</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.matchmake.2"><primary>格闘場マッチメイク</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	本節では、格闘場のマッチメイク処理の解析を行う。
 	リメイク版では、オリジナル版のように多様なマッチメイクが実現することはない。
@@ -601,7 +601,7 @@ C3/ED80:    2600    <co id="dq3.matchmake.co.5" />
 	マッチメイク一つ当たり、<literal>8</literal> バイトサイズの構造体として表現する。
 	その構造体のメモリレイアウトは以下のように解釈できる。
 </para>
-<table class="memorylayout">
+<table id="table.dq3.C30DC5" class="memorylayout">
 	<caption>マッチメイク構造体</caption>
 	<colgroup>
 		<col span="1" width="12%"/>

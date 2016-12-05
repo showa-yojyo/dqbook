@@ -2,7 +2,7 @@
 
 <section id="dq3.item"><?dbhtml filename="dq3_item.html" ?>
 <title>アイテム解析</title>
-<indexterm><primary>アイテム</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.item"><primary>アイテム</primary><secondary>DQ3</secondary></indexterm>
 <para>
 本章の目的は、すべてのアイテムデータを抽出し、
 構造体の各フィールドを完全解析することである。
@@ -26,7 +26,7 @@
 <para>
 	アイテム構造体のメモリレイアウトは以下のようになっている。
 </para>
-<table class="memorylayout">
+<table id="table.dq3.C40043" class="memorylayout">
 	<caption>$C40043 アイテム構造体</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -119,7 +119,7 @@
 	<glossdef>
 		<para>
 			アイテムの種類を表す数値である。以下のようになっている。
-			<table class="lighttable">
+			<table id="table.dq3.C40043.kind" class="lighttable">
 				<caption>アイテム種別</caption>
 				<thead>
 					<tr><th>値</th><th>意味</th></tr>
@@ -145,7 +145,7 @@
 			装備することによって、
 			そのキャラクターの増加するパラメータが何であるかを示す値である。
 
-			<table class="lighttable">
+			<table id="table.dq3.C40043.equip.param" class="lighttable">
 				<caption>装備パラメータ種別</caption>
 				<thead>
 					<tr><th>値</th><th>増加するパラメータ</th></tr>
@@ -185,7 +185,7 @@
 			このフィールドの値が 1 のときに限り装備可能である。
 		</para>
 		<para>
-			<table class="memorylayout">
+			<table id="table.dq3.C40043.equipment" class="memorylayout">
 				<caption>アイテム構造体 職業による装備可能性</caption>
 				<colgroup>
 					<col span="1" width="12%"/>
@@ -282,7 +282,7 @@
 			その道具を装備するために、
 			キャラクターに性別に関する条件がつくか否かを示す値である。
 
-			<table class="lighttable">
+			<table id="table.dq3.C40043.male.female" class="lighttable">
 				<caption>性別</caption>
 				<thead>
 					<tr><th>値</th><th>意味</th></tr>
@@ -364,7 +364,7 @@
 			このフィールドの値が 1 のときに限り装備可能である。
 		</para>
 		<para>
-			<table class="memorylayout">
+			<table id="table.dq3.C40043.availability" class="memorylayout">
 				<caption>アイテム構造体 職業による使用可能性</caption>
 				<colgroup>
 					<col span="1" width="12%"/>

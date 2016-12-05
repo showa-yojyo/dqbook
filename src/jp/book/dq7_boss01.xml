@@ -2,7 +2,7 @@
 
 <section id="dq7.immortal"><?dbhtml filename="dq7_boss01.html" ?>
 <title>あのボスは倒せるか</title>
-<indexterm><primary>イベント戦闘</primary><secondary>DQ7</secondary></indexterm>
+<indexterm id="term.dq7.immortal"><primary>イベント戦闘</primary><secondary>DQ7</secondary></indexterm>
 <para>
 	ここでは、ドラクエ7 の「倒せない敵キャラ」戦について述べる。
 	かなり昔に書いたものなので、内容が陳腐になっている点をご容赦いただきたい。
@@ -10,7 +10,7 @@
 
 <section id="dq7.immortal.abstract">
 <title>概要</title>
-<indexterm><primary>死に抜け</primary></indexterm>
+<indexterm id="term.dq7.decease"><primary>死に抜け</primary></indexterm>
 <para>
 	一般にドラクエの各イベントで、そのクライマックスシーンでボスキャラと呼ばれる特殊な敵キャラクタと戦闘をすることが多い。
 	そして大抵の場合、そのキャラクタを倒すことができなければストーリーが進展しない。
@@ -47,7 +47,7 @@
 
 <section id="dq7.immortal.battle.1">
 <title>対あらくれ スイフー ぶとうか戦</title>
-<figure>
+<figure id="fig.dq7_m319">
 	<title>あらくれ スイフー ぶとうか</title>
 	<graphic width="256px" fileref="./image/dq7_m319.png"/>
 </figure>
@@ -80,7 +80,7 @@
 
 <section id="dq7.immortal.battle.2">
 <title>対イノップ ゴンズ戦</title>
-<figure>
+<figure id="fig.dq7_m321">
 	<title>イノップ ゴンズ</title>
 	<graphic width="256px" fileref="./image/dq7_m321.png"/>
 </figure>
@@ -108,7 +108,7 @@
 
 <section id="dq7.immortal.battle.3">
 <title>対ゼッペル戦</title>
-<figure>
+<figure id="fig.dq7_m367">
 	<title>ゼッペル</title>
 	<graphic width="256px" fileref="./image/dq7_m367.png"/>
 </figure>

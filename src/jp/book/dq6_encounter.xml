@@ -2,8 +2,8 @@
 
 <section id="dq6.encounter"><?dbhtml filename="dq6_encounter.html" ?>
 <title>タイルエンカウント</title>
-<indexterm><primary>タイルエンカウント</primary><secondary>DQ6</secondary></indexterm>
-<indexterm><primary>タイル戦闘</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.encounter"><primary>タイルエンカウント</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.tile"><primary>タイル戦闘</primary><secondary>DQ6</secondary></indexterm>
 <para>
 	ここでは、<varname>$C6843C</varname> に定義されている構造体、
 	タイルエンカウント構造体の完全解析を試みる
@@ -121,7 +121,7 @@ C3/C2B3:    60          RTS
 	（記号「←」は、ビット列が次のバイトの下位ビット列と一体化して、
 	一つのメンバーを構成することを示す）。
 </para>
-<table class="memorylayout">
+<table id="table.dq6.C6843C" class="memorylayout">
 	<caption>$C6843C タイルエンカウント構造体 メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>

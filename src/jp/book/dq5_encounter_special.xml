@@ -2,7 +2,7 @@
 
 <section id="dq5.data.encounter.special"><?dbhtml filename="dq5_encounter_special.html" ?>
 <title>特別エンカウント表</title>
-<indexterm><primary>エンカウント</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.data.encounter.special"><primary>エンカウント</primary><secondary>DQ5</secondary></indexterm>
 <para> 
 	ROM アドレス $23B04B (+6)（イメージファイルオフセット $11B04B + 6 に相当）に、
 	6 byte の構造体データの配列がある。
@@ -11,7 +11,7 @@
 	以後、単に特別エンカウント構造体と書く。
 	この構造体のメモリレイアウトは以下のとおり：
 </para>
-<table class="memorylayout">
+<table id="table.dq5.23B04B" class="memorylayout">
 	<caption>特別エンカウント定義構造体</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -41,7 +41,7 @@
 <para>
 	各構造体データの与えるエンカウントは以下のようになる。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23B04B.view" class="lighttable">
 	<caption>特別エンカウントデータ</caption>
 	<thead>
 		<tr>
@@ -70,7 +70,7 @@
 	[<link linkend="dq5.data.encounter">dq5.data.encounter</link>]
 	は以下のとおりである。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23B04B.special" class="lighttable">
 	<caption>特別エンカウントのあるタイルエンカウント</caption>
 	<thead>
 		<tr>

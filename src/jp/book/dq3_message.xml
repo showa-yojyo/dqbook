@@ -2,7 +2,7 @@
 
 <section id="dq3.message"><?dbhtml filename="dq3_message.html" ?>
 <title>メッセージ</title>
-<indexterm><primary>メッセージ</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.message"><primary>メッセージ</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	人々・動物・魔物の台詞やナレーション等の 「大きいフォントを用いて表示するテキスト」
 	（以下、単にメッセージと呼ぶ）全般の解析および結果について述べる。

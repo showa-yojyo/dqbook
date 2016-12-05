@@ -9,7 +9,7 @@
 	この項では、記者の解析環境を紹介する。
 	貧弱。
 </para>
-<table class="lighttable">
+<table id="table.environment" class="lighttable">
 	<caption>記者の解析環境 2007</caption>
 	<thead>
 		<tr>
@@ -44,7 +44,7 @@
 
 <section id="dq.hack.rom">
 <title>ロムイメージファイル</title>
-<indexterm><primary>ロムイメージ</primary><secondary>スーファミ ROM イメージ</secondary></indexterm>
+<indexterm id="term.dq.hack.rom"><primary>ロムイメージ</primary><secondary>スーファミ ROM イメージ</secondary></indexterm>
 
 <para>
 	ゲームショップ等で流通している正規のファミコン・スーパーファミコンのカートリッジから、
@@ -125,8 +125,8 @@
 
 <section id="dq.hack.ref">
 <title>参考書籍</title>
-<indexterm><primary>アクションリプレイ</primary></indexterm>
-<indexterm><primary>ゲームラボ</primary></indexterm>
+<indexterm id="term.actionreplay"><primary>アクションリプレイ</primary></indexterm>
+<indexterm id="term.gamelab"><primary>ゲームラボ</primary></indexterm>
 
 <para>
 	小サイトの蔵書から改造・解析の参考になるであろう書籍を、

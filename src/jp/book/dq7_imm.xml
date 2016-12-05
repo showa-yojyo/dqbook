@@ -2,7 +2,7 @@
 
 <section id="dq7.data.imm"><?dbhtml filename="dq7_imm.html" ?>
 <title>移民リスト</title>
-<indexterm><primary>移民</primary><secondary>DQ7</secondary></indexterm>
+<indexterm id="term.dq7.data.imm"><primary>移民</primary><secondary>DQ7</secondary></indexterm>
 <para>
 	<xref linkend="appendix.b" />
 </para>

@@ -11,8 +11,8 @@
 
 <section id="tools.disasm.dispel">
 <title>DisPel</title>
-<indexterm><primary>DisPel</primary></indexterm>
-<indexterm><primary>逆アセンブラ</primary><secondary>DisPel</secondary></indexterm>
+<indexterm id="term.dispel"><primary>DisPel</primary></indexterm>
+<indexterm id="term.disasm"><primary>逆アセンブラ</primary><secondary>DisPel</secondary></indexterm>
 
 <caution>
 <para>本書のダンプコードおよび本セクションの記述は、
@@ -27,7 +27,7 @@
 </para>
 </caution>
 
-<figure>
+<figure id="fig.dq.hack.tool.dispel">
 	<title>DisPel</title>
 	<graphic width="502px" fileref="./image/dq.hack.tool.dispel.png"/>
 </figure>

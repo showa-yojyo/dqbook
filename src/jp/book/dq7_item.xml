@@ -2,7 +2,7 @@
 
 <section id="dq7.data.item"><?dbhtml filename="dq7_item.html" ?>
 <title>アイテム表</title>
-<indexterm><primary>アイテム</primary><secondary>DQ7</secondary></indexterm>
+<indexterm id="term.dq7.data.item"><primary>アイテム</primary><secondary>DQ7</secondary></indexterm>
 <para>
 	<xref linkend="appendix.b" />
 </para>

@@ -2,7 +2,7 @@
 
 <section id="dq5.data.store"><?dbhtml filename="dq5_store.html" ?>
 <title>店屋表</title>
-<indexterm><primary>店屋</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.data.store"><primary>店屋</primary><secondary>DQ5</secondary></indexterm>
 <para> 
 	ROM アドレス $4FBDD (イメージファイルオフセット $27BDD) に、
 	不定サイズのデータの配列がある。
@@ -12,7 +12,7 @@
 <para>
 	このデータのメモリレイアウトは、以下のとおりである。
 </para>
-<table class="memorylayout">
+<table id="table.dq5.04FBDD" class="memorylayout">
 	<caption>$04FBDD 店屋データ構造体 メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -71,7 +71,7 @@
 <para> 
 	各データの内容は以下のとおりである。
 </para>
-<table class="lighttable">
+<table id="table.dq5.04FBDD.view" class="lighttable">
 	<caption>店屋表</caption>
 	<thead>
 		<tr>

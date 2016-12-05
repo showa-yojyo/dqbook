@@ -2,7 +2,7 @@
 
 <section id="dq3.message.battle"><?dbhtml filename="dq3_message_battle.html" ?>
 <title>戦闘メッセージ</title>
-<indexterm><primary>メッセージ</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.message.battle"><primary>メッセージ</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	ドラクエ3 の戦闘モードで表示するメッセージの解析および結果について述べる。
 </para>

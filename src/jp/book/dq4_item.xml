@@ -2,7 +2,7 @@
 
 <section id="dq4.data.item"><?dbhtml filename="dq4_item.html" ?>
 <title>全アイテム表</title>
-<indexterm><primary>アイテム</primary><secondary>DQ4</secondary></indexterm>
+<indexterm id="term.dq4.data.item"><primary>アイテム</primary><secondary>DQ4</secondary></indexterm>
 <para>
 	<xref linkend="appendix.b" />
 </para>

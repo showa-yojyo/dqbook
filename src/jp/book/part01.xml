@@ -26,7 +26,7 @@
 	以前からマニア誌の立ち読みで、PAR 改造というものの存在は知っていたが、
 	エミュレーターが PAR 改造をサポートしていることで、ようやく試すことができたのである。
 </para>
-<figure>
+<figure id="fig.dq.hack.intro.par">
 	<title>Snes9X PAR Entry</title>
 	<graphic width="426px" fileref="./image/dq.hack.intro.par.png"/>
 </figure>

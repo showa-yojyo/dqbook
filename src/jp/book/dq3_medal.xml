@@ -2,7 +2,7 @@
 
 <section id="dq3.medal"><?dbhtml filename="dq3_medal.html" ?>
 <title>メダルおじさん解析</title>
-<indexterm><primary>ちいさなメダル</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.medal"><primary>ちいさなメダル</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	メダルおじさんに「はなす」ときの処理を解析する。
 	おじさんはどのようにして、勇者一行がこれまでに渡してきたメダル枚数を記憶しているのか、
@@ -392,7 +392,7 @@
 	これが、メダルおじさんの褒美リストだ。
 	構造体のメモリレイアウトは以下の通り。
 </para>
-<table class="memorylayout">
+<table id="table.dq3.C31350" class="memorylayout">
 	<caption>$C31350 褒美構造体</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -422,7 +422,7 @@
 <para>
 この配列を人間にとってわかりやすく表現すると、下のようになる。
 </para>
-<table class="lighttable">
+<table id="table.dq3.C31350.view" class="lighttable">
 	<caption>メダル景品</caption>
 	<thead>
 		<tr>

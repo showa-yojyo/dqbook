@@ -2,9 +2,9 @@
 
 <section id="dq5.flow.encounter"><?dbhtml filename="dq5_flow_encounter.html" ?>
 <title>エンカウント制御</title>
-<indexterm><primary>エンカウント</primary><secondary>DQ5</secondary></indexterm>
-<indexterm><primary>エンカウント</primary></indexterm>
-<indexterm><primary>一歩移動</primary></indexterm>
+<indexterm id="term.dq5.flow.encounter.1"><primary>エンカウント</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.flow.encounter.2"><primary>エンカウント</primary></indexterm>
+<indexterm id="term.dq5.flow.encounter.3"><primary>一歩移動</primary></indexterm>
 <para> 
 	移動モードから戦闘モードに移行するときのプログラムの制御について述べる。
 	この項は、計算機の知識なしには読解できないような記述を含むかもしれない。

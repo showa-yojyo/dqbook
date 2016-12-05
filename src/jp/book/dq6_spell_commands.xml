@@ -85,7 +85,7 @@ C3/B97B:    3A00E703E703 ; べホマズン
 </programlisting>
 
 十六進数を十進数で書き直し、表にまとめると次のようになる：
-  <table class="lighttable">
+  <table id="table.dq6.C3B963" class="lighttable">
     <caption>$C3B963 ホイミ系回復量テーブル</caption>
     <thead>
       <tr><th>コマンド</th><th>下限値</th><th>上限値</th></tr>
@@ -569,7 +569,7 @@ C3/BE6D:    C416
   </listitem>
 </itemizedlist>
 </para>
-<table class="lighttable">
+<table id="table.dq6.look.kind" class="lighttable">
   <caption>しらべる反応種別</caption>
   <thead>
     <tr><th>値</th><th>種別</th><th>参照構造体</th></tr>
@@ -783,7 +783,7 @@ C3/BE6D:    C416
   </listitem>
 </itemizedlist>
 </para>
-<table class="lighttable">
+<table id="table.dq6.C2B1C3" class="lighttable">
   <caption>$C2B1C3 モンスター宝箱確率</caption>
   <thead>
     <tr><th>ID</th><th>値</th><th>確率</th></tr>
@@ -896,7 +896,7 @@ C3/BE6D:    C416
     </simpara>
   </listitem>
 </itemizedlist>
-<table class="lighttable">
+<table id="table.dq6.identification.colors" class="lighttable">
   <caption>インパスにおける色と内容の対応</caption>
   <thead>
     <tr><th>値</th><th>色</th><th>内容</th></tr>
@@ -1049,7 +1049,7 @@ C3/BE6D:    C416
 これらはこのメッセージを配列の先頭から高々規定個数分を連続してウィンドウに出力するコマンド群だ。
 メッセージ数の上限はコマンドによって異なり、次のようになっている：
 
-  <table class="lighttable">
+  <table id="table.dq6.recall.limits" class="lighttable">
     <caption>おもいだす系コマンドのメッセージ数上限</caption>
     <thead>
       <tr><th>コマンド</th><th>上限</th></tr>

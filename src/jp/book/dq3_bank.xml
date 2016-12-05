@@ -2,7 +2,7 @@
 
 <section id="dq3.bank"><?dbhtml filename="dq3_bank.html" ?>
 <title>ゴールド銀行解析</title>
-<indexterm><primary>ゴールド銀行</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.bank"><primary>ゴールド銀行</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	ゴールド銀行の窓口業務処理について解析した結果を述べる。
 	アリアハンのルイーダの酒場入口近くにあるカウンターが銀行の窓口だが、

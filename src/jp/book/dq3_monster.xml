@@ -2,7 +2,7 @@
 
 <section id="dq3.monster"><?dbhtml filename="dq3_monster.html" ?>
 <title>モンスター解析</title>
-<indexterm><primary>モンスター</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.monster"><primary>モンスター</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	本節の目的は、すべてのモンスターデータを抽出し、
 	モンスター構造体の各フィールドを完全解析することなのだが、
@@ -35,7 +35,7 @@
 	その次のバイトである <literal>#$06</literal> バイト目の下位 2 ビットを結合したビット列で構成されていることを示す。
 </para>
 
-<table class="memorylayout">
+<table id="table.dq3.C20000" class="memorylayout">
 	<caption>モンスター構造体メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"></col>
@@ -377,7 +377,7 @@
 			せんたくバカ、せんたくにんげん、せんたくかみがそれぞれ 0, 1, 2 なので、
 			便宜上このフィールドをこの名前で呼ぶことにする。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq3.C20000.intelligent" class="lighttable">
 			<caption>せんたく</caption>
 			<thead>
 				<tr><th>値</th><th>意味</th></tr>
@@ -402,7 +402,7 @@
 			この値が 2 であれば、別ロジックを適用する。
 			バラモスのように、行動をローテーションでとる。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq3.C20000.behavior" class="lighttable">
 			<caption>行動関係</caption>
 			<thead>
 				<tr><th>値</th><th>パターン</th></tr>
@@ -445,7 +445,7 @@
 		<para>
 			モンスターが各ターンに何度の戦闘行動を連続して行うかを示す値である。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq3.C20000.multiple" class="lighttable">
 			<caption>複数回</caption>
 			<thead>
 				<tr><th>値</th><th>行動回数</th></tr>
@@ -466,7 +466,7 @@
 		<para>
 			モンスターが各ターン終了ごとに秘密裡に回復する HP の回復タイプを表す値である。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq3.C20000.autorecover" class="lighttable">
 			<caption>自動回復</caption>
 			<thead>
 				<tr><th>値</th><th>回復する HP</th></tr>
@@ -489,7 +489,7 @@
 			モンスターが集中攻撃をすることを示す値である。
 			2bit 長のフィールドだが、0 か 1 だけが設定されている。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq3.C20000.intensive" class="lighttable">
 			<caption>集中攻撃</caption>
 			<thead>
 				<tr><th>値</th><th>集中攻撃</th></tr>

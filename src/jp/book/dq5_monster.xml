@@ -2,7 +2,7 @@
 
 <section id="dq5.data.monster"><?dbhtml filename="dq5_monster.html" ?>
 <title>モンスターデータ</title>
-<indexterm><primary>モンスター</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.data.monster"><primary>モンスター</primary><secondary>DQ5</secondary></indexterm>
 <para> 
 	準備中。
 </para>

@@ -2,7 +2,7 @@
 
 <section id="dq5.item"><?dbhtml filename="dq5_item.html" ?>
 <title>アイテム解析</title>
-<indexterm><primary>アイテム</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.item"><primary>アイテム</primary><secondary>DQ5</secondary></indexterm>
 
 <para>
 	ドラクエ5 におけるアイテムの表現方法の特徴は、
@@ -44,7 +44,7 @@ P * Q, (where 0 &lt;= P and P &lt; 256; 0 &lt;= Q and Q &lt; 65536)
 <para>
 	メモリレイアウトは次のとおりである。
 </para>
-<table class="memorylayout">
+<table id="table.dq5.23B159" class="memorylayout">
 	<caption>$23B159 配列 アイテム各種データ メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -161,7 +161,7 @@ Q[4] = {1, 10, 100, 1000};
 	これも基本的には各種フラグを詰め合わせた値の配列である。
 	メモリレイアウトを以下に示す。
 </para>
-<table class="memorylayout">
+<table id="table.dq5.23B231" class="memorylayout">
 	<caption>$23B231 アイテム種別配列 1 バイトのメモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -242,7 +242,7 @@ Q[4] = {1, 10, 100, 1000};
 			プログラムは 3bit の値でアイテム種別を取り扱う。
 			大体以下のように分類されているようだ。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq5.23B231.kind" class="lighttable">
 			<caption>アイテム種別</caption>
 			<thead>
 				<tr><th>値</th><th>種別</th></tr>
@@ -270,7 +270,7 @@ Q[4] = {1, 10, 100, 1000};
 	配列長はアイテム ID 総数と同じく 216 である。
 	インパスをアイテムに対して適用した際に表示するメッセージを制御するためのビット群からなる値である。
 </para>
-<table class="memorylayout">
+<table id="table.dq5.23B309" class="memorylayout">
 	<caption>$23B309 インパス参照 1 メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -324,7 +324,7 @@ Q[4] = {1, 10, 100, 1000};
 			この 6bit の値は、インパスによる鑑定中に、何らかの特別効果があることを教えるメッセージを制御する。
 			値とメッセージの対応の一例を以下に示す。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq5.23B309.message" class="lighttable">
 			<caption>特別効果メッセージ</caption>
 			<thead>
 				<tr><th>値</th><th>メッセージ</th></tr>
@@ -349,7 +349,7 @@ Q[4] = {1, 10, 100, 1000};
 	配列長はアイテム ID 総数と同じく 216 である。
 	前項の続きのようなものである。
 </para>
-<table class="memorylayout">
+<table id="table.dq5.23B3E1" class="memorylayout">
 	<caption>$23B3E1 インパス参照 2 メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -430,7 +430,7 @@ Q[4] = {1, 10, 100, 1000};
 		</para>
 	</footnote>。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23B591" class="lighttable">
 	<caption>装備可能マスク</caption>
 	<thead>
 		<tr>
@@ -466,7 +466,7 @@ Q[4] = {1, 10, 100, 1000};
 		</para>
 	</footnote>。
 </para>
-<table class="lighttable">
+<table id="table.dq5.23B669" class="lighttable">
 	<caption>装備可能マスク</caption>
 	<thead>
 		<tr>

@@ -12,12 +12,12 @@
 
 <section id="tools.emulator.gsd">
 <title>Snes9X - Geiger's Snes9x Debugger</title>
-<indexterm><primary>GSD</primary></indexterm>
-<indexterm><primary>Snes9X</primary></indexterm>
-<indexterm><primary>エミュレータ</primary><secondary>SFC</secondary></indexterm>
-<indexterm><primary>エミュレータ</primary><secondary>SNES</secondary></indexterm>
+<indexterm id="term.gsd"><primary>GSD</primary></indexterm>
+<indexterm id="term.snes9x"><primary>Snes9X</primary></indexterm>
+<indexterm id="term.sfc"><primary>エミュレータ</primary><secondary>SFC</secondary></indexterm>
+<indexterm id="term.snes"><primary>エミュレータ</primary><secondary>SNES</secondary></indexterm>
 
-<figure>
+<figure id="fig.dq.hack.tool.gsd">
 	<title>GSD Breakpoints ダイアログ</title>
 	<graphic width="186px" fileref="./image/dq.hack.tool.gsd.png"/>
 </figure>
@@ -104,10 +104,10 @@
 
 <section id="tools.emulator.epsxe">
 <title>ePSXe</title>
-<indexterm><primary>ePSXe</primary></indexterm>
-<indexterm><primary>エミュレータ</primary><secondary>PS</secondary></indexterm>
+<indexterm id="term.epsxe"><primary>ePSXe</primary></indexterm>
+<indexterm id="term.emulator.playstation"><primary>エミュレータ</primary><secondary>PS</secondary></indexterm>
 
-<figure>
+<figure id="fig.tools.emulator.epsxe">
 	<title>ePSXe</title>
 	<graphic width="483px" fileref="./image/tools.emulator.epsxe.png"/>
 </figure>
@@ -127,9 +127,9 @@
 
 <section id="tools.emulator.cep">
 <title>cep</title>
-<indexterm><primary>Cep</primary></indexterm>
+<indexterm id="term.cep"><primary>Cep</primary></indexterm>
 
-<figure>
+<figure id="fig.tools.emulator.cep">
 	<title>Cep</title>
 	<graphic width="431px" fileref="./image/tools.emulator.cep.png"/>
 </figure>
@@ -148,12 +148,12 @@
 
 <section id="tools.emulator.yame">
 <title>YAME</title>
-<indexterm><primary>YAME</primary></indexterm>
-<indexterm><primary>エミュレータ</primary><secondary>GB</secondary></indexterm>
-<indexterm><primary>エミュレータ</primary><secondary>FC</secondary></indexterm>
-<indexterm><primary>エミュレータ</primary><secondary>NES</secondary></indexterm>
+<indexterm id="term.yame"><primary>YAME</primary></indexterm>
+<indexterm id="term.emulator.gameboy"><primary>エミュレータ</primary><secondary>GB</secondary></indexterm>
+<indexterm id="term.emulator.famicom"><primary>エミュレータ</primary><secondary>FC</secondary></indexterm>
+<indexterm id="term.emulator.nes"><primary>エミュレータ</primary><secondary>NES</secondary></indexterm>
 
-<figure>
+<figure id="fig.tools.emulator.yame">
 	<title>YAME030 設定ダイアログ</title>
 	<graphic width="399px" fileref="./image/tools.emulator.yame.png"/>
 </figure>

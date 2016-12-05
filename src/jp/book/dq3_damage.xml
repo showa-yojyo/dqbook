@@ -2,7 +2,7 @@
 
 <section id="dq3.damage"><?dbhtml filename="dq3_damage.html" ?>
 <title>ダメージ構造体解析</title>
-<indexterm><primary>ダメージ</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.damage"><primary>ダメージ</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	本章ではダメージ構造体の解析を行う。
 	なお、戦闘行動とキャラクターの状態から決定する、
@@ -52,7 +52,7 @@
 	本構造体のメモリレイアウトは以下のようになっている。
 	各フィールドは 10bit で表現される。
 </para>
-<table class="memorylayout">
+<table id="table.dq3.C23BB4" class="memorylayout">
 	<caption>$C23BB4 ダメージ構造体</caption>
 	<colgroup>
 		<col span="1" width="12%"/>

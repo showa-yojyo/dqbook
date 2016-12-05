@@ -2,9 +2,9 @@
 
 <section id="dq5.data.encounter"><?dbhtml filename="dq5_encounter.html" ?>
 <title>タイルエンカウント表</title>
-<indexterm><primary>エンカウント</primary><secondary>DQ5</secondary></indexterm>
-<indexterm><primary>タイルエンカウント</primary><secondary>DQ5</secondary></indexterm>
-<indexterm><primary>タイル戦闘</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.data.encounter"><primary>エンカウント</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.data.tile.1"><primary>タイルエンカウント</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.data.tile.2"><primary>タイル戦闘</primary><secondary>DQ5</secondary></indexterm>
 <para> 
 	ROM アドレス $2396F3 (イメージファイルオフセット $1196F3) に、
 	22 byte の構造体データの配列がある。
@@ -13,7 +13,7 @@
 	以後、単にエンカウント構造体と書く。
 	この構造体のメモリレイアウトは次のようになっている。
 </para>
-<table class="memorylayout">
+<table id="table.dq5.2396F3" class="memorylayout">
 	<caption>$2396F3 タイルエンカウント定義構造体</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -65,7 +65,7 @@
 			<xref linkend="dqref.url1"/>
 			で解説されている。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq5.2396F3.level" class="lighttable">
 			<caption>レベル</caption>
 			<thead>
 				<tr>
@@ -170,7 +170,7 @@
 			戦闘初期状態における、各グループの構成モンスターを同構造体データ内の「モンスターID 0～9」から選択するためのインデックス値を決めるためのデータ。
 			詳しくは、<ulink url="./dq5_flow_encounter.html#dq5.flow.encounter">フロー</ulink>を参照。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq5.2396F3.encounter" class="lighttable">
 			<caption>モンスター出現率</caption>
 			<thead>
 				<tr>
@@ -295,7 +295,7 @@
 			複数グループを出現させるときに、プログラムはこのデータを参照する。
 			詳しくは、<link linkend="dq5.flow.encounter">フロー</link>を参照。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq5.2396F3.group" class="lighttable">
 			<caption>グループ数決定用データ</caption>
 			<thead>
 				<tr>
@@ -463,7 +463,7 @@
 			※エンカウント決定ロジックならびに決定係数の数値的特徴のご指摘をこぶん C 様より頂きました。
 			篤く御礼を申し上げます―――――。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq5.2396F3.encounter.factor" class="lighttable">
 			<caption>エンカウント決定係数 ID</caption>
 			<thead>
 				<tr>
@@ -606,7 +606,7 @@
 			がいこつへいが採用されている。
 			詳しくは、<link linkend="dq5.flow.encounter">フロー</link>を参照。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq5.2396F3.number" class="lighttable">
 			<caption>出現モンスター</caption>
 			<thead>
 				<tr>
@@ -720,7 +720,7 @@
 	最初は大きめの値をとることがあるようだ。
 	これはあとで補正されて、適切な匹数に抑えられる。
 </para>
-<table class="lighttable">
+<table id="table.dq5.2396F3.group.size" class="lighttable">
 	<caption>グループ構成数</caption>
 	<thead>
 	<tr>

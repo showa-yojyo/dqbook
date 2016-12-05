@@ -2,7 +2,7 @@
 
 <section id="dq6.bank"><?dbhtml filename="dq6_bank.html" ?>
 <title>ゴールド銀行解析</title>
-<indexterm><primary>ゴールド銀行</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.bank"><primary>ゴールド銀行</primary><secondary>DQ6</secondary></indexterm>
 <para>
 	ここでは銀行の処理について述べる。
 	データ解析はないはずなので、処理の解読に焦点を置く。

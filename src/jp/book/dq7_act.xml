@@ -2,7 +2,7 @@
 
 <section id="dq7.data.act"><?dbhtml filename="dq7_act.html" ?>
 <title>戦闘行動表</title>
-<indexterm><primary>行動</primary><secondary>DQ7</secondary></indexterm>
+<indexterm id="term.dq7.data.act"><primary>行動</primary><secondary>DQ7</secondary></indexterm>
 <para>
 	<xref linkend="appendix.b" />
 </para>

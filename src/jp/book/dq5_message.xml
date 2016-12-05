@@ -2,8 +2,8 @@
 
 <section id="dq5.message"><?dbhtml filename="dq5_message.html" ?>
 <title>移動モードメッセージ解析</title>
-<indexterm><primary>メッセージ</primary><secondary>DQ5</secondary></indexterm>
-<indexterm><primary>ハフマン符号化</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.message"><primary>メッセージ</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.message.coding"><primary>ハフマン符号化</primary><secondary>DQ5</secondary></indexterm>
 
 <para>
 	本節では、移動モードにおける、大きいフォントを用いて表示されるメッセージの文字列としてのデータを解析する。
@@ -191,7 +191,7 @@
 	それ以外は、木の構造の特徴が戦闘モードのそれ
 	（<xref linkend="dq5.message.battle.tree" />参照）と同じだ。
 </para>
-<table class="memorylayout">
+<table id="table.dq5.message.tree" class="memorylayout">
 	<caption>メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%" />
@@ -277,7 +277,7 @@
 	（<xref linkend="dq5.message.battle.summary" /> を参照）。
 	また、メッセージをテキストファイルとして再現したものを <xref linkend="appendix.b" /> に置く。
 </para>
-<table class="lighttable">
+<table id="table.dq5.message.summary" class="lighttable">
 	<caption>移動モードメッセージ解析</caption>
 	<thead>
 		<tr><th>アドレス</th><th>分類</th><th>役割</th></tr>

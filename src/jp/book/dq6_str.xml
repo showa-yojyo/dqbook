@@ -2,7 +2,7 @@
 
 <section id="dq6.str"><?dbhtml filename="dq6_str.html" ?>
 <title>文字列解析</title>
-<indexterm><primary>文字列</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.str"><primary>文字列</primary><secondary>DQ6</secondary></indexterm>
 
 <section id="dq6.str.hack">
 <title>解析手順</title>

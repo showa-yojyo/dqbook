@@ -94,10 +94,10 @@
 
 <section id="tools.editor.xyzzy">
 <title>Xyzzy</title>
-<indexterm><primary>Xyzzy</primary><secondary>sns-mode</secondary></indexterm>
-<indexterm><primary>テキストエディタ</primary><secondary>Xyzzy</secondary></indexterm>
+<indexterm id="term.xyzzy"><primary>Xyzzy</primary><secondary>sns-mode</secondary></indexterm>
+<indexterm id="term.editor"><primary>テキストエディタ</primary><secondary>Xyzzy</secondary></indexterm>
 
-<figure>
+<figure id="fig.dq.hack.tool.xyzzy">
 	<title>Xyzzy</title>
 	<graphic width="578px" fileref="./image/dq.hack.tool.xyzzy.png"/>
 </figure>
@@ -120,8 +120,8 @@
 
 <section id="tools.editor.stirling">
 <title>Stirling</title>
-<indexterm><primary>Stirling</primary></indexterm>
-<indexterm><primary>バイナリエディタ</primary><secondary>Stirling</secondary></indexterm>
+<indexterm id="term.stirling"><primary>Stirling</primary></indexterm>
+<indexterm id="term.hexeditor"><primary>バイナリエディタ</primary><secondary>Stirling</secondary></indexterm>
 
 <para>
 	Stirling はフリーのバイナリエディタである。README には

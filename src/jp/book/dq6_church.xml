@@ -2,7 +2,7 @@
 
 <section id="dq6.church"><?dbhtml filename="dq6_church.html" ?>
 <title>教会解析</title>
-<indexterm><primary>教会</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.church"><primary>教会</primary><secondary>DQ6</secondary></indexterm>
 <para>
 	教会の処理について簡単に述べる。
 </para>
@@ -258,7 +258,7 @@ C3/D499:    B000B6D6  // どくのちりょう
 	各メンバの意味を特定するのに ROM 改造を試すのが有効だ。
 	この構造体の各メンバは、以下の表のとおりだ。
 </para>
-<table class="memorylayout">
+<table id="table.dq6.C58E9F" class="memorylayout">
 	<caption>構造体 $C58E9F - 教会データ構造体 メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -299,7 +299,7 @@ C3/D499:    B000B6D6  // どくのちりょう
 				<link linkend="dq6.shop.hack.C58B93">店屋</link>や<link linkend="dq6.inn.hack.C58E0B">宿屋</link>のデータ構造体の対応するメンバーと同じ役割を果たす。
 				値の意味は以下のとおり。
 			</para>
-			<table class="lighttable">
+			<table id="table.dq6.C58E9F.kind" class="lighttable">
 				<caption>セリフ種別</caption>
 				<thead>
 					<tr><th>値</th><th>意味</th></tr>
@@ -375,7 +375,7 @@ C3/DA30:    DD18  // 1A: [DE]はて [B3]どのは～
 				このアドレスは <literal>4</literal> 通り存在して、
 				それぞれの処理の内容は以下の通りだ。
 			</para>
-			<table class="lighttable">
+			<table id="table.dq6.C58E9F.subroutines" class="lighttable">
 				<caption>処理アドレス</caption>
 				<thead>
 					<tr><th>値</th><th>意味</th></tr>
@@ -398,7 +398,7 @@ C3/DA30:    DD18  // 1A: [DE]はて [B3]どのは～
 <para>
 	データの総数が <literal>8</literal> しかないので、ここに直接記述する。
 </para>
-<table class="lighttable">
+<table id="table.dq6.church.data" class="lighttable">
 	<caption>$C58E9F 構造体データ</caption>
 	<thead>
 		<tr>

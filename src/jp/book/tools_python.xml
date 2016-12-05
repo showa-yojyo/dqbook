@@ -2,9 +2,9 @@
 
 <section id="tools.python"><?dbhtml filename="tools_python.html" ?>
 <title>Python</title>
-<indexterm><primary>Python</primary></indexterm>
+<indexterm id="term.python"><primary>Python</primary></indexterm>
 
-<figure>
+<figure id="fig.tools.python">
 	<title>PythonWin Interactive Window</title>
 	<graphic width="600px" fileref="./image/tools.python.png"/>
 </figure>

@@ -2,7 +2,7 @@
 
 <section id="dq5.gallery"><?dbhtml filename="dq5_gallery.html" ?>
 <title>バカ画像</title>
-<indexterm><primary>バカ画像</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.gallery"><primary>バカ画像</primary><secondary>DQ5</secondary></indexterm>
 <para>
 	ここでは、特殊な方法で撮影に成功したドラクエ5 にまつわるおバカな画像の数々を披露する。
 </para>
@@ -16,11 +16,11 @@
 
 <section id="dq5.gallery.barabara.upperpart">
 <title>上半身</title>
-<figure>
+<figure id="fig.dq5_01">
 	<title>ミルドラース上半身 顔なし</title>
 	<graphic width="256px" fileref="./image/dq5_01.png"/>
 </figure>
-<figure>
+<figure id="fig.dq5_02">
 	<title>ミルドラース上半身 顔なし</title>
 	<graphic width="256px" fileref="./image/dq5_02.png"/>
 </figure>
@@ -39,7 +39,7 @@
 
 <section id="dq5.gallery.barabara.lowerpart">
 <title>下半身</title>
-<figure>
+<figure id="fig.dq5_03">
 	<title>ミルドラース下半身</title>
 	<graphic width="256px" fileref="./image/dq5_03.png"/>
 </figure>
@@ -60,11 +60,11 @@
 	仲間の持ち物がすぐに捨てることのできない「せいなるみずさし」でいっぱいになる。
 	非常にうっとうしい。
 </para>
-<figure>
+<figure id="fig.dq5_04">
 	<title>ミルドラースの宝箱は……</title>
 	<graphic width="256px" fileref="./image/dq5_04.png"/>
 </figure>
-<figure>
+<figure id="fig.dq5_05">
 	<title>せいなるみずさしを てにいれた</title>
 	<graphic width="256px" fileref="./image/dq5_05.png"/>
 </figure>
@@ -73,7 +73,7 @@
 
 <section id="dq5.gallery.err">
 <title>エラーデス!!</title>
-<figure>
+<figure id="fig.dq5_error_desu">
 	<title>エラーデス!!</title>
 	<graphic width="256px" fileref="./image/dq5_error_desu.png"/>
 </figure>
@@ -95,12 +95,12 @@
 
 <section id="dq5.gallery.goods">
 <title>謎のアイテム</title>
-<indexterm><primary>アイテム</primary><secondary>没アイテム</secondary></indexterm>
-<figure>
+<indexterm id="term.dq5.gallery.goods"><primary>アイテム</primary><secondary>没アイテム</secondary></indexterm>
+<figure id="fig.dq5_bzritem_01">
 	<title>謎のアイテム</title>
 	<graphic width="256px" fileref="./image/dq5_bzritem_01.png"/>
 </figure>
-<figure>
+<figure id="fig.dq5_bzritem_02">
 	<title>なぜか武器に分類されているようだ</title>
 	<graphic width="256px" fileref="./image/dq5_bzritem_02.png"/>
 </figure>
@@ -108,7 +108,7 @@
 	ドラクエ5 データの日の目の当たらないところに、
 	次の名前を持つアイテムが存在する。
 </para>
-<table class="lighttable">
+<table id="table.dq5.gallery.goods" class="lighttable">
 	<caption>謎のアイテム</caption>
 	<thead>
 		<tr><th>PAR</th><th>アイテム名</th></tr>
@@ -154,11 +154,11 @@
 				いきなり空行。そのあとに「なんと なかみは ひのきのぼうだった!」と表示される。
 				さらに次のページで「なんと なかみは まだ できていない!」と表示される。
 			</para>
-			<figure>
+			<figure id="fig.dq5_bzritem_03">
 				<title>戦闘でまほうのふくろをつかう</title>
 				<graphic width="256px" fileref="./image/dq5_bzritem_03.png"/>
 			</figure>
-			<figure>
+			<figure id="fig.dq5_bzritem_04">
 				<title>ランダム効果を狙ったアイテムなのだろうか</title>
 				<graphic width="256px" fileref="./image/dq5_bzritem_04.png"/>
 			</figure>

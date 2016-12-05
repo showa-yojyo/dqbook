@@ -2,7 +2,7 @@
 
 <section id="dq6.character"><?dbhtml filename="dq6_character.html" ?>
 <title>仲間キャラクター</title>
-<indexterm><primary>キャラクター</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.character"><primary>キャラクター</primary><secondary>DQ6</secondary></indexterm>
 <para>
 	ここでは、<varname>$C8BD12</varname> に定義されている構造体、
 	仲間キャラクター（の定数データの一部）構造体について述べる。
@@ -55,7 +55,7 @@ C8/C5D7:    A7BE  // 0F ジュン
 <para>
 	構造体一個あたりのデータ格納レイアウトを以下に示す。
 </para>
-<table class="memorylayout">
+<table id="table.dq6.C8BD12" class="memorylayout">
 	<caption>$C8BD12 キャラクター構造体 メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -225,7 +225,7 @@ C8/C5D7:    A7BE  // 0F ジュン
 				「つよさ」ウィンドウの表示、
 				アイテム装備、およびおしゃれコンテストのエントリーに影響する。
 			</para>
-			<table class="lighttable">
+			<table id="table.dq6.C8BD12.male.female.monster" class="lighttable">
 				<caption>性別</caption>
 				<thead>
 					<tr><th>値</th><th>性別</th></tr>

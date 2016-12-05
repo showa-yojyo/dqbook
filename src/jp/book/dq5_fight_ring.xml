@@ -2,7 +2,7 @@
 
 <section id="dq5.data.fight_ring"><?dbhtml filename="dq5_fight_ring.html" ?>
 <title>格闘場</title>
-<indexterm><primary>格闘場</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.data.fight_ring"><primary>格闘場</primary><secondary>DQ5</secondary></indexterm>
 <para>
 	<xref linkend="appendix.b" />
 </para>

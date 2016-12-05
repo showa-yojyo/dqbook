@@ -2,7 +2,7 @@
 
 <section id="dq3.tipster"><?dbhtml filename="dq3_tipster.html" ?>
 <title>予想屋解析</title>
-<indexterm><primary>予想屋</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.tipster"><primary>予想屋</primary><secondary>DQ3</secondary></indexterm>
 <para>
 格闘場に必ず併設されている予想屋。
 本節では、その共通処理サブルーチンの解析を行う。

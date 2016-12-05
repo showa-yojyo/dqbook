@@ -2,7 +2,7 @@
 
 <section id="dq5.data.act"><?dbhtml filename="dq5_act.html" ?>
 <title>戦闘行動表</title>
-<indexterm><primary>行動</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.data.act"><primary>行動</primary><secondary>DQ5</secondary></indexterm>
 <para>
 	現在改装中。消費 MP 周りの解析が未解決となっている。
 	ダメージデータは戦闘行動 ID とは対応していないため、別項で論じる。
@@ -22,7 +22,7 @@
 	メッセージ ID は $268565 に配列されている。
 	メッセージの内容は<xref linkend="appendix.b" />を参照。
 </para>
-<table class="lighttable">
+<table id="table.dq5.268565" class="lighttable">
 	<caption>戦闘行動表</caption>
 	<thead>
 		<tr>
