@@ -422,15 +422,166 @@ C3/BE6D:    C416
 <section id="dq6.spell_commands.desc.C3BE7F">
 <title>タカのめ</title>
 <para>
-TBW
+タカのめは近くにある城や街等の現在パーティーがいる地点からの相対的な位置を調べるコマンドだ。
+探索処理をサブルーチン <varname>$C7CB22</varname> で、
+データ処理とメッセージ処理を当ハンドラー内でそれぞれ実行する。
+当ハンドラーでの手続きはこのようなものだ：
+
+<itemizedlist>
+  <listitem>
+    <simpara>
+      サブルーチン <varname>$C7CB22</varname> を呼び出し、探索処理を実行する。
+      これにより位置データを変数 <varname>$7E6C[D1:D8]</varname> にセットする。
+    </simpara>
+    <simpara>
+      この結果 <varname>$6CD3</varname> と <varname>$6CD1</varname> の両方がゼロだと、
+      失敗メッセージ <literal>#16C0</literal> を出力してコマンドを終了する。
+      前者が南北方向の歩数で、後者が東西方向の歩数を表す。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      メッセージ中の東西何歩なのかを決めるために <varname>$7E6CD5</varname> の符号を調べる。
+      正ならば東に何歩とのメッセージ <literal>#16BC</literal> を、
+      負ならば西に何歩とのメッセージ <literal>#16BD</literal> をそれぞれ出力する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      メッセージ中の南北何歩なのかを決めるために <varname>$7E6CD7</varname> の符号を調べる。
+      正ならば南に何歩とのメッセージ <literal>#16BF</literal> を、
+      負ならば北に何歩とのメッセージ <literal>#16BE</literal> をそれぞれ出力する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      コマンドを終了する。
+    </simpara>
+  </listitem>
+</itemizedlist>
+</para>
+<para>
+本質的な処理はサブルーチン <varname>$C7CB22</varname> 以下のコードによる。
+
+<itemizedlist>
+  <listitem>
+    <simpara>
+      パーティーがタカのめにとっての有効地域にいるかどうかは
+      構造体 <varname>$C8A188</varname> のメンバーを調べることによる。
+      余談だが、この構造体配列を精査すれば、タカのめが有効な地域は「フィールド」および「したフィールド」しかないことが判明する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      長さが 160 の二つの配列 <varname>$7E5F19</varname> と <varname>$7E5FB9</varname> を並行して調べる。
+      興味がある値とは、前者の値の最下位ビットが立っていて、かつ後者の要素が 3 または 4 となる
+      添字だ。
+      この添字に対応する配列
+      <varname>$7E62D9</varname>,
+      <varname>$7E6199</varname>,
+      <varname>$7E6379</varname>,
+      <varname>$7E6239</varname> の要素も利用する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      アルゴリズムはパーティーのいる地点との Manhattan 距離が最小をとる候補地点を一つ検索する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      候補地点が基準点から東西方向に <literal>#$0012</literal> 以上離れているか、
+      あるいは南北方向に <literal>#$000E</literal> 以上離れているならば、
+      その候補地点はタカのめの解から除外する。
+    </simpara>
+  </listitem>
+</itemizedlist>
 </para>
 </section> <!-- dq6.spell_commands.desc.C3BE7F -->
 
 <section id="dq6.spell_commands.desc.C3BEF9">
 <title>とうぞくのはな</title>
 <para>
-TBW
+とうぞくのはなは現在パーティーがいる階や部屋に「しらべる」で入手できるお宝やゴールドがどれだけあるかを知るコマンドだ。
+次のような手続きを行う：
+
+<itemizedlist>
+  <listitem>
+    <simpara>
+      現在パーティーがいる階や部屋がフィールド系であるかどうかを調べる。
+      フィールド系だとメッセージ「しかし 何も おこらなかった」を出力してコマンドを終了する。
+      余談だが、このチェックでははざまの世界後半部フィールドを漏らしている。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      サブルーチン <varname>$C7CC26</varname> を呼び出し、探索処理を実行する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      戻り値によって出力メッセージを使い分ける。
+      値がゼロならばメッセージ <literal>#$16C7</literal> を、
+      そうでなければメッセージ <literal>#$16C6</literal> をそれぞれ表示して、
+      コマンドを終了する。
+    </simpara>
+  </listitem>
+</itemizedlist>
 </para>
+<para>
+とうぞくのはなの本質的な処理はサブルーチン <varname>$C7CC26</varname> 以下になる。
+手続きの概要のみ記す：
+
+<itemizedlist>
+  <listitem>
+    <simpara>
+      お宝カウンターは <varname>$7E679D</varname> だ。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      検索対象は三つ組の配列 <varname>$7E641D</varname>,
+      <varname>$7E65DD</varname>, <varname>$7E661D</varname> となる。
+    </simpara>
+    <simpara>
+      配列 <varname>$7E641D</varname> はマップ内のマスが「しらべる」コマンドの対象であるかを
+      管理するようだ。上位 2 ビットの状態によりスキップするかどうかを決める。
+      このうち <literal>#$4000</literal> のビットのほうがこのコマンド専用のデータ扱いになっている。
+    </simpara>
+    <simpara>
+      配列 <varname>$7E65DD</varname> で「しらべる」コマンドによる反応対象の種別を管理している。
+      値については下記の表を参照。この値によってサブルーチンを呼び分ける。
+    </simpara>
+    <simpara>
+      配列 <varname>$7E661D</varname> ではマップ内の各マスに対応する
+      各種お宝構造体配列の添字、
+      すなわち「しらべる」イベントの ID を管理している。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      基本的には「しらべる」コマンドで得られる対象物は、
+      一度アクセスしたら二度目以降は反応しない。そのフラグを管理するのは配列
+      <varname>$7E3D2A</varname> のビットセットだ。
+      一度「しらべる」コマンドで入手した項目に対応するビットは 1 になっている。
+      このアルゴリズムで調べたいのは、そのようなビットが 0 になっているものの個数だ。
+    </simpara>
+  </listitem>
+</itemizedlist>
+</para>
+<table class="lighttable">
+  <caption>しらべる反応種別</caption>
+  <thead>
+    <tr><th>値</th><th>種別</th><th>参照構造体</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>0</td><td>どうぐ</td><td><varname>$C83E5C</varname></td></tr>
+    <tr><td>1</td><td>ゴールド</td><td><varname>$C8477E</varname></td></tr>
+    <tr><td>2</td><td>立て札・貼り紙・本棚</td><td>n/a</td></tr>
+    <tr><td>3</td><td>罠モンスター</td><td><varname>$C85534</varname></td></tr>
+    <tr><td>4</td><td>（不明）</td><td><varname>$C855AB</varname></td></tr>
+  </tbody>
+</table>
 </section> <!-- dq6.spell_commands.desc.C3BEF9 -->
 
 <section id="dq6.spell_commands.desc.C3BF55">
@@ -509,21 +660,381 @@ TBW
 <section id="dq6.spell_commands.desc.C3C066">
 <title>あなほり</title>
 <para>
-TBW
+あなほりは物品またはゴールドをランダムに入手するコマンドだ。
+できればアクティビティー図でも描いて展望を明瞭にしておきたいところだが、文章でコマンドの手続きを示す：
+
+<itemizedlist>
+  <listitem>
+    <simpara>
+      サブルーチン <varname>$C7CC3A</varname> を実行し、あなほりが利用可能な状況かどうかを判定する。
+      単に変数 <varname>$7E85EF</varname> がゼロであるかをテストするだけだ。
+      ゼロでなければメッセージ <literal>#$16D3</literal> を表示してコマンドを終了する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      あなほりカウンターを参照する。変数 <varname>$7E5ED3</varname> がそれだが、
+      この値が 5 以上ならばメッセージ <literal>#$16D2</literal> を表示してコマンドを終了する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      確率 1/2 でスカかどうかを抽選する。
+      スカならばメッセージ <literal>#$16D2</literal> を表示してコマンドを終了する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      確率 1/2 でアイテム抽選を行うかどうかを補助サブルーチンの呼び出しにより抽選する。
+      この抽選処理の概要は後述する。
+    </simpara>
+    <itemizedlist>
+      <listitem>
+        <simpara>
+          当選すれば、サブルーチン <varname>$C3ED1D</varname> を実行して獲得した物品をパーティーの所持品の空きまたはふくろに追加する。
+        </simpara>
+      </listitem>
+      <listitem>
+        <simpara>
+          発見メッセージ <literal>#$16D1</literal> を出力する。
+        </simpara>
+      </listitem>
+      <listitem>
+        <simpara>
+          サウンド <literal>#$002C</literal> を鳴らし、演奏終了を待機する。
+        </simpara>
+      </listitem>
+      <listitem>
+        <simpara>
+          補助サブルーチンを呼び出して、あなほりカウンター <varname>$7E5ED3</varname> を 1 だけ加える。
+          そこでは値が 5 を超えるようならば 5 のまま保留する。
+        </simpara>
+       </listitem>
+     </itemizedlist>
+  </listitem>
+  <listitem>
+    <simpara>
+      アイテム抽選に漏れた場合は確率 1/128 で所持金の半額を掘り当てる。
+    </simpara>
+    <itemizedlist>
+      <listitem>
+        <simpara>
+          当選すれば、サブルーチン <varname>$C427E0</varname> を呼び出してパーティーの所持金を問い合わせる。
+          次に LSR 命令と ROR 命令を併用して半額を計算し、これを収入額とする。
+        </simpara>
+      </listitem>
+      <listitem>
+        <simpara>
+          落選すればランダムに 1 または 2 ゴールドを収入額とする。
+        </simpara>
+      </listitem>
+    </itemizedlist>
+    <simpara>
+      最後にサブルーチン <varname>$C42862</varname> を呼び出して所持金に収入額を加算し、
+      メッセージ <literal>#$16D0</literal> を表示する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      前述のあなほりカウンター補助サブルーチンを呼び出して、あなほりカウンターを更新する。
+    </simpara>
+  </listitem>
+</itemizedlist>
+
+以上でコマンドを終了する。
+</para>
+
+<para>
+次にアイテム抽選を行うかを決定する補助サブルーチンの処理を示す：
+
+<itemizedlist>
+  <listitem>
+    <simpara>
+      パーティーがいる地域のタイルせんとうデータを参照する。
+    </simpara>
+    <simpara>
+      <link linkend="dq6.encounter.hack.C6843C">タイルせんとうデータ</link>内の謎の重みメンバーデータ 10 個の和を計算する。
+      この和がゼロならば、アイテム抽選を行わないものとする。
+    </simpara>
+    <simpara>
+      ゼロからこの和までの間の数をランダムに一つ取る。
+    </simpara>
+    <simpara>
+      この乱数から、タイルせんとうデータ内の謎の重みメンバーデータを一つずつ順に減算する。
+      この値が負になるところで反復処理を中断するが、
+      最後まで行っても負にならない場合は、アイテム抽選を行わないものとする。
+    </simpara>
+    <simpara>
+      反復処理中断時のインデックスを基に、タイルせんとうデータ中のモンスターを決定する。
+      モンスターの ID がゼロならば、アイテム抽選を行わないものとする。
+    </simpara>
+    <simpara>
+      このモンスターの宝箱を落とす確率を<link linkend="dq6.monster.hack.C20154">モンスターデータ</link>の対応属性に基いて決定する。
+      確率表は <varname>$C2B1C3</varname> のものを参照する。
+      それから当選確率がこの値であるような抽選をする。
+    </simpara>
+    <simpara>
+      このモンスターの宝箱が元々設定されていないならば、アイテム抽選を行わなかったものとする。
+    </simpara>
+    <simpara>
+      変数 <varname>$7E5A2A</varname> に宝箱の中身のアイテム ID をセットして、
+      この補助サブルーチンを終了する。
+    </simpara>
+  </listitem>
+</itemizedlist>
+</para>
+<table class="lighttable">
+  <caption>$C2B1C3 モンスター宝箱確率</caption>
+  <thead>
+    <tr><th>ID</th><th>値</th><th>確率</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>0</td><td><literal>#$0000</literal></td><td align="right">1/1</td></tr>
+    <tr><td>1</td><td><literal>#$0007</literal></td><td align="right">1/8</td></tr>
+    <tr><td>2</td><td><literal>#$000F</literal></td><td align="right">1/16</td></tr>
+    <tr><td>3</td><td><literal>#$001F</literal></td><td align="right">1/32</td></tr>
+    <tr><td>4</td><td><literal>#$003F</literal></td><td align="right">1/64</td></tr>
+    <tr><td>5</td><td><literal>#$007F</literal></td><td align="right">1/128</td></tr>
+    <tr><td>6</td><td><literal>#$00FF</literal></td><td align="right">1/256</td></tr>
+    <tr><td>7</td><td><literal>#$0FFF</literal></td><td align="right">1/4096</td></tr>
+  </tbody>
+</table>
+<para>
+補足だが、処理中に乱数取得処理がいくつかあるが、そのほとんどはサブルーチン
+<varname>$C00F28</varname> だが、アイテム確率だけは分母が大きいのでサブルーチン
+<varname>$C00F49</varname> を採用している。
 </para>
 </section> <!-- dq6.spell_commands.desc.C3C066 -->
 
 <section id="dq6.spell_commands.desc.C3C344">
 <title>インパス</title>
 <para>
-TBW
+インパスは次のような三段構造のコマンドだ：
+
+<itemizedlist>
+  <listitem>
+    <simpara>「まじゅつしのとう」入場に関する処理</simpara>
+  </listitem>
+  <listitem>
+    <simpara>宝箱またはツボの中身を判定する処理</simpara>
+  </listitem>
+  <listitem>
+    <simpara>所持品を一つ鑑定する処理</simpara>
+  </listitem>
+</itemizedlist>
+</para>
+
+<para>
+「まじゅつしのとう」入場に関する処理はサブルーチン
+<varname>$C7CC8E</varname> 以下に実装されており、その内容とは次のようなものだ：
+
+<itemizedlist>
+  <listitem>
+    <simpara>
+      現在パーティーがいるのが「まじゅつしのとう」玄関外部 (ID: <literal>#$024D</literal>) でなければ抜ける。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      パーティーの先頭メンバーが入口の扉の前面に、扉の方を向いているかどうかを調べ、
+      かつ扉がまだ閉まっているかどうかを調べる。いずれかの条件が成り立っていなければ抜ける。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      この扉を開く。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      <link linkend="dq6.spell_commands.desc.C3BC70">ルーラフラグ列</link>内「まじゅつしのとう」のビットをセットする。
+      これにはサブルーチン <varname>$C6DE8A</varname> を呼び出すことで達成する。
+    </simpara>
+  </listitem>
+</itemizedlist>
+
+この扉を開ける処理がなされると、インパスのコマンド処理が終了する。
+そうでなければ、以下の処理へ進む。
+</para>
+
+<para>
+宝箱またはツボの中身を判定する処理はサブルーチン
+<varname>$C7CCEF</varname> 以下で実装されている。次のようになっている：
+
+<itemizedlist>
+  <listitem>
+    <simpara>
+      パーティーの先頭メンバーの正面に宝箱またはツボが置いてあるかどうかを調べる。
+      具体的には、その対象に対応する「しらべる」メッセージ構造体配列の添字の値を見て、
+      それが宝箱なのかツボなのかを判定する。
+      対象が宝箱とツボのいずれでもなければ抜ける。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      とうぞくのはなやレミラーマの要領で、対象の中身が収拾済みかどうかを確認する。
+      また、中身が未回収ならばアイテム、ゴールド、罠の種別に応じて色を決める。
+    </simpara>
+  </listitem>
+</itemizedlist>
+
+このサブルーチン呼び出しにより、インパスが宝箱またはツボに反応する可能性があるかどうかがわかる。
+コマンドハンドラー側ではこの戻り値によって、選択ウィンドウ「たからばこ アイテム」や
+「ツボ アイテム」ウィンドウを表示するかどうかを決める。
+
+<itemizedlist>
+  <listitem>
+    <simpara>
+      ここでキャンセルされた場合は、コマンド自体をキャンセル扱いで終了する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      プレイヤーが「たからばこ」と「ツボ」のどちらかを選択すると、下の表に示した色に応じて
+      <literal>#$16AE</literal> から <literal>#$16B4</literal> のいずれかの固定メッセージを表示してコマンドを終了する。
+      「アイテム」を選択すると、次に述べる鑑定処理を実行する。
+    </simpara>
+  </listitem>
+</itemizedlist>
+<table class="lighttable">
+  <caption>インパスにおける色と内容の対応</caption>
+  <thead>
+    <tr><th>値</th><th>色</th><th>内容</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>0</td><td>からっぽ</td><td>回収済みにつき空</td></tr>
+    <tr><td>1</td><td>青</td><td>品物</td></tr>
+    <tr><td>2</td><td>黄</td><td>ゴールド</td></tr>
+    <tr><td>3</td><td>赤</td><td>罠</td></tr>
+  </tbody>
+</table>
+</para>
+
+<para>
+最後に所持品の鑑定となる：
+
+<itemizedlist>
+  <listitem>
+    <simpara>
+      ウィンドウ <literal>#$00CB</literal> を表示して、
+      鑑定する品物を所持するパーティーメンバーまたは「ふくろ」のいずれかをプレイヤーに選択させる。
+      ここでキャンセルされた場合は、再び宝箱・ツボチェックまで戻る。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      パーティーメンバーが選択されると、所持品があるのかどうかを調べる。
+      何も持っていなければメッセージ <literal>#$1527</literal> を表示して
+      コマンド入力を一つ戻す。
+    </simpara>
+    <simpara>
+      道具袋が選択されると、中身が何かあるのかどうかを調べる。
+      何も収納されていなければメッセージ <literal>#$1722</literal> を表示して
+      コマンド入力を一つ戻す。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>鑑定する品物が決まったら、呪文効果音を鳴らして鑑定処理を実行する：</simpara>
+
+    <itemizedlist>
+      <listitem>
+        <simpara>
+          サブルーチン <varname>$C4608D</varname> により、鑑定品の道具種別情報を取得する。
+        </simpara>
+      </listitem>
+      <listitem>
+        <simpara>
+          鑑定メッセージを 2, 3 表示する。
+          この際にメッセージ ID を道具構造体 <varname>$C41A3D</varname> のデータから取得するが、
+          種別が道具か否かで出力手続きが異なる。
+          メッセージ出力が最も多くなるのは、鑑定品が装備可能品かつ
+          装備していると特殊な効用があり、さらに戦闘中に使うと何か起こるものだ。
+        </simpara>
+      </listitem>
+      <listitem>
+        <simpara>
+          別サブルーチン呼び出しにより鑑定品の耐久性を鑑定する。
+          道具構造体 <varname>$C41A3D</varname> の関連メンバーを取得し、
+          メッセージ <literal>#$163F</literal> から <literal>#$1641</literal> までのいずれかを表示する。
+        </simpara>
+      </listitem>
+      <listitem>
+        <simpara>
+          装備品ならば、パーティーメンバーの誰が装備可能なのかを調べる。
+          具体的にはサブルーチン <varname>$C45FA6</varname> で情報取得を、
+          配列 <varname>$7E3BB6</varname> で各員の装備可能性を保持する。
+        </simpara>
+      </listitem>
+      <listitem>
+        <simpara>
+          前処理に基いて装備可能者をメッセージで表示する。
+          大きく分けて三通り。
+          誰も装備できないならばメッセージ <literal>#$1642</literal> か <literal>#$1648</literal> を示して売値評価へ進む。
+          あるいは装備可能者が 6 名以上いるか否かで、メッセージ表示が異なる。
+          詳細は割愛する。
+        </simpara>
+      </listitem>
+      <listitem>
+        <simpara>
+          最後に売値を評価する。
+          貴重品ビットのセットされた品物ならばメッセージ <literal>#$164A</literal> を、
+          そうでなければサブルーチン <varname>$C45F3C</varname> で売値を計算し、
+          メッセージ <literal>#$1649</literal> で知らせる。
+        </simpara>
+      </listitem>
+    </itemizedlist>
+  </listitem>
+</itemizedlist>
+
+以上でコマンドを終了する。
 </para>
 </section> <!-- dq6.spell_commands.desc.C3C344 -->
 
 <section id="dq6.spell_commands.desc.C3C71B">
 <title>レミラーマ</title>
 <para>
-TBW
+レミラーマはパーティーの近くにある怪しいものを目立たせるコマンドだ。
+ハンドラーでの処理は次のようになっている：
+
+<itemizedlist>
+  <listitem>
+    <simpara>
+      サブルーチン <varname>$C7CCF4</varname> を呼び出して、このコマンドが利用可能であるかを問い合わせる。
+      利用できなければメッセージ <literal>#$16D8</literal> を出力し、
+      キャンセル扱いでコマンドを終了する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      次にサブルーチン <varname>$C7CD10</varname> を呼び出して、怪しいものを目立たさせる。
+    </simpara>
+  </listitem>
+</itemizedlist>
+</para>
+<para>
+サブルーチン <varname>$C7CCF4</varname> の処理は単純で、
+変数 <varname>$7E5ED1</varname> の値が <literal>#$FFFF</literal> でないことをテストするものだ。
+</para>
+<para>
+サブルーチン <varname>$C7CD10</varname> の処理では画面内の怪しい地点を光らせて効果音を鳴らす。
+具体的な内容は説明が困難なので、明らかな処理のみ記す：
+
+<itemizedlist>
+  <listitem>
+    <simpara>
+      <link linkend="dq6.spell_commands.desc.C3BEF9">とうぞくのはな</link>のアルゴリズムと同様にして、
+      パーティーがいる地点近辺の怪しい地点を探索する。
+      ただし、配列 <varname>$7E641D</varname> のテストするビットが異なる。
+      レミラーマの場合は最上位ビットに加えて <literal>#$0200</literal> を見る。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      怪しい地点が光るときの効果音は <literal>#$00CD</literal> を用いる。
+      これは<link linkend="dq6.spell_commands.desc.C3B9A8">ホイミ系</link>と同じ効果音だ。
+    </simpara>
+  </listitem>
+</itemizedlist>
 </para>
 </section> <!-- dq6.spell_commands.desc.C3C71B -->
 
