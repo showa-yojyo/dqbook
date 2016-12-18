@@ -86,6 +86,7 @@
   <!ENTITY dq6_encounter              SYSTEM "dq6_encounter.xml">
   <!ENTITY dq6_inn                    SYSTEM "dq6_inn.xml">
   <!ENTITY dq6_item                   SYSTEM "dq6_item.xml">
+  <!ENTITY dq6_item_commands          SYSTEM "dq6_item_commands.xml">
   <!ENTITY dq6_level                  SYSTEM "dq6_level.xml">
   <!ENTITY dq6_message                SYSTEM "dq6_message.xml">
   <!ENTITY dq6_message_battle         SYSTEM "dq6_message_battle.xml">
