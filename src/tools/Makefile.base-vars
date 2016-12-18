@@ -27,7 +27,7 @@
 # Paths which you may wish to customize:
 XSLTPROC = xsltproc
 XMLLINT = xmllint
-INSTALL_DATA = cp -r
+INSTALL_DATA = cp -ru
 MKDIR = mkdir -p
 RUN_HHC = ~/bin/runhhc.bat
 
