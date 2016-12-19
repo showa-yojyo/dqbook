@@ -102,7 +102,7 @@ F4240 <co id="tools.cygwin.radix.co.2"/>
 	</callout>
 	<callout arearefs="tools.cygwin.seq.co.3">
 		<para>
-			ドラクエ3 の通称 3925 構造体のアドレスを書きたくなって <command>seq</command> を利用したとする。
+			&dq3_1996; の通称 3925 構造体のアドレスを書きたくなって <command>seq</command> を利用したとする。
 			バンクは皆 $7E なので入力には含めず、出力書式に込めることにした。
 			勇者のアドレスが $7E3925 で、ルイーダの酒場にいる順番に <literal>+$3C</literal> ずつアドレスが増えていくので、
 			FIRST, INCREMENT パラメータは <literal>0x3925</literal>, <literal>0x3C</literal> を与えた。
@@ -126,7 +126,7 @@ F4240 <co id="tools.cygwin.radix.co.2"/>
 
 <para>
 	ドラクエのスーファミ ROM イメージから、特定の構造体データ配列をすべてテキストダンプしたいことがある。
-	例えば、ドラクエ3 のモンスター構造体配列（<xref linkend="dq3.monster.hack.C20000"/>）を見たくなったとしよう。
+	例えば、&dq3_1996; のモンスター構造体配列（<xref linkend="dq3.monster.hack.C20000"/>）を見たくなったとしよう。
 	まずは頭を使わずにコンソールから直接コマンドラインを入力してみよう。
 </para>
 <screen><prompt>$ </prompt><userinput>od --address-radix=x1 \ <co id="tools.cygwin.od.co.1"/>
@@ -194,7 +194,7 @@ F4240 <co id="tools.cygwin.radix.co.2"/>
 <title>スーファミ LoROM アドレス変換スクリプトを書く</title>
 
 <para>
-	ドラクエ5 のメモリマッピングは LoROM だ。HiROM とは違って、
+	&dq5_1992; のメモリマッピングは LoROM だ。HiROM とは違って、
 	ROM イメージファイルで見えたデータのアドレスと、
 	デバッガや逆アセンブリコードでのアドレスの対応が頭の中でパッと出てこないのが困る。
 	そこで対応早見表を作成しておき、解析作業時に常にそれを見えるようにしておくことになる。
@@ -210,7 +210,7 @@ F4240 <co id="tools.cygwin.radix.co.2"/>
 
 <para>
 	特定の ROM イメージに対して <application>DisPel</application> をコンソールから起動する作業を続けていると、
-	やがて位置オプションの指定が面倒なことに気付く。例えばドラクエ3 の場合は
+	やがて位置オプションの指定が面倒なことに気付く。例えば &dq3_1996; の場合は
 	<option>-h</option>, <option>-s</option> は必ず指定するし、
 	古いバージョンの <application>DisPel</application> を利用しているのならば、
 	ROM イメージは普通はヘッダを削っておくものだから <option>-n</option> も指定する。

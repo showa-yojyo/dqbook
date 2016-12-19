@@ -4,10 +4,10 @@
 <title>デバッグモード解析</title>
 <indexterm id="term.dq3.debug"><primary>デバッグモード</primary><secondary>DQ3</secondary></indexterm>
 <para>
-	ドラクエ3 のデバッグモードについて解析する。
+	&dq3_1996; のデバッグモードについて解析する。
 	<!-- TODO: make reference -->
-	Shingo Endo 氏がドラクエ6 の解析文書で指摘している
-	「<varname>$C1FFFE</varname> の値によるプログラムの処理分岐」が、ドラクエ3 においても存在する。
+	Shingo Endo 氏が &dq6_1995; の解析文書で指摘している
+	「<varname>$C1FFFE</varname> の値によるプログラムの処理分岐」が &dq3_1996; においても存在する。
 </para>
 
 <section id="dq3.debug.hack">
@@ -496,7 +496,7 @@
 </figure>
 <para>
 	おそらく <varname>$C1FFFE</varname> が <literal>0001h</literal> になっているビルドは、
-	ドラクエ 3 の発売以前にゲームショー等でプログラムを動作させるためのものだと思われる。
+	&dq3_1996; の発売以前にゲームショー等でプログラムを動作させるためのものだと思われる。
 	<!--
 	（1996 年秋に開催されたゲームショーでは、このモードはなかったと記憶しているので、
 	それ以前のゲームショーのバージョンで利用されていたと推測する）。

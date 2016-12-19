@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <section id="dq3.monmedal.dq4"><?dbhtml filename="dq3_monster_medal_dq4.html" ?>
-<title>ドラクエ4 のモンスターメダル</title>
+<title>ドラクエ 4 のモンスターメダル</title>
 <indexterm id="term.dq3.monmedal.dq4"><primary>モンスターメダル</primary><secondary>DQ3</secondary></indexterm>
 <para>
-	<acronym>GB</acronym> 版ドラクエ3 で密かに存在する「ドラクエ4 のモンスターメダル」について記す。
+	&dq3_2000; で密かに存在する「ドラクエ 4 のモンスターメダル」について記す。
 	あまり多くは語らない。
 </para>
 
@@ -29,13 +29,13 @@
 	</listitem>
 	<listitem>
 		<para>
-			言うまでもなく <literal>GBC</literal> ドラクエ3 ロムイメージファイルが必要だ。
+			言うまでもなく &dq3_2000; ロムイメージファイルが必要だ。
 			ファイル容量は 4 MB あるハズだ。
 		</para>
 	</listitem>
 	<listitem>
 		<para>
-			同エミュレーターで用いる、適度にプレイして得られたドラクエ3 のセーブデータファイル。
+			同エミュレーターで用いる、適度にプレイして得られた &dq3_2000; のセーブデータファイル。
 			おそらく 32 KB ある。
 		</para>
 	</listitem>
@@ -51,7 +51,7 @@
 	注目するのは <varname>$00000036</varname> からの 3 バイト、<literal>01 04 02</literal> である
 	（この値は、記者のプレイ内容がそういうメダル枚数になっていたということなので、
 	数値は読者によって異なる）。「メダルの書」と照合すれば、
-	このオフセットにドラクエ3 のメダル番号 1「スライム」のメダル枚数が金・銀・銅の順に格納されていることに気付く。
+	このオフセットにドラクエ 3 のメダル番号 1「スライム」のメダル枚数が金・銀・銅の順に格納されていることに気付く。
 	続く 3 バイトはメダル番号 2 「おおがらす」のそれである。
 	このようにして、ドラクエ 3 の全モンスターメダルの枚数が記録されている。
 	なお、<literal>FF</literal> は「一度も手に入れたことがない」を意味すると思われる。
@@ -82,12 +82,12 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td>ドラクエ3 モンスターメダルデータ領域</td>
+			<td>ドラクエ 3 モンスターメダルデータ領域</td>
 			<td><varname>$000033</varname>-<varname>$000224</varname></td>
 			<td><literal>3 * 166 == 498</literal></td>
 		</tr>
 		<tr>
-			<td>ドラクエ4 モンスターメダルデータ領域</td>
+			<td>ドラクエ 4 モンスターメダルデータ領域</td>
 			<td><varname>$000225</varname>-<varname>$000464</varname></td>
 			<td><literal>3 * 192 == 576</literal></td>
 		</tr>
@@ -99,7 +99,7 @@
 	</tbody>
 </table>
 <para>
-	ちなみに、ドラクエ3 とドラクエ4 それぞれのスライムのデータはそれぞれ
+	ちなみに、ドラクエ 3 とドラクエ 4 それぞれのスライムのデータはそれぞれ
 	<varname>$000036</varname>, <varname>$000228</varname> から始まる。
 	その直前の 3 byte はダミーかもしれない。
 </para>
@@ -138,14 +138,14 @@
 <section id="dq3.monmedal.dq4.ref">
 <title>参考サイト</title>
 <para>
-	ドラクエ4 のモンスターメダルデータに関する情報を提供するページへのリンク集である。
+	ドラクエ 4 のモンスターメダルデータに関する情報を提供するページへのリンク集である。
 	以前はもっとたくさんのページがネット上に存在したはずだが、減ってしまったのだろうか。
 </para>
 <itemizedlist>
 	<listitem>
 		<para>
 			<ulink url="http://www.hcn.zaq.ne.jp/caawq507/dq/dq4/img/medal.htm">ＧＢ３カセットと交換可能なＧＢ４メダルリスト</ulink>
-			ドラクエ4 の完全なモンスターメダルリストおよび、一部のモンスターメダルについて画像を紹介している。
+			ドラクエ 4 の完全なモンスターメダルリストおよび、一部のモンスターメダルについて画像を紹介している。
 		</para>
 	</listitem>
 </itemizedlist>

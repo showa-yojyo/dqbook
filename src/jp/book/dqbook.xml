@@ -4,7 +4,8 @@
   <!ENTITY % vers SYSTEM "version.xml">
   %vers;
 
-  <!ENTITY docroot "https://showa-yojyo.github.io/dqbook">
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
 
   <!ENTITY preface                    SYSTEM "preface.xml">
   <!ENTITY hack                       SYSTEM "dq_hack.xml">

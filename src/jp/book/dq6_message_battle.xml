@@ -136,7 +136,7 @@ C0/27FE:    6B          RTL
 	このルーチンの <literal>LDA</literal> 命令をチェックしておくと、
 	<varname>$C15AD3</varname> がいかにも戦闘メッセージデータのアドレスの先頭であることが特定できる。
 	ソニタウン <xref linkend="dqref.url2"/> の結果と一致して、まずは一安心である。
-	あとは、このアドレスから <literal>1</literal> バイトずつドラクエ6 の小フォント文字コードとみなして、
+	あとは、このアドレスから <literal>1</literal> バイトずつ &dq6_1995; の小フォント文字コードとみなして、
 	力にまかせてデコードしていけばよい。
 	dq_analyzer <xref linkend="dqref.url1"/> のデコーダにある配列を流用すればよい。
 	最初から <command>dq6decoder -s</command> する場合、戦闘メッセージは出力ファイルの

@@ -12,10 +12,10 @@
 <section id="dq3.people.hack">
 <title>解析</title>
 <para>
-	<link linkend="dq6.people.hack">ドラクエ6 の人オブジェクト解析作業手順</link>
+	<link linkend="dq6.people.hack">&dq6_1995; の人オブジェクト解析作業手順</link>
 	と同様に行えばよい。
 	アドレス等、各種定数が異なってはいるが、
-	ドラクエ3 においても、ドラクエ6 のそれと同じ概念を有する構造体データ列を発見することができる。
+	&dq3_1996; においても &dq6_1995; のそれと同じ概念を有する構造体データ列を発見することができる。
 </para>
 <para>
 	人オブジェクト構造体データは <varname>$C808DA</varname> から格納されている。
@@ -31,7 +31,7 @@
 <title>構造体 <varname>$C808DA</varname></title>
 <para>
 	人々の振る舞いを定義するデータ構造体 <varname>$C808DA</varname> は、ちょうど
-	ドラクエ6 における<link linkend="dq6.people.hack.FF243C">構造体 <varname>$FF243C</varname></link>
+	&dq6_1995; における<link linkend="dq6.people.hack.FF243C">構造体 <varname>$FF243C</varname></link>
 	に相当するものである。
 </para>
 <para>

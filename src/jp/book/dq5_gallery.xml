@@ -4,7 +4,7 @@
 <title>バカ画像</title>
 <indexterm id="term.dq5.gallery"><primary>バカ画像</primary><secondary>DQ5</secondary></indexterm>
 <para>
-	ここでは、特殊な方法で撮影に成功したドラクエ5 にまつわるおバカな画像の数々を披露する。
+	ここでは、特殊な方法で撮影に成功した &dq5_1992; にまつわるおバカな画像の数々を披露する。
 </para>
 
 <section id="dq5.gallery.barabara">
@@ -83,7 +83,7 @@
 <para>
 	キャラクターに「はなす」ときのメッセージを全部解析したときの話。
 	アドレス等を色々サーチしてみたが、どうも特定できない。
-	どうもドラクエ6 やドラクエ3 とは違ったスタイルで、
+	どうも &dq6_1995; や &dq3_1996; とは違ったスタイルで、
 	ウィンドウに表示するメッセージを扱っているものと思われる。
 	上の画像は、そんな不毛なサーチ作業中に生じた副産物である。
 	アドレス $7E00F0-$7E00F3 あたりの値をデタラメに入力しておくと、
@@ -105,7 +105,7 @@
 	<graphic width="256px" fileref="./image/dq5_bzritem_02.png"/>
 </figure>
 <para>
-	ドラクエ5 データの日の目の当たらないところに、
+	&dq5_1992; データの日の目の当たらないところに、
 	次の名前を持つアイテムが存在する。
 </para>
 <table id="table.dq5.gallery.goods" class="lighttable">

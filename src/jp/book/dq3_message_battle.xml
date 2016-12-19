@@ -4,14 +4,14 @@
 <title>戦闘メッセージ</title>
 <indexterm id="term.dq3.message.battle"><primary>メッセージ</primary><secondary>DQ3</secondary></indexterm>
 <para>
-	ドラクエ3 の戦闘モードで表示するメッセージの解析および結果について述べる。
+	&dq3_1996; の戦闘モードで表示するメッセージの解析および結果について述べる。
 </para>
 
 <section id="dq3.message.battle.hack">
 <title>解析</title>
 <para>
 	解析手順は、
-	<link linkend="dq6.message.battle.hack">ドラクエ6 の戦闘メッセージ解析</link>
+	<link linkend="dq6.message.battle.hack">&dq6_1995; の戦闘メッセージ解析</link>
 	と同様に行う。
 	各種定数の違いを除けば、まったく同じ実装といってよい。
 </para>

@@ -50,7 +50,7 @@ C4/6C27:    6B          RTL
 <calloutlist>
 <callout arearefs="dq3.character.co.1">
 <para>
-ドラクエ 3 の全プログラムコード内において、
+&dq3_1996; の全プログラムコード内において、
 サブルーチン <varname>$C90572</varname> の呼び出し行の直後には、
 必ず <literal>11</literal> バイトの「実引数」が静的に与えられている。
 この値を見ることで、ROM 内に静的に存在する構造体データ配列の定義が解析できる。

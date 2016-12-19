@@ -43,7 +43,7 @@
 	入手先は <ulink url="http://www.storeroom.info/cdm/">http://www.storeroom.info/cdm/</ulink> と思われる。
 </para>
 <para>
-	ドラクエ 4 (PS), 7 を <link linkend="tools.emulator.epsxe">ePSXe</link> でプレイする際に、
+	&dq7_2000; や &dq4_2001; を <link linkend="tools.emulator.epsxe">ePSXe</link> でプレイする際に、
 	直接 CD-ROM からデータをロードするのは煩わしい。
 	あらかじめイメージファイルを作成しておき、それからプレイするのが具合がよいようだ。
 	ゲーム CD をドライブに挿し込んでおき、CD &gt; イメージ作成 メニューを選択。

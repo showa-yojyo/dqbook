@@ -11,15 +11,15 @@
 <section id="dq3.message.hack">
 <title>解析</title>
 <para>
-	記者はドラクエ3 のメッセージ解析手法の大部分を人に教わった
-	（それを元にドラクエ5 およびドラクエ6 のメッセージ抽出を実現した）。
+	記者は &dq3_1996; のメッセージ解析手法の大部分を人に教わった
+	（それを元に &dq5_1992; および &dq6_1995; のメッセージ抽出を実現した）。
 	その内容は、メッセージ表示を実装している 65816 コードの解説という形でどこかに存在する。
 	よって、ここには解説を書かず（本物は一つでいい）、
 	要所要所のメモだけを残すにとどめる。
 </para>
 <para>
-	もっとも、ドラクエ3 のメッセージ周辺の実装は、
-	まったくといっていいほど<link linkend="dq6.message">ドラクエ6 のそれ</link>
+	もっとも、&dq3_1996; のメッセージ周辺の実装は、
+	まったくといっていいほど<link linkend="dq6.message">&dq6_1995; のそれ</link>
 	と同じであるため、
 	定数（データ格納アドレスやキャラクターセット）の違いだけ読んでいくといいかもしれない。
 </para>
@@ -28,7 +28,7 @@
 <title>メッセージ復号</title>
 <para>
 	メッセージデータは圧縮されており、これを復号しながらテキストを表示するという方式である。
-	これはドラクエ6 の実装と同じである。
+	これは &dq6_1995; の実装と同じである。
 	以下、要点のみを箇条書きするに留める。
 </para>
 <itemizedlist>
@@ -50,14 +50,14 @@
 	<listitem>
 		<para>
 		サブルーチン <literal>$C1AFB9</literal> はメッセージ ID から圧縮メッセージデータの格納アドレスを求める
-		（ドラクエ6 の<link linkend="dq6.message.hack.pro.location">サブルーチン <literal>$C02B69</literal></link>
+		（&dq6_1995; の<link linkend="dq6.message.hack.pro.location">サブルーチン <literal>$C02B69</literal></link>
 		に相当）。
 		</para>
 	</listitem>
 	<listitem>
 		<para>
 			サブルーチン <literal>$C1B024</literal> は圧縮メッセージデータを展開する
-			（ドラクエ6 の<link linkend="dq6.message.hack.pro.decode">サブルーチン <literal>$C02BD4</literal></link>
+			（&dq6_1995; の<link linkend="dq6.message.hack.pro.decode">サブルーチン <literal>$C02BD4</literal></link>
 			に相当）。
 		</para>
 	</listitem>
@@ -205,7 +205,7 @@ C2/8280:    BC00        [C0]は[AD][B5]を 使った！[AF][AC]
   </callout>
 </calloutlist>
 <para>
-ドラクエ 3 の解読済みメッセージリストは付録 <xref linkend="appendix.b" /> を参照。
+&dq3_1996; の解読済みメッセージリストは付録 <xref linkend="appendix.b" /> を参照。
 </para>
 </section> <!-- dq3.message.hack.call.accum -->
 </section> <!-- dq3.message.hack.call -->
