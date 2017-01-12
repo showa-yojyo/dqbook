@@ -39,6 +39,7 @@ SHELL = /bin/sh
 NAME = dqbook
 DIR = ./book
 IMAGES = $(DIR)/image/
+TEXTFILES = $(DIR)/data/
 TOOLS_DIR = ../tools
 XSL_DIR = `[ -d stylesheets ] && echo stylesheets || echo $(TOOLS_DIR)`
 OUTNAME = $(NAME)
