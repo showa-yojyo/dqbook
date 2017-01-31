@@ -109,7 +109,7 @@
 	<glossdef>
 		<para>
 			NonPlayable Character の頭文字からなる略語
-			<footnote><para>文法的には UnPlayable Character ではあるまいか。</para></footnote>。
+			<footnote id="ftn.gloss.npc"><para>文法的には UnPlayable Character ではあるまいか。</para></footnote>。
 			本書では「プレイヤーが直接操作することができないゲームキャラクター」の意味で用いる。
 			街の人々はここに含まれないものとする。
 			&dq5_1992; のパパスは NPC の例だ。

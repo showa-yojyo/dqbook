@@ -347,7 +347,7 @@
 			サブルーチン呼び出し直後の <varname>X</varname> レジスタが褒美 ID を示している。
 			構造体のサイズが <literal>2</literal> であるので、<code>$C31350 + X * 2</code> を計算するため、
 			汎用乗算サブルーチン <varname>$C01098</varname> を利用する
-			<footnote>
+			<footnote id="ftn.dq3.medal.C3F21E">
 				<para>数値を二倍するだけなのに、乗算サブルーチンを呼びだす方法をとるのは珍しい。
 				<code>ASL</code> 命令を使うだけで間に合いそうなものだが。
 				</para>

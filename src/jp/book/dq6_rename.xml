@@ -704,7 +704,7 @@ C3/F349:    6B          RTL                 return false;
 </programlisting>
 <para>
 	平仮名と片仮名の両方とも、命名神の怒りに触れるようになっている。
-	<footnote>
+	<footnote id="ftn.dq6.rename">
 		<para>
 			つまり、小池一夫風に「ん」を「ン」と書けば通る（e.g. ちンこ）。
 			これは、堀井雄二が小池一夫の門下生だという事実と関係があるのか─────ッ

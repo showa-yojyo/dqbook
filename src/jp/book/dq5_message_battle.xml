@@ -20,7 +20,7 @@
 <para>
 	先にメッセージ ID から文字列データを作成する処理手順をまとめておく。
 	この手順の前半部さえ解析できれば、文字表
-	<footnote>
+	<footnote id="ftn.dq5.message.battle.codetable">
 		<para>
 			いつものように <application>dqviewer</application> の出力するビットマップファイルおよび
 			<application>dq_analyzer</application> ソースコードを参考にする。
@@ -188,7 +188,7 @@
 <title>ハフマン符号を復号する</title>
 <para>
 	メッセージデータはハフマン符号、すなわち 0 と 1 からなる可変長符号の列として表現されている
-	<footnote>
+	<footnote id="ftn.dq5.message.battle.decode">
 		<para>
 			ハフマン符号化で、メッセージによく用いられる文字ほど短い符号を、
 			ほとんど用いられない文字ほど長い符号を割り当てると圧縮率がよくなる。
@@ -321,7 +321,7 @@
 	復号サブルーチンの処理手順と、ハフマン木の構造と役割を理解する助けになるだろう。
 	ハフマン符号化の原理を理解するには、紙とペンを使ってハフマン木をスケッチするといい。
 	まずルートノードを紙の上のほうに描き、そこから下に向かって生える枝を二本描く
-	<footnote>
+	<footnote id="ftn.dq5.message.battle.tree">
 		<para>
 			計算機科学を専攻する人間は、この手の「木」を天地逆にして描く。
 		</para>

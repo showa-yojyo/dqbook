@@ -9,7 +9,7 @@
 </para>
 <para>
 	名前は<link linkend="dq5.data.str.228000">アドレス $238000 から取得されるもの</link>をテキスト表現
-	<footnote>
+	<footnote id="ftn.dq5.act">
 		<para>
 			ソニタウンのドラクエビューワ
 			<xref linkend="dqref.url2"/>

@@ -368,7 +368,7 @@
 <para>
 戦闘ターン数が 65535 を超えるとレクイエムが流れ、全滅時の処理になる。
 このシーンをインチキなしで見たことのある人間こそ、ドラクエマニアの名にふさわしい
-<footnote><para>真に受けないように。</para></footnote>。
+<footnote id="ftn.dq3.gallery.turn.65535"><para>真に受けないように。</para></footnote>。
 </para>
 </section>  <!-- dq3.gallery.turn.65535 -->
 </section>  <!-- dq3.gallery -->

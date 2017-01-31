@@ -105,8 +105,8 @@
 <para>
 	あえて一言で表現すれば、Windows 環境で起動するテキストエディタである。作者の Web サイト
 	<ulink url="http://www.jsdlab.co.jp/~kamei/">やる気のない謎のぺぇじ</ulink>
-	<footnote>
-	<para>このサイトのタイトルは不定だ。いちいち注釈を入れるのもバカらしい。</para>
+	<footnote id="ftn.tools.editor.xyzzy">
+	<para>いちいち注釈を入れるのもバカらしいが、このサイトのタイトルは不定だ。</para>
 	</footnote>
 	で常時入手可能である。
 	詳しい説明およびアプリのスナップショットや利点については、同サイトよりリンクがある Wiki サイトを参照。

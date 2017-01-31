@@ -35,7 +35,7 @@
 <para>
 	元祖 <application>Snes9x</application> の機能に加え、次のような機能を提供する。
 	このほかにも、記者が説明できないような専門的な機能
-	<footnote>
+	<footnote id="ftn.tools.emulator.gsd">
 		<para>
 			<ulink url="http://www.geocities.jp/to_546/intro/intro.html">http://www.geocities.jp/to_546/intro/intro.html</ulink>
 			に各コマンドのリストが掲載されている。
