@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="dq5.brk"><?dbhtml filename="dq5_brk.html" ?>
+<title>詳解 BRK 命令</title>
+<para>
+汎用の 65816 逆アセンブラーで ROM イメージを逆アセンブルしてコードを解析すると、
+各 BRK 命令は 1 バイトのオペランドを伴うコードとして出力される。
+ところがこれをそのまま &dq5_1992; に適用することは具合が悪いのだ。
+このプログラムは BRK 命令を独自の規則でカスタマイズしており、
+65816 CPU が規定するオペランドの値によって、さらに余分なオペランドを取るというものだ。
+よって、ゲームプログラムの解析者が最初に行うべきことは、
+この BRK 命令の普通のオペランドと付加オペランドのバイト数との間の対応を知り、
+それに基づいたカスタマイズ版 65816 逆アセンブラーを実装することだと思われる。
+さもなければ、解析作業者は BRK 命令を含むテキストを手作業で修正することになるし、
+そもそもどのように修正すればよいのか判断できないはずだ。
+現に記者は &dq5_1992; 特化版逆アセンブラーを実装するハメになった。
+</para>
+<para>
+本節では &dq5_1992; のコードにおける BRK 命令の詳細について見ていく。
+各 BRK オペランドに対応する付加オペランドのバイト数の表、
+BRK 命令のハンドラーコードの振る舞いの要約、
+そして各 BRK 呼び出しの意味をオペランド別に解説していくつもりだ。
+</para>
+
+<section id="dq5.brk.bytesize">
+<title>オペランドのバイトサイズ表</title>
+<para>
+BRK 命令の正規のオペランドと、実際にオペランドを構成するバイト長との対応表を次に示す。
+この情報がなければ、専用逆アセンブラーを実装することはできない。
+ここで列「オペランド」は BRK 命令の正規のオペランドの値を、
+列「サイズ」は正規のオペランドを含んだ、実際にオペランドを構成するバイトのサイズを、
+列「命令の意味」はその BRK 命令のプログラム上の意味をそれぞれ示す。
+</para>
+<table id="table.dq5.brk.bytesize" class="lighttable">
+  <caption>BRK オペランドのバイトサイズ表</caption>
+  <thead>
+    <tr><th>オペランド</th><th>サイズ</th><th>命令の意味</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="right"><literal>#$00</literal></td><td align="right">1</td><td>単に RTI する</td></tr>
+    <tr><td align="right"><literal>#$01</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$02</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$03</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td align="right">4</td><td>（未使用）</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td align="right">2</td><td>（未使用）</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$09</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td><td align="right">3</td><td>構造体オブジェクトのフィールドにアクセス（未使用）</td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td><td align="right">3</td><td><code>$7E2190,X |= $10</code></td></tr>
+    <tr><td align="right"><literal>#$0D</literal></td><td align="right">3</td><td><code>$7E2190,X &amp;= $10</code></td></tr>
+    <tr><td align="right"><literal>#$0E</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$0F</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$11</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$12</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$13</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$14</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$15</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$16</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$17</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$18</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$19</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$1A</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$80</literal></td><td align="right">1</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$81</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$82</literal></td><td align="right">1</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$83</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$84</literal></td><td align="right">1</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$85</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$86</literal></td><td align="right">1</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$87</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$88</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$89</literal></td><td align="right">3</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$8A</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$8B</literal></td><td align="right">3</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$8C</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$8D</literal></td><td align="right">3</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$8E</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$8F</literal></td><td align="right">3</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$90</literal></td><td align="right">3</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$91</literal></td><td align="right">4</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$92</literal></td><td align="right">4</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$93</literal></td><td align="right">5</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$94</literal></td><td align="right">2</td><td>アイテムの特性を参照</td></tr>
+    <tr><td align="right"><literal>#$95</literal></td><td align="right">2</td><td>ウィンドウ処理？</td></tr>
+    <tr><td align="right"><literal>#$96</literal></td><td align="right">2</td><td>ウィンドウ処理？</td></tr>
+    <tr><td align="right"><literal>#$97</literal></td><td align="right">2</td><td>ID が <code>[#$0000, #$0100)</code> にある移動中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$98</literal></td><td align="right">2</td><td>ID が <code>[#$0100, #$0200)</code> にある移動中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$99</literal></td><td align="right">2</td><td>ID が <code>[#$0200, #$0300)</code> にある移動中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$9A</literal></td><td align="right">2</td><td>ID が <code>[#$0300, #$0400)</code> にある移動中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$9B</literal></td><td align="right">2</td><td>ID が <code>[#$0400, #$0500)</code> にある移動中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$9C</literal></td><td align="right">2</td><td>ID が <code>[#$0500, #$0600)</code> にある移動中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$9D</literal></td><td align="right">2</td><td>ID が <code>[#$0600, #$0700)</code> にある移動中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$9E</literal></td><td align="right">2</td><td>ID が <code>[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$9F</literal></td><td align="right">2</td><td>ID が <code>[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A0</literal></td><td align="right">2</td><td>ID が <code>[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A1</literal></td><td align="right">2</td><td>ID が <code>[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A2</literal></td><td align="right">2</td><td>ID が <code>[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A3</literal></td><td align="right">2</td><td>ID が <code>[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A4</literal></td><td align="right">2</td><td>ID が <code>[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A5</literal></td><td align="right">2</td><td>ID が <code>[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A6</literal></td><td align="right">2</td><td>ID が <code>[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A7</literal></td><td align="right">2</td><td>ID が <code>[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A8</literal></td><td align="right">2</td><td>ID が <code>[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A9</literal></td><td align="right">2</td><td>ID が <code>[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$AA</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$AB</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$AC</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$AD</literal></td><td align="right">1</td><td>単に RTI する</td></tr>
+    <tr><td align="right"><literal>#$FF</literal></td><td align="right">1</td><td>単に RTI する</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq5.brk.bytesize -->
+
+<section id="dq5.brk.handler">
+<title>BRK 命令ハンドラー概要</title>
+<para>TODO: BRK 命令ハンドラー <varname>$008F80</varname> の要約。</para>
+</section> <!-- dq5.brk.handler -->
+
+<section id="dq5.brk.spec">
+<title>命令実行の詳細</title>
+<para>本節では各正規オペランドについて、命令実行の意味なり挙動なりを解説する。</para>
+
+<section id="dq5.brk.spec.80-93">
+<title>オペランド <literal>#$80</literal>, ..., <literal>#$93</literal>: オブジェクトのフィールドにアクセス</title>
+<para>
+BRK 命令のオペランドが <literal>#$80</literal> から <literal>#$93</literal> の間の値であれば、
+これはサブルーチン <varname>$218AFC</varname> のラッパーとして振る舞う。
+つまり、あるオブジェクトの特定の性質へアクセスする。
+オペランドの値と「余分なオペランド」の値によって構造体のフィールドとアクセス方法が一意に決まり、
+対象となるオブジェクトの指定は別途指定する。
+</para>
+<para>
+BRK 命令実行時のオペランド、「余分なオペランド」、レジスターの値によって、
+どのオブジェクトのどのフィールドをどのように処理するのかが一意に決定する。
+これを詳細に述べるために、静的なデータ構造を順を追って説明したい。
+</para>
+<para>
+まず BRK 命令に関係するオペランド、「余分なオペランド」、レジスターの状況を表にまとめる。
+この表は、各正規オペランドに対して、BRK 命令実行がサブルーチン <varname>$218AFC</varname> 呼び出しのために必要な
+<varname>$38</varname> 等の値をどの要素からコピーするのかを示している。
+本節の以降では「余分なオペランド」の 1 番目、2 番目……を <varname>arg1</varname>, <varname>arg2</varname> のように呼ぶ。
+また、A レジスターの上位バイトと下位バイトを AH, AL とそれぞれ呼ぶ（インデックスレジスターについても同様）。
+</para>
+
+<table id="table.dq5.brk.80-93" class="lighttable">
+  <caption>BRK #$88-93 によるサブルーチン $218AFC 呼び出しのための変数設定表</caption>
+  <thead>
+    <tr><th>オペランド</th><th>$38</th><th>$3F</th><th>$42</th><th>$43</th><th>$44</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="right"><literal>#$80</literal></td><td>XL</td><td><literal>#$00</literal></td><td>AL</td><td>n/a</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$81</literal></td><td>XL</td><td>arg1</td><td>AL</td><td>n/a</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$82</literal></td><td>XL</td><td><literal>#$00</literal></td><td>AL</td><td>AH</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$83</literal></td><td>XL</td><td>arg1</td><td>AL</td><td>AH</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$84</literal></td><td>XL</td><td><literal>#$00</literal></td><td>n/a</td><td>n/a</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$85</literal></td><td>XL</td><td>arg1</td><td>n/a</td><td>n/a</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$86</literal></td><td>AL</td><td><literal>#$00</literal></td><td>n/a</td><td>n/a</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$87</literal></td><td>AL</td><td>arg1</td><td>n/a</td><td>n/a</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$88</literal></td><td>arg1</td><td><literal>#$00</literal></td><td>n/a</td><td>n/a</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$89</literal></td><td>arg2</td><td>arg1</td><td>n/a</td><td>n/a</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$8A</literal></td><td>arg1</td><td><literal>#$00</literal></td><td>AL</td><td>n/a</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$8B</literal></td><td>arg2</td><td>arg1</td><td>AL</td><td>n/a</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$8C</literal></td><td>arg1</td><td><literal>#$00</literal></td><td>AL</td><td>AH</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$8D</literal></td><td>arg2</td><td>arg1</td><td>AL</td><td>AH</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$8E</literal></td><td>arg1</td><td><literal>#$00</literal></td><td>AL</td><td>XL</td><td>XH</td></tr>
+    <tr><td align="right"><literal>#$8F</literal></td><td>arg2</td><td>arg1</td><td>AL</td><td>XL</td><td>XH</td></tr>
+    <tr><td align="right"><literal>#$90</literal></td><td>arg1</td><td><literal>#$00</literal></td><td>AL</td><td>arg2</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$91</literal></td><td>arg2</td><td>arg1</td><td>AL</td><td>arg3</td><td>n/a</td></tr>
+    <tr><td align="right"><literal>#$92</literal></td><td>arg1</td><td><literal>#$00</literal></td><td>AL</td><td>arg2</td><td>arg3</td></tr>
+    <tr><td align="right"><literal>#$93</literal></td><td>arg2</td><td>arg1</td><td>AL</td><td>arg3</td><td>arg4</td></tr>
+  </tbody>
+</table>
+
+<para>
+逆アセンブリコードの解析において、上記の表でいちばん重要なのは <varname>$38</varname> である。
+これがオブジェクトアクセス処理のジャンプテーブル <varname>$218E8C</varname> の添字の元となる。
+この仕組みを理解することは本ゲームの状態管理を把握することと直結するゆえ、たいへん重要だ。
+このジャンプテーブルによると、<varname>$38</varname> の取る値は範囲 <literal>[#$00, #$F6)</literal> になければならない。
+この値それぞれについてオブジェクトアクセス処理が細かく実装されている。
+</para>
+
+<para>
+例えば <varname>$38</varname> が <literal>#$0B</literal> ならば、
+その BRK 命令は「指定の仲間キャラクターの MP をゼロにセットする」処理を実行する。
+次の実例は、戦闘中にパルプンテを唱えた際のある事象のコードだ。
+簡単に言うと、反復処理で <code>BRK #$89</code> を実行することにより、戦闘中の仲間キャラクターの MP をゼロにするコードだ。
+なお <code>BRK #$A5</code> はメッセージ表示処理であり、これについては後述する。
+</para>
+<programlisting>
+20/ECBE:    2026EF      JSR $EF26
+20/ECC1:    ADF310      LDA $10F3
+20/ECC4:    8542        STA $42
+20/ECC6:    85F5        STA $F5
+20/ECC8:    2033EF      JSR $EF33           ; 味方メンバーのある状態を確認
+20/ECCB:    F00A        BEQ $ECD7
+20/ECCD:    0089        BRK #$89            ; 仲間キャラクターの MP をゼロにセット
+20/ECCF:    800B                            ; arg1, arg2 = #$80, #$0B
+20/ECD1:    00A5        BRK #$A5            ; #$0117: [F7]の ＭＰが なくなった！[F2]
+20/ECD3:    17
+20/ECD4:    20D69D      JSR $9DD6
+20/ECD7:    EEF310      INC $10F3
+20/ECDA:    ADF310      LDA $10F3
+20/ECDD:    CDF410      CMP $10F4
+20/ECE0:    90DF        BCC $ECC1
+20/ECE2:    60          RTS
+</programlisting>
+
+<para>
+この BRK 命令群が対応する構造体に関する情報は <varname>$218D6A</varname> と <varname>$218D8B</varname> で確認できる。
+それらを次の表にまとめる。
+</para>
+
+<table id="table.dq5.218D6A-218D8B" class="lighttable">
+  <caption>アクセス対象の構造体一覧</caption>
+  <thead>
+    <tr><th>ID</th><th>オブジェクト</th><th>サイズ</th><th>構造体の意味</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="right"><literal>#$00</literal></td><td align="right"><literal>$7E2040</literal></td><td align="right"><literal>$#$2A</literal></td><td>仲間キャラクターの状態</td></tr>
+    <tr><td align="right"><literal>#$01</literal></td><td align="right"><literal>$000760</literal></td><td align="right"><literal>$#$0C</literal></td><td><link linkend="dq5.combatants.000760">戦闘時仲間キャラクターの状態</link></td></tr>
+    <tr><td align="right"><literal>#$02</literal></td><td align="right"><literal>$238000</literal></td><td align="right"><literal>$#$19</literal></td><td>モンスターデータ</td></tr>
+    <tr><td align="right"><literal>#$03</literal></td><td align="right"><literal>$0007C0</literal></td><td align="right"><literal>$#$10</literal></td><td><link linkend="dq5.combatants.0007C0">戦闘時敵キャラクターの状態</link></td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td align="right"><literal>$7E2000</literal></td><td align="right"><literal>$#$18</literal></td><td>調査中</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td align="right"><literal>$23AED1</literal></td><td align="right"><literal>$#$09</literal></td><td><link linkend="dq5.data.chara.monster.init">仲間モンスターキャラクター初期データ</link></td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td align="right"><literal>$7E2250</literal></td><td align="right"><literal>$#$01</literal></td><td>預かり所アイテム個数</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td align="right"><literal>$7E2332</literal></td><td align="right"><literal>$#$1A</literal></td><td>預けた仲間（モンスター）の状態</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td align="right"><literal>$7E294A</literal></td><td align="right"><literal>$#$20</literal></td><td>預けた仲間（人間）の状態</td></tr>
+    <tr><td align="right"><literal>#$09</literal></td><td align="right"><literal>$238000</literal></td><td align="right"><literal>$#$19</literal></td><td>先述のとおり</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td><td align="right"><literal>$7E296A</literal></td><td align="right"><literal>$#$20</literal></td><td>未使用</td></tr>
+  </tbody>
+</table>
+<para>
+この節はジャンプテーブル <varname>$218E8C</varname> の各要素と処理内容をまとめて終えたいのだが、
+量が量なので、未だに調査が終わらない有様だ。
+</para>
+
+</section> <!-- dq5.brk.spec.80-93 -->
+
+<section id="dq5.brk.spec.94">
+<title>オペランド <literal>#$94</literal>: アイテムの特性を参照</title>
+<para>
+BRK 命令のオペランドが <literal>#$94</literal> であれば、
+この命令実行は指定したアイテムに関する何らかの性質を参照することを意味する。
+正規のオペランドとは別に 1 バイトの「余分なオペランド」を呼び出し元から取り、どの特性を参照するのかを決定する。
+次に余分なオペランドの値 <varname>arg1</varname> と、対応する命令実行が参照する特性との対応表を示す
+（実際に参照するデータの列についてはアイテムのデータ構造については <xref linkend="dq5.item" /> を参照）。
+</para>
+
+<table id="table.dq5.brk.94" class="lighttable">
+  <caption>BRK #$94</caption>
+  <thead>
+    <tr><th>arg1</th><th>実際に参照するデータ</th><th>参照する特性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="right"><literal>#$00</literal></td><td><literal>$23B231,X &amp; #$07</literal></td><td>アイテムの種別</td></tr>
+    <tr><td align="right"><literal>#$01</literal></td><td><literal>$23B669,X</literal> を含む複数配列</td><td>アイテムを装備できるか</td></tr>
+    <tr><td align="right"><literal>#$02</literal></td><td><literal>$23B159,X &amp; #$03</literal></td><td>アイテムの値段</td></tr>
+    <tr><td align="right"><literal>#$03</literal></td><td><literal>$23B4B9,X</literal></td><td>アイテムによるパラメーターの増加分</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal>$23B159,X &amp; #$20</literal></td><td>アイテムを使うとなくなるものかどうか</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td><literal>$23B159,X &amp; #$10</literal></td><td>アイテムを捨てることができるかどうか</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>$23B159,X &amp; #$08</literal></td><td>アイテムを店屋で売れるかどうか</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>$23B159,X &amp; #$04</literal></td><td>不明または未使用</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td><literal>$23B159,X &amp; #$80</literal></td><td>移動中「つかう」コマンドの最初のメッセージを省略する</td></tr>
+    <tr><td align="right"><literal>#$09</literal></td><td><literal>$23B159,X &amp; #$40</literal></td><td>移動中「つかう」コマンドで「だれに」の入力を求める</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td><td><literal>$23B231,X &amp; #$80</literal></td><td>戦闘中「つかう」コマンドで専用の処理があるかどうか</td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td><td><literal>$23B231,X &amp; #$20</literal></td><td>戦闘中「つかう」の対象が敵側である</td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td><td><literal>$23B231,X &amp; #$08</literal></td><td>アイテムが呪われているかどうか</td></tr>
+    <tr><td align="right"><literal>#$0D</literal></td><td><literal>$23B231,X &amp; #$40</literal></td><td>戦闘中「つかう」の対象を選択する</td></tr>
+    <tr><td align="right"><literal>#$0E</literal></td><td><literal>$23B231,X &amp; #$10</literal></td><td>戦闘中「つかう」の対象が複数である</td></tr>
+    <tr><td align="right"><literal>#$0F</literal></td><td><literal>$23B3E1,X &amp; #$3F</literal></td><td>戦闘中「つかう」ときのメッセージ配列 <literal>$2781D0,X</literal> の添字</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td><td><literal>$23B3E1,X &amp; #$80</literal></td><td>インパスで種別を鑑定するかどうか</td></tr>
+    <tr><td align="right"><literal>#$11</literal></td><td><literal>$23B3E1,X &amp; #$40</literal></td><td>インパスで装備可能な者を鑑定するかどうか</td></tr>
+    <tr><td align="right"><literal>#$12</literal></td><td><literal>$23B309,X &amp; #$80</literal></td><td>インパスで消耗品かどうかを鑑定するかどうか</td></tr>
+    <tr><td align="right"><literal>#$13</literal></td><td><literal>$23B309,X &amp; #$40</literal></td><td>インパスで売却できるかどうかを鑑定するかどうか</td></tr>
+    <tr><td align="right"><literal>#$14</literal></td><td><literal>$23B309,X &amp; #$3F</literal></td><td>インパスで「～のようだ」系の文言を述べるかどうか</td></tr>
+  </tbody>
+</table>
+<para>
+実例として、ある <code>BRK #$94</code> の呼び出しを次に示す。
+「余分なオペランド」として <literal>#$06</literal> を指定することによって、
+アイテムが店屋で売れるかどうかを示すビットの値を carry ビットに得る。
+なお <code>BRK #$9B</code> については後述する。
+</para>
+<programlisting>
+11/8463:    0094        BRK #$94            ; #$06: アイテム::鑑定::売却可フラグ
+11/8465:    06
+11/8466:    9005        BCC $846D
+11/8468:    009B        BRK #$9B            ; #$0460: [1006]店屋に 売ろうとしても これには[1000]ねだんは つけられないだろう。
+11/846A:    60
+11/846B:    800A        BRA $8477
+11/846D:    AD530B      LDA $0B53           ; アイテム ID
+11/8470:    225BDF06    JSR $06DF5B         ; アイテムの売値を計算
+11/8474:    009B        BRK #$9B            ; #$045F: [1006]もし 店屋に 売れば[1000][1004]ゴールドに なるだろう。
+11/8476:    5F
+</programlisting>
+</section> <!-- dq5.brk.spec.94 -->
+
+<section id="dq5.brk.spec.95-96">
+<title>オペランド <literal>#$95</literal>, <literal>#$96</literal>: ウィンドウ処理？</title>
+<para>
+TBW
+</para>
+</section> <!-- dq5.brk.spec.95-96 -->
+
+<section id="dq5.brk.spec.97-9D">
+<title>オペランド <literal>#$97</literal>, ..., <literal>#$9D</literal>: 移動時メッセージ処理</title>
+<para>
+BRK 命令のオペランドが <literal>#$97</literal> から <literal>#$9D</literal> までのいずれかの値であれば、
+この命令はサブルーチン <varname>$248157</varname> による移動時のメッセージ表示処理を実行する。
+画面下のウィンドウ内にテキストを描画したりする。
+この命令はさらに 1 バイトの値を呼び出し元から参照し、これを表示するメッセージの ID の値の下位 1 のバイトとして扱う。
+上位の 1 バイトは BRK 命令のオペランドによって決まる。
+<literal>#$97</literal> ならば上位バイトは <literal>#$00</literal> となり、
+<literal>#$98</literal> ならば <literal>#$01</literal> となり、以下同様となる。
+</para>
+
+<para>
+実例として、ある <code>BRK #$97</code> の呼び出しを次に示す。
+参考までにメッセージテキストを逆アセンブリコードの右側にコメントしておく。
+</para>
+<programlisting>
+06/CE0D:    0097        BRK #$97            ; #$00B6: よくぞもどられた！[1000][1011]どの。
+06/CE0F:    B6
+06/CE10:    0097        BRK #$97            ; #$00B7: おお 神よ！[1000]この者[1005]に 尊き ご加護の[1000]あらんことを！ アーメン！
+06/CE12:    B7
+</programlisting>
+
+<para>
+移動中メッセージ処理については <xref linkend="dq5.message" /> を参照。
+</para>
+</section> <!-- dq5.brk.spec.97-9D -->
+
+<section id="dq5.brk.spec.9E-A0">
+<title>オペランド <literal>#$9E</literal>, ..., <literal>#$A0</literal>: 戦闘時メッセージ処理</title>
+<para>
+BRK 命令のオペランドが <literal>#$9E</literal> から <literal>#$A7</literal> までのいずれかの値であれば、
+この命令はサブルーチン <varname>$2485E0</varname> による戦闘時のメッセージ表示処理を実行する。
+移動時メッセージ表示の BRK 命令実行と同様に、余分なオペランドを 1 バイト取り、
+同様の規則でメッセージ ID の 2 バイト値を決定する。
+</para>
+<para>
+実例として、ある <code>BRK #$9E</code> の呼び出しを次に示す。
+</para>
+<programlisting>
+25/89F5:    009E        BRK #$9E            ; #$0000: 
+25/89F7:    00
+25/89F8:    009E        BRK #$9E            ; #$00B6: しかし [EE][FA]は[FF]これいじょう ものを もてない。
+25/89FA:    B6
+25/89FB:    009E        BRK #$9E            ; #$00B7: もちものを すてますか？
+25/89FD:    B7
+</programlisting>
+
+<para>
+戦闘中メッセージ処理については <xref linkend="dq5.message.battle" /> を参照。
+</para>
+</section> <!-- dq5.brk.spec.9E-A0 -->
+
+<section id="dq5.brk.spec.A1-A3">
+<title>オペランド <literal>#$A1</literal>, ..., <literal>#$A3</literal>: 戦闘時メッセージ処理 </title>
+<para>
+こちらも戦闘時メッセージ処理だが、サブルーチン <varname>$2485D4</varname> を用いる。
+実例として、ある <code>BRK #$A1</code> の呼び出しを次に示す。
+</para>
+<programlisting>
+26/8452:    9005        BCC $8459
+26/8454:    00A1        BRK #$A1            ; #$0008: [F7]は こちらが みがまえるまえに[FF]おそいかかってきた！
+26/8456:    08
+26/8457:    8003        BRA $845C
+26/8459:    00A1        BRK #$A1            ; #$0009: [F7]は[FF]いきなり おそいかかってきた！
+26/845B:    09
+</programlisting>
+</section> <!-- dq5.brk.spec.A1-A3 -->
+
+<section id="dq5.brk.spec.A4-A6">
+<title>オペランド <literal>#$A4</literal>, ..., <literal>#$A6</literal>: 戦闘時メッセージ処理</title>
+<para>
+こちらも戦闘時メッセージ処理だが、サブルーチン <varname>$2485D8</varname> を用いる。
+実例として、ある <code>BRK #$A4</code> の呼び出しを次に示す。
+</para>
+<programlisting>
+20/F4D4:    ADF610      LDA $10F6
+20/F4D7:    3005        BMI $F4DE
+20/F4D9:    00A4        BRK #$A4            ; #$0078: ひかりのかべが じゅもんを はねかえした！
+20/F4DB:    78
+20/F4DC:    8003        BRA $F4E1
+20/F4DE:    00A4        BRK #$A4            ; #$0077: じゅもんは ひかりのかべに はじかれた！
+20/F4E0:    77
+</programlisting>
+</section> <!-- dq5.brk.spec.A4-A6 -->
+
+<section id="dq5.brk.spec.A7-A9">
+<title>オペランド <literal>#$A7</literal>, ..., <literal>#$A9</literal>: 戦闘時メッセージ処理</title>
+<para>
+こちらも戦闘時メッセージ処理だが、サブルーチン <varname>$2485DC</varname> を用いる。
+実例として、ある <code>BRK #$A7</code> と <code>BRK #$A8</code> の呼び出しを次に示す。
+</para>
+<programlisting>
+20/F59E:    CD1310      CMP $1013
+20/F5A1:    F005        BEQ $F5A8
+20/F5A3:    00A7        BRK #$A7            ; #$00A1: [F7]を やっつけた！
+20/F5A5:    A1
+20/F5A6:    8003        BRA $F5AB
+20/F5A8:    00A8        BRK #$A8            ; #$0135: [F7]は まけてしまった！
+20/F5AA:    35
+</programlisting>
+</section> <!-- dq5.brk.spec.A7-A9 -->
+</section> <!-- dq5.brk.spec -->
+</section> <!-- dq5.brk -->

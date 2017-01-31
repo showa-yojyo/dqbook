@@ -20,8 +20,10 @@
 
   <!ENTITY dq5                        SYSTEM "dq5.xml">
   <!ENTITY dq5_act                    SYSTEM "dq5_act.xml">
+  <!ENTITY dq5_brk                    SYSTEM "dq5_brk.xml">
   <!ENTITY dq5_chara_monster_init     SYSTEM "dq5_chara_monster_init.xml">
   <!ENTITY dq5_chara_spell            SYSTEM "dq5_chara_spell.xml">
+  <!ENTITY dq5_combatants             SYSTEM "dq5_combatants.xml">
   <!ENTITY dq5_encounter              SYSTEM "dq5_encounter.xml">
   <!ENTITY dq5_encounter_special      SYSTEM "dq5_encounter_special.xml">
   <!ENTITY dq5_fight_ring             SYSTEM "dq5_fight_ring.xml">
