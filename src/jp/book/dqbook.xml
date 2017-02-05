@@ -35,6 +35,7 @@
   <!ENTITY dq5_monster                SYSTEM "dq5_monster.xml">
   <!ENTITY dq5_store                  SYSTEM "dq5_store.xml">
   <!ENTITY dq5_str                    SYSTEM "dq5_str.xml">
+  <!ENTITY dq5_window                 SYSTEM "dq5_window.xml">
 
   <!ENTITY dq6                        SYSTEM "dq6.xml">
   <!ENTITY dq6_act                    SYSTEM "dq6_act.xml">

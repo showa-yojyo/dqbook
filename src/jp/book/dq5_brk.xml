@@ -84,8 +84,8 @@ BRK 命令の正規のオペランドと、実際にオペランドを構成す�
     <tr><td align="right"><literal>#$92</literal></td><td align="right">4</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
     <tr><td align="right"><literal>#$93</literal></td><td align="right">5</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
     <tr><td align="right"><literal>#$94</literal></td><td align="right">2</td><td>アイテムの特性を参照</td></tr>
-    <tr><td align="right"><literal>#$95</literal></td><td align="right">2</td><td>ウィンドウ処理？</td></tr>
-    <tr><td align="right"><literal>#$96</literal></td><td align="right">2</td><td>ウィンドウ処理？</td></tr>
+    <tr><td align="right"><literal>#$95</literal></td><td align="right">2</td><td rowspan="2">ウィンドウ処理？</td></tr>
+    <tr><td align="right"><literal>#$96</literal></td><td align="right">2</td></tr>
     <tr><td align="right"><literal>#$97</literal></td><td align="right">2</td><td>ID が <code>[#$0000, #$0100)</code> にある移動中メッセージを出力</td></tr>
     <tr><td align="right"><literal>#$98</literal></td><td align="right">2</td><td>ID が <code>[#$0100, #$0200)</code> にある移動中メッセージを出力</td></tr>
     <tr><td align="right"><literal>#$99</literal></td><td align="right">2</td><td>ID が <code>[#$0200, #$0300)</code> にある移動中メッセージを出力</td></tr>
@@ -299,9 +299,15 @@ BRK 命令のオペランドが <literal>#$94</literal> であれば、
 </section> <!-- dq5.brk.spec.94 -->
 
 <section id="dq5.brk.spec.95-96">
-<title>オペランド <literal>#$95</literal>, <literal>#$96</literal>: ウィンドウ処理？</title>
+<title>オペランド <literal>#$95</literal>, <literal>#$96</literal>: ウィンドウ処理</title>
 <para>
-TBW
+BRK 命令のオペランドの値が <literal>#$95</literal> または <literal>#$96</literal> のいずれかであれば、
+この命令はウィンドウ処理を実行する。大抵の場合は何らかのウィンドウ（群）を画面上に新たに描画する。
+値 <varname>arg1</varname> が表すのは基本的にはウィンドウ ID であり、
+例外的に値 <literal>#$FF</literal> の場合には、メッセージウィンドウの終了を指示する命令を実行するようだ。
+</para>
+<para>
+ウィンドウ処理全般については <xref linkend="dq5.window" /> を参照。
 </para>
 </section> <!-- dq5.brk.spec.95-96 -->
 
