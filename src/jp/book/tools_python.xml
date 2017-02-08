@@ -5,8 +5,8 @@
 <indexterm id="term.python"><primary>Python</primary></indexterm>
 
 <figure id="fig.tools.python">
-	<title>PythonWin Interactive Window</title>
-	<graphic width="600px" fileref="./image/tools.python.png"/>
+	<title>IPython</title>
+	<graphic width="679px" fileref="./image/tools.python.png"/>
 </figure>
 
 <para>
@@ -41,7 +41,7 @@
 <section id="tools.python.env">
 <title>環境構築</title>
 <para>
-	TBW
+	筆者の<ulink url="https://showa-yojyo.github.io/notebook/">自習用ノート</ulink>に色々と記した。
 </para>
 </section> <!-- tools.python.env -->
 </section> <!-- tools.python -->

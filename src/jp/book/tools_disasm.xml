@@ -2,6 +2,15 @@
 
 <section id="tools.disasm"><?dbhtml filename="tools_disasm.html" ?>
 <title>逆アセンブラ</title>
+<note>
+  <para>
+    本節は特に陳腐化してはいないのだが、補足しておく：
+  </para>
+  <itemizedlist>
+    <listitem><simpara>逆アセンブラーを使いこなそう</simpara></listitem>
+    <listitem><simpara>特にスーパーファミコンの作品については逆アセンブラーを自作しよう</simpara></listitem>
+  </itemizedlist>
+</note>
 <para>
 	ここでは逆アセンブラツールをごく簡単に紹介する。
 	逆アセンブラのプログラミングは CPU の仕様書があれば可能であるため、
@@ -72,12 +81,6 @@
 		</para>
 	</listitem>
 </itemizedlist>
-<para>
-	記者は <filename>DisPel.exe</filename> を
-	<glossterm linkend="gloss.dos"><acronym>DOS</acronym> コンソール</glossterm>上から使うことはない。
-	Xyzzy（<xref linkend="tools.editor.xyzzy"/>参照）上から
-	sns-mode を介してアドレス範囲を絞った逆アセンブルを行い、コードの解析を行う。
-</para>
 
 <section id="tools.disasm.dispel.sample">
 <title>サンプル</title>
@@ -86,11 +89,12 @@
 	環境変数 <envar>PATH</envar> に含まれている適当なフォルダに実行ファイル <filename>DisPel.exe</filename> を移動することになる。
 	ここまではエクスプローラで簡単にできる。
 	しかし、コードの出力をするにはコマンドプロンプトウィンドウを開く必要がある。
+	ただし Windows の <command>cmd</command> では逆アセンブリ処理以降のことが何もできないので <xref linkend="tools.cygwin" /> で説明する環境で作業する。
 	それを開いたら、&dq3_1996; の ROM イメージファイル（ここでは <filename>sfcdq3.smc</filename> とする）のあるフォルダに移動して、
 	例えば以下のように入力すると、バンク $C3 の逆アセンブリコードを得ることになる。
 	ちなみに実際はこの領域はプログラムではなく、ウィンドウ関連のデータ定義域なので、以下の出力は無意味だ。
 </para>
-<screen><prompt>&gt; </prompt><userinput>dispel -n -h -s -b C3 -p sfcdq3.smc</userinput>
+<screen><prompt>$ </prompt><userinput>dispel -n -h -s -b C3 -p sfcdq3.smc</userinput>
 C3/0000:	2184    	AND ($84,X)
 C3/0002:	50C0    	BVC $FFC4
 C3/0004:	200000  	JSR $0000
