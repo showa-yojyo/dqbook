@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE part PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <part id="part01"><?dbhtml filename="part01.html" ?>
 <title>基本概念</title>
@@ -71,9 +76,9 @@
 	過去の文書を書き直しているところである。
 </para>
 
-	&hack;
+	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq_hack.xml" />
 </chapter>
 
-&chapter_tools;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools.xml" />
 
 </part> <!-- part01 -->

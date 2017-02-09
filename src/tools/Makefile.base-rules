@@ -154,4 +154,4 @@ clean-ps:
 # VERSION_SOURCE is $(DIR)/version.xml, which is automatically generated
 # in processing the main target.
 valid: $(VERSION_SOURCE)
-	$(XMLLINT) --noout --nonet --valid $(XML_SOURCE)
+	$(XMLLINT) --xinclude --noout --nonet --postvalid $(XML_SOURCE)

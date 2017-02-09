@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <chapter id="dq6"><?dbhtml filename="dq6.html" ?>
 <title>&dq6_1995; (1995)</title>
 <para>
-	本章では &dq6_1995; に関する内容を扱っていく。
+本章では &dq6_1995; に関する内容を扱っていく。
 </para>
 
-&dq6_debug;
-&dq6_str;
-&dq6_message_battle;
-&dq6_message;
-&dq6_people;
-&dq6_shop;
-&dq6_inn;
-&dq6_church;
-&dq6_bank;
-&dq6_rename;
-&dq6_class;
-&dq6_item;
-&dq6_act;
-&dq6_monster;
-&dq6_character;
-&dq6_encounter;
-&dq6_level;
-&dq6_spell_commands;
-&dq6_item_commands;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_debug.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_str.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_message_battle.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_message.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_people.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_shop.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_inn.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_church.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_bank.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_rename.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_class.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_item.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_act.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_monster.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_character.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_encounter.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_level.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_spell_commands.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_item_commands.xml"/>
 </chapter> <!-- dq6 -->

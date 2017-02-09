@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq7.data.anywhere"><?dbhtml filename="dq7_dbg02.html" ?>
 <title>どこでもルーラ</title>

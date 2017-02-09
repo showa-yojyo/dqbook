@@ -88,7 +88,7 @@ IFIMAGES = if test -n "$(IMAGES)"; then
 ENDIF = ; fi
 
 # Customization hooks for xsltproc options
-HTML_XSLTPROC_OPTS = 
+HTML_XSLTPROC_OPTS = --xinclude
 FO_XSLTPROC_OPTS = 
 # FO example: --stringparam page.height 9in --stringparam page.width 6.4in
 

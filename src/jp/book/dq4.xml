@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <chapter id="dq4"><?dbhtml filename="dq4.html" ?>
 <title>&dq4_2001; (2001)</title>
 <para>
-	本章では &dq4_2001; に関する内容を扱っていく。
+本章では &dq4_2001; に関する内容を扱っていく。
 </para>
 <caution>
-	<para>
-		この章は大昔に書いたまま、文書としてのメンテナンスをしていない。
-		従って、解析内容（主にデータだが）はほとんど間違っていると考えてもらいたい。
-	</para>
+  <para>
+    この章は大昔に書いたまま、文書としてのメンテナンスをしていない。
+    従って、解析内容（主にデータだが）はほとんど間違っていると考えてもらいたい。
+  </para>
 </caution>
 
-&dq4_gallery;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq4_gallery.xml"/>
 <!-- ドキュメントを書くまでは封印
-&dq4_imm;
-&dq4_level;
-&dq4_monster;
-&dq4_act;
-&dq4_item;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq4_imm.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq4_level.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq4_monster.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq4_act.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq4_item.xml"/>
  -->
 </chapter> <!-- dq4 -->
