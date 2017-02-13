@@ -57,38 +57,38 @@ BRK 命令の正規のオペランドと、実際にオペランドを構成す�
     <tr><td align="right"><literal>#$0C</literal></td><td align="right">3</td><td><code>$7E2190,X |= $10</code></td></tr>
     <tr><td align="right"><literal>#$0D</literal></td><td align="right">3</td><td><code>$7E2190,X &amp;= $10</code></td></tr>
     <tr><td align="right"><literal>#$0E</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$0F</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$10</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$11</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$12</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$13</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$14</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$15</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$16</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$17</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$18</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$19</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$0F</literal></td><td align="right">2</td><td rowspan="11">音響制御</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td><td align="right">2</td></tr>
+    <tr><td align="right"><literal>#$11</literal></td><td align="right">2</td></tr>
+    <tr><td align="right"><literal>#$12</literal></td><td align="right">2</td></tr>
+    <tr><td align="right"><literal>#$13</literal></td><td align="right">2</td></tr>
+    <tr><td align="right"><literal>#$14</literal></td><td align="right">3</td></tr>
+    <tr><td align="right"><literal>#$15</literal></td><td align="right">3</td></tr>
+    <tr><td align="right"><literal>#$16</literal></td><td align="right">3</td></tr>
+    <tr><td align="right"><literal>#$17</literal></td><td align="right">3</td></tr>
+    <tr><td align="right"><literal>#$18</literal></td><td align="right">3</td></tr>
+    <tr><td align="right"><literal>#$19</literal></td><td align="right">3</td></tr>
     <tr><td align="right"><literal>#$1A</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$80</literal></td><td align="right">1</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$81</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$82</literal></td><td align="right">1</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$83</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$84</literal></td><td align="right">1</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$85</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$86</literal></td><td align="right">1</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$87</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$88</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$89</literal></td><td align="right">3</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$8A</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$8B</literal></td><td align="right">3</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$8C</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$8D</literal></td><td align="right">3</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$8E</literal></td><td align="right">2</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$8F</literal></td><td align="right">3</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$90</literal></td><td align="right">3</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$91</literal></td><td align="right">4</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$92</literal></td><td align="right">4</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
-    <tr><td align="right"><literal>#$93</literal></td><td align="right">5</td><td>構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$80</literal></td><td align="right">1</td><td rowspan="20">構造体オブジェクトのフィールドにアクセス</td></tr>
+    <tr><td align="right"><literal>#$81</literal></td><td align="right">2</td></tr>
+    <tr><td align="right"><literal>#$82</literal></td><td align="right">1</td></tr>
+    <tr><td align="right"><literal>#$83</literal></td><td align="right">2</td></tr>
+    <tr><td align="right"><literal>#$84</literal></td><td align="right">1</td></tr>
+    <tr><td align="right"><literal>#$85</literal></td><td align="right">2</td></tr>
+    <tr><td align="right"><literal>#$86</literal></td><td align="right">1</td></tr>
+    <tr><td align="right"><literal>#$87</literal></td><td align="right">2</td></tr>
+    <tr><td align="right"><literal>#$88</literal></td><td align="right">2</td></tr>
+    <tr><td align="right"><literal>#$89</literal></td><td align="right">3</td></tr>
+    <tr><td align="right"><literal>#$8A</literal></td><td align="right">2</td></tr>
+    <tr><td align="right"><literal>#$8B</literal></td><td align="right">3</td></tr>
+    <tr><td align="right"><literal>#$8C</literal></td><td align="right">2</td></tr>
+    <tr><td align="right"><literal>#$8D</literal></td><td align="right">3</td></tr>
+    <tr><td align="right"><literal>#$8E</literal></td><td align="right">2</td></tr>
+    <tr><td align="right"><literal>#$8F</literal></td><td align="right">3</td></tr>
+    <tr><td align="right"><literal>#$90</literal></td><td align="right">3</td></tr>
+    <tr><td align="right"><literal>#$91</literal></td><td align="right">4</td></tr>
+    <tr><td align="right"><literal>#$92</literal></td><td align="right">4</td></tr>
+    <tr><td align="right"><literal>#$93</literal></td><td align="right">5</td></tr>
     <tr><td align="right"><literal>#$94</literal></td><td align="right">2</td><td>アイテムの特性を参照</td></tr>
     <tr><td align="right"><literal>#$95</literal></td><td align="right">2</td><td rowspan="2">ウィンドウ処理？</td></tr>
     <tr><td align="right"><literal>#$96</literal></td><td align="right">2</td></tr>
@@ -123,11 +123,145 @@ BRK 命令の正規のオペランドと、実際にオペランドを構成す�
 <section id="dq5.brk.handler">
 <title>BRK 命令ハンドラー概要</title>
 <para>TODO: BRK 命令ハンドラー <varname>$008F80</varname> の要約。</para>
+<para>
+ここから BRK 命令が「余分なオペランド」を有するものについては、
+それらの 1 番目、2 番目……を <varname>arg1</varname>, <varname>arg2</varname> のように呼ぶ。
+また、A レジスターの上位バイトと下位バイトを AH, AL とそれぞれ呼ぶ（インデックスレジスターについても同様）。
+</para>
 </section> <!-- dq5.brk.handler -->
 
 <section id="dq5.brk.spec">
 <title>命令実行の詳細</title>
 <para>本節では各正規オペランドについて、命令実行の意味なり挙動なりを解説する。</para>
+
+<section id="dq5.brk.spec.0E-19">
+<title>オペランド <literal>#$0E</literal>, ..., <literal>#$19</literal>: 音響制御</title>
+<para>
+オペランドが <literal>#$0E</literal> から <literal>#$19</literal> の間の値である BRK 命令の実行は、
+それぞれが何らかの音響制御を担当する。<varname>$24FF83</varname> 系処理。
+音響制御 BRK 命令は「余分なオペランド」を一個または二個有しており、基本的には
+<varname>arg1</varname> がサウンド ID だと思ってよい。
+この値と実際に鳴る音楽または効果音との対応表を次に示す。
+</para>
+
+<table id="table.dq5.brk.0E-19" class="lighttable">
+  <caption>BRK #$0E-19 による arg1 と楽曲・効果音との対応表</caption>
+  <thead>
+    <tr><th>arg1</th><th>楽曲または効果音</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="right"><literal>#$00</literal></td><td>無音</td></tr>
+    <tr><td align="right"><literal>#$01</literal></td><td>王宮のトランペット</td></tr>
+    <tr><td align="right"><literal>#$02</literal></td><td>地平の彼方へ</td></tr>
+    <tr><td align="right"><literal>#$03</literal></td><td>空飛ぶじゅうたん</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td>大海原へ</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td>街角のメロディ</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td>街は生きている</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td>カジノ都市</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td>淋しい村</td></tr>
+    <tr><td align="right"><literal>#$09</literal></td><td>洞窟に魔の影が</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td><td>死の塔</td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td><td>高貴なるレクイエム</td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td><td>聖</td></tr>
+    <tr><td align="right"><literal>#$0D</literal></td><td>天空城</td></tr>
+    <tr><td align="right"><literal>#$0E</literal></td><td>暗黒の世界</td></tr>
+    <tr><td align="right"><literal>#$0F</literal></td><td>結婚ワルツ</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td><td>間奏曲</td></tr>
+    <tr><td align="right"><literal>#$11</literal></td><td>愛の旋律</td></tr>
+    <tr><td align="right"><literal>#$12</literal></td><td>哀愁物語</td></tr>
+    <tr><td align="right"><literal>#$13</literal></td><td>さびれた村</td></tr>
+    <tr><td align="right"><literal>#$14</literal></td><td>はめつの予感</td></tr>
+    <tr><td align="right"><literal>#$15</literal></td><td>序曲のマーチ</td></tr>
+    <tr><td align="right"><literal>#$16</literal></td><td>不死身の敵に挑む</td></tr>
+    <tr><td align="right"><literal>#$17</literal></td><td>戦火を交えて</td></tr>
+    <tr><td align="right"><literal>#$18</literal></td><td>大魔王</td></tr>
+    <tr><td align="right"><literal>#$19</literal></td><td>スライムレースファンファーレ</td></tr>
+    <tr><td align="right"><literal>#$1A</literal></td><td>スライム・レース</td></tr>
+    <tr><td align="right"><literal>#$1B</literal></td><td>スライムレースはずれ</td></tr>
+    <tr><td align="right"><literal>#$1C</literal></td><td>仲間</td></tr>
+    <tr><td align="right"><literal>#$1D</literal></td><td>宿屋</td></tr>
+    <tr><td align="right"><literal>#$1E</literal></td><td>教会：治療</td></tr>
+    <tr><td align="right"><literal>#$1F</literal></td><td>勝利</td></tr>
+    <tr><td align="right"><literal>#$20</literal></td><td>教会：おいのり</td></tr>
+    <tr><td align="right"><literal>#$21</literal></td><td>レベル・アップ</td></tr>
+    <tr><td align="right"><literal>#$22</literal></td><td>重要品入手</td></tr>
+    <tr><td align="right"><literal>#$23</literal></td><td>呪いのモチーフ</td></tr>
+    <tr><td align="right"><literal>#$24</literal></td><td>何か見つけた</td></tr>
+    <tr><td align="right"><literal>#$25</literal></td><td>カジノ大当たり</td></tr>
+    <tr><td align="right"><literal>#$26</literal></td><td>カジノ中当たり</td></tr>
+    <tr><td align="right"><literal>#$27</literal></td><td>カジノ小当たり</td></tr>
+    <tr><td align="right"><literal>#$28</literal></td><td>？</td></tr>
+    <tr><td align="right"><literal>#$29</literal></td><td>はるかぜのフルート</td></tr>
+    <tr><td align="right"><literal>#$2A</literal></td><td>はるかぜのフルート（長尺）</td></tr>
+    <tr><td align="right"><literal>#$2B</literal></td><td>ようせいのホルン</td></tr>
+    <tr><td align="right"><literal>#$2C</literal></td><td>ようせいのホルン（長尺）</td></tr>
+    <tr><td align="right"><literal>#$2D</literal></td><td>悪のモチーフ</td></tr>
+    <tr><td align="right"><literal>#$2E</literal></td><td>階段等を発見する音</td></tr>
+    <tr><td align="right"><literal>#$2F</literal></td><td>バロンのつのぶえ（？）</td></tr>
+    <tr><td align="right"><literal>#$30</literal></td><td>ゴールドオーブ落下</td></tr>
+    <tr><td align="right"><literal>#$31</literal></td><td>マグマのつえ</td></tr>
+    <tr><td align="right"><literal>#$32</literal></td><td>台詞音</td></tr>
+    <tr><td align="right"><literal>#$33</literal></td><td>ピッ</td></tr>
+    <tr><td align="right"><literal>#$34</literal></td><td>バリア音</td></tr>
+    <tr><td align="right"><literal>#$35</literal></td><td>宝箱を開く音</td></tr>
+    <tr><td align="right"><literal>#$36</literal></td><td>回復音</td></tr>
+    <tr><td align="right"><literal>#$37</literal></td><td>逃走音</td></tr>
+    <tr><td align="right"><literal>#$38</literal></td><td>派手な打撃音</td></tr>
+    <tr><td align="right"><literal>#$39</literal></td><td>ボーッ</td></tr>
+    <tr><td align="right"><literal>#$3A</literal></td><td>マホカンタ音</td></tr>
+    <tr><td align="right"><literal>#$3B</literal></td><td>短い効果音</td></tr>
+    <tr><td align="right"><literal>#$3C</literal></td><td>？</td></tr>
+    <tr><td align="right"><literal>#$3D</literal></td><td>チャージ音</td></tr>
+    <tr><td align="right"><literal>#$3E</literal></td><td>地下室に妖精の村への階段が出現する音</td></tr>
+    <tr><td align="right"><literal>#$3F</literal></td><td>稲妻</td></tr>
+    <tr><td align="right"><literal>#$40</literal></td><td>？</td></tr>
+    <tr><td align="right"><literal>#$41</literal></td><td>？</td></tr>
+    <tr><td align="right"><literal>#$42</literal></td><td>赤ん坊</td></tr>
+    <tr><td align="right"><literal>#$43</literal></td><td>波の音</td></tr>
+    <tr><td align="right"><literal>#$44</literal></td><td>ワープ音</td></tr>
+    <tr><td align="right"><literal>#$45</literal></td><td>てんくうのベル音</td></tr>
+    <tr><td align="right"><literal>#$46</literal></td><td>ほうきで掃くような音</td></tr>
+  </tbody>
+</table>
+
+<para>
+実例をいくつか次に挙げる。
+<code>BRK #$0F</code> でサウンド <literal>#$23</literal> すなわち呪いの効果音を演奏させる。
+<code>BRK #$98</code> については <xref linkend="dq5.brk.spec.97-9D"/> で述べる。
+</para>
+<programlisting>
+25/8211:    000F        BRK #$0F            ; sound #$23: 呪いのモチーフ
+25/8213:    23
+25/8214:    0098        BRK #$98            ; #$01D0: [1006]まことに ざんねんですが[1000]ぼうけんのしょ[1004]は[1000]消えてしまいました。
+25/8216:    D0
+</programlisting>
+
+<para>
+<code>BRK #$12</code> はてんくうのベル専用の命令のようだ。連続実行することで雰囲気を出す。
+</para>
+<programlisting>
+00/CA33:    0012        BRK #$12            ; sound #$44: てんくうのベル音
+00/CA35:    44
+00/CA36:    0012        BRK #$12            ; sound #$44: てんくうのベル音
+00/CA38:    44
+</programlisting>
+
+<para>
+これはゲーム序盤のパパス同伴戦闘終了時のやりとりだ。
+<code>BRK #$16</code> でサウンド <literal>#$36</literal> すなわち HP 回復の効果音を演奏させる。
+</para>
+<programlisting>
+06/CF32:    0098        BRK #$98            ; message #$01E3: [1003]パパス「大丈夫か？ [1012]。
+06/CF34:    E3
+06/CF35:    0098        BRK #$98            ; message #$01E6: [1006]パパスは ホイミを となえた！[1000][1012]の キズが かいふくした！
+06/CF37:    E6
+06/CF38:    0016        BRK #$16            ; sound #$36 #$00: 回復音
+06/CF3A:    3600
+06/CF3C:    0098        BRK #$98            ; message #$01E5: [1003]パパス「では いくとしよう！
+06/CF3E:    E5
+</programlisting>
+
+</section> <!-- dq5.brk.spec.0E-19 -->
 
 <section id="dq5.brk.spec.80-93">
 <title>オペランド <literal>#$80</literal>, ..., <literal>#$93</literal>: オブジェクトのフィールドにアクセス</title>
@@ -147,8 +281,6 @@ BRK 命令実行時のオペランド、「余分なオペランド」、レジ�
 まず BRK 命令に関係するオペランド、「余分なオペランド」、レジスターの状況を表にまとめる。
 この表は、各正規オペランドに対して、BRK 命令実行がサブルーチン <varname>$218AFC</varname> 呼び出しのために必要な
 <varname>$38</varname> 等の値をどの要素からコピーするのかを示している。
-本節の以降では「余分なオペランド」の 1 番目、2 番目……を <varname>arg1</varname>, <varname>arg2</varname> のように呼ぶ。
-また、A レジスターの上位バイトと下位バイトを AH, AL とそれぞれ呼ぶ（インデックスレジスターについても同様）。
 </para>
 
 <table id="table.dq5.brk.80-93" class="lighttable">
@@ -193,7 +325,7 @@ BRK 命令実行時のオペランド、「余分なオペランド」、レジ�
 その BRK 命令は「指定の仲間キャラクターの MP をゼロにセットする」処理を実行する。
 次の実例は、戦闘中にパルプンテを唱えた際のある事象のコードだ。
 簡単に言うと、反復処理で <code>BRK #$89</code> を実行することにより、戦闘中の仲間キャラクターの MP をゼロにするコードだ。
-なお <code>BRK #$A5</code> はメッセージ表示処理であり、これについては後述する。
+なお <code>BRK #$A5</code> はメッセージ表示処理であり、これについては <xref linkend="dq5.brk.spec.A4-A6"/> で述べる。
 </para>
 <programlisting>
 20/ECBE:    2026EF      JSR $EF26
@@ -288,18 +420,18 @@ BRK 命令のオペランドが <literal>#$94</literal> であれば、
 実例として、ある <code>BRK #$94</code> の呼び出しを次に示す。
 「余分なオペランド」として <literal>#$06</literal> を指定することによって、
 アイテムが店屋で売れるかどうかを示すビットの値を carry ビットに得る。
-なお <code>BRK #$9B</code> については後述する。
+なお <code>BRK #$9B</code> については <xref linkend="dq5.brk.spec.97-9D"/> で述べる。
 </para>
 <programlisting>
 11/8463:    0094        BRK #$94            ; #$06: アイテム::鑑定::売却可フラグ
 11/8465:    06
 11/8466:    9005        BCC $846D
-11/8468:    009B        BRK #$9B            ; #$0460: [1006]店屋に 売ろうとしても これには[1000]ねだんは つけられないだろう。
+11/8468:    009B        BRK #$9B            ; message #$0460: [1006]店屋に 売ろうとしても これには[1000]ねだんは つけられないだろう。
 11/846A:    60
 11/846B:    800A        BRA $8477
 11/846D:    AD530B      LDA $0B53           ; アイテム ID
 11/8470:    225BDF06    JSR $06DF5B         ; アイテムの売値を計算
-11/8474:    009B        BRK #$9B            ; #$045F: [1006]もし 店屋に 売れば[1000][1004]ゴールドに なるだろう。
+11/8474:    009B        BRK #$9B            ; message #$045F: [1006]もし 店屋に 売れば[1000][1004]ゴールドに なるだろう。
 11/8476:    5F
 </programlisting>
 </section> <!-- dq5.brk.spec.94 -->
@@ -334,9 +466,9 @@ BRK 命令のオペランドが <literal>#$97</literal> から <literal>#$9D</li
 参考までにメッセージテキストを逆アセンブリコードの右側にコメントしておく。
 </para>
 <programlisting>
-06/CE0D:    0097        BRK #$97            ; #$00B6: よくぞもどられた！[1000][1011]どの。
+06/CE0D:    0097        BRK #$97            ; message #$00B6: よくぞもどられた！[1000][1011]どの。
 06/CE0F:    B6
-06/CE10:    0097        BRK #$97            ; #$00B7: おお 神よ！[1000]この者[1005]に 尊き ご加護の[1000]あらんことを！ アーメン！
+06/CE10:    0097        BRK #$97            ; message #$00B7: おお 神よ！[1000]この者[1005]に 尊き ご加護の[1000]あらんことを！ アーメン！
 06/CE12:    B7
 </programlisting>
 
@@ -357,11 +489,11 @@ BRK 命令のオペランドが <literal>#$9E</literal> から <literal>#$A7</li
 実例として、ある <code>BRK #$9E</code> の呼び出しを次に示す。
 </para>
 <programlisting>
-25/89F5:    009E        BRK #$9E            ; #$0000: 
+25/89F5:    009E        BRK #$9E            ; message #$0000: 
 25/89F7:    00
-25/89F8:    009E        BRK #$9E            ; #$00B6: しかし [EE][FA]は[FF]これいじょう ものを もてない。
+25/89F8:    009E        BRK #$9E            ; message #$00B6: しかし [EE][FA]は[FF]これいじょう ものを もてない。
 25/89FA:    B6
-25/89FB:    009E        BRK #$9E            ; #$00B7: もちものを すてますか？
+25/89FB:    009E        BRK #$9E            ; message #$00B7: もちものを すてますか？
 25/89FD:    B7
 </programlisting>
 
@@ -378,10 +510,10 @@ BRK 命令のオペランドが <literal>#$9E</literal> から <literal>#$A7</li
 </para>
 <programlisting>
 26/8452:    9005        BCC $8459
-26/8454:    00A1        BRK #$A1            ; #$0008: [F7]は こちらが みがまえるまえに[FF]おそいかかってきた！
+26/8454:    00A1        BRK #$A1            ; message #$0008: [F7]は こちらが みがまえるまえに[FF]おそいかかってきた！
 26/8456:    08
 26/8457:    8003        BRA $845C
-26/8459:    00A1        BRK #$A1            ; #$0009: [F7]は[FF]いきなり おそいかかってきた！
+26/8459:    00A1        BRK #$A1            ; message #$0009: [F7]は[FF]いきなり おそいかかってきた！
 26/845B:    09
 </programlisting>
 </section> <!-- dq5.brk.spec.A1-A3 -->
@@ -395,10 +527,10 @@ BRK 命令のオペランドが <literal>#$9E</literal> から <literal>#$A7</li
 <programlisting>
 20/F4D4:    ADF610      LDA $10F6
 20/F4D7:    3005        BMI $F4DE
-20/F4D9:    00A4        BRK #$A4            ; #$0078: ひかりのかべが じゅもんを はねかえした！
+20/F4D9:    00A4        BRK #$A4            ; message #$0078: ひかりのかべが じゅもんを はねかえした！
 20/F4DB:    78
 20/F4DC:    8003        BRA $F4E1
-20/F4DE:    00A4        BRK #$A4            ; #$0077: じゅもんは ひかりのかべに はじかれた！
+20/F4DE:    00A4        BRK #$A4            ; message #$0077: じゅもんは ひかりのかべに はじかれた！
 20/F4E0:    77
 </programlisting>
 </section> <!-- dq5.brk.spec.A4-A6 -->
@@ -412,10 +544,10 @@ BRK 命令のオペランドが <literal>#$9E</literal> から <literal>#$A7</li
 <programlisting>
 20/F59E:    CD1310      CMP $1013
 20/F5A1:    F005        BEQ $F5A8
-20/F5A3:    00A7        BRK #$A7            ; #$00A1: [F7]を やっつけた！
+20/F5A3:    00A7        BRK #$A7            ; message #$00A1: [F7]を やっつけた！
 20/F5A5:    A1
 20/F5A6:    8003        BRA $F5AB
-20/F5A8:    00A8        BRK #$A8            ; #$0135: [F7]は まけてしまった！
+20/F5A8:    00A8        BRK #$A8            ; message #$0135: [F7]は まけてしまった！
 20/F5AA:    35
 </programlisting>
 </section> <!-- dq5.brk.spec.A7-A9 -->
