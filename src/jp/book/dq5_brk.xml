@@ -53,21 +53,21 @@ BRK 命令の正規のオペランドと、実際にオペランドを構成す�
     <tr><td align="right"><literal>#$08</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
     <tr><td align="right"><literal>#$09</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
     <tr><td align="right"><literal>#$0A</literal></td><td align="right">3</td><td>構造体オブジェクトのフィールドにアクセス（未使用）</td></tr>
-    <tr><td align="right"><literal>#$0B</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$0C</literal></td><td align="right">3</td><td><code>$7E2190,X |= $10</code></td></tr>
-    <tr><td align="right"><literal>#$0D</literal></td><td align="right">3</td><td><code>$7E2190,X &amp;= $10</code></td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td><td align="right" rowspan="3">3</td><td rowspan="3">フラグ制御</td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td></tr>
+    <tr><td align="right"><literal>#$0D</literal></td></tr>
     <tr><td align="right"><literal>#$0E</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$0F</literal></td><td align="right">2</td><td rowspan="11">音響制御</td></tr>
-    <tr><td align="right"><literal>#$10</literal></td><td align="right">2</td></tr>
-    <tr><td align="right"><literal>#$11</literal></td><td align="right">2</td></tr>
-    <tr><td align="right"><literal>#$12</literal></td><td align="right">2</td></tr>
-    <tr><td align="right"><literal>#$13</literal></td><td align="right">2</td></tr>
-    <tr><td align="right"><literal>#$14</literal></td><td align="right">3</td></tr>
-    <tr><td align="right"><literal>#$15</literal></td><td align="right">3</td></tr>
-    <tr><td align="right"><literal>#$16</literal></td><td align="right">3</td></tr>
-    <tr><td align="right"><literal>#$17</literal></td><td align="right">3</td></tr>
-    <tr><td align="right"><literal>#$18</literal></td><td align="right">3</td></tr>
-    <tr><td align="right"><literal>#$19</literal></td><td align="right">3</td></tr>
+    <tr><td align="right"><literal>#$0F</literal></td><td align="right" rowspan="11">2</td><td rowspan="11">音響制御</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td></tr>
+    <tr><td align="right"><literal>#$11</literal></td></tr>
+    <tr><td align="right"><literal>#$12</literal></td></tr>
+    <tr><td align="right"><literal>#$13</literal></td></tr>
+    <tr><td align="right"><literal>#$14</literal></td></tr>
+    <tr><td align="right"><literal>#$15</literal></td></tr>
+    <tr><td align="right"><literal>#$16</literal></td></tr>
+    <tr><td align="right"><literal>#$17</literal></td></tr>
+    <tr><td align="right"><literal>#$18</literal></td></tr>
+    <tr><td align="right"><literal>#$19</literal></td></tr>
     <tr><td align="right"><literal>#$1A</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
     <tr><td align="right"><literal>#$80</literal></td><td align="right">1</td><td rowspan="20">構造体オブジェクトのフィールドにアクセス</td></tr>
     <tr><td align="right"><literal>#$81</literal></td><td align="right">2</td></tr>
@@ -92,25 +92,25 @@ BRK 命令の正規のオペランドと、実際にオペランドを構成す�
     <tr><td align="right"><literal>#$94</literal></td><td align="right">2</td><td>アイテムの特性を参照</td></tr>
     <tr><td align="right"><literal>#$95</literal></td><td align="right">2</td><td rowspan="2">ウィンドウ処理？</td></tr>
     <tr><td align="right"><literal>#$96</literal></td><td align="right">2</td></tr>
-    <tr><td align="right"><literal>#$97</literal></td><td align="right">2</td><td>ID が <code>[#$0000, #$0100)</code> にある移動中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$98</literal></td><td align="right">2</td><td>ID が <code>[#$0100, #$0200)</code> にある移動中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$99</literal></td><td align="right">2</td><td>ID が <code>[#$0200, #$0300)</code> にある移動中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$9A</literal></td><td align="right">2</td><td>ID が <code>[#$0300, #$0400)</code> にある移動中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$9B</literal></td><td align="right">2</td><td>ID が <code>[#$0400, #$0500)</code> にある移動中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$9C</literal></td><td align="right">2</td><td>ID が <code>[#$0500, #$0600)</code> にある移動中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$9D</literal></td><td align="right">2</td><td>ID が <code>[#$0600, #$0700)</code> にある移動中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$9E</literal></td><td align="right">2</td><td>ID が <code>[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$9F</literal></td><td align="right">2</td><td>ID が <code>[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$A0</literal></td><td align="right">2</td><td>ID が <code>[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$A1</literal></td><td align="right">2</td><td>ID が <code>[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$A2</literal></td><td align="right">2</td><td>ID が <code>[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$A3</literal></td><td align="right">2</td><td>ID が <code>[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$A4</literal></td><td align="right">2</td><td>ID が <code>[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$A5</literal></td><td align="right">2</td><td>ID が <code>[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$A6</literal></td><td align="right">2</td><td>ID が <code>[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$A7</literal></td><td align="right">2</td><td>ID が <code>[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$A8</literal></td><td align="right">2</td><td>ID が <code>[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td></tr>
-    <tr><td align="right"><literal>#$A9</literal></td><td align="right">2</td><td>ID が <code>[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$97</literal></td><td align="right" rowspan="7">2</td><td>ID が <code>[#$0000, #$0100)</code> にある移動中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$98</literal></td><td>ID が <code>[#$0100, #$0200)</code> にある移動中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$99</literal></td><td>ID が <code>[#$0200, #$0300)</code> にある移動中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$9A</literal></td><td>ID が <code>[#$0300, #$0400)</code> にある移動中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$9B</literal></td><td>ID が <code>[#$0400, #$0500)</code> にある移動中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$9C</literal></td><td>ID が <code>[#$0500, #$0600)</code> にある移動中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$9D</literal></td><td>ID が <code>[#$0600, #$0700)</code> にある移動中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$9E</literal></td><td align="right" rowspan="3">2</td><td>ID が <code>[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$9F</literal></td><td>ID が <code>[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A0</literal></td><td>ID が <code>[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A1</literal></td><td align="right" rowspan="3">2</td><td>ID が <code>[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A2</literal></td><td>ID が <code>[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A3</literal></td><td>ID が <code>[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A4</literal></td><td align="right" rowspan="3">2</td><td>ID が <code>[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A5</literal></td><td>ID が <code>[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A6</literal></td><td>ID が <code>[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A7</literal></td><td align="right" rowspan="3">2</td><td>ID が <code>[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A8</literal></td><td>ID が <code>[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td></tr>
+    <tr><td align="right"><literal>#$A9</literal></td><td>ID が <code>[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td></tr>
     <tr><td align="right"><literal>#$AA</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
     <tr><td align="right"><literal>#$AB</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
     <tr><td align="right"><literal>#$AC</literal></td><td align="right">2</td><td>調査中または不明</td></tr>
@@ -133,6 +133,82 @@ BRK 命令の正規のオペランドと、実際にオペランドを構成す�
 <section id="dq5.brk.spec">
 <title>命令実行の詳細</title>
 <para>本節では各正規オペランドについて、命令実行の意味なり挙動なりを解説する。</para>
+
+<section id="dq5.brk.spec.0B-0D">
+<title>オペランド <literal>#$0B</literal>, ..., <literal>#$0D</literal>: フラグ制御</title>
+<para>
+オペランドが <literal>#$0B</literal> から <literal>#$0D</literal> の間の値である BRK 命令の実行は、
+アドレス <varname>$7E2190</varname> からビット単位で直列配置されたフラグを管理する。
+どの命令も「余分なオペランド」を二個取る。
+<varname>arg1</varname> はビットマスクを、
+<varname>arg2</varname> は対象フラグを含むバイトのアドレスの
+<varname>$7E2190</varname> からのオフセット値をそれぞれ表現する。
+ビット演算は BRK 命令の本来のオペランドによって固定されている。それを次の表に示す。
+</para>
+
+<table id="table.dq5.brk.0B-0D" class="lighttable">
+  <caption>BRK #$0B-0D によるフラグ制御</caption>
+  <thead>
+    <tr><th>オペランド</th><th>フラグ制御</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="right"><literal>#$0B</literal></td><td>フラグの ON/OFF をテストする</td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td><td>フラグを ON にする</td></tr>
+    <tr><td align="right"><literal>#$0D</literal></td><td>フラグを OFF にする</td></tr>
+  </tbody>
+</table>
+
+<para>
+BRK 命令によるフラグ制御の実例を以下にいくつか挙げる。
+フラグのテストは zero レジスターの状態で判定するので、たいてい BEQ または BNE 命令を伴う。
+このコードから <varname>$7E21B3</varname> のビット <literal>#$08</literal> が主人公の妻を表すフラグであることが判明する。
+</para>
+<programlisting>
+02/F6D0:    009C        BRK #$9C            ; #$0556: [1003]ルドマン「わっはっは。[1000]やあ ゆかい ゆかい！
+02/F6D2:    56
+02/F6D3:    009C        BRK #$9C            ; #$056B: [1003]ルドマン「魔界の王を たおし[1000]世界に 平和を とりもどして[1000]くれるとはな。
+02/F6D5:    6B
+02/F6D6:    000B        BRK #$0B            ; test_bits $7E21B3 #$08: 妻がビアンカか
+02/F6D8:    0823
+02/F6DA:    D005        BNE $F6E1
+02/F6DC:    009C        BRK #$9C            ; #$056D: [1003]ルドマン「さすが [1012]！[1000]わしが フローラのムコと[1000]認めただけのことは あるわい。
+02/F6DE:    6D
+02/F6DF:    8003        BRA $F6E4
+02/F6E1:    009C        BRK #$9C            ; #$056C: [1003]ルドマン「さすが [1012]と[1000]その子供たちじゃ。
+02/F6E3:    6C
+</programlisting>
+
+<para>
+フラグを立てる処理を引用する。
+物理的にはアドレス <varname>$7E21D2</varname> にある 1 バイト値のビット <literal>#$10</literal> を 1 にする。
+</para>
+<programlisting>
+06/B8D8:    009B        BRK #$9B            ; #$04FD: [1003]コリンズ「大切に つかえよ。
+06/B8DA:    FD
+06/B8DB:    000C        BRK #$0C            ; set_bits $7E21D2 #$10: コリンズからかぜのぼうしを入手した
+06/B8DD:    1042
+06/B8DF:    60          RTS
+</programlisting>
+
+<para>
+最後にフラグを立っていない状態にする処理も挙げておく。
+これはビットマスク <varname>arg1</varname> をそのまま AND することで実現することに注意を要する。
+後続のシリーズのような対象となるビットの EOR ではない。
+</para>
+<programlisting>
+12/F185:    000D        BRK #$0D            ; mask_bits $7E21D4 #$7F: てんくうのかぶとを入手した
+12/F187:    7F44
+12/F189:    0097        BRK #$97            ; #$0013: [1006]
+12/F18B:    13
+12/F18C:    009B        BRK #$9B            ; #$0450: [1006][1016]は ふと 気が ついた。[1002][1006]なんと 持ち物が いっぱいだった！[...]
+12/F18E:    50
+</programlisting>
+<para>
+上のコードはテルパドールでてんくうのかぶとを息子にかぶせるイベントの例外的な処理だ。
+この場合は諸般の事情で先に当該フラグを立ててしまったので、このようなキャンセルを実装している。
+言い忘れたが <code>BRK #$97</code> と <code>BRK #$9B</code> についてはこの後 <xref linkend="dq5.brk.spec.97-9D"/> で述べる。
+</para>
+</section> <!-- dq5.brk.spec.0B-0D -->
 
 <section id="dq5.brk.spec.0E-19">
 <title>オペランド <literal>#$0E</literal>, ..., <literal>#$19</literal>: 音響制御</title>
