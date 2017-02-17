@@ -1,30 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-  <!ENTITY % vers SYSTEM "version.xml">
-  %vers;
-]>
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <book id="index" lang="ja">
   <title>ドラクエ命</title>
-  <bookinfo>
-    <copyright>
-      <year>2002-&today.year;</year>
-      <holder>
-        <ulink url="https://showa-yojyo.github.io/">プレハブ小屋</ulink>
-      </holder>
-    </copyright>
-    <pubdate>&today.date;</pubdate>
-    <releaseinfo>Version &book.version;</releaseinfo>
-  </bookinfo>
-
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="version.xml" />
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="preface.xml" />
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="part01.xml" />
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="part02.xml" />
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="appendix_a.xml" />
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="appendix_b.xml" />
-
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="glossary.xml" />
-  <!-- &index; -->
-  <index id="dq.index"><?dbhtml filename="dq_index.html" ?>
-  </index> <!-- dq.index -->
+  <index id="dq.index"><?dbhtml filename="dq_index.html" ?></index>
 </book>

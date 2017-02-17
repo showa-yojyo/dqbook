@@ -12,9 +12,7 @@ prefab: version install-html-chunk install-html-chunk-arch
 # Build targets
 $(VERSION_SOURCE): version
 version:
-	@echo '<!ENTITY book.version "'$(BOOK_VERSION)'">' >> $(VERSION_SOURCE).tmp
-	@echo '<!ENTITY today.date "'`LANG= date +%Y/%m/%d\ \(%a\)`'">' >> $(VERSION_SOURCE).tmp
-	@echo '<!ENTITY today.year "'`LANG= date +%Y`'">' >> $(VERSION_SOURCE).tmp
+	@$(SHELL) $(TOOLS_DIR)/version.sh $(BOOK_VERSION) > $(VERSION_SOURCE).tmp
 	@if cmp -s $(VERSION_SOURCE) $(VERSION_SOURCE).tmp; then \
 	  rm $(VERSION_SOURCE).tmp; \
 	else \
