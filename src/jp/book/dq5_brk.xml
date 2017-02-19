@@ -44,8 +44,8 @@ BRK 命令の正規のオペランドと、実際にオペランドを構成す�
   <tbody>
     <tr><td align="right"><literal>#$00</literal></td><td align="right">1</td><td>単に RTI する</td></tr>
     <tr><td align="right"><literal>#$01</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$02</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
-    <tr><td align="right"><literal>#$03</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
+    <tr><td align="right"><literal>#$02</literal></td><td align="right" rowspan="2">1</td><td rowspan="2">レジスター各種状態を保存または復帰</td></tr>
+    <tr><td align="right"><literal>#$03</literal></td></tr>
     <tr><td align="right"><literal>#$04</literal></td><td align="right">3</td><td>調査中または不明</td></tr>
     <tr><td align="right"><literal>#$05</literal></td><td align="right">4</td><td>（未使用）</td></tr>
     <tr><td align="right"><literal>#$06</literal></td><td align="right">1</td><td>調査中または不明</td></tr>
@@ -133,6 +133,54 @@ BRK 命令の正規のオペランドと、実際にオペランドを構成す�
 <section id="dq5.brk.spec">
 <title>命令実行の詳細</title>
 <para>本節では各正規オペランドについて、命令実行の意味なり挙動なりを解説する。</para>
+
+<section id="dq5.brk.spec.02-03">
+<title>オペランド <literal>#$02</literal>, <literal>#$03</literal>: レジスター各種の保存または復帰</title>
+<para>
+これらの命令実行の意図はゲームの内容とは関係がないので、興味のない読者は本節を飛ばして結構だ。
+</para>
+<para>
+<code>BRK #$02</code> と <code>BRK #$03</code> は常に対で用いる。
+これは BRK 命令の全オペランドに対して共通するコードを流用することで、
+プログラマーがレジスター各種をスタックに保存するコードや、
+スタックからレジスターに復帰するコードを書くのを省力化することができ、
+さらにこれらの処理を表現するのに必要な ROM を数バイト節約できる。
+前者の命令実行が状態を保存し、後者はその状態に復帰するものだ。
+実際の例を借りて説明したい。
+</para>
+
+<programlisting>
+BRK #$02
+JSR $8062
+BRK #$03
+RTL
+</programlisting>
+
+<para>
+このように両 BRK 命令をサンドイッチのように用いる必要がある。
+今はたまたま <code>JSR $8062</code> しかないが、
+一般には具の部分に任意のコードがあってよい。
+もっともサンドイッチの外に飛び出すような激しい分岐命令やジャンプ命令はないようにする。
+そして上記コードは次の非実在コードと論理的に同値である（実際の実装のほうがやや丁寧に処理しているが）。
+</para>
+<programlisting>
+PHP
+REP #$30
+PHA
+PHX
+PHY
+PHD
+JSR $8062
+PLB
+PLD
+PLY
+PLX
+PLA
+PLP
+...                 ; nv--dizc 各ビットを現在のそれで上書きする
+RTL
+</programlisting>
+</section> <!-- dq5.brk.spec.02-03 -->
 
 <section id="dq5.brk.spec.0B-0D">
 <title>オペランド <literal>#$0B</literal>, ..., <literal>#$0D</literal>: フラグ制御</title>
