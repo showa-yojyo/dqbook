@@ -64,7 +64,7 @@
     <tr><td align="right">                         *</td><td align="right"><literal>#$01</literal></td><td>呪い：動きフラグ        </td><td><code>BRK #$89</code> (args: 8041, $43: #$24)</td><td></td></tr>
     <tr><td align="right"><literal>$000769</literal></td><td align="right"><literal>#$80</literal></td><td>守備力変化フラグ        </td><td><code>BRK #$89</code> (args: 8041, $43: #$25)</td><td>「きているものを ぬぎすてた」ら ON</td></tr>
     <tr><td align="right">                         *</td><td align="right"><literal>#$70</literal></td><td>未使用                  </td><td>                                             </td><td></td></tr>
-    <tr><td align="right">                         *</td><td align="right"><literal>#$0F</literal></td><td>守備力カウンター        </td><td><code>BRK #$89</code> (args: 8041, $43: #$27)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$0F</literal></td><td>コマンドカウンター      </td><td><code>BRK #$89</code> (args: 8041, $43: #$27)</td><td></td></tr>
     <tr><td align="right"><literal>$00076A</literal></td><td align="right">                       </td><td>n/a                     </td><td>n/a                                          </td><td>未使用バイトか</td></tr>
     <tr><td align="right"><literal>$00076B</literal></td><td align="right">                       </td><td>*                       </td><td>*                                            </td><td>*</td></tr>
   </tbody>
@@ -151,7 +151,7 @@
     <tr><td align="right">                         *</td><td align="right"><literal>#$0C</literal></td><td>時間停止カウンター         </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$45)</td><td>パルプンテ関連</td></tr>
     <tr><td align="right">                         *</td><td align="right"><literal>#$03</literal></td><td>まぶしいひかりカウンター   </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$46)</td><td></td></tr>
     <tr><td align="right"><literal>$0007CE</literal></td><td align="right"><literal>#$80</literal></td><td>馬車ドア閉めフラグ         </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$47)</td><td></td></tr>
-    <tr><td align="right">                         *</td><td align="right"><literal>#$70</literal></td><td>守備力カウンター           </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$48)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$70</literal></td><td>コマンドカウンター         </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$48)</td><td></td></tr>
     <tr><td align="right">                         *</td><td align="right"><literal>#$08</literal></td><td>ルカニ・スカラフラグ       </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$49)</td><td></td></tr>
     <tr><td align="right">                         *</td><td align="right"><literal>#$04</literal></td><td>呪い：頭フラグ             </td><td><code>BRK #$88</code> (arg1: #$7A, AH: #$4A) </td><td>呪われることはないはずだが？</td></tr>
     <tr><td align="right">                         *</td><td align="right"><literal>#$02</literal></td><td>n/a                        </td><td>n/a                                          </td><td></td></tr>
