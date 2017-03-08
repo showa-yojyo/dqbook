@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<section id="dq5.accessor"><?dbhtml filename="dq5_accessor.html" ?>
+<title>汎用データアクセスサブルーチン（仮）</title>
+<para>
+この節ではサブルーチン <varname>$218AFC</varname> およびそれに依存する機能群の振る舞いを可能な限り詳細に説明する。
+最初にサブルーチン <varname>$218AFC</varname> がどのような機能を有するプログラム構成要素なのかをごく簡単に説明する。
+さらにこのサブルーチンを間接的に利用するプログラム構成要素について言及する。
+これにより、サブルーチン <varname>$218AFC</varname> の仕様を把握することの重要性が明らかになるだろう。
+最後に、本サブルーチンの筆者が独自に調査した仕様を簡易な図表にして示す。
+逆アセンブリコードの解読のお供にするなり、逆アセンブラーのポストプロセッサーに取り込むなりして利用していただきたい。
+</para>
+
+<section id="dq5.accessor.abstract">
+<title>概要</title>
+<para>
+サブルーチン <varname>$218AFC</varname> はその機能や役割を文章で表現することが案外難しい。
+このサブルーチンを呼び出す状況次第で、その振る舞いの違いがあまりにも大きいからだ。
+まずは実際にこのサブルーチンが実行することができる機能について例を挙げておく。
+</para>
+
+<itemizedlist>
+  <listitem><para>仲間一人の属性値を参照または更新</para></listitem>
+  <listitem><para>戦闘時において、戦闘員一人の属性値を参照または更新</para></listitem>
+  <listitem><para>仲間一人の所持品または装備品を参照、検索または変更</para></listitem>
+  <listitem><para>仲間パーティーについて何らかの検索</para></listitem>
+  <listitem><para>仲間パーティーの編成を参照または更新</para></listitem>
+  <listitem><para>モンスター一種の属性値を参照</para></listitem>
+  <listitem><para>預かり所の状態を参照または更新</para></listitem>
+  <listitem><para>モンスターじいさんと仲間一体についての操作</para></listitem>
+  <listitem><para>ルイーダの酒場とある仲間一人についての操作</para></listitem>
+  <listitem><para>メダル王と取引するちいさなメダルについての操作</para></listitem>
+  <listitem><para>カジノのコインについての操作</para></listitem>
+</itemizedlist>
+
+<para>
+このように用途が多岐に亘るので、汎用データアクセスサブルーチン（仮）と呼ぶことにする。
+用途が多いと必然的に利用箇所も多数あるわけだが、
+このサブルーチンは呼び出し目的が何であっても共通してあるアドレスの値をやりとりする仕組みになっている。
+プログラマーは定型的なコードが繰り返し現れるのをある程度は防ぎたいはずで、
+これを BRK 命令を拡張することで実現したと思われる。
+BRK 命令を介した実行についての詳細とその実例は <xref linkend="dq5.brk.spec.80-93"/> で述べる。
+</para>
+
+</section> <!-- dq5.accessor.abstract -->
+
+<section id="dq5.accessor.dependencies">
+<title>依存関係</title>
+<para>
+サブルーチン <varname>$218AFC</varname> の呼び出しに関する依存関係を簡単なアスキーアートで表現する。
+矢印の向きは依存する側から依存される側に向かうものとする。
+</para>
+<programlisting>
+$21/8AFC
+  ← $21/8A9D: Long 型サブルーチン。未使用。
+  ← $21/8AC8: Long 型サブルーチン。未使用。
+  ← $21/8AF8: Long 型サブルーチン。
+     ← $00/8F80: BRK ハンドラー。
+</programlisting>
+<para>
+サブルーチン <varname>$218AF8</varname> はバンク内サブルーチンを任意のサブルーチンから呼び出せるようにするだけのラッパーであるので特別な説明を要しない。
+BRK ハンドラー <varname>$008F80</varname> については <xref linkend="dq5.brk"/> にて述べる。
+</para>
+<para>
+次に反対側の呼び出し依存関係を示す。
+</para>
+<programlisting>
+$21/8AFC
+  → $21/907C: この後管理するメモリを初期化する。
+  → $21/8B31: 対象メンバー ($39) を特定する。
+  → $21/8B82: この後操作するベースアドレス ($3A:) オフセット ($3D) サイズ ($3E) 実データ ($46:) をセットする。
+  → $21/8C3A: 目的 ($38) に応じた処理コードへジャンプする。
+</programlisting>
+<para>
+最初の三つのサブルーチンはこれ以上の呼び出しを含まない。
+最後のサブルーチン <varname>$218C3A</varname> が難解で、これは目的別に用意されたコードを実行するようになっている。
+</para>
+</section> <!-- dq5.accessor.dependencies -->
+
+<section id="dq5.accessor.specification">
+<title>仕様</title>
+<para>
+まずサブルーチン <varname>$218AFC</varname> が間接的に参照するジャンプテーブルの各エントリーの振る舞いを図表にする。
+併せて、関連するデータ型をその格納アドレスに代表させて示す。
+</para>
+
+<section id="dq5.accessor.specification.functions">
+<title>機能表</title>
+<para>
+機能 ID とその機能の概要を図表にしたものを次に示す。
+未使用分も含めると機能個数が <literal>#$F6</literal> すなわち 246 個もあるので厄介だ。
+図表の読み方は詳細に述べず、読者の感覚に委ねる。
+</para>
+
+<!-- TODO: Insert the table ($218E8C) here. -->
+
+</section> <!-- dq5.accessor.specification.functions -->
+
+<section id="dq5.accessor.specification.common">
+<title>全機能に共通する呼び出し事前条件と事後条件</title>
+<para>
+ここでは全機能共通の規則をまとめる。
+この情報は逆アセンブリコードを目視で検査して <code>BRK #$8?</code> 系の行周囲の意味を推測する際の目安となる。
+</para>
+<para>
+当サブルーチン呼び出しの事前条件および事後条件を、関係するメモリアドレスを主眼にまとめたものが次の表だ。
+いずれも 8 ビットで扱う。何なら事前条件、事後条件をそれぞれ入力、出力とそれぞれ読み替えてもらっても構わない。
+また、キャラクター ID とある項目は機能によっては指定不要だ。
+</para>
+
+<table id="table.dq5.accessor.preconditions" class="lighttable">
+  <caption>サブルーチン呼び出しの事前条件</caption>
+  <thead>
+    <tr><th>アドレス</th><th>条件</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>$38</literal></td><td>機能 ID の値。範囲 <literal>[#$00, #$F6)</literal> の数でなければならない。</td></tr>
+    <tr><td><literal>$3F</literal></td><td>キャラクター検索フィルターとなるビットマスク。</td></tr>
+    <tr><td><literal>$42</literal></td><td>対象となるキャラクターの ID の値。</td></tr>
+    <tr><td><literal>$43</literal></td><td rowspan="3">サブルーチン側が必要とする情報。機能によって異なる。</td></tr>
+    <tr><td><literal>$44</literal></td></tr>
+    <tr><td><literal>$45</literal></td></tr>
+  </tbody>
+</table>
+
+<table id="table.dq5.accessor.postconditions" class="lighttable">
+  <caption>サブルーチン呼び出しの事後条件</caption>
+  <thead>
+    <tr><th>アドレス</th><th>条件</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>$39</literal></td><td>対象となるキャラクターの ID の値。</td></tr>
+    <tr><td><literal>$3A</literal></td><td rowspan="3">データアクセスのためのベースアドレスの値。</td></tr>
+    <tr><td><literal>$3B</literal></td></tr>
+    <tr><td><literal>$3C</literal></td></tr>
+    <tr><td><literal>$3D</literal></td><td>上記ベースアドレスに加算したオフセット値。</td></tr>
+    <tr><td><literal>$3E</literal></td><td>データアクセス時のデータサイズ。</td></tr>
+    <tr><td><literal>$46</literal></td><td rowspan="4">呼び出し側が必要とする情報。機能によって異なる。</td></tr>
+    <tr><td><literal>$47</literal></td></tr>
+    <tr><td><literal>$48</literal></td></tr>
+    <tr><td><literal>$49</literal></td></tr>
+    <tr><td><literal>$4A</literal></td><td rowspan="4"><literal>$46</literal>, ..., <literal>$49</literal> のコピー。</td></tr>
+    <tr><td><literal>$4B</literal></td></tr>
+    <tr><td><literal>$4C</literal></td></tr>
+    <tr><td><literal>$4D</literal></td></tr>
+  </tbody>
+</table>
+
+</section> <!-- dq5.accessor.specification.common -->
+</section> <!-- dq5.accessor.specification -->
+</section> <!-- dq5.accessor -->

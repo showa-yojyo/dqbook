@@ -496,7 +496,7 @@ BRK 命令実行時のオペランド、「余分なオペランド」、レジ�
 </table>
 <para>
 この節はジャンプテーブル <varname>$218E8C</varname> の各要素と処理内容をまとめて終えたいのだが、
-量が量なので、未だに調査が終わらない有様だ。
+それは <xref linkend="dq5.accessor"/> の節で述べる。
 </para>
 
 </section> <!-- dq5.brk.spec.80-93 -->

@@ -20,6 +20,7 @@ SFC で動くドラクエシリーズの中で、
 
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_gallery.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_brk.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_accessor.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_combatants.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_message_battle.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_message.xml"/>
