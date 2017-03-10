@@ -392,7 +392,7 @@ BRK 命令によるフラグ制御の実例を以下にいくつか挙げる。
 <para>
 BRK 命令のオペランドが <literal>#$80</literal> から <literal>#$93</literal> の間の値であれば、
 これはサブルーチン <varname>$218AFC</varname> のラッパーとして振る舞う。
-つまり、あるオブジェクトの特定の性質へアクセスする。
+詳しくは <xref linkend="dq5.accessor"/> で議論するが、あるオブジェクトの特定の性質へアクセスするというものだ。
 オペランドの値と「余分なオペランド」の値によって構造体のフィールドとアクセス方法が一意に決まり、
 対象となるオブジェクトの指定は別途指定する。
 </para>
@@ -442,6 +442,7 @@ BRK 命令実行時のオペランド、「余分なオペランド」、レジ�
 この仕組みを理解することは本ゲームの状態管理を把握することと直結するゆえ、たいへん重要だ。
 このジャンプテーブルによると、<varname>$38</varname> の取る値は範囲 <literal>[#$00, #$F6)</literal> になければならない。
 この値それぞれについてオブジェクトアクセス処理が細かく実装されている。
+一連のシステムについては節を改めて <xref linkend="dq5.accessor"/> で述べる。
 </para>
 
 <para>
@@ -469,36 +470,6 @@ BRK 命令実行時のオペランド、「余分なオペランド」、レジ�
 20/ECE0:    90DF        BCC $ECC1
 20/ECE2:    60          RTS
 </programlisting>
-
-<para>
-この BRK 命令群が対応する構造体に関する情報は <varname>$218D6A</varname> と <varname>$218D8B</varname> で確認できる。
-それらを次の表にまとめる。
-</para>
-
-<table id="table.dq5.218D6A-218D8B" class="lighttable">
-  <caption>アクセス対象の構造体一覧</caption>
-  <thead>
-    <tr><th>ID</th><th>オブジェクト</th><th>サイズ</th><th>構造体の意味</th></tr>
-  </thead>
-  <tbody>
-    <tr><td align="right"><literal>#$00</literal></td><td align="right"><literal>$7E2040</literal></td><td align="right"><literal>$#$2A</literal></td><td>仲間キャラクターの状態</td></tr>
-    <tr><td align="right"><literal>#$01</literal></td><td align="right"><literal>$000760</literal></td><td align="right"><literal>$#$0C</literal></td><td><link linkend="dq5.combatants.000760">戦闘時仲間キャラクターの状態</link></td></tr>
-    <tr><td align="right"><literal>#$02</literal></td><td align="right"><literal>$238000</literal></td><td align="right"><literal>$#$19</literal></td><td>モンスターデータ</td></tr>
-    <tr><td align="right"><literal>#$03</literal></td><td align="right"><literal>$0007C0</literal></td><td align="right"><literal>$#$10</literal></td><td><link linkend="dq5.combatants.0007C0">戦闘時敵キャラクターの状態</link></td></tr>
-    <tr><td align="right"><literal>#$04</literal></td><td align="right"><literal>$7E2000</literal></td><td align="right"><literal>$#$18</literal></td><td>調査中</td></tr>
-    <tr><td align="right"><literal>#$05</literal></td><td align="right"><literal>$23AED1</literal></td><td align="right"><literal>$#$09</literal></td><td><link linkend="dq5.data.chara.monster.init">仲間モンスターキャラクター初期データ</link></td></tr>
-    <tr><td align="right"><literal>#$06</literal></td><td align="right"><literal>$7E2250</literal></td><td align="right"><literal>$#$01</literal></td><td>預かり所アイテム個数</td></tr>
-    <tr><td align="right"><literal>#$07</literal></td><td align="right"><literal>$7E2332</literal></td><td align="right"><literal>$#$1A</literal></td><td>預けた仲間（モンスター）の状態</td></tr>
-    <tr><td align="right"><literal>#$08</literal></td><td align="right"><literal>$7E294A</literal></td><td align="right"><literal>$#$20</literal></td><td>預けた仲間（人間）の状態</td></tr>
-    <tr><td align="right"><literal>#$09</literal></td><td align="right"><literal>$238000</literal></td><td align="right"><literal>$#$19</literal></td><td>先述のとおり</td></tr>
-    <tr><td align="right"><literal>#$0A</literal></td><td align="right"><literal>$7E296A</literal></td><td align="right"><literal>$#$20</literal></td><td>未使用</td></tr>
-  </tbody>
-</table>
-<para>
-この節はジャンプテーブル <varname>$218E8C</varname> の各要素と処理内容をまとめて終えたいのだが、
-それは <xref linkend="dq5.accessor"/> の節で述べる。
-</para>
-
 </section> <!-- dq5.brk.spec.80-93 -->
 
 <section id="dq5.brk.spec.94">
