@@ -62,8 +62,13 @@ $21/8AFC
      ← $00/8F80: BRK ハンドラー。
 </programlisting>
 <para>
+JSL 命令で実行されるはずの二つのサブルーチン <varname>$218A9D</varname> および <varname>$218AC8</varname> については、
+独自の調査の結果で未使用ルーチンであると結論したため、説明を省く。
+</para>
+<para>
 サブルーチン <varname>$218AF8</varname> はバンク内サブルーチンを任意のサブルーチンから呼び出せるようにするだけのラッパーであるので特別な説明を要しない。
-BRK ハンドラー <varname>$008F80</varname> については <xref linkend="dq5.brk"/> にて述べる。
+ただし、そのサブルーチンを利用する唯一の呼び出し元である BRK ハンドラー <varname>$008F80</varname> は被参照機会がとてつもなく多いため重要だ。
+これの呼び出しコードの意味を直ちに特定することができれば、逆アセンブリコードの解読が飛躍的に効率的になる。
 </para>
 <para>
 次に反対側の呼び出し依存関係を示す。
@@ -77,7 +82,19 @@ $21/8AFC
 </programlisting>
 <para>
 最初の三つのサブルーチンはこれ以上の呼び出しを含まない。
-最後のサブルーチン <varname>$218C3A</varname> が難解で、これは目的別に用意されたコードを実行するようになっている。
+サブルーチン <varname>$21907C</varname> は作業用のメモリをゼロで初期化するだけのミニルーチンだ。
+特に <varname>$46</varname> から <varname>$49</varname> までがゼロになることに注意したい。
+</para>
+
+<para>
+サブルーチン <varname>$218B31</varname> は主にアクセス対象のデータのベースアドレスを設定するためにある。
+つまり、オブジェクトサイズが N で、先頭から k 番目の仲間または敵についてのデータが欲しい場合には、
+このルーチンはアドレス <varname>$39</varname> にベースアドレスに値 <code>N * k</code> を加算した値を格納する。
+</para>
+<para>
+最後のサブルーチン <varname>$218C3A</varname> が難解で、
+固定ジャンプテーブルを参照することで目的 (<varname>$38</varname>) 別に定義されたコードを実行するようになっている。
+次節で図表にして示すことでコードの説明に代える。
 </para>
 </section> <!-- dq5.accessor.dependencies -->
 
@@ -120,7 +137,7 @@ $21/8AFC
     <tr><td align="right"><literal>#$08</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[04:06]</code></td>              <td></td>                               <td>仲間::MP を増加させる。</td><td>結果値は MMP を上限とする。</td></tr>
     <tr><td align="right"><literal>#$09</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[04:06]</code></td>              <td></td>                               <td>仲間::MP を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
     <tr><td align="right"><literal>#$0A</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[04:06]</code></td>              <td></td>                               <td>仲間::MP と指定値とを比較する。</td><td></td></tr>
-    <tr><td align="right"><literal>#$0B</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[04:06]</code></td>              <td></td>                               <td>仲間::MP をゼロにする。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[04:06]</code></td>              <td></td>                               <td>仲間::MP をゼロにする。</td><td></td></tr>
     <tr><td align="right"><literal>#$0C</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[04:06]</code></td>              <td></td>                               <td>仲間::MP をその MMP と同じ値とする。</td><td></td></tr>
     <tr><td align="right"><literal>#$0D</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[10:12]</code></td>              <td></td>                               <td>仲間::MMP を参照する。</td><td></td></tr>
     <tr><td align="right"><literal>#$0E</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[10:12]</code></td>              <td></td>                               <td>仲間::MMP を増加させる。</td><td>結果値は 999 を上限とする。</td></tr>
@@ -475,6 +492,10 @@ $21/8AFC
     <tr><td align="right"><literal>#$61</literal></td><td><varname>$238000</varname></td><td><code>[04]</code></td><td align="right"><literal>#$0C</literal></td><td>休み系に対する耐性</td></tr>
   </tbody>
 </table>
+
+<para>
+実例は <xref linkend="dq5.brk.spec.80-93"/> の説明と実例を参照して欲しい。
+</para>
 </section> <!-- dq5.accessor.specification.functions -->
 
 <section id="dq5.accessor.specification.conditions">

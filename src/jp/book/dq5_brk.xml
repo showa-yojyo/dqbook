@@ -437,12 +437,8 @@ BRK 命令実行時のオペランド、「余分なオペランド」、レジ�
 </table>
 
 <para>
-逆アセンブリコードの解析において、上記の表でいちばん重要なのは <varname>$38</varname> である。
-これがオブジェクトアクセス処理のジャンプテーブル <varname>$218E8C</varname> の添字の元となる。
-この仕組みを理解することは本ゲームの状態管理を把握することと直結するゆえ、たいへん重要だ。
-このジャンプテーブルによると、<varname>$38</varname> の取る値は範囲 <literal>[#$00, #$F6)</literal> になければならない。
-この値それぞれについてオブジェクトアクセス処理が細かく実装されている。
-一連のシステムについては節を改めて <xref linkend="dq5.accessor"/> で述べる。
+<varname>$38</varname> 等については <xref linkend="dq5.accessor.specification.conditions"/> を参照。
+また、一連のシステムについては <xref linkend="dq5.accessor"/> を参照して欲しい。
 </para>
 
 <para>
