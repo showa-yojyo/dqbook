@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<section id="dq5.characters"><?dbhtml filename="dq5.characters.html" ?>
+<title>仲間キャラクター構造体</title>
+<para>
+この節では仲間のキャラクターを表現するデータ構造体三種について述べる。
+また、本書全体を通じて構造体の名称を、その型のオブジェクトが格納される配列の先頭アドレスにちなみ、
+例えば「<varname>$7E2040</varname> 構造体」や「構造体 <varname>$7E2040</varname>」のように呼称する。
+</para>
+<para>
+さて、本プログラムでは何らかの理由で三種類の仲間キャラクターデータの表現形式が定義されている。
+もっとも言及頻度が高いのは <varname>$7E2040</varname> 構造体だ。
+これは主人公と、彼が引き連れている馬車内外のパーティーメンバー全員に共通するデータを表現するための構造体だ。
+そして、パーティー人数が多過ぎる状況では、あぶれた仲間はモンスターじいさんまたはルイーダの酒場に待機することになる。
+この待機しているキャラクターたちを表現するのに、別途専用の構造体
+<varname>$7E2332</varname> または <varname>$7E294A</varname> に変換してデータを保持する。
+妙に複雑な仕組みになっているが、あとで見るようにこれらの構造体のサイズの違いが
+RAM の節約に一役買うというわけだ。
+</para>
+
+<section id="dq5.characters.7E2040">
+<title>構造体 <varname>$7E2040</varname>: パーティーメンバー表現</title>
+<para>
+構造体 <varname>$7E2040</varname> は、パーティーにいるキャラクターデータを表現する。
+データは移動中だけでなく、戦闘中にも属性のいくつかがアクセスされる。
+</para>
+<para>
+プログラムはこの構造体をサイズが <literal>#$2A</literal> バイトであるとして処理する。
+メモリレイアウトを次の表に示す。
+</para>
+
+<table id="table.dq5.characters." class="lighttable">
+  <caption>$7E2040 構造体</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="right" rowspan="3"><literal>#$00</literal></td><td><literal>#$3F</literal></td><td>キャラクター識別値</td></tr>
+    <tr>                                                          <td><literal>#$40</literal></td><td>戦闘コマンド入力抑止フラグ</td></tr>
+    <tr>                                                          <td><literal>#$80</literal></td><td>モンスターフラグ</td></tr>
+    <tr><td align="right" rowspan="8"><literal>#$01</literal></td><td><literal>#$01</literal></td><td>調査中</td></tr>
+    <tr>                                                          <td><literal>#$02</literal></td><td>調査中</td></tr>
+    <tr>                                                          <td><literal>#$04</literal></td><td>MP が呪われているフラグ</td></tr>
+    <tr>                                                          <td><literal>#$08</literal></td><td>HP が呪われているフラグ</td></tr>
+    <tr>                                                          <td><literal>#$10</literal></td><td>もうどく状態フラグ</td></tr>
+    <tr>                                                          <td><literal>#$20</literal></td><td>どく状態フラグ</td></tr>
+    <tr>                                                          <td><literal>#$40</literal></td><td>マヒ状態フラグ</td></tr>
+    <tr>                                                          <td><literal>#$80</literal></td><td>生存フラグ</td></tr>
+    <tr><td align="right"><literal>#$02</literal></td>            <td rowspan="2"></td>           <td rowspan="2">HP</td></tr>
+    <tr><td align="right"><literal>#$03</literal></td></tr>
+    <tr><td align="right"><literal>#$04</literal></td>            <td rowspan="2"></td>           <td rowspan="2">MP</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td></tr>
+    <tr><td align="right"><literal>#$06</literal></td>            <td></td>                       <td>すばやさ</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td>            <td></td>                       <td>ちから</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td>            <td></td>                       <td>みのまもり</td></tr>
+    <tr><td align="right"><literal>#$09</literal></td>            <td></td>                       <td>かしこさ</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td>            <td></td>                       <td>うんのよさ</td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td>            <td rowspan="3"></td>           <td rowspan="3">経験値</td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td></tr>
+    <tr><td align="right"><literal>#$0D</literal></td></tr>
+    <tr><td align="right"><literal>#$0E</literal></td>            <td rowspan="2"></td>           <td rowspan="2">MHP</td></tr>
+    <tr><td align="right"><literal>#$0F</literal></td></tr>
+    <tr><td align="right"><literal>#$10</literal></td>            <td rowspan="2"></td>           <td rowspan="2">MMP</td></tr>
+    <tr><td align="right"><literal>#$11</literal></td></tr>
+    <tr><td align="right" rowspan="2"><literal>#$12</literal></td><td><literal>#$7F</literal></td><td>レベル</td></tr>
+    <tr>                                                          <td><literal>#$80</literal></td><td>いのちのリング装備中フラグ</td></tr>
+    <tr><td align="right" rowspan="2"><literal>#$13</literal></td><td><literal>#$7F</literal></td><td>レベル上限値</td></tr>
+    <tr>                                                          <td><literal>#$80</literal></td><td>しあわせのぼうし装備中フラグ</td></tr>
+    <tr><td align="right"><literal>#$14</literal></td>            <td><literal>#$FF</literal></td><td>装備状態フラグ列</td></tr>
+    <tr><td align="right"><literal>#$15</literal></td>            <td><literal>#$0F</literal></td><td>装備状態フラグ列</td></tr>
+    <tr><td align="right"><literal>#$16</literal></td>            <td></td>                       <td>所持品 <literal>#$00</literal></td></tr>
+    <tr><td align="right"><literal>#$17</literal></td>            <td></td>                       <td>所持品 <literal>#$01</literal></td></tr>
+    <tr><td align="right"><literal>#$18</literal></td>            <td></td>                       <td>所持品 <literal>#$02</literal></td></tr>
+    <tr><td align="right"><literal>#$19</literal></td>            <td></td>                       <td>所持品 <literal>#$03</literal></td></tr>
+    <tr><td align="right"><literal>#$1A</literal></td>            <td></td>                       <td>所持品 <literal>#$04</literal></td></tr>
+    <tr><td align="right"><literal>#$1B</literal></td>            <td></td>                       <td>所持品 <literal>#$05</literal></td></tr>
+    <tr><td align="right"><literal>#$1C</literal></td>            <td></td>                       <td>所持品 <literal>#$06</literal></td></tr>
+    <tr><td align="right"><literal>#$1D</literal></td>            <td></td>                       <td>所持品 <literal>#$07</literal></td></tr>
+    <tr><td align="right"><literal>#$1E</literal></td>            <td></td>                       <td>所持品 <literal>#$08</literal></td></tr>
+    <tr><td align="right"><literal>#$1F</literal></td>            <td></td>                       <td>所持品 <literal>#$09</literal></td></tr>
+    <tr><td align="right"><literal>#$20</literal></td>            <td></td>                       <td>所持品 <literal>#$0A</literal></td></tr>
+    <tr><td align="right"><literal>#$21</literal></td>            <td></td>                       <td>所持品 <literal>#$0B</literal></td></tr>
+    <tr><td align="right"><literal>#$22</literal></td>            <td></td>                       <td>肩書・モンスター</td></tr>
+    <tr><td align="right" rowspan="8"><literal>#$23</literal></td><td><literal>#$01</literal></td><td>移動時呪文習得フラグ <literal>#$00</literal></td></tr>
+    <tr>                                                          <td><literal>#$02</literal></td><td>移動時呪文習得フラグ <literal>#$01</literal></td></tr>
+    <tr>                                                          <td><literal>#$04</literal></td><td>移動時呪文習得フラグ <literal>#$02</literal></td></tr>
+    <tr>                                                          <td><literal>#$08</literal></td><td>移動時呪文習得フラグ <literal>#$03</literal></td></tr>
+    <tr>                                                          <td><literal>#$10</literal></td><td>移動時呪文習得フラグ <literal>#$04</literal></td></tr>
+    <tr>                                                          <td><literal>#$20</literal></td><td>移動時呪文習得フラグ <literal>#$05</literal></td></tr>
+    <tr>                                                          <td><literal>#$40</literal></td><td>移動時呪文習得フラグ <literal>#$06</literal></td></tr>
+    <tr>                                                          <td><literal>#$80</literal></td><td>移動時呪文習得フラグ <literal>#$07</literal></td></tr>
+    <tr><td align="right" rowspan="8"><literal>#$24</literal></td><td><literal>#$01</literal></td><td>戦闘時コマンド習得フラグ <literal>#$00</literal></td></tr>
+    <tr>                                                          <td><literal>#$02</literal></td><td>戦闘時コマンド習得フラグ <literal>#$01</literal></td></tr>
+    <tr>                                                          <td><literal>#$04</literal></td><td>戦闘時コマンド習得フラグ <literal>#$02</literal></td></tr>
+    <tr>                                                          <td><literal>#$08</literal></td><td>戦闘時コマンド習得フラグ <literal>#$03</literal></td></tr>
+    <tr>                                                          <td><literal>#$10</literal></td><td>戦闘時コマンド習得フラグ <literal>#$04</literal></td></tr>
+    <tr>                                                          <td><literal>#$20</literal></td><td>戦闘時コマンド習得フラグ <literal>#$05</literal></td></tr>
+    <tr>                                                          <td><literal>#$40</literal></td><td>戦闘時コマンド習得フラグ <literal>#$06</literal></td></tr>
+    <tr>                                                          <td><literal>#$80</literal></td><td>戦闘時コマンド習得フラグ <literal>#$07</literal></td></tr>
+    <tr><td align="right" rowspan="5"><literal>#$25</literal></td><td><literal>#$01</literal></td><td>戦闘時コマンド習得フラグ <literal>#$08</literal></td></tr>
+    <tr>                                                          <td><literal>#$02</literal></td><td>戦闘時コマンド習得フラグ <literal>#$09</literal></td></tr>
+    <tr>                                                          <td><literal>#$04</literal></td><td>戦闘時コマンド習得フラグ <literal>#$0A</literal></td></tr>
+    <tr>                                                          <td><literal>#$08</literal></td><td>戦闘時コマンド習得フラグ <literal>#$0B</literal></td></tr>
+    <tr>                                                          <td><literal>#$F0</literal></td><td>直近に指定した戦闘時コマンドのビット配列添字</td></tr>
+    <tr><td align="right"><literal>#$26</literal></td>            <td rowspan="3"></td>           <td rowspan="3">次のレベルアップ時の経験値下限</td></tr>
+    <tr><td align="right"><literal>#$27</literal></td></tr>
+    <tr><td align="right"><literal>#$28</literal></td></tr>
+    <tr><td align="right" rowspan="8"><literal>#$29</literal></td><td><literal>#$01</literal></td><td>モンスターじいさんに預けるの禁止フラグ</td></tr>
+    <tr>                                                          <td><literal>#$02</literal></td><td>ルイーダの酒場に預けるの禁止フラグ</td></tr>
+    <tr>                                                          <td><literal>#$04</literal></td><td>レベルアップ禁止フラグ</td></tr>
+    <tr>                                                          <td><literal>#$08</literal></td><td>貴重品所持禁止フラグ</td></tr>
+    <tr>                                                          <td><literal>#$10</literal></td><td>道具所持禁止フラグ</td></tr>
+    <tr>                                                          <td><literal>#$20</literal></td><td>調査中</td></tr>
+    <tr>                                                          <td><literal>#$40</literal></td><td>調査中</td></tr>
+    <tr>                                                          <td><literal>#$80</literal></td><td>死亡を気絶とするフラグ</td></tr>
+  </tbody>
+</table>
+
+<para>
+キャラクター識別値は、モンスターと人間とで別系統の値が割り振られている。
+前者と後者は配列 <varname>$239E41</varname> と配列 <varname>$23A1B1</varname> のアドレス計算にそれぞれ用いられる添字と覚えておけばよい。
+</para>
+<para>
+戦闘コマンド入力抑止フラグとは、このフラグが立っているキャラクターに対しては戦闘中に「めいれいさせろ」でコマンド指示をさせないようにするものだ。
+例を挙げるとパパスや初期のフローラが該当する。
+</para>
+<para>
+いのちのリング装備中フラグとは、そのキャラクターのいのちのリングの装備状態と連動している。
+このフラグが戦闘時のターン終了時の HP 回復処理と、移動時の HP 回復処理を有効化する。
+</para>
+<para>
+しあわせのぼうし装備中フラグとは、そのキャラクターのしあわせのぼうしの装備状態と連動している。
+このフラグが移動時の MP 回復処理を有効化する。
+</para>
+<para>
+装備状態フラグ列とは、そのキャラクターのどの所持品が装備中なのかを示すフラグの配列だ。
+このフラグ列と所持品の配列が連動しているので、PAR 改造作業時には注意を要する。
+</para>
+<para>
+肩書・モンスターとは、そのキャラクターが人間ならば肩書の識別子が、モンスターならばモンスター ID となる値だ。
+肩書の識別子とは文字列配列 <varname>$23C5FA</varname> の添字に他ならない。
+</para>
+<para>
+移動時呪文習得フラグおよび戦闘時コマンド習得フラグとは、そのフラグ位置に対応するコマンドの習得状況を示すビットだ。
+これについては別の節で述べる。
+</para>
+<para>
+直近に指定した戦闘時コマンドのビット配列添字とは、キャラクターが主人公ならば前回指定した戦闘コマンドを指すための値で、
+主人公以外ならば「めいれいさせろ」モードでそのキャラクターに指示した戦闘コマンドを指すための値だ。
+前回「ホイミ」を指定したとする。このとき、次のターンのコマンド入力時にも「ホイミ」にカーソルが置いてある。
+</para>
+</section> <!-- dq5.characters.7E2040 -->
+
+<section id="dq5.characters.7E2332">
+<title>構造体 <varname>$7E2332</varname>: 預けてあるモンスターメンバー表現</title>
+<para>
+構造体 <varname>$7E2332</varname> は、モンスターじいさんに預けてある仲間モンスターのキャラクターデータを表現する。
+モンスターじいさんと交渉したり、戦闘終了後に仲間モンスターをじいさんに送る際にオブジェクト配列が更新される。
+同時に <varname>$7E2040</varname> 配列も更新される。
+</para>
+<para>
+プログラムはこの構造体をサイズが <literal>#$1A</literal> バイトであるとして処理する。
+メモリレイアウトを次の表に示す。
+</para>
+
+<table id="table.dq5.characters.7E2332" class="lighttable">
+  <caption>$7E2332 構造体</caption>
+  <thead>
+    <tr><th>オフセット</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="right"><literal>#$00</literal></td><td rowspan="20"><varname>$7E2040</varname> 構造体 <literal>[:#$14]</literal> と同じ</td></tr>
+    <tr><td align="right"><literal>#$01</literal></td></tr>
+    <tr><td align="right"><literal>#$02</literal></td></tr>
+    <tr><td align="right"><literal>#$03</literal></td></tr>
+    <tr><td align="right"><literal>#$04</literal></td></tr>
+    <tr><td align="right"><literal>#$05</literal></td></tr>
+    <tr><td align="right"><literal>#$06</literal></td></tr>
+    <tr><td align="right"><literal>#$07</literal></td></tr>
+    <tr><td align="right"><literal>#$08</literal></td></tr>
+    <tr><td align="right"><literal>#$09</literal></td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td></tr>
+    <tr><td align="right"><literal>#$0D</literal></td></tr>
+    <tr><td align="right"><literal>#$0E</literal></td></tr>
+    <tr><td align="right"><literal>#$0F</literal></td></tr>
+    <tr><td align="right"><literal>#$10</literal></td></tr>
+    <tr><td align="right"><literal>#$11</literal></td></tr>
+    <tr><td align="right"><literal>#$12</literal></td></tr>
+    <tr><td align="right"><literal>#$13</literal></td></tr>
+    <tr><td align="right"><literal>#$14</literal></td><td>装備中の武器</td></tr>
+    <tr><td align="right"><literal>#$15</literal></td><td>装備中の防具</td></tr>
+    <tr><td align="right"><literal>#$16</literal></td><td>装備中の盾</td></tr>
+    <tr><td align="right"><literal>#$17</literal></td><td>装備中の兜</td></tr>
+    <tr><td align="right"><literal>#$18</literal></td><td rowspan="2"><varname>$7E2040</varname> 構造体 <literal>[#$23:#$25]</literal> と同じ</td></tr>
+    <tr><td align="right"><literal>#$19</literal></td></tr>
+  </tbody>
+</table>
+
+<para>
+装備していないものについては、そのアイテム ID に代わってダミーの値が格納される。
+</para>
+<para>
+構造としては <varname>$7E2040</varname> 構造体の軽量版とみなせる。
+こうすることで、じいさんに預ける必要があるとはいえ、より多くのモンスターを仲間にしておきやすくなる。
+</para>
+</section> <!-- dq5.characters.7E2332 -->
+
+<section id="dq5.characters.7E294A">
+<title>構造体 <varname>$7E294A</varname>: 預けてある人間メンバー表現</title>
+<para>
+構造体 <varname>$7E294A</varname> は、ルイーダの酒場にいる人間のキャラクターデータを表現する。
+パーティー編成変更の際にキャラクターデータの変換がじいさんのときと同様に行われる。
+</para>
+<para>
+プログラムはこの構造体をサイズが <literal>#$20</literal> バイトであるとして処理する。
+メモリレイアウトを次の表に示す。
+</para>
+
+<table id="table.dq5.characters.7E294A" class="lighttable">
+  <caption>$7E294A 構造体</caption>
+  <thead>
+    <tr><th>オフセット</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="right"><literal>#$00</literal></td><td rowspan="20"><varname>$7E2040</varname> 構造体 <literal>[:#$14]</literal> と同じ</td></tr>
+    <tr><td align="right"><literal>#$01</literal></td></tr>
+    <tr><td align="right"><literal>#$02</literal></td></tr>
+    <tr><td align="right"><literal>#$03</literal></td></tr>
+    <tr><td align="right"><literal>#$04</literal></td></tr>
+    <tr><td align="right"><literal>#$05</literal></td></tr>
+    <tr><td align="right"><literal>#$06</literal></td></tr>
+    <tr><td align="right"><literal>#$07</literal></td></tr>
+    <tr><td align="right"><literal>#$08</literal></td></tr>
+    <tr><td align="right"><literal>#$09</literal></td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td></tr>
+    <tr><td align="right"><literal>#$0D</literal></td></tr>
+    <tr><td align="right"><literal>#$0E</literal></td></tr>
+    <tr><td align="right"><literal>#$0F</literal></td></tr>
+    <tr><td align="right"><literal>#$10</literal></td></tr>
+    <tr><td align="right"><literal>#$11</literal></td></tr>
+    <tr><td align="right"><literal>#$12</literal></td></tr>
+    <tr><td align="right"><literal>#$13</literal></td></tr>
+    <tr><td align="right"><literal>#$14</literal></td><td>装備中の武器</td></tr>
+    <tr><td align="right"><literal>#$15</literal></td><td>装備中の防具</td></tr>
+    <tr><td align="right"><literal>#$16</literal></td><td>装備中の盾</td></tr>
+    <tr><td align="right"><literal>#$17</literal></td><td>装備中の兜</td></tr>
+    <tr><td align="right"><literal>#$18</literal></td><td rowspan="6"><varname>$7E2040</varname> 構造体 <literal>[#$22:#$28]</literal> と同じ</td></tr>
+    <tr><td align="right"><literal>#$19</literal></td></tr>
+    <tr><td align="right"><literal>#$1A</literal></td></tr>
+    <tr><td align="right"><literal>#$1B</literal></td></tr>
+    <tr><td align="right"><literal>#$1C</literal></td></tr>
+    <tr><td align="right"><literal>#$1D</literal></td></tr>
+    <tr><td align="right"><literal>#$1E</literal></td><td>調査中</td></tr>
+    <tr><td align="right"><literal>#$1F</literal></td><td>調査中</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq5.characters.7E294A -->
+</section> <!-- dq5.characters -->
