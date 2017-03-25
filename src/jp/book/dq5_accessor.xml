@@ -376,6 +376,13 @@ $21/8AFC
 </table>
 
 <para>
+<varname>$0007C0</varname>, <varname>$0007C0</varname> 各構造体については
+<xref linkend="dq5.combatants"/> を、
+<varname>$7E2040</varname>, <varname>$7E2332</varname>, <varname>$7E294A</varname> 各構造体については
+<xref linkend="dq5.characters"/> をそれぞれ参照して欲しい。
+</para>
+
+<para>
 フラグ等のアクセス対象がビット単位で構成されるデータの場合は、
 次の表に基づき <varname>$43</varname> を用いて指示する。
 </para>
