@@ -14,7 +14,7 @@
 </para>
 
 <section id="dq5.combatants.000760">
-<title>仲間キャラクター構造体</title>
+<title>構造体 <varname>$000760</varname>: 仲間キャラクター</title>
 <para>
 次の表で示されるメモリレイアウトで構成される、サイズが <literal>#$0C</literal> バイトのオブジェクトがアドレス <varname>$000760</varname> から 8 個直列している。
 戦闘開始時に、パーティーメンバーの並び順に準じてこれらのオブジェクトが対応するメンバーの状態に応じて初期化される。
@@ -23,7 +23,7 @@
 </para>
 
 <table id="table.dq5.combatants.000760" class="lighttable">
-  <caption>仲間キャラクター用構造体メモリレイアウト</caption>
+  <caption>構造体 $000760</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>性質</th><th>アクセス例</th><th>備考</th></tr>
   </thead>
@@ -92,7 +92,7 @@
 </section> <!-- dq5.combatants.000760 -->
 
 <section id="dq5.combatants.0007C0">
-<title>敵キャラクター構造体</title>
+<title>構造体 <varname>$0007C0</varname>: 敵キャラクター</title>
 <para>
 次の表で示されるメモリレイアウトで構成される、サイズが <literal>#$10</literal> バイトのオブジェクトがアドレス <varname>$0007C0</varname> から 16 個直列している。
 戦闘開始時に何らかの法則に従ってこれらのオブジェクトが初期化される。
@@ -102,7 +102,7 @@
 </para>
 
 <table id="table.dq5.combatants.0007C0" class="lighttable">
-  <caption>敵キャラクター用構造体メモリレイアウト</caption>
+  <caption>構造体 $0007C0: 敵キャラクター</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>性質</th><th>アクセス例</th><th>備考</th></tr>
   </thead>

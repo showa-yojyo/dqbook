@@ -4,7 +4,7 @@
   <!ENTITY % replacement SYSTEM "replacement.xml">
   %replacement;
 ]>
-<section id="dq5.characters"><?dbhtml filename="dq5.characters.html" ?>
+<section id="dq5.characters"><?dbhtml filename="dq5_characters.html" ?>
 <title>仲間キャラクター構造体</title>
 <para>
 この節では仲間のキャラクターを表現するデータ構造体三種について述べる。
@@ -38,7 +38,7 @@ RAM の節約に一役買うというわけだ。
 </para>
 
 <table id="table.dq5.characters." class="lighttable">
-  <caption>$7E2040 構造体</caption>
+  <caption>構造体 $7E2040: パーティーメンバー</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
@@ -219,7 +219,7 @@ RAM の節約に一役買うというわけだ。
 </para>
 
 <table id="table.dq5.characters.7E2332" class="lighttable">
-  <caption>$7E2332 構造体</caption>
+  <caption>構造体 $7E2332: 預けてあるモンスターメンバー</caption>
   <thead>
     <tr><th>オフセット</th><th>属性</th></tr>
   </thead>
@@ -274,7 +274,7 @@ RAM の節約に一役買うというわけだ。
 </para>
 
 <table id="table.dq5.characters.7E294A" class="lighttable">
-  <caption>$7E294A 構造体</caption>
+  <caption>構造体 $7E294A: 預けてある人間メンバー</caption>
   <thead>
     <tr><th>オフセット</th><th>属性</th></tr>
   </thead>
