@@ -67,8 +67,8 @@
 	<member><ulink url="&docroot;/data/dq4_level.txt"><filename>dq4_level.txt</filename></ulink></member>
 	<member><ulink url="&docroot;/data/dq4_monster.txt"><filename>dq4_monster.txt</filename></ulink></member>
 
-	<member><ulink url="&docroot;/data/dq5_078000_message_battle.txt"><filename>dq5_078000_message_battle.txt</filename></ulink></member>
-	<member><ulink url="&docroot;/data/dq5_07D77C_message.txt"><filename>dq5_07D77C_message.txt</filename></ulink></member>
+	<member><ulink url="&docroot;/data/dq5_078000_text_battle.txt"><filename>dq5_078000_text_battle.txt</filename></ulink></member>
+	<member><ulink url="&docroot;/data/dq5_07D77C_text_travel.txt"><filename>dq5_07D77C_text_travel.txt</filename></ulink></member>
 	<member><ulink url="&docroot;/data/dq5_2396F3_encounter.txt"><filename>dq5_2396F3_encounter.txt</filename></ulink></member>
 	<member><ulink url="&docroot;/data/dq5_23AED1_character.txt"><filename>dq5_23AED1_character.txt</filename></ulink></member>
 	<member><ulink url="&docroot;/data/dq5_23B04B_encounter_extra.txt"><filename>dq5_23B04B_encounter_extra.txt</filename></ulink></member>

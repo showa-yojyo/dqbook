@@ -564,7 +564,7 @@ BRK 命令のオペランドが <literal>#$97</literal> から <literal>#$9D</li
 </programlisting>
 
 <para>
-移動中メッセージ処理については <xref linkend="dq5.message" /> を参照。
+移動中メッセージ処理については <xref linkend="dq5.text.travel" /> を参照。
 </para>
 </section> <!-- dq5.brk.spec.97-9D -->
 
@@ -589,7 +589,7 @@ BRK 命令のオペランドが <literal>#$9E</literal> から <literal>#$A7</li
 </programlisting>
 
 <para>
-戦闘中メッセージ処理については <xref linkend="dq5.message.battle" /> を参照。
+戦闘中メッセージ処理については <xref linkend="dq5.text.battle" /> を参照。
 </para>
 </section> <!-- dq5.brk.spec.9E-A0 -->
 

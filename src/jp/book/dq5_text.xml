@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq5.text"><?dbhtml filename="dq5_text.html" ?>
+<title>テキスト解析</title>
+<para>
+本節ではテキスト出力について見ていく。
+このプログラムにはテキストに関する機能は移動モードにおけるものと、戦闘モードにおけるものの二系統が実装されている。
+ただし両者の機能は圧縮符号を文字コードに復号して表示するという点で同じであるが、キャラクターコード系統が異なる。
+移動モード用と戦闘モード用とで、テキストを構成する文字のコード表がそれぞれ定義されているからだ。
+以下、データ量の小さい戦闘用テキストから解析していく。
+</para>
+
+<section id="dq5.text.battle">
+<title>戦闘モードテキスト解析</title>
+<indexterm id="term.dq5.text.battle"><primary>テキスト</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.text.battle.coding"><primary>ハフマン符号化</primary><secondary>DQ5</secondary></indexterm>
+
+<para>
+この節では戦闘モードにおけるテキスト、すなわち戦闘時に画面下側のウィンドウに表示されるメッセージ文字列について述べる。
+</para>
+<para>
+&dq5_1992; では、戦闘時のテキストは小さいフォントで描画される。
+単純に考えれば、ちょうどメニューウィンドウに用いるテキストがそうであるように、
+メッセージについての文字列データも、文字コード列の形でどこかのアドレスに一列に格納されているように思える。
+しかし実際はそうなっていない。
+戦闘時テキストは<emphasis>ハフマン符号化データとして ROM に格納されている</emphasis>。
+ハフマン符号については、ここでは深く立ち入らないので、
+詳しく知りたければアルゴリズムの教科書をあたっていただきたい。
+</para>
+<para>
+まずはメッセージ ID から文字列データを作成する処理手順をまとめておく。
+この手順の前半部さえ解析できれば、文字表
+<footnote id="ftn.dq5.text.battle.codetable">
+  <para>
+    いつものように <application>dqviewer</application> の出力するビットマップファイルおよび
+    <application>dq_analyzer</application> ソースコードを参考にする。
+  </para>
+</footnote>
+を利用して、机上で戦闘モードテキストを再現することが可能となる。
+</para>
+<para>
+デバッガによる試行錯誤の結果、以下の処理が戦闘中のメッセージ一つの復号を行っていることが判明した：
+</para>
+<programlisting>
+24/8687:    JSR $A5D9
+24/868A:    JSR $04991D
+24/868E:    REP #$20
+24/8690:    PLA              <co id="dq5.text.battle.co.1" />
+24/8691:    JSR $8C39        <co id="dq5.text.battle.co.2" />
+24/8694:    JSR $8C86
+24/8697:    JSR $8C21        <co id="dq5.text.battle.co.3" />
+24/869A:    JSR $86A5
+24/869D:    REP #$30
+24/869F:    PLY
+24/86A0:    PLX
+24/86A1:    PLA
+24/86A2:    PLB
+24/86A3:    PLP
+24/86A4:    RTS
+</programlisting>
+<calloutlist>
+  <callout arearefs="dq5.text.battle.co.1">
+    <para>
+      この PLA 命令はメッセージ ID を <varname>A</varname> レジスターにセットする。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.battle.co.2">
+    <para>
+      メッセージ ID を基に、符号化されているデータが格納されているアドレスをビット単位で特定する。
+      次項<xref linkend="dq5.text.battle.locate" />で解説する。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.battle.co.3">
+    <para>
+      符号列を順次復号し、復号できた文字を特定の配列に順次格納する。
+      終端文字に相当する符号を復号するまで、この処理をループする。
+    </para>
+  </callout>
+</calloutlist>
+
+<para>
+別途、大域的な逆アセンブリコードを（テキストとして）解読者が検索することで、
+次のサブルーチンがいずれも上述の処理コードを網羅していて、
+戦闘時のテキストを表示指定するものだと結論できる。
+これらのサブルーチンはいずれも BRK 命令が特定のオペランド値をともなって実行された場合に、
+メッセージ ID の上位バイトを補完された後に呼び出される。
+詳細は <xref linkend="dq5.brk.spec.9E-A0" /> 等の節を参照。
+</para>
+<itemizedlist>
+  <listitem><simpara><varname>$2485D4</varname></simpara></listitem>
+  <listitem><simpara><varname>$2485D8</varname></simpara></listitem>
+  <listitem><simpara><varname>$2485DC</varname></simpara></listitem>
+  <listitem><simpara><varname>$2485E0</varname></simpara></listitem>
+</itemizedlist>
+<para>
+正直なところ、これらのテキスト出力サブルーチンの差は判明していないのだが、
+ゲームプログラム全体を解析する作業には支障がなさそうだ。
+</para>
+
+<section id="dq5.text.battle.locate">
+<title>テキストデータ格納位置を特定する</title>
+<para>
+我々は各テキストデータは定数サイズではないことを既に承知している。
+そこで、メッセージ ID からテキストデータの格納位置を特定するには、
+単純に ID が 0 の格納位置から順にデータを読み取り、順次これを捨て、
+ID 個の終端文字を検出するまでこの処理を繰り返す、といった手順を踏むと考えられる。
+この時点でのデータ読み取り地点が、望みのメッセージデータの格納位置だ。
+しかし、単純にこれを実装してしまっては、
+ID が大きいメッセージほど読み出し時間を要することになる。
+これはゲームプログラムとしては致命傷になり得る。
+</para>
+<para>
+ならば格納位置テーブル（配列）を用意しておき、
+ID からすぐにアドレスとビット位置を取得できるようにすれば、特定時間は定数で済む。
+しかし、これだとメッセージ個数が多いときにテーブル自体のサイズが膨れ上がり、
+せっかくのテキストデータ圧縮の利点が損なわれてしまう。
+</para>
+<para>
+そこからもう一歩考えを押し進め、特定の ID だけ格納位置テーブルを用意しておくことで、
+格納位置特定所要時間の問題を解消したのだろう。
+このアイディアは他の非定数サイズデータのアクセスにおいても採用されている。
+</para>
+<para>
+3byte 構造体の配列 <varname>$24AECD</varname> がまさにそのテーブルであり、
+構造体のメモリレイアウトはごく単純で、上位 21bit がバイト単位でのアドレス、
+下位 3bit がビット単位でのアドレスをそれぞれ示す。
+メッセージ ID が 16 の倍数であれば、そのテーブルから得られる情報をそのまま利用することができ、
+メッセージ ID が 16 の倍数でなければ、その直前の 16 の倍数である ID メッセージをまずは読み出し、
+<literal>ID mod 16</literal> 個の終端文字を検出する。その時点での読み取り位置が所望の格納位置だ。
+</para>
+<para>
+戦闘用メッセージの個数は、配列 <varname>$24AECD</varname> の長さに 16 を乗じた数を超えない。
+この配列をダンプしてみると配列長が <literal>0x1B</literal> らしいことがわかるので、
+つまりメッセージの個数は高々 418 ということになる。
+</para>
+<para>
+以上の処理をサブルーチン <varname>$248C39</varname> が実装している。
+</para>
+<programlisting>
+24/8C39:    PHP
+24/8C3A:    PHB
+24/8C3B:    REP #$30
+24/8C3D:    PHA                 <co id="dq5.text.battle.locate.co.1" />
+24/8C3E:    LSR A
+24/8C3F:    LSR A
+24/8C40:    LSR A
+24/8C41:    LSR A
+24/8C42:    STA $0E09
+24/8C45:    ASL A
+24/8C46:    CLC
+24/8C47:    ADC $0E09
+24/8C4A:    TAX                 x = a * 3 / 16  <co id="dq5.text.battle.locate.co.2" />
+24/8C4B:    SEP #$20
+24/8C4D:    LDA #$24
+24/8C4F:    PHA
+24/8C50:    PLB
+24/8C51:    LDA $AECD,X
+24/8C54:    STA $00
+24/8C56:    LDA $AECE,X
+24/8C59:    STA $01
+24/8C5B:    LDA $AECF,X
+24/8C5E:    STA $02             $00 = $24AECD[x] (3byte)  <co id="dq5.text.battle.locate.co.3" />
+24/8C60:    JSR $8C8D           ; $F3 = $00 &amp; 07h, $F0 = $00 &gt;&gt; 3 (3byte)
+24/8C63:    REP #$20
+24/8C65:    PLA                 a = Message ID
+24/8C66:    AND #$000F          a &amp;= 0x000F
+24/8C69:    BEQ $8C83           if(a){
+24/8C6B:    STA $00                 $00 = a
+                                    do{  <co id="dq5.text.battle.locate.co.4" />
+                                        do{
+24/8C6D:    JSR $9E47                       ; decode
+24/8C70:    CMP #$00FE
+24/8C73:    BEQ $8C7F
+24/8C75:    CMP #$00EF
+24/8C78:    BEQ $8C7F                       if(a == 0x00FE || a == 0x00EF) break
+24/8C7A:    CMP #$00E7
+24/8C7D:    BNE $8C6D                   }while(a != 0x00E7)
+24/8C7F:    DEC $00                     --$00
+24/8C81:    BNE $8C6D               }while($00)
+                                }
+24/8C83:    PLB
+24/8C84:    PLP
+24/8C85:    RTS
+</programlisting>
+<calloutlist>
+  <callout arearefs="dq5.text.battle.locate.co.1">
+    <para>
+      サブルーチン開始時点での <varname>A</varname> レジスターの値がメッセージ ID である前提だ。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.battle.locate.co.2">
+    <para>
+      「格納位置情報」構造体テーブルのインデックスを <varname>X</varname> レジスターにセットする。
+      その構造体のサイズが 3 であることと、ID が 16 個ごとに情報を準備していることから、
+      このインデックスとなる。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.battle.locate.co.3">
+    <para>
+      ここでメッセージ ID が 16 の倍数であれば、符号化データの格納アドレスがビット位置付きで決まる。
+      <varname>$F0</varname> にバイト単位での格納アドレスを、
+      <varname>$F3</varname> にビット単位での格納アドレスを、それぞれセットする。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.battle.locate.co.4">
+    <para>
+      メッセージ ID が 16 の倍数でない場合は、このループで終端文字を <literal>ID mod 16</literal> 個検出する。
+      終端文字が <literal>#$00E7, #$00EF, #$00FE</literal> であることが窺える。
+    </para>
+  </callout>
+</calloutlist>
+</section> <!-- dq5.text.battle.locate -->
+
+<section id="dq5.text.battle.decode">
+<title>ハフマン符号を復号する</title>
+<para>
+メッセージを構成する文字列はハフマン符号、すなわち 0 と 1 からなる可変長符号の列として表現されている
+<footnote id="ftn.dq5.text.battle.decode">
+  <para>
+    ハフマン符号化で、テキスト全文においてよく用いられる文字ほど短い符号を、
+    ほとんど用いられない文字ほど長い符号を割り当てると圧縮率がよくなる。
+    研究として、&dq5_1992; の戦闘メッセージすべてとハフマン木をつぶさに調べて、
+    圧縮率がよいのかどうかを確認するといい。
+  </para>
+</footnote>。
+従って、上述の手順により符号列の先頭位置をビット単位で特定した後に、
+符号を順次文字コードに置き換えていく作業が発生することになる。
+つまり、ビットを下位桁から順次読み取る処理と、
+ハフマン木をルートから目的の子なしノードまで辿る処理を並行して行う。
+</para>
+<para>
+サブルーチン <varname>$249E47</varname> は一文字分の復号を行い、
+それを <varname>A</varname> レジスターにセットした状態に持っていく。
+かつ、次の一文字の符号読み取り位置情報を
+<varname>$F0</varname>, <varname>$F3</varname> にセットした状態で終了するため、
+呼び出し元が順次呼び出すことで、その次の符号の復号が可能だ。
+そのようにして、一メッセージ分の復号が行われる。
+</para>
+<programlisting>
+24/9E47:    PHP
+24/9E48:    PHB
+24/9E49:    PHK
+24/9E4A:    PLB
+24/9E4B:    SEP #$20
+24/9E4D:    REP #$10
+24/9E4F:    STZ $F4
+24/9E51:    LDX #$00E8          x = 0x00E8 <co id="dq5.text.battle.decode.co.1" />
+                                for(;;){
+24/9E54:    SEP #$20
+24/9E56:    LDA [$F0]               //{{ <co id="dq5.text.battle.decode.co.2" />
+24/9E58:    LDY $F3
+24/9E5A:    AND $9E8C,Y             //}}
+24/9E5D:    REP #$20
+24/9E5F:    BEQ $9E66               if(a){ <co id="dq5.text.battle.decode.co.3" />
+24/9E61:    LDA $9C2E,X                 a = $249C2E[x]
+24/9E64:    BRA $9E69               }else{
+24/9E66:    LDA $9D18,X                 a = $249D18[x]
+                                    }
+24/9E69:    PHA                     // ノード内容を記憶
+24/9E6A:    INC $F3                 ++$F3
+24/9E6C:    INY                     ++y  // 次のビットマスク配列インデックス（位が上がる方向へ）
+24/9E6D:    CPY #$0008              //{{ <co id="dq5.text.battle.decode.co.4" />
+24/9E70:    BCC $9E7C
+24/9E72:    STZ $F3
+24/9E74:    INC $F0
+24/9E76:    BNE $9E7C
+24/9E78:    INC $F2
+24/9E7A:    ROR $F0                 //}}
+                                    }
+24/9E7C:    PLA
+24/9E7D:    BMI $9E86               if(a &amp; 0x8000)  break <co id="dq5.text.battle.decode.co.5" />
+24/9E7F:    AND #$00FF
+24/9E82:    ASL A
+24/9E83:    TAX                     x = ((a &amp; 0x00FF) &lt;&lt; 1)
+24/9E84:    BRA $9E54           }
+24/9E86:    AND #$00FF          a &amp;= 0x00FF <co id="dq5.text.battle.decode.co.6" />
+24/9E89:    PLB
+24/9E8A:    PLP
+24/9E8B:    RTS
+</programlisting>
+<calloutlist>
+  <callout arearefs="dq5.text.battle.decode.co.1">
+    <para>
+      ルートの子ノードに相当する配列のインデックス（を倍にしたもの）。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.battle.decode.co.2">
+    <para>
+      <varname>$F0</varname> に格納されているのは絶対アドレス値だが、
+      そのアドレス値から 1byte 取得し、マスク配列 <varname>$9E8C</varname> により 1bit の状態を見る。
+      これは一文字分の符号列の構成要素だ。
+    </para>
+<screen>
+24/9E8C:    01
+24/9E8D:    02
+24/9E8E:    04
+24/9E8F:    08
+24/9E90:    10
+24/9E91:    20
+24/9E92:    40
+24/9E93:    80
+</screen>
+    <para>
+      この少しあとのコードを読めば、
+      文字一個分の符号ビット列は、下位から上位に向かって格納されていることがわかる。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.battle.decode.co.3">
+    <para>
+      そのビットが 0 か 1 かにより、アクセスする子ノードが異なる。
+      0 側の子ノードは <varname>$249D18[E8]</varname> で、
+      1 側の子ノードは <varname>$249C2E[E8]</varname> だ。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.battle.decode.co.4">
+    <para>
+      $F0 を絶対アドレス値としてインクリメントする。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.battle.decode.co.5">
+    <para>
+      ノードの 2byte の上位ビットが立っていれば末端ノードだから、ループを抜け出す。
+      そうでない場合、ノードの下位バイトが子ノードの位置を示す。
+      <varname>X</varname> レジスターにそれを格納し、ループを繰り返す。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.battle.decode.co.6">
+    <para>
+      末端ノードの下位バイトを目的の文字として得る。
+    </para>
+  </callout>
+</calloutlist>
+</section> <!-- dq5.text.battle.decode -->
+
+<section id="dq5.text.battle.tree">
+<title>ハフマン木の表現</title>
+
+<figure id="fig.dq5.text.battle.huffman.thumb">
+  <title>戦闘テキスト ハフマン木（サムネイル）</title>
+  <graphic width="380px" fileref="./image/dq5.message.battle.huffman.thumb.png" />
+</figure>
+
+<para>
+二分木であるハフマン木を、二つの配列
+<varname>$249C2E</varname> と <varname>$249D18</varname> で実現している。
+実際にこれらの配列をダンプしてみると、
+復号サブルーチンの処理手順と、ハフマン木の構造と役割を理解する助けになるだろう。
+ハフマン符号化の原理を理解するには、紙とペンを使ってハフマン木をスケッチするといい。
+まずルートノードを紙の上のほうに描き、そこから下に向かって生える枝を二本描く
+<footnote id="ftn.dq5.text.battle.tree">
+  <para>
+    計算機科学を専攻する人間は、この手の「木」を天地逆にして描く。
+  </para>
+</footnote>。
+その枝にはそれぞれ 0 と 1 を記す。
+0 側の子ノードは <varname>$249D18[x]</varname> で、
+1 側の子ノードは <varname>$249C2E[x]</varname> だ。
+それから、この配列の値の最上位ビットを見て、ビットが立っていればそこは末端ノードだ。
+下位 1 バイトがそのまま文字になっている。
+ビットが立っていなければ、やはり枝を二本描いて先程と同様に子ノードを描く。
+ただし、このときの二つの子ノードの配列インデックスは、
+配列の下位 1 バイトから得られる。
+</para>
+<para>
+描いている途中に理解できたら、あとは<ulink url="./image/dq5.message.battle.huffman.png">機械に描画させる</ulink>といい。
+ハフマン符号は 0 と 1 の直列パターン（＝ビット列）だから、これに対応する文字を調べるには、
+ルートから出発して、図中でビットの記されている矢印を順に辿っていけばよい。
+ビット列の末端まで見たとき、必ず「葉」に到達している筈だ。
+そこに格納されているのが所望の文字だ。
+</para>
+<para>
+戦闘用テキストのためのハフマン木の解析結果を以下にまとめる。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>ルートからの左右の部分木のノード個数が等しく、それぞれ <literal>0xE8 / 2 + 1</literal> 個である</para>
+  </listitem>
+  <listitem>
+    <para>配列の末端のほうがハフマン木のルートに近い構成になっている</para>
+  </listitem>
+  <listitem>
+    <para>ノードを 2byte の構造体で表現している。メモリレイアウトは以下のようになっている：</para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          末端フラグが 1 の場合は、このノードは末端であり、
+          かつ下位バイトは符号に対応する文字そのものを示す
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          末端フラグが 0 の場合は、このノードは末端ではなく、
+          下位バイトは子ノードを示す配列要素のインデックスを示す
+        </para>
+      </listitem>
+    </itemizedlist>
+  </listitem>
+</itemizedlist>
+
+<table id="table.dq5.text.battle.tree" class="lighttable">
+  <caption>戦闘用テキストのハフマン木ノード型</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>値の意味</th></tr>
+  </thead>
+  <tbody>
+    <tr><th><literal>#$00</literal></th>            <td>                       </td><td>子ノードの配列インデックスまたは文字そのもの</td></tr>
+    <tr><th rowspan="2"><literal>#$01</literal></th><td><literal>#$80</literal></td><td>末端フラグ</td></tr>
+    <tr>                                            <td><literal>#$7F</literal></td><td>n/a</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq5.text.battle.tree -->
+
+<section id="dq5.text.battle.load">
+<title>復号した文字列をメモリに格納</title>
+<para>
+サブルーチン <varname>$248C21</varname> では、復号した結果の文字を特定の配列に格納していく。
+デバッガで例えば <varname>$248C38</varname> にブレイクポイントを置き、
+この時点でその配列の中身を観察すると、文字、
+すなわち小さいフォント ID が文章を作るように並んでいることが確認できる。
+</para>
+<programlisting>
+24/8C21:    PHP
+24/8C22:    PHB
+24/8C23:    SEP #$20
+24/8C25:    LDX #$0000          for(x = 0; x &lt; #$0080; ++x){
+24/8C28:    PHX
+24/8C29:    JSR $9E47               <co id="dq5.text.battle.load.co.1" />
+24/8C2C:    PLX
+24/8C2D:    STA $0E4B,X             <co id="dq5.text.battle.load.co.2" />
+24/8C30:    INX
+24/8C31:    CPX #$0080
+24/8C34:    BCC $8C28           }
+24/8C36:    PLB
+24/8C37:    PLP
+24/8C38:    RTS
+</programlisting>
+<calloutlist>
+  <callout arearefs="dq5.text.battle.load.co.1">
+    <para>
+      一符号ずつ文字に変換するサブルーチン。
+      前述の<xref linkend="dq5.text.battle.decode" />を参照。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.battle.load.co.2">
+    <para>
+      その文字は <varname>A</varname> レジスターに 8bit モードで格納されている。
+      これを配列 <varname>$0E4B</varname> に先頭から格納していく。
+    </para>
+  </callout>
+</calloutlist>
+</section> <!-- dq5.text.battle.load -->
+
+<section id="dq5.text.battle.summary">
+<title>まとめ</title>
+<para>
+  本節で扱ったサブルーチンおよびデータ領域を以下に表としてまとめておく。
+  また、全テキストを我々の文字コード (UTF-8) で最構成したテキストファイルとして再現したものを <xref linkend="appendix.b" /> に置く。
+</para>
+<table id="table.dq5.text.battle.summary" class="lighttable">
+  <caption>戦闘テキスト解析</caption>
+  <thead>
+    <tr><th>アドレス</th><th>分類</th><th>役割</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="right"><varname>$2485D4</varname></td><td rowspan="4">ルーチン</td><td rowspan="4">メッセージ ID を <varname>A</varname> レジスターに受け取り、メッセージを出力する。</td></tr>
+    <tr><td align="right"><varname>$2485D8</varname></td></tr>
+    <tr><td align="right"><varname>$2485DC</varname></td></tr>
+    <tr><td align="right"><varname>$2485E0</varname></td></tr>
+    <tr><td align="right"><varname>$248C21</varname></td><td>ルーチン</td><td>復号して得た文字を <varname>$0E4B,X</varname> に先頭から格納していく。</td></tr>
+    <tr><td align="right"><varname>$248C39</varname></td><td>ルーチン</td><td>メッセージ ID に対応する、符号化メッセージデータの厳密なアドレスを取得する。</td></tr>
+    <tr><td align="right"><varname>$248C8D</varname></td><td>ルーチン</td><td>符号化戦闘メッセージデータのアドレス情報構造体オブジェクトを分析する。</td></tr>
+    <tr><td align="right"><varname>$249C2E</varname></td><td>データ  </td><td>ハフマン木のノードを表現する配列。ビット 1 側。</td></tr>
+    <tr><td align="right"><varname>$249D18</varname></td><td>データ  </td><td>ハフマン木のノードを表現する配列。ビット 0 側。</td></tr>
+    <tr><td align="right"><varname>$249E47</varname></td><td>ルーチン</td><td>復号ルーチン。可変長符号を抽出しながら、その符号に対応する文字を得る。</td></tr>
+    <tr><td align="right"><varname>$249E8C</varname></td><td>データ  </td><td>符号を 1 ビット分抽出するために用いる、1 バイト値マスク配列。</td></tr>
+    <tr><td align="right"><varname>$24AECD</varname></td><td>データ  </td><td>符号化戦闘メッセージデータのアドレス情報構造体配列。<literal>3byte * #$1B</literal></td></tr>
+  </tbody>
+</table>
+</section> <!-- dq5.text.battle.summary -->
+</section> <!-- dq5.text.battle -->
+
+<section id="dq5.text.travel">
+<title>移動モードテキスト解析</title>
+<indexterm id="term.dq5.text.travel"><primary>メッセージ</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.text.travel.coding"><primary>ハフマン符号化</primary><secondary>DQ5</secondary></indexterm>
+
+<para>
+本節では移動モードにおける、大きいフォントを用いて表示されるメッセージの文字列としてのテキストデータを解析する。
+実は、というか予想通りというか、移動モード用メッセージの抽出の仕組みは、
+戦闘モード用のそれを複製したような実装で実現されている。
+メッセージデータの抽出ロジックの入口こそ戦闘用と移動用で異なるものの、
+ある処理地点から先は、戦闘モードメッセージのプログラムコードと並行して移動モードメッセージのプログラムコードが存在するのが明白だ。
+以下の解説では、戦闘モードメッセージと同じ考えに基づいてプログラムコードが実装されている箇所については説明を省く。
+必要に応じて前節に戻り、対応する項目の説明を当たっていただきたい。
+</para>
+
+<section id="dq5.text.travel.locate">
+<title>テキストデータ格納位置を特定する</title>
+<para>
+方式は戦闘モード用テキストデータと同じようで、
+対応する格納位置特定サブルーチンは <varname>$248BAF</varname> だ。
+プログラムコードは、定数の違いを除けば同一と言える。
+</para>
+<para>
+3byte 構造体の配列 <varname>$24AF1E</varname> がまさにそのテーブルであり、
+構造体のメモリレイアウトはごく単純で、上位 21bit がバイト単位でのアドレス、
+下位 3bit がビット単位でのアドレスをそれぞれ示す。
+</para>
+<para>
+戦闘モード用メッセージの個数調査と同じ理屈により、
+移動モード用メッセージの個数は、配列 <varname>$24AF1E</varname> の長さに 16 を乗じた数を超えない。
+この配列をダンプしてみると配列長が <literal>0xC8</literal> らしいことがわかるので、
+移動モード用メッセージの総数は高々 3200 ということになる。
+</para>
+<para>
+既に戦闘モードメッセージデータ格納位置取得サブルーチンの説明を済ませている今となっては、
+似たような別のサブルーチンの説明をすることに意義はない。
+故に、サブルーチン <varname>$248BAF</varname> を簡単に掲載するだけにとどめる。
+</para>
+<programlisting>
+24/8BAF:    PHP
+24/8BB0:    PHB
+24/8BB1:    REP #$30
+24/8BB3:    PHA                 <co id="dq5.text.travel.locate.co.1" />
+24/8BB4:    LSR A
+24/8BB5:    LSR A
+24/8BB6:    LSR A
+24/8BB7:    LSR A
+24/8BB8:    STA $0E09
+24/8BBB:    ASL A
+24/8BBC:    CLC
+24/8BBD:    ADC $0E09
+24/8BC0:    TAX                 x = a / 16 * 3  <co id="dq5.text.travel.locate.co.2" />
+24/8BC1:    SEP #$20
+24/8BC3:    LDA #$24
+24/8BC5:    PHA
+24/8BC6:    PLB
+24/8BC7:    LDA $AF1E,X
+24/8BCA:    STA $00
+24/8BCC:    LDA $AF1F,X
+24/8BCF:    STA $01
+24/8BD1:    LDA $AF20,X
+24/8BD4:    STA $02             $00 = $24AF1E[x] (3byte)  <co id="dq5.text.travel.locate.co.3" />
+24/8BD6:    JSR $8C8D           ; $F3 = $00 &amp; 07h, $F0 = $00 &gt;&gt; 3 (3byte)
+24/8BD9:    REP #$20
+24/8BDB:    PLA
+24/8BDC:    AND #$000F          a = メッセージ ID &amp; 0x000F
+24/8BDF:    BEQ $8BF9           if(a == 0) return
+24/8BE1:    STA $00             $00 = a
+                                do{  <co id="dq5.text.travel.locate.co.4" />
+24/8BE3:    JSR $9E02               ; decode
+24/8BE6:    CMP #$1001
+24/8BE9:    BEQ $8BF5               if(a == 1001h) --$00
+24/8BEB:    CMP #$1010
+24/8BEE:    BEQ $8BF5               if(a == 1010h) --$00
+24/8BF0:    CMP #$1018
+24/8BF3:    BNE $8BE3               if(a == 1018h) --$00
+24/8BF5:    DEC $00
+24/8BF7:    BNE $8BE3           }while($00)
+
+24/8BF9:    PLB
+24/8BFA:    PLP
+24/8BFB:    RTS
+</programlisting>
+<calloutlist>
+  <callout arearefs="dq5.text.travel.locate.co.1 dq5.text.travel.locate.co.2 dq5.text.travel.locate.co.3">
+    <para>
+      ルートの子ノードに相当する配列のインデックス（を倍にしたもの）。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.travel.locate.co.4">
+    <para>
+      メッセージ ID が 16 の倍数でない場合は、このループで終端文字を <literal>ID mod 16</literal> 個検出する。
+      終端文字が <literal>#$1001, #$1010, #$1018</literal> であることが窺える。
+    </para>
+  </callout>
+</calloutlist>
+</section> <!-- dq5.text.travel.locate -->
+
+<section id="dq5.text.travel.decode">
+<title>ハフマン符号を復号する</title>
+<para>
+サブルーチン <varname>$249E02</varname> は、移動モードメッセージ一文字分の復号を行う。
+戦闘モードと同様、移動モード用テキストもハフマン符号化されたビット列としてデータ化されている。
+復号手順は<xref linkend="dq5.text.battle.decode" />で述べたものと同じで、違いは各種定数しかない。
+</para>
+<programlisting>
+24/9E02:    PHP
+24/9E03:    PHB
+24/9E04:    PHK
+24/9E05:    PLB
+24/9E06:    SEP #$20
+24/9E08:    REP #$10
+24/9E0A:    STZ $F4
+24/9E0C:    LDX #$07BA          x = 0x07BA <co id="dq5.text.travel.decode.co.1" />
+                                for(;;){
+24/9E0F:    SEP #$20
+24/9E11:    LDA [$F0]               <co id="dq5.text.travel.decode.co.2" />
+24/9E13:    LDY $F3
+24/9E15:    AND $9E8C,Y
+24/9E18:    REP #$20
+24/9E1A:    BEQ $9E21               if(a){ <co id="dq5.text.travel.decode.co.3" />
+24/9E1C:    LDA $8CB6,X                 a = $248CB6[x]
+24/9E1F:    BRA $9E24               }else{
+24/9E21:    LDA $9472,X                 a = $249472[x]
+                                    }
+24/9E24:    PHA
+24/9E25:    INC $F3                 //{{
+24/9E27:    INY
+24/9E28:    CPY #$0008
+24/9E2B:    BCC $9E37
+24/9E2D:    STZ $F3
+24/9E2F:    INC $F0
+24/9E31:    BNE $9E37
+24/9E33:    INC $F2
+24/9E35:    ROR $F0                 //}} <co id="dq5.text.travel.decode.co.4" />
+24/9E37:    PLA
+24/9E38:    BMI $9E41               if(a &amp; 0x8000) break
+24/9E3A:    AND #$1FFF
+24/9E3D:    ASL A
+24/9E3E:    TAX                     x = ((a &amp; 0x1FFF) &lt;&lt; 1) <co id="dq5.text.travel.decode.co.5" />
+24/9E3F:    BRA $9E0F           }
+24/9E41:    AND #$1FFF          a &amp;= 0x1FFF <co id="dq5.text.travel.decode.co.6" />
+24/9E44:    PLB
+24/9E45:    PLP
+24/9E46:    RTS
+</programlisting>
+<calloutlist>
+  <callout arearefs="dq5.text.travel.decode.co.1 dq5.text.travel.decode.co.2 dq5.text.travel.decode.co.4">
+    <para>
+      <xref linkend="dq5.text.battle.decode" />参照。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.travel.decode.co.3">
+    <para>
+      そのビットが 0 か 1 かにより、アクセスする子ノードが異なる。
+      0 側の子ノードは <varname>$248CB6[x]</varname> で、
+      1 側の子ノードは <varname>$249472[x]</varname> だ。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.travel.decode.co.5">
+    <para>
+      ノードの 2byte の上位ビットが立っていれば末端ノードだから、ループを抜け出す。
+      そうでない場合、0x1FFF でマスクした部分が子ノードの位置を示す。
+      <varname>X</varname> レジスタにそれを格納し、ループを繰り返す。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.travel.decode.co.6">
+    <para>
+      末端ノードの値を <literal>0x1FFF</literal> でマスクし、これが目的の文字となる。
+    </para>
+  </callout>
+</calloutlist>
+</section> <!-- dq5.text.travel.decode -->
+
+<section id="dq5.text.travel.tree">
+<title>ハフマン木の表現</title>
+<para>
+移動モード用テキストのハフマン木のグラフ図式をここに掲載しようと考えていたが、
+画像サイズがブラウザで表示し切れぬほど巨大になることがわかっている。
+よって、グラフを作成することなく断念した。
+</para>
+<para>
+前述のサブルーチンのプログラムコードを観察することにより、
+移動モード用テキストのハフマン木のノード構造体のメモリレイアウトがわかる。
+ルートからの左右の部分木のノード個数はそれぞれ <literal>0x07BA / 2 + 1</literal> 個である
+それ以外は、木の構造の特徴が戦闘モードのそれ
+（<xref linkend="dq5.text.battle.tree" />参照）と同じだ。
+</para>
+<table id="table.dq5.text.travel.tree" class="lighttable">
+  <caption>移動用テキストのハフマン木ノード型</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>値の意味</th></tr>
+  </thead>
+  <tbody>
+    <tr><th><literal>#$00</literal></th>            <td>                       </td><td rowspan="2">子ノードの配列インデックスまたは文字そのもの</td></tr>
+    <tr><th rowspan="3"><literal>#$01</literal></th><td><literal>#$1F</literal></td></tr>
+    <tr>                                            <td><literal>#$60</literal></td><td>n/a</td></tr>
+    <tr>                                            <td><literal>#$80</literal></td><td>末端フラグ</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq5.text.travel.tree -->
+
+<section id="dq5.text.travel.load">
+<title>復号した文字列をメモリに格納</title>
+<para>
+サブルーチン <varname>$248B98</varname> では、復号した結果の文字を特定の配列に格納していく。
+<xref linkend="dq5.text.battle.load" />の移動モードバージョンだ。
+ただし、配列は大きい文字を格納するため 16bit 値を扱う。
+</para>
+<programlisting>
+24/8B98:    PHP
+24/8B99:    REP #$30            <co id="dq5.text.travel.load.co.1" />
+24/8B9B:    LDX #$0000
+                                for(x = 0; x &lt; #$0080; x += 2){
+24/8B9E:    PHX
+24/8B9F:    JSR $9E02               <co id="dq5.text.travel.load.co.2" />
+24/8BA2:    PLX
+24/8BA3:    STA $0E4B,X             <co id="dq5.text.travel.load.co.3" />
+24/8BA6:    INX
+24/8BA7:    INX
+24/8BA8:    CPX #$0080
+24/8BAB:    BCC $8B9E           }
+24/8BAD:    PLP
+24/8BAE     RTS
+</programlisting>
+<calloutlist>
+  <callout arearefs="dq5.text.travel.load.co.1">
+    <para>
+      戦闘モード用サブルーチンとは対照的に、移動モード用サブルーチンでは
+      <varname>A</varname> レジスタを 16bit モードで扱う。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.travel.load.co.2">
+    <para>
+      一符号ずつ文字に変換するサブルーチン。
+      前述の<xref linkend="dq5.text.travel.decode" />を参照。
+    </para>
+  </callout>
+  <callout arearefs="dq5.text.travel.load.co.3">
+    <para>
+      その文字は <varname>A</varname> レジスタに 16bit モードで格納されている。
+      これを配列 <varname>$0E4B</varname> に先頭から格納していく。
+    </para>
+  </callout>
+</calloutlist>
+</section> <!-- dq5.text.travel.load -->
+
+<section id="dq5.text.travel.summary">
+<title>まとめ</title>
+<para>
+本節で扱ったサブルーチンおよびデータ領域を以下に表としてまとめておく。
+いくつかのサブルーチン・データが、戦闘モードテキスト復号システムでも利用されている
+（<xref linkend="dq5.text.battle.summary" /> を参照）。
+また、メッセージをテキストファイルとして再現したものを <xref linkend="appendix.b" /> に置く。
+</para>
+<table id="table.dq5.text.travel.summary" class="lighttable">
+  <caption>移動モードメッセージ解析</caption>
+  <thead>
+    <tr><th>アドレス</th><th>分類</th><th>役割</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><varname>$248B98</varname></td><td>ルーチン</td><td>復号して得た文字を <varname>$0E4B,X</varname> に先頭から格納していく。</td></tr>
+    <tr><td><varname>$248BAF</varname></td><td>ルーチン</td><td>メッセージ ID に対応する、符号化メッセージデータの厳密なアドレスを取得する。</td></tr>
+    <tr><td><varname>$248C8D</varname></td><td>ルーチン</td><td>符号化戦闘メッセージデータのアドレス情報構造体オブジェクトを分析する。</td></tr>
+    <tr><td><varname>$248CB6</varname></td><td>データ  </td><td>ハフマン木のノードを表現する配列。ビット 1 側。</td></tr>
+    <tr><td><varname>$249472</varname></td><td>データ  </td><td>ハフマン木のノードを表現する配列。ビット 0 側。</td></tr>
+    <tr><td><varname>$249E02</varname></td><td>ルーチン</td><td>復号ルーチン。可変長符号を抽出しながら、その符号に対応する文字を得る。</td></tr>
+    <tr><td><varname>$249E8C</varname></td><td>データ  </td><td>符号を 1 ビット分抽出するために用いる、1 バイト値マスク配列。</td></tr>
+    <tr><td><varname>$24AF1E</varname></td><td>データ  </td><td>符号化戦闘メッセージデータのアドレス情報構造体配列。<literal>3byte * #$C8</literal></td></tr>
+  </tbody>
+</table>
+</section> <!-- dq5.text.travel.summary -->
+</section> <!-- dq5.text.travel -->
+</section> <!-- dq5.text -->
