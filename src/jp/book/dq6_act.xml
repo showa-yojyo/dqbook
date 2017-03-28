@@ -644,7 +644,7 @@ C2/6213:    D01C        BNE $6231
 		<glossterm>戦闘メッセージ ID</glossterm>
 		<glossdef>
 			<para>
-				戦闘行動中に表示する<link linkend="dq6.message.battle">戦闘メッセージ</link>の ID だ。
+				戦闘行動中に表示する<link linkend="dq6.text.battle">戦闘メッセージ</link>の ID だ。
 				<literal>#$1000</literal> 以上の値をもつ戦闘行動は、例外的な扱いを受ける。
 			</para>
 		</glossdef>

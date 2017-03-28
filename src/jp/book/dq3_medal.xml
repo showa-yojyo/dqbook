@@ -27,7 +27,7 @@
 <para>
 	メダルおじさん周りの台詞表示は、すべてサブルーチン <varname>$C1A92E</varname> 呼び出しで実現している。
 	このサブルーチンは、呼び出しコード直後に <literal>2</literal> バイトの定数を埋め込むことで、
-	その定数を<link linkend="dq3.message">メッセージ ID</link> として解釈する。
+	その定数を<link linkend="dq3.text.travel">メッセージ ID</link> として解釈する。
 	これにより、逆アセンブルコードの解読を安定的に進めることができる。
 </para>
 

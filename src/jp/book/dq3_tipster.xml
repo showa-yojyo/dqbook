@@ -27,7 +27,7 @@
 世界各地の格闘場にいる予想屋に「はなす」と呼び出されるサブルーチンは共通して
 <link linkend="dq3.tipster.hack.C3EFBE"><varname>$C3EFBE</varname></link> を呼び出す。
 予想屋の話す台詞は、
-<link linkend="dq3.message">メッセージ ID</link>
+<link linkend="dq3.text.travel">メッセージ ID</link>
 <literal>2</literal> バイト値を引数として渡すサブルーチン <varname>$C1A92E</varname> でウィンドウに表示するようなので、
 逆アセンブルコードを解読する際には、これらの呼び出しの合間を読むようにする。
 </para>

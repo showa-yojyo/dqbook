@@ -318,7 +318,7 @@ C3/D499:    B000B6D6  // どくのちりょう
 			<para>
 				コードは簡単なので省略する。データの概要だけを以下に示す。
 				セリフ ID と実際のメッセージについては、
-				<link linkend="dq6.message.download.data">メッセージ解析の成果</link>を参照すること。
+				<link linkend="dq6.text.travel.data">メッセージ解析の成果</link>を参照すること。
 			</para>
 <programlisting>
 .dataarea  教会セリフグループアドレスの配列

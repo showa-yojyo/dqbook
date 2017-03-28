@@ -16,8 +16,7 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_debug.xml"/>
 
 <!-- TEXT -->
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_message_battle.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_message.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_text.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_str.xml"/>
 
 <!-- BANK $C2 -->

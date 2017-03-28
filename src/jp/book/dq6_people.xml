@@ -37,7 +37,7 @@
 </para>
 <para>
 	記者は以前の解析により、
-	この<link linkend="dq6.message.download.data">人物のセリフのメッセージ ID</link> を知っている。
+	この<link linkend="dq6.text.travel.data">人物のセリフのメッセージ ID</link> を知っている。
 	この値 <literal>#$1817</literal> を検索する。そこがコード遡行の開始地点となる。
 </para>
 <programlisting>

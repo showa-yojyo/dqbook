@@ -20,7 +20,7 @@
 </para>
 <para>
 サブルーチンでは、胴元の話す台詞を、
-<link linkend="dq3.message">メッセージ ID</link>
+<link linkend="dq3.text.travel">メッセージ ID</link>
 <literal>2</literal> バイト 値を引数として渡すサブルーチン <varname>$C1A92E</varname> でウィンドウに表示する。
 逆アセンブルコードを解読する際には、ここを手掛かりとして処理を読み進めることができる。
 </para>

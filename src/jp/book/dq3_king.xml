@@ -63,7 +63,7 @@ C3/C4DA:    6B          RTL
 <code>LDA addr,X</code>（ここで <varname>X</varname> は上記 <varname>A</varname> の値と一致する）と、
 台詞表示サブルーチン <varname>$C1A95A</varname> 呼び出しを組み合わせて実現している。
 ここで、<varname>addr</varname> は王様共通処理サブルーチンの直後に定義されている
-<link linkend="dq3.message">メッセージ ID</link> 各配列の配置アドレスだ。
+<link linkend="dq3.text.travel">メッセージ ID</link> 各配列の配置アドレスだ。
 </para>
   </callout>
   <callout id="king.2" arearefs="king.2-co">
