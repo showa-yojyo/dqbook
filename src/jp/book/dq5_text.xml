@@ -342,7 +342,7 @@ ID からすぐにアドレスとビット位置を取得できるようにす�
 
 <figure id="fig.dq5.text.battle.huffman.thumb">
   <title>戦闘テキスト ハフマン木（サムネイル）</title>
-  <graphic width="380px" fileref="./image/dq5.message.battle.huffman.thumb.png" />
+  <graphic width="380px" fileref="./image/dq5.text.battle.huffman.thumb.png" />
 </figure>
 
 <para>
@@ -367,7 +367,7 @@ ID からすぐにアドレスとビット位置を取得できるようにす�
 配列の下位 1 バイトから得られる。
 </para>
 <para>
-描いている途中に理解できたら、あとは<ulink url="./image/dq5.message.battle.huffman.png">機械に描画させる</ulink>といい。
+描いている途中に理解できたら、あとは<ulink url="./image/dq5.text.battle.huffman.png">機械に描画させる</ulink>といい。
 ハフマン符号は 0 と 1 の直列パターン（＝ビット列）だから、これに対応する文字を調べるには、
 ルートから出発して、図中でビットの記されている矢印を順に辿っていけばよい。
 ビット列の末端まで見たとき、必ず「葉」に到達している筈だ。
