@@ -213,7 +213,7 @@ C3/D465:    80DE        BRA $D445               goto 教会::やめる;
 	</listitem>
 	<listitem>
 		<para>
-			メニューウィンドウで項目を選択すると、その<link linkend="dq6.str.data">文字列の ID</link>
+			メニューウィンドウで項目を選択すると、その<link linkend="dq6.string.data">文字列の ID</link>
 			がメモリ <varname>$7E3874</varname> に格納される（らしい）
 		</para>
 	</listitem>

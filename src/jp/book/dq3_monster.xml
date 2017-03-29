@@ -209,7 +209,7 @@
 	<glossterm>名前文字列 ID</glossterm>
 	<glossdef>
 		<para>
-			モンスターの名前を表す<link linkend="dq3.str">文字列 ID</link> である。
+			モンスターの名前を表す<link linkend="dq3.string">文字列 ID</link> である。
 		</para>
 	</glossdef>
 	</glossentry>

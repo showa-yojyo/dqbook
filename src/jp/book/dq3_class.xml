@@ -316,7 +316,7 @@
 	<term>文字列 ID</term>
 	<listitem>
 		<para>
-			職業の名前を表す<link linkend="dq3.str">文字列 ID</link> である。
+			職業の名前を表す<link linkend="dq3.string">文字列 ID</link> である。
 		</para>
 	</listitem>
 	</varlistentry>

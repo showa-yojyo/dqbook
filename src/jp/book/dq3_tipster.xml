@@ -170,7 +170,7 @@
 			してサブルーチン呼び出し元に処理を戻す。
 		</para>
 		<para>
-			構造体 <varname>$C30EF5</varname> は<link linkend="dq3.str">文字列 ID</link> 値が <literal>4</literal> つ並ぶ小さなものだ。
+			構造体 <varname>$C30EF5</varname> は<link linkend="dq3.string">文字列 ID</link> 値が <literal>4</literal> つ並ぶ小さなものだ。
 			先頭から <literal>#$0314</literal>, <literal>#$0315</literal>, <literal>#$0316</literal>, <literal>#$0317</literal> と配列されており、
 			その表す文字列は、それぞれ Ａ, Ｂ, Ｃ, Ｄ だ。
 		</para>

@@ -13,7 +13,7 @@
 	ダメージデータは戦闘行動 ID とは対応していないため、別項で論じる。
 </para>
 <para>
-	名前は<link linkend="dq5.data.str.228000">アドレス $238000 から取得されるもの</link>をテキスト表現
+	名前は<link linkend="dq5.string.228000">アドレス $238000 から取得されるもの</link>をテキスト表現
 	<footnote id="ftn.dq5.act">
 		<para>
 			ソニタウンのドラクエビューワ

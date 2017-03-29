@@ -5,16 +5,16 @@
   %replacement;
 ]>
 
-<section id="dq5.data.str"><?dbhtml filename="dq5_str.html" ?>
+<section id="dq5.string"><?dbhtml filename="dq5_string.html" ?>
 <title>文字列表</title>
-<indexterm id="term.dq5.data.str"><primary>文字列</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.string"><primary>文字列</primary><secondary>DQ5</secondary></indexterm>
 <para> 
 	この項では文字列データについて述べる。
 	ここで述べるのは、メッセージ表示用でないウィンドウに
 	表示するための文字からなる文字列である。
 </para>
 
-<section id="dq5.data.str.overview">
+<section id="dq5.string.overview">
 <title>概要</title>
 <variablelist>
 	<varlistentry>
@@ -73,7 +73,7 @@
 				ウィンドウ描画時に、どれかのアドレスからデータを取得するのである。
 				この文書にある文字列表の掲載順は、これに準じて構成した。
 			</para>
-			<table id="table.dq5.data.str.overview" class="lighttable">
+			<table id="table.dq5.string.overview" class="lighttable">
 				<caption>アドレス表</caption>
 				<thead>
 					<tr>
@@ -100,9 +100,9 @@
 		</listitem>
 	</varlistentry>
 </variablelist>
-</section> <!-- dq5.data.str.overview -->
+</section> <!-- dq5.string.overview -->
 
-<section id="dq5.data.str.23C5CE">
+<section id="dq5.string.23C5CE">
 <title>仲間の名前</title>
 <para> 
 	ROM アドレス $23C5CE からは、仲間キャラクターの名前データが格納されている。
@@ -127,9 +127,9 @@
 		<tr><td><code>$23C5F5</code></td><td>ベラ</td></tr>
 	</tbody>
 </table>
-</section> <!-- dq5.data.str.23C5CE -->
+</section> <!-- dq5.string.23C5CE -->
 
-<section id="dq5.data.str.23C5F9">
+<section id="dq5.string.23C5F9">
 <title>職業名</title>
 <para> 
 	ROM アドレス $23C5F9 からは、仲間キャラクターの職業・肩書・称号の名前データが格納されている。
@@ -163,9 +163,9 @@
 		<tr><td><code>$23C685</code></td><td>でんせつのゆうしゃ</td></tr>
 	</tbody>
 </table>
-</section> <!-- dq5.data.str.23C5F9 -->
+</section> <!-- dq5.string.23C5F9 -->
 
-<section id="dq5.data.str.23C690">
+<section id="dq5.string.23C690">
 <title>せいべつ</title>
 <para> 
 	ROM アドレス $23C690 からは、性別名が格納されている。
@@ -185,9 +185,9 @@
 		<tr><td><code>$23C698</code></td><td>？？？</td></tr>
 	</tbody>
 </table>
-</section> <!-- dq5.data.str.23C690 -->
+</section> <!-- dq5.string.23C690 -->
 
-<section id="dq5.data.str.228000">
+<section id="dq5.string.228000">
 <title>じゅもん・とくぎの名前</title>
 <para> 
 	ROM アドレス $228000 からは、呪文名および特技名が格納されている。
@@ -375,9 +375,9 @@
 		<tr><td><code>$228419</code></td><td>たいあたり</td></tr>
 	</tbody>
 </table>
-</section> <!-- dq5.data.str.228000 -->
+</section> <!-- dq5.string.228000 -->
 
-<section id="dq5.data.str.23C6C9">
+<section id="dq5.string.23C6C9">
 <title>モンスター名</title>
 <para> 
 	ROM アドレス $23C6C9 からは、モンスター名が格納されている。
@@ -630,9 +630,9 @@
 		<tr><td><code>$23CE06</code></td><td>ミルドラース</td></tr>
 	</tbody>
 </table>
-</section> <!-- dq5.data.str.23C6C9 -->
+</section> <!-- dq5.string.23C6C9 -->
 
-<section id="dq5.data.str.23CE0E">
+<section id="dq5.string.23CE0E">
 <title>アイテム名</title>
 <para> 
 	ROM アドレス $23CE0E からは、アイテム名が格納されている。
@@ -865,9 +865,9 @@
 		<tr><td><code>$23D588</code></td><td>りゅうのひだりめ</td></tr>
 	</tbody>
 </table>
-</section> <!-- dq5.data.str.23CE0E -->
+</section> <!-- dq5.string.23CE0E -->
 
-<section id="dq5.data.str.23D5B5">
+<section id="dq5.string.23D5B5">
 <title>さくせん名</title>
 <para> 
 	ROM アドレス $23D5B5 からは、さくせんの名前が格納されている。
@@ -891,24 +891,24 @@
 		<tr><td><code>$23D5EB</code></td><td>めいれいさせろ</td></tr>
 	</tbody>
 </table>
-</section> <!-- dq5.data.str.23D5B5 -->
+</section> <!-- dq5.string.23D5B5 -->
 
-<section id="dq5.data.str.308000">
+<section id="dq5.string.308000">
 <title>不明 1</title>
 <para> 
 	まったく不明。読み出されている気配がない。
 </para>
-</section> <!-- dq5.data.str.308000 -->
+</section> <!-- dq5.string.308000 -->
 
-<section id="dq5.data.str.23D6A1">
+<section id="dq5.string.23D6A1">
 <title>不明 2</title>
 <para> 
 	文字列ではなさそうなデータが ROM アドレス $23D6A1 から格納されている。
 	故に、この項の記述を省略する。
 </para>
-</section> <!-- dq5.data.str.23D6A1 -->
+</section> <!-- dq5.string.23D6A1 -->
 
-<section id="dq5.data.str.23C242">
+<section id="dq5.string.23C242">
 <title>仲間モンスターの名前</title>
 <para> 
 	ROM アドレス $23C242 からは、仲間モンスターの名前データが格納されている。
@@ -1093,9 +1093,9 @@
 		<tr><td><code>$23C5C7</code></td><td>うみじじ</td></tr>
 	</tbody>
 </table>
-</section> <!-- dq5.data.str.23C242 -->
+</section> <!-- dq5.string.23C242 -->
 
-<section id="dq5.data.str.23D5F3">
+<section id="dq5.string.23D5F3">
 <title>ルーラ行き先</title>
 <para> 
 	ROM アドレス $23D5F3 からは、ルーラの呪文を使うことで移動できる
@@ -1137,5 +1137,5 @@
 		<tr><td><code>$23D69F</code></td><td>　</td></tr>
 	</tbody>
 </table>
-</section> <!-- dq5.data.str.23D5F3 -->
-</section> <!-- dq5.data.str -->
+</section> <!-- dq5.string.23D5F3 -->
+</section> <!-- dq5.string -->

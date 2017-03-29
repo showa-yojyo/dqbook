@@ -212,7 +212,7 @@ C4/262A:    8A25  // 14: なし
 		<glossterm>職業名文字列 ID</glossterm>
 		<glossdef>
 			<para>
-				職業名を表す<link linkend="dq6.str.data">文字列</link>（本来の自分、せんし、ぶとうか、etc.）の ID である。
+				職業名を表す<link linkend="dq6.string.data">文字列</link>（本来の自分、せんし、ぶとうか、etc.）の ID である。
 			</para>
 		</glossdef>
 	</glossentry>

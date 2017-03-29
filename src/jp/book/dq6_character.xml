@@ -206,7 +206,7 @@ C8/C5D7:    A7BE  // 0F ジュン
 		<glossdef>
 			<para>
 				「ハッサン」「ミレーユ」
-				「スラリン」等の<link linkend="dq6.str.data">文字列データ ID</link>
+				「スラリン」等の<link linkend="dq6.string.data">文字列データ ID</link>
 				である。
 			</para>
 		</glossdef>
@@ -216,7 +216,7 @@ C8/C5D7:    A7BE  // 0F ジュン
 		<glossdef>
 			<para>
 				「さすらいのけんし」「いえでむすめ」
-				「ファーラット」「くさったしたい」等の<link linkend="dq6.str.data">文字列データ ID</link>
+				「ファーラット」「くさったしたい」等の<link linkend="dq6.string.data">文字列データ ID</link>
 				である。
 			</para>
 		</glossdef>

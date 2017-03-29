@@ -440,7 +440,7 @@ C3/EAE1:    6B          RTL
 	不定文字列データを表現する ID が存在するらしいということだ。
 	<varname>X</varname> レジスタにキャラクター ID をセットしてからすぐにサブルーチン
 	<varname>$C44FA1</varname> を呼ぶと、<varname>A</varname>/<varname>X</varname>/<varname>Y</varname> のどこかにその値が格納される。
-	このサブルーチンが取得する値は、<link linkend="dq6.str.data">文字列 ID</link>
+	このサブルーチンが取得する値は、<link linkend="dq6.string.data">文字列 ID</link>
 	の上限より大きい。
 </para>
 <programlisting>

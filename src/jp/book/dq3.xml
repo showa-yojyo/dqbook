@@ -17,7 +17,7 @@
 
 <!-- TEXT -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_text.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_str.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_string.xml"/>
 
 <!-- BANK $C2 -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_monster.xml"/>

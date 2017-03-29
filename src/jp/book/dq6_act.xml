@@ -653,7 +653,7 @@ C2/6213:    D01C        BNE $6231
 		<glossterm>戦闘行動の名前 文字列 ID </glossterm>
 		<glossdef>
 			<para>
-				「じゅもん」「とくぎ」選択ウィンドウに表示する文字列の<link linkend="dq6.str.data">文字列 ID</link>
+				「じゅもん」「とくぎ」選択ウィンドウに表示する文字列の<link linkend="dq6.string.data">文字列 ID</link>
 				だ。
 			</para>
 		</glossdef>

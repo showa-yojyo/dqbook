@@ -358,7 +358,7 @@ C3/C71A:    60          RTS
 		<glossterm>アイテム名文字列 ID</glossterm>
 		<glossdef>
 			<para>
-				アイテム名を表す<link linkend="dq6.str.data">文字列</link>（e.g. やくそう、こんぼう、etc.）である。
+				アイテム名を表す<link linkend="dq6.string.data">文字列</link>（e.g. やくそう、こんぼう、etc.）である。
 			</para>
 		</glossdef>
 	</glossentry>

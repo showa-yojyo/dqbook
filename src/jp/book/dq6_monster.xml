@@ -700,7 +700,7 @@ C2/C485:   5A14 // 90 + rnd(0..20)
 		<glossterm>モンスター名文字列 ID</glossterm>
 		<glossdef>
 			<para>
-				ウィンドウに表示するモンスター名を表す<link linkend="dq6.str">文字列データの ID</link>
+				ウィンドウに表示するモンスター名を表す<link linkend="dq6.string">文字列データの ID</link>
 				だ。
 			</para>
 		</glossdef>

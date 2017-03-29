@@ -184,7 +184,7 @@ C4/6C27:    6B          RTL
 <glossterm>文字列 ID</glossterm>
 <glossdef>
 <para>
-性格の名前を表す<link linkend="dq3.str">文字列 ID</link> である。
+性格の名前を表す<link linkend="dq3.string">文字列 ID</link> である。
 </para>
 </glossdef>
 </glossentry>

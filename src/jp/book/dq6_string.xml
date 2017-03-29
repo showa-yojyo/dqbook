@@ -5,11 +5,11 @@
   %replacement;
 ]>
 
-<section id="dq6.str"><?dbhtml filename="dq6_str.html" ?>
+<section id="dq6.string"><?dbhtml filename="dq6_string.html" ?>
 <title>文字列解析</title>
-<indexterm id="term.dq6.str"><primary>文字列</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.string"><primary>文字列</primary><secondary>DQ6</secondary></indexterm>
 
-<section id="dq6.str.hack">
+<section id="dq6.string.hack">
 <title>解析手順</title>
 <para>
 	既に先人 <xref linkend="dqref.url1"/>, <xref linkend="dqref.url2"/>
@@ -39,7 +39,7 @@
 <para>
 	次は特定の仲間キャラクターの名前アドレスを PAR サーチでなんとか見つける。
 	幸い、&dq6_1995; には仲間キャラクターの名前を簡単に変更できるシステム
-	<footnote id="ftn.dq6.str"><para>ゲントの村の近くの海底。</para></footnote>がゲーム中に存在する。
+	<footnote id="ftn.dq6.string"><para>ゲントの村の近くの海底。</para></footnote>がゲーム中に存在する。
 	あとは頻繁に同一キャラの名前を変更しながら Diff サーチをかける。
 </para>
 <para>
@@ -55,12 +55,12 @@
 	「メガザルダンス」「ふるびたパイプ」といった
 	ドラクエ的に意味のある単語が分布していることを確認するのである。
 </para>
-</section> <!-- dq6.str.hack -->
+</section> <!-- dq6.string.hack -->
 
-<section id="dq6.str.data">
+<section id="dq6.string.data">
 <title>文字列リスト</title>
 <para>
 	<xref linkend="appendix.b" />
 </para>
-</section> <!-- dq6.str.data -->
-</section> <!-- dq6.str -->
+</section> <!-- dq6.string.data -->
+</section> <!-- dq6.string -->

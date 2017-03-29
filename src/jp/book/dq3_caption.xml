@@ -87,7 +87,7 @@
 	<glossterm>N 行目文字列 ID</glossterm>
 	<glossdef>
 		<para>
-			説明ウィンドウの N 行目に表示する内容を表す<link linkend="dq3.str">文字列 ID</link> である。
+			説明ウィンドウの N 行目に表示する内容を表す<link linkend="dq3.string">文字列 ID</link> である。
 		</para>
 	</glossdef>
 	</glossentry>
