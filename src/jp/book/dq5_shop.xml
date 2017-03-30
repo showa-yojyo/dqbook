@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq5.shop"><?dbhtml filename="dq5_shop.html" ?>
+<title>店屋</title>
+<indexterm id="term.dq5.shop"><primary>店屋</primary><secondary>DQ5</secondary></indexterm>
+<para> 
+ROM アドレス $4FBDD (イメージファイルオフセット $27BDD) に、
+不定サイズのデータの配列がある。
+配列のサイズは 48 である。
+このデータ列を<emphasis>店屋表</emphasis>と呼ぶことにする。
+</para>
+<para>
+  このデータのメモリレイアウトは、以下のとおりである。
+</para>
+<table id="table.dq5.04FBDD" class="memorylayout">
+  <caption>$04FBDD 店屋データ構造体 メモリレイアウト</caption>
+  <colgroup>
+    <col span="1" width="12%"/>
+    <col span="7" width="11%"/>
+  </colgroup>
+  <thead>
+    <tr><th>Byte:Bit</th>
+      <th>80</th>
+      <th>40</th>
+      <th>20</th>
+      <th>10</th>
+      <th>08</th>
+      <th>04</th>
+      <th>02</th>
+      <th>01</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><th>  0</th><td colspan="8">ルーラ ID</td></tr>
+    <tr><th>  1</th><td colspan="8">アイテム ID 0</td></tr>
+    <tr><th>  2</th><td colspan="8">アイテム ID 1</td></tr>
+    <tr><th>...</th><td colspan="8">...</td></tr>
+    <tr><th>  N</th><td colspan="8">アイテム ID (N - 1)</td></tr>
+    <tr><th>N+1</th><td colspan="8">値 0xFF</td></tr>
+  </tbody>
+</table>
+<glosslist>
+  <glossentry>
+  <glossterm>ルーラ ID</glossterm>
+  <glossdef>
+    <para>
+      基本的にはその店がどの町、村、施設にあるのかを、ルーラの呪文が示すための値と一致する。
+      店屋に話しかけ、メニューウィンドウを表示する直前にこの値をチェックしにいく。
+      つまり、プログラムが店屋表の ID = 0 から目的のデータを検索するために使われる。
+    </para>
+  </glossdef>
+  </glossentry>
+  <glossentry>
+  <glossterm>アイテム ID</glossterm>
+  <glossdef>
+    <para>
+      メニューに表示されるアイテムの ID である。
+    </para>
+  </glossdef>
+  </glossentry>
+  <glossentry>
+  <glossterm>値 0xFF</glossterm>
+  <glossdef>
+    <para>
+      データサイズが不定であるため、データの終了を
+      意味するために値 0xFF がデータの最後に存在している。
+    </para>
+  </glossdef>
+  </glossentry>
+</glosslist>
+<para> 
+  各データの内容は以下のとおりである。
+</para>
+<table id="table.dq5.04FBDD.view" class="lighttable">
+  <caption>店屋表</caption>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>土地</th>
+      <th>アイテム 0</th>
+      <th>アイテム 1</th>
+      <th>アイテム 2</th>
+      <th>アイテム 3</th>
+      <th>アイテム 4</th>
+      <th>アイテム 5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><th>00</th><td>アルカパ</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>においぶくろ</td><td>ヘアバンド</td></tr>
+    <tr><th>01</th><td>アルカパ</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>おなべのふた</td><td>ぬののふく</td></tr>
+    <tr><th>02</th><td>ラインハット</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>まんげつそう</td><td>においぶくろ</td></tr>
+    <tr><th>03</th><td>ラインハット</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>かいがらぼうし</td><td>けがわのフード</td></tr>
+    <tr><th>04</th><td>オラクルベリー</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>まんげつそう</td><td>においぶくろ</td></tr>
+    <tr><th>05</th><td>ポートセルミ</td><td>やくそう</td><td>まんげつそう</td><td>キメラのつばさ</td><td>てんしのすず</td><td>カメのこうら</td><td>マジックシールド</td></tr>
+    <tr><th>06</th><td>ルラフェン</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>まんげつそう</td><td>まもののエサ</td></tr>
+    <tr><th>07</th><td>サラボナ</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>まんげつそう</td><td>かわのたて</td></tr>
+    <tr><th>08</th><td>テルパドール</td><td>せいすい</td><td>キメラのつばさ</td><td>まんげつそう</td><td>ばくだんいし</td><td>てんしのすず</td><td>ファイトいっぱつ</td></tr>
+    <tr><th>09</th><td>グランバニア</td><td>キメラのつばさ</td><td>ばくだんいし</td><td>ファイトいっぱつ</td><td>うろこのたて</td><td>けがわのフード</td><td>カメのこうら</td></tr>
+    <tr><th>0A</th><td>ジャハンナ</td><td>においぶくろ</td><td>ばくだんいし</td><td>エルフのおまもり</td><td>かぜのぼうし</td></tr>
+    <tr><th>0B</th><td>アルカパ</td><td>たびびとのふく</td><td>きぬのエプロン</td><td>かわのよろい</td><td>かわのドレス</td><td>うろこのたて</td><td>きのぼうし</td></tr>
+    <tr><th>0C</th><td>アルカパ</td><td>せいどうのよろい</td><td>てつのよろい</td><td>うろこのたて</td><td>てつのたて</td><td>きのぼうし</td><td>てつかぶと</td></tr>
+    <tr><th>0D</th><td>ようせいのむら</td><td>ただのぬのきれ</td><td>かわのよろい</td><td>かわのこしまき</td><td>うろこのよろい</td><td>せいどうのたて</td><td>けがわのフード</td></tr>
+    <tr><th>0E</th><td>ようせいのむら</td><td>ほのおのよろい</td><td>みずのはごろも</td><td>シルクのビスチェ</td><td>ほのおのたて</td><td>ちからのたて</td><td>ちりょくのかぶと</td></tr>
+    <tr><th>0F</th><td>ラインハット</td><td>けがわのマント</td><td>せいどうのよろい</td><td>てつのよろい</td><td>てつのたて</td><td>けがわのフード</td><td>てつかぶと</td></tr>
+    <tr><th>10</th><td>オラクルベリー</td><td>かわのこしまき</td><td>うろこのたて</td><td>せいどうのたて</td><td>とんがりぼうし</td><td>きのぼうし</td><td>ただのぬのきれ</td></tr>
+    <tr><th>11</th><td>オラクルベリー</td><td>くさりかたびら</td><td>せいどうのよろい</td><td>てつのむねあて</td><td>てつのよろい</td><td>てつかぶと</td><td>スライムのふく</td></tr>
+    <tr><th>12</th><td>ポートセルミ</td><td>てつのむねあて</td><td>てつのよろい</td><td>はがねのよろい</td><td>スライムのふく</td><td>うろこのたて</td><td>てつかぶと</td></tr>
+    <tr><th>13</th><td>ルラフェン</td><td>はがねのよろい</td><td>カメのこうら</td><td>てつかぶと</td><td>てっかめん</td><td>うろこのたて</td><td>マジックシールド</td></tr>
+    <tr><th>14</th><td>サラボナ</td><td>おどりこのふく</td><td>はがねのよろい</td><td>カメのこうら</td><td>みかわしのふく</td><td>ぎんのかみかざり</td><td>シルクハット</td></tr>
+    <tr><th>15</th><td>テルパドール</td><td>てつのむねあて</td><td>みかわしのふく</td><td>シルバーメイル</td><td>レースのビスチェ</td><td>マジックシールド</td><td>シルクハット</td></tr>
+    <tr><th>16</th><td>チゾット</td><td>シルバーメイル</td><td>レースのビスチェ</td><td>ブラッドメイル</td><td>まどうしのローブ</td><td>マジックシールド</td><td>てっかめん</td></tr>
+    <tr><th>17</th><td>グランバニア</td><td>ひかりのドレス</td><td>シルバーメイル</td><td>ぎんのむねあて</td><td>ドラゴンメイル</td><td>ふうじんのたて</td><td>てっかめん</td></tr>
+    <tr><th>18</th><td>エルヘブン</td><td>ぎんのむねあて</td><td>まほうのよろい</td><td>ひかりのドレス</td><td>けんじゃのローブ</td><td>ドラゴンシールド</td><td>ちりょくのかぶと</td></tr>
+    <tr><th>19</th><td>ジャハンナ</td><td>ほのおのよろい</td><td>てんしのレオタード</td><td>ミラーアーマー</td><td>ちからのたて</td><td>みかがみのたて</td><td>グレートヘルム</td></tr>
+    <tr><th>1A</th><td>サンタローズ</td><td>ひのきのぼう</td><td>たけのやり</td><td>とがったホネ</td><td>かしのつえ</td><td>どうのつるぎ</td></tr>
+    <tr><th>1B</th><td>サンタローズ</td><td>どくがのナイフ</td><td>ウォーハンマー</td><td>ゾンビキラー</td><td>らいじんのヤリ</td><td>ドラゴンキラー</td><td>こおりのやいば</td></tr>
+    <tr><th>1C</th><td>サンタローズ</td><td>ひのきのぼう</td><td>たけのやり</td><td>とがったホネ</td><td>かしのつえ</td><td>どうのつるぎ</td></tr>
+    <tr><th>1D</th><td>アルカパ</td><td>たけのやり</td><td>かしのつえ</td><td>ブロンズナイフ</td><td>どうのつるぎ</td><td>いばらのムチ</td><td>ブーメラン</td></tr>
+    <tr><th>1E</th><td>アルカパ</td><td>おおきづち</td><td>てつのツメ</td><td>くさりがま</td><td>チェーンクロス</td><td>やいばのブーメラン</td><td>くだものナイフ</td></tr>
+    <tr><th>1F</th><td>ラインハット</td><td>どうのつるぎ</td><td>ブーメラン</td><td>てつのつえ</td><td>チェーンクロス</td><td>いしのキバ</td><td>てつのツメ</td></tr>
+    <tr><th>20</th><td>ラインハット</td><td>いしのオノ</td><td>てつのつえ</td><td>チェーンクロス</td><td>はがねのつるぎ</td><td>はがねのキバ</td><td>どくばり</td></tr>
+    <tr><th>21</th><td>オラクルベリー</td><td>いしのキバ</td><td>ブーメラン</td><td>くさりがま</td><td>チェーンクロス</td><td>やいばのブーメラン</td></tr>
+    <tr><th>22</th><td>ポートセルミ</td><td>こんぼう</td><td>いしのオノ</td><td>やいばのブーメラン</td><td>おおかなづち</td><td>はがねのつるぎ</td><td>モーニングスター</td></tr>
+    <tr><th>23</th><td>ルラフェン</td><td>のこぎりがたな</td><td>おおかなづち</td><td>はがねのつるぎ</td><td>はがねのキバ</td><td>スネークセード</td></tr>
+    <tr><th>24</th><td>サラボナ</td><td>チェーンクロス</td><td>はがねのつるぎ</td><td>モーニングスター</td><td>はじゃのつるぎ</td><td>はがねのキバ</td></tr>
+    <tr><th>25</th><td>やまおくのむら</td><td>どくがのナイフ</td><td>おおかなづち</td><td>はがねのつるぎ</td><td>スネークセード</td><td>バトルアックス</td><td>はじゃのつるぎ</td></tr>
+    <tr><th>26</th><td>テルパドール</td><td>りりょくのつえ</td><td>モーニングスター</td><td>バトルアックス</td><td>はじゃのつるぎ</td><td>のこぎりがたな</td><td>はがねのキバ</td></tr>
+    <tr><th>27</th><td>チゾット</td><td>モーニングスター</td><td>バトルアックス</td><td>はじゃのつるぎ</td><td>ほのおのツメ</td><td>まどろみのけん</td></tr>
+    <tr><th>28</th><td>グランバニア</td><td>やいばのブーメラン</td><td>おおかなづち</td><td>はがねのキバ</td><td>スネークセード</td><td>ほのおのツメ</td><td>まどろみのけん</td></tr>
+    <tr><th>29</th><td>エルヘブン</td><td>まどろみのけん</td><td>ウォーハンマー</td><td>はがねのムチ</td><td>こおりのやいば</td><td>ゆうわくのけん</td><td>りりょくのつえ</td></tr>
+    <tr><th>2A</th><td>ジャハンナ</td><td>ドラゴンキラー</td><td>ふぶきのつるぎ</td><td>デーモンスピア</td><td>ビッグボウガン</td><td>ふっかつのつえ</td><td>ほのおのブーメラン</td></tr>
+    <tr><th>2B</th><td>ようせいのむら</td><td>いしのキバ</td><td>どうのつるぎ</td><td>ブーメラン</td><td>やくそう</td><td>どくけしそう</td><td>キメラのつばさ</td></tr>
+    <tr><th>2C</th><td>カボチ</td><td>せいすい</td><td>キメラのつばさ</td><td>てつのツメ</td><td>てつのむねあて</td><td>てつかぶと</td><td>どくばり</td></tr>
+    <tr><th>2D</th><td>やまおくのむら</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>まんげつそう</td><td>かわのぼうし</td></tr>
+    <tr><th>2E</th><td>メダル王</td><td>せんしのパジャマ</td><td>ふしぎなボレロ</td><td>きせきのつるぎ</td><td>しんぴのよろい</td><td>はやぶさのけん</td><td>メタルキングのたて</td></tr>
+    <tr><th>2F</th><td>カジノ</td><td>エルフののみぐすり</td><td>せかいじゅのは</td><td>メガンテのうでわ</td><td>キラーピアス</td><td>メタルキングのけん</td><td>グリンガムのムチ</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq5.shop -->
+

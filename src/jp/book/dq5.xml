@@ -28,7 +28,7 @@ SFC で動くドラクエシリーズの中で、
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_window.xml"/>
 <!-- xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_monster.xml" 封印 -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_act.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_store.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_shop.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_flow_encounter.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_encounter.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_chara_monster_init.xml"/>
