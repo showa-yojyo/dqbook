@@ -8,138 +8,505 @@
 <section id="dq5.shop"><?dbhtml filename="dq5_shop.html" ?>
 <title>店屋</title>
 <indexterm id="term.dq5.shop"><primary>店屋</primary><secondary>DQ5</secondary></indexterm>
-<para> 
-ROM アドレス $4FBDD (イメージファイルオフセット $27BDD) に、
-不定サイズのデータの配列がある。
-配列のサイズは 48 である。
-このデータ列を<emphasis>店屋表</emphasis>と呼ぶことにする。
-</para>
 <para>
-  このデータのメモリレイアウトは、以下のとおりである。
+本節では店屋共通処理について見ていく。
+最初にプレイヤーが街にいる人物の誰かに「はなす」とき、それが何らかの店屋であれば、
+その地域と店の種類によって定型処理を実行する仕組みについて簡単に述べる。
+次に、有効な店屋の種類それぞれについて、処理の概要を述べる。
+最後に、店屋処理が参照する定数テーブルを可能な限り示す。
 </para>
-<table id="table.dq5.04FBDD" class="memorylayout">
-  <caption>$04FBDD 店屋データ構造体 メモリレイアウト</caption>
-  <colgroup>
-    <col span="1" width="12%"/>
-    <col span="7" width="11%"/>
-  </colgroup>
-  <thead>
-    <tr><th>Byte:Bit</th>
-      <th>80</th>
-      <th>40</th>
-      <th>20</th>
-      <th>10</th>
-      <th>08</th>
-      <th>04</th>
-      <th>02</th>
-      <th>01</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><th>  0</th><td colspan="8">ルーラ ID</td></tr>
-    <tr><th>  1</th><td colspan="8">アイテム ID 0</td></tr>
-    <tr><th>  2</th><td colspan="8">アイテム ID 1</td></tr>
-    <tr><th>...</th><td colspan="8">...</td></tr>
-    <tr><th>  N</th><td colspan="8">アイテム ID (N - 1)</td></tr>
-    <tr><th>N+1</th><td colspan="8">値 0xFF</td></tr>
-  </tbody>
-</table>
-<glosslist>
-  <glossentry>
-  <glossterm>ルーラ ID</glossterm>
-  <glossdef>
-    <para>
-      基本的にはその店がどの町、村、施設にあるのかを、ルーラの呪文が示すための値と一致する。
-      店屋に話しかけ、メニューウィンドウを表示する直前にこの値をチェックしにいく。
-      つまり、プログラムが店屋表の ID = 0 から目的のデータを検索するために使われる。
-    </para>
-  </glossdef>
-  </glossentry>
-  <glossentry>
-  <glossterm>アイテム ID</glossterm>
-  <glossdef>
-    <para>
-      メニューに表示されるアイテムの ID である。
-    </para>
-  </glossdef>
-  </glossentry>
-  <glossentry>
-  <glossterm>値 0xFF</glossterm>
-  <glossdef>
-    <para>
-      データサイズが不定であるため、データの終了を
-      意味するために値 0xFF がデータの最後に存在している。
-    </para>
-  </glossdef>
-  </glossentry>
-</glosslist>
-<para> 
-  各データの内容は以下のとおりである。
+
+<section id="dq5.shop.keepers">
+<title>店屋処理解析</title>
+<para>
+店屋系の人物に対して「はなす」コマンドを実行すると、その店屋の系統に応じて処理が決定される。
+その仕掛けとは、サブルーチン <varname>$06DBD2</varname> から呼び出されるサブルーチンのための
+ジャンプテーブル <varname>$06DBDB</varname> だ。
+まずは呼び出し側サブルーチンのコードを次に示す：
 </para>
-<table id="table.dq5.04FBDD.view" class="lighttable">
-  <caption>店屋表</caption>
+<programlisting>
+06/DBD2:    0A          ASL A
+06/DBD3:    AA          TAX
+06/DBD4:    FCDBDB      JSR ($DBDB,X)       ; 店屋系
+06/DBD7:    9C200F      STZ $0F20           ; 店屋タイプをゼロにしておく
+06/DBDA:    60          RTS
+</programlisting>
+<para>
+この時点までに店屋の種類に対応する値がジャンプテーブルのインデックスとして設定されている。
+このジャンプテーブルが示すサブルーチンを解読することで、それぞれが店屋のどの種類の処理なのかが判明する。
+次に示すのは、そのようにして得られたジャンプテーブルの詳細だ：
+</para>
+<programlisting>
+06/DBDB:    FDDB        ; （なし）
+06/DBDD:    04DC        ; 武器屋
+06/DBDF:    1FE0        ; 道具屋
+06/DBE1:    26E0        ; 防具屋
+06/DBE3:    DEE4        ; 預かり所
+06/DBE5:    3EE0        ; 教会（神父）
+06/DBE7:    84E3        ; 宿屋（標準）
+06/DBE9:    5AE9        ; モンスターじいさん
+06/DBEB:    2EE0        ; よろず屋
+06/DBED:    F7EB        ; メダル王
+06/DBEF:    01ED        ; ルイーダの店
+06/DBF1:    34EE        ; カジノキャッシャー
+06/DBF3:    70EF        ; カジノ景品交換所
+06/DBF5:    E8F1        ; スライムレース
+06/DBF7:    26F2        ; 格闘場
+06/DBF9:    36E0        ; 教会（尼）
+06/DBFB:    75E3        ; 宿屋（フランク）
+</programlisting>
+<para>
+以下、店屋の種類ごとにそれぞれの処理の急所を記していく。
+読者自身でコードを解読するのであれば、次に挙げる記述やデータを利用して欲しい：
+</para>
+<simplelist type='vert' columns='1'>
+  <member><xref linkend="dq5.brk"/></member>
+  <member><xref linkend="dq5.accessor"/></member>
+  <member><ulink url="./data/dq5_07D77C_text_travel.txt"/></member>
+</simplelist>
+
+<section id="dq5.shop.keepers.06DBFD">
+<title>（なし）</title>
+<para>
+製品版プログラムはこのコードをカバーしない。便宜上存在するだけのダミーコードだ。
+短いので全文引用した上で、適宜コメントを付す：
+</para>
+<programlisting>
+06/DBFD:    0095        BRK #$95            ; window #$00: (open)
+06/DBFF:    00
+06/DC00:    0098        BRK #$98            ; message #$01CC: その方向には ダレモイナイ。
+06/DC02:    CC
+06/DC03:    60          RTS
+</programlisting>
+</section> <!-- dq5.shop.keepers.06DBFD -->
+
+<section id="dq5.shop.keepers.06DC04">
+<title>武器屋</title>
+<para>
+武器屋の処理は <varname>$06DC04</varname> から始まり、かなりの分量のコードからなる。
+コードを逐一解説する紙幅がないので、要点に絞って解説する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      当サブルーチンの大部分は他の店屋の処理と共有されている。
+      この区別をするために変数 <varname>$0F20</varname> を参照する。
+      この値が影響するのは、メッセージウィンドウに表示する台詞と取り扱う品物が何であるかだ。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      補助サブルーチン <varname>$DFC4</varname> で店屋に喋らせる。
+      基本的には、台詞として ID の値が直前の LDA 命令のオペランドの 4 倍の値プラス <varname>$0F20</varname> の値のメッセージを出力する。
+      不規則的に別の台詞を適用する場合があるが、解読の困難とはならない。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      補助サブルーチン <varname>$DFBA</varname> で別バンクに定義されている店屋の品物データを参照する。
+      変数 <varname>$0F20</varname> のほかに変数 <varname>$0F25</varname> の設定が必要。
+      後者は店舗の立地地域を示す ID の値。詳しくは後述する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      補助サブルーチン <varname>$F5E9</varname> で所持金過不足テスト兼所持金からの支払いを処理する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「かいにきた」で品物を受け渡すときの台詞は、対称キャラクターの状態が
+      <orderedlist>
+        <listitem>
+          <para>死んでいるか、</para>
+        </listitem>
+        <listitem>
+          <para>マヒしているか、</para>
+        </listitem>
+        <listitem>
+          <para>馬車にいるか、</para>
+        </listitem>
+        <listitem>
+          <para>それ以外</para>
+        </listitem>
+      </orderedlist>
+      かどうかで決まる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「かいにきた」で品物を受け渡す対象キャラクターの所持品数が限界かどうかの判定がかなり後ろにある。
+      具体的には所持金過不足テストの直前。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「うりにきた」処理における下取り価格の評価はサブルーチン <varname>$06DF5B</varname> 呼び出しで行う。
+      より厳密にはサブルーチン <varname>$DF75</varname> で計算する。
+      周知のように市価の 3/4 に等しいわけだが、コードとしてはシフト演算と加算のみでこれを求める。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「うりにきた」については、パーティーの所持金が上限付近でも買い取る。
+      つまり、溢れた分の金額については失われる。これは預かり所やカジノにおけるゴールドやコインのやり取りとは挙動が異なる。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shop.keepers.06DC04 -->
+
+<section id="dq5.shop.keepers.06E01F">
+<title>道具屋</title>
+<para>
+道具屋の処理は武器屋のコードと共有している。
+店屋種類を表す変数 <varname>$0F20</varname> にゼロをセットし、共有部分の最初の命令にジャンプする。
+ちなみにこの値がゼロであるということは、解読時に台詞の流れを追いやすいことを意味する。
+</para>
+<programlisting>
+06/E01F:    7B          TDC                 ; 0: 道具屋
+06/E020:    8D200F      STA $0F20           ; 店屋タイプ
+06/E023:    82E3FB      BRL $DC09           ; 共通部分へジャンプ
+</programlisting>
+</section> <!-- dq5.shop.keepers.06E01F -->
+
+<section id="dq5.shop.keepers.06E026">
+<title>防具屋</title>
+<para>
+防具屋の処理もまた、武器屋のコードと共有している。
+店屋種類を表す変数 <varname>$0F20</varname> に 1 をセットしてから、共有部分の最初の命令にジャンプする。
+</para>
+</section> <!-- dq5.shop.keepers.06E026 -->
+
+<section id="dq5.shop.keepers.06E02E">
+<title>よろず屋</title>
+<para>
+よろず屋の処理もまた、武器屋のコードと共有している。
+店屋種類を表す変数 <varname>$0F20</varname> に 3 をセットしてから、共有部分の最初の命令にジャンプする。
+</para>
+</section> <!-- dq5.shop.keepers.06E02E -->
+
+<section id="dq5.shop.keepers.06E036">
+<title>教会（尼）</title>
+<para>
+教会処理の尼版は、次に説明する神父版とコードを共有している。
+台詞のメッセージ ID を調整するための変数 <varname>$0F2B</varname> に 1 をセットしてから、共有部分の最初の命令にジャンプする。
+</para>
+</section> <!-- dq5.shop.keepers.06E036 -->
+
+<section id="dq5.shop.keepers.06E03E">
+<title>教会（神父）</title>
+<para>
+教会の処理はサブルーチンとしては <varname>$06E03E</varname> から始まるかなり長いコードで構成されている。
+以下に要点のみを羅列する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      補助サブルーチン <varname>$E367</varname> で神父または尼に喋らせる。
+      基本的には、台詞として ID の値が直前の LDX 命令のオペランドの値プラス <varname>$0F2B</varname> の値のメッセージを出力する。
+      これを言う機会がなかなかないのでここに書いてしまうが、神父は「寄付」と言うが尼は「寄附」と言う。
+      なぜ表記が揺れるのだろう。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「おいのりをする」でゲームを終わる場合、アドレス <varname>$06E0F9</varname> でプログラムカウンターが停止する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「おいのりをする」による冒険の書保存処理はサブルーチン <varname>$038D63</varname> 呼び出しで行われると思われる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「いきかえらせる」の寄付金は、対象キャラクターのレベルに 10 を乗じた値に等しい。
+      これを補助サブルーチン <varname>$F625</varname> で計算する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      寄付の意志確認、寄付金の過不足テスト、およびその支払いは補助サブルーチン <varname>$E322</varname> 呼び出しで実現する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「いきかえらせる」によるキャラクター状態の更新はサブルーチン <varname>$06E18C</varname> 呼び出しによる。
+      これによりキャラクターの HP と生存フラグだけでなく MP と呪いフラグ各種および毒フラグ各種も回復する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「おつげをきく」においてはキャラクター構造体にあらかじめ格納された二種類の経験値の差を表示する。
+      <xref linkend="dq5.characters"/> 参照。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「のろいをとく」の寄付金は、対象キャラクターのレベルに 10 を乗じた値に等しい。
+      先ほどとは異なり、ここで計算する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「のろいをとく」によるキャラクター状態の回復処理は補助サブルーチン <varname>$E2A6</varname> で行う。
+      そこでは HP に対する呪いと MP に対する呪いの両方を回復する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「どくのちりょう」の寄付金は 5 ゴールドだ。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shop.keepers.06E03E -->
+
+<section id="dq5.shop.keepers.06E375">
+<title>宿屋（フランク）</title>
+<para>
+店主がフランクな宿屋の処理は、次に説明する標準的な宿屋のそれとコードを共有している。
+台詞のメッセージ ID を調整するための変数 <varname>$0F2B</varname> に 7 をセットしてから、共有部分の最初の命令にジャンプする。
+</para>
+</section> <!-- dq5.shop.keepers.06E375 -->
+
+<section id="dq5.shop.keepers.06E384">
+<title>宿屋（標準）</title>
+<para>
+宿屋の処理はサブルーチンとしては <varname>$06E384</varname> から始まる。
+思いの外難しいコードを利用しているので、以下に要点を羅列することしかできない：
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      台詞表示は教会処理と同様の方針で実現する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      宿代の計算はサブルーチン <varname>$F563</varname> が行う。
+      そこでは一人あたりの宿代をデータテーブル <varname>$04FD6D</varname> から宿のある地域をキーとして得る。
+      それからその値を馬車を含むパーティー人数と同じ回数の加算により求める。
+      このアルゴリズムの計算時間が定数時間ではなく、線形時間になっている。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      所持金のやりとりはサブルーチン <varname>$F5E9</varname> の呼び出しによる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      パーティー内のキャラクターの回復処理はサブルーチン <varname>$E43A</varname> の呼び出しによる。
+      これは一見して何をする処理なのかわからない（多数のサブルーチン呼び出しを含むため）。
+      サブルーチンは回復処理とは関係のない処理を含んでいる可能性がある。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shop.keepers.06E384 -->
+
+<section id="dq5.shop.keepers.06E4DE">
+<title>預かり所</title>
+<para>
+TBW
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shop.keepers.06E4DE -->
+
+<section id="dq5.shop.keepers.06E95A">
+<title>モンスターじいさん</title>
+<para>
+TBW
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shop.keepers.06E95A -->
+
+<section id="dq5.shop.keepers.06EBF7">
+<title>メダル王</title>
+<para>
+TBW
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shop.keepers.06EBF7 -->
+
+<section id="dq5.shop.keepers.06ED01">
+<title>ルイーダの店</title>
+<para>
+TBW
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shop.keepers.06ED01 -->
+
+<section id="dq5.shop.keepers.06EE34">
+<title>カジノキャッシャー</title>
+<para>
+TBW
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shop.keepers.06EE34 -->
+
+<section id="dq5.shop.keepers.06EF70">
+<title>カジノ景品交換所</title>
+<para>
+TBW
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shop.keepers.06EF70 -->
+
+<section id="dq5.shop.keepers.06F1E8">
+<title>スライムレース</title>
+<para>
+TBW
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shop.keepers.06F1E8 -->
+
+<section id="dq5.shop.keepers.06F226">
+<title>格闘場</title>
+<para>
+TBW
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shop.keepers.06F226 -->
+
+<section id="dq5.shop.keepers.variables">
+<title>頻出変数</title>
+<para>
+コードを解読する作業の役に立つべく、
+上で説明した店屋処理に共通して参照される変数の役割を表にまとめておく：
+</para>
+<table id="table.dq5.shop.keepers.variables" class="lighttable">
+  <caption>店屋処理に共通して参照される変数</caption>
   <thead>
     <tr>
-      <th>ID</th>
-      <th>土地</th>
-      <th>アイテム 0</th>
-      <th>アイテム 1</th>
-      <th>アイテム 2</th>
-      <th>アイテム 3</th>
-      <th>アイテム 4</th>
-      <th>アイテム 5</th>
+      <th>変数</th>
+      <th>用途</th>
     </tr>
   </thead>
   <tbody>
-    <tr><th>00</th><td>アルカパ</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>においぶくろ</td><td>ヘアバンド</td></tr>
-    <tr><th>01</th><td>アルカパ</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>おなべのふた</td><td>ぬののふく</td></tr>
-    <tr><th>02</th><td>ラインハット</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>まんげつそう</td><td>においぶくろ</td></tr>
-    <tr><th>03</th><td>ラインハット</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>かいがらぼうし</td><td>けがわのフード</td></tr>
-    <tr><th>04</th><td>オラクルベリー</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>まんげつそう</td><td>においぶくろ</td></tr>
-    <tr><th>05</th><td>ポートセルミ</td><td>やくそう</td><td>まんげつそう</td><td>キメラのつばさ</td><td>てんしのすず</td><td>カメのこうら</td><td>マジックシールド</td></tr>
-    <tr><th>06</th><td>ルラフェン</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>まんげつそう</td><td>まもののエサ</td></tr>
-    <tr><th>07</th><td>サラボナ</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>まんげつそう</td><td>かわのたて</td></tr>
-    <tr><th>08</th><td>テルパドール</td><td>せいすい</td><td>キメラのつばさ</td><td>まんげつそう</td><td>ばくだんいし</td><td>てんしのすず</td><td>ファイトいっぱつ</td></tr>
-    <tr><th>09</th><td>グランバニア</td><td>キメラのつばさ</td><td>ばくだんいし</td><td>ファイトいっぱつ</td><td>うろこのたて</td><td>けがわのフード</td><td>カメのこうら</td></tr>
-    <tr><th>0A</th><td>ジャハンナ</td><td>においぶくろ</td><td>ばくだんいし</td><td>エルフのおまもり</td><td>かぜのぼうし</td></tr>
-    <tr><th>0B</th><td>アルカパ</td><td>たびびとのふく</td><td>きぬのエプロン</td><td>かわのよろい</td><td>かわのドレス</td><td>うろこのたて</td><td>きのぼうし</td></tr>
-    <tr><th>0C</th><td>アルカパ</td><td>せいどうのよろい</td><td>てつのよろい</td><td>うろこのたて</td><td>てつのたて</td><td>きのぼうし</td><td>てつかぶと</td></tr>
-    <tr><th>0D</th><td>ようせいのむら</td><td>ただのぬのきれ</td><td>かわのよろい</td><td>かわのこしまき</td><td>うろこのよろい</td><td>せいどうのたて</td><td>けがわのフード</td></tr>
-    <tr><th>0E</th><td>ようせいのむら</td><td>ほのおのよろい</td><td>みずのはごろも</td><td>シルクのビスチェ</td><td>ほのおのたて</td><td>ちからのたて</td><td>ちりょくのかぶと</td></tr>
-    <tr><th>0F</th><td>ラインハット</td><td>けがわのマント</td><td>せいどうのよろい</td><td>てつのよろい</td><td>てつのたて</td><td>けがわのフード</td><td>てつかぶと</td></tr>
-    <tr><th>10</th><td>オラクルベリー</td><td>かわのこしまき</td><td>うろこのたて</td><td>せいどうのたて</td><td>とんがりぼうし</td><td>きのぼうし</td><td>ただのぬのきれ</td></tr>
-    <tr><th>11</th><td>オラクルベリー</td><td>くさりかたびら</td><td>せいどうのよろい</td><td>てつのむねあて</td><td>てつのよろい</td><td>てつかぶと</td><td>スライムのふく</td></tr>
-    <tr><th>12</th><td>ポートセルミ</td><td>てつのむねあて</td><td>てつのよろい</td><td>はがねのよろい</td><td>スライムのふく</td><td>うろこのたて</td><td>てつかぶと</td></tr>
-    <tr><th>13</th><td>ルラフェン</td><td>はがねのよろい</td><td>カメのこうら</td><td>てつかぶと</td><td>てっかめん</td><td>うろこのたて</td><td>マジックシールド</td></tr>
-    <tr><th>14</th><td>サラボナ</td><td>おどりこのふく</td><td>はがねのよろい</td><td>カメのこうら</td><td>みかわしのふく</td><td>ぎんのかみかざり</td><td>シルクハット</td></tr>
-    <tr><th>15</th><td>テルパドール</td><td>てつのむねあて</td><td>みかわしのふく</td><td>シルバーメイル</td><td>レースのビスチェ</td><td>マジックシールド</td><td>シルクハット</td></tr>
-    <tr><th>16</th><td>チゾット</td><td>シルバーメイル</td><td>レースのビスチェ</td><td>ブラッドメイル</td><td>まどうしのローブ</td><td>マジックシールド</td><td>てっかめん</td></tr>
-    <tr><th>17</th><td>グランバニア</td><td>ひかりのドレス</td><td>シルバーメイル</td><td>ぎんのむねあて</td><td>ドラゴンメイル</td><td>ふうじんのたて</td><td>てっかめん</td></tr>
-    <tr><th>18</th><td>エルヘブン</td><td>ぎんのむねあて</td><td>まほうのよろい</td><td>ひかりのドレス</td><td>けんじゃのローブ</td><td>ドラゴンシールド</td><td>ちりょくのかぶと</td></tr>
-    <tr><th>19</th><td>ジャハンナ</td><td>ほのおのよろい</td><td>てんしのレオタード</td><td>ミラーアーマー</td><td>ちからのたて</td><td>みかがみのたて</td><td>グレートヘルム</td></tr>
-    <tr><th>1A</th><td>サンタローズ</td><td>ひのきのぼう</td><td>たけのやり</td><td>とがったホネ</td><td>かしのつえ</td><td>どうのつるぎ</td></tr>
-    <tr><th>1B</th><td>サンタローズ</td><td>どくがのナイフ</td><td>ウォーハンマー</td><td>ゾンビキラー</td><td>らいじんのヤリ</td><td>ドラゴンキラー</td><td>こおりのやいば</td></tr>
-    <tr><th>1C</th><td>サンタローズ</td><td>ひのきのぼう</td><td>たけのやり</td><td>とがったホネ</td><td>かしのつえ</td><td>どうのつるぎ</td></tr>
-    <tr><th>1D</th><td>アルカパ</td><td>たけのやり</td><td>かしのつえ</td><td>ブロンズナイフ</td><td>どうのつるぎ</td><td>いばらのムチ</td><td>ブーメラン</td></tr>
-    <tr><th>1E</th><td>アルカパ</td><td>おおきづち</td><td>てつのツメ</td><td>くさりがま</td><td>チェーンクロス</td><td>やいばのブーメラン</td><td>くだものナイフ</td></tr>
-    <tr><th>1F</th><td>ラインハット</td><td>どうのつるぎ</td><td>ブーメラン</td><td>てつのつえ</td><td>チェーンクロス</td><td>いしのキバ</td><td>てつのツメ</td></tr>
-    <tr><th>20</th><td>ラインハット</td><td>いしのオノ</td><td>てつのつえ</td><td>チェーンクロス</td><td>はがねのつるぎ</td><td>はがねのキバ</td><td>どくばり</td></tr>
-    <tr><th>21</th><td>オラクルベリー</td><td>いしのキバ</td><td>ブーメラン</td><td>くさりがま</td><td>チェーンクロス</td><td>やいばのブーメラン</td></tr>
-    <tr><th>22</th><td>ポートセルミ</td><td>こんぼう</td><td>いしのオノ</td><td>やいばのブーメラン</td><td>おおかなづち</td><td>はがねのつるぎ</td><td>モーニングスター</td></tr>
-    <tr><th>23</th><td>ルラフェン</td><td>のこぎりがたな</td><td>おおかなづち</td><td>はがねのつるぎ</td><td>はがねのキバ</td><td>スネークセード</td></tr>
-    <tr><th>24</th><td>サラボナ</td><td>チェーンクロス</td><td>はがねのつるぎ</td><td>モーニングスター</td><td>はじゃのつるぎ</td><td>はがねのキバ</td></tr>
-    <tr><th>25</th><td>やまおくのむら</td><td>どくがのナイフ</td><td>おおかなづち</td><td>はがねのつるぎ</td><td>スネークセード</td><td>バトルアックス</td><td>はじゃのつるぎ</td></tr>
-    <tr><th>26</th><td>テルパドール</td><td>りりょくのつえ</td><td>モーニングスター</td><td>バトルアックス</td><td>はじゃのつるぎ</td><td>のこぎりがたな</td><td>はがねのキバ</td></tr>
-    <tr><th>27</th><td>チゾット</td><td>モーニングスター</td><td>バトルアックス</td><td>はじゃのつるぎ</td><td>ほのおのツメ</td><td>まどろみのけん</td></tr>
-    <tr><th>28</th><td>グランバニア</td><td>やいばのブーメラン</td><td>おおかなづち</td><td>はがねのキバ</td><td>スネークセード</td><td>ほのおのツメ</td><td>まどろみのけん</td></tr>
-    <tr><th>29</th><td>エルヘブン</td><td>まどろみのけん</td><td>ウォーハンマー</td><td>はがねのムチ</td><td>こおりのやいば</td><td>ゆうわくのけん</td><td>りりょくのつえ</td></tr>
-    <tr><th>2A</th><td>ジャハンナ</td><td>ドラゴンキラー</td><td>ふぶきのつるぎ</td><td>デーモンスピア</td><td>ビッグボウガン</td><td>ふっかつのつえ</td><td>ほのおのブーメラン</td></tr>
-    <tr><th>2B</th><td>ようせいのむら</td><td>いしのキバ</td><td>どうのつるぎ</td><td>ブーメラン</td><td>やくそう</td><td>どくけしそう</td><td>キメラのつばさ</td></tr>
-    <tr><th>2C</th><td>カボチ</td><td>せいすい</td><td>キメラのつばさ</td><td>てつのツメ</td><td>てつのむねあて</td><td>てつかぶと</td><td>どくばり</td></tr>
-    <tr><th>2D</th><td>やまおくのむら</td><td>やくそう</td><td>どくけしそう</td><td>せいすい</td><td>キメラのつばさ</td><td>まんげつそう</td><td>かわのぼうし</td></tr>
-    <tr><th>2E</th><td>メダル王</td><td>せんしのパジャマ</td><td>ふしぎなボレロ</td><td>きせきのつるぎ</td><td>しんぴのよろい</td><td>はやぶさのけん</td><td>メタルキングのたて</td></tr>
-    <tr><th>2F</th><td>カジノ</td><td>エルフののみぐすり</td><td>せかいじゅのは</td><td>メガンテのうでわ</td><td>キラーピアス</td><td>メタルキングのけん</td><td>グリンガムのムチ</td></tr>
+    <tr><td align="left"><varname>$0F20</varname></td><td>店屋種別コード</td></tr>
+    <tr><td align="left"><varname>$0F21</varname></td><td>キャラクター ID</td></tr>
+    <tr><td align="left"><varname>$0F22</varname></td><td>アイテム ID</td></tr>
+    <tr><td align="left"><varname>$0F23</varname></td><td>キャラクター ID</td></tr>
+    <tr><td align="left"><varname>$0F24</varname></td><td>カジノ景品リストの選択</td></tr>
+    <tr><td align="left"><varname>$0F25</varname></td><td>店屋地域 ID</td></tr>
+    <tr><td align="left"><varname>$0F26:0F28</varname></td><td>店屋データベースアドレス</td></tr>
+    <tr><td align="left"><varname>$0F28:0F2B</varname></td><td>ゴールド・カジノコイン</td></tr>
+    <tr><td align="left"><varname>$0F2B</varname></td><td>教会種別コードまたは宿屋種別コード</td></tr>
+    <tr><td align="left"><varname>$0F2C</varname></td><td>値ゼロで固定</td></tr>
   </tbody>
 </table>
+<variablelist>
+  <varlistentry>
+    <term>店屋種別コード</term>
+    <listitem>
+      <para>
+        この変数は、店屋が道具屋、防具屋、武器屋、よろず屋の共通処理中において、
+        現在の店屋がいずれなのかを判別する定数を表すために用いられる。
+        前述の台詞メッセージ ID のオフセットや
+        店屋データの検索キーの一つの値を意味する。
+        それゆえ、店屋の種類がこの四つのいずれかである場合以外は、
+        コードと店屋種別との対応関係はそれほど重要ではない。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>カジノ景品リストの選択</term>
+    <listitem>
+      <para>
+        この変数は、プレイヤーが指定したカジノ景品交換所のアイテムリストにおける選択位置を表す。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>店屋地域 ID</term>
+    <listitem>
+      <para>
+        この変数は、店屋に対応する地域を表す ID 値であり、
+        ルーラの呪文の各項目の ID と同一の概念だ。
+        これは店屋データの検索キーの一つの値として用いられる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>店屋データベースアドレス</term>
+    <listitem>
+      <para>
+        この変数は、店屋の売り物メニューを表現するデータ構造の先頭アドレスのためのものだ。
+        アドレス値なので 2 バイト長の変数として扱う。
+        ただしデータバンクは <varname>$04</varname> となる。
+        データの内容については後述する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ゴールド・カジノコイン</term>
+    <listitem>
+      <para>
+        この変数は、プレイヤーが店屋に支払う代金を格納する。
+        ゴールドの場合とカジノコインの場合とがあるので、
+        プログラムとしては 3 バイト長の変数として扱う。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>教会種別コードまたは宿屋種別コード</term>
+    <listitem>
+      <para>
+        この変数は店屋が教会系もしくは宿屋系の場合にのみ意味がある。
+        いずれも利用方法としては、店屋主人の台詞メッセージ ID のオフセットを調整するものだ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq5.shop.keepers.variables -->
+
+</section> <!-- dq5.shop.keepers -->
+
+<section id="dq5.shop.data">
+<title>店屋データ</title>
+<para>
+<xref linkend="appendix.b"/> で店屋売り物データ、宿屋データを示す。
+</para>
+</section> <!-- dq5.shop.data -->
 </section> <!-- dq5.shop -->
 
