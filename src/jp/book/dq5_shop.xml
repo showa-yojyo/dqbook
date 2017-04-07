@@ -83,7 +83,7 @@
 <section id="dq5.shop.keepers.06DC04">
 <title>武器屋</title>
 <para>
-武器屋の処理は <varname>$06DC04</varname> から始まり、かなりの分量のコードからなる。
+武器屋の処理は <varname>$DC04</varname> から始まり、かなりの分量のコードからなる。
 コードを逐一解説する紙幅がないので、要点に絞って解説する。
 </para>
 <itemizedlist>
@@ -196,7 +196,7 @@
 <section id="dq5.shop.keepers.06E03E">
 <title>教会（神父）</title>
 <para>
-教会の処理はサブルーチンとしては <varname>$06E03E</varname> から始まるかなり長いコードで構成されている。
+教会の処理はサブルーチンとしては <varname>$E03E</varname> から始まるかなり長いコードで構成されている。
 以下に要点のみを羅列する。
 </para>
 <itemizedlist>
@@ -272,7 +272,7 @@
 <section id="dq5.shop.keepers.06E384">
 <title>宿屋（標準）</title>
 <para>
-宿屋の処理はサブルーチンとしては <varname>$06E384</varname> から始まる。
+宿屋の処理はサブルーチンとしては <varname>$E384</varname> から始まる。
 思いの外難しいコードを利用しているので、以下に要点を羅列することしかできない：
 </para>
 <itemizedlist>
@@ -307,11 +307,77 @@
 <section id="dq5.shop.keepers.06E4DE">
 <title>預かり所</title>
 <para>
-TBW
+預かり所の処理はサブルーチン <varname>$E4DE</varname> に実装されている。
 </para>
 <itemizedlist>
   <listitem>
     <para>
+      「あずける＞おかね」において、既に 1,000,000 ゴールドの残高がある場合は、
+      さらなる預金をすることができない。
+      また、これから預金する額と加算して 1,000,000 ゴールドを超えるような場合もいけない。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      サブルーチン <varname>$E928</varname> を呼び出すと、
+      入力ウィンドウで指定した金額を 1000G 単位に換算する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「あずける＞もちもの」において、既に 99 個預けてあるアイテムについては預けることは不可能だ。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      持ち物を預ける際に、持ち主の状態によって店員の台詞が異なるが、
+      この判定基準は武器屋等と同様となっている。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      先に預かり所のデータを更新してから、キャラクターの持ち物データを更新する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「ひきだす＞おかね」において、指定金額と現在の所持金の和が 99,999 を超える場合には引き出し処理を失敗させるのだが、
+      その際の変数比較処理が 3 バイト長にわたるため、やや面倒なことになっている：
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      先に預かり所のデータを更新してから、所持金を更新する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「ひきだす＞ぼうぐ」「ひきだす＞ぶき」「ひきだす＞どうぐ」の各処理の前半部はよく似ているが、
+      在庫がないときの台詞や表示するウィンドウが異なるためにほとんどコピーアンドペーストなコードとなっている。
+      後半部、つまり引き出すアイテムを指定した直後からの処理はコードを共有している。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      引き出したアイテムを受け取るキャラクターが所持品満杯なときは店員がダメ出しをするが、
+      なおかつパーティーがそのキャラクター一人しかいない場合には余分に台詞（何か 売るなり 捨てるなり～）がある。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      引き出したアイテムに装備可能性属性があると、受取人の装備可能性をテストする。
+      結果に応じて店員の台詞を追加で表示する。ただし装備可能であっても、この場で装備することはない。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      他の店屋でのアイテム受け取りと同様に、受け取るキャラクターの状態によって店員の台詞が変化する。
+      テスト順も生存、マヒ、馬車の順で一貫性がある。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      アイテム引き出しにおいても、先に預かり所のデータを更新して、それからキャラクターのデータを更新する。
     </para>
   </listitem>
 </itemizedlist>
@@ -320,11 +386,89 @@ TBW
 <section id="dq5.shop.keepers.06E95A">
 <title>モンスターじいさん</title>
 <para>
-TBW
+モンスターじいさんの処理はサブルーチン <varname>$E95A</varname> に実装されている。
+ただし、ここは馬車が使えるようになってから到達可能となるプログラムコードだ。
 </para>
 <itemizedlist>
   <listitem>
     <para>
+      当プログラムバンク内にある（店屋処理以外の）いろいろなサブルーチンが
+      「はい・いいえ」ウィンドウの処理をラップした補助サブルーチン <varname>$EBBC</varname> 
+      を利用するのだが、モンスターじいさんの処理中においてもこれを利用する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「わかれにきた」で仲間モンスターキャラクターを削除することが確定すると、
+      装備品の全てについて預かり所の対応アイテム数を高々 1 だけ増加し、
+      それから仲間モンスターの獲得状況を管理する配列 <varname>$7E29EA</varname> を更新する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「あずけにきた」でじいさんのところに収容できる仲間は 50 頭が上限。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「あずけにきた」で仲間キャラクターを選択すると、まずは彼のモンスターフラグをテストする。
+      それが真ならば、次に彼に対する、モンスターじいさんに預けるのを禁止するかどうかを示すフラグをテストする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      預けられるキャラクターについては、じいさんの台詞のバリエーションに彩りを添えるために生存フラグをテストする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      仲間を預けるときに所持品が預かり所へ送られる理由を説明する条件は、
+      じいさんに預けてあるキャラクターが一頭もいないことだ。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      仲間キャラクターの入れ替えに必要な処理は BRK 命令の特定の番号の処理でカプセル化されている。
+      これは <xref linkend="dq5.accessor"/> の <literal>#$A8</literal> および
+      <literal>#$A9</literal> をラップしており、それぞれ「あずけにきた」と「むかえにきた」に対応する。
+      また、現在パーティーの更新処理と思われるが、サブルーチン <varname>$05D89D</varname> の呼び出しを行う。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      仲間を一頭預けたときに、じいさんが他のモンスターも預かろうか尋ねる条件が不透明。
+      コードを見る限りでは単に二名以上いることをテストするだけで十分だと思われる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「むかえにきた」では、次のどちらかが成り立ってる必要がある。
+      通常のゲーム状況では後者のみを考慮すればよい：
+    </para>
+    <itemizedlist>
+        <listitem>
+          <para>
+            馬車を所有していない場合、パーティー構成人数が 3 未満である。
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            馬車を所有している場合、パーティー構成人数が 8 未満である。
+          </para>
+        </listitem>
+    </itemizedlist>
+  </listitem>
+  <listitem>
+    <para>
+      「むかえにきた」で仲間を追加した直後に、
+      サブルーチン <varname>$21805A</varname> を実行することで、
+      彼のキャラクター構造体オブジェクトの属性である「次のレベルアップ経験値」をセットする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「ようすをみる」は基本的にはウィンドウ処理がほとんどだ。
+      この過程で選択したキャラクターデータが <varname>$7E2040</varname> 系のアドレスに一時的にロードされている気配がある。
     </para>
   </listitem>
 </itemizedlist>
@@ -333,11 +477,29 @@ TBW
 <section id="dq5.shop.keepers.06EBF7">
 <title>メダル王</title>
 <para>
-TBW
+メダル王の処理はサブルーチン <varname>$EBF7</varname> に実装されている。
+この処理の特徴を次に列挙する：
 </para>
 <itemizedlist>
   <listitem>
     <para>
+      最初に、パーティーの全員の所持品それぞれから「ちいさなメダル」を取り除きながらメダル王のストックカウンターを増加するという処理がある。
+      これが実行効率を度外視したコードになっていることに注意したい。
+      パーティー全員に「ちいさなメダル」を 12 枚持たせてメダル王に「はなす」と、
+      相当体感時間が長いのではないだろうか。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      褒美品リストはデータとしてよろず屋データ配列に居候しているので、
+      先に述べたように変数 <varname>$0F20</varname> を <literal>#$03</literal> に上書きしてから、
+      店屋データアクセスサブルーチン <varname>$DFBA</varname> を呼び出す。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      褒美品の受け渡しでは、受け取るキャラクターの所持品を更新して、
+      それからメダル王のメダル残高を更新する。
     </para>
   </listitem>
 </itemizedlist>
@@ -346,11 +508,45 @@ TBW
 <section id="dq5.shop.keepers.06ED01">
 <title>ルイーダの店</title>
 <para>
-TBW
+ルイーダの店の処理はサブルーチン <varname>$ED01</varname> に実装されている。
+この処理の特徴を次に列挙する：
 </para>
 <itemizedlist>
   <listitem>
     <para>
+      「なかまをはずす」の選択キャラクターの属性や状態で、ルイーダの応答内容が変化する。
+      まず、属性として「ルイーダに預けるの禁止」フラグが真の者については、さらに追加で
+      彼が人間かモンスターかをテストする。それによりルイーダの台詞が異なる。
+      次に、外したい仲間が死亡の場合、モンスターじいさんとは対照的に預けられない。
+      最後に、外したい仲間が馬車内にいるか否かで、台詞を使い分ける。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      仲間をルイーダに預けるときのデータ更新は BRK 命令処理となる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      仲間をルイーダに預けると、その人物に対応したフラグを更新する処理が入る。
+      サブルーチン <varname>$2981CB</varname> 呼び出しはそれを実行する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「なかまを くわえる」では、モンスターじいさんの「むかえにきた」同様のポリシーがある。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      仲間が加わると、その人物に対応したフラグを更新するために、
+      サブルーチン <varname>$298190</varname> を呼び出す。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      ルイーダコマンドのどちらの処理においても、おそらく現在のパーティー情報を更新するために、
+      一人分の入れ替えの最後にサブルーチン <varname>$05D89D</varname> を呼び出す。
     </para>
   </listitem>
 </itemizedlist>
@@ -359,11 +555,20 @@ TBW
 <section id="dq5.shop.keepers.06EE34">
 <title>カジノキャッシャー</title>
 <para>
-TBW
+カジノキャッシャーはサブルーチン <varname>$EE34</varname> に実装されている。
 </para>
 <itemizedlist>
   <listitem>
     <para>
+      補助サブルーチン <varname>$EEC3</varname> では、プレイヤーが入力したコイン枚数を購入するのに必要なゴールドを計算する。
+      コードを読むと、文字列的データから十進数表現だと桁数が大きくなる値を処理することが面倒だということがわかる。
+      ここではさらに乗算も絡めているので大変だ。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      コインを 9,999,999 枚を超えて所有するようなコインの購入はできない。
+      そのような数値入力はバニーを断らせることになる。
     </para>
   </listitem>
 </itemizedlist>
