@@ -498,6 +498,20 @@
   </listitem>
   <listitem>
     <para>
+      褒美品のメダル換算率は配列 <varname>$04FD55</varname> で定義されている。
+      インデックスは褒美メニュー項目に対するそれと一致する。
+    </para>
+<programlisting>
+04/FD55:    05  ;  5 せんしのパジャマ
+04/FD56:    0A  ; 10 ふしぎなボレロ
+04/FD57:    10  ; 16 きせきのつるぎ
+04/FD58:    15  ; 21 しんぴのよろい
+04/FD59:    1E  ; 30 はやぶさのけん
+04/FD5A:    2B  ; 43 メタルキングのたて
+</programlisting>
+  </listitem>
+  <listitem>
+    <para>
       褒美品の受け渡しでは、受け取るキャラクターの所持品を更新して、
       それからメダル王のメダル残高を更新する。
     </para>
@@ -577,11 +591,88 @@
 <section id="dq5.shop.keepers.06EF70">
 <title>カジノ景品交換所</title>
 <para>
-TBW
+カジノ景品交換所の処理はサブルーチン <varname>$EF70</varname> に実装されている。
+処理の構造はアイテム系店屋の「かいにきた」と同じだが、ゴールドの代わりにコインを消費するところが違いだ。
 </para>
 <itemizedlist>
   <listitem>
     <para>
+      あと、最初にこちらの懐具合をチェックしに来るのも特徴だ。
+      コインを一枚も持っていないとバニーが台詞をしゃべって店屋処理が終了する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      景品リストデータをよろず屋データ配列に間借りして定義している関係上、
+      変数 <varname>$0F20</varname> を <literal>#$03</literal> に上書きしてから、
+      店屋データアクセスサブルーチン <varname>$DFBA</varname> を呼び出す。
+      このときに地域 ID を <literal>#$15</literal> つまりエビルマウンテンの値にセットしているが、
+      店屋データでどういうわけかその値を検索キーとして採用しているに過ぎない。
+      エビルマウンテンに深い意味があるわけではないだろう。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      プレイヤーが景品を選択すると、アイテム系店屋とは異なり本当にそれでよいのか確認をする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      選択アイテムが戦闘中に道具として使うと特別な効果がある性質のものであれば、
+      そのことを告げるようになっているのだが、
+      残念なことにカジノの景品ではそのようなものはないので、事実上没台詞となっている。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      選択した景品が武器、防具、盾、兜のいずれかのアイテム種別であり、
+      かつ受け取りたいキャラクターがそれを装備できないと、バニーから念を押される。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      景品を受け取りたいキャラクターがアイテムを 12 個所持していて、
+      かつパーティーに一人しかいない場合には、バニーが少し持ち物を減らしてからまた来るようにと告げる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      指定キャラクターが景品を持つ空間的余裕があることを確認してから、コインの支払い能力をテストする。
+      それを果たすためにサブルーチン <varname>$F05B</varname> を実行する。
+      この補助サブルーチンの中身を解読すると、カジノ景品交換率が次で定義されていることがわかる：
+    </para>
+<programlisting>
+04/FD5B:    2C0100 ;     500 エルフののみぐすり
+04/FD5E:    E80300 ;   1,000 せかいじゅのは
+04/FD61:    881300 ;   5,000 メガンテのうでわ
+04/FD64:    102700 ;  10,000 キラーピアス
+04/FD67:    50C300 ;  50,000 メタルキングのけん
+04/FD6A:    90D003 ; 250,000 グリンガムのムチ
+</programlisting>
+  </listitem>
+  <listitem>
+    <para>
+      コインでの支払いはサブルーチン <varname>$F084</varname> による。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      受け取りキャラクターが景品を装備可能であれば、バニーが装備するかどうかを尋ねる。
+      「はい」ならば受け取りキャラクターの所持品および装備状態を更新し、
+      「いいえ」ならば通常の受け渡し処理を行う。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      通常の受け渡し処理は、アイテム系店屋のポリシーを踏襲したコードになっている。
+      つまり、死亡テスト、マヒテスト、そして馬車テストを、この順番に行う可能性がある。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      ところで、このサブルーチンのコードは重複部がとても多い。
+      指定の景品が武器、防具、盾、兜のどれかであるか否かで処理を大きく分けているのだが、
+      それらの処理のうちの判定系コードが一致している。
     </para>
   </listitem>
 </itemizedlist>
@@ -590,11 +681,15 @@ TBW
 <section id="dq5.shop.keepers.06F1E8">
 <title>スライムレース</title>
 <para>
-TBW
+スライムレースの処理はサブルーチン <varname>$F1E8</varname> に実装されている。
+と言っても、レース自身は別バンクにあるサブルーチン <varname>$03A1EE</varname> に実装されている。
+そちらについては別の節で考察する。
 </para>
 <itemizedlist>
   <listitem>
     <para>
+      コインを一枚たりとも持っていないと、コインを買ってからまた来るように言われる。
+      台詞の後半で唐突に言葉が丁寧になるので面白い。
     </para>
   </listitem>
 </itemizedlist>
@@ -603,11 +698,89 @@ TBW
 <section id="dq5.shop.keepers.06F226">
 <title>格闘場</title>
 <para>
-TBW
+格闘場の処理はサブルーチン <varname>$F226</varname> から始まる。
+このプログラムバンク内にあるコードを中心に見ていこう。
 </para>
 <itemizedlist>
   <listitem>
     <para>
+      試合におけるマッチメイクはサブルーチン <varname>$268E38</varname> で決定する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      賭けるモンスターを決定した後に、こちらに賭けるコインがあるかどうかをテストする。
+      コインを一枚たりとも持っていないと、例によってコインを買ってからまた来るように言われる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      賭ける額を入力して決定ボタンを押すと、こちらの所有コイン総額が減る。
+      減らしてから係員がセリフを喋る。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      この辺からコードを解読するのが面倒になるが、
+      とりあえずサブルーチン <varname>$208226</varname> が格闘場での戦闘そのもののようだ。
+      戻り値によって賭けの結果を表現しており、
+      <itemizedlist>
+        <listitem><para>ゼロならば勝ち、</para></listitem>
+        <listitem><para><literal>#$80</literal> ならば引き分け、</para></listitem>
+        <listitem><para>それ以外は負け</para></listitem>
+      </itemizedlist>
+      として扱う。
+    </para>
+    <para>
+       サブルーチン <varname>$208226</varname> についても本書の対象範囲にあるので、節を改めて論じる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      賭けに勝つと、賭けたコインの枚数と指定のオッズを乗算する。
+      CPU に浮動小数点演算がないので、オッズの小数点を右にずらして得られる整数を乗算したり、
+      乗算結果を 10 で除算したりするなどの工夫を要する。
+      演算用作業変数の値を 10 で割る補助サブルーチンとして <varname>$F487</varname> を繰り返し呼び出す。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      賭けに勝ったときのファンファーレをサブルーチン <varname>$23E50B</varname> で演奏する。
+      <itemizedlist>
+        <listitem><para>コイン総額 500 未満は小、</para></listitem>
+        <listitem><para>10,000 以上は大、</para></listitem>
+        <listitem><para>それ以外は中</para></listitem>
+      </itemizedlist>
+      のファンファーレが鳴り響く。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      さらに獲得コイン総額をプッシュして次のゲームに進む権利を得られる。
+      一度「はい」と答えてからキャンセルをすると、係員から取りやめられないことを告げられて、
+      再びモンスター選択ウィンドウがアクティブになる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      ただし獲得総額が 10,000 コイン以上になると打ち止めだ。
+      係員からカジノの本日のキングだとほめられて、格闘場の処理が終了となる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      賭けに負けると係員が残念だと一言あった後に、次の試合をやるかどうか尋ねてくる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      試合が引き分けると、係員から案内メッセージがあり賭けコインを返却され、
+      それから次の試合をやるかどうか尋ねてくる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      コインの獲得および返却には共通してサブルーチン <varname>$F446</varname> を呼び出す。
     </para>
   </listitem>
 </itemizedlist>
@@ -714,4 +887,3 @@ TBW
 </para>
 </section> <!-- dq5.shop.data -->
 </section> <!-- dq5.shop -->
-
