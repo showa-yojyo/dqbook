@@ -37,7 +37,7 @@
 次に示すのは、そのようにして得られたジャンプテーブルの詳細だ：
 </para>
 <programlisting>
-06/DBDB:    FDDB        ; （なし）
+06/DBDB:    FDDB        ; ダミーコード
 06/DBDD:    04DC        ; 武器屋
 06/DBDF:    1FE0        ; 道具屋
 06/DBE1:    26E0        ; 防具屋
@@ -59,14 +59,14 @@
 以下、店屋の種類ごとにそれぞれの処理の急所を記していく。
 読者自身でコードを解読するのであれば、次に挙げる記述やデータを利用して欲しい：
 </para>
-<simplelist type='vert' columns='1'>
-  <member><xref linkend="dq5.brk"/></member>
-  <member><xref linkend="dq5.accessor"/></member>
-  <member><ulink url="./data/dq5_07D77C_text_travel.txt"/></member>
-</simplelist>
+<itemizedlist>
+  <listitem><para><xref linkend="dq5.brk"/></para></listitem>
+  <listitem><para><xref linkend="dq5.accessor"/></para></listitem>
+  <listitem><para><ulink url="./data/dq5_07D77C_text_travel.txt"/></para></listitem>
+</itemizedlist>
 
 <section id="dq5.shop.keepers.06DBFD">
-<title>（なし）</title>
+<title>ダミーコード</title>
 <para>
 製品版プログラムはこのコードをカバーしない。便宜上存在するだけのダミーコードだ。
 短いので全文引用した上で、適宜コメントを付す：
@@ -153,6 +153,38 @@
     </para>
   </listitem>
 </itemizedlist>
+
+<para>
+先ほど後回しにしておいた、店屋の商品定義データについて以下に説明する。
+武器屋だけでなく、アイテム系店屋はどれもが店の品揃えを保持するデータと対応付けられている。
+最初に店の種別とデータアドレスとの対応表がアドレス <varname>$04FBD5</varname> にあり、それを最初に参照する。
+この対応表については短いのでコードを引用する：
+</para>
+<programlisting>
+04/FBD5:    DDFB        ; 道具屋
+04/FBD7:    33FC        ; 防具屋
+04/FBD9:    ABFC        ; 武器の店
+04/FBDB:    2DFD        ; よろず屋
+</programlisting>
+<para>
+それから店のある地域というか、ルーラの呪文でも使われる ID をキーとした探索操作によって、対応データの格納位置を ROM から特定する。
+対応データの構造が次のような不定長データの配列であることを踏まえて、その店固有の商品群を参照する：
+</para>
+<table id="table.dq5.shop.structure" class="lighttable">
+  <caption>店屋構造体</caption>
+  <thead>
+    <tr>
+      <th>オフセット</th>
+      <th>意味</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td>地域 ID</td></tr>
+    <tr><td><literal>#$01</literal></td><td>商品のアイテム ID</td></tr>
+    <tr><td>...</td><td>...</td></tr>
+    <tr><td></td><td><literal>#$FF</literal></td></tr>
+  </tbody>
+</table>
 </section> <!-- dq5.shop.keepers.06DC04 -->
 
 <section id="dq5.shop.keepers.06E01F">
@@ -302,6 +334,22 @@
     </para>
   </listitem>
 </itemizedlist>
+<para>
+データテーブル <varname>$04FD6D</varname> の単位構造は次のような単純な値の組だ：
+</para>
+<table id="table.dq5.inn.structure" class="lighttable">
+  <caption>宿屋構造体</caption>
+  <thead>
+    <tr>
+      <th>オフセット</th>
+      <th>意味</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td>地域 ID</td></tr>
+    <tr><td><literal>#$01</literal></td><td>一人当たりの宿代</td></tr>
+  </tbody>
+</table>
 </section> <!-- dq5.shop.keepers.06E384 -->
 
 <section id="dq5.shop.keepers.06E4DE">
@@ -705,6 +753,11 @@
   <listitem>
     <para>
       試合におけるマッチメイクはサブルーチン <varname>$268E38</varname> で決定する。
+      そこでは主人公のレベルと乱数を基に、
+      あらかじめ定義された選手モンスターと倍率の組み合わせを参照する。
+      その後、倍率を乱数で揺らして、最終的なマッチメイクを決定するという処理を実行するサブルーチンだ。
+      配列 <varname>$23DC27</varname> がレベル閾値を、
+      データテーブル <varname>$23DA97</varname> が格闘場のマッチメイク一つ一つをそれぞれ表現している。
     </para>
   </listitem>
   <listitem>
@@ -737,8 +790,8 @@
   </listitem>
   <listitem>
     <para>
-      賭けに勝つと、賭けたコインの枚数と指定のオッズを乗算する。
-      CPU に浮動小数点演算がないので、オッズの小数点を右にずらして得られる整数を乗算したり、
+      賭けに勝つと、賭けたコインの枚数と指定の倍率を乗算する。
+      CPU に浮動小数点演算がないので、倍率の小数点を右にずらして得られる整数を乗算したり、
       乗算結果を 10 で除算したりするなどの工夫を要する。
       演算用作業変数の値を 10 で割る補助サブルーチンとして <varname>$F487</varname> を繰り返し呼び出す。
     </para>
@@ -784,6 +837,31 @@
     </para>
   </listitem>
 </itemizedlist>
+<para>
+データテーブル <varname>$23DA97</varname> の単位構造は次のようになっている。
+空席の選手には <literal>#$FF</literal> がモンスター ID の代わりに用いられている。
+倍率は、実際のゲームで適用されるオッズの整数部の値と思われる。
+対応する選手がいないデータでは、ここにはゼロが格納されている。
+</para>
+<table id="table.dq5.matchmake.structure" class="lighttable">
+  <caption>マッチメイク構造体</caption>
+  <thead>
+    <tr>
+      <th>オフセット</th>
+      <th>意味</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td>モンスター [00]</td></tr>
+    <tr><td><literal>#$01</literal></td><td>倍率 [00]</td></tr>
+    <tr><td><literal>#$02</literal></td><td>モンスター [01]</td></tr>
+    <tr><td><literal>#$03</literal></td><td>倍率 [01]</td></tr>
+    <tr><td><literal>#$04</literal></td><td>モンスター [02]</td></tr>
+    <tr><td><literal>#$05</literal></td><td>倍率 [02]</td></tr>
+    <tr><td><literal>#$06</literal></td><td>モンスター [03]</td></tr>
+    <tr><td><literal>#$07</literal></td><td>倍率 [03]</td></tr>
+  </tbody>
+</table>
 </section> <!-- dq5.shop.keepers.06F226 -->
 
 <section id="dq5.shop.keepers.variables">
@@ -883,7 +961,10 @@
 <section id="dq5.shop.data">
 <title>店屋データ</title>
 <para>
-<xref linkend="appendix.b"/> で店屋売り物データ、宿屋データを示す。
+本節で見てきたデータテーブルでまだ内容を示していないものである、
+店屋商品データ、宿屋データ、格闘場データをテキストファイル化して <xref linkend="appendix.b"/> から参照できるようにしておく。
+基本的にはデータテーブル一つに対して、CSV ファイル一つを対応させるが、
+格闘場データは例外的にデータテーブル <varname>$23DA97</varname> と配列 <varname>$23DC27</varname> をこの順に <command>paste</command> しておいた。
 </para>
 </section> <!-- dq5.shop.data -->
 </section> <!-- dq5.shop -->
