@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq5.battle.commands"><?dbhtml filename="dq5_battle_commands.html" ?>
+<title>戦闘コマンド</title>
+<para>
+この節では戦闘コマンドについて述べる。
+戦闘コマンドとは、戦闘中の一ターン内において、敵や味方それぞれに対する命令をカプセル化した概念だと定義する。
+プログラムコードの観点では、戦闘中に配列 <varname>$1073</varname> などに格納される 1 バイトの値を ID とする何らかの配列要素を戦闘コマンドと表現していると解釈する。
+</para>
+<para>
+本節では最初に実際のプログラムコードに沿う形で戦闘コマンドの分類を行う。
+戦闘コマンドと関連性のあるデータについても併せて見ていく。
+それから、戦闘コマンド分類のそれぞれについて、付随するモデルの物理的構造やコードの挙動を検討していく。
+最後に、コードを分析して得た戦闘コマンドデータを CSV 形式のテキストファイルで提供する。
+</para>
+
+<section id="dq5.battle.commands.classification">
+<title>戦闘コマンドを分類する</title>
+<para>
+TBW
+</para>
+</section> <!-- dq5.battle.commands.classification -->
+
+<section id="dq5.battle.commands.guard">
+<title>防御系のコマンド</title>
+<para>
+TBW
+</para>
+</section> <!-- dq5.battle.commands.guard -->
+
+<section id="dq5.battle.commands.general">
+<title>一般のコマンド</title>
+<para>
+TBW
+</para>
+</section> <!-- dq5.battle.commands.general -->
+
+<section id="dq5.battle.commands.equip">
+<title>装備を変更するコマンド</title>
+<para>
+TBW
+</para>
+</section> <!-- dq5.battle.commands.equip -->
+
+<section id="dq5.battle.commands.use">
+<title>道具を使用するコマンド</title>
+<para>
+TBW
+</para>
+</section> <!-- dq5.battle.commands.use -->
+</section> <!-- dq5.battle.commands -->
