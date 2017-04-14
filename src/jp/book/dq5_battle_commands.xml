@@ -264,14 +264,115 @@ BRK 命令を実行することで、戦闘コマンドの名前にアクセス�
 <section id="dq5.battle.commands.equip">
 <title>装備を変更するコマンド</title>
 <para>
-TBW
+種別が 2 の戦闘コマンドとは、プレイヤーの通常の入力操作において次の条件を満たす、味方側キャラクター限定のものをいう：
+</para>
+<itemizedlist>
+  <listitem><para>指定キャラクターのコマンド選択ウィンドウで「どうぐ」を選択した</para></listitem>
+  <listitem><para>どうぐウィンドウで選択した物のアイテム種別が武器である</para></listitem>
+  <listitem><para>指定キャラクターがその武器を装備することが可能である</para></listitem>
+  <listitem><para>「つかう・そうび」ウィンドウで「そうび」を選択した</para></listitem>
+</itemizedlist>
+<para>
+言い換えると、キャラクターが武器の装備を変更して、さらに直接攻撃をするという流れを生じるコマンドを意味する。
+この定義から、武器でないアイテムが関わるどのようなコマンドも、ここで議論するものには該当しないことを意味する。
+例えば「ほしふるうでわ」を選択すると、そのターンで実際にそれを装備するが、これは種別 2 のコマンドではない。
+後述する種別 3 のコマンドに分類される。
+</para>
+<para>
+実際には、戦闘コマンド情報を評価するタイミングで次のような操作を施す：
+</para>
+<orderedlist>
+  <listitem>
+    <para>
+      現在装備している武器があれば、それを外す。
+      これに伴って、対象キャラクターの攻撃力と守備力を再評価する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      選択したアイテムを装備する。
+      やはり対象キャラクターの攻撃力と守備力を再評価する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      戦闘コマンドとコマンド種別を「こうげき」コマンドと一般コマンドにそれぞれ置き換える。
+      この際、装備を変更したことを示すメッセージを表示する（下記コード片参照）。
+    </para>
+  </listitem>
+</orderedlist>
+<programlisting>
+20/8583:    A973        LDA #$73            ; 「こうげき」
+20/8585:    8DF710      STA $10F7           ; 戦闘コマンド ID
+20/8588:    20809F      JSR $9F80           ; コマンドキャラクターの戦闘コマンド ID を設定
+20/858B:    20419F      JSR $9F41           ; コマンドキャラクターの戦闘コマンド情報を参照
+20/858E:    29FC        AND #$FC
+20/8590:    0901        ORA #$01            ; 種別 1: 一般コマンド
+20/8592:    206B9F      JSR $9F6B           ; コマンドキャラクターの戦闘コマンド情報を設定
+20/8595:    20DF9E      JSR $9EDF           ; コマンドキャラクターを参照
+20/8598:    85F5        STA $F5
+20/859A:    85F7        STA $F7
+20/859C:    00A1        BRK #$A1            ; message #$0028: [F7]は ぶきを [F5]にもちかえた！
+20/859E:    28
+20/859F:    20D69D      JSR $9DD6           ; 待ち
+20/85A2:    ADF710      LDA $10F7           ; 戦闘コマンド ID
+20/85A5:    82A6FE      BRL $844E           ; （戦闘コマンド ID による分岐）
+</programlisting>
+<para>
+なお、戦闘コマンド ID を収める変数には、
+そこに「こうげき」を示す値 <literal>#$73</literal> が入るまでは新しく装備する武器のアイテム ID が収められていた。
 </para>
 </section> <!-- dq5.battle.commands.equip -->
 
 <section id="dq5.battle.commands.use">
 <title>道具を使用するコマンド</title>
 <para>
-TBW
+種別 3 の戦闘コマンドとは、味方側キャラクターに限定された、道具に関する戦闘コマンドを意味する。
+先に述べたように、実行時のメッセージに「そうびした！」とあっても、実質的にはこちらの種別になるコマンドが普通にある。
 </para>
+<para>
+種別が 3 の戦闘コマンドには次に挙げる性質、属性がある：
+</para>
+<itemizedlist>
+  <listitem>
+    <para>アイテム</para>
+  </listitem>
+  <listitem>
+    <para>実行コード</para>
+  </listitem>
+</itemizedlist>
+
+<section id="dq5.battle.commands.use.item">
+<title>アイテム</title>
+<para>
+戦闘コマンド ID はアイテム ID でもあるので、処理コードはアイテムの属性をすべて参照することが可能だ。
+例えば、コマンド処理中にアイテムが消耗品であるかどうかを知る必要がある。
+アイテムについては <xref linkend="dq5.item"/> で議論する。
+</para>
+</section> <!-- dq5.battle.commands.use.item -->
+
+<section id="dq5.battle.commands.use.execute">
+<title>実行コード</title>
+<para>
+実行コードはサブルーチンで実装されている。ジャンプテーブルはアドレス <varname>$20C162</varname> にあるのだが、
+このテーブルの列 ID は戦闘コマンド ID すなわちアイテム ID とは一致していない。
+アイテム ID から列 ID への対応表がアドレス <varname>$27819A</varname> にあり、これを用いて変換する。
+たいていのアイテムは「しかし なにも おこらなかった」というメッセージ表示しか引き起こさないので、
+それ以外の戦闘コマンドに対してしか意味のある実行コードを用意しなくて済むようにこのような構造になっている。
+</para>
+<para>
+使用コマンドが何らかの固有処理を有する場合には、その処理コードを特定した直後に、
+そのアイテムを消費するかどうかを判定し、消耗品であれば実際にキャラクターの持ち物袋からそれを一つだけ削除する。
+その後に固有処理をするサブルーチンを呼び出す。
+</para>
+</section> <!-- dq5.battle.commands.use.execute -->
 </section> <!-- dq5.battle.commands.use -->
+
+<section id="dq5.battle.commands.data">
+<title>データ</title>
+<para>
+戦闘コマンドデータを CSV で表現したファイルを <xref linkend="appendix.b"/> から参照できる。
+本節で述べた複数の配列とテーブルを水平に結合したり、コメント欄を付加してあったりするので利用者は注意して欲しい。
+</para>
+</section> <!-- dq5.battle.commands.data -->
 </section> <!-- dq5.battle.commands -->

@@ -83,7 +83,8 @@
   <member><ulink url="./data/dq5_23B591_item_equip.txt"><filename>dq5_23B591_item_equip.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_23B669_item_equip.txt"><filename>dq5_23B669_item_equip.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_23D757_encounter_event.txt"><filename>dq5_23D757_encounter_event.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_battle_command.txt"><filename>dq5_battle_command.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_battle_command_general.txt"><filename>dq5_battle_command_general.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_battle_command_use.txt"><filename>dq5_battle_command_use.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_matchmake.txt"><filename>dq5_matchmake.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_monster.txt"><filename>dq5_monster.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_mp3.txt"><filename>dq5_mp3.txt</filename></ulink></member>
