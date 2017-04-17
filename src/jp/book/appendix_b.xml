@@ -7,23 +7,115 @@
 
 <appendix id="appendix.b"><?dbhtml filename="appendix_b.html" ?>
 <title>データ</title>
-<caution>
-  <para>
-    この付録は現在作業中につき、以下のリストがリンクしているデータファイル形式や、
-    タイトルは無整理状態で配列している。
-    さらに、各データの内容とその中身の意味もまったく説明を与えていない。
-  </para>
-</caution>
 <para>
-解析結果をファイルとして記録したものがあるので、それらへのリンクを以下にまとめる。
-記者が解析したものよりも、参考資料の解析結果を基にダンプして作成したデータファイルのほうが多くなっている。
-どのプラットフォームでも簡単に閲覧ができるように、ファイル形式をテキストとした。
-各ファイルは <acronym>CSV</acronym> 形式か、散文形式のどちらかになっている。
-<acronym>CSV</acronym> 形式の場合、古いファイルはセパレータがカンマになっているが、
-最近製作のものはコロンになっている。
-いずれにせよ、Excel 等にコピーアンドペーストすれば多少は見やすくなるだろう。
+解析結果をテキストファイルとして記録したものを以下にまとめる。
 </para>
-<simplelist type='vert' columns='1'>
+<para>
+各ファイルは <acronym>CSV</acronym> 形式か、散文形式のどちらかになっている。
+特に CSV については、ファイルを利用する読者が、
+興味に合ったビューを自ら作成して、データを観察するという利用状況を想定している。
+言い換えると、本書の読者が十分なテキスト処理能力やスプレッドシート操作能力を備えていることを期待している。
+</para>
+<para>
+収録する CSV ファイルの（望ましい）仕様を次のとおりだ：
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      区切り文字はコロンが望ましい。
+      古いファイルは区切り文字がカンマになっているが、本書のメンテナンスの際にコロンに置換していく予定だ。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      先頭行は CSV ヘッダーであることが望ましい。
+      さらに、この行における列名はゲームプログラム内に存在する用語であることが望ましい。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      値が未定義のときは、文字列 <literal>n/a</literal> で表記する。
+      これは、複数のテーブルを水平に連結して CSV 化するときに欠損値として生じるカラムにしか用いない。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      値が真偽値ならば、文字 <literal>0</literal> または <literal>1</literal> で表記する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      値がメモリアドレス、ビットマスク、配列インデックスのどれかを表すものならば、十六進数表記とする。
+      この場合、<literal>0x</literal> や <literal>#$</literal> 等の接頭辞を付したり付さなかったりする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      値が何らかの大きさを表すものならば、十進数表記とする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      値がプログラムの定義するマジックナンバーであるときでも、
+      ROM 中で静的に定義された値のほうを採用する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      独自文字コードの配列で表現されている文字列データは、
+      可能な限り我々が利用している文字からなる文字列で表現、表記する。
+    </para>
+  </listitem>
+</itemizedlist>
+
+<simplesect id="appendix.b.dq5">
+<title>&dq5_1992;</title>
+<para>
+ファイル名に ROM アドレスが含まれているものは、基本的にはその配列データのみの CSV だ。
+そうでないファイルは、物理的には別々のアドレスにある配列でデータ群が定義されてはいるものの、
+これらが論理的に同一の型の構成要素であるとみなせるものを水平に連結した CSV だ。
+</para>
+<simplelist type="vert" columns="1">
+  <member><ulink url="./data/dq5_04FBDD_shop.txt"><filename>dq5_04FBDD_shop.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_04FD6D_inn.txt"><filename>dq5_04FD6D_inn.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_078000_text_battle.txt"><filename>dq5_078000_text_battle.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_07D77C_text_travel.txt"><filename>dq5_07D77C_text_travel.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_2396F3_encounter.txt"><filename>dq5_2396F3_encounter.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_23AED1_character.txt"><filename>dq5_23AED1_character.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_23B04B_encounter_extra.txt"><filename>dq5_23B04B_encounter_extra.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_23D757_encounter_event.txt"><filename>dq5_23D757_encounter_event.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_battle_command_general.txt"><filename>dq5_battle_command_general.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_battle_command_use.txt"><filename>dq5_battle_command_use.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_item.txt"><filename>dq5_item</filename></ulink></member>
+  <member><ulink url="./data/dq5_matchmake.txt"><filename>dq5_matchmake.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_monster.txt"><filename>dq5_monster.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_mp3.txt"><filename>dq5_mp3.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_string.txt"><filename>dq5_string.txt</filename></ulink></member>
+</simplelist>
+</simplesect> <!-- appendix.b.dq5 -->
+
+<simplesect id="appendix.b.dq6">
+<title>&dq6_1995;</title>
+<simplelist type="vert" columns="1">
+  <member><ulink url="./data/dq6_C20154_monster.txt"><filename>dq6_C20154_monster.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C4003D_item.txt"><filename>dq6_C4003D_item.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C41C3E_class.txt"><filename>dq6_C41C3E_class.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C58B93_shop.txt"><filename>dq6_C58B93_shop.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C58E08_inn.txt"><filename>dq6_C58E08_inn.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C6843C_encounter.txt"><filename>dq6_C6843C_encounter.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C8BD12_character.txt"><filename>dq6_C8BD12_character.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C8C65D_action.txt"><filename>dq6_C8C65D_action.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_F6DEBD_text_battle.txt"><filename>dq6_F6DEBD_text_battle.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_F7175B_text_travel.txt"><filename>dq6_F7175B_text_travel.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_FB8703_string.txt"><filename>dq6_FB8703_string.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_FF243C_townspeople.txt"><filename>dq6_FF243C_townspeople.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_FFB6C2_level.txt"><filename>dq6_FFB6C2_level.txt</filename></ulink></member>
+</simplelist>
+</simplesect> <!-- appendix.b.dq6 -->
+
+<simplesect id="appendix.b.dq3">
+<title>&dq3_1996;</title>
+<simplelist type="vert" columns="1">
   <member><ulink url="./data/dq3_C20000_monster.txt"><filename>dq3_C20000_monster.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C21860_action.txt"><filename>dq3_C21860_action.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C2398E_caption.txt"><filename>dq3_C2398E_caption.txt</filename></ulink></member>
@@ -60,43 +152,29 @@
   <member><ulink url="./data/dq3_FC9C22_text_battle.txt"><filename>dq3_FC9C22_text_battle.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_FCC258_text_travel.txt"><filename>dq3_FCC258_text_travel.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_FECFB7_string.txt"><filename>dq3_FECFB7_string.txt</filename></ulink></member>
+</simplelist>
+</simplesect> <!-- appendix.b.dq3 -->
 
+<simplesect id="appendix.b.dq7">
+<title>&dq7_2000;</title>
+<para>
+放置状態。
+</para>
+<simplelist type="vert" columns="1">
   <member><ulink url="./data/dq4_act.txt"><filename>dq4_act.txt</filename></ulink></member>
   <member><ulink url="./data/dq4_imm.txt"><filename>dq4_imm.txt</filename></ulink></member>
   <member><ulink url="./data/dq4_item.txt"><filename>dq4_item.txt</filename></ulink></member>
   <member><ulink url="./data/dq4_level.txt"><filename>dq4_level.txt</filename></ulink></member>
   <member><ulink url="./data/dq4_monster.txt"><filename>dq4_monster.txt</filename></ulink></member>
+</simplelist>
+</simplesect> <!-- appendix.b.dq7 -->
 
-  <member><ulink url="./data/dq5_04FBDD_shop.txt"><filename>dq5_04FBDD_shop.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_04FD6D_inn.txt"><filename>dq5_04FD6D_inn.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_078000_text_battle.txt"><filename>dq5_078000_text_battle.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_07D77C_text_travel.txt"><filename>dq5_07D77C_text_travel.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_2396F3_encounter.txt"><filename>dq5_2396F3_encounter.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_23AED1_character.txt"><filename>dq5_23AED1_character.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_23B04B_encounter_extra.txt"><filename>dq5_23B04B_encounter_extra.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_23D757_encounter_event.txt"><filename>dq5_23D757_encounter_event.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_battle_command_general.txt"><filename>dq5_battle_command_general.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_battle_command_use.txt"><filename>dq5_battle_command_use.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_item.txt"><filename>dq5_item</filename></ulink></member>
-  <member><ulink url="./data/dq5_matchmake.txt"><filename>dq5_matchmake.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_monster.txt"><filename>dq5_monster.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_mp3.txt"><filename>dq5_mp3.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_string.txt"><filename>dq5_string.txt</filename></ulink></member>
-
-  <member><ulink url="./data/dq6_C20154_monster.txt"><filename>dq6_C20154_monster.txt</filename></ulink></member>
-  <member><ulink url="./data/dq6_C4003D_item.txt"><filename>dq6_C4003D_item.txt</filename></ulink></member>
-  <member><ulink url="./data/dq6_C41C3E_class.txt"><filename>dq6_C41C3E_class.txt</filename></ulink></member>
-  <member><ulink url="./data/dq6_C58B93_shop.txt"><filename>dq6_C58B93_shop.txt</filename></ulink></member>
-  <member><ulink url="./data/dq6_C58E08_inn.txt"><filename>dq6_C58E08_inn.txt</filename></ulink></member>
-  <member><ulink url="./data/dq6_C6843C_encounter.txt"><filename>dq6_C6843C_encounter.txt</filename></ulink></member>
-  <member><ulink url="./data/dq6_C8BD12_character.txt"><filename>dq6_C8BD12_character.txt</filename></ulink></member>
-  <member><ulink url="./data/dq6_C8C65D_action.txt"><filename>dq6_C8C65D_action.txt</filename></ulink></member>
-  <member><ulink url="./data/dq6_F6DEBD_text_battle.txt"><filename>dq6_F6DEBD_text_battle.txt</filename></ulink></member>
-  <member><ulink url="./data/dq6_F7175B_text_travel.txt"><filename>dq6_F7175B_text_travel.txt</filename></ulink></member>
-  <member><ulink url="./data/dq6_FB8703_string.txt"><filename>dq6_FB8703_string.txt</filename></ulink></member>
-  <member><ulink url="./data/dq6_FF243C_townspeople.txt"><filename>dq6_FF243C_townspeople.txt</filename></ulink></member>
-  <member><ulink url="./data/dq6_FFB6C2_level.txt"><filename>dq6_FFB6C2_level.txt</filename></ulink></member>
-
+<simplesect id="appendix.b.dq4">
+<title>&dq4_2001;</title>
+<para>
+放置状態。
+</para>
+<simplelist type="vert" columns="1">
   <member><ulink url="./data/dq7_act.txt"><filename>dq7_act.txt</filename></ulink></member>
   <member><ulink url="./data/dq7_ch2.txt"><filename>dq7_ch2.txt</filename></ulink></member>
   <member><ulink url="./data/dq7_kiefer_talk_b.txt"><filename>dq7_kiefer_talk_b.txt</filename></ulink></member>
@@ -106,4 +184,5 @@
   <member><ulink url="./data/dq7_item.txt"><filename>dq7_item.txt</filename></ulink></member>
   <member><ulink url="./data/dq7_monster_parameter.txt"><filename>dq7_monster_parameter.txt</filename></ulink></member>
 </simplelist>
+</simplesect> <!-- appendix.b.dq4 -->
 </appendix>  <!-- appendix.b -->
