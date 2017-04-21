@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<section id="dq5.character.traits"><?dbhtml filename="dq5_character_traits.html" ?>
+<title>仲間キャラクターの特性データ</title>
+<para>
+この節では、<xref linkend="dq5.characters.7E2040"/> で説明した型のオブジェクトを構成するのに必要な型やオブジェクトについて述べる。
+</para>
+<para>
+まずは仲間キャラクターのレベルアップに関係するデータ構造について述べる。
+一つは、各レベルに到達する必要経験値の計算に用いられる定数と、特定のレベル群における属性値の既定値をカプセル化した型だ。
+もう一つは、各レベルで習得する能力、すなわち移動時および戦闘時コマンドを定義する型だ。
+</para>
+<para>
+さて、仲間キャラクターがレベルアップを一度もしていない状態というのも当然考慮しなければならない。
+この状態を表現するデータが、人間とモンスターとで別々に定義されている。それぞれについて説明する。
+</para>
+<para>
+さらに、仲間キャラクターの属性には、人間固有のものとモンスター固有のものとがある。
+それらの属性とそれぞれが取り得る値について述べる。
+</para>
+<para>
+最後に、仲間キャラクターの名前について簡単に説明する。
+</para>
+<para>
+なお、この節で採り上げる特性データのうち、規模の大きいものを CSV ファイルとして <xref linkend="appendix.b"/> に収録する。
+一部の変則的なデータ収納方式を採るものについては、ここで示すアドレスと異なるアドレスをファイル名に含めてあるので注意して欲しい。
+</para>
+
+<section id="dq5.character.traits.progression">
+<title>レベルアップ構造体</title>
+<para>
+アドレス <varname>$239E41</varname> には次の表が表現する型のオブジェクトの配列がある。
+本節ではこの型をレベルアップ構造体と呼ぼう。
+</para>
+
+<!--
+レベルアップ系
+  レベルアップ構造体
+    数値属性 $239E41 $23A1B1
+-->
+
+</section> <!-- dq5.character.traits.progression -->
+
+<section id="dq5.character.traits.abilities">
+<title>習得能力構造体</title>
+<para>
+習得能力構造体と銘打ってしまったが、「レベルに応じて習得する能力」の表現に関するデータが実は複数 ROM 中にある。
+便宜上、それらを統合した概念を習得能力構造体と呼んでしまうことにする。
+一方は習得レベルと対応する習得能力の組の集合であり、他方は習得可能な能力の配列だ。
+</para>
+<para>
+前者は具体的には次のような不定サイズのデータで表現されている：
+</para>
+<table id="table.dq5.character.traits.23B819" class="lighttable">
+  <caption>構造体 $23B819: 習得レベル定義</caption>
+  <thead>
+    <tr><th>オフセット</th><th>意味</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td>要素数</td></tr>
+    <tr><td><literal>#$01</literal></td><td>移動時呪文習得フラグ</td></tr>
+    <tr><td><literal>#$02</literal></td><td rowspan="2">戦闘時コマンド習得フラグ</td></tr>
+    <tr><td><literal>#$03</literal></td></tr>
+    <tr><td colspan="2">（以下、要素数分だけフラグ組を繰り返す）</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>要素数</term>
+    <listitem>
+      <para>
+        要素数とは、データ内に存在するフラグ組の個数のことだ。
+        ゼロの場合にはフラグ組定義がない、つまり特殊技能のないキャラクターであることを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>移動時呪文習得フラグ</term>
+    <listitem>
+      <para>
+        移動時呪文習得フラグとは、仲間キャラクター構造体 <varname>$7E2040</varname> のオフセット
+        <literal>#$23</literal> に作用するビットマスクの値だ。
+        このビットがオンになることで、対応する呪文を使用することが許される。
+      </para>
+    </listitem>
+  </varlistentry>
+    <varlistentry>
+    <term>戦闘時コマンド習得フラグ</term>
+    <listitem>
+      <para>
+        戦闘時コマンド習得フラグとは、仲間キャラクター構造体 <varname>$7E2040</varname> のオフセット
+        <literal>#$24..#$25</literal> に作用するビットマスクの値だ。
+        このビットがオンになることで、対応する呪文または特技を使用することが許される。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+
+<para>
+習得可能な能力の集合のほうは不定サイズのコマンド ID の配列の形式で定義されている：
+</para>
+<table id="table.dq5.character.traits.23BE27" class="lighttable">
+  <caption>構造体 $23BE27: 習得能力配列</caption>
+  <thead>
+    <tr><th>オフセット</th><th>意味</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td>要素数</td></tr>
+    <tr><td><literal>#$01</literal></td><td>コマンド ID</td></tr>
+    <tr><td colspan="2">（以下、要素数分だけコマンド ID を繰り返す）</td></tr>
+  </tbody>
+</table>
+<para>
+コマンド ID とは、<xref linkend="dq5.battle.commands.general"/> の意味でのコマンドテーブルの列 ID とみなせる。
+この配列と先の構造体との関係は、フラグの桁とコマンド ID のある配列添字とが対応するということだ。
+</para>
+</section> <!-- dq5.character.traits.abilities -->
+
+<section id="dq5.character.traits.initial">
+<title>初期状態</title>
+<para>
+仲間キャラクターの初期状態とは、それを仲間にした直後における <varname>$7E2040</varname> オブジェクトの「値」を意味する。
+仲間キャラクターが人間であれば、この値は配列 <varname>$23C014</varname> に直接定義されている。
+一方、モンスターの場合には次の型からなるオブジェクトの配列 <varname>$23AED1</varname> に定義されている値を用いる。
+これは変則的な扱いなのだが、ベビーパンサーとキラーパンサーについては人間方式で初期化を行う。
+</para>
+<para>
+このプログラムは同じ役割を果たす型を、人間キャラクターとモンスターキャラクターとで別々に定義することがよくあるのだが、
+初期状態においてもその手法を採っている。
+モンスターの仲間では、初期状態における所持品と装備品とを考慮せずに済むので、その分のメモリが節約できるということだろう。
+</para>
+<para>
+構造体 <varname>$23C014</varname> については <xref linkend="dq5.characters.7E2040"/> で述べたものと同型だ。
+</para>
+<para>
+構造体 <varname>$23AED1</varname> は次の表に示すような構成だ：
+</para>
+<table id="table.dq5.character.traits.23AED1" class="lighttable">
+  <caption>構造体 $23AED1: 仲間モンスター初期状態</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>            <literal>#$00</literal></td><td>                       </td><td>初期レベル</td></tr>
+    <tr><td>            <literal>#$01</literal></td><td>                       </td><td>最大レベル</td></tr>
+    <tr><td>            <literal>#$02</literal></td><td>                       </td><td>ちから</td></tr>
+    <tr><td>            <literal>#$03</literal></td><td>                       </td><td>みのまもり</td></tr>
+    <tr><td>            <literal>#$04</literal></td><td>                       </td><td>かしこさ</td></tr>
+    <tr><td>            <literal>#$05</literal></td><td>                       </td><td>うんのよさ</td></tr>
+    <tr><td>            <literal>#$06</literal></td><td>                       </td><td>さいだいＨＰ</td></tr>
+    <tr><td>            <literal>#$07</literal></td><td>                       </td><td>さいだいＭＰ</td></tr>
+    <tr><td rowspan="3"><literal>#$08</literal></td><td><literal>#$0F</literal></td><td>装備クラス</td></tr>
+    <tr>                                            <td><literal>#$30</literal></td><td>さいだいＨＰ</td></tr>
+    <tr>                                            <td><literal>#$C0</literal></td><td>(unknown)</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>初期レベル</term>
+    <listitem>
+      <para>
+        初期レベルとは、このモンスターを仲間にした時点におけるそのレベルの値を意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>最大レベル</term>
+    <listitem>
+      <para>
+        最大レベルとは、このモンスターが到達し得るレベルの値の最大値を意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ちから</term>
+    <term>みのまもり</term>
+    <term>かしこさ</term>
+    <term>うんのよさ</term>
+    <term>さいだいＨＰ</term>
+    <term>さいだいＭＰ</term>
+    <listitem>
+      <para>
+        これらの属性は、このモンスターを仲間にした時点におけるそれぞれの値を意味する。
+      </para>
+      <para>
+        さいだいＨＰは物理的に二箇所で定義されているが、これはデータ長が 1 バイトに収まらないからそうしている。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>装備クラス</term>
+    <listitem>
+      <para>
+        この属性だけ初期状態と関係がない概念だ。
+        <varname>$7E2040</varname> オブジェクトの属性値とはならない。
+      </para>
+      <para>
+        装備クラスとは、このモンスターが何を装備できるのかを決定する数値だ。
+        データサイズが 4 ビットなので 16 種類のクラスがある。
+        この値が <xref linkend="dq5.item.23B669"/> で示した順序と対応する。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+
+<!--
+初期状態
+  人間＋パンサー用 $23C014 $23C236
+  パンサー含むモンスター用 $23AED1
+-->
+
+</section> <!-- dq5.character.traits.initial -->
+
+<section id="dq5.character.traits.specific">
+<title>人間またはモンスター固有の属性</title>
+<para>
+戦闘中のメダパニ状態における振る舞いを決定するときには、
+プログラムは仲間キャラクターを「おとこ」「おんな」「？？？」の三つに分類する。
+まずキャラクターがモンスターであるかどうかを調べ、それから性別配列 <varname>$23C236</varname> を参照する。
+短い配列なので、ここで全データを引用する：
+</para>
+<programlisting>
+23/C236:    00 ; 主人公
+23/C237:    00 ; クーパー
+23/C238:    01 ; アニー
+23/C239:    01 ; ビアンカ
+23/C23A:    01 ; ビアンカ
+23/C23B:    00 ; サンチョ
+23/C23C:    00 ; ピピン
+23/C23D:    01 ; フローラ
+23/C23E:    00 ; パパス
+23/C23F:    00 ; ヘンリー
+23/C240:    01 ; ベラ
+</programlisting>
+
+<para>
+人間とモンスターとで異なる属性といえば、移動中の「つよさ」ウィンドウで「せいべつ」欄の真上に表示される部分だ。
+人間の場合は文字列配列 <varname>$23C5F9</varname> のインデックスを属性値として取る。
+この配列の具体的な内容については付録の文字列テーブルを参照して欲しい。
+</para>
+<para>
+一方、仲間がモンスターならば、属性値としてはそのモンスター ID を取る。
+一応断っておくと、モンスター ID とはモンスターデータテーブル <varname>$238000</varname> の列 ID を意味する。
+仲間モンスター ID からモンスター ID への対応は配列 <varname>$23D72D</varname> で定義されている：
+</para>
+<programlisting>
+23/D72D:    0E  ; ベビーパンサー
+23/D72E:    59  ; キラーパンサー
+23/D72F:    00  ; スライム
+23/D730:    03  ; ドラキー
+...
+23/D755:    C5  ; ヘルバトラー
+23/D756:    D7  ; ネーレウス
+</programlisting>
+</section> <!-- dq5.character.traits.specific -->
+
+<section id="dq5.character.traits.name">
+<title>名前</title>
+<para>
+通常、仲間キャラクターは名前で呼ぶ。
+仲間キャラクターが人間であれば、主人公とその子供らはプレイヤーが名前を文字列の入力によって設定する。
+それ以外は既定の文字列を参照するだけであり、その配列はアドレス <varname>$23C5CE</varname> にある。
+モンスターの仲間キャラクターについては、モンスター ID と仲間順位情報の両方を用いて文字列配列
+<varname>$23C242</varname> の対応要素を参照する。
+</para>
+<para>
+主人公、息子、娘の名前を示す文字列はアドレス <varname>$7E2001</varname>, <varname>$7E2009</varname>, <varname>$7E2011</varname> に格納される。
+ただし、その既定値はアドレス <varname>$23D6ED</varname> にある、ある種の初期化データの一部で与えられている。
+</para>
+<programlisting>
+23/D6ED:    01 ; 00:
+23/D6EE:    01 ; 01:
+23/D6EF:    01 ; 02:
+23/D6F0:    01 ; 03:
+23/D6F1:    01 ; 04:
+23/D6F2:    01 ; 05:
+23/D6F3:    01 ; 06:
+23/D6F4:    01 ; 07:
+23/D6F5:    01 ; 08:
+23/D6F6:    49 ; 09: ク
+23/D6F7:    78 ; 0A: ー
+23/D6F8:    83 ; 0B: ゜
+23/D6F9:    5B ; 0C: ハ
+23/D6FA:    78 ; 0D: ー
+23/D6FB:    01 ; 0E:
+23/D6FC:    01 ; 0F:
+23/D6FD:    01 ; 10:
+23/D6FE:    42 ; 11: ア
+23/D6FF:    57 ; 12: ニ
+23/D700:    78 ; 13: ー
+23/D701:    01 ; 14:
+23/D702:    01 ; 15:
+23/D703:    01 ; 16:
+23/D704:    01 ; 17:
+23/D705:    01 ; 18:
+</programlisting>
+
+<para>
+文字列配列 <varname>$23C5CE</varname> および <varname>$23C242</varname> については、
+付録の文字列テーブルを参照して欲しい。
+</para>
+</section> <!-- dq5.character.traits.name -->
+</section> <!-- dq5.character.traits -->
