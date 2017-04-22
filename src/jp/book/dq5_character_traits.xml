@@ -33,16 +33,141 @@
 <section id="dq5.character.traits.progression">
 <title>レベルアップ構造体</title>
 <para>
-アドレス <varname>$239E41</varname> には次の表が表現する型のオブジェクトの配列がある。
-本節ではこの型をレベルアップ構造体と呼ぼう。
+アドレス <varname>$239E41</varname> には次の表が示す、かなりサイズが大きい型のオブジェクトの配列がある。
+本節ではこの型をレベルアップ構造体と呼ぼう：
 </para>
 
-<!--
-レベルアップ系
-  レベルアップ構造体
-    数値属性 $239E41 $23A1B1
--->
+<table id="table.dq5.character.traits.239E41" class="lighttable">
+  <caption>構造体 $239E41: レベルアップ構造体</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td></td><td>レベル区間数</td></tr>
+    <tr><td><literal>#$01</literal></td><td></td><td>レベル 2 の必要経験値</td></tr>
+    <tr><td><literal>#$02</literal></td><td></td><td>レベル区間境界値 0</td></tr>
+    <tr><td colspan="3">...</td></tr>
+    <tr><td><literal>#$08</literal></td><td></td><td>レベル区間境界値 6</td></tr>
+    <tr><td rowspan="2"><literal>#$09</literal></td><td><literal>#$07</literal></td><td rowspan="2">経験値計算用引数 0</td></tr>
+    <tr>                                            <td><literal>#$F8</literal></td></tr>
+    <tr><td colspan="3">...</td></tr>
+    <tr><td rowspan="2"><literal>#$10</literal></td><td><literal>#$07</literal></td><td rowspan="2">経験値計算用引数 7</td></tr>
+    <tr>                                            <td><literal>#$F8</literal></td></tr>
+    <tr><td><literal>#$11</literal></td><td></td><td>さいだいＨＰ標準値 0</td></tr>
+    <tr><td colspan="3">...</td></tr>
+    <tr><td><literal>#$19</literal></td><td></td><td>さいだいＨＰ標準値 8</td></tr>
+    <tr><td><literal>#$1A</literal></td><td></td><td>さいだいＭＰ標準値 0</td></tr>
+    <tr><td colspan="3">...</td></tr>
+    <tr><td><literal>#$22</literal></td><td></td><td>さいだいＭＰ標準値 8</td></tr>
+    <tr><td><literal>#$23</literal></td><td></td><td>ちから標準値 0</td></tr>
+    <tr><td colspan="3">...</td></tr>
+    <tr><td><literal>#$2B</literal></td><td></td><td>ちから標準値 8</td></tr>
+    <tr><td><literal>#$2C</literal></td><td></td><td>すばやさ標準値 0</td></tr>
+    <tr><td colspan="3">...</td></tr>
+    <tr><td><literal>#$34</literal></td><td></td><td>すばやさ標準値 8</td></tr>
+    <tr><td><literal>#$35</literal></td><td></td><td>みのまもり標準値 0</td></tr>
+    <tr><td colspan="3">...</td></tr>
+    <tr><td><literal>#$3D</literal></td><td></td><td>みのまもり標準値 8</td></tr>
+    <tr><td><literal>#$3E</literal></td><td></td><td>かしこさ標準値 0</td></tr>
+    <tr><td colspan="3">...</td></tr>
+    <tr><td><literal>#$46</literal></td><td></td><td>かしこさ標準値 8</td></tr>
+    <tr><td><literal>#$47</literal></td><td></td><td>うんのよさ標準値 0</td></tr>
+    <tr><td colspan="3">...</td></tr>
+    <tr><td><literal>#$4F</literal></td><td></td><td>うんのよさ標準値 8</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>レベル区間数</term>
+    <listitem>
+      <para>
+        レベル区間数とは、このオブジェクトに定義されているレベル区間の個数のことだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>レベル 2 の必要経験値</term>
+    <listitem>
+      <para>
+        レベル 2 の必要経験値とは、このオブジェクトに対応するキャラクターが、
+        そのレベルが 2 であるときの経験値の下限値を意味する。
+      </para>
+      <para>
+        対応キャラクターのレベル最小値が 2 でなくても、この属性には意味があるので注意。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>レベル区間境界値 i (i = 0, 1, ..., レベル区間数 - 1)</term>
+    <listitem>
+      <para>
+        レベル区間境界値とは、レベル区間 i の下限値だ。
+        ただし、最初のレベル区間は下限値と上限値をそれぞれ 2 とレベル区間境界値 0 とする。
+        最後のレベル区間は下限と上限をそれぞれレベル区間境界値ラスト、
+        そのキャラクターの最大レベルとする。
+      </para>
+      <para>
+        TODO: 例を示す。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>経験値計算用引数 i (i = 0, 1, ..., レベル区間数 - 1)</term>
+    <listitem>
+      <para>
+        経験値計算用引数とは、対応するキャラクターのレベルがレベル区間
+        i に含まれる値のどれかであるために必要な経験値を計算するサブルーチンに引き渡す実引数のことだ。
+      </para>
+      <para>
+        経験値の計算アルゴリズムについては後述する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>さいだいＨＰ標準値 i (i = 0, 1, ..., レベル区間数)</term>
+    <listitem>
+      <para>
+        さいだいＨＰ標準値 i とは、対応するキャラクターのレベルがレベル区間境界値 i であるときの、
+        そのキャラクターのさいだいＨＰの値を意味する属性だ。
+        ただし、実際にはその半分の値を保持していて、計算部で倍にする。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>さいだいＭＰ標準値 i (i = 0, 1, ..., レベル区間数)</term>
+    <listitem>
+      <para>
+        さいだいＭＰ標準値はさいだいＨＰ標準値と同様の扱いの属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ちから標準値 i (i = 0, 1, ..., レベル区間数)</term>
+    <listitem>
+      <para>
+        ちから標準値とは、対応するキャラクターのレベルがレベル区間境界値 i であるときの、
+        そのキャラクターのちからの値を意味する属性だ。
+        こちらは実際の値を直接表現している。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>すばやさ標準値 i</term>
+    <term>みのまもり標準値 i</term>
+    <term>かしこさ標準値 i</term>
+    <term>うんのよさ標準値 i</term>
+    <listitem>
+      <para>
+        これらの属性の意味はちから標準値のそれに準じる。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
 
+<para>
+TODO: 必要経験値算出アルゴリズムの説明。
+算術計算のコードも効率も素晴らしい傑作なので是非紹介したい。
+</para>
 </section> <!-- dq5.character.traits.progression -->
 
 <section id="dq5.character.traits.abilities">
@@ -206,13 +331,6 @@
     </listitem>
   </varlistentry>
 </variablelist>
-
-<!--
-初期状態
-  人間＋パンサー用 $23C014 $23C236
-  パンサー含むモンスター用 $23AED1
--->
-
 </section> <!-- dq5.character.traits.initial -->
 
 <section id="dq5.character.traits.specific">
