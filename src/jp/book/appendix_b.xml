@@ -83,7 +83,7 @@
   <member><ulink url="./data/dq5_2396F3_encounter.txt"><filename>dq5_2396F3_encounter.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_239E41_human_progression.txt"><filename>dq5_239E41_human_progression.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_23A1B1_monster_progression.txt"><filename>dq5_23A1B1_monster_progression.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_23AED1_character.txt"><filename>dq5_23AED1_character.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_23AED1_monster_initial.txt"><filename>dq5_23AED1_monster_initial.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_23B04B_encounter_extra.txt"><filename>dq5_23B04B_encounter_extra.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_23B819_human_learning_curve.txt"><filename>dq5_23B819_human_learning_curve.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_23B979_monster_learning_curve.txt"><filename>dq5_23B979_monster_learning_curve.txt</filename></ulink></member>
@@ -91,10 +91,11 @@
   <member><ulink url="./data/dq5_23BE30_human_commands_battle.txt"><filename>dq5_23BE30_human_commands_battle.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_23BEA5_monster_commands_travel.txt"><filename>dq5_23BEA5_monster_commands_travel.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_23BEA6_monster_commands_battle.txt"><filename>dq5_23BEA6_monster_commands_battle.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_23C014_human_initial.txt"><filename>dq5_23C014_human_initial.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_23D757_encounter_event.txt"><filename>dq5_23D757_encounter_event.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_battle_command_general.txt"><filename>dq5_battle_command_general.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_battle_command_use.txt"><filename>dq5_battle_command_use.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_item.txt"><filename>dq5_item</filename></ulink></member>
+  <member><ulink url="./data/dq5_item.txt"><filename>dq5_item.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_matchmake.txt"><filename>dq5_matchmake.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_monster.txt"><filename>dq5_monster.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_mp3.txt"><filename>dq5_mp3.txt</filename></ulink></member>
