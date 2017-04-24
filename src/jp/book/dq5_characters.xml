@@ -46,8 +46,7 @@ RAM の節約に一役買うというわけだ。
     <tr><td align="right" rowspan="3"><literal>#$00</literal></td><td><literal>#$3F</literal></td><td>キャラクター識別値</td></tr>
     <tr>                                                          <td><literal>#$40</literal></td><td>戦闘コマンド入力抑止フラグ</td></tr>
     <tr>                                                          <td><literal>#$80</literal></td><td>モンスターフラグ</td></tr>
-    <tr><td align="right" rowspan="8"><literal>#$01</literal></td><td><literal>#$01</literal></td><td>調査中</td></tr>
-    <tr>                                                          <td><literal>#$02</literal></td><td>調査中</td></tr>
+    <tr><td align="right" rowspan="7"><literal>#$01</literal></td><td><literal>#$03</literal></td><td>同一種モンスター識別値</td></tr>
     <tr>                                                          <td><literal>#$04</literal></td><td>MP が呪われているフラグ</td></tr>
     <tr>                                                          <td><literal>#$08</literal></td><td>HP が呪われているフラグ</td></tr>
     <tr>                                                          <td><literal>#$10</literal></td><td>もうどく状態フラグ</td></tr>
@@ -131,6 +130,11 @@ RAM の節約に一役買うというわけだ。
 <para>
 戦闘コマンド入力抑止フラグとは、このフラグが立っているキャラクターに対しては戦闘中に「めいれいさせろ」でコマンド指示をさせないようにするものだ。
 初期状態ではパパスとフローラが該当する。
+</para>
+<para>
+同一種モンスター識別値は、同種のモンスターが複数仲間にいる場合に、彼らを識別するために必要な情報だ。
+例えばスライムが仲間にいるときに、スラリンなのかスラぼうなのか、それとも別の個体なのかをこの値で決める。
+また、ベビーパンサーおよびキラーパンサーに付けた名前もこの値に表現させる。
 </para>
 <para>
 いのちのリング装備中フラグとは、そのキャラクターのいのちのリングの装備状態と連動している。
