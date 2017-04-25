@@ -80,6 +80,7 @@
   <member><ulink url="./data/dq5_04FD6D_inn.txt"><filename>dq5_04FD6D_inn.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_078000_text_battle.txt"><filename>dq5_078000_text_battle.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_07D77C_text_travel.txt"><filename>dq5_07D77C_text_travel.txt</filename></ulink></member>
+  <member><ulink url="./data/dq5_238000_monster.txt"><filename>dq5_238000_monster.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_2396F3_encounter.txt"><filename>dq5_2396F3_encounter.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_239E41_human_progression.txt"><filename>dq5_239E41_human_progression.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_23A1B1_monster_progression.txt"><filename>dq5_23A1B1_monster_progression.txt</filename></ulink></member>
@@ -97,8 +98,6 @@
   <member><ulink url="./data/dq5_battle_command_use.txt"><filename>dq5_battle_command_use.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_item.txt"><filename>dq5_item.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_matchmake.txt"><filename>dq5_matchmake.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_monster.txt"><filename>dq5_monster.txt</filename></ulink></member>
-  <member><ulink url="./data/dq5_mp3.txt"><filename>dq5_mp3.txt</filename></ulink></member>
   <member><ulink url="./data/dq5_string.txt"><filename>dq5_string.txt</filename></ulink></member>
 </simplelist>
 </simplesect> <!-- appendix.b.dq5 -->

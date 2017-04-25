@@ -32,8 +32,6 @@ SFC で動くドラクエシリーズの中で、
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_character_traits.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_flow_encounter.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_encounter.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_chara_monster_init.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_encounter_special.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_item.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_chara_spell.xml"/>
 </chapter> <!-- dq5 -->
