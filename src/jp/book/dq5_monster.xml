@@ -190,8 +190,20 @@
       <para>
         みかわしとは、戦闘中に直接攻撃を受けるときの「ひらりと みをかわした！」を発動しやすさを表す属性だ。
         より直接的には、この回避を発生させる確率を決定するための配列 <varname>$278051</varname> の添字に他ならない。
-        詳しくは戦闘処理の節で述べる。
+        具体的には次のように取り扱われる：
       </para>
+      <table id="table.dq5.monster.evasion.probablity" class="lighttable">
+        <caption>みかわし確率</caption>
+        <thead>
+          <tr><th>属性値</th><th>確率</th></tr>
+        </thead>
+        <tbody>
+          <tr><td align="center"><literal>0</literal></td><td>0</td></tr>
+          <tr><td align="center"><literal>1</literal></td><td>1/64</td></tr>
+          <tr><td align="center"><literal>2</literal></td><td>1/16</td></tr>
+          <tr><td align="center"><literal>3</literal></td><td>1/4</td></tr>
+        </tbody>
+      </table>
     </listitem>
   </varlistentry>
   <varlistentry>
@@ -376,8 +388,14 @@
       </para>
       <para>
         ダメージ理論については別節で述べるが、簡単にまとめておく。
-        耐性属性については 0 から 3 の値を取り、数値が低いほど効果が期待できる。
-        値が 0 ならば確実に効き、値が 3 ならば全く効かないことを意味する。
+        耐性属性については 0 から 3 の値を取る。
+        これは数値が低いほど、対応するコマンドの効果が期待できる。
+        値が 0 ならば確実に効き、値が 3 ならば全く効かないというのが全コマンドで共通の規則だ。
+        値が 1 または 2 であれば、プレイヤー側キャラクターのレベル、
+        対象キャラクターがモンスターではなく、
+        自陣の戦闘員でいながら「めいれいさせろ」の対象とはならないキャラクターであるか、
+        かつ、実際のコマンドの ID などの条件によって、
+        ダメージ係数や的中確率の計算パラメーターを与える定数配列が異なってくる。
       </para>
     </listitem>
   </varlistentry>
