@@ -106,7 +106,34 @@
       <para>
         戦闘発生率調整とは、プレイヤーキャラクターが移動中にこのオブジェクトの定義するモンスターの群と遭遇する確率を調整する数値型属性だ。
         物理的には三つのメンバーに分割されているが、論理的にはこれらの和が一つの ID 型属性であり、
-        乱数範囲を定義する配列の添字を与えるものだ。
+        乱数範囲を定義する配列 <varname>$23EA44</varname> の添字を与えるものだ。
+      </para>
+      <para>
+        プレイヤーキャラクターが戦闘地域を移動しているとする。戦闘発生テストは一歩進むたびに行われると考える。
+        前回戦闘時から S 歩動いたとすると、まず次の係数表から対応する戦闘発生率調整値 M を取る：
+      </para>
+      <table id="table.dq5.encounter.23EA44" class="lighttable">
+        <caption>配列 $23EA44: 戦闘発生係数</caption>
+        <thead>
+          <tr><th>オフセット</th><th>値</th></tr>
+        </thead>
+        <tbody>
+          <tr><td align="center"><literal>#$00</literal></td><td align="center"><literal>#$10</literal></td></tr>
+          <tr><td align="center"><literal>#$01</literal></td><td align="center"><literal>#$16</literal></td></tr>
+          <tr><td align="center"><literal>#$02</literal></td><td align="center"><literal>#$2B</literal></td></tr>
+          <tr><td align="center"><literal>#$03</literal></td><td align="center"><literal>#$40</literal></td></tr>
+          <tr><td align="center"><literal>#$04</literal></td><td align="center"><literal>#$50</literal></td></tr>
+          <tr><td align="center"><literal>#$05</literal></td><td align="center"><literal>#$60</literal></td></tr>
+          <tr><td align="center"><literal>#$06</literal></td><td align="center"><literal>#$70</literal></td></tr>
+          <tr><td align="center"><literal>#$07</literal></td><td align="center"><literal>#$80</literal></td></tr>
+        </tbody>
+      </table>
+      <para>
+        次に調整値 M と歩数 S を乗じて積を得る。さらにそれを 6 ビット右シフトする。
+        このシフト後の 2 バイト値 P の上位バイト Pu が非ゼロならば、戦闘の敵陣抽選へと進む。
+        そうではなく Pu がゼロならば、次は P の下位バイト Pl と乱数とを比較する。
+        乱数が Pl の下位バイトを超えれば戦闘の敵陣抽選へと進む。
+        超えなければ、戦闘は発生しないものとする。
       </para>
     </listitem>
   </varlistentry>
@@ -157,6 +184,8 @@
         まずこの配列の総和を求め、それからその値を上限とする乱数を生成する。
         次に配列の初項からの部分和が初めて総和以上となる添字を求める。
         この添字が配列の前半か後半のどちらに属するかで、まずは敵陣のグループが単独なのか複数なのかを決める。
+        グループが単数のときのモンスター ID と、複数のときの先頭グループのモンスター ID は、
+        それぞれそのまま後述するグループ単数時モンスター配列およびグループ複数時モンスター配列の添字とする。
       </para>
     </listitem>
   </varlistentry>
@@ -194,7 +223,33 @@
         グループ単数時頭数抽選とは、敵陣が単独グループで構成することを決定した後に
         そのグループにおける構成員の頭数を抽選するために参照される ID 型配列の属性だ。
         言い換えると、頭数範囲を表現する定数テーブル <varname>$23EA63</varname> および <varname>$23EA73</varname> の添字の配列だ。
+        下に示す表のように暫定的にグループを構成するモンスターの頭数が決まるが、
+        グラフィック上の都合なのか、後ほど頭数が間引かれることがある。
       </para>
+      <table id="table.dq5.encounter.23EA63" class="lighttable">
+        <caption>配列 $23EA63 および $23EA73: 頭数範囲指定</caption>
+        <thead>
+          <tr><th>オフセット</th><th><varname>$EA63</varname></th><th><varname>$EA73</varname></th><th>暫定頭数</th></tr>
+        </thead>
+        <tbody>
+          <tr><td align="center"><literal>#$00</literal></td><td align="center">1</td><td align="center">1</td><td>1</td></tr>
+          <tr><td align="center"><literal>#$01</literal></td><td align="center">2</td><td align="center">1</td><td>2</td></tr>
+          <tr><td align="center"><literal>#$02</literal></td><td align="center">3</td><td align="center">1</td><td>3</td></tr>
+          <tr><td align="center"><literal>#$03</literal></td><td align="center">1</td><td align="center">2</td><td>1..2</td></tr>
+          <tr><td align="center"><literal>#$04</literal></td><td align="center">2</td><td align="center">2</td><td>2..3</td></tr>
+          <tr><td align="center"><literal>#$05</literal></td><td align="center">3</td><td align="center">2</td><td>3..5</td></tr>
+          <tr><td align="center"><literal>#$06</literal></td><td align="center">4</td><td align="center">4</td><td>4..7</td></tr>
+          <tr><td align="center"><literal>#$07</literal></td><td align="center">8</td><td align="center">1</td><td>8</td></tr>
+          <tr><td align="center"><literal>#$08</literal></td><td align="center">1</td><td align="center">1</td><td>1</td></tr>
+          <tr><td align="center"><literal>#$09</literal></td><td align="center">1</td><td align="center">2</td><td>1..2</td></tr>
+          <tr><td align="center"><literal>#$0A</literal></td><td align="center">1</td><td align="center">3</td><td>1..3</td></tr>
+          <tr><td align="center"><literal>#$0B</literal></td><td align="center">1</td><td align="center">4</td><td>1..4</td></tr>
+          <tr><td align="center"><literal>#$0C</literal></td><td align="center">1</td><td align="center">5</td><td>1..5</td></tr>
+          <tr><td align="center"><literal>#$0D</literal></td><td align="center">1</td><td align="center">6</td><td>1..6</td></tr>
+          <tr><td align="center"><literal>#$0E</literal></td><td align="center">1</td><td align="center">7</td><td>1..7</td></tr>
+          <tr><td align="center"><literal>#$0F</literal></td><td align="center">1</td><td align="center">8</td><td>1..8</td></tr>
+        </tbody>
+      </table>
     </listitem>
   </varlistentry>
 
@@ -217,6 +272,7 @@
       </para>
       <para>
         抽選方式は、先に述べたモンスター抽選における方式と同様だ。
+        今度の配列は要素が重複する可能性のある 0, 1, 2 からなる非減少列であるという性質がある。
       </para>
     </listitem>
   </varlistentry>
@@ -403,10 +459,28 @@
 </section> <!-- dq5.encounter.model.23D757 -->
 </section> <!-- dq5.encounter.model -->
 
+<section id="dq5.encounter.procedure">
+<title>敵陣決定手順</title>
+<para>
+敵陣決定手順を説明する。
+</para>
+<para>
+戦闘地域を移動していると、一歩歩くたびにサブルーチン <varname>$23E7C2</varname> が呼び出される。
+このサブルーチンの冒頭で通常の戦闘用編成 ID を決定し、それから戦闘発生をするかどうかを決定し、
+あとは敵陣を構成をしつつ、無理があれば中止するというのが大まかな処理手順だ。
+以下、ID 決定直後から呼び出し元に戻るまでの制御を見ていこう。
+</para>
+<para>
+TBW
+</para>
+</section> <!-- dq5.encounter.procedure -->
+
 <section id="dq5.encounter.data">
 <title>データ</title>
 <para>
 本節で説明したデータ構造それぞれのオブジェクト配列を単独の CSV ファイルに統合して <xref linkend="appendix.b"/> に収録する。
+特に、論理的なまとまりを優先して CSV を作ったので、データフィールドの順序はメモリレイアウトを反映していないし、
+一部のフィールド群については、それらが論理的に一体のものであるならば、一つの値にまとめた。
 </para>
 </section> <!-- dq5.encounter.data -->
 </section> <!-- dq5.encounter -->
