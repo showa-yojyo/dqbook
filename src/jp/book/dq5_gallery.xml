@@ -9,254 +9,310 @@
 <title>バカ画像</title>
 <indexterm id="term.dq5.gallery"><primary>バカ画像</primary><secondary>DQ5</secondary></indexterm>
 <para>
-	ここでは、特殊な方法で撮影に成功した &dq5_1992; にまつわるおバカな画像の数々を披露する。
+本節は RAM または ROM の値のごく一部を書き換えることにより再現可能な特殊な状況を撮影した画像群を展示する。
+通常のプログラム実行条件下では決して表に現れることのない特殊データ、
+またはデバッグ専用のデータあるいは挙動をお見せしたい。
+</para>
+<para>
+ID の付いたデータについては <xref linkend="appendix.b"/> の対応する CSV ファイルで参照して欲しい。
 </para>
 
-<section id="dq5.gallery.barabara">
-<title>ミルドラースバラバラ殺人事件</title>
+<section id="dq5.gallery.monsters">
+<title>謎のモンスター</title>
 <para>
-	このセクションでは、モンスターデータ定義領域外のデータを強引にモンスターデータとみなしたときに、
-	戦闘モードで出現するキャラクター画像を紹介する。
+<xref linkend="dq5.monster"/> で言及したモンスターオブジェクトのうち、怪しいものを見ていく。
 </para>
 
-<section id="dq5.gallery.barabara.upperpart">
-<title>上半身</title>
-<figure id="fig.dq5_01">
-	<title>ミルドラース上半身 顔なし</title>
-	<graphic width="256px" fileref="./image/dq5_01.png"/>
-</figure>
-<figure id="fig.dq5_02">
-	<title>ミルドラース上半身 顔なし</title>
-	<graphic width="256px" fileref="./image/dq5_02.png"/>
+<section id="dq5.gallery.monsters.unused">
+<title>ボツモンスター各種</title>
+<figure id="fig.dq5.gallery.monsters.unused">
+  <title>ボツモンスター各種</title>
+  <graphic width="256px" fileref="./image/dq5.gallery.monster.7E.png"/>
+  <graphic width="256px" fileref="./image/dq5.gallery.monster.C0.png"/>
+  <graphic width="256px" fileref="./image/dq5.gallery.monster.D2.png"/>
 </figure>
 <para>
-	上の 2 枚の画像だが、これは連続写真ではない。
-	キャラクター画像としては、それぞれ別のモンスターとして定義されているのである。
-	ちなみに戦闘データは、ラスボスとしてのミルドラースと同じようである。
-	両方とも戦ってみたところやはり強く、
-	イオナズン、メラゾーマ、しゃくねつ、めいそう……と、
-	むしろ変身後のミルドラースの行動パターンをとることが観察できる。
+名前、属性値定義、グラフィックにおいてデータの完成度に違いがある。
+「ダミー１７」を除き、オールゼロ・無効値で埋められている。
+その「ダミー１７」も、よく見ればオブジェクトは ID <literal>#$2F</literal> のモンスター「ジャミ」のコピーだ。
 </para>
-<para>
-	なお、顔部分が描画されないことについては謎である。
-</para>
-</section> <!-- dq5.gallery.barabara.upperpart -->
+<table id="table.dq5.gallery.monsters.unused" class="lighttable">
+  <caption>ボツモンスター</caption>
+  <thead>
+    <tr><th>ID</th><th>名前</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$7E</literal></td><td>ダミー１７</td></tr>
+    <tr><td><literal>#$C0</literal></td><td>ドードリアン</td></tr>
+    <tr><td><literal>#$CB</literal></td><td>ダミー１９</td></tr>
+    <tr><td><literal>#$CC</literal></td><td>ダミー２０</td></tr>
+    <tr><td><literal>#$D2</literal></td><td>ダミー２１</td></tr>
+    <tr><td><literal>#$D3</literal></td><td>ブルーマッコイ</td></tr>
+    <tr><td><literal>#$D4</literal></td><td>ダミー２２</td></tr>
+    <tr><td><literal>#$DA</literal></td><td>オーシャンキング</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq5.gallery.monsters.unused -->
 
-<section id="dq5.gallery.barabara.lowerpart">
-<title>下半身</title>
-<figure id="fig.dq5_03">
-	<title>ミルドラース下半身</title>
-	<graphic width="256px" fileref="./image/dq5_03.png"/>
+<section id="dq5.gallery.monsters.npc">
+<title>NPC 各種</title>
+<figure id="fig.dq5.gallery.monsters.npc">
+  <title>NPC 各種</title>
+  <graphic width="256px" fileref="./image/dq5.gallery.monster.DC.png"/>
 </figure>
 <para>
-	変身後のミスドラースの下半身のみのグラフィックを持つキャラクターが出現した。
-	モンスターデータの配置部分を超えたところのデータを無理に使わせたため、
-	得体のしれないグラフィックになった。
+ここにいるのは、本来ならば主人公の仲間としてパーティーにいるキャラクターの「中身」だ。
+<xref linkend="dq5.characters"/> で述べるように、
+「めいれいさせろ」の対象にならない仲間キャラクターの戦闘時の特性が定義されたオブジェクトだ。
 </para>
-<para>
-	コイツは戦闘中「ぼーっとしている」だけで、何も攻撃してこない。
-	その上 HP もなんとゼロなので、だれが叩いても一撃の下に倒れることになる。
-</para>
-<para>
-	ここには紹介できないが、経験値はなんと 42920 ポイントもある。
-	インチキレベルアップに絶好なモンスターと思うかもしれないが、しかし困ったことがある。
-	こいつは戦闘終了後、100％の確率で「せいなるみずさし」を落としてくれる。
-	調子に乗ってレベルアップを繰り返していると、
-	仲間の持ち物がすぐに捨てることのできない「せいなるみずさし」でいっぱいになる。
-	非常にうっとうしい。
-</para>
-<figure id="fig.dq5_04">
-	<title>ミルドラースの宝箱は……</title>
-	<graphic width="256px" fileref="./image/dq5_04.png"/>
-</figure>
-<figure id="fig.dq5_05">
-	<title>せいなるみずさしを てにいれた</title>
-	<graphic width="256px" fileref="./image/dq5_05.png"/>
-</figure>
-</section> <!-- dq5.gallery.barabara.lowerpart -->
-</section> <!-- dq5.gallery.barabara -->
-
-<section id="dq5.gallery.err">
-<title>エラーデス!!</title>
-<figure id="fig.dq5_error_desu">
-	<title>エラーデス!!</title>
-	<graphic width="256px" fileref="./image/dq5_error_desu.png"/>
-</figure>
-<para>
-	PAR コード改造による不正状況捏造系画像です。
-</para>
-<para>
-	キャラクターに「はなす」ときのメッセージを全部解析したときの話。
-	アドレス等を色々サーチしてみたが、どうも特定できない。
-	どうも &dq6_1995; や &dq3_1996; とは違ったスタイルで、
-	ウィンドウに表示するメッセージを扱っているものと思われる。
-	上の画像は、そんな不毛なサーチ作業中に生じた副産物である。
-	アドレス $7E00F0-$7E00F3 あたりの値をデタラメに入力しておくと、
-	極めてレアな小ウィンドウが画面中央付近に出現し、
-	「エラーデス!!」を拝むことができる。
-	（そしてゲームがストップする。）
-</para>
-</section> <!-- dq5.gallery.err -->
-
-<section id="dq5.gallery.goods">
-<title>謎のアイテム</title>
-<indexterm id="term.dq5.gallery.goods"><primary>アイテム</primary><secondary>没アイテム</secondary></indexterm>
-<figure id="fig.dq5_bzritem_01">
-	<title>謎のアイテム</title>
-	<graphic width="256px" fileref="./image/dq5_bzritem_01.png"/>
-</figure>
-<figure id="fig.dq5_bzritem_02">
-	<title>なぜか武器に分類されているようだ</title>
-	<graphic width="256px" fileref="./image/dq5_bzritem_02.png"/>
-</figure>
-<para>
-	&dq5_1992; データの日の目の当たらないところに、
-	次の名前を持つアイテムが存在する。
-</para>
-<table id="table.dq5.gallery.goods" class="lighttable">
-	<caption>謎のアイテム</caption>
-	<thead>
-		<tr><th>PAR</th><th>アイテム名</th></tr>
-	</thead>
-	<tbody>
-		<tr><td><code>BA</code></td><td><link linkend="dq5.gallery.goods.BA">まほうのふくろ</link></td></tr>
-		<tr><td><code>BE</code></td><td><link linkend="dq5.gallery.goods.BE">あくまのおもちゃ</link></td></tr>
-		<tr><td><code>C3</code></td><td><link linkend="dq5.gallery.goods.C3">モンスターほいほい</link></td></tr>
-		<tr><td><code>D4</code></td><td><link linkend="dq5.gallery.goods.D4">バロンのつのぶえ</link></td></tr>
-	</tbody>
+<table id="table.dq5.gallery.monsters.npc" class="lighttable">
+  <caption>NPC</caption>
+  <thead>
+    <tr><th>ID</th><th>名前</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$DC</literal></td><td>ちちおや</td></tr>
+    <tr><td><literal>#$DD</literal></td><td>ようせいびと</td></tr>
+    <tr><td><literal>#$DE</literal></td><td>てんくうびと</td></tr>
+    <tr><td><literal>#$DF</literal></td><td>！のつま</td></tr>
+  </tbody>
 </table>
 <para>
-	これらはいわゆるボツアイテムのようである。
-	売値は一様に 0 ゴールドに設定されてある。
-	捨てることも可能である。
-	インパスの呪文による鑑定メッセージがまったく設定されていないという共通点もある。
-	まほうのふくろとモンスターほいほいはある程度特徴のある動作をするが、
-	あくまのおもちゃとバロンのつのぶえは名前が違うだけで、
-	データ内容はまったく同じであると考えてよい。
+「！のつま」の「！」部分は主人公の名前で置き換えられるようだ。
+</para>
+</section> <!-- dq5.gallery.monsters.npc -->
+</section> <!-- dq5.gallery.monsters -->
+
+<section id="dq5.gallery.items">
+<title>謎のアイテム</title>
+<indexterm id="term.dq5.gallery.items"><primary>アイテム</primary><secondary>没アイテム</secondary></indexterm>
+<figure id="fig.dq5.gallery.items">
+  <title>謎のアイテム</title>
+  <graphic width="256px" fileref="./image/dq5.gallery.item.png"/>
+</figure>
+<para>
+ここでは <xref linkend="dq5.item"/> の執筆過程で発見した謎のアイテム 5 件の存在を示す画像を展示する。
+</para>
+<table id="table.dq5.gallery.items" class="lighttable">
+  <caption>謎のアイテム</caption>
+  <thead>
+    <tr><th>ID</th><th>名前</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$7E</literal></td><td>とうぞくのカギ</td></tr>
+    <tr><td><literal>#$BA</literal></td><td>まほうのふくろ</td></tr>
+    <tr><td><literal>#$BE</literal></td><td>あくまのおもちゃ</td></tr>
+    <tr><td><literal>#$C3</literal></td><td>モンスターほいほい</td></tr>
+    <tr><td><literal>#$D4</literal></td><td>バロンのつのぶえ</td></tr>
+  </tbody>
+</table>
+<para>
+<xref linkend="appendix.b"/> に収録したデータから推察されるように、
+これらは全てボツアイテムのようである。
+オブジェクトのほとんどすべての属性がゼロで定義されている。
+それゆえ、結果的にアイテム分類がすべて武器扱いとなり、
+買値は 0 ゴールドに設定され、かつ捨てることも許可されているという共通の性質がある。
+インパスの呪文による鑑定メッセージがまったく設定されていないという点も同じだが、
+ボツメッセージらしきものが実は一部存在する。こちらは後ほどお見せする。
+</para>
+<figure id="fig.dq5.gallery.items.null">
+  <title>属性すべての値がゼロ</title>
+  <graphic width="256px" fileref="./image/dq5.gallery.item.equip.png"/>
+  <graphic width="256px" fileref="./image/dq5.gallery.item.sell.png"/>
+</figure>
+<para>
+個々のボツアイテムを見ていこう。
 </para>
 
-<section id="dq5.gallery.goods.BA">
+<section id="dq5.gallery.items.7E">
+<title>とうぞくのカギ</title>
+<para>
+ID <literal>#$7E</literal> のアイテムの名前は定番アイテム「とうぞくのカギ」だ。
+本書直前版ではうっかり見落としていたが、本作ではボツアイテムなのだった。
+ただ、移動中の道具コマンドハンドラーは実装されており、
+これは我々の想像通りの振る舞いをするようだ。
+</para>
+</section> <!-- dq5.gallery.items.7E -->
+
+<section id="dq5.gallery.items.BA">
 <title>まほうのふくろ</title>
 <para>
-	なぜか武器属性を持つ。装備できるキャラクターはいない。
+ID <literal>#$BA</literal> のアイテムの名前は「まほうのふくろ」だ。
+戦闘中における道具コマンドのそれらしい振る舞いがコードに残存している。
 </para>
-<variablelist>
-	<varlistentry>
-		<term>移動中に使う</term>
-		<listitem>
-			<para>
-				「しかし ここでは 何も おこらなかった」と表示される。
-				これは戦闘中専用のアイテムであることを意味するメッセージである。
-			</para>
-		</listitem>
-	</varlistentry>
-	<varlistentry>
-		<term>戦闘中に使う</term>
-		<listitem>
-			<para>
-				下の画像のようなことになる。
-				「○○○○は まほうのふくろを つかった!」のようなメッセージはなく、
-				いきなり空行。そのあとに「なんと なかみは ひのきのぼうだった!」と表示される。
-				さらに次のページで「なんと なかみは まだ できていない!」と表示される。
-			</para>
-			<figure id="fig.dq5_bzritem_03">
-				<title>戦闘でまほうのふくろをつかう</title>
-				<graphic width="256px" fileref="./image/dq5_bzritem_03.png"/>
-			</figure>
-			<figure id="fig.dq5_bzritem_04">
-				<title>ランダム効果を狙ったアイテムなのだろうか</title>
-				<graphic width="256px" fileref="./image/dq5_bzritem_04.png"/>
-			</figure>
-		</listitem>
-	</varlistentry>
-</variablelist>
-</section> <!-- dq5.gallery.goods.BA -->
+<para>
+「○○○○は まほうのふくろを つかった！」のような定型メッセージはなく、
+いきなり空行。そのあとに「なんと なかみは ひのきのぼうだった！」と表示される。
+なお、中身のアイテム名は固定ではない様子。
+さらに次のページで「なんと なかみは まだ できていない！」と表示される。
+</para>
+<figure id="fig.dq5.gallery.items.BA">
+  <title>戦闘でまほうのふくろをつかう</title>
+  <graphic width="256px" fileref="./image/dq5.gallery.item.use.BA.1.png"/>
+  <graphic width="256px" fileref="./image/dq5.gallery.item.use.BA.2.png"/>
+</figure>
+</section> <!-- dq5.gallery.items.BA -->
 
-<section id="dq5.gallery.goods.BE">
+<section id="dq5.gallery.items.BE">
 <title>あくまのおもちゃ</title>
-<variablelist>
-	<varlistentry>
-		<term>移動中に使う</term>
-		<listitem>
-			<para>
-				「しかし ここでは 何も おこらなかった」と表示される。
-			</para>
-		</listitem>
-	</varlistentry>
+<para>
+ID <literal>#$BE</literal> のアイテムの名前は「あくまのおもちゃ」だ。
+これに対するインパス鑑定メッセージ用データと思しきテキストが ROM 中にあるので画像で示す。
+&lt;なにやら 持っているだけで 不幸を招きそうだ&gt; とのことだ。
+</para>
+<figure id="fig.gallery.items.BE">
+  <title>あくまのおもちゃを鑑定する</title>
+  <graphic width="256px" fileref="./image/dq5.gallery.item.identify.BE.png"/>
+</figure>
+</section> <!-- dq5.gallery.items.BE -->
 
-	<varlistentry>
-		<term>戦闘中に使う</term>
-		<listitem>
-			<para>
-				空白ページが表示されたあと、「しかし なにも おこらなかった」と表示される。
-			</para>
-			<para>
-				なぜか武器属性を持つ。装備できるキャラクターはいない。
-			</para>
-		</listitem>
-	</varlistentry>
-</variablelist>
-</section> <!-- dq5.gallery.goods.BE -->
-
-<section id="dq5.gallery.goods.C3">
+<section id="dq5.gallery.items.C3">
 <title>モンスターほいほい</title>
 <para>
-	どういうわけか、まほうのじゅうたんと同じ効果がある。
-	その割には店に買い取ってもらえたりと、なかなかの意味不明っぷりである。
+ID <literal>#$C3</literal> のアイテムの名前は「モンスターほいほい」だ。
+これに対するインパス鑑定メッセージ用データと思しきテキストが ROM 中にあるので画像で示す。
+&lt;これを しかけておけば 魔物を つかまえることが できるよう&gt; な機能を備えさせたかったようだ。
 </para>
-<variablelist>
-	<varlistentry>
-		<term>移動中に使う</term>
-		<listitem>
-			<para>
-				フィールド上の広いところで使うと
-				「○○○○は モンスターほいほいを 使った!」→
-				「○○○○は まほうのじゅうたんを ひろげた!」という表示のあと、
-				移動モードがじゅうたん飛行になる。
-				そうでないところで使うと、さっきの表示の二つ目が
-				「ここでは ひろげられない!」となる。
-			</para>
-		</listitem>
-	</varlistentry>
+<figure id="fig.gallery.items.C3">
+  <title>モンスターほいほいを鑑定する</title>
+  <graphic width="256px" fileref="./image/dq5.gallery.item.identify.C3.png"/>
+</figure>
+</section> <!-- dq5.gallery.items.C3 -->
 
-	<varlistentry>
-		<term>戦闘中に使う</term>
-		<listitem>
-			<para>
-				空白ページが表示されたあと、
-				「しかし なにも おこらなかった」と表示される。
-			</para>
-		</listitem>
-	</varlistentry>
-</variablelist>
-</section> <!-- dq5.gallery.goods.C3 -->
-
-<section id="dq5.gallery.goods.D4">
+<section id="dq5.gallery.items.D4">
 <title>バロンのつのぶえ</title>
 <para>
-	なぜか武器属性を持つ。装備できるキャラクターはいない。
+ID <literal>#$D4</literal> のアイテムの名前は前作に登場した「バロンのつのぶえ」だ。
+これについては性質らしい性質が残っていないようだが、
+サウンドデータのほうにそれらしき音色データ (ID <literal>#$2D</literal>) がある。
 </para>
-<variablelist>
-	<varlistentry>
-		<term>移動中に使う</term>
-		<listitem>
-			<para>
-				「しかし ここでは 何も おこらなかった」と表示される。
-			</para>
-		</listitem>
-	</varlistentry>
+</section> <!-- dq5.gallery.items.D4 -->
+</section> <!-- dq5.gallery.items -->
 
-	<varlistentry>
-		<term>戦闘中に使う</term>
-		<listitem>
-			<para>
-				空白ページが表示されたあと、
-				「しかし なにも おこらなかった」と表示される。
-			</para>
-		</listitem>
-	</varlistentry>
-</variablelist>
-</section> <!-- dq5.gallery.goods.D4 -->
-</section> <!-- dq5.gallery.goods -->
+<section id="dq5.gallery.windows">
+<title>謎のウィンドウ</title>
+<para>
+ここでは謎のウィンドウを見ていこう。
+現在、ウィンドウの実装詳細については解明されていないことのほうが多く、こういう画像を撮影することが本書執筆陣の限界だ。
+</para>
+
+<section id="dq5.gallery.windows.89">
+<title>エラーデス！！</title>
+<figure id="fig.dq5.gallery.windows.89">
+  <title>エラーデス！！</title>
+  <graphic width="256px" fileref="./image/dq5.gallery.window.89.png"/>
+</figure>
+<para>
+この小さなエラーウィンドウだけは、発見の経緯が他とは異なる。
+「はなす」ときに表示されるテキストの解析作業時に、試行錯誤の末得られた状況の撮影画像だ。
+アドレス <varname>$7E0000[F0:F4]</varname> あたりの値をデタラメに入力しておき、
+任意の街の人に話しかける。すると出力テキストもデタラメなものになり、
+そのあとに画像に示す小ウィンドウが画面中央付近に出現する。
+</para>
+</section> <!-- dq5.gallery.windows.89 -->
+
+<section id="dq5.gallery.windows.8D">
+<title>スピード</title>
+<figure id="fig.dq5.gallery.windows.8D">
+  <title>スピード</title>
+  <graphic width="256px" fileref="./image/dq5.gallery.window.8D.png"/>
+</figure>
+<para>
+ID <literal>#$8D</literal> のウィンドウは「スピード」という表題が付けられている。
+項目は「１ばいそく」「２ばいそく」「４ばいそく」「８ばいそく」からなるメニュー型ウィンドウだ。
+残念なことに ROM 中にコマンドハンドラーが現存していないので、その機能は窺い知れない。
+</para>
+<para>
+何かの速度が倍増するような機能が実機で備わっていれば相当素晴らしかっただろう。
+</para>
+</section> <!-- dq5.gallery.windows.8D -->
+
+<section id="dq5.gallery.windows.8F">
+<title>デバッグウィンドウ</title>
+<figure id="fig.dq5.gallery.windows.8F">
+  <title>デバッグウィンドウ</title>
+  <graphic width="256px" fileref="./image/dq5.gallery.window.8F.png"/>
+</figure>
+<para>
+ID <literal>#$8F</literal> のウィンドウは見るからにデバッガー専用メニューだ。
+項目は「フラグセット」「スピードチェンジ」「レベルチェンジ」「マップチェック」「セーブ」「オブジェチェック」「サウンドテスト」「インチキルーラ」からなる。
+</para>
+<para>
+<xref linkend="dq5.gallery.windows.8D"/> ウィンドウはおそらく本メニューアイテム「スピードチェンジ」のサブメニューだったのだろう。
+</para>
+</section> <!-- dq5.gallery.windows.8F -->
+
+<section id="dq5.gallery.windows.90">
+<title>レベル</title>
+<figure id="fig.dq5.gallery.windows.90">
+  <title>レベル</title>
+  <graphic width="256px" fileref="./image/dq5.gallery.window.90.png"/>
+</figure>
+<para>
+ID <literal>#$90</literal> のウィンドウは「レベル」という表題の付いたものだ。
+項目が「レベル１」「レベル２」「レベル４」しかない小さなメニューなので、
+どういう機能にせよ、あまり役に立ちそうに思えない。
+</para>
+<para>
+<xref linkend="dq5.gallery.windows.8F"/> の「レベルチェンジ」のサブメニューと推察される。
+</para>
+</section> <!-- dq5.gallery.windows.90 -->
+
+<section id="dq5.gallery.windows.93">
+<title>つよさコマンド（いんちきアリ）</title>
+<figure id="fig.dq5.gallery.windows.93">
+  <title>つよさコマンド（いんちきアリ）</title>
+  <graphic width="256px" fileref="./image/dq5.gallery.window.93.png"/>
+</figure>
+<para>
+デバッグフラグ <varname>$018001</varname> の値によっては、移動コマンド「つよさ」メニューに「いんちき」という項目が追加される。
+ただし、これを選択しても良いことは何も起こらない。
+</para>
+</section> <!-- dq5.gallery.windows.93 -->
+</section> <!-- dq5.gallery.windows -->
+
+<section id="dq5.gallery.refusal">
+<title>受取拒否</title>
+<figure id="fig.dq5.gallery.refusal">
+  <title>モンスターじいさんとルイーダの受取拒否</title>
+  <graphic width="256px" fileref="./image/dq5.gallery.pen.refusal.png"/>
+  <graphic width="256px" fileref="./image/dq5.gallery.luida.refusal.png"/>
+</figure>
+<para>
+ゲーム中では日の目を見ることはなかったが、<xref linkend="dq5.characters"/> で述べるように、
+仲間キャラクターにはモンスターじいさんとルイーダそれぞれに対して預けるのを禁止するフラグ属性がある。
+</para>
+</section> <!-- dq5.gallery.refusal -->
+
+<section id="dq5.gallery.chance">
+<title>謎のパルプンテイベント</title>
+<para>
+戦闘コマンド解析中に「パルプンテ」によるランダムイベントのために用意されていたと思われるコード片 (<varname>$20EC2A</varname>) を発見した。
+そこで、これが発生するようにプログラムを一部書き換えて、実際に何が起こるかを観測した。
+その結果、期待通りの事象が発生した。画像を次に示す：
+</para>
+<figure id="fig.dq5.gallery.chance">
+  <title>謎のパルプンテイベント</title>
+  <graphic width="256px" fileref="./image/dq5.gallery.chance.1.png"/>
+  <graphic width="256px" fileref="./image/dq5.gallery.chance.2.png"/>
+</figure>
+<para>
+このイベントが発動すると、次の条件がすべて満たされているときに限り、敵モンスターが戦うのをやめて仲間にして欲しいと言う：
+</para>
+<itemizedlist>
+  <listitem><para>敵陣が最後の一頭である</para></listitem>
+  <listitem><para>モンスターじいさんのところに空きがある</para></listitem>
+  <listitem><para>馬車がある</para></listitem>
+  <listitem><para>馬車のドアが閉じていない</para></listitem>
+  <listitem><para>敵陣の最後の一頭が仲間になり得るモンスターである</para></listitem>
+  <listitem><para>同一種モンスターが 3 キャラクター未満である</para></listitem>
+</itemizedlist>
+<para>
+今いるパーティーが 8 キャラクター編成だと、画像に示したようにすごすごと帰っていくのだが、
+パーティーに空きがあると仲間に加わり、馬車に飛び乗って戦闘終了となる。
+</para>
+<para>
+このランダムイベントが製品版に残っていたらと思うと、ワクワクするではないか。
+</para>
+</section> <!-- dq5.gallery.chance -->
 </section> <!-- dq5.gallery -->
-
