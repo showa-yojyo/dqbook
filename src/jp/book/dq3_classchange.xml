@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq3.classchange"><?dbhtml filename="dq3_classchange.html" ?>
 <title>転職解析</title>
-<indexterm><primary>転職</primary><secondary>DQ3</secondary></indexterm>
-<indexterm><primary>職業</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.classchange.1"><primary>転職</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.classchange.2"><primary>職業</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	ダーマの神殿にいる神官が行う転職手続きを処理するプログラムの逆アセンブルコードを解析する。
 	「転職したいキャラクターの性格によって神官が感想を漏らす」処理と、
@@ -493,7 +498,7 @@
 			性格構造体データのフィールド値を以下のように取得 (<varname>A</varname>) する。
 			フィールドの値は必要に応じて右シフトしたものになる。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq3.C3E5F8.1" class="lighttable">
 			<caption>$E5F8 職業による分岐</caption>
 			<thead>
 				<tr><th>ID</th><th>職業</th><th>フィールド</th></tr>
@@ -516,7 +521,7 @@
 			転職したいキャラクターの性格と、
 			転職したい職業に応じたコメントをダーマの神官に話させる。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq3.C3E5F8.2" class="lighttable">
 			<caption>$E5F8 職業による分岐</caption>
 			<thead>
 				<tr><th>A</th><th>Address</th><th>コメント</th></tr>

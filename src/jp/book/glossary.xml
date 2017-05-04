@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE glossary PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <glossary id="gloss" lang="ja"><?dbhtml filename="glossary.html" ?>
 <title>用語集</title>
@@ -97,7 +102,7 @@
 	<glossdef>
 		<para>
 			辞書の意味でも通じるが、より具体的には、データが格納されている配列のインデックスであることが多い。
-			例えばドラクエ3 のモンスターデータ「スライム」について、
+			例えば &dq3_1996; のモンスターデータ「スライム」について、
 			「スライムは ID が 0 である」と表現することがある。
 			これを本書の用途として「スライムのデータがモンスター構造体データ配列のインデックス 0 に格納されている」とすることができる。
 		</para>
@@ -109,10 +114,10 @@
 	<glossdef>
 		<para>
 			NonPlayable Character の頭文字からなる略語
-			<footnote><para>文法的には UnPlayable Character ではあるまいか。</para></footnote>。
+			<footnote id="ftn.gloss.npc"><para>文法的には UnPlayable Character ではあるまいか。</para></footnote>。
 			本書では「プレイヤーが直接操作することができないゲームキャラクター」の意味で用いる。
 			街の人々はここに含まれないものとする。
-			ドラクエ5 のパパスは NPC の例だ。
+			&dq5_1992; のパパスは NPC の例だ。
 		</para>
 	</glossdef>
 </glossentry> <!-- gloss.npc -->
@@ -241,7 +246,7 @@
 	<glossterm>タイルエンカウント</glossterm>
 	<glossdef>
 		<para>
-			初出はドラクエ3 のデバッグメニューにある「タイルせんとう」である。
+			初出は &dq3_1996; のデバッグメニューにある「タイルせんとう」である。
 			フィールド上のある区画やダンジョンの各階には、
 			常にその場所固有のモンスターの組み合わせしか出現しない。
 			このようなエンカウントの仕組みをタイルエンカウントと呼ぶ。
@@ -410,7 +415,7 @@
 		<para>
 			本書では、文章の形でウィンドウに表示される、
 			台詞やら対話的プロンプト文やらをひっくるめてメッセージと呼ぶ。
-			ドラクエ5 (<acronym>SFC</acronym>) 以降、大きいフォントでテキストが描画される。
+			&dq5_1992; 以降、大きいフォントでテキストが描画される。
 		</para>
 		<para>
 			メッセージデータ抽出は本書の重要な目的のひとつである。
@@ -507,7 +512,7 @@
 	<glossterm>人オブジェクト</glossterm>
 	<glossdef>
 		<para>
-			正式な意味はドラクエ7 のデバッグメニューにある同名項目から推測するしかないのだが、
+			正式な意味は &dq7_2000; のデバッグメニューにある同名項目から推測するしかないのだが、
 			本書では「フロア上にいるキャラクターであり、仲間キャラクターではない者」の意味で用いる。
 		</para>
 		<glossseealso otherterm="gloss.character"/>

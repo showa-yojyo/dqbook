@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq7.dbg"><?dbhtml filename="dq7_dbg.html" ?>
 <title>デバッグモード</title>
-<indexterm><primary>デバッグモード</primary><secondary>DQ7</secondary></indexterm>
+<indexterm id="term.dq7.dbg"><primary>デバッグモード</primary><secondary>DQ7</secondary></indexterm>
 <para>
-	この章ではドラクエ7 のデバッグモードに関する説明を述べる。
+	この章では &dq7_2000; のデバッグモードに関する説明を述べる。
 </para>
 <para>
 	画像はすべて仮のものである。いずれ変更することがある。
@@ -23,14 +28,14 @@
 
 <section id="dq7.dbg.menu">
 <title>デバッグモードメニュー</title>
-<indexterm><primary>デバッグメニュー</primary><secondary>DQ7</secondary></indexterm>
+<indexterm id="term.dq7.dbg.menu"><primary>デバッグメニュー</primary><secondary>DQ7</secondary></indexterm>
 <para>
 	この節ではデバッグウィンドウの各メニュー項目について簡単に述べる。
 </para>
 <para>
 	デバッグモードの各項目は L2 ボタンによるウィンドウに表示される。その全メニュー項目は次の表のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu" class="lighttable">
 	<caption>デバッグウィンドウ リスト</caption>
 	<thead>
 		<tr>
@@ -93,7 +98,7 @@
 
 <section id="dq7.dbg.menu.floor">
 <title>どこでもルーラ</title>
-<indexterm><primary>デバッグモード</primary><secondary>どこでもルーラ</secondary></indexterm>
+<indexterm id="term.dq7.dbg.menu.floor"><primary>デバッグモード</primary><secondary>どこでもルーラ</secondary></indexterm>
 <para>
 	この節ではデバッグモード「どこでもルーラ」について記述する。
 </para>
@@ -102,7 +107,7 @@
 	そのどちらかを選ぶと、デバッグフロアにいないときは強制的に
 	「デバックフロア」という地形が何もないフロアへ移動させられる。
 	デバッグフロアにいるときに「どこでもルーラ」を選ぶと、移動先を選択できるリストが出てくる。
-	ドラクエ7 では基本的に全フロアにフローミなどで出る名前とは別にアルファベットと数字を組み合わせた名前がついているようで、
+	&dq7_2000; では基本的に全フロアにフローミなどで出る名前とは別にアルファベットと数字を組み合わせた名前がついているようで、
 	この名前をデバッグ名と呼ぶことにする。
 </para>
 <para>
@@ -117,7 +122,7 @@
 	「デバックフロア」。これはさっき書いたように、
 	何の地形もないグラデーションバックのフロアへ画面が切り替わる。
 </para>
-<figure>
+<figure id="fig.dq7_debug01">
 	<title>もの知りじいさんの家の周り</title>
 	<graphic width="256px" fileref="./image/dq7_debug01.png"/>
 </figure>
@@ -131,7 +136,7 @@
 <para>
 	「ぼうけんのしょメニュー」。みなさんおなじみのあの画面に切り替わる。
 </para>
-<figure>
+<figure id="fig.dq7_debug02">
 	<title>雲のほこら</title>
 	<graphic width="256px" fileref="./image/dq7_debug02.png"/>
 </figure>
@@ -142,7 +147,7 @@
 <para>
 	「名もなきほこら」。いにしえの賢者がいるほこらと同じ地形であった。建物の中には入れない。
 </para>
-<figure>
+<figure id="fig.dq7_debug03">
 	<title>なぞのとう</title>
 	<graphic width="256px" fileref="./image/dq7_debug03.png"/>
 </figure>
@@ -154,7 +159,7 @@
 	男がひとりいて、はなしかけると「わしは命名神マリナンに仕えるもの…」という。
 	階段があるがどこにもつながっていない。
 </para>
-<figure>
+<figure id="fig.dq7_debug04">
 	<title>ぎんこう</title>
 	<graphic width="256px" fileref="./image/dq7_debug04.png"/>
 </figure>
@@ -162,7 +167,7 @@
 	「ぎんこう」（画像）。いにしえの賢者がいるほこらの外観マイナス床テクスチャ。
 	男がゴールド銀行行員だったりする。
 </para>
-<figure>
+<figure id="fig.dq7_debug05">
 	<title>てんしょく</title>
 	<graphic width="256px" fileref="./image/dq7_debug05.png"/>
 </figure>
@@ -200,7 +205,7 @@
 
 <section id="dq7.dbg.menu.status">
 <title>ひとじょうたい</title>
-<figure>
+<figure id="fig.dq7dbg.menu.status">
 	<title>ひとじょうたい</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.status.png"/>
 </figure>
@@ -224,7 +229,7 @@
 	まず、パーティの名前プラス「ぜんいん」のあるキャラ選択サブメニューウィンドウが出てくる。
 	対象となっているキャラクタの職業名と職業レベルがリストになったウィンドウが表示される。リストは次の通り。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.job" class="lighttable">
 	<caption>てんしょくメニュー 職業表</caption>
 	<thead>
 		<tr><th>ページ</th><th>職業</th></tr>
@@ -330,7 +335,7 @@
 	サブメニューは次の表のとおり。
 </para>
 
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.talk" class="lighttable">
 	<caption>仲間会話サブメニュー</caption>
 	<thead>
 		<tr><th>メニュー名</th></tr>
@@ -345,7 +350,7 @@
 
 <section id="dq7.dbg.menu.talk.scenario">
 <title>シナリオかいわ</title>
-<figure>
+<figure id="fig.dq7dbg.menu.talk.scenario">
 	<title>シナリオかいわ</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.talk.scenario.png"/>
 </figure>
@@ -387,14 +392,14 @@
 
 <section id="dq7.dbg.menu.flag">
 <title>フラグショップ</title>
-<figure>
+<figure id="fig.dq7dbg.menu.flag">
 	<title>フラグショップ</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.flag.png"/>
 </figure>
 <para>
 	フラグ名が項目になっているウィンドウが表示される。メニューは次のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.flag" class="lighttable">
 	<caption>フラグショップ</caption>
 	<thead>
 		<tr>
@@ -747,7 +752,7 @@
 
 <section id="dq7.dbg.menu.start">
 <title>プログラムスタート</title>
-<figure>
+<figure id="fig.dq7dbg.menu.start">
 	<title>プログラムスタート</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.start.png"/>
 </figure>
@@ -780,7 +785,7 @@
 
 <section id="dq7.dbg.menu.memcrd">
 <title>メモリーカード</title>
-<figure>
+<figure id="fig.dq7dbg.menu.memcrd">
 	<title>メモリーカード</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.memcrd.png"/>
 </figure>
@@ -803,7 +808,7 @@
 	次の表にあるようなサブウィンドウが表示される。「あかいもじ」の項目は赤色で、
 	「きいろもじ」は黄色でそれぞれ描画されている。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.wndcfg" class="lighttable">
 	<caption>ウインドウコンフィグ</caption>
 	<thead>
 		<tr>
@@ -829,7 +834,7 @@
 <para>
 	最終的には次の画像のような画面になる。
 </para>
-<figure>
+<figure id="fig.dq7dbg.menu.wndcfg">
 	<title>ウィンドウ描画デバッグ</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.wndcfg.png"/>
 </figure>
@@ -840,7 +845,7 @@
 <para>
 	2 ケタの数値入力ウインドウが出てきて、BGMを変更できる。数値と楽曲の組み合わせは次のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.bgm" class="lighttable">
 	<caption>楽曲テスト</caption>
 	<thead>
 		<tr><th>番号</th><th>再生される音楽</th></tr>
@@ -899,7 +904,7 @@
 <para>
 	4 ケタの数値入力ウインドウが出てきて、効果音なんかが聴ける。番号とサウンドの対応は次のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.snd" class="lighttable">
 	<caption>サウンドテスト</caption>
 	<thead>
 		<tr><th>番号</th><th>再生されるサウンド</th></tr>
@@ -988,7 +993,7 @@
 	その数値から決定されるモンスターの登場パターンから何かが決まり、戦闘となる。
 	面白い登場パターンは次の表のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.tilenc" class="lighttable">
 	<caption>タイルエンカウント 対応表（抄）</caption>
 	<thead>
 		<tr><th>番号</th><th>登場キャラ</th></tr>
@@ -1146,7 +1151,7 @@
 <para>
 	次の表のようなサブウィンドウが表示される
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.selenc" class="lighttable">
 	<caption>せんたくエンカウント ウィンドウ</caption>
 	<thead>
 		<tr><th>項目文字列左側</th><th>右側</th><th>サブウィンドウ</th></tr>
@@ -1170,7 +1175,7 @@
 
 <section id="dq7.dbg.menu.monanim">
 <title>モンスターアニメ</title>
-<figure>
+<figure id="fig.dq7dbg.menu.monanim">
 	<title>モンスターアニメ</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.monanim.png"/>
 </figure>
@@ -1180,7 +1185,7 @@
 <para>
 	次の表のようなウィンドウが表示される。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.monanim" class="lighttable">
 	<caption>モンスターアニメ ウィンドウ</caption>
 	<thead>
 		<tr><th>文字列左</th><th>右</th></tr>
@@ -1196,7 +1201,7 @@
 
 <section id="dq7.dbg.menu.monmod">
 <title>モンスターモディファイ</title>
-<figure>
+<figure id="fig.dq7dbg.menu.monmod">
 	<title>モンスターモディファイ</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.monmod.png"/>
 </figure>
@@ -1248,7 +1253,7 @@
 
 <section id="dq7.dbg.menu.jobexp">
 <title>しょくぎょうけいけんち</title>
-<figure>
+<figure id="fig.dq7dbg.menu.jobexp">
 	<title>しょくぎょうけいけんち</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.jobexp.png"/>
 </figure>
@@ -1267,14 +1272,14 @@
 
 <section id="dq7.dbg.menu.dbg">
 <title>デバッグ こうもく</title>
-<figure>
+<figure id="fig.dq7dbg.menu.dbg">
 	<title>デバッグ こうもく</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.dbg.png"/>
 </figure>
 <para>
 	かなり大きいサブメニューウィンドウが出る。全項目は次の表のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.dbg" class="lighttable">
 	<caption>デバッグ こうもく 一覧</caption>
 	<thead>
 		<tr><th>メニュー名</th></tr>
@@ -1332,7 +1337,7 @@
 <para>
 	次の表のようなウィンドウが表示される。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.dbg.disp" class="lighttable">
 	<caption>ひょうじ きりかえ</caption>
 	<thead>
 		<tr><th>項目名</th><th>効果</th></tr>
@@ -1359,7 +1364,7 @@
 <para>
 	次のようなメニューのサブウィンドウが表示される。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.dbg.rot" class="lighttable">
 	<caption>かいてんきりかえ ウィンドウ</caption>
 	<thead>
 		<tr><th>項目名</th><th>効果</th></tr>
@@ -1423,7 +1428,7 @@
 	次のようなメニューのあるサブウィンドウが表示される。
 	どの項目もノーメッセージで「はい」「いいえ」ウィンドウが表示される。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.dbg.scrn" class="lighttable">
 	<caption>がめんこうか ウィンドウ</caption>
 	<thead>
 		<tr><th>項目名</th><th>効果</th></tr>
@@ -1496,7 +1501,7 @@
 
 <section id="dq7.dbg.menu.dbg.park">
 <title>モンスターパーク</title>
-<figure>
+<figure id="fig.dq7dbg.menu.dbg.park">
 	<title>モンスターパーク</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.dbg.park.png"/>
 </figure>
@@ -1504,7 +1509,7 @@
 	画面左上にパークのマップ状況を表したウィンドウが、右上にメニュー用の
 	サブウィンドウが表示される。メニューの項目は次の通り
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.dbg.park" class="lighttable">
 	<caption>モンスターパーク ウィンドウ</caption>
 	<thead>
 		<tr><th>項目名</th><th>効果</th></tr>
@@ -1530,7 +1535,7 @@
 	2 ケタ数値入力サブウィンドウで数値を指定することにより、モンスターパークの土地をまものせいそく図単位で追加できる。
 	番号と土地の対応は次のとおり。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.dbg.park.areas" class="lighttable">
 	<caption>とちついか 番号対応表</caption>
 	<thead><tr><th>番号</th><th>土地</th></tr></thead>
 	<tbody>
@@ -1564,7 +1569,7 @@
 
 <section id="dq7.dbg.menu.dbg.imm">
 <title>いみんのまち</title>
-<figure>
+<figure id="fig.dq7dbg.menu.dbg.imm">
 	<title>いみんのまち</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.dbg.imm.png"/>
 </figure>
@@ -1574,7 +1579,7 @@
 	右上ウィンドウは操作メニューである。項目は下の表のとおり。
 	下ウィンドウが移民の構成である。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.dbg.imm" class="lighttable">
 	<caption>いみんのまち デバッグメニュー</caption>
 	<thead>
 		<tr><th>項目名</th><th>効果</th></tr>
@@ -1639,7 +1644,7 @@
 <para>
 	数値を入力すると、その数値に対応した大陸が復活する。対応表は次の通り。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.dbg.fld" class="lighttable">
 	<caption>フィールドふっかつ ウィンドウ</caption>
 	<thead>
 		<tr><th>数値</th><th>フィールドマップの状態</th></tr>
@@ -1766,7 +1771,7 @@
 <section id="dq7.dbg.menu.dbg.sail">
 <title>しゅっこう</title>
 <para>
-	ドラクエ7 エンディングの、アミット号出航シーン～シーン切り替えまでのムービーを再生する。
+	&dq7_2000; エンディングの、アミット号出航シーン～シーン切り替えまでのムービーを再生する。
 	終了後デバッグモードに戻る。
 </para>
 </section> <!-- dq7.dbg.menu.dbg.sail -->
@@ -1859,7 +1864,7 @@
 <para>
 	次の表のような項目のあるサブウィンドウが表示される。
 </para>
-<table class="lighttable">
+<table id="table.dq7.dbg.menu.game" class="lighttable">
 	<caption>ゲームじょうたい ウィンドウ</caption>
 	<thead>
 		<tr><th>項目文字列左側</th><th>右側</th></tr>
@@ -1884,7 +1889,7 @@
 
 <section id="dq7.dbg.menu.member">
 <title>パーティメンバー</title>
-<figure>
+<figure id="fig.dq7dbg.menu.member">
 	<title>パーティメンバー</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.member.png"/>
 </figure>
@@ -1912,7 +1917,7 @@
 
 <section id="dq7.dbg.menu.jobhst">
 <title>しょくぎょうけいれき</title>
-<figure>
+<figure id="fig.dq7dbg.menu.jobhst">
 	<title>しょくぎょうけいれき</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.jobhst.png"/>
 </figure>
@@ -1972,7 +1977,7 @@
 
 <section id="dq7.dbg.menu.flgold">
 <title>ふるいフラグショップ</title>
-<figure>
+<figure id="fig.dq7dbg.menu.flgold">
 	<title>ふるいフラグショップ</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.flgold.png"/>
 </figure>
@@ -1986,7 +1991,7 @@
 
 <section id="dq7.dbg.menu.prevflr">
 <title>前回のフロア名</title>
-<figure>
+<figure id="fig.dq7dbg.menu.prevflr">
 	<title>前回のフロア名</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.prevflr.png"/>
 </figure>
@@ -1997,7 +2002,7 @@
 
 <section id="dq7.dbg.menu.talkbattle">
 <title>せんとうなかまかいわ</title>
-<figure>
+<figure id="fig.dq7dbg.menu.talkbattle">
 	<title>せんとうなかまかいわ</title>
 	<graphic width="256px" fileref="./image/dq7dbg.menu.talkbattle.png"/>
 </figure>

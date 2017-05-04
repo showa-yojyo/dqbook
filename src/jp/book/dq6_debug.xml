@@ -1,878 +1,1328 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq6.debug"><?dbhtml filename="dq6_debug.html" ?>
 <title>デバッグモード</title>
-<indexterm><primary>デバッグモード</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.debug"><primary>デバッグモード</primary><secondary>DQ6</secondary></indexterm>
 
 <section id="dq6.debug.intro">
 <title>デバッグモードとは</title>
 <para>
-	ドラクエ6 では「デバッグフロア」という形で、デバッグ用のプログラムが存在している。
-	この文書は、それの包括的な解説を与える。
+プログラム中にはアドレス <varname>$C1FFFC</varname> を参照して何らかの処理を分岐するようなものがいくつかある。
+バンク <varname>$C1</varname> にあるデータはすべて読み取り専用なので、このような分岐命令の結果は常に一定となる。
+実際には <varname>$C1FFEC</varname> にある値は我々の使っている ROM では <literal>#$0000</literal> なのだが、
+仮にこの値が別のもの、特に負の値であったならば、既存のプログラムの挙動は次に示すように変化しただろう。
+  <itemizedlist>
+    <listitem>
+      <simpara>電源を入れた直後のオープニング、タイトル画面でのコントローラー入力が無視される。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        冒険の書を新規作成後、そのファイルで「ぼうけんをする」と、プロローグシーンではなく、
+        <link linkend="dq6.debug.floor.0286">デバッグルーム</link>から始まる（注：他にも必要条件が存在する）。
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        <link linkend="dq6.debug.floor.0288">モンスターアニメーション</link>と呼ばれるデバッグ機能が有効になる。
+        そこでは戦闘開始直前に、登場する魔物の群れの指定が可能となる。
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        <link linkend="dq6.debug.menu.C908E9">各種フラグ</link>の初期値をデバッグ作業仕様に設定する。
+        また、におけるそのようなフラグの値指定を有効にする。
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        <link linkend="dq6.debug.menu.C908E9">キャンセル歩行</link>というデバッグ機能を有効にすることが可能になる。
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara><varname>$C1FFFE</varname> の値が <literal>#$0001</literal> のときに限り、
+      移動中に <keycap>X</keycap> ボタンを押しても、人の話を覚えなくなる。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        移動中に <keycap>L</keycap> ボタンを押すと
+        <link linkend="dq6.debug.menu">デバッグウィンドウ</link>が出現する。
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        移動中に <keycap>R</keycap> ボタンを押すと、地図の代わりに
+        <link linkend="dq6.debug.menu.C908E9">座標ウィンドウ</link>が出現する。
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>And more?</simpara>
+    </listitem>
+  </itemizedlist>
+</para>
+
+<para>
+この定数がプログラム中のどこに影響するかを調べるには、
+コード <literal>LDA $C1FFFE</literal> をロムイメージから <command>grep</command> するとよいだろう。
+参考までに、記者が調査した当該定数を参照するサブルーチンのアドレスを以下に示しておく：
+
+  <variablelist>
+    <varlistentry>
+      <term><varname>$C0250D</varname></term>
+      <listitem>
+        <simpara>デバッグフロアから開始する処理。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C23391</varname></term>
+      <listitem>
+        <simpara>戦闘モンスターの種類と頭数を指定する処理。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C301B5</varname></term>
+      <term><varname>$C302A8</varname></term>
+      <listitem>
+        <simpara>各種フラグの初期値の操作。
+        <literal>#$FFFF</literal> と <literal>#$8000</literal> の 2 通りの値の場合を想定。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C466FE</varname></term>
+      <listitem>
+        <simpara>解読中。パーティーメンバーの何かの設定に影響する？</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C6C288</varname></term>
+      <term><varname>$C6C2A4</varname></term>
+      <term><varname>$C6C471</varname></term>
+      <term><varname>$C6C48F</varname></term>
+      <listitem>
+        <simpara>セレクトボタンを押しながら移動すると、歩行不能な地点をも通行する処理。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C6C8F8</varname></term>
+      <listitem>
+        <simpara><varname>$C1FFFE</varname> の値が 1 ならばおぼえる処理を呼ばない。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C6CBCB</varname></term>
+      <listitem>
+        <simpara>デバッグメニュー表示処理。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C6CBF7</varname></term>
+      <listitem>
+        <simpara>座標ウィンドウ表示処理。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C7B737</varname></term>
+      <listitem>
+        <simpara>ある RAM アドレスに定数 <varname>$C1FFFE</varname> を代入する処理。
+        このサブルーチンがどのように利用されるのかは不明。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$C9064A</varname></term>
+      <listitem>
+        <simpara>仲間モンスターフラグが立っているか調べる処理。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term><varname>$CEFFEC</varname></term>
+      <listitem>
+        <simpara><varname>$C1FFFE</varname> が非ゼロならば COP し続ける。未調査。</simpara>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+
+<para>
+  本節では、定数 <varname>$C1FFFE</varname> の値が負の数であるような状況をデバッグモードと呼ぶことにする。
 </para>
 </section> <!-- dq6.debug.intro -->
 
-<section id="dq6.debug.access">
-<title>アクセス方法</title>
+<section id="dq6.debug.menu">
+<title>デバッグメニュー</title>
 <para>
-	フロア ID を変更することによってデバッグフロアにいく方法と、
-	冒険の書をロードする際に、セーブ地点のフロア ID を書き換えて行く方法の二通りが考えられる。
+上で述べたように、デバッグモードでは移動中に <keycap>L</keycap> ボタンを押すと特殊なメニューウィンドウが出現する。
+本節ではアドレス <varname>$C90680</varname> で定義されている、
+各項目に対応する選択イベントハンドラーのマッピングが示すコードに基いて、
+各イベントハンドラーの振る舞いを簡単に説明する。
 </para>
+<figure id="fig.dq6.debug.menu">
+  <title>デバッグメニュー</title>
+  <graphic width="240px" fileref="./image/dq6.debug.menu.png"/>
+</figure>
 
-<section id="dq6.debug.access.floor">
-<title>フロア ID をハック</title>
+<section id="dq6.debug.menu.C906BA">
+<title>いんちきルーラ</title>
 <para>
-	フロア ID を改造して、強引にデバッグフロアに入る方法だ。
-	もし貴女が PAR コード改造を利用できる環境にあれば、
-	最初に、以下のコードを移動モード時に入力する。
-	<literal>2</literal> バイト型としてセットする。
+不思議な力が働いたり、天井を頭にぶつけたりすることもなく、
+パーティーを指定する場所へ移動するコマンドだ。
+ルーラを利用できるメンバーがいなくてもよいし、MP がなくてもよい。
 </para>
-<table class="lighttable">
-	<caption>フロア ID を改造</caption>
-	<thead>
-		<tr><th>アドレス</th><th>値</th></tr>
-	</thead>
-	<tbody>
-		<tr><td><varname>$7E5E8E</varname></td><td><literal>#$0286</literal></td></tr>
-	</tbody>
-</table>
+<figure id="fig.dq6.debug.menu.location">
+  <title>いんちきルーラ</title>
+  <graphic width="240px" fileref="./image/dq6.debug.menu.location.png"/>
+</figure>
 <para>
-	そして、今いるフロアから画面を切り替える。
-	記者の経験則だが、上向きに歩いて画面を切り替えるのが具合がよいようだ。
-	すると真っ暗なところに出る。
-	だいだい左上のほうに歩いてみるとそれらしき部屋にたどりつく。
-	以降のフロア探索に、コードが干渉するため、
-	この時点でコードは無効化 (Disable) すること。
+通常版ルーラとは異なり、場所リストとして構造体 <varname>$C8997A</varname> のデータをすべて用いたものが
+ウィンドウの複数ページに亘り表示される。
 </para>
-</section> <!-- dq6.debug.access.floor -->
+</section> <!-- dq6.debug.menu.C906BA -->
 
-<section id="dq6.debug.access.load">
-<title>冒険の書読み込み時にハック</title>
+<section id="dq6.debug.menu.C906CF">
+<title>いんちきリレミト</title>
 <para>
-	ここで述べる方法は、アクションリプレイ誌
-	<xref linkend="dqref.ActionReplay99"/>
-	で紹介されていたものだ。
+リレミト可能な場所に現在いるならば、リレミトを唱えたかのように振る舞うコマンドだ。
+リレミトを利用できるメンバーがいなくてもよいし、MP がなくてもよい。
+</para>
+</section> <!-- dq6.debug.menu.C906CF -->
+
+<section id="dq6.debug.menu.C906EB">
+<title>ＨＰ ＭＰ ＭＡＸ</title>
+<para>
+パーティーの各メンバーについて HP と MP を全回復し、毒、マヒ、死亡状態を回復するコマンドだ。
+</para>
+</section> <!-- dq6.debug.menu.C906EB -->
+
+<section id="dq6.debug.menu.C9071D">
+<title>レべルアップ</title>
+<para>
+パーティーメンバーを一人指定して、職業レベルとキャラクターレベルの設定を行うコマンドだ。
+ただし挙動に少々くせがある。
+</para>
+<figure id="fig.dq6.debug.menu.level">
+  <title>レべルアップ</title>
+  <graphic width="240px" fileref="./image/dq6.debug.menu.level.png"/>
+</figure>
+<para>
+「職業レベルアップだけを行ないますか？」で「はい」を選択すると、
+職業と職業経験値を入力することで、当該メンバーの職業状態を変更することになる。
+まずは対象となるメンバーを選択するためのウィンドウが表示される。
+次に職業リストが表示されるが、「？？？」と「やめる」については注意が要る。
+これらを選択するとそれぞれドラゴンとはぐれメタルが選択されたものとみなされる。
+最後に「キーばんめ」という数値入力ウィンドウが表示されるので、
+職業経験値の増加分を入力する。
 </para>
 <para>
-	まずタイトル画面から冒険の書メニュー画面に進む。
-	ここで以下のコードを <literal>1</literal> バイト 型として入力、ON にする。
-	すると、<link linkend="dq6.debug.floor.0286">デバッグフロアのメインフロア</link>に出てくる。
-	神父のセリフが終わったら、コードを OFF にする。
+「職業レベルアップだけを行ないますか？」で「いいえ」を選択すると、
+想像に反してキャラクターのレベル変更と、副作用として職業経歴データの消去が起こる。
+まずは対象となるメンバーを選択するためのウィンドウが表示される。
+次に「キーばんめ」という数値入力ウィンドウが表示されるので、
+設定したいレベルをそのまま入力する。
+具体的な処理の内容は、対象メンバーのレベルをいったん初期化してから、
+指定のレベルに対応する経験値を算出して加算するというものだ。
 </para>
-<table class="lighttable">
-	<caption>$7E3E65 = 78h</caption>
-	<thead>
-		<tr><th>アドレス</th><th>値</th></tr>
-	</thead>
-	<tbody>
-		<tr><td><varname>$7E3E65</varname></td><td>#$78</td></tr>
-	</tbody>
-</table>
 <para>
-	ただし、冒険がある程度進んでいないとダーマの神殿のたいまつの間に出てきてしまう。
-	この条件の特定については調査中。
+これらのレベルアップについては、プレイヤーに対する通知処理は発生しない。
 </para>
-</section> <!-- dq6.debug.access.load -->
-</section> <!-- dq6.debug.access -->
+</section> <!-- dq6.debug.menu.C9071D -->
+
+<section id="dq6.debug.menu.C907DA">
+<title>おかね</title>
+<para>
+金額を直接指定することで、所持金を変更するコマンドだ。
+残念なことに 0 から 99999 までの値しか指定できない。
+</para>
+</section> <!-- dq6.debug.menu.C907DA -->
+
+<section id="dq6.debug.menu.C907F3">
+<title>ふくろにいれる</title>
+<para>
+ふくろに収納することが可能な項目すべてに対して、
+収納品目数を 1 だけ増加または減少させるコマンドだ。
+</para>
+<para>
+このコマンドを選択すると突然「はい・いいえ」を選択させられる。
+「はい」を選べば各品目を 1 個追加するが、
+「いいえ」を選べば各品目を 1 個削除する。
+いずれの品目も収納品目数の限界を超えることがないように処理する。
+</para>
+</section> <!-- dq6.debug.menu.C907F3 -->
+
+<section id="dq6.debug.menu.C90818">
+<title>ひとじょうたい</title>
+<para>
+パーティーメンバーを一人指定して、健康状態を設定するコマンドだ。
+状態を「しに」「ねむり」「どく」「もうどく」から一つ選べる。
+</para>
+<figure id="fig.dq6.debug.menu.status">
+  <title>ひとじょうたい</title>
+  <graphic width="240px" fileref="./image/dq6.debug.menu.status.png"/>
+</figure>
+</section> <!-- dq6.debug.menu.C90818 -->
+
+<section id="dq6.debug.menu.C90862">
+<title>ゲームじょうたい</title>
+<para>
+次に示す各状態を示すウィンドウを表示するコマンドだ。
+  <figure id="fig.dq6.debug.menu.context">
+    <title>ゲームじょうたい</title>
+    <graphic width="240px" fileref="./image/dq6.debug.menu.context.png"/>
+  </figure>
+  <variablelist>
+    <varlistentry>
+      <term>ルーラ</term>
+      <listitem>
+        <simpara>
+          現在ルーラが使用可能な状況か否かを「できる」「できない」で示す。
+          具体的には <varname>$7E3D2B</varname> の 1 ビット目をテストする。
+        </simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>リレミト</term>
+      <listitem>
+        <simpara>
+          現在リレミトが使用可能な状況か否かを「できる」「できない」で示す。
+          具体的には <varname>$7E3D2B</varname> の 2 ビット目と
+          <varname>$7E3E28</varname> の 1 ビット目をテストする。
+          </simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>エンカウント</term>
+      <listitem>
+        <simpara>
+          移動中に戦闘がランダムに発生するか否かを「できる」「できない」で示す。
+          具体的には <varname>$7E3D2A</varname> の 5 ビット目と
+          <varname>$7E3E28</varname> の 2 ビット目をテストする。
+        </simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>ぜんめつふっき</term>
+      <listitem>
+        <simpara>パーティーが全滅したときに移動される地点の地名を示す。</simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>リセットふっき</term>
+      <listitem>
+        <simpara>現在の冒険の書でゲームを再開するとどこから始まるのかを地名で示す。</simpara>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</section> <!-- dq6.debug.menu.C90862 -->
+
+<section id="dq6.debug.menu.C908B4">
+<title>せんたくせんとう</title>
+<para>
+魔物の群れを指定して戦闘を開始するコマンドだ。デバッグルームにいる
+<link linkend="dq6.debug.floor.0289">ガイコツ</link>に話しかけるのと同じ処理を呼び出す。
+</para>
+</section> <!-- dq6.debug.menu.C908B4 -->
+
+<section id="dq6.debug.menu.C9086A">
+<title>タイルせんとう</title>
+<para>
+戦闘地域を指定して戦闘を開始するコマンドだ。
+この数値はすなわち <varname>$C6843C</varname> 配列の ID のことだ。
+</para>
+<para>
+「キーばんめ」という数値入力ウィンドウが表示されるので、ここで数値を入力する。
+現在いる場所が戦闘地域ならば、対応する値が初期値として示される。
+<literal>#$0005</literal> 未満の入力値は無効扱いとなり、何も起こらない。
+<literal>#$0075</literal> 以上の入力値は <literal>#$0074</literal> にクリップされて処理される。
+</para>
+<para>
+数値の入力が受け付けられると、現在どこにいようが直ちに魔物の群れが現れる。
+</para>
+</section> <!-- dq6.debug.menu.C9086A -->
+
+<section id="dq6.debug.menu.C908BD">
+<title>サウンドテスト</title>
+<para>
+サウンドを指定して音楽や効果音を再生するコマンドだ。
+「キーばんめ」という数値入力ウィンドウが表示されるので、ここで数値を入力する。
+</para>
+<para>
+数値の入力が受け付けられると、対応する音楽や効果音が再生される。
+なお、現在の BGM が必ずしも停止するとは限らない。
+<literal>#$00FE</literal> 以上の入力値は <literal>#$00FD</literal> にクリップされて処理される。
+</para>
+</section> <!-- dq6.debug.menu.C908BD -->
+
+<section id="dq6.debug.menu.C908E9">
+<title>いんちきせってい</title>
+<para>
+以下の項目を列挙するサブウィンドウを表示する。
+  <figure id="fig.dq6.debug.menu.cheat">
+    <title>いんちきせってい</title>
+    <graphic width="240px" fileref="./image/dq6.debug.menu.cheat.png"/>
+  </figure>
+  <variablelist>
+    <varlistentry>
+      <term>いんちきあるき</term>
+      <listitem>
+        <simpara>
+          これを選択すると何やら質問される。
+          「はい」を選択すると、移動時にキャンセル歩行が可能になるというものだ。
+          これは <keycap>SELECT</keycap> ボタンを押しながら十字キーを押すと、障害物の有無に関わらず
+          パーティーが通行できるというたいへん素晴らしい機能だ。
+          ただ、擬似的な地面の高低差がある箇所でこれを使いこなすのには若干の慣れが必要だ。
+          「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+          キャンセル歩行の利用が不可になる。
+        </simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>エンカウント</term>
+      <listitem>
+        <simpara>
+          これを選択すると何やら質問される。
+          「はい」を選択すると、戦闘地域において移動中にランダムに魔物の群れと遭遇するようになる。
+          「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+          戦闘地域において移動中に魔物の群れと遭遇することがなくなる。
+        </simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>スタートフロア</term>
+      <listitem>
+        <simpara>
+          これを選択すると何やら質問される。
+          「はい」を選択すると、冒険開始時時に<link linkend="dq6.debug.floor.0286">テスト</link>という場所からゲームが始まる。
+          この場所については後で詳しく述べる。
+          「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+          冒険開始時にプロローグ（ムドー城前のたき火のシーン）から始まる。
+        </simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>ざひょう</term>
+      <listitem>
+        <simpara>
+          これを選択すると何やら質問される。
+          「はい」を選択すると、移動時に <keycap>R</keycap> ボタンを押すことで画面右下に座標ウィンドウが表示されるようになる。
+          「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+          移動時に移動時に <keycap>R</keycap> ボタンを押すことで、もし所持していれば地図が表示されるようになる。
+        </simpara>
+        <figure id="fig.dq6.debug.coords">
+          <title>ざひょう</title>
+          <graphic width="240px" fileref="./image/dq6.debug.coords.png"/>
+        </figure>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>なかま</term>
+      <listitem>
+        <simpara>
+          これを選択すると何やら質問される。
+          「はい」を選択すると、各通常戦闘終了時に仲間になる可能性のある魔物が、
+          抽選処理をスキップして必ず起き上がるようになる。
+          「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+          そのようなことが起こらないようになる。
+        </simpara>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>サウンドテスト</term>
+      <listitem>
+        <simpara>
+          これを選択すると、いきなり「はい・いいえ」が表示される。
+          返答に応じて <varname>$7E3D00</varname> の 6 ビット目の ON/OFF が切り替わる。
+          このフラグは戦闘中の BGM が再生されるかどうかを制御する。
+          通常戦闘曲、通常ボス戦曲、ラスボス戦曲の再生に影響する。
+        </simpara>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</section> <!-- dq6.debug.menu.C908E9 -->
+
+</section> <!-- dq6.debug.menu -->
+
 
 <section id="dq6.debug.floor">
 <title>デバッグフロア</title>
-<indexterm><primary>デバッグフロア</primary></indexterm>
+<indexterm id="term.dq6.debug.floor"><primary>デバッグフロア</primary></indexterm>
+<para>
+この節ではデバッグコマンドが「インチキフロア」や「テスト」と呼ぶ部屋群について、
+そこへのアクセス手段および部屋群の概要を述べる。
+</para>
+<para>
+これらの部屋はおそらくプログラム開発を援助する目的で、ゲーム本編とは独立したものとして設置されたものだろう。
+デバッガーでも開発者でもない我々は製品版プログラムではこれらの部屋に到達することができないことになっている。
+しかし、ゴニョゴニョすれば何とかこれらの部屋にアクセスすることができる。
+</para>
+
+<section id="dq6.debug.floor.access">
+<title>アクセス方法</title>
+<para>
+インチキフロア群に訪問する方法は色々と考えられる：
+  <itemizedlist>
+    <listitem>
+      <simpara>デバッグメニューのいんちきルーラコマンドにある「テスト」のうち最初に現れる項目を選択する。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>PAR 機能を用いて、画面切り替え時に次の部屋の ID を書き換える。</simpara>
+    </listitem>
+    <listitem>
+      <simpara>リセット復帰地点をインチキフロアとする。</simpara>
+    </listitem>
+  </itemizedlist>
+</para>
+
+<section id="dq6.debug.floor.access.floor">
+<title>フロア ID をハック</title>
+<para>
+フロア ID を改造して、強引にデバッグフロアに入る方法だ。
+もし貴女が PAR コード改造を利用できる環境にあれば、
+最初に、以下のコードを移動モード時に入力する。
+<literal>2</literal> バイト型としてセットする。
+</para>
+<table id="table.dq6.debug.floor.access.floor" class="lighttable">
+  <caption>フロア ID を改造</caption>
+  <thead>
+    <tr><th>アドレス</th><th>値</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><varname>$7E5E8E</varname></td><td><literal>#$0286</literal></td></tr>
+  </tbody>
+</table>
+<para>
+そして、今いるフロアから画面を切り替える。
+記者の経験則だが、上向きに歩いて画面を切り替えるのが具合がよいようだ。
+すると真っ暗なところに出る。
+だいだい左上のほうに歩いてみるとそれらしき部屋にたどりつく。
+以降のフロア探索に、コードが干渉するため、
+この時点でコードは無効化 (Disable) すること。
+</para>
+</section> <!-- dq6.debug.floor.access.floor -->
+
+<section id="dq6.debug.floor.access.reset">
+<title>リセット復帰地点を指定する</title>
+<para>
+ここで述べる方法は、アクションリプレイ誌 <xref linkend="dqref.ActionReplay99"/> で紹介されていたものだ。
+</para>
+<para>
+まずタイトル画面から冒険の書メニュー画面に進む。
+ここで以下のコードを <literal>1</literal> バイト 型として入力、ON にする。
+すると<link linkend="dq6.debug.floor.0286">デバッグフロアのメインフロア</link>に出てくる。
+神父のセリフが終わったら、コードを OFF にする。
+</para>
+<table id="table.dq6.debug.floor.access.reset" class="lighttable">
+  <caption>$7E3E65 = 78h</caption>
+  <thead>
+    <tr><th>アドレス</th><th>値</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><varname>$7E3E65</varname></td><td><literal>#$78</literal></td></tr>
+  </tbody>
+</table>
+<para>
+ただし、冒険がある程度進んでいないとダーマの神殿のたいまつの間に出てきてしまう。
+この条件の特定については調査中。
+</para>
+</section> <!-- dq6.debug.floor.access.reset -->
+</section> <!-- dq6.debug.floor.access -->
 
 <section id="dq6.debug.floor.code">
 <title>各フロアのコード</title>
 <para>
-	各デバッグフロアに対応する PAR コード表は以下のとおり。
-	コードは <literal>2</literal> バイトで表現されている。
-	<code>$7E5E8E=0286h</code>
-	とセットするか、
-	<code>$7E5E8E=86h, $7E5E8F=02h</code>
-	とセットすればよい。
+各デバッグフロアに対応する PAR コード表は以下のとおり。
+コードは <literal>2</literal> バイトで表現されている。
+<code>$7E5E8E=0286h</code>
+とセットするか、
+<code>$7E5E8E=86h, $7E5E8F=02h</code>
+とセットすればよい。
 </para>
-<table class="lighttable">
-	<caption>PAR コード</caption>
-	<thead>
-		<tr><th>コード</th><th>場所</th></tr>
-	</thead>
-	<tbody>
-		<tr><td><literal>#$0286</literal></td><td><link linkend="dq6.debug.floor.0286">メインフロア</link></td></tr>
-		<tr><td><literal>#$0287</literal></td><td><link linkend="dq6.debug.floor.0287">井戸の部屋</link></td></tr>
-		<tr><td><literal>#$0288</literal></td><td><link linkend="dq6.debug.floor.0288">カジノデバッグ用フロア</link></td></tr>
-		<tr><td><literal>#$0289</literal></td><td><link linkend="dq6.debug.floor.0289">戦闘デバッグ用フロア</link></td></tr>
-		<tr><td><literal>#$028A</literal></td><td><link linkend="dq6.debug.floor.028A">店デバッグ用フロア</link></td></tr>
-		<tr><td><literal>#$028B</literal></td><td><link linkend="dq6.debug.floor.028B">フラグチェック用フロア（モンスターと男）</link></td></tr>
-		<tr><td><literal>#$028C</literal></td><td><link linkend="dq6.debug.floor.028C">フラグチェック用フロア（モンスターと青い服の女）</link></td></tr>
-		<tr><td><literal>#$028D</literal></td><td><link linkend="dq6.debug.floor.028D">フラグチェック用フロア（モンスターとターニア）</link></td></tr>
-		<tr><td><literal>#$028E</literal></td><td><link linkend="dq6.debug.floor.028E">フラグチェック用フロア（おじいさん）</link></td></tr>
-		<tr><td><literal>#$028F</literal></td><td><link linkend="dq6.debug.floor.028F">フラグチェック用フロア（アモス）</link></td></tr>
-		<tr><td><literal>#$0290</literal></td><td><link linkend="dq6.debug.floor.0290">フラグチェック用フロア（ミレーユ）</link></td></tr>
-		<tr><td><literal>#$0291</literal></td><td><link linkend="dq6.debug.floor.0291">フラグチェック用フロア（人魚）</link></td></tr>
-		<tr><td><literal>#$0292</literal></td><td><link linkend="dq6.debug.floor.0292">フラグチェック用フロア（ホルス）</link></td></tr>
-		<tr><td><literal>#$0293</literal></td><td><link linkend="dq6.debug.floor.0293">フラグチェック用フロア（ランド）</link></td></tr>
-		<tr><td><literal>#$0294</literal></td><td><link linkend="dq6.debug.floor.0294">フラグチェック用フロア（王さま）</link></td></tr>
-	</tbody>
+<table id="table.dq6.debug.floor.code" class="lighttable">
+  <caption>PAR コード</caption>
+  <thead>
+    <tr><th>コード</th><th>場所</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$0286</literal></td><td><link linkend="dq6.debug.floor.0286">メインフロア</link></td></tr>
+    <tr><td><literal>#$0287</literal></td><td><link linkend="dq6.debug.floor.0287">井戸の部屋</link></td></tr>
+    <tr><td><literal>#$0288</literal></td><td><link linkend="dq6.debug.floor.0288">カジノデバッグ用フロア</link></td></tr>
+    <tr><td><literal>#$0289</literal></td><td><link linkend="dq6.debug.floor.0289">戦闘デバッグ用フロア</link></td></tr>
+    <tr><td><literal>#$028A</literal></td><td><link linkend="dq6.debug.floor.028A">店デバッグ用フロア</link></td></tr>
+    <tr><td><literal>#$028B</literal></td><td><link linkend="dq6.debug.floor.028B">フラグチェック用フロア（モンスターと男）</link></td></tr>
+    <tr><td><literal>#$028C</literal></td><td><link linkend="dq6.debug.floor.028C">フラグチェック用フロア（モンスターと青い服の女）</link></td></tr>
+    <tr><td><literal>#$028D</literal></td><td><link linkend="dq6.debug.floor.028D">フラグチェック用フロア（モンスターとターニア）</link></td></tr>
+    <tr><td><literal>#$028E</literal></td><td><link linkend="dq6.debug.floor.028E">フラグチェック用フロア（老人）</link></td></tr>
+    <tr><td><literal>#$028F</literal></td><td><link linkend="dq6.debug.floor.028F">フラグチェック用フロア（アモス）</link></td></tr>
+    <tr><td><literal>#$0290</literal></td><td><link linkend="dq6.debug.floor.0290">フラグチェック用フロア（ミレーユ）</link></td></tr>
+    <tr><td><literal>#$0291</literal></td><td><link linkend="dq6.debug.floor.0291">フラグチェック用フロア（人魚）</link></td></tr>
+    <tr><td><literal>#$0292</literal></td><td><link linkend="dq6.debug.floor.0292">フラグチェック用フロア（ホルス）</link></td></tr>
+    <tr><td><literal>#$0293</literal></td><td><link linkend="dq6.debug.floor.0293">フラグチェック用フロア（ランド）</link></td></tr>
+    <tr><td><literal>#$0294</literal></td><td><link linkend="dq6.debug.floor.0294">フラグチェック用フロア（王さま）</link></td></tr>
+  </tbody>
 </table>
 </section> <!-- dq6.debug.floor.code -->
 
 <section id="dq6.debug.floor.0286">
 <title>メインフロア</title>
 <para>
-	このフロアではいろいろなことができるだけでなく、他のデバッグフロアへの
-	ターミナルフロアでもある。
+このフロアではいろいろなことができるだけでなく、他のデバッグフロアに対するターミナルでもある。
 </para>
-<figure>
-	<title>フロア <literal>#0286</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f0286.png"/>
+<figure id="fig.dq6_f0286">
+  <title>フロア <literal>#$0286</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f0286.png"/>
 </figure>
 <para>
-	左の商人は乗り物に関する質問をしてくる。セリフは
-	「船 手に入れる？」
-	「ひょうたん島 手に入れる？」
-	「ベッド 手に入れる？」
-	「じゅうたん 手に入れる？」だ。
-	各質問で「はい」と答えたときに、
-	それぞれの乗り物に搭乗可能なフラグが立つものと思われる。
+左の商人は乗り物に関する質問をしてくる。セリフは
+「船 手に入れる？」
+「ひょうたん島 手に入れる？」
+「ベッド 手に入れる？」
+「じゅうたん 手に入れる？」だ。
+各質問で「はい」と答えたときに、
+それぞれの乗り物に搭乗可能なフラグが立つ。
+具体的には <varname>$7E3D2E</varname> の適切なビットが 1 になる。
 </para>
 <para>
-	画面上部の大臣はゴールドデバッグ担当だ。
-	「おかね ほしい？」「いっぱい ほしい？」ときかれる。
-	「はい」で「いっぱい あげる。」となり、持ちゴールドが最大値になる。
-	「いいえ」だと「すこし あげる」となり、<literal>1000</literal> ゴールドもらえる。
+画面上部の大臣はゴールドデバッグ担当だ。
+「おかね ほしい？」「いっぱい ほしい？」ときかれる。
+「はい」で「いっぱい あげる。」となり、所持金が <literal>999999</literal> ゴールドになる。
+「いいえ」だと「すこし あげる」となり、<literal>1000</literal> ゴールドもらえる。
 </para>
 <para>
-	大臣の隣りにいる商人はふくろデバッグ担当だ。
-	「あなた もう ふくろ もってる。 わたし もう ふくろ ないね。」といわれる。
-	ふくろを持っていない状態でこの商人に話しかけると、
-	ふくろが使えるようになるものと思われる。
+大臣の隣りにいる商人はふくろデバッグ担当だ。
+「あなた もう ふくろ もってる。 わたし もう ふくろ ないね。」といわれる。
+ふくろを持っていない状態でこの商人に話しかけると、
+<varname>$7E3D2D</varname> の 7 ビット目が立ち、ふくろが使えるようになる。
 </para>
 <para>
-	神父はいつもの神父と同じはたらきをする。
-	ここでセーブすると「テスト」という場所になる。
-	試しにリセットして再開すると、ここからスタートとなる。
+神父はいつもの神父と同じはたらきをする。
+ここでセーブすると「テスト」という場所になる。
+試しにリセットして再開すると、ここからスタートとなる。
 </para>
 <para>
-	画面右側の詩人。
-	「マップチェックのための 設定を 行ないますか？」
-	「シナリオチェックは 出来ませんが よろしいですか？」
-	「マップチェックのための フラグを たてました」
-	などのセリフがある。
-	具体的にどうなるのかは確認することができなかった。
+画面右側の詩人。
+「マップチェックのための 設定を 行ないますか？」
+「シナリオチェックは 出来ませんが よろしいですか？」
+「マップチェックのための フラグを たてました」
+などのセリフがある。
+具体的にどうなるのかは（処理コードが長くて）確認することができなかった。
 </para>
 <para>
-	バーテン。
-	非常にマニアックな品揃えの道具の店だ。
+バーテン。
+非常にマニアックな品揃えの道具の店だ。
 </para>
-<figure>
-	<title>フロア <literal>#0286</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f0286_02.png"/>
+<figure id="fig.dq6_f0286_02">
+  <title>フロア <literal>#$0286</literal> の道具屋</title>
+  <graphic width="240px" fileref="./image/dq6_f0286_02.png"/>
 </figure>
 <para>
-	画面右側の青い服の娘。
-	「最強と 呼ばれたい？」ときかれる。
-	「はい」と言うとフリーズする。
-	<footnote>
-		<para>
-			プログラムを書き換える方法でフリーズさせない方法がありそうだ。
-		</para>
-	</footnote>
+画面右側の青い服の娘。
+「最強と 呼ばれたい？」ときかれる。
+「はい」と答えるとパーティー全員について経験値を <literal>#$FFFFFF</literal> にしてレベルを更新し、
+HP と MP と状態を回復し、
+次にルイーダの酒場にいる者も含む仲間全員に呪文特技を全て習得させ、
+最後に職業経験値を最大にする処理がなされる。
+再現条件が不明だが、この最後の処理でフリーズすることがある。
 </para>
-<figure>
-	<title>フロア <literal>#0286</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f0286_01.png"/>
+<figure id="fig.dq6_f0286_01">
+  <title>フロア <literal>#$0286</literal> 画面右の青服の娘</title>
+  <graphic width="240px" fileref="./image/dq6_f0286_01.png"/>
 </figure>
 <para>
-	バニー。
-	「パーティ先頭者の かっこよさ 10 あげる？」とたずねられる。
-	「はい」と答えると、パーティの先頭にいるキャラのかっこよさが <literal>10</literal> 上がる。
-	かっこよさが限界値に近い場合は限界値になる。
-	そのあとも「もう <literal>1</literal> 回 あげる？」ときかれる。
-	「はい」と答え続ける限り、かっこよさが <literal>10</literal> ずつ上がっていく。
+バニー。
+「パーティ先頭者の かっこよさ 10 あげる？」とたずねられる。
+「はい」と答えると、パーティの先頭にいるキャラのかっこよさが <literal>10</literal> 上がる。
+かっこよさが限界値に近い場合は限界値になる。
+そのあとも「もう <literal>1</literal> 回 あげる？」ときかれる。
+「はい」と答え続ける限り、かっこよさが <literal>10</literal> ずつ上がっていく。
 </para>
 <para>
-	画面左側の青い服の娘。
-	「もしも ひとりが さみしいのなら 泣いてもいいのよ この胸で。
-	→ そして フラグが うずくのならば 起ててもいいのよ この指で。」
-	「はい」と答えるとエンディングのチャモロのシーンから始まる。
-	「いいえ」で
-	「どうせ その気が おきないのなら 捨てればいいのよ そんなもの。」となる。
+画面左側の青い服の娘。
+「もしも ひとりが さみしいのなら 泣いてもいいのよ この胸で。
+→ そして フラグが うずくのならば 起ててもいいのよ この指で。」
+「はい」と答えるとエンディングのチャモロのシーンから始まる。
+「いいえ」で
+「どうせ その気が おきないのなら 捨てればいいのよ そんなもの。」となる。
 </para>
-<figure>
-	<title>フロア <literal>#0286</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f0286_03.png"/>
+<figure id="fig.dq6_f0286_03">
+  <title>フロア <literal>#$0286</literal> 画面左の青服の娘</title>
+  <graphic width="240px" fileref="./image/dq6_f0286_03.png"/>
 </figure>
 <para>
-	赤い服の娘。
-	「もう どうなってもいい？」
-	「合体しちゃってもいい？」「はい」でショウカク、ズイカクの取調べシーンが見られる。
-	「いいえ」とすると、質問が変わり「しずくを たらしちゃってもいい？」ときかれる。
-	「はい」でゼニスの城浮上シーンが見られる。
-	さらに「いいえ」とすると、「せめて まわしちゃってもいい？」ときかれる。
-	「はい」でラスボス直前の扉の前に移動させられる。
-	なにもしないように返事をすると「いくぢなし……」となる。
+赤い服の娘。
+「もう どうなってもいい？」
+「合体しちゃってもいい？」「はい」でショウカク、ズイカクの取調べシーンが見られる。
+「いいえ」とすると、質問が変わり「しずくを たらしちゃってもいい？」ときかれる。
+「はい」でゼニスの城浮上シーンが見られる。
+さらに「いいえ」とすると、「せめて まわしちゃってもいい？」ときかれる。
+「はい」でラスボス直前の扉の前に移動させられる。
+なにもしないように返事をすると「いくぢなし……」となる。
 </para>
-<figure>
-	<title>フロア <literal>#0286</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f0286_04.png"/>
+<figure id="fig.dq6_f0286_04">
+  <title>フロア <literal>#$0286</literal> 画面左の赤服の娘</title>
+  <graphic width="240px" fileref="./image/dq6_f0286_04.png"/>
 </figure>
 <para>
-	画面下部の男。
-	「ここから先は 一般の人は 立ち入り禁止です。
-	→ とりわけ デバッガーの方は えんりょして下さいね。」
-	ちなみにここから先はフラグチェック用フロア (<literal>#$028B</literal>) だ。
+画面下部の男。
+「ここから先は 一般の人は 立ち入り禁止です。
+→ とりわけ デバッガーの方は えんりょして下さいね。」
+ちなみにここから先は<link linkend="dq6.debug.floor.028B">フラグチェック用フロア</link>だ。
 </para>
-<figure>
-	<title>フロア <literal>#0286</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f0286_05.png"/>
+<figure id="fig.dq6_f0286_05">
+  <title>フロア <literal>#$0286</literal> 立入禁止の男</title>
+  <graphic width="240px" fileref="./image/dq6_f0286_05.png"/>
 </figure>
 <para>
-	BGM はカジノのものと同じだ。
+青服娘とバニーの間のテーブルは実は宝箱になっている。
+ここを調べるたびに「ちいさなメダル」が一枚入手できる。
+</para>
+<figure id="fig.dq6_f0286_chest">
+  <title>フロア <literal>#$0286</literal> 宝箱</title>
+  <graphic width="240px" fileref="./image/dq6_f0286_chest.png"/>
+</figure>
+<para>
+BGM はカジノのものと同じだ。
 </para>
 </section> <!-- dq6.debug.floor.0286 -->
 
 <section id="dq6.debug.floor.0287">
 <title>井戸の部屋</title>
 <para>
-	メインフロアの <literal>4</literal> つあるツボのうち、
-	一番右にあるものに乗っかるとこの部屋に出る。
-	一画面におさまるくらいの広さの部屋に、整然と井戸が <literal>10</literal> 個配置されている。
-	それぞれに <literal>F01</literal> から <literal>F10</literal> まで名前がついている。
+メインフロアの <literal>4</literal> つあるツボのうち、
+一番右にあるものに乗っかるとこの部屋に出る。
+一画面におさまるくらいの広さの部屋に、整然と井戸が <literal>10</literal> 個配置されている。
+それぞれに <literal>F01</literal> から <literal>F10</literal> まで名前がついている。
 </para>
-<figure>
-	<title>フロア <literal>#0287</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f0287.png"/>
+<figure id="fig.dq6_f0287">
+  <title>フロア <literal>#$0287</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f0287.png"/>
 </figure>
 <para>
-	各井戸に乗るとフィールドマップに出る。
-	しかし実際に使うことができるのは <literal>F01</literal>, <literal>F02</literal>, <literal>F03</literal>, <literal>F04</literal> の <literal>4</literal> つだけであった。
-	<literal>F01</literal> は上の世界のライフコッドの近く、
-	<literal>F02</literal> は下の世界のトルッカの近く、<literal>F03</literal> ははざまの世界スタート地点、
-	<literal>F04</literal> は海底フィールドの海底神殿の前にそれぞれ画面が切り替わる。
-	それも通常のフィールドではなく、何かのチェック用に色がついている。
+各井戸に乗るとフィールドマップに出る。
+しかし実際に使うことができるのは <literal>F01</literal>, <literal>F02</literal>, <literal>F03</literal>, <literal>F04</literal> の <literal>4</literal> つだけであった。
+<literal>F01</literal> は上の世界のライフコッドの近く、
+<literal>F02</literal> は下の世界のトルッカの近く、<literal>F03</literal> ははざまの世界スタート地点、
+<literal>F04</literal> は海底フィールドの海底神殿の前にそれぞれ画面が切り替わる。
+それも通常のフィールドではなく、何かのチェック用に色がついている。
 </para>
-<figure>
-	<title>フィールドがカラフル</title>
-	<graphic width="240px" fileref="./image/dq6_f0287_02.png"/>
+<figure id="fig.dq6_f0287_02">
+  <title>フィールドがカラフル</title>
+  <graphic width="240px" fileref="./image/dq6_f0287_02.png"/>
 </figure>
-<figure>
-	<title>海底がカラフル</title>
-	<graphic width="240px" fileref="./image/dq6_f0287_04.png"/>
+<figure id="fig.dq6_f0287_04">
+  <title>海底がカラフル</title>
+  <graphic width="240px" fileref="./image/dq6_f0287_04.png"/>
 </figure>
 <para>
-	中央のツボに乗ると、メインフロアの一番右のツボの上に戻る。
+中央のツボに乗ると、メインフロアの一番右のツボの上に戻る。
 </para>
 <para>
-	BGM は冒険の書メニューのものと同じだ。
+BGM は冒険の書メニューのものと同じだ。
 </para>
 </section> <!-- dq6.debug.floor.0287 -->
 
 <section id="dq6.debug.floor.0288">
 <title>カジノデバッグ用フロア</title>
 <para>
-	中途半端な広さのフロア。
-	なんか空の背景が映り込んでいる。
-	ランドっぽい男が <literal>5</literal> 人とネコ <literal>1</literal> 匹がいる。
+中途半端な広さのフロア。
+なんか空の背景が映り込んでいる。
+ランドっぽい男が <literal>5</literal> 人とネコ <literal>1</literal> 匹がいる。
 </para>
-<figure>
-	<title>フロア <literal>#0288</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f0288_01.png"/>
+<figure id="fig.dq6_f0288_01">
+  <title>フロア <literal>#$0288</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f0288_01.png"/>
 </figure>
 <para> 
-	一番左の男はポーカーチェック用らしく、
-	「ノーマルポーカー やらない？」
-	「ハイローポーカー やらない？」とたずねられる。
-	「はい」と答えるとすぐにポーカーの画面に切り替わる。
-	ちなみにハイローポーカーをやると言っても、
-	やはり通常のポーカー開始シーンになってしまった。
+一番左の男はポーカーチェック用らしく、
+「ノーマルポーカー やらない？」
+「ハイローポーカー やらない？」とたずねられる。
+「はい」と答えるとすぐにポーカーの画面に切り替わる。
+この両者の違いはダブルアップのカード選択方法だ。
 </para>
 <para>
-	左から <literal>2</literal> 番目の男はモンスターアニメーションチェック用らしい。
-	はなしかけた途端に戦闘シーンになる。
-	いつものウインドウは出ず、かわりに画面上のほうにモンスター名を
-	数値で入力するウインドウが出る。
-	上の画像で言うと、<literal>222</literal> がモンスター ID
-	（<link linkend="dq6.monster">モンスター表</link>参照）で、
-	左側の数字が入力用、右側がそのモンスターのアニメーション総数を表している。
-	<literal>0</literal> から数えるので、グラコスの場合は <literal>3</literal> 個ある。
-	背景はこの画像の海底のもので固定されている。
+左から <literal>2</literal> 番目の男はモンスターアニメーションチェック用らしい。
+話しかけた途端に戦闘シーンになる。
+いつものウインドウは出ず、かわりに画面上のほうにモンスター名を
+数値で入力するウインドウが出る。
+上の画像で言うと、<literal>222</literal> がモンスター ID
+（<link linkend="dq6.monster">モンスター表</link>参照）で、
+左側の数字が入力用、右側がそのモンスターのアニメーション総数を表している。
+<literal>0</literal> から数えるので、グラコスの場合は <literal>3</literal> 個ある。
+背景はこの画像の海底のもので固定されている。
 </para>
-<figure>
-	<title>モンスターアニメーション</title>
-	<graphic width="256px" fileref="./image/dq6_f0288_02.png"/>
+<para>
+操作方法が独特で、モンスターの変更に <keycap>L</keycap> と <keycap>R</keycap> ボタンを用いる。
+</para>
+<figure id="fig.dq6_f0288_02">
+  <title>モンスターアニメーション</title>
+  <graphic width="256px" fileref="./image/dq6_f0288_02.png"/>
 </figure>
 <para>
-	中央の男から右端の男までがスロットマシンだ。
-	コインの単位は <literal>1</literal> 枚だ。
-	絵柄パターンは <literal>3</literal> マシンともすべて同じであり、
-	どのマシンもその <literal>3</literal> つのドラムの絵柄パターンが同じだ。
+中央の男から右端の男までがスロットマシンだ。
+コインの単位は <literal>1</literal> 枚だ。
+絵柄パターンは <literal>3</literal> マシンともすべて同じであり、
+どのマシンもその <literal>3</literal> つのドラムの絵柄パターンが同じだ。
 </para>
 <para>
-	ネコにはセリフがない。
-	話すたびに、持ちコインが <literal>16777215</literal> 枚となる。
+ネコにはセリフがない。
 </para>
 <para>
-	BGM はカジノのものと同じだ。
+BGM はカジノのものと同じだ。
+</para>
+<para>
+キャンセル歩行を ON にした状態で部屋中央部のプールのようなところに進むと、
+どういうわけかトルッカ近くの海上に瞬間移動する。
 </para>
 </section> <!-- dq6.debug.floor.0288 -->
 
 <section id="dq6.debug.floor.0289">
 <title>戦闘デバッグ用フロア</title>
-<figure>
-	<title>フロア <literal>#0289</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f0289.png"/>
+<figure id="fig.dq6_f0289">
+  <title>フロア <literal>#$0289</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f0289.png"/>
 </figure>
 <para>
-	戦闘デバッグ用のフロア。
-	背景がムドー戦の背景と同じものだ。
+戦闘デバッグ用のフロア。
+背景がムドー戦の背景と同じものだ。
 </para>
 <para>
-	左端にいる男に話すと、
-	「経験値 ほしい？」ときかれる。
-	「はい」と答えると経験値が <literal>16777215</literal> になる。
+左端にいる男に話すと、
+「経験値 ほしい？」ときかれる。
+「はい」と答えると経験値が <literal>16777215</literal> になる。
 </para>
 <para>
-	占い師に話すと「呪文 おぼえる？」となり、
-	「はい」ですべての呪文・特技を使える状態になる。
+占い師に話すと「呪文 おぼえる？」となり、
+「はい」ですべての呪文・特技を使える状態になる。
 </para>
 <para>
-	中央のガイコツに話すといきなり画像のようなウインドウが出る。
-	グループ <literal>00</literal> から <literal>03</literal> の各モンスターと個数をセットすると、
-	さらに背景指定ウインドウが出る。
-	決定後戦闘シーンに突入する。
+中央のガイコツに話すといきなり画像のようなウインドウが出る。
+グループ <literal>00</literal> から <literal>03</literal> の各モンスターと個数をセットすると、
+さらに背景指定ウインドウが出る。
+決定後戦闘シーンに突入する。
 </para>
-<figure>
-	<title>モンスター数の入力</title>
-	<graphic width="240px" fileref="./image/dq6_f0289_02.png"/>
+<figure id="fig.dq6_f0289_02">
+<title>モンスター数の入力</title>
+<graphic width="240px" fileref="./image/dq6_f0289_02.png"/>
 </figure>
 <para>
-	神父は教会と同じ。冒険の書に記録すると、場所が「テスト」になる。
-	リセットして再開するとこの場所からゲーム再開になる。
+神父は教会と同じ。冒険の書に記録すると、場所が「テスト」になる。
+リセットして再開するとこの場所からゲーム再開になる。
 </para>
-<figure>
-	<title>冒険の書リスト</title>
-	<graphic width="240px" fileref="./image/dq6_f0289_03.png"/>
+<figure id="fig.dq6_f0289_03">
+  <title>冒険の書リスト</title>
+  <graphic width="240px" fileref="./image/dq6_f0289_03.png"/>
 </figure>
 <para>
-	右端の女戦士は宿屋だ。
-	宿賃はひとり <literal>2</literal> ゴールドとなっている。
+右端の女戦士は宿屋だ。
+宿賃はひとり <literal>2</literal> ゴールドとなっている。
 </para>
 <para>
-	このフロアの両側および下側画面切り替え地点に行くと、
-	メインフロアの上側中央の出入口に移動する。
+このフロアの両側および下側画面切り替え地点に行くと、
+メインフロアの上側中央の出入口に移動する。
 </para>
 <para>
-	BGM は洞窟のものと同じだ。
+BGM は洞窟のものと同じだ。
 </para>
 </section> <!-- dq6.debug.floor.0289 -->
 
 <section id="dq6.debug.floor.028A">
 <title>店デバッグ用フロア</title>
 <para>
-	部屋の左下から時計回りに
-	よろず屋、どうぐの店、防具の店、武器屋、ダーマの神殿、ルイーダの店、
-	教会（神父）、命名神につかえる神官、教会（シスター）、ゴールド銀行、おしゃれなカジヤ、宿屋、
-	そして最後に何かのデバッグ用のおじいさんがいる。
+部屋の左下から時計回りに
+よろず屋、どうぐの店、防具の店、武器屋、ダーマの神殿、ルイーダの店、
+教会（神父）、命名神につかえる神官、教会（シスター）、ゴールド銀行、おしゃれなカジヤ、宿屋、
+そして最後に何かのデバッグ用の老人がいる。
 </para>
-<figure>
-	<title>フロア <literal>#028A</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f028A_01.png"/>
-</figure>
-<figure>
-	<title>スライムに 転職できるフラグを たてますか？</title>
-	<graphic width="240px" fileref="./image/dq6_f028A_02.png"/>
+<figure id="fig.dq6_f028A_01">
+  <title>フロア <literal>#$028A</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f028A_01.png"/>
+  </figure>
+<figure id="fig.dq6_f028A_02">
+  <title>スライムに 転職できるフラグを たてますか？</title>
+  <graphic width="240px" fileref="./image/dq6_f028A_02.png"/>
 </figure>
 <para>
-	それぞれの店の品揃えは次の通り。
-	宿屋はひとり <literal>2</literal> ゴールドだ。
+それぞれの店の品揃えは次の通り。
+宿屋はひとり <literal>2</literal> ゴールドだ。
 </para>
-<table class="lighttable">
-	<caption>店屋メニュー</caption>
-	<thead>
-		<tr><th>店の種類</th><th>アイテム</th></tr>
-	</thead>
-	<tbody>
-		<tr><th rowspan="4">よろず屋</th><td>やくそう</td></tr>
-		<tr><td>どくけしそう</td></tr>
-		<tr><td>かわのぼうし</td></tr>
-		<tr><td>きのぼうし</td></tr>
+<table id="table.dq6.debug.floor.028A" class="lighttable">
+  <caption>店屋メニュー</caption>
+  <thead>
+    <tr><th>店の種類</th><th>アイテム</th></tr>
+  </thead>
+  <tbody>
+    <tr><th rowspan="4">よろず屋</th><td>やくそう</td></tr>
+    <tr><td>どくけしそう</td></tr>
+    <tr><td>かわのぼうし</td></tr>
+    <tr><td>きのぼうし</td></tr>
 
-		<tr><th rowspan="4">どうぐの店</th><td>やくそう</td></tr>
-		<tr><td>どくけしそう</td></tr>
-		<tr><td>せいすい</td></tr>
-		<tr><td>まじんのよろい</td></tr>
+    <tr><th rowspan="4">どうぐの店</th><td>やくそう</td></tr>
+    <tr><td>どくけしそう</td></tr>
+    <tr><td>せいすい</td></tr>
+    <tr><td>まじんのよろい</td></tr>
 
-		<tr><th rowspan="6">防具の店</th><td>ぬののふく</td></tr>
-		<tr><td>たびびとのふく</td></tr>
-		<tr><td>かわのよろい</td></tr>
-		<tr><td>うろこのよろい</td></tr>
-		<tr><td>くさりかたびら</td></tr>
-		<tr><td>せいどうのよろい</td></tr>
+    <tr><th rowspan="6">防具の店</th><td>ぬののふく</td></tr>
+    <tr><td>たびびとのふく</td></tr>
+    <tr><td>かわのよろい</td></tr>
+    <tr><td>うろこのよろい</td></tr>
+    <tr><td>くさりかたびら</td></tr>
+    <tr><td>せいどうのよろい</td></tr>
 
-		<tr><th rowspan="5">武器屋</th><td>ひのきのぼう</td></tr>
-		<tr><td>たけのやり</td></tr>
-		<tr><td>こんぼう</td></tr>
-		<tr><td>ブロンズナイフ</td></tr>
-		<tr><td>どうのつるぎ</td></tr>
-	</tbody>
+    <tr><th rowspan="5">武器屋</th><td>ひのきのぼう</td></tr>
+    <tr><td>たけのやり</td></tr>
+    <tr><td>こんぼう</td></tr>
+    <tr><td>ブロンズナイフ</td></tr>
+    <tr><td>どうのつるぎ</td></tr>
+  </tbody>
 </table>
 <para>
-	ここで冒険の書に記録したときの場所の名前は、
-	神父がライフコッド、シスターがシエーナにそれぞれなる。
-	実際リセットして再開すると、それぞれの教会からスタートとなる。
+ここで冒険の書に記録したときの場所の名前は、
+神父がライフコッド、シスターがシエーナにそれぞれなる。
+実際リセットして再開すると、それぞれの教会からスタートとなる。
 </para>
 <para>
-	右下の老人に話すと、
-	「スライムに 転職できる フラグを たてますか？」きかれる。「いいえ」を選ぶと、
-	「ドラゴンに 転職できる フラグを たてますか？」ときかれる。さらに「いいえ」を選ぶと
-	「デバッグに 転職できる フラグを たてますか？」となる。
-	ここでは「はい」「いいえ」のどちらを選んでも会話が終了する。
-	このおじいさんがこれらのフラグを実際に立てるかどうかは不明。
+右下の老人に話すと、
+「スライムに 転職できる フラグを たてますか？」きかれる。「いいえ」を選ぶと、
+「ドラゴンに 転職できる フラグを たてますか？」ときかれる。さらに「いいえ」を選ぶと
+「デバッグに 転職できる フラグを たてますか？」となる。
+ここでは「はい」「いいえ」のどちらを選んでも会話が終了する。
 </para>
 <para>
-	このフロアの出入口はメインフロアの上側左出入口に対応している。
+このフロアの出入口はメインフロアの上側左出入口に対応している。
 </para>
 <para>
-	BGM は街のものと同じだ。
+BGM は街のものと同じだ。
 </para>
 </section> <!-- dq6.debug.floor.028A -->
 
 <section id="dq6.debug.floor.028B">
 <title>フラグチェック用フロア（モンスターと男）</title>
-<figure>
-	<title>フロア <literal>#028B</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f028B.png"/>
+<figure id="fig.dq6_f028B">
+  <title>フロア <literal>#$028B</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f028B.png"/>
 </figure>
 <para>
-	フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
-	各キャラ <literal>1</literal> フラグを担当する。
-	「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
+フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
+各キャラ <literal>1</literal> フラグを担当する。
+「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
 </para>
 <para>
-	このフロアで聞くことのできるセリフは次のとおり。
+このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
-	<caption>フラグチェック用フロア（モンスターと男）</caption>
-	<thead>
-		<tr><th>セリフ</th><th>「はい」と答えると</th></tr>
-	</thead>
-	<tbody>
-		<tr><td>オープニング終了後</td><td>　</td></tr>
-		<tr><td>道具袋 もらった</td><td>　</td></tr>
-		<tr><td>精霊のかんむり 手に入れた</td><td>　</td></tr>
-		<tr><td>精霊イベント開始</td><td>　</td></tr>
-		<tr><td>村まつり 自由</td><td>　</td></tr>
-		<tr><td>村まつり ナレーション</td><td>花火からナレーションへ。</td></tr>
-		<tr><td>村まつり終了後</td><td>　</td></tr>
-		<tr><td>試練の説明が 終った</td><td>　</td></tr>
-		<tr><td>兵士になった</td><td>　</td></tr>
-		<tr><td>ファルシオン つかまえた</td><td>　</td></tr>
-		<tr><td>馬車を 手に入れた</td><td>　</td></tr>
-		<tr><td>サンディとジョセフの寸劇を見た</td><td>　</td></tr>
-	</tbody>
+<table id="table.dq6.debug.floor.028B" class="lighttable">
+  <caption>フラグチェック用フロア（モンスターと男）</caption>
+  <thead>
+    <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>オープニング終了後</td><td>　</td></tr>
+    <tr><td>道具袋 もらった</td><td>　</td></tr>
+    <tr><td>精霊のかんむり 手に入れた</td><td>　</td></tr>
+    <tr><td>精霊イベント開始</td><td>　</td></tr>
+    <tr><td>村まつり 自由</td><td>　</td></tr>
+    <tr><td>村まつり ナレーション</td><td>花火からナレーションへ。</td></tr>
+    <tr><td>村まつり終了後</td><td>　</td></tr>
+    <tr><td>試練の説明が 終った</td><td>　</td></tr>
+    <tr><td>兵士になった</td><td>　</td></tr>
+    <tr><td>ファルシオン つかまえた</td><td>　</td></tr>
+    <tr><td>馬車を 手に入れた</td><td>　</td></tr>
+    <tr><td>サンディとジョセフの寸劇を見た</td><td>　</td></tr>
+  </tbody>
 </table>
 <para>
-	BGM は街のものと同じだ。
+BGM は街のものと同じだ。
 </para>
 </section> <!-- dq6.debug.floor.028B -->
 
 <section id="dq6.debug.floor.028C">
 <title>フラグチェック用フロア（モンスターと青い服の女）</title>
-<figure>
-	<title>フロア <literal>#028C</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f028C.png"/>
+<figure id="fig.dq6_f028C">
+  <title>フロア <literal>#$028C</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f028C.png"/>
 </figure>
 <para>
-	フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
-	各キャラ <literal>1</literal> フラグを担当する。
-	「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
+フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
+各キャラ <literal>1</literal> フラグを担当する。
+「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
 </para>
 <para>
-	このフロアで聞くことのできるセリフは次のとおり。
+このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
-	<caption>フラグチェック用フロア（モンスターと青い服の女）</caption>
-	<thead>
-		<tr><th>セリフ</th><th>「はい」と答えると</th></tr>
-	</thead>
-	<tbody>
-		<tr><td>サンディ 入牢後</td><td>　</td></tr>
-		<tr><td>ドックでミレーユと話した</td><td>「はい」でも何も変化なし？</td></tr>
-		<tr><td>夢見のしずくを 手に入れた</td><td>　</td></tr>
-		<tr><td>実体化後</td><td>　</td></tr>
-		<tr><td>定期船に乗る</td><td>サンマリーノの船着場入口へ。</td></tr>
-		<tr><td>ニセ王子として 追い出された</td><td>　</td></tr>
-		<tr><td>M06の川が 赤く染まった</td><td>　</td></tr>
-		<tr><td>カガミのカギ入手後</td><td>　</td></tr>
-		<tr><td>エリザ さらわれた</td><td>　</td></tr>
-		<tr><td>誘拐事件解決後</td><td>　</td></tr>
-		<tr><td>バーバラに会う</td><td>つきかがみのとうの <literal>5</literal> 階へ。</td></tr>
-		<tr><td>ラーの鏡入手後</td><td>　</td></tr>
-	</tbody>
+<table id="table.dq6.debug.floor.028C" class="lighttable">
+  <caption>フラグチェック用フロア（モンスターと青い服の女）</caption>
+  <thead>
+    <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>サンディ 入牢後</td><td>　</td></tr>
+    <tr><td>ドックでミレーユと話した</td><td>「はい」でも何も変化なし？</td></tr>
+    <tr><td>夢見のしずくを 手に入れた</td><td>　</td></tr>
+    <tr><td>実体化後</td><td>　</td></tr>
+    <tr><td>定期船に乗る</td><td>サンマリーノの船着場入口へ。</td></tr>
+    <tr><td>ニセ王子として 追い出された</td><td>　</td></tr>
+    <tr><td>M06の川が 赤く染まった</td><td>　</td></tr>
+    <tr><td>カガミのカギ入手後</td><td>　</td></tr>
+    <tr><td>エリザ さらわれた</td><td>　</td></tr>
+    <tr><td>誘拐事件解決後</td><td>　</td></tr>
+    <tr><td>バーバラに会う</td><td>つきかがみのとうの <literal>5</literal> 階へ。</td></tr>
+    <tr><td>ラーの鏡入手後</td><td>　</td></tr>
+  </tbody>
 </table>
 <para>
-	BGM は街のものと同じだ。
+BGM は街のものと同じだ。
 </para>
 </section> <!-- dq6.debug.floor.028C -->
 
 <section id="dq6.debug.floor.028D">
 <title>フラグチェック用フロア（モンスターとターニア）</title>
-<figure>
-	<title>フロア <literal>#028D</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f028D.png"/>
+<figure id="fig.dq6_f028D">
+  <title>フロア <literal>#$028D</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f028D.png"/>
 </figure>
 <para>
-	フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
-	各キャラ <literal>1</literal> フラグを担当する。
-	「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
+フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
+各キャラ <literal>1</literal> フラグを担当する。
+「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
 </para>
 <para>
-	このフロアで聞くことのできるセリフは次のとおり。
+このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
-	<caption>フラグチェック用フロア（モンスターとターニア）</caption>
-	<thead>
-		<tr><th>セリフ</th><th>「はい」と答えると</th></tr>
-	</thead>
-	<tbody>
-		<tr><td>王がシェーラに戻った後</td><td>　</td></tr>
-		<tr><td>地底魔城に飛ぶ</td><td>ちていまじょうの地下 <literal>4</literal> 階へ。</td></tr>
-		<tr><td>ムドーが王に戻った後</td><td>　</td></tr>
-		<tr><td>大臣の眠れぬ夜が明けた後</td><td>　</td></tr>
-		<tr><td>下の世界 C01 回想イベント終った</td><td>　</td></tr>
-		<tr><td>王の書状を 受けとった</td><td>　</td></tr>
-		<tr><td>ゲント船の 進水イベント 終った</td><td>　</td></tr>
-		<tr><td>森と崖のイベント 2回目 終了</td><td>　</td></tr>
-		<tr><td>ムドー城へ</td><td>ムドーのしろの <literal>1</literal> 階へ。</td></tr>
-		<tr><td>ムドーを 倒した</td><td>　</td></tr>
-		<tr><td>M08での選択 アモスの処遇</td><td>アモスを仲間にする？ と追加質問をされる。</td></tr>
-		<tr><td>C08 棺桶を受け取った</td><td>　</td></tr>
-	</tbody>
+<table id="table.dq6.debug.floor.028D" class="lighttable">
+  <caption>フラグチェック用フロア（モンスターとターニア）</caption>
+  <thead>
+    <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>王がシェーラに戻った後</td><td>　</td></tr>
+    <tr><td>地底魔城に飛ぶ</td><td>ちていまじょうの地下 <literal>4</literal> 階へ。</td></tr>
+    <tr><td>ムドーが王に戻った後</td><td>　</td></tr>
+    <tr><td>大臣の眠れぬ夜が明けた後</td><td>　</td></tr>
+    <tr><td>下の世界 C01 回想イベント終った</td><td>　</td></tr>
+    <tr><td>王の書状を 受けとった</td><td>　</td></tr>
+    <tr><td>ゲント船の 進水イベント 終った</td><td>　</td></tr>
+    <tr><td>森と崖のイベント 2回目 終了</td><td>　</td></tr>
+    <tr><td>ムドー城へ</td><td>ムドーのしろの <literal>1</literal> 階へ。</td></tr>
+    <tr><td>ムドーを 倒した</td><td>　</td></tr>
+    <tr><td>M08での選択 アモスの処遇</td><td>アモスを仲間にする？ と追加質問をされる。</td></tr>
+    <tr><td>C08 棺桶を受け取った</td><td>　</td></tr>
+  </tbody>
 </table>
 <para>
-	BGM は街のものと同じだ。
+BGM は街のものと同じだ。
 </para>
 </section> <!-- dq6.debug.floor.028D -->
 
 <section id="dq6.debug.floor.028E">
-<title>フラグチェック用フロア（おじいさん）</title>
-<figure>
-	<title>フロア <literal>#028E</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f028E.png"/>
+<title>フラグチェック用フロア（老人）</title>
+<figure id="fig.dq6_f028E">
+  <title>フロア <literal>#$028E</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f028E.png"/>
 </figure>
 <para>
-	フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
-	各キャラ <literal>1</literal> フラグを担当する。
-	「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
+フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
+各キャラ <literal>1</literal> フラグを担当する。
+「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
 </para>
 <para>
-	このフロアで聞くことのできるセリフは次のとおり。
+このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
-	<caption>フラグチェック用フロア（おじいさん）</caption>
-	<thead>
-		<tr><th>セリフ</th><th>「はい」と答えると</th></tr>
-	</thead>
-	<tbody>
-		<tr><td>テリーの 戦闘イベント終った</td><td>　</td></tr>
-		<tr><td>旅人の洞窟 開通した</td><td>　</td></tr>
-		<tr><td>砂漠の町に 夜が来た</td><td>　</td></tr>
-		<tr><td>ゆーとぴあへ</td><td>フィールド上しあわせの国のある島の最南端のマスへ。</td></tr>
-		<tr><td>ジャミラス倒して ひょうたん島を 手に入れた</td><td>　</td></tr>
-		<tr><td>ホルスを 仲間にした</td><td>ホルスがパーティに。</td></tr>
-		<tr><td>ホルスが 洗礼の洞窟から 逃げ出した</td><td>　</td></tr>
-		<tr><td>C04 お祝いが終った</td><td>　</td></tr>
-		<tr><td>魔法の鍵を 受けとった</td><td>　</td></tr>
-		<tr><td>黄金のつるはしを 手に入れた</td><td>　</td></tr>
-		<tr><td>勇気のかけら 手に入れた</td><td>　</td></tr>
-		<tr><td>空飛ぶベッド 手に入れた</td><td>　</td></tr>
-	</tbody>
+<table id="table.dq6.debug.floor.028E" class="lighttable">
+  <caption>フラグチェック用フロア（老人）</caption>
+  <thead>
+    <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>テリーの 戦闘イベント終った</td><td>　</td></tr>
+    <tr><td>旅人の洞窟 開通した</td><td>　</td></tr>
+    <tr><td>砂漠の町に 夜が来た</td><td>　</td></tr>
+    <tr><td>ゆーとぴあへ</td><td>フィールド上しあわせの国のある島の最南端のマスへ。</td></tr>
+    <tr><td>ジャミラス倒して ひょうたん島を 手に入れた</td><td>　</td></tr>
+    <tr><td>ホルスを 仲間にした</td><td>ホルスがパーティに。</td></tr>
+    <tr><td>ホルスが 洗礼の洞窟から 逃げ出した</td><td>　</td></tr>
+    <tr><td>C04 お祝いが終った</td><td>　</td></tr>
+    <tr><td>魔法の鍵を 受けとった</td><td>　</td></tr>
+    <tr><td>黄金のつるはしを 手に入れた</td><td>　</td></tr>
+    <tr><td>勇気のかけら 手に入れた</td><td>　</td></tr>
+    <tr><td>空飛ぶベッド 手に入れた</td><td>　</td></tr>
+  </tbody>
 </table>
 <para>
-	BGM は街のものと同じだ。
+BGM は街のものと同じだ。
 </para>
 </section> <!-- dq6.debug.floor.028E -->
 
 <section id="dq6.debug.floor.028F">
 <title>フラグチェック用フロア（アモス）</title>
-<figure>
-	<title>フロア <literal>#028F</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f028F.png"/>
+<figure id="fig.dq6_f028F">
+  <title>フロア <literal>#$028F</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f028F.png"/>
 </figure>
 <para>
-	フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
-	各キャラ <literal>1</literal> フラグを担当する。
-	「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
+フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
+各キャラ <literal>1</literal> フラグを担当する。
+「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
 </para>
 <para>
-	このフロアで聞くことのできるセリフは次のとおり。
+このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
-	<caption>フラグチェック用フロア（アモス）</caption>
-	<thead>
-		<tr><th>セリフ</th><th>「はい」と答えると</th></tr>
-	</thead>
-	<tbody>
-		<tr><td>フォーン王の たのみを きいた</td><td>　</td></tr>
-		<tr><td>ミラルゴを たおした</td><td>　</td></tr>
-		<tr><td>イリカ姫 鏡から 助けられた</td><td>　</td></tr>
-		<tr><td>水門のカギ 手に入れた</td><td>　</td></tr>
-		<tr><td>隠し通路 発見した</td><td>　</td></tr>
-		<tr><td>ディーネを 仲間にした</td><td>　</td></tr>
-		<tr><td>マーメイドハープを 手に入れた</td><td>　</td></tr>
-		<tr><td>グラコス倒して 砂の器 入手した</td><td>　</td></tr>
-		<tr><td>マダンテ 入手した</td><td>　</td></tr>
-		<tr><td>ゴランと 話した</td><td>　</td></tr>
-		<tr><td>雪女の怒りが とけた</td><td>　</td></tr>
-		<tr><td>合い言葉を 聞いた</td><td>　</td></tr>
-		<tr><td>さびたつるぎを 入手した</td><td>　</td></tr>
-	</tbody>
+<table id="table.dq6.debug.floor.028F" class="lighttable">
+  <caption>フラグチェック用フロア（アモス）</caption>
+  <thead>
+    <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>フォーン王の たのみを きいた</td><td>　</td></tr>
+    <tr><td>ミラルゴを たおした</td><td>　</td></tr>
+    <tr><td>イリカ姫 鏡から 助けられた</td><td>　</td></tr>
+    <tr><td>水門のカギ 手に入れた</td><td>　</td></tr>
+    <tr><td>隠し通路 発見した</td><td>　</td></tr>
+    <tr><td>ディーネを 仲間にした</td><td>　</td></tr>
+    <tr><td>マーメイドハープを 手に入れた</td><td>　</td></tr>
+    <tr><td>グラコス倒して 砂の器 入手した</td><td>　</td></tr>
+    <tr><td>マダンテ 入手した</td><td>　</td></tr>
+    <tr><td>ゴランと 話した</td><td>　</td></tr>
+    <tr><td>雪女の怒りが とけた</td><td>　</td></tr>
+    <tr><td>合い言葉を 聞いた</td><td>　</td></tr>
+    <tr><td>さびたつるぎを 入手した</td><td>　</td></tr>
+  </tbody>
 </table>
 <para>
-	BGM は街のものと同じだ。
+BGM は街のものと同じだ。
 </para>
 </section> <!-- dq6.debug.floor.0290 -->
 
 <section id="dq6.debug.floor.0290">
 <title>フラグチェック用フロア（ミレーユ）</title>
-<figure>
-	<title>フロア <literal>#0290</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f0290.png"/>
+<figure id="fig.dq6_f0290">
+  <title>フロア <literal>#$0290</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f0290.png"/>
 </figure>
 <para>
-	フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
-	各キャラ <literal>1</literal> フラグを担当する。
-	「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
+フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
+各キャラ <literal>1</literal> フラグを担当する。
+「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
 </para>
 <para>
-	このフロアで聞くことのできるセリフは次のとおり。
+このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
-	<caption>フラグチェック用フロア（ミレーユ）</caption>
-	<thead>
-		<tr><th>セリフ</th><th>「はい」と答えると</th></tr>
-	</thead>
-	<tbody>
-		<tr><td>主人公分身 逃げ出した</td><td>　</td></tr>
-		<tr><td>ライフコッド 魔物におそわれている</td><td>　</td></tr>
-		<tr><td>ザコデーモン 倒した</td><td>　</td></tr>
-		<tr><td>下のライフコッド 魔物を 倒した</td><td>　</td></tr>
-		<tr><td>伝説のヨロイ 入手した</td><td>　</td></tr>
-		<tr><td>変装イベント スタート</td><td>　</td></tr>
-		<tr><td>変装イベント 終了</td><td>　</td></tr>
-		<tr><td>剣を サリイに渡した</td><td>　</td></tr>
-		<tr><td>ラミアスのつるぎ 入手した</td><td>　</td></tr>
-		<tr><td>ヘルクラウドへの 道が 開けた</td><td>　</td></tr>
-		<tr><td>天空城 復活した</td><td>　</td></tr>
-		<tr><td>ペガサス合体 終了</td><td>　</td></tr>
-	</tbody>
+<table id="table.dq6.debug.floor.0290" class="lighttable">
+  <caption>フラグチェック用フロア（ミレーユ）</caption>
+  <thead>
+    <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>主人公分身 逃げ出した</td><td>　</td></tr>
+    <tr><td>ライフコッド 魔物におそわれている</td><td>　</td></tr>
+    <tr><td>ザコデーモン 倒した</td><td>　</td></tr>
+    <tr><td>下のライフコッド 魔物を 倒した</td><td>　</td></tr>
+    <tr><td>伝説のヨロイ 入手した</td><td>　</td></tr>
+    <tr><td>変装イベント スタート</td><td>　</td></tr>
+    <tr><td>変装イベント 終了</td><td>　</td></tr>
+    <tr><td>剣を サリイに渡した</td><td>　</td></tr>
+    <tr><td>ラミアスのつるぎ 入手した</td><td>　</td></tr>
+    <tr><td>ヘルクラウドへの 道が 開けた</td><td>　</td></tr>
+    <tr><td>天空城 復活した</td><td>　</td></tr>
+    <tr><td>ペガサス合体 終了</td><td>　</td></tr>
+  </tbody>
 </table>
 <para>
-	BGM は街のものと同じだ。
+BGM は街のものと同じだ。
 </para>
 </section> <!-- dq6.debug.floor.0291 -->
 
 <section id="dq6.debug.floor.0291">
 <title>フラグチェック用フロア（人魚）</title>
-<figure>
-	<title>フロア <literal>#0291</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f0291.png"/>
+<figure id="fig.dq6_f0291">
+  <title>フロア <literal>#$0291</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f0291.png"/>
 </figure>
 <para>
-	フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
-	各キャラ <literal>1</literal> フラグを担当する。
-	「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
+フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
+各キャラ <literal>1</literal> フラグを担当する。
+「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
 </para>
 <para>
-	このフロアで聞くことのできるセリフは次のとおり。
+このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
-	<caption>フラグチェック用フロア（人魚）</caption>
-	<thead>
-		<tr><th>セリフ</th><th>「はい」と答えると</th></tr>
-	</thead>
-	<tbody>
-		<tr><td>青いボタン ついた</td><td>　</td></tr>
-		<tr><td>レイドック城 記憶をたどる イベント終了</td><td>　</td></tr>
-		<tr><td>ふるびたパイプを 受け取った</td><td>　</td></tr>
-		<tr><td>無気力フィルター解除</td><td>　</td></tr>
-		<tr><td>モルガンの手紙を 読んだ</td><td>　</td></tr>
-		<tr><td>湖のイベント終了</td><td>　</td></tr>
-		<tr><td>兵士の服 入手した</td><td>　</td></tr>
-		<tr><td>ドグマとゾゾゲルに 敗れた</td><td>ろうごくのまちの地下 <literal>3</literal> 階の牢屋の前へ。</td></tr>
-		<tr><td>M20 呪いを受けた</td><td>　</td></tr>
-		<tr><td>クリムトを 仲間にした</td><td>クリムトがパーティに。</td></tr>
-		<tr><td>はざまの城 落下後</td><td>　</td></tr>
-		<tr><td>エンディングへ</td><td>追加質問</td></tr>
-	</tbody>
+<table id="table.dq6.debug.floor.0291" class="lighttable">
+  <caption>フラグチェック用フロア（人魚）</caption>
+  <thead>
+    <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>青いボタン ついた</td><td>　</td></tr>
+    <tr><td>レイドック城 記憶をたどる イベント終了</td><td>　</td></tr>
+    <tr><td>ふるびたパイプを 受け取った</td><td>　</td></tr>
+    <tr><td>無気力フィルター解除</td><td>　</td></tr>
+    <tr><td>モルガンの手紙を 読んだ</td><td>　</td></tr>
+    <tr><td>湖のイベント終了</td><td>　</td></tr>
+    <tr><td>兵士の服 入手した</td><td>　</td></tr>
+    <tr><td>ドグマとゾゾゲルに 敗れた</td><td>ろうごくのまちの地下 <literal>3</literal> 階の牢屋の前へ。</td></tr>
+    <tr><td>M20 呪いを受けた</td><td>　</td></tr>
+    <tr><td>クリムトを 仲間にした</td><td>クリムトがパーティに。</td></tr>
+    <tr><td>はざまの城 落下後</td><td>　</td></tr>
+    <tr><td>エンディングへ</td><td>追加質問</td></tr>
+  </tbody>
 </table>
 <para>
-	最後のフラグキャラだけ追加質問がある。
+最後のフラグキャラだけ追加質問がある。
 </para>
 <itemizedlist>
-	<listitem>
-		<para>
-			「ムーア倒したとこから？」
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			「ペガサス飛行から？」
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			「下のレイドックから？」
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			「スタッフスクロールから？」
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			「後日シーンから？」
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			「ラストシーンから？」
-		</para>
-	</listitem>
+  <listitem>
+    <simpara>「ムーア倒したとこから？」</simpara>
+  </listitem>
+  <listitem>
+    <simpara>「ペガサス飛行から？」</simpara>
+  </listitem>
+  <listitem>
+    <simpara>「下のレイドックから？」</simpara>
+  </listitem>
+  <listitem>
+    <simpara>「スタッフスクロールから？」</simpara>
+  </listitem>
+  <listitem>
+    <simpara>「後日シーンから？」</simpara>
+  </listitem>
+  <listitem>
+    <simpara>「ラストシーンから？」</simpara>
+  </listitem>
 </itemizedlist>
 <para>
-	ペガサス飛行を選ぶと海上の特定のマスへ移動させられ、歩行状態なので身動きが取れなくなる。
-	てんまのたづなを使うと、いきなりエンディングの動きになる。
-	まほうのじゅうたんで直接ゼニスのしろへいくと面白い。
-	スタッフスクロールはゼニス城が空へ浮遊するシーンからスタート。
-	後日シーンはチャモロのシーン。BGM が街のそれ。
-	ラストシーンはレイドック城の王室から。
+ペガサス飛行を選ぶと海上の特定のマスへ移動させられ、歩行状態なので身動きが取れなくなる。
+てんまのたづなを使うと、いきなりエンディングの動きになる。
+まほうのじゅうたんで直接ゼニスのしろへいくと面白い。
+スタッフスクロールはゼニス城が空へ浮遊するシーンからスタート。
+後日シーンはチャモロのシーン。BGM が街のそれ。
+ラストシーンはレイドック城の王室から。
 </para>
 <para>
-	画面下側にノーメッセージ娘がいる。
-	この先に画面切り替えポイントはない。
+画面下側にノーメッセージ娘がいる。
+この先に画面切り替えポイントはない。
 </para>
 <para>
-	BGM は街のものと同じだ。
+BGM は街のものと同じだ。
 </para>
 </section> <!-- dq6.debug.floor.0291 -->
 
 <section id="dq6.debug.floor.0292">
 <title>フラグチェック用フロア（ホルス）</title>
-<figure>
-	<title>フロア <literal>#0292</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f0292.png"/>
+<figure id="fig.dq6_f0292">
+  <title>フロア <literal>#$0292</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f0292.png"/>
 </figure>
 <para>
-	フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
-	各キャラ <literal>1</literal> フラグを担当する。
-	「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
-	このフロア以降のフラグフロアからすでに用意されているフラグキャラとの重複が出てくる。
+フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
+各キャラ <literal>1</literal> フラグを担当する。
+「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
+このフロア以降のフラグフロアからすでに用意されているフラグキャラとの重複が出てくる。
 </para>
 <para>
-	このフロアで聞くことのできるセリフは次のとおり。
+このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
-	<caption>フラグチェック用フロア（ホルス）</caption>
-	<thead>
-		<tr><th>セリフ</th><th>「はい」と答えると</th></tr>
-	</thead>
-	<tbody>
-		<tr><td>オープニング終了後</td><td>　</td></tr>
-		<tr><td>村まつり終了後</td><td>　</td></tr>
-		<tr><td>くじけぬ心 入手後</td><td>　</td></tr>
-		<tr><td>M05に 初めて 入った</td><td>　</td></tr>
-		<tr><td>サンディ 入牢後</td><td>　</td></tr>
-		<tr><td>実体化後</td><td>　</td></tr>
-		<tr><td>ニセ王子として 追い出された</td><td>　</td></tr>
-		<tr><td>カガミのカギ入手後</td><td>　</td></tr>
-		<tr><td>ラーの鏡入手後</td><td>　</td></tr>
-		<tr><td>王がシェーラに戻った後</td><td>　</td></tr>
-		<tr><td>ムドーが王に戻った後</td><td>　</td></tr>
-		<tr><td>王の書状を 受けとった</td><td>　</td></tr>
-	</tbody>
+<table id="table.dq6.debug.floor.0292" class="lighttable">
+  <caption>フラグチェック用フロア（ホルス）</caption>
+  <thead>
+    <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>オープニング終了後</td><td>　</td></tr>
+    <tr><td>村まつり終了後</td><td>　</td></tr>
+    <tr><td>くじけぬ心 入手後</td><td>　</td></tr>
+    <tr><td>M05に 初めて 入った</td><td>　</td></tr>
+    <tr><td>サンディ 入牢後</td><td>　</td></tr>
+    <tr><td>実体化後</td><td>　</td></tr>
+    <tr><td>ニセ王子として 追い出された</td><td>　</td></tr>
+    <tr><td>カガミのカギ入手後</td><td>　</td></tr>
+    <tr><td>ラーの鏡入手後</td><td>　</td></tr>
+    <tr><td>王がシェーラに戻った後</td><td>　</td></tr>
+    <tr><td>ムドーが王に戻った後</td><td>　</td></tr>
+    <tr><td>王の書状を 受けとった</td><td>　</td></tr>
+  </tbody>
 </table>
 <para>
-	BGM は街のものと同じだ。
+BGM は街のものと同じだ。
 </para>
 </section> <!-- dq6.debug.floor.0292 -->
 
 <section id="dq6.debug.floor.0293">
 <title>フラグチェック用フロア（ランド）</title>
-<figure>
-	<title>フロア <literal>#0293</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f0293.png"/>
+<figure id="fig.dq6_f0293">
+  <title>フロア <literal>#$0293</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f0293.png"/>
 </figure>
 <para>
-	フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
-	各キャラ <literal>1</literal> フラグを担当する。
-	「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
+フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
+各キャラ <literal>1</literal> フラグを担当する。
+「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
 </para>
 <para>
-	このフロアで聞くことのできるセリフは次のとおり。
+このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
-	<caption>フラグチェック用フロア（ランド）</caption>
-	<thead>
-		<tr><th>セリフ</th><th>「はい」と答えると</th></tr>
-	</thead>
-	<tbody>
-		<tr><td>ムドーを 倒した</td><td>　</td></tr>
-		<tr><td>旅人の洞窟 開通した</td><td>　</td></tr>
-		<tr><td>ジャミラス倒して ひょうたん島を 手に入れた</td><td>　</td></tr>
-		<tr><td>C04 お祝いが終った</td><td>　</td></tr>
-		<tr><td>空飛ぶベッド 手に入れた</td><td>　</td></tr>
-		<tr><td>水門のカギ 手に入れた</td><td>　</td></tr>
-		<tr><td>マーメイドハープを 手に入れた</td><td>　</td></tr>
-		<tr><td>グラコス倒して 砂の器 入手した</td><td>　</td></tr>
-		<tr><td>まほうのじゅうたん 入手後</td><td>　</td></tr>
-		<tr><td>さびたつるぎを 入手した</td><td>　</td></tr>
-		<tr><td>変装イベント 終了</td><td>　</td></tr>
-		<tr><td>ザコデーモン 倒した</td><td>　</td></tr>
-	</tbody>
+<table id="table.dq6.debug.floor.0293" class="lighttable">
+  <caption>フラグチェック用フロア（ランド）</caption>
+  <thead>
+    <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>ムドーを 倒した</td><td>　</td></tr>
+    <tr><td>旅人の洞窟 開通した</td><td>　</td></tr>
+    <tr><td>ジャミラス倒して ひょうたん島を 手に入れた</td><td>　</td></tr>
+    <tr><td>C04 お祝いが終った</td><td>　</td></tr>
+    <tr><td>空飛ぶベッド 手に入れた</td><td>　</td></tr>
+    <tr><td>水門のカギ 手に入れた</td><td>　</td></tr>
+    <tr><td>マーメイドハープを 手に入れた</td><td>　</td></tr>
+    <tr><td>グラコス倒して 砂の器 入手した</td><td>　</td></tr>
+    <tr><td>まほうのじゅうたん 入手後</td><td>　</td></tr>
+    <tr><td>さびたつるぎを 入手した</td><td>　</td></tr>
+    <tr><td>変装イベント 終了</td><td>　</td></tr>
+    <tr><td>ザコデーモン 倒した</td><td>　</td></tr>
+  </tbody>
 </table>
 <para>
-	BGM は街のものと同じだ。
+BGM は街のものと同じだ。
 </para>
 </section> <!-- dq6.debug.floor.0293 -->
 
 <section id="dq6.debug.floor.0294">
 <title>フラグチェック用フロア（王さま）</title>
-<figure>
-	<title>フロア <literal>#0294</literal></title>
-	<graphic width="240px" fileref="./image/dq6_f0294.png"/>
+<figure id="fig.dq6_f0294">
+  <title>フロア <literal>#$0294</literal></title>
+  <graphic width="240px" fileref="./image/dq6_f0294.png"/>
 </figure>
 <para>
-	フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
-	各キャラ <literal>1</literal> フラグを担当する。
-	「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
+フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
+各キャラ <literal>1</literal> フラグを担当する。
+「はい」と答えると、その問いに対応するフラグが冒険の進行状況によらず、立ったことになる。
 </para>
 <para>
-	このフロアで聞くことのできるセリフは次のとおり。
+このフロアで聞くことのできるセリフは次のとおり。
 </para>
-<table class="lighttable">
-	<caption>フラグチェック用フロア（王さま）</caption>
-	<thead>
-		<tr><th>セリフ</th><th>「はい」と答えると</th></tr>
-	</thead>
-	<tbody>
-		<tr><td>レイドック城 記憶をたどる イベント終了</td><td>　</td></tr>
-		<tr><td>ヘルクラウドへの 道が 開けた</td><td>　</td></tr>
-		<tr><td>天空城 復活した</td><td>　</td></tr>
-		<tr><td>ペガサス合体 終了</td><td>　</td></tr>
-		<tr><td>無気力フィルター解除</td><td>　</td></tr>
-		<tr><td>M17 クリア後</td><td>　</td></tr>
-		<tr><td>ドグマとゾゾゲルに 敗れた</td><td>　</td></tr>
-		<tr><td>しんじつのオーブ 入手後</td><td>　</td></tr>
-	</tbody>
+<table id="table.dq6.debug.floor.0294" class="lighttable">
+  <caption>フラグチェック用フロア（王さま）</caption>
+  <thead>
+    <tr><th>セリフ</th><th>「はい」と答えると</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>レイドック城 記憶をたどる イベント終了</td><td>　</td></tr>
+    <tr><td>ヘルクラウドへの 道が 開けた</td><td>　</td></tr>
+    <tr><td>天空城 復活した</td><td>　</td></tr>
+    <tr><td>ペガサス合体 終了</td><td>　</td></tr>
+    <tr><td>無気力フィルター解除</td><td>　</td></tr>
+    <tr><td>M17 クリア後</td><td>　</td></tr>
+    <tr><td>ドグマとゾゾゲルに 敗れた</td><td>　</td></tr>
+    <tr><td>しんじつのオーブ 入手後</td><td>　</td></tr>
+  </tbody>
 </table>
 <para>
-	「余った」王さまが <literal>4</literal> 人いる。すべてセリフがない。
+「余った」王さまが <literal>4</literal> 人いる。すべてセリフがない。
 </para>
 <para>
-	このフロアの画面下側の出入口に画面切り替えポイントはない。
+このフロアの画面下側の出入口に画面切り替えポイントはない。
 </para>
 <para>
-	BGM は街のものと同じだ。
+BGM は街のものと同じだ。
 </para>
 </section> <!-- dq6.debug.floor.0294 -->
 </section> <!-- dq6.debug.floor -->

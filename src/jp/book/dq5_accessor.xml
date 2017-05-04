@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<section id="dq5.accessor"><?dbhtml filename="dq5_accessor.html" ?>
+<title>汎用データアクセスサブルーチン（仮）</title>
+<para>
+この節ではサブルーチン <varname>$218AFC</varname> およびそれに依存する機能群の振る舞いを可能な限り詳細に説明する。
+最初にサブルーチン <varname>$218AFC</varname> がどのような機能を有するプログラム構成要素なのかをごく簡単に説明する。
+さらにこのサブルーチンを間接的に利用するプログラム構成要素について言及する。
+これにより、サブルーチン <varname>$218AFC</varname> の仕様を把握することの重要性が明らかになるだろう。
+最後に、本サブルーチンの筆者が独自に調査した仕様を簡易な図表にして示す。
+逆アセンブリコードの解読のお供にするなり、逆アセンブラーのポストプロセッサーに取り込むなりして利用していただきたい。
+</para>
+
+<section id="dq5.accessor.abstract">
+<title>概要</title>
+<para>
+サブルーチン <varname>$218AFC</varname> はその機能や役割を文章で表現することが案外難しい。
+このサブルーチンを呼び出す状況次第で、その振る舞いの違いがあまりにも大きいからだ。
+まずは実際にこのサブルーチンが実行することができる機能について例を挙げておく。
+</para>
+
+<itemizedlist>
+  <listitem><para>仲間一人の属性値を参照または更新</para></listitem>
+  <listitem><para>戦闘時において、戦闘員一人の属性値を参照または更新</para></listitem>
+  <listitem><para>仲間一人の所持品または装備品を参照、検索または変更</para></listitem>
+  <listitem><para>仲間パーティーについて何らかの検索</para></listitem>
+  <listitem><para>仲間パーティーの編成を参照または更新</para></listitem>
+  <listitem><para>モンスター一種の属性値を参照</para></listitem>
+  <listitem><para>預かり所の状態を参照または更新</para></listitem>
+  <listitem><para>モンスターじいさんと仲間一体についての操作</para></listitem>
+  <listitem><para>ルイーダの酒場とある仲間一人についての操作</para></listitem>
+  <listitem><para>メダル王と取引するちいさなメダルについての操作</para></listitem>
+  <listitem><para>カジノのコインについての操作</para></listitem>
+</itemizedlist>
+
+<para>
+このように用途が多岐に亘るので、汎用データアクセスサブルーチン（仮）と呼ぶことにする。
+用途が多いと必然的に利用箇所も多数あるわけだが、
+このサブルーチンは呼び出し目的が何であっても共通してあるアドレスの値をやりとりする仕組みになっている。
+プログラマーは定型的なコードが繰り返し現れるのをある程度は防ぎたいはずで、
+これを BRK 命令を拡張することで実現したと思われる。
+BRK 命令を介した実行についての詳細とその実例は <xref linkend="dq5.brk.spec.80-93"/> で述べる。
+</para>
+
+</section> <!-- dq5.accessor.abstract -->
+
+<section id="dq5.accessor.dependencies">
+<title>依存関係</title>
+<para>
+サブルーチン <varname>$218AFC</varname> の呼び出しに関する依存関係を簡単なアスキーアートで表現する。
+矢印の向きは依存する側から依存される側に向かうものとする。
+</para>
+<programlisting>
+$21/8AFC
+  ← $21/8A9D: Long 型サブルーチン。未使用。
+  ← $21/8AC8: Long 型サブルーチン。未使用。
+  ← $21/8AF8: Long 型サブルーチン。
+     ← $00/8F80: BRK ハンドラー。
+</programlisting>
+<para>
+JSL 命令で実行されるはずの二つのサブルーチン <varname>$218A9D</varname> および <varname>$218AC8</varname> については、
+独自の調査の結果で未使用ルーチンであると結論したため、説明を省く。
+</para>
+<para>
+サブルーチン <varname>$218AF8</varname> はバンク内サブルーチンを任意のサブルーチンから呼び出せるようにするだけのラッパーであるので特別な説明を要しない。
+ただし、そのサブルーチンを利用する唯一の呼び出し元である BRK ハンドラー <varname>$008F80</varname> は被参照機会がとてつもなく多いため重要だ。
+これの呼び出しコードの意味を直ちに特定することができれば、逆アセンブリコードの解読が飛躍的に効率的になる。
+</para>
+<para>
+次に反対側の呼び出し依存関係を示す。
+</para>
+<programlisting>
+$21/8AFC
+  → $21/907C: この後管理するメモリを初期化する。
+  → $21/8B31: 対象メンバー ($39) を特定する。
+  → $21/8B82: この後操作するベースアドレス ($3A:) オフセット ($3D) サイズ ($3E) 実データ ($46:) をセットする。
+  → $21/8C3A: 目的 ($38) に応じた処理コードへジャンプする。
+</programlisting>
+<para>
+最初の三つのサブルーチンはこれ以上の呼び出しを含まない。
+サブルーチン <varname>$21907C</varname> は作業用のメモリをゼロで初期化するだけのミニルーチンだ。
+特に <varname>$46</varname> から <varname>$49</varname> までがゼロになることに注意したい。
+</para>
+
+<para>
+サブルーチン <varname>$218B31</varname> は主にアクセス対象のデータのベースアドレスを設定するためにある。
+つまり、オブジェクトサイズが N で、先頭から k 番目の仲間または敵についてのデータが欲しい場合には、
+このルーチンはアドレス <varname>$39</varname> にベースアドレスに値 <code>N * k</code> を加算した値を格納する。
+</para>
+<para>
+最後のサブルーチン <varname>$218C3A</varname> が難解で、
+固定ジャンプテーブルを参照することで目的 (<varname>$38</varname>) 別に定義されたコードを実行するようになっている。
+次節で図表にして示すことでコードの説明に代える。
+</para>
+</section> <!-- dq5.accessor.dependencies -->
+
+<section id="dq5.accessor.specification">
+<title>仕様</title>
+<para>
+まずサブルーチン <varname>$218AFC</varname> が間接的に参照するジャンプテーブルの各エントリーの振る舞いを図表にする。
+併せて、関連するデータ型をその格納アドレスに代表させて示す。
+</para>
+
+<section id="dq5.accessor.specification.functions">
+<title>機能表</title>
+<para>
+機能 ID とその機能の概要を図表にしたものを次に示す。
+未使用分も含めると機能個数が <literal>#$F6</literal> すなわち 246 個もあるので厄介だ。
+図表の読み方は詳細に述べず、読者の感覚に委ねる。
+</para>
+
+<table id="table.dq5.accessor.functions" class="lighttable">
+  <caption>サブルーチン機能一覧</caption>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>ベース</th>
+      <th>オフセット</th>
+      <th>マスク</th>
+      <th>機能</th>
+      <th>備考</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td align="right"><literal>#$00</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>仲間::HP を参照する。</td><td>さらに $49 に非ゼロ情報をセット。</td></tr>
+    <tr><td align="right"><literal>#$01</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>仲間::HP を増加させる。</td><td>結果値は MHP を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$02</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>仲間::HP を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+    <tr><td align="right"><literal>#$03</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>仲間::HP をその MHP と同じ値とする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>仲間::HP をその MHP の半分の値とする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[0E:10]</code></td>              <td></td>                               <td>仲間::MHP を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[0E:10]</code></td>              <td></td>                               <td>仲間::MHP を増加させる。</td><td>結果値は 999 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[04:06]</code></td>              <td></td>                               <td>仲間::MP を参照する。</td><td>さらに $49 に非ゼロ情報をセット。</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[04:06]</code></td>              <td></td>                               <td>仲間::MP を増加させる。</td><td>結果値は MMP を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$09</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[04:06]</code></td>              <td></td>                               <td>仲間::MP を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[04:06]</code></td>              <td></td>                               <td>仲間::MP と指定値とを比較する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[04:06]</code></td>              <td></td>                               <td>仲間::MP をゼロにする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[04:06]</code></td>              <td></td>                               <td>仲間::MP をその MMP と同じ値とする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$0D</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[10:12]</code></td>              <td></td>                               <td>仲間::MMP を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$0E</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[10:12]</code></td>              <td></td>                               <td>仲間::MMP を増加させる。</td><td>結果値は 999 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$0F</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>仲間::攻撃力を評価する。</td><td>ちからと装備品から算出する。</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>味方ワーク::攻撃力を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$11</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>味方ワーク::攻撃力を増加させる。</td><td>結果値は 511 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$12</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>味方ワーク::攻撃力を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+    <tr><td align="right"><literal>#$13</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>仲間::守備力を評価する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$14</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>味方ワーク::守備力を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$15</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>味方ワーク::守備力を増加させる。</td><td>結果値は 511 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$16</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>味方ワーク::守備力を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+    <tr><td align="right"><literal>#$17</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[06]</code></td>                 <td></td>                               <td>仲間::すばやさを評価する。</td><td>みのまもりと装備品から算出する。</td></tr>
+    <tr><td align="right"><literal>#$18</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[06]</code></td>                 <td></td>                               <td>仲間::すばやさを増加させる。</td><td>結果値は 255 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$19</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[04]</code></td>                 <td></td>                               <td>味方ワーク::すばやさを評価する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$1A</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[04]</code></td>                 <td></td>                               <td>味方ワーク::すばやさを増加させる。</td><td>結果値は 255 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$1B</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[04]</code></td>                 <td></td>                               <td>味方ワーク::すばやさを減少させる。</td><td>結果値は 0 を下限とする。未使用。</td></tr>
+    <tr><td align="right"><literal>#$1C</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[07]</code></td>                 <td></td>                               <td>仲間::ちからを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$1D</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[07]</code></td>                 <td></td>                               <td>仲間::ちからを増加させる。</td><td>結果値は 255 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$1E</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[08]</code></td>                 <td></td>                               <td>仲間::みのまもりを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$1F</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[08]</code></td>                 <td></td>                               <td>仲間::みのまもりを増加させる。</td><td>結果値は 255 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$20</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[09]</code></td>                 <td></td>                               <td>仲間::かしこさを評価する。</td><td>かしこさと装備品から算出する。</td></tr>
+    <tr><td align="right"><literal>#$21</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[09]</code></td>                 <td></td>                               <td>仲間::かしこさを増加させる。</td><td>結果値は 255 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$22</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[0A]</code></td>                 <td></td>                               <td>仲間::うんのよさを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$23</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[0A]</code></td>                 <td></td>                               <td>仲間::うんのよさを増加させる。</td><td>結果値は 255 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$24</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[0B:0E]</code></td>              <td></td>                               <td>仲間::けいけんちを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$25</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[0B:0E]</code></td>              <td></td>                               <td>仲間::けいけんちを増加させる。</td><td>結果値は 10000000 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$26</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[26:29]</code></td>              <td></td>                               <td>仲間::次のレベル到達時の経験値を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$27</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[12]</code></td>                 <td></td>                               <td>仲間::レベルを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$28</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[13]</code></td>                 <td></td>                               <td>仲間::レベル最大値を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$29</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[12]</code></td>                 <td></td>                               <td>仲間::レベルを 1 だけ増加させる。</td><td>結果値はレベル最大値を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$2A</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>仲間::ID を参照する。</td><td>ビット列である。</td></tr>
+    <tr><td align="right"><literal>#$2B</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[00]</code></td>                 <td><literal>#$3F</literal></td>        <td>指定オブジェクトの名前を得る。</td><td>キャラクターの名前以外にも利用できる。</td></tr>
+    <tr><td align="right"><literal>#$2C</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[00]</code></td>                 <td><literal>#$3F</literal></td>        <td>仲間::性別かモンスターを参照する。</td><td>戦闘時混乱行動にしか影響しない。</td></tr>
+    <tr><td align="right"><literal>#$2D</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[22]</code></td>                 <td></td>                               <td>仲間::職業かモンスターを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$2E</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>仲間::所持品と装備状態を得る。</td><td></td></tr>
+    <tr><td align="right"><literal>#$2F</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>仲間の所持品と装備品を数える。</td><td></td></tr>
+    <tr><td align="right"><literal>#$30</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>対象者とアイテムを指定して、仲間の所持品とする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$31</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>対象者とアイテムを指定して、仲間の所持品から取り除く。</td><td>貴重品を考慮する。</td></tr>
+    <tr><td align="right"><literal>#$32</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>対象者とアイテムを指定して、仲間の所持品から取り除く。</td><td></td></tr>
+    <tr><td align="right"><literal>#$33</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>対象者とアイテムを指定して、仲間の所持位置と装備状態を得る。</td><td></td></tr>
+    <tr><td align="right"><literal>#$34</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>対象者とアイテム位置を指定して、仲間に装備させる。</td><td></td></tr>
+    <tr><td align="right"><literal>#$35</literal></td><td align="right"><varname>*      </varname></td><td align="left"><code>*</code></td>                    <td></td>                               <td>*</td><td>一回だけ（みなごろしのけん）</td></tr>
+    <tr><td align="right"><literal>#$36</literal></td><td align="right"><varname>*      </varname></td><td align="left"><code>*</code></td>                    <td></td>                               <td>*</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$37</literal></td><td align="right"><varname>*      </varname></td><td align="left"><code>*</code></td>                    <td></td>                               <td>*</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$38</literal></td><td align="right"><varname>*      </varname></td><td align="left"><code>*</code></td>                    <td></td>                               <td>*</td><td>一回だけ（てんくうのかぶと）</td></tr>
+    <tr><td align="right"><literal>#$39</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>対象者を指定して、仲間が武器をいくつ所持しているかを数える。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$3A</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>対象者を指定して、仲間が防具をいくつ所持しているかを数える。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$3B</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>対象者を指定して、仲間が盾をいくつ所持しているかを数える。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$3C</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>対象者を指定して、仲間が兜をいくつ所持しているかを数える。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$3D</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>仲間::主要装備品を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$3E</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[01]</code></td>                 <td>指定</td>                           <td>仲間::状態を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$3F</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[01]</code></td>                 <td>指定</td>                           <td>仲間::状態をセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$40</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[01]</code></td>                 <td>指定</td>                           <td>仲間::状態をリセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$41</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[05]</code></td>                 <td>指定</td>                           <td>味方ワーク::状態を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$42</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[05]</code></td>                 <td>指定</td>                           <td>味方ワーク::状態をセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$43</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[05]</code></td>                 <td>指定</td>                           <td>味方ワーク::状態をリセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$44</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[05]</code></td>                 <td>指定</td>                           <td>味方ワーク::状態カウンターを 1 だけ減少させる。</td><td></td></tr>
+    <tr><td align="right"><literal>#$45</literal></td><td align="right"><varname>$7E201D</varname></td><td align="left">n/a</td>                               <td></td>                               <td>指定する状態のパーティーメンバーを数える。</td><td></td></tr>
+    <tr><td align="right"><literal>#$46</literal></td><td align="right"><varname>$7E201D</varname></td><td align="left">n/a</td>                               <td></td>                               <td>指定する状態のパーティーメンバーを検索する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$47</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left">n/a</td>                               <td></td>                               <td>パーティーメンバーを加える。</td><td></td></tr>
+    <tr><td align="right"><literal>#$48</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left">n/a</td>                               <td></td>                               <td>パーティーメンバーを外す。</td><td></td></tr>
+    <tr><td align="right"><literal>#$49</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[19:1C]</code></td>              <td></td>                               <td>所持金を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$4A</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[19:1C]</code></td>              <td></td>                               <td>所持金を増加させる。</td><td>結果値は 99999 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$4B</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[19:1C]</code></td>              <td></td>                               <td>所持金を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+    <tr><td align="right"><literal>#$4C</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[30:33]</code></td>              <td></td>                               <td>ルーラで行ける地点を数える。</td><td></td></tr>
+    <tr><td align="right"><literal>#$4D</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[30:33]</code></td>              <td></td>                               <td>ルーラで行ける地点があるか調べる。</td><td></td></tr>
+    <tr><td align="right"><literal>#$4E</literal></td><td align="right"><varname>$7E2033</varname></td><td align="left"></td>                                  <td><literal>#$7F</literal></td>        <td>調査中。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$4F</literal></td><td align="right"><varname>$7E2034</varname></td><td align="left"></td>                                  <td></td>                               <td>さくせんを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$50</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>敵方ワーク::HP を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$51</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>敵方ワーク::HP を増加させる。</td><td>結果値は MHP を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$52</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>敵方ワーク::HP を減少させる。</td><td>結果値は 0 を下限とする。マジックナンバーを考慮する。</td></tr>
+    <tr><td align="right"><literal>#$53</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>敵方ワーク::HP をその MHP と同じ値とする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$54</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>敵方ワーク::HP をその MHP の半分の値とする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$55</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[03]</code></td>                 <td></td>                               <td>敵方メンバーの MHP を評価する。</td><td>マジックナンバーやモシャスを考慮。</td></tr>
+    <tr><td align="right"><literal>#$56</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[04]</code></td>                 <td></td>                               <td>敵方ワーク::MP を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$57</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[04]</code></td>                 <td></td>                               <td>敵方ワーク::MP を増加させる。</td><td>結果値は 254 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$58</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[04]</code></td>                 <td></td>                               <td>敵方ワーク::MP を減少させる。</td><td>結果値は 0 を下限とする。マジックナンバーを考慮する。</td></tr>
+    <tr><td align="right"><literal>#$59</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[04]</code></td>                 <td></td>                               <td>敵方ワーク::MP と指定値とを比較する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$5A</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[04]</code></td>                 <td></td>                               <td>敵方ワーク::MP をその MMP と同じ値とする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$5B</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[04]</code></td>                 <td></td>                               <td>モンスター::MMP を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$5C</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[05]</code></td>                 <td></td>                               <td>敵方ワーク::すばやさを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$5D</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[05]</code></td>                 <td></td>                               <td>敵方ワーク::すばやさを増加させる。</td><td>結果値は 255 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$5E</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[05]</code></td>                 <td></td>                               <td>敵方ワーク::すばやさを減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+    <tr><td align="right"><literal>#$5F</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>モンスター::すばやさを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$60</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[06:08]</code></td>              <td></td>                               <td>敵方ワーク::攻撃力を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$61</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[06:08]</code></td>              <td></td>                               <td>敵方ワーク::攻撃力を増加させる。</td><td>結果値は 2047 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$62</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[06:08]</code></td>              <td></td>                               <td>敵方ワーク::攻撃力を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+    <tr><td align="right"><literal>#$63</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[01]</code></td>                 <td><literal>#$80</literal></td>        <td>モンスター::攻撃力を参照する。</td><td>攻撃力の 256 の位の値は <code>[08]</code> にある。</td></tr>
+    <tr><td align="right"><literal>#$64</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[08:0A]</code></td>              <td></td>                               <td>敵方ワーク::守備力を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$65</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[08:0A]</code></td>              <td></td>                               <td>敵方ワーク::守備力を増加させる。</td><td>結果値は 2047 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$66</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[08:0A]</code></td>              <td></td>                               <td>敵方ワーク::守備力を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+    <tr><td align="right"><literal>#$67</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[02]</code></td>                 <td></td>                               <td>敵方メンバーの守備力を評価する。</td><td>マジックナンバーを考慮する。</td></tr>
+    <tr><td align="right"><literal>#$68</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[08]</code></td>                 <td><literal>#$03</literal></td>        <td>モンスター::コマンド選択制約を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$69</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[0A]</code></td>                 <td><literal>#$E0</literal></td>        <td>モンスター::コマンド選択アルゴリズムを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$6A</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[11]</code></td>                 <td></td>                               <td>モンスター::戦闘コマンドを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$6B</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[0B]</code></td>                 <td><literal>#$C0</literal></td>        <td>モンスター::複数回攻撃を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$6C</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[0A]</code></td>                 <td><literal>#$18</literal></td>        <td>モンスター::自動回復を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$6D</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[0C]</code></td>                 <td><literal>#$40</literal></td>        <td>モンスター::集中攻撃を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$6E</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[08]</code></td>                 <td><literal>#$30</literal></td>        <td>モンスター::みかわしを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$6F</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[0C]</code></td>                 <td>指定</td>                           <td>モンスター::状態を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$70</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[0C]</code></td>                 <td><literal>#$80</literal></td>        <td>モンスター::初期状態を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$71</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[09]</code></td>                 <td><literal>#$C0</literal></td>        <td>モンスター::初期状態適用確率を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$72</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[05:07]</code></td>              <td></td>                               <td>モンスター::経験値を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$73</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[07:09]</code></td>              <td></td>                               <td>モンスター::ゴールドを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$74</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[09]</code></td>                 <td><literal>#$38</literal></td>        <td>モンスター::アイテム確率を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$75</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[17]</code></td>                 <td></td>                               <td>モンスター::アイテムを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$76</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[09]</code></td>                 <td><literal>#$07</literal></td>        <td>モンスター::仲間確率を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$77</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[18]</code></td>                 <td><literal>#$7F</literal></td>        <td>モンスター::仲間モンスターを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$78</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>敵方ワーク::IDを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$79</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[0A]</code></td>                 <td>指定</td>                           <td>敵方ワーク::状態を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$7A</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[0A]</code></td>                 <td>指定</td>                           <td>敵方ワーク::状態を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$7B</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[0A]</code></td>                 <td>指定</td>                           <td>敵方ワーク::状態をリセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$7C</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[0A]</code></td>                 <td>指定</td>                           <td>敵方ワーク::状態カウンターを 1 だけ減少させる。</td><td></td></tr>
+    <tr><td align="right"><literal>#$7D</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[01]</code></td>                 <td><literal>#$03</literal></td>        <td>敵方ワーク::敵グループを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$7E</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[01]</code></td>                 <td><literal>#$BC</literal></td>        <td>敵方ワーク::敵位置を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$7F</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>主人公等を初期化する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$80</literal></td><td align="right"><varname>$7E2035</varname></td><td align="left"></td>                                  <td><literal>#$07</literal></td>        <td>ひょうじそくどを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$81</literal></td><td align="right"><varname>$7E2034</varname></td><td align="left"></td>                                  <td></td>                               <td>さくせんをセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$82</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>移動時呪文と消費 MP を参照する。</td><td>対象アドレスを別途算出。</td></tr>
+    <tr><td align="right"><literal>#$83</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>移動時呪文特技を参照する。</td><td>対象アドレスを別途算出。</td></tr>
+    <tr><td align="right"><literal>#$84</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>習得済移動時呪文の個数を得る。</td><td>対象アドレスを別途算出。</td></tr>
+    <tr><td align="right"><literal>#$85</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>戦闘時呪文と消費 MP を参照する。</td><td>対象アドレスを別途算出。</td></tr>
+    <tr><td align="right"><literal>#$86</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>戦闘時呪文特技の個数を得る。</td><td>対象アドレスを別途算出。</td></tr>
+    <tr><td align="right"><literal>#$87</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>習得済戦闘時呪文特技の個数を得る。</td><td>対象アドレスを別途算出。</td></tr>
+    <tr><td align="right"><literal>#$88</literal></td><td align="right"><varname>$7E2035</varname></td><td align="left"></td>                                  <td></td>                               <td>ひょうじそくどをセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$89</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[14:16]</code></td>              <td></td>                               <td>対象者とアイテム位置を指定して、仲間の装備を外す。</td><td></td></tr>
+    <tr><td align="right"><literal>#$8A</literal></td><td align="right"><varname>$7E2020</varname></td><td align="left"></td>                                  <td></td>                               <td>調査中。</td><td></td></tr>
+    <tr><td align="right"><literal>#$8B</literal></td><td align="right"><varname>$23AED1</varname></td><td align="left"><code>[08]</code></td>                 <td><literal>#$0F</literal></td>        <td>仲間モンスター::装備クラスを参照する。</td><td>未使用？</td></tr>
+    <tr><td align="right"><literal>#$8C</literal></td><td align="right"><varname>$23AED1</varname></td><td align="left"><code>[08]</code></td>                 <td></td>                               <td>これはナンセンス。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$8D</literal></td><td align="right"><varname>$23AED1</varname></td><td align="left"><code>[01]</code></td>                 <td><literal>#$7F</literal></td>        <td>仲間モンスター::レベル最大値を参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$8E</literal></td><td align="right"><varname>$7E201D</varname></td><td align="left"></td>                                  <td></td>                               <td>アイテムをパーティーの誰かの所持品に追加する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$8F</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[0A]</code></td>                 <td></td>                               <td>調査中。</td><td>なぜか二度連続して呼ぶ。</td></tr>
+    <tr><td align="right"><literal>#$90</literal></td><td align="right"><varname>$7E201C</varname></td><td align="left"></td>                                  <td></td>                               <td>アイテムをパーティーの所持品から検索する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$91</literal></td><td align="right"><varname>$7E201C</varname></td><td align="left"></td>                                  <td><literal>#$C0</literal></td>        <td>馬車利用可か調べる。</td><td></td></tr>
+    <tr><td align="right"><literal>#$92</literal></td><td align="right"><varname>$7E201C</varname></td><td align="left"></td>                                  <td><literal>#$C0</literal></td>        <td>馬車利用可とする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$93</literal></td><td align="right"><varname>$7E201C</varname></td><td align="left"></td>                                  <td><literal>#$3F</literal></td>        <td>調査中。</td><td></td></tr>
+    <tr><td align="right"><literal>#$94</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[19:1C]</code></td>              <td></td>                               <td>所持金に指定額だけ増加させられるか調べる。</td><td>結果値は 99999 を上限とする。未使用。</td></tr>
+    <tr><td align="right"><literal>#$95</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[01]</code></td>                 <td>#03</td>                            <td>仲間::状態をリセットする。</td><td>未使用？</td></tr>
+    <tr><td align="right"><literal>#$96</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[01]</code></td>                 <td>#03</td>                            <td>仲間::状態をセットする。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$97</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[3A:3C]</code></td>              <td></td>                               <td>預かり所::預金額を参照する。</td><td>1000G 単位。</td></tr>
+    <tr><td align="right"><literal>#$98</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[3A:3C]</code></td>              <td></td>                               <td>預かり所::預金額に指定額だけ増加させられるか調べる。</td><td>1000G を単位として結果値は 1000 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$99</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[3A:3C]</code></td>              <td></td>                               <td>預かり所::預金額を増加させる。</td><td>1000G を単位として結果値は 1000 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$9A</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[3A:3C]</code></td>              <td></td>                               <td>預かり所::預金額を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+    <tr><td align="right"><literal>#$9B</literal></td><td align="right"><varname>$7E2250</varname></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫数を得る（ぶき）。</td><td></td></tr>
+    <tr><td align="right"><literal>#$9C</literal></td><td align="right"><varname>$7E2250</varname></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫数を得る（ぼうぐ）。</td><td></td></tr>
+    <tr><td align="right"><literal>#$9D</literal></td><td align="right"><varname>$7E2250</varname></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫数を得る（どうぐ）。</td><td></td></tr>
+    <tr><td align="right"><literal>#$9E</literal></td><td align="right"><varname>$7E2250</varname></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫を増やせるか調べる。</td><td>結果値は 99 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$9F</literal></td><td align="right"><varname>$7E2250</varname></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫を 1 だけ増やす。</td><td>結果値は 99 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$A0</literal></td><td align="right"><varname>$7E2250</varname></td><td align="left"></td>                                  <td></td>                               <td>預かり所::アイテムと在庫数を得る（ぶき）。</td><td></td></tr>
+    <tr><td align="right"><literal>#$A1</literal></td><td align="right"><varname>$7E2250</varname></td><td align="left"></td>                                  <td></td>                               <td>預かり所::アイテムと在庫数を得る（ぼうぐ）。</td><td></td></tr>
+    <tr><td align="right"><literal>#$A2</literal></td><td align="right"><varname>$7E2250</varname></td><td align="left"></td>                                  <td></td>                               <td>預かり所::アイテムと在庫数を得る（どうぐ）。</td><td></td></tr>
+    <tr><td align="right"><literal>#$A3</literal></td><td align="right"><varname>$7E2250</varname></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫を 1 だけ減らす（ぶき）。</td><td>結果値は 0 を下限とする。</td></tr>
+    <tr><td align="right"><literal>#$A4</literal></td><td align="right"><varname>$7E2250</varname></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫を 1 だけ減らす（ぼうぐ）。</td><td>結果値は 0 を下限とする。</td></tr>
+    <tr><td align="right"><literal>#$A5</literal></td><td align="right"><varname>$7E2250</varname></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫を 1 だけ減らす（どうぐ）。</td><td>結果値は 0 を下限とする。</td></tr>
+    <tr><td align="right"><literal>#$A6</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>じいさんに預けてある仲間モンスターの頭数を数える。</td><td></td></tr>
+    <tr><td align="right"><literal>#$A7</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>じいさんに預けてある仲間モンスターがいるか調べる。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$A8</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>じいさんに仲間モンスターを送る。</td><td></td></tr>
+    <tr><td align="right"><literal>#$A9</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"></td>                                  <td></td>                               <td>じいさんから仲間モンスターを引き取る。</td><td></td></tr>
+    <tr><td align="right"><literal>#$AA</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>同一種モンスター仲間数というデータを更新する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$AB</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[00]</code></td>                 <td><literal>#$3F</literal></td>        <td>預けたモンスター::名前を得る。</td><td>文字列の出力先は $00:$10 とする。</td></tr>
+    <tr><td align="right"><literal>#$AC</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[00]</code></td>                 <td><literal>#$7F</literal></td>        <td>預けたモンスター::レベルを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$AD</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[01]</code></td>                 <td><literal>#$80</literal></td>        <td>預けたモンスター::生存状態を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$AE</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[0B:0E]</code></td>              <td></td>                               <td>預けたモンスター::けいけんちを参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$AF</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>預けたモンスター::HP を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$B0</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[04:06]</code></td>              <td></td>                               <td>預けたモンスター::MP を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$B1</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[0E:10]</code></td>              <td></td>                               <td>預けたモンスター::MHP を参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$B2</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[10:12]</code></td>              <td></td>                               <td>預けたモンスター::MMP を参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$B3</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[06]</code></td>                 <td></td>                               <td>預けたモンスター::すばやさを参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$B4</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[07]</code></td>                 <td></td>                               <td>預けたモンスター::ちからを参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$B5</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[08]</code></td>                 <td></td>                               <td>預けたモンスター::みのまもりを参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$B6</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[09]</code></td>                 <td></td>                               <td>預けたモンスター::かしこさを参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$B7</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[0A]</code></td>                 <td></td>                               <td>預けたモンスター::うんのよさを参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$B8</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>預けたモンスター::モンスターを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$B9</literal></td><td align="right"><varname>$7E2332</varname></td><td align="left"><code>[14:18]</code></td>              <td></td>                               <td>預けたモンスター::装備品を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$BA</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>ルイーダに預けてある仲間の人数を数える。</td><td></td></tr>
+    <tr><td align="right"><literal>#$BB</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>ルイーダに預けてある仲間がいるか調べる。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$BC</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>ルイーダに仲間を送る。</td><td></td></tr>
+    <tr><td align="right"><literal>#$BD</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"></td>                                  <td></td>                               <td>ルイーダから仲間を引き取る。</td><td></td></tr>
+    <tr><td align="right"><literal>#$BE</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[00]</code></td>                 <td><literal>#$3F</literal></td>        <td>預けた人間::名前を得る。</td><td>文字列の出力先は $00:$10 とする。</td></tr>
+    <tr><td align="right"><literal>#$BF</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[12]</code></td>                 <td><literal>#$7F</literal></td>        <td>預けた人間::レベルを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$C0</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[01]</code></td>                 <td><literal>#$80</literal></td>        <td>預けた人間::生存状態を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$C1</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[0B:0E]</code></td>              <td></td>                               <td>預けた人間::けいけんちを参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$C2</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[02:04]</code></td>              <td></td>                               <td>預けた人間::HP を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$C3</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[04:06]</code></td>              <td></td>                               <td>預けた人間::MP を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$C4</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[0E:10]</code></td>              <td></td>                               <td>預けた人間::MHP を参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$C5</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[10:12]</code></td>              <td></td>                               <td>預けた人間::MMP を参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$C6</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[06]</code></td>                 <td></td>                               <td>預けた人間::すばやさを参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$C7</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[07]</code></td>                 <td></td>                               <td>預けた人間::ちからを参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$C8</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[08]</code></td>                 <td></td>                               <td>預けた人間::みのまもりを参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$C9</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[09]</code></td>                 <td></td>                               <td>預けた人間::かしこさを参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$CA</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[0A]</code></td>                 <td></td>                               <td>預けた人間::うんのよさを参照する。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$CB</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[18]</code></td>                 <td></td>                               <td>預けた人間::肩書を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$CC</literal></td><td align="right"><varname>$7E294A</varname></td><td align="left"><code>[16:1A]</code></td>              <td></td>                               <td>これはナンセンス。</td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$CD</literal></td><td align="right"><varname>$7E2250</varname></td><td align="left"></td>                                  <td></td>                               <td>指定アイテムの預かり所::在庫を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$CE</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[05:09]</code></td>              <td></td>                               <td>味方ワーク::状態ビット列を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$CF</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[09]</code></td>                 <td></td>                               <td>味方ワーク::状態ビット列を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$D0</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[0A:0E]</code></td>              <td></td>                               <td>敵方ワーク::状態ビット列を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$D1</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[0E:10]</code></td>              <td></td>                               <td>敵方ワーク::状態ビット列を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$D2</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[23:26]</code></td>              <td></td>                               <td>仲間::習得済コマンドをセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$D3</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[3F]</code></td>                 <td></td>                               <td>メダル王::ちいさなメダルを数える。</td><td></td></tr>
+    <tr><td align="right"><literal>#$D4</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[3F]</code></td>                 <td></td>                               <td>メダル王::ちいさなメダルの枚数を 1 だけ増やす。</td><td>結果値は 255 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$D5</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[3F]</code></td>                 <td></td>                               <td>メダル王::ちいさなメダルの枚数を減らす。</td><td>結果値は 0 を下限とする。</td></tr>
+    <tr><td align="right"><literal>#$D6</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[26:29]</code></td>              <td></td>                               <td>仲間::次のレベル到達時の経験値をセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$D7</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[3C:3F]</code></td>              <td></td>                               <td>カジノ::コイン枚数を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$D8</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[3C:3F]</code></td>              <td></td>                               <td>カジノ::コイン枚数を指定分増やせるかどうか調べる。</td><td>結果値は 9999999 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$D9</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[3C:3F]</code></td>              <td></td>                               <td>カジノ::コイン枚数を増加させる。</td><td>結果値は 9999999 を上限とする。</td></tr>
+    <tr><td align="right"><literal>#$DA</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[3C:3F]</code></td>              <td></td>                               <td>カジノ::コイン枚数を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+    <tr><td align="right"><literal>#$DB</literal></td><td align="right"><varname>$7E201D</varname></td><td align="left"></td>                                  <td></td>                               <td>パーティーメンバーを検索する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$DC</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[08]</code></td>                 <td><literal>#$03</literal></td>        <td>モンスター::コマンド選択制約を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$DD</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[0A]</code></td>                 <td><literal>#$E0</literal></td>        <td>モンスター::コマンド選択アルゴリズムを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$DE</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[11]</code></td>                 <td></td>                               <td>モンスター::戦闘コマンドを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$DF</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[0C]</code></td>                 <td>指定</td>                           <td>モンスター::耐性を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$E0</literal></td><td align="right"><varname>$7E201D</varname></td><td align="left"></td>                                  <td></td>                               <td>パーティー情報 <code>$7E201F = $7E201E; $7E2028,X = $7E2020,X</code></td><td></td></tr>
+    <tr><td align="right"><literal>#$E1</literal></td><td align="right"><varname>$7E201D</varname></td><td align="left"></td>                                  <td></td>                               <td>パーティー情報 <code>$7E201E = $7E201F; $7E2020,X = $7E2028,X</code></td><td></td></tr>
+    <tr><td align="right"><literal>#$E2</literal></td><td align="right"><varname>$7E201D</varname></td><td align="left"></td>                                  <td></td>                               <td>パーティーを馬車外でソートする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$E3</literal></td><td align="right"><varname>$7E201D</varname></td><td align="left"></td>                                  <td></td>                               <td>パーティーの先頭をセットする。</td><td>パパスが多い。</td></tr>
+    <tr><td align="right"><literal>#$E4</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[29]</code></td>                 <td></td>                               <td>仲間::キャラクターフラグを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$E5</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[29]</code></td>                 <td></td>                               <td>仲間::キャラクターフラグをセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$E6</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[25]</code></td>                 <td><literal>#$F0</literal></td>        <td>仲間::最近使った戦闘コマンドを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$E7</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[25]</code></td>                 <td><literal>#$F0</literal></td>        <td>仲間::最近使った戦闘コマンドをセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$E8</literal></td><td align="right"><varname>$7E2040</varname></td><td align="left"><code>[22]</code></td>                 <td></td>                               <td>仲間::職業・肩書・モンスターをセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$E9</literal></td><td align="right"><varname>$7E201D</varname></td><td align="left"></td>                                  <td></td>                               <td>指定メンバーがパーティーの何番目か調べる。</td><td></td></tr>
+    <tr><td align="right"><literal>#$EA</literal></td><td align="right"><varname>$7E201D</varname></td><td align="left"></td>                                  <td></td>                               <td><varname>$42,X</varname> から値 <varname>$4A</varname> を除外して <varname>$7E2020,X</varname> に <function>remove_copy</function> する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$EB</literal></td><td align="right"><varname>$7E201D</varname></td><td align="left"></td>                                  <td></td>                               <td>パーティーからメンバーを外す（簡易版）。</td><td></td></tr>
+    <tr><td align="right"><literal>#$EC</literal></td><td align="right"><varname>$7E201D</varname></td><td align="left"></td>                                  <td></td>                               <td>パーティーにメンバーを加える（簡易版）。</td><td></td></tr>
+    <tr><td align="right"><literal>#$ED</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[30:33]</code></td>              <td></td>                               <td>ルーラで行ける地点をセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$EE</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[00]</code></td>                 <td></td>                               <td>敵方ワーク::ID をセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$EF</literal></td><td align="right"><varname>$000760</varname></td><td align="left"><code>[05]</code></td>                 <td></td>                               <td>調査中。</td><td>なぜか二度連続して呼ぶ。</td></tr>
+    <tr><td align="right"><literal>#$F0</literal></td><td align="right"><varname>$7E2000</varname></td><td align="left"><code>[3C:3F]</code></td>              <td></td>                               <td>カジノ::コイン枚数をセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$F1</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[0B]</code></td>                 <td><literal>#$C0</literal></td>        <td>モンスター::複数回攻撃を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$F2</literal></td><td align="right"><varname>$238000</varname></td><td align="left"><code>[08]</code></td>                 <td><literal>#$30</literal></td>        <td>モンスター::みかわしを参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$F3</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[0F]</code></td>                 <td><literal>#$0F</literal></td>        <td>敵方ワーク::モシャス対象をセットする。</td><td></td></tr>
+    <tr><td align="right"><literal>#$F4</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[0F]</code></td>                 <td><literal>#$07</literal></td>        <td>敵方ワーク::モシャス対象を参照する。</td><td></td></tr>
+    <tr><td align="right"><literal>#$F5</literal></td><td align="right"><varname>$0007C0</varname></td><td align="left"><code>[04]</code></td>                 <td></td>                               <td>敵方ワーク::MP をセットする。</td><td></td></tr>
+  </tbody>
+</table>
+
+<para>
+<varname>$0007C0</varname>, <varname>$0007C0</varname> 各構造体については
+<xref linkend="dq5.combatants"/> を、
+<varname>$7E2040</varname>, <varname>$7E2332</varname>, <varname>$7E294A</varname> 各構造体については
+<xref linkend="dq5.characters"/> をそれぞれ参照して欲しい。
+</para>
+
+<para>
+フラグ等のアクセス対象がビット単位で構成されるデータの場合は、
+次の表に基づき <varname>$43</varname> を用いて指示する。
+</para>
+
+<table id="table.dq5.accessor.2191F9" class="lighttable">
+  <caption>ビット単位データアクセスのための指定表</caption>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>ベース</th>
+      <th>オフセット</th>
+      <th>マスク</th>
+      <th>属性</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td align="right"><literal>#$00</literal></td><td>不明</td><td><code>[00]</code></td><td><literal>#$FF</literal></td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$01</literal></td><td><varname>$7E2041</varname></td><td><code>[00]</code></td><td align="right"><literal>#$80</literal></td><td>生存フラグ</td></tr>
+    <tr><td align="right"><literal>#$02</literal></td><td><varname>$7E2041</varname></td><td><code>[00]</code></td><td align="right"><literal>#$40</literal></td><td>マヒフラグ</td></tr>
+    <tr><td align="right"><literal>#$03</literal></td><td><varname>$7E2041</varname></td><td><code>[00]</code></td><td align="right"><literal>#$20</literal></td><td>どくフラグ</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><varname>$7E2041</varname></td><td><code>[00]</code></td><td align="right"><literal>#$10</literal></td><td>もうどくフラグ</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td><varname>$7E2041</varname></td><td><code>[00]</code></td><td align="right"><literal>#$08</literal></td><td>HP を呪われているフラグ</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><varname>$7E2041</varname></td><td><code>[00]</code></td><td align="right"><literal>#$04</literal></td><td>MP を呪われているフラグ</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><varname>$7E2041</varname></td><td><code>[00]</code></td><td align="right"><literal>#$03</literal></td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td><varname>$000765</varname></td><td><code>[00]</code></td><td align="right"><literal>#$80</literal></td><td>ラリホーフラグ</td></tr>
+    <tr><td align="right"><literal>#$09</literal></td><td><varname>$000765</varname></td><td><code>[00]</code></td><td align="right"><literal>#$40</literal></td><td>おたけびフラグ</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td><td><varname>$000765</varname></td><td><code>[00]</code></td><td align="right"><literal>#$20</literal></td><td>メダパニフラグ</td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td><td><varname>$000765</varname></td><td><code>[00]</code></td><td align="right"><literal>#$10</literal></td><td>マホトーンフラグ</td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td><td><varname>$000765</varname></td><td><code>[00]</code></td><td align="right"><literal>#$08</literal></td><td>マヌーサフラグ</td></tr>
+    <tr><td align="right"><literal>#$0D</literal></td><td><varname>$000765</varname></td><td><code>[00]</code></td><td align="right"><literal>#$04</literal></td><td>フバーハフラグ</td></tr>
+    <tr><td align="right"><literal>#$0E</literal></td><td><varname>$000765</varname></td><td><code>[00]</code></td><td align="right"><literal>#$02</literal></td><td>なめまわしフラグ</td></tr>
+    <tr><td align="right"><literal>#$0F</literal></td><td><varname>$000765</varname></td><td><code>[00]</code></td><td align="right"><literal>#$01</literal></td><td>マホキテフラグ</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td><td><varname>$000765</varname></td><td><code>[01]</code></td><td align="right"><literal>#$80</literal></td><td>バイキルトフラグ</td></tr>
+    <tr><td align="right"><literal>#$11</literal></td><td><varname>$000765</varname></td><td><code>[01]</code></td><td align="right"><literal>#$40</literal></td><td>マホカンタフラグ</td></tr>
+    <tr><td align="right"><literal>#$12</literal></td><td><varname>$000765</varname></td><td><code>[01]</code></td><td align="right"><literal>#$20</literal></td><td>モシャスフラグ（仲間にはない）</td></tr>
+    <tr><td align="right"><literal>#$13</literal></td><td><varname>$000765</varname></td><td><code>[01]</code></td><td align="right"><literal>#$10</literal></td><td>ドラゴラムフラグ</td></tr>
+    <tr><td align="right"><literal>#$14</literal></td><td><varname>$000765</varname></td><td><code>[01]</code></td><td align="right"><literal>#$08</literal></td><td>ちからため・きあいためフラグ</td></tr>
+    <tr><td align="right"><literal>#$15</literal></td><td><varname>$000765</varname></td><td><code>[01]</code></td><td align="right"><literal>#$04</literal></td><td>さそうおどりフラグ</td></tr>
+    <tr><td align="right"><literal>#$16</literal></td><td><varname>$000765</varname></td><td><code>[01]</code></td><td align="right"><literal>#$03</literal></td><td>ぼうぎょ | ぼうぎょ２</td></tr>
+    <tr><td align="right"><literal>#$17</literal></td><td><varname>$000765</varname></td><td><code>[01]</code></td><td align="right"><literal>#$01</literal></td><td>ぼうぎょフラグ</td></tr>
+    <tr><td align="right"><literal>#$18</literal></td><td><varname>$000765</varname></td><td><code>[01]</code></td><td align="right"><literal>#$02</literal></td><td>ぼうぎょ２フラグ</td></tr>
+    <tr><td align="right"><literal>#$19</literal></td><td><varname>$000765</varname></td><td><code>[02]</code></td><td align="right"><literal>#$80</literal></td><td>ぶきみなひかりフラグ</td></tr>
+    <tr><td align="right"><literal>#$1A</literal></td><td><varname>$000765</varname></td><td><code>[02]</code></td><td align="right"><literal>#$40</literal></td><td>みなぎるフラグ</td></tr>
+    <tr><td align="right"><literal>#$1B</literal></td><td><varname>$000765</varname></td><td><code>[02]</code></td><td align="right"><literal>#$20</literal></td><td>はやぶさフラグ</td></tr>
+    <tr><td align="right"><literal>#$1C</literal></td><td><varname>$000765</varname></td><td><code>[02]</code></td><td align="right"><literal>#$10</literal></td><td>すなけむりフラグ</td></tr>
+    <tr><td align="right"><literal>#$1D</literal></td><td><varname>$000765</varname></td><td><code>[02]</code></td><td align="right"><literal>#$0C</literal></td><td>時間停止カウンター</td></tr>
+    <tr><td align="right"><literal>#$1E</literal></td><td><varname>$000765</varname></td><td><code>[02]</code></td><td align="right"><literal>#$03</literal></td><td>まぶしいひかりカウンター</td></tr>
+    <tr><td align="right"><literal>#$1F</literal></td><td><varname>$000765</varname></td><td><code>[03]</code></td><td align="right"><literal>#$80</literal></td><td>あしばらいフラグ</td></tr>
+    <tr><td align="right"><literal>#$20</literal></td><td><varname>$0007C0</varname></td><td><code>[03]</code></td><td align="right"><literal>#$30</literal></td><td>ラリホーカウンター</td></tr>
+    <tr><td align="right"><literal>#$21</literal></td><td><varname>$0007C0</varname></td><td><code>[03]</code></td><td align="right"><literal>#$08</literal></td><td>ルカニ・スカラフラグ</td></tr>
+    <tr><td align="right"><literal>#$22</literal></td><td><varname>$0007C0</varname></td><td><code>[03]</code></td><td align="right"><literal>#$04</literal></td><td>頭を呪われているフラグ</td></tr>
+    <tr><td align="right"><literal>#$23</literal></td><td><varname>$0007C0</varname></td><td><code>[03]</code></td><td align="right"><literal>#$02</literal></td><td>調査中</td></tr>
+    <tr><td align="right"><literal>#$24</literal></td><td><varname>$0007C0</varname></td><td><code>[03]</code></td><td align="right"><literal>#$01</literal></td><td>動きを呪われているフラグ</td></tr>
+    <tr><td align="right"><literal>#$25</literal></td><td><varname>$0007C0</varname></td><td><code>[04]</code></td><td align="right"><literal>#$80</literal></td><td>着ているものを脱いでいるフラグ</td></tr>
+    <tr><td align="right"><literal>#$26</literal></td><td><varname>$0007C0</varname></td><td><code>[04]</code></td><td align="right"><literal>#$70</literal></td><td>調査中</td></tr>
+    <tr><td align="right"><literal>#$27</literal></td><td><varname>$0007C0</varname></td><td><code>[04]</code></td><td align="right"><literal>#$0F</literal></td><td>コマンドカウンター</td></tr>
+    <tr><td align="right"><literal>#$28</literal></td><td><varname>$0007C0</varname></td><td><code>[00]</code></td><td align="right"><literal>#$80</literal></td><td>いなくなったフラグ？</td></tr>
+    <tr><td align="right"><literal>#$29</literal></td><td><varname>$0007C0</varname></td><td><code>[00]</code></td><td align="right"><literal>#$40</literal></td><td>生存フラグ</td></tr>
+    <tr><td align="right"><literal>#$2A</literal></td><td><varname>$0007C0</varname></td><td><code>[00]</code></td><td align="right"><literal>#$20</literal></td><td>マヒフラグ</td></tr>
+    <tr><td align="right"><literal>#$2B</literal></td><td><varname>$0007C0</varname></td><td><code>[00]</code></td><td align="right"><literal>#$10</literal></td><td>どくフラグ</td></tr>
+    <tr><td align="right"><literal>#$2C</literal></td><td><varname>$0007C0</varname></td><td><code>[00]</code></td><td align="right"><literal>#$08</literal></td><td>経験値ゴールドを無視フラグ</td></tr>
+    <tr><td align="right"><literal>#$2D</literal></td><td><varname>$0007C0</varname></td><td><code>[00]</code></td><td align="right"><literal>#$04</literal></td><td>アストロンフラグ</td></tr>
+    <tr><td align="right"><literal>#$2E</literal></td><td><varname>$0007C0</varname></td><td><code>[00]</code></td><td align="right"><literal>#$02</literal></td><td>こおりついてうごけないフラグ</td></tr>
+    <tr><td align="right"><literal>#$2F</literal></td><td><varname>$0007C0</varname></td><td><code>[00]</code></td><td align="right"><literal>#$01</literal></td><td>みぶるいフラグ</td></tr>
+    <tr><td align="right"><literal>#$30</literal></td><td><varname>$0007C0</varname></td><td><code>[01]</code></td><td align="right"><literal>#$80</literal></td><td>ラリホーフラグ</td></tr>
+    <tr><td align="right"><literal>#$31</literal></td><td><varname>$0007C0</varname></td><td><code>[01]</code></td><td align="right"><literal>#$40</literal></td><td>おどろきすくみフラグ</td></tr>
+    <tr><td align="right"><literal>#$32</literal></td><td><varname>$0007C0</varname></td><td><code>[01]</code></td><td align="right"><literal>#$20</literal></td><td>メダパニフラグ</td></tr>
+    <tr><td align="right"><literal>#$33</literal></td><td><varname>$0007C0</varname></td><td><code>[01]</code></td><td align="right"><literal>#$10</literal></td><td>マホトーンフラグ</td></tr>
+    <tr><td align="right"><literal>#$34</literal></td><td><varname>$0007C0</varname></td><td><code>[01]</code></td><td align="right"><literal>#$08</literal></td><td>マヌーサフラグ</td></tr>
+    <tr><td align="right"><literal>#$35</literal></td><td><varname>$0007C0</varname></td><td><code>[01]</code></td><td align="right"><literal>#$04</literal></td><td>エサかじりフラグ</td></tr>
+    <tr><td align="right"><literal>#$36</literal></td><td><varname>$0007C0</varname></td><td><code>[01]</code></td><td align="right"><literal>#$02</literal></td><td>もうどくフラグ</td></tr>
+    <tr><td align="right"><literal>#$37</literal></td><td><varname>$0007C0</varname></td><td><code>[01]</code></td><td align="right"><literal>#$01</literal></td><td>マホキテフラグ</td></tr>
+    <tr><td align="right"><literal>#$38</literal></td><td><varname>$0007C0</varname></td><td><code>[02]</code></td><td align="right"><literal>#$80</literal></td><td>バイキルトフラグ</td></tr>
+    <tr><td align="right"><literal>#$39</literal></td><td><varname>$0007C0</varname></td><td><code>[02]</code></td><td align="right"><literal>#$40</literal></td><td>マホカンタフラグ</td></tr>
+    <tr><td align="right"><literal>#$3A</literal></td><td><varname>$0007C0</varname></td><td><code>[02]</code></td><td align="right"><literal>#$20</literal></td><td>モシャスフラグ</td></tr>
+    <tr><td align="right"><literal>#$3B</literal></td><td><varname>$0007C0</varname></td><td><code>[02]</code></td><td align="right"><literal>#$10</literal></td><td>ドラゴラムフラグ（敵にはない）</td></tr>
+    <tr><td align="right"><literal>#$3C</literal></td><td><varname>$0007C0</varname></td><td><code>[02]</code></td><td align="right"><literal>#$08</literal></td><td>ちからためフラグ</td></tr>
+    <tr><td align="right"><literal>#$3D</literal></td><td><varname>$0007C0</varname></td><td><code>[02]</code></td><td align="right"><literal>#$04</literal></td><td>おどりやすみフラグ</td></tr>
+    <tr><td align="right"><literal>#$3E</literal></td><td><varname>$0007C0</varname></td><td><code>[02]</code></td><td align="right"><literal>#$03</literal></td><td>ぼうぎょ | ぼうぎょ２</td></tr>
+    <tr><td align="right"><literal>#$3F</literal></td><td><varname>$0007C0</varname></td><td><code>[02]</code></td><td align="right"><literal>#$01</literal></td><td>ぼうぎょフラグ</td></tr>
+    <tr><td align="right"><literal>#$40</literal></td><td><varname>$0007C0</varname></td><td><code>[02]</code></td><td align="right"><literal>#$02</literal></td><td>ぼうぎょ２フラグ</td></tr>
+    <tr><td align="right"><literal>#$41</literal></td><td><varname>$0007C0</varname></td><td><code>[03]</code></td><td align="right"><literal>#$80</literal></td><td>ぶきみなひかりフラグ</td></tr>
+    <tr><td align="right"><literal>#$42</literal></td><td><varname>$0007C0</varname></td><td><code>[03]</code></td><td align="right"><literal>#$40</literal></td><td>みなぎるフラグ</td></tr>
+    <tr><td align="right"><literal>#$43</literal></td><td><varname>$0007C0</varname></td><td><code>[03]</code></td><td align="right"><literal>#$20</literal></td><td>はやぶさフラグ</td></tr>
+    <tr><td align="right"><literal>#$44</literal></td><td><varname>$0007C0</varname></td><td><code>[03]</code></td><td align="right"><literal>#$10</literal></td><td>調査中</td></tr>
+    <tr><td align="right"><literal>#$45</literal></td><td><varname>$0007C0</varname></td><td><code>[03]</code></td><td align="right"><literal>#$0C</literal></td><td>時間停止カウンター</td></tr>
+    <tr><td align="right"><literal>#$46</literal></td><td><varname>$0007C0</varname></td><td><code>[03]</code></td><td align="right"><literal>#$03</literal></td><td>まぶしいひかりカウンター</td></tr>
+    <tr><td align="right"><literal>#$47</literal></td><td><varname>$0007C0</varname></td><td><code>[04]</code></td><td align="right"><literal>#$80</literal></td><td>馬車ドア閉めフラグ</td></tr>
+    <tr><td align="right"><literal>#$48</literal></td><td><varname>$0007C0</varname></td><td><code>[04]</code></td><td align="right"><literal>#$70</literal></td><td>コマンドカウンター</td></tr>
+    <tr><td align="right"><literal>#$49</literal></td><td><varname>$0007C0</varname></td><td><code>[04]</code></td><td align="right"><literal>#$08</literal></td><td>ルカニ・スカラフラグ</td></tr>
+    <tr><td align="right"><literal>#$4A</literal></td><td><varname>$0007C0</varname></td><td><code>[04]</code></td><td align="right"><literal>#$04</literal></td><td>頭を呪われているフラグ</td></tr>
+    <tr><td align="right"><literal>#$4B</literal></td><td><varname>$0007C0</varname></td><td><code>[04]</code></td><td align="right"><literal>#$02</literal></td><td>調査中</td></tr>
+    <tr><td align="right"><literal>#$4C</literal></td><td><varname>$0007C0</varname></td><td><code>[04]</code></td><td align="right"><literal>#$01</literal></td><td>動きを呪われているフラグ</td></tr>
+    <tr><td align="right"><literal>#$4D</literal></td><td><varname>$0007C0</varname></td><td><code>[05]</code></td><td align="right"><literal>#$C0</literal></td><td>アストロンカウンター</td></tr>
+    <tr><td align="right"><literal>#$4E</literal></td><td><varname>$0007C0</varname></td><td><code>[05]</code></td><td align="right"><literal>#$30</literal></td><td>ラリホーカウンター</td></tr>
+    <tr><td align="right"><literal>#$4F</literal></td><td><varname>$0007C0</varname></td><td><code>[05]</code></td><td align="right"><literal>#$0F</literal></td><td>モシャス対象</td></tr>
+    <tr><td align="right"><literal>#$50</literal></td><td><varname>$238000</varname></td><td><code>[00]</code></td><td align="right"><literal>#$30</literal></td><td>メラ系に対する耐性</td></tr>
+    <tr><td align="right"><literal>#$51</literal></td><td><varname>$238000</varname></td><td><code>[00]</code></td><td align="right"><literal>#$0C</literal></td><td>ギラ系に対する耐性</td></tr>
+    <tr><td align="right"><literal>#$52</literal></td><td><varname>$238000</varname></td><td><code>[00]</code></td><td align="right"><literal>#$03</literal></td><td>イオ系に対する耐性</td></tr>
+    <tr><td align="right"><literal>#$53</literal></td><td><varname>$238000</varname></td><td><code>[01]</code></td><td align="right"><literal>#$C0</literal></td><td>ヒャド系に対する耐性</td></tr>
+    <tr><td align="right"><literal>#$54</literal></td><td><varname>$238000</varname></td><td><code>[01]</code></td><td align="right"><literal>#$30</literal></td><td>バギ系に対する耐性</td></tr>
+    <tr><td align="right"><literal>#$55</literal></td><td><varname>$238000</varname></td><td><code>[01]</code></td><td align="right"><literal>#$0C</literal></td><td>デイン系に対する耐性</td></tr>
+    <tr><td align="right"><literal>#$56</literal></td><td><varname>$238000</varname></td><td><code>[01]</code></td><td align="right"><literal>#$03</literal></td><td>ザキ系に対する耐性</td></tr>
+    <tr><td align="right"><literal>#$57</literal></td><td><varname>$238000</varname></td><td><code>[02]</code></td><td align="right"><literal>#$C0</literal></td><td>ラリホー系に対する耐性</td></tr>
+    <tr><td align="right"><literal>#$58</literal></td><td><varname>$238000</varname></td><td><code>[02]</code></td><td align="right"><literal>#$30</literal></td><td>マヌーサ系に対する耐性</td></tr>
+    <tr><td align="right"><literal>#$59</literal></td><td><varname>$238000</varname></td><td><code>[02]</code></td><td align="right"><literal>#$0C</literal></td><td>ニフラムに対する耐性</td></tr>
+    <tr><td align="right"><literal>#$5A</literal></td><td><varname>$238000</varname></td><td><code>[02]</code></td><td align="right"><literal>#$03</literal></td><td>ルカニ系に対する耐性</td></tr>
+    <tr><td align="right"><literal>#$5B</literal></td><td><varname>$238000</varname></td><td><code>[03]</code></td><td align="right"><literal>#$C0</literal></td><td>マホトラ系に対する耐性</td></tr>
+    <tr><td align="right"><literal>#$5C</literal></td><td><varname>$238000</varname></td><td><code>[03]</code></td><td align="right"><literal>#$30</literal></td><td>マホトーン系に対する耐性</td></tr>
+    <tr><td align="right"><literal>#$5D</literal></td><td><varname>$238000</varname></td><td><code>[03]</code></td><td align="right"><literal>#$0C</literal></td><td>メダパニに対する耐性</td></tr>
+    <tr><td align="right"><literal>#$5E</literal></td><td><varname>$238000</varname></td><td><code>[03]</code></td><td align="right"><literal>#$03</literal></td><td>メガンテに対する耐性</td></tr>
+    <tr><td align="right"><literal>#$5F</literal></td><td><varname>$238000</varname></td><td><code>[04]</code></td><td align="right"><literal>#$C0</literal></td><td>未使用</td></tr>
+    <tr><td align="right"><literal>#$60</literal></td><td><varname>$238000</varname></td><td><code>[04]</code></td><td align="right"><literal>#$30</literal></td><td>毒系に対する耐性</td></tr>
+    <tr><td align="right"><literal>#$61</literal></td><td><varname>$238000</varname></td><td><code>[04]</code></td><td align="right"><literal>#$0C</literal></td><td>休み系に対する耐性</td></tr>
+  </tbody>
+</table>
+
+<para>
+実例は <xref linkend="dq5.brk.spec.80-93"/> の説明と実例を参照して欲しい。
+</para>
+</section> <!-- dq5.accessor.specification.functions -->
+
+<section id="dq5.accessor.specification.conditions">
+<title>全機能に共通する呼び出し事前条件と事後条件</title>
+<para>
+ここでは全機能共通の規則をまとめる。
+この情報は逆アセンブリコードを目視で検査して <code>BRK #$8?</code> 系の行周囲の意味を推測する際の目安となる。
+</para>
+<para>
+当サブルーチン呼び出しの事前条件および事後条件を、関係するメモリアドレスを主眼にまとめたものが次の表だ。
+いずれも 8 ビットで扱う。何なら事前条件、事後条件をそれぞれ入力、出力とそれぞれ読み替えてもらっても構わない。
+また、キャラクター ID とある項目は機能によっては指定不要だ。
+</para>
+
+<table id="table.dq5.accessor.preconditions" class="lighttable">
+  <caption>サブルーチン呼び出しの事前条件</caption>
+  <thead>
+    <tr><th>アドレス</th><th>条件</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>$38</literal></td><td>機能 ID の値。範囲 <literal>[#$00, #$F6)</literal> の数でなければならない。</td></tr>
+    <tr><td><literal>$3F</literal></td><td>キャラクター検索フィルターとなるビットマスク。</td></tr>
+    <tr><td><literal>$42</literal></td><td>対象となるキャラクターの ID の値。</td></tr>
+    <tr><td><literal>$43</literal></td><td rowspan="3">サブルーチン側が必要とする情報。機能によって異なる。</td></tr>
+    <tr><td><literal>$44</literal></td></tr>
+    <tr><td><literal>$45</literal></td></tr>
+  </tbody>
+</table>
+
+<table id="table.dq5.accessor.postconditions" class="lighttable">
+  <caption>サブルーチン呼び出しの事後条件</caption>
+  <thead>
+    <tr><th>アドレス</th><th>条件</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>$39</literal></td><td>対象となるキャラクターの ID の値。</td></tr>
+    <tr><td><literal>$3A</literal></td><td rowspan="3">データアクセスのためのベースアドレスの値。</td></tr>
+    <tr><td><literal>$3B</literal></td></tr>
+    <tr><td><literal>$3C</literal></td></tr>
+    <tr><td><literal>$3D</literal></td><td>上記ベースアドレスに加算したオフセット値。</td></tr>
+    <tr><td><literal>$3E</literal></td><td>データアクセス時のデータサイズ。</td></tr>
+    <tr><td><literal>$46</literal></td><td rowspan="4">呼び出し側が必要とする情報。機能によって異なる。</td></tr>
+    <tr><td><literal>$47</literal></td></tr>
+    <tr><td><literal>$48</literal></td></tr>
+    <tr><td><literal>$49</literal></td></tr>
+    <tr><td><literal>$4A</literal></td><td rowspan="4"><literal>$46</literal>, ..., <literal>$49</literal> のコピー。</td></tr>
+    <tr><td><literal>$4B</literal></td></tr>
+    <tr><td><literal>$4C</literal></td></tr>
+    <tr><td><literal>$4D</literal></td></tr>
+  </tbody>
+</table>
+
+</section> <!-- dq5.accessor.specification.conditions -->
+</section> <!-- dq5.accessor.specification -->
+</section> <!-- dq5.accessor -->

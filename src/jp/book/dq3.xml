@@ -1,60 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <chapter id="dq3"><?dbhtml filename="dq3.html" ?>
-	<title>ドラクエ3</title>
-	<para>
-		基本的にスーファミ版ドラクエ3 に関する解析について述べた文書である。 
-		モンスターメダルの文書のみ、ゲームボーイ版ドラクエ3 に関する記述である。
-	</para>
+<title>&dq3_1996; (1996)</title>
+<para>
+基本的に &dq3_1996; に関する解析について述べた文書である。 
+モンスターメダルの文書のみ &dq3_2000; (2000) に関する記述である。
+</para>
 
-	<!-- DEBUG -->
-	&dq3_debug;
+<!-- DEBUG -->
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_debug.xml"/>
 
-	<!-- TEXT -->
-	&dq3_message_battle;
-	&dq3_message;
-	&dq3_str;
+<!-- TEXT -->
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_text.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_string.xml"/>
 
-	<!-- BANK $C2 -->
-	&dq3_monster;
-	&dq3_caption;
-	&dq3_damage;
+<!-- BANK $C2 -->
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_monster.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_caption.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_damage.xml"/>
 
-	<!-- BANK $C3 -->
-	&dq3_window;
-	&dq3_king;
-	&dq3_sistersave;
-	&dq3_shop;
-	&dq3_overcharge;
-	&dq3_inn;
-	&dq3_church;
-	&dq3_pub;
-	&dq3_entry;
-	&dq3_bank;
-	&dq3_classchange;
-	&dq3_rename;
-	&dq3_matchmake;
-	&dq3_stadium;
-	&dq3_tipster;
-	&dq3_medal;
+<!-- BANK $C3 -->
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_window.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_king.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_sistersave.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_shop.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_overcharge.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_inn.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_church.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_pub.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_entry.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_bank.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_classchange.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_rename.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_matchmake.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_stadium.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_tipster.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_medal.xml"/>
 
-	<!-- BANK $C4 -->
-	&dq3_item;
-	&dq3_class;
-	&dq3_character;
+<!-- BANK $C4 -->
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_item.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_class.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_character.xml"/>
 
-	<!-- BANK $C8 -->
-	&dq3_people;
+<!-- BANK $C8 -->
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_people.xml"/>
 
-	<!-- BANK $CB -->
-	&dq3_pond;
+<!-- BANK $CB -->
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_pond.xml"/>
 
-	<!-- YET MODIFIED DOCS
-	&dq3_scene;
-	&dq3_act;
-	&dq3_zodiac;   -->
+<!-- YET MODIFIED DOCS
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_scene.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_act.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_zodiac.xml"/>
+  -->
 
-	<!-- DEPRECATED DOCS -->
-	&dq3_gallery;
-	&dq3_monster_medal_dq4;
+<!-- DEPRECATED DOCS -->
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_gallery.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_monster_medal_dq4.xml"/>
 </chapter>

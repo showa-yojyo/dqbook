@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq6.people"><?dbhtml filename="dq6_people.html" ?>
 <title>人オブジェクト解析</title>
-<indexterm><primary>人オブジェクト</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.people"><primary>人オブジェクト</primary><secondary>DQ6</secondary></indexterm>
 
 <para>
 	この文書では、人オブジェクトデータの概念、構造および抽出方法について述べる。
@@ -32,7 +37,7 @@
 </para>
 <para>
 	記者は以前の解析により、
-	この<link linkend="dq6.message.download.data">人物のセリフのメッセージ ID</link> を知っている。
+	この<link linkend="dq6.text.travel.data">人物のセリフのメッセージ ID</link> を知っている。
 	この値 <literal>#$1817</literal> を検索する。そこがコード遡行の開始地点となる。
 </para>
 <programlisting>
@@ -201,7 +206,7 @@ C0/B342:    3F00        //
 	実に <literal>#$74E</literal> 個直列して格納されている。
 	この構造体のデータの意味は、以下のようなものである。
 </para>
-<table class="memorylayout">
+<table id="table.dq6.FF243C" class="memorylayout">
 	<caption>構造体 $FF243C メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -269,7 +274,7 @@ C0/B342:    3F00        //
 			<para>
 				フロアに入った瞬間にその人物がどの方向を向いているかを示すものである。
 			</para>
-			<table class="lighttable">
+			<table id="table.dq6.FF243C.direction" class="lighttable">
 				<caption>向き</caption>
 				<thead>
 					<tr><th>値</th><th>向き</th></tr>

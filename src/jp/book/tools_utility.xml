@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="tools.utility"><?dbhtml filename="tools_utility.html" ?>
 <title>その他便利なツール</title>
@@ -9,7 +14,7 @@
 
 <section id="tools.utility.calc">
 <title>電卓</title>
-<indexterm><primary>電卓</primary></indexterm>
+<indexterm id="term.calc"><primary>電卓</primary></indexterm>
 
 <para>
 	Windows ユーザーにはおなじみだと思われる。
@@ -31,10 +36,10 @@
 
 <section id="tools.utility.cdmanip">
 <title>CD Manipulator</title>
-<indexterm><primary>CD Manipulator</primary></indexterm>
-<indexterm><primary>ロムイメージ</primary><secondary>CD-ROM イメージ作成ツール</secondary></indexterm>
+<indexterm id="term.cdmanip"><primary>CD Manipulator</primary></indexterm>
+<indexterm id="term.romimage"><primary>ロムイメージ</primary><secondary>CD-ROM イメージ作成ツール</secondary></indexterm>
 
-<figure>
+<figure id="fig.dq.hack.tool.cdmanip">
 	<title>CD Manipulator</title>
 	<graphic width="445px" fileref="./image/dq.hack.tool.cdmanip.png"/>
 </figure>
@@ -43,7 +48,7 @@
 	入手先は <ulink url="http://www.storeroom.info/cdm/">http://www.storeroom.info/cdm/</ulink> と思われる。
 </para>
 <para>
-	ドラクエ 4 (PS), 7 を <link linkend="tools.emulator.epsxe">ePSXe</link> でプレイする際に、
+	&dq7_2000; や &dq4_2001; を <link linkend="tools.emulator.epsxe">ePSXe</link> でプレイする際に、
 	直接 CD-ROM からデータをロードするのは煩わしい。
 	あらかじめイメージファイルを作成しておき、それからプレイするのが具合がよいようだ。
 	ゲーム CD をドライブに挿し込んでおき、CD &gt; イメージ作成 メニューを選択。

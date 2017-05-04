@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq4.data.monster"><?dbhtml filename="dq4_monster.html" ?>
 <title>モンスターデータ</title>
-<indexterm><primary>モンスター</primary><secondary>DQ4</secondary></indexterm>
+<indexterm id="term.dq4.data.monster"><primary>モンスター</primary><secondary>DQ4</secondary></indexterm>
 <para>
 	<xref linkend="appendix.b" />
 </para>

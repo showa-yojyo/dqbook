@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <chapter id="tools"><?dbhtml filename="tools.html" ?>
 <title>解析ツール</title>
@@ -13,12 +18,37 @@
 	記者が改造・解析に使用するツールを専門ツールとユーティリティツールを混ぜて紹介する。
 	重要度の高い順に紹介する。
 </para>
+<caution>
+  <para>
+  本章は特に内容が陳腐化し過ぎていて、何としても現代の知識と技術を反映したものに書き直したい。
+  いつ直せるかわからないので、当時と現在において、
+  なおかつ未来においても変わらないであろう、読者に言いたいことをここに要約しておく：
+  </para>
+  <itemizedlist>
+    <listitem>
+      <simpara>用途に合ったエミュレーターを利用しよう</simpara>
+      <itemizedlist>
+        <listitem><simpara>ランタイムデバッガー機能を提供するものが望ましい</simpara></listitem>
+        <listitem><simpara>保存データを圧縮しないものが望ましい</simpara></listitem>
+      </itemizedlist>
+    </listitem>
+    <listitem><simpara>逆アセンブラーを使いこなそう</simpara></listitem>
+    <listitem>
+      <simpara>逆アセンブリコードを上手に取り扱えるようにテキスト処理に慣れよう</simpara>
+      <itemizedlist>
+        <listitem><simpara>良いテキストエディターを使いこなそう</simpara></listitem>
+        <listitem><simpara>UNIX/Linux 由来のコマンドラインツールを使いこなそう</simpara></listitem>
+        <listitem><simpara>Python 等のスクリプト言語や付属する環境を使いこなそう</simpara></listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+</caution>
 
-&tools_emulator;
-&tools_disasm;
-&tools_cygwin;
-&tools_editor;
-&tools_python;
-&tools_utility;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools_emulator.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools_disasm.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools_cygwin.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools_editor.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools_python.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools_utility.xml"/>
 
 </chapter> <!-- tools -->

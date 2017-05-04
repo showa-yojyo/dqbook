@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq5.combatants"><?dbhtml filename="dq5_combatants.html" ?>
+<title>戦闘キャラクター構造体</title>
+<para>
+戦闘キャラクター構造体とは、戦闘セッションに参加している敵と味方のキャラクターそれぞれに対して割り当てるオブジェクトの構造を与える型だ。
+戦闘キャラクター構造体には仲間用と敵用の二種類存在するので、それらの総称として「戦闘キャラクター構造体」と呼ぶ。
+本節では、戦闘キャラクター構造体各種のメモリレイアウトを表で示し、また各メンバーデータの意味とアクセス例とをごく簡単に記す。
+</para>
+
+<section id="dq5.combatants.000760">
+<title>構造体 <varname>$000760</varname>: 仲間キャラクター</title>
+<para>
+次の表で示されるメモリレイアウトで構成される、サイズが <literal>#$0C</literal> バイトのオブジェクトがアドレス <varname>$000760</varname> から 8 個直列している。
+戦闘開始時に、パーティーメンバーの並び順に準じてこれらのオブジェクトが対応するメンバーの状態に応じて初期化される。
+そして、戦闘の状況が変化するに従って、これらのオブジェクトの状態も変化していく。
+戦闘終了後はこの 8 個のオブジェクトの内容は放棄される。
+</para>
+
+<table id="table.dq5.combatants.000760" class="lighttable">
+  <caption>構造体 $000760</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>性質</th><th>アクセス例</th><th>備考</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="right"><literal>$000760</literal></td><td align="right">                       </td><td>攻撃力                  </td><td><code>BRK #$89</code> (args: 8011)           </td><td>2 バイト値</td></tr>
+    <tr><td align="right"><literal>$000761</literal></td><td align="right">                       </td><td>*                       </td><td>*                                            </td><td></td></tr>
+    <tr><td align="right"><literal>$000762</literal></td><td align="right">                       </td><td>守備力                  </td><td><code>BRK #$89</code> (args: 8015)           </td><td>2 バイト値</td></tr>
+    <tr><td align="right"><literal>$000763</literal></td><td align="right">                       </td><td>*                       </td><td>*                                            </td><td></td></tr>
+    <tr><td align="right"><literal>$000764</literal></td><td align="right">                       </td><td>すばやさ                </td><td><code>BRK #$89</code> (args: 8980)           </td><td></td></tr>
+    <tr><td align="right"><literal>$000765</literal></td><td align="right"><literal>#$80</literal></td><td>ねむりフラグ            </td><td><code>BRK #$89</code> (args: 8043, $43: #$08)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$40</literal></td><td>おたけびフラグ          </td><td><code>BRK #$89</code> (args: 8041, $43: #$09)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$20</literal></td><td>メダパニフラグ          </td><td><code>BRK #$89</code> (args: 8041, $43: #$0A)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$10</literal></td><td>マホトーンフラグ        </td><td><code>BRK #$89</code> (args: 8041, $43: #$0B)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$08</literal></td><td>マヌーサフラグ          </td><td><code>BRK #$89</code> (args: 8042, $43: #$0C)</td><td>cf. すなけむりフラグ</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$04</literal></td><td>フバーハフラグ          </td><td><code>BRK #$89</code> (args: 8041, $43: #$0D)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$02</literal></td><td>なめまわしフラグ        </td><td><code>BRK #$89</code> (args: 8041, $43: #$0E)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$01</literal></td><td>マホキテフラグ          </td><td><code>BRK #$89</code> (args: 8041, $43: #$0F)</td><td></td></tr>
+    <tr><td align="right"><literal>$000766</literal></td><td align="right"><literal>#$80</literal></td><td>バイキルトフラグ        </td><td><code>BRK #$89</code> (args: 8042, $43: #$10)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$40</literal></td><td>マホカンタフラグ        </td><td><code>BRK #$89</code> (args: 8041, $43: #$11)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$20</literal></td><td>不明                    </td><td><code>BRK #$89</code> (args: 8043, $43: #$12)</td><td>モシャスフラグのはずだった</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$10</literal></td><td>ドラゴラムフラグ        </td><td><code>BRK #$89</code> (args: 8042, $43: #$13)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$08</literal></td><td>ちからためフラグ        </td><td><code>BRK #$89</code> (args: 8042, $43: #$14)</td><td>きあいためと共通</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$04</literal></td><td>さそうおどりフラグ      </td><td><code>BRK #$89</code> (args: 8041, $43: #$15)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$02</literal></td><td>ぼうぎょ２フラグ        </td><td><code>BRK #$89</code> (args: 8042, $43: #$18)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$01</literal></td><td>ぼうぎょフラグ          </td><td><code>BRK #$89</code> (args: 8042, $43: #$17)</td><td></td></tr>
+    <tr><td align="right"><literal>$000767</literal></td><td align="right"><literal>#$80</literal></td><td>ぶきみなひかりフラグ    </td><td><code>BRK #$89</code> (args: 8042, $43: #$19)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$40</literal></td><td>みなぎるフラグ          </td><td><code>BRK #$89</code> (args: 8042, $43: #$1A)</td><td>パルプンテ関連</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$20</literal></td><td>はやぶさフラグ          </td><td><code>BRK #$89</code> (args: 8042, $43: #$1B)</td><td>パルプンテ関連</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$10</literal></td><td>すなけむりフラグ        </td><td><code>BRK #$89</code> (args: 8042, $43: #$1C)</td><td>cf. マヌーサフラグ</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$0C</literal></td><td>時間停止カウンター      </td><td><code>BRK #$89</code> (args: 8043, $43: #$1D)</td><td>パルプンテ関連</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$03</literal></td><td>まぶしいひかりカウンター</td><td><code>BRK #$89</code> (args: 8042, $43: #$1E)</td><td></td></tr>
+    <tr><td align="right"><literal>$000768</literal></td><td align="right"><literal>#$80</literal></td><td>あしばらいフラグ        </td><td><code>BRK #$89</code> (args: 8041, $43: #$1F)</td><td>混乱行動関連</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$40</literal></td><td>未使用                  </td><td>                                             </td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$30</literal></td><td>ねむりカウンター        </td><td><code>BRK #$89</code> (args: 8043, $43: #$20)</td><td>cf. ねむりフラグ</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$08</literal></td><td>ルカニ・スカラフラグ    </td><td><code>BRK #$89</code> (args: 8042, $43: #$21)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$04</literal></td><td>呪い：頭フラグ          </td><td><code>BRK #$89</code> (args: 8041, $43: #$22)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$02</literal></td><td>未使用                  </td><td>                                             </td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$01</literal></td><td>呪い：動きフラグ        </td><td><code>BRK #$89</code> (args: 8041, $43: #$24)</td><td></td></tr>
+    <tr><td align="right"><literal>$000769</literal></td><td align="right"><literal>#$80</literal></td><td>守備力変化フラグ        </td><td><code>BRK #$89</code> (args: 8041, $43: #$25)</td><td>「きているものを ぬぎすてた」ら ON</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$70</literal></td><td>未使用                  </td><td>                                             </td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$0F</literal></td><td>コマンドカウンター      </td><td><code>BRK #$89</code> (args: 8041, $43: #$27)</td><td></td></tr>
+    <tr><td align="right"><literal>$00076A</literal></td><td align="right">                       </td><td>n/a                     </td><td>n/a                                          </td><td>未使用バイトか</td></tr>
+    <tr><td align="right"><literal>$00076B</literal></td><td align="right">                       </td><td>*                       </td><td>*                                            </td><td>*</td></tr>
+  </tbody>
+</table>
+
+<para>
+列「オフセット」は実効空間におけるオブジェクトのアドレスだ。
+<varname>$000760</varname> というのは最初のオブジェクトのアドレスであり、
+次の仲間のオブジェクトのアドレスは <varname>$00076C</varname> となる。以下同様にオフセットを計算すればよい。
+</para>
+<para>
+列「桁」が十六進数で埋まっているものは、バイト内の対応する桁が C/C++ 言語で言うところのビットフィールドになっていることを意味する。
+例えば <literal>#$0C</literal> となっているフィールドは、そのバイトの真ん中からの下位 2 ビットだけを使う整数値型として 0 から 3 までの値を取り得る。
+</para>
+<para>
+列「性質」はオブジェクトの構成要素それぞれに対して記者が便宜的に付けた呼び名だ。
+どうしてもわかりにくいものについては、列「備考」で説明を補足しておいた。
+</para>
+<para>
+列「アクセス例」は、プログラムコードが対応する特性にアクセスする命令の一例を示す。
+原則的に BRK 命令によって各フィールドにアクセスする。
+括弧内の args とあるのは、BRK 命令の特別なオペランドをアドレス順に並べたものである。
+この辺の仕様については <xref linkend="dq5.brk.spec.80-93" /> で述べる。
+</para>
+</section> <!-- dq5.combatants.000760 -->
+
+<section id="dq5.combatants.0007C0">
+<title>構造体 <varname>$0007C0</varname>: 敵キャラクター</title>
+<para>
+次の表で示されるメモリレイアウトで構成される、サイズが <literal>#$10</literal> バイトのオブジェクトがアドレス <varname>$0007C0</varname> から 16 個直列している。
+戦闘開始時に何らかの法則に従ってこれらのオブジェクトが初期化される。
+その初期化規則は通常戦とボス戦とで異なるだろうが、ここでは触れない。
+仲間キャラクター構造体と同様に、戦闘状況に応じてオブジェクトの状態が変化していくが、
+戦闘終了後はこの 16 個のオブジェクトの内容は放棄される。
+</para>
+
+<table id="table.dq5.combatants.0007C0" class="lighttable">
+  <caption>構造体 $0007C0: 敵キャラクター</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>性質</th><th>アクセス例</th><th>備考</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="right"><literal>$0007C0</literal></td><td align="right">                       </td><td>モンスター ID              </td><td><code>BRK #$88</code> (arg1: #$78)           </td><td><varname>$238000</varname> 構造体オブジェクトの ID を指す</td></tr>
+    <tr><td align="right"><literal>$0007C1</literal></td><td align="right"><literal>#$80</literal></td><td>不明                       </td><td><code>BRK #$88</code> (arg1: #$7E)           </td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$40</literal></td><td>n/a                        </td><td>n/a                                          </td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$3C</literal></td><td>グループ内添字？           </td><td><code>BRK #$88</code> (arg1: #$7E)           </td><td>所属グループの何番目かを指す？</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$03</literal></td><td>グループ                   </td><td><code>BRK #$88</code> (arg1: #$7D)           </td><td>何番目のグループに所属するか</td></tr>
+    <tr><td align="right"><literal>$0007C2</literal></td><td align="right">                       </td><td>HP                         </td><td><code>BRK #$88</code> (arg1: #$50)           </td><td>2 バイト値</td></tr>
+    <tr><td align="right"><literal>$0007C3</literal></td><td align="right">                       </td><td>*                          </td><td>*                                            </td><td></td></tr>
+    <tr><td align="right"><literal>$0007C4</literal></td><td align="right">                       </td><td>MP                         </td><td><code>BRK #$88</code> (arg1: #$56)           </td><td>2 バイト値</td></tr>
+    <tr><td align="right"><literal>$0007C5</literal></td><td align="right">                       </td><td>すばやさ                   </td><td><code>BRK #$88</code> (arg1: #$5C)           </td><td></td></tr>
+    <tr><td align="right"><literal>$0007C6</literal></td><td align="right">                       </td><td>攻撃力                     </td><td><code>BRK #$88</code> (arg1: #$60)           </td><td>2 バイト値</td></tr>
+    <tr><td align="right"><literal>$0007C7</literal></td><td align="right">                       </td><td>*                          </td><td>*                                            </td><td></td></tr>
+    <tr><td align="right"><literal>$0007C8</literal></td><td align="right">                       </td><td>守備力                     </td><td><code>BRK #$88</code> (arg1: #$64)           </td><td>2 バイト値</td></tr>
+    <tr><td align="right"><literal>$0007C9</literal></td><td align="right">                       </td><td>*                          </td><td>*                                            </td><td></td></tr>
+    <tr><td align="right"><literal>$0007CA</literal></td><td align="right"><literal>#$80</literal></td><td>いなくなった・逃げた       </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$28)</td><td>例えば逃げると OFF</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$40</literal></td><td>生存フラグ                 </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$29)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$20</literal></td><td>マヒフラグ                 </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$2A)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$10</literal></td><td>どくフラグ                 </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$2B)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$08</literal></td><td>経験値ゴールドを無視       </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$2C)</td><td>一度生き返ったことがあると ON</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$04</literal></td><td>アストロンフラグ           </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$2D)</td><td>cf. アストロンカウンター</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$02</literal></td><td>こおりついてうごけない     </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$2E)</td><td>パルプンテ関連</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$01</literal></td><td>なめまわしフラグ           </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$2F)</td><td></td></tr>
+    <tr><td align="right"><literal>$0007CB</literal></td><td align="right"><literal>#$80</literal></td><td>ねむりフラグ               </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$30)</td><td>cf. ねむりカウンター</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$40</literal></td><td>おたけびフラグ             </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$31)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$20</literal></td><td>メダパニフラグ             </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$32)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$10</literal></td><td>マホトーンフラグ           </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$33)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$08</literal></td><td>マヌーサフラグ             </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$34)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$04</literal></td><td>エサかじりフラグ           </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$35)</td><td>まもののエサが効くと ON</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$02</literal></td><td>もうどくフラグ             </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$36)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$01</literal></td><td>マホキテフラグ             </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$37)</td><td></td></tr>
+    <tr><td align="right"><literal>$0007CC</literal></td><td align="right"><literal>#$80</literal></td><td>バイキルトフラグ           </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$38)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$40</literal></td><td>マホカンタフラグ           </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$39)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$20</literal></td><td>モシャスフラグ             </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$3A)</td><td>cf. モシャス相手</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$10</literal></td><td>ドラゴラムフラグ？         </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$3B)</td><td>敵はドラゴラムに対応していないが？</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$08</literal></td><td>ちからためフラグ           </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$3C)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$04</literal></td><td>さそうおどりフラグ         </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$3D)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$02</literal></td><td>ぼうぎょ２フラグ           </td><td><code>BRK #$88</code> (arg1: #$7A, AL: #$40) </td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$01</literal></td><td>ぼうぎょフラグ             </td><td><code>BRK #$88</code> (arg1: #$7A, AL: #$3F) </td><td></td></tr>
+    <tr><td align="right"><literal>$0007CD</literal></td><td align="right"><literal>#$80</literal></td><td>ぶきみなひかりフラグ       </td><td><code>BRK #$88</code> (arg1: #$7A, $43: #$41)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$40</literal></td><td>みなぎるフラグ             </td><td><code>BRK #$88</code> (arg1: #$7A, $43: #$42)</td><td>パルプンテ関連</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$20</literal></td><td>はやぶさフラグ             </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$43)</td><td>パルプンテ関連</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$10</literal></td><td>不明                       </td><td><code>BRK #$88</code> (arg1: #$7B, $43: #$44)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$0C</literal></td><td>時間停止カウンター         </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$45)</td><td>パルプンテ関連</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$03</literal></td><td>まぶしいひかりカウンター   </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$46)</td><td></td></tr>
+    <tr><td align="right"><literal>$0007CE</literal></td><td align="right"><literal>#$80</literal></td><td>馬車ドア閉めフラグ         </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$47)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$70</literal></td><td>コマンドカウンター         </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$48)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$08</literal></td><td>ルカニ・スカラフラグ       </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$49)</td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$04</literal></td><td>呪い：頭フラグ             </td><td><code>BRK #$88</code> (arg1: #$7A, AH: #$4A) </td><td>呪われることはないはずだが？</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$02</literal></td><td>n/a                        </td><td>n/a                                          </td><td></td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$01</literal></td><td>呪い：動きフラグ           </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$4C)</td><td>呪われることはないはずだが？</td></tr>
+    <tr><td align="right"><literal>$0007CF</literal></td><td align="right"><literal>#$C0</literal></td><td>アストロンカウンター       </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$4D)</td><td>cf. アストロンフラグ</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$30</literal></td><td>ねむりカウンター           </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$4E)</td><td>cf. ねむりフラグ</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$0F</literal></td><td>余分＋モシャス相手の番号   </td><td><code>BRK #$88</code> (arg1: #$79, $43: #$4F)</td><td>cf. モシャスフラグ</td></tr>
+    <tr><td align="right">                         *</td><td align="right"><literal>#$07</literal></td><td>モシャス相手の番号         </td><td><code>BRK #$88</code> (arg1: #$F4)           </td><td>cf. モシャスフラグ</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq5.combatants.0007C0 -->
+</section> <!-- dq5.combatants -->

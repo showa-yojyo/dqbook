@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE part PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <part id="part02"><?dbhtml filename="part02.html" ?>
 <title>解析</title>
 <partintro>
 <para>
-	このパートでは、ドラクエ各シリーズの解析を行っていく。
+  このパートではドラクエ各シリーズの解析を行っていく。
 </para>
 </partintro>
 
-	<!-- Chapters -->
-	&dq3;
-	&dq4;
-	&dq5;
-	&dq6;
-	&dq7;
+<!-- chapters -->
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq7.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq4.xml"/>
 </part> <!-- part02 -->

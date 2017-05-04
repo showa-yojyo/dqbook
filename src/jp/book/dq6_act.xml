@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq6.act"><?dbhtml filename="dq6_act.html" ?>
 <title>戦闘行動解析</title>
-<indexterm><primary>行動</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.act"><primary>行動</primary><secondary>DQ6</secondary></indexterm>
 <para>
 	この文書では、<varname>$C8C65D</varname> に定義されている戦闘行動構造体の解析をどのようにして行うのかを説明する。
 	先人の手で「戦闘行動構造体データが <varname>$C8C65D</varname> に存在する」ことが判明している。
@@ -156,7 +161,7 @@ C2/6213:    D01C        BNE $6231
 	括弧内の数字はバイト数またはビット数（小数点以下）を示す。
 </para>
 
-<table class="memorylayout">
+<table id="table.dq6.C8C65D" class="memorylayout">
 	<caption>$C8C65D 戦闘行動構造体</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -380,7 +385,7 @@ C2/6213:    D01C        BNE $6231
 				この行動の持つ耐性の種別だ。
 				数値と意味の対応は次の通り。
 			</para>
-			<table class="lighttable">
+			<table id="table.dq6.C8C65D.immunity" class="lighttable">
 				<caption>耐性表</caption>
 				<thead>
 					<tr><th>値</th><th>属性</th></tr>
@@ -414,7 +419,7 @@ C2/6213:    D01C        BNE $6231
 				</tbody>
 			</table>
 			<para>
-				ちなみに、この並びはドラクエ7 のモンスターデバッガの呪文耐性リストと同じ順序だ。
+				ちなみに、この並びは &dq7_2000; のモンスターデバッガの呪文耐性リストと同じ順序だ。
 			</para>
 		</glossdef>
 	</glossentry>
@@ -555,7 +560,7 @@ C2/6213:    D01C        BNE $6231
 				そのキャラクターがどのように対処するかを示す値だ。
 				以下のように処理をすることになる。
 			</para>
-			<table class="lighttable">
+			<table id="table.dq6.C8C65D.retaliate" class="lighttable">
 				<caption>まねまね</caption>
 				<thead>
 					<tr><th>値</th><th>アクション</th></tr>
@@ -639,7 +644,7 @@ C2/6213:    D01C        BNE $6231
 		<glossterm>戦闘メッセージ ID</glossterm>
 		<glossdef>
 			<para>
-				戦闘行動中に表示する<link linkend="dq6.message.battle">戦闘メッセージ</link>の ID だ。
+				戦闘行動中に表示する<link linkend="dq6.text.battle">戦闘メッセージ</link>の ID だ。
 				<literal>#$1000</literal> 以上の値をもつ戦闘行動は、例外的な扱いを受ける。
 			</para>
 		</glossdef>
@@ -648,7 +653,7 @@ C2/6213:    D01C        BNE $6231
 		<glossterm>戦闘行動の名前 文字列 ID </glossterm>
 		<glossdef>
 			<para>
-				「じゅもん」「とくぎ」選択ウィンドウに表示する文字列の<link linkend="dq6.str.data">文字列 ID</link>
+				「じゅもん」「とくぎ」選択ウィンドウに表示する文字列の<link linkend="dq6.string.data">文字列 ID</link>
 				だ。
 			</para>
 		</glossdef>

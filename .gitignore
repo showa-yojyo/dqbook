@@ -6,6 +6,5 @@ www/
 *.tar.bz2
 *.xls
 *.zip
-*.sh
 
 version.xml

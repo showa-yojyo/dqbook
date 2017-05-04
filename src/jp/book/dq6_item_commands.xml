@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq6.item_commands"><?dbhtml filename="dq6_item_commands.html" ?>
+<title>移動中の道具使用コマンド処理</title>
+<para>
+本節では移動中に道具を使うときに発生する処理を見ていく。
+プレイヤーがコマンドメニューから「どうぐ」を選択し、
+それからいずれかのパーティーメンバーの持ち物を選択すると、
+プログラムは選択された道具に対応するサブルーチンを呼び出す。
+そのようなサブルーチンについて簡単に述べる。
+</para>
+
+<section id="dq6.item_commands.C3C8C0">
+<title>コマンドハンドラーテーブル</title>
+<para>
+道具インデックス、使用直後表示メッセージインデックス、
+そして処理コードの開始アドレスの三つ組を要素とする配列がアドレス
+<varname>$C3C8C0</varname> に次に示すように定義されている。
+サブルーチン <varname>$C3C86D</varname> が対象の道具インデックスをこの配列中から検索し、
+もし見つかれば後述する道具固有の処理を実行するようになっている。
+そうでなければ、単純な汎用処理を実行する。
+</para>
+<programlisting>
+C3/C8C0:    D100D5165DCA
+C3/C8C6:    D200D516FDCA
+C3/C8CC:    D500D5167DCB
+...
+C3/C9FE:    E100D51661D3
+</programlisting>
+<para>
+このデータコードを見易いように表にまとめておく：
+</para>
+<table id="table.dq6.C3C8C0" class="lighttable">
+  <caption>$C3C8C0 コマンドハンドラーテーブル</caption>
+  <thead>
+    <tr><th>文字列 ID</th><th>どうぐ</th><th>メッセージ ID</th><th>処理アドレス</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00D1</literal></td><td>やくそう</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3CA5D"><varname>$CA5D</varname></link></td></tr>
+    <tr><td><literal>#$00D2</literal></td><td>どくけしそう</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3CAFD"><varname>$CAFD</varname></link></td></tr>
+    <tr><td><literal>#$00D5</literal></td><td>せかいじゅのは</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3CB7D"><varname>$CB7D</varname></link></td></tr>
+    <tr><td><literal>#$00D6</literal></td><td>せかいじゅのしずく</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3CBFC"><varname>$CBFC</varname></link></td></tr>
+    <tr><td><literal>#$00D8</literal></td><td>まほうのせいすい</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3CCB8"><varname>$CCB8</varname></link></td></tr>
+    <tr><td><literal>#$00DB</literal></td><td>ちからのたね</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3CD3D"><varname>$CD3D</varname></link></td></tr>
+    <tr><td><literal>#$00DC</literal></td><td>すばやさのたね</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3CD9B"><varname>$CD9B</varname></link></td></tr>
+    <tr><td><literal>#$00DD</literal></td><td>かしこさのたね</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3CDF9"><varname>$CDF9</varname></link></td></tr>
+    <tr><td><literal>#$00DE</literal></td><td>まもりのたね</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3CE57"><varname>$CE57</varname></link></td></tr>
+    <tr><td><literal>#$00DF</literal></td><td>いのちのきのみ</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3CEB5"><varname>$CEB5</varname></link></td></tr>
+    <tr><td><literal>#$00E0</literal></td><td>ふしぎなきのみ</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3CF13"><varname>$CF13</varname></link></td></tr>
+    <tr><td><literal>#$00CA</literal></td><td>いのりのゆびわ</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3CF71"><varname>$CF71</varname></link></td></tr>
+    <tr><td><literal>#$00D3</literal></td><td>せいすい</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D02B"><varname>$D02B</varname></link></td></tr>
+    <tr><td><literal>#$00E3</literal></td><td>むらのみんげいひん</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D067"><varname>$D067</varname></link></td></tr>
+    <tr><td><literal>#$00E7</literal></td><td>ゆめみのしずく</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D082"><varname>$D082</varname></link></td></tr>
+    <tr><td><literal>#$00D4</literal></td><td>キメラのつばさ</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D098"><varname>$D098</varname></link></td></tr>
+    <tr><td><literal>#$00AC</literal></td><td>かぜのぼうし</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D162"><varname>$D162</varname></link></td></tr>
+    <tr><td><literal>#$00EF</literal></td><td>おうごんのつるはし</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D169"><varname>$D169</varname></link></td></tr>
+    <tr><td><literal>#$00EA</literal></td><td>ラーのカガミ</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D17F"><varname>$D17F</varname></link></td></tr>
+    <tr><td><literal>#$00F4</literal></td><td>すなのうつわ</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D195"><varname>$D195</varname></link></td></tr>
+    <tr><td><literal>#$00EE</literal></td><td>まほうのじゅうたん</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D1AB"><varname>$D1AB</varname></link></td></tr>
+    <tr><td><literal>#$00F1</literal></td><td>マーメイドハープ</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D1BC"><varname>$D1BC</varname></link></td></tr>
+    <tr><td><literal>#$00E5</literal></td><td>せかいちず</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D1D1"><varname>$D1D1</varname></link></td></tr>
+    <tr><td><literal>#$00F3</literal></td><td>ふしぎなちず</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D1E6"><varname>$D1E6</varname></link></td></tr>
+    <tr><td><literal>#$00CD</literal></td><td>ふるびたパイプ</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D1FB"><varname>$D1FB</varname></link></td></tr>
+    <tr><td><literal>#$00FA</literal></td><td>へいしのふく４つ</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D211"><varname>$D211</varname></link></td></tr>
+    <tr><td><literal>#$00F9</literal></td><td>ろうごくのカギ</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D227"><varname>$D227</varname></link></td></tr>
+    <tr><td><literal>#$00CF</literal></td><td>しんじつのオーブ</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D23D"><varname>$D23D</varname></link></td></tr>
+    <tr><td><literal>#$00EC</literal></td><td>りせいのタネ</td><td><literal>#$16D6</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00E6</literal></td><td>つうこうしょう</td><td><literal>#$1743</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00CC</literal></td><td>くじけぬこころ</td><td><literal>#$1745</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00E8</literal></td><td>じょうせんけん</td><td><literal>#$1747</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00EB</literal></td><td>おうのしょじょう</td><td><literal>#$1749</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00F0</literal></td><td>ゆうきのかけら</td><td><literal>#$174F</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00F5</literal></td><td>ぎしきのそなえもの</td><td><literal>#$1751</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00F7</literal></td><td>エンデのどうぐ</td><td><literal>#$1753</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00CE</literal></td><td>デセオのパス</td><td><literal>#$1755</literal></td><td><link linkend="dq6.item_commands.desc.C3D274"><varname>$D274</varname></link></td></tr>
+    <tr><td><literal>#$00F6</literal></td><td>てんまのたづな</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D2B0"><varname>$D2B0</varname></link></td></tr>
+    <tr><td><literal>#$003F</literal></td><td>さびたつるぎ</td><td><literal>#$175D</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$0040</literal></td><td>ラミアスのつるぎ</td><td><literal>#$175E</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$0041</literal></td><td>ラミアスのつるぎ</td><td><literal>#$175E</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$0042</literal></td><td>ラミアスのつるぎ</td><td><literal>#$175E</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$009B</literal></td><td>スフィーダのたて</td><td><literal>#$1760</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$0066</literal></td><td>オルゴーのよろい</td><td><literal>#$1762</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$008A</literal></td><td>オルゴーのよろい</td><td><literal>#$1762</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00AD</literal></td><td>セバスのかぶと</td><td><literal>#$1763</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00BA</literal></td><td>セバスのかぶと</td><td><literal>#$1763</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00E2</literal></td><td>アモールのみず</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D2C1"><varname>$D2C1</varname></link></td></tr>
+    <tr><td><literal>#$00E9</literal></td><td>カガミのカギ</td><td><literal>#$170E</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00FC</literal></td><td>まほうのカギ</td><td><literal>#$170E</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00FB</literal></td><td>とうぞくのカギ</td><td><literal>#$170E</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00F2</literal></td><td>すいもんのカギ</td><td><literal>#$170E</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00FD</literal></td><td>さいごのカギ</td><td><literal>#$170E</literal></td><td><link linkend="dq6.item_commands.desc.C3D253"><varname>$D253</varname></link></td></tr>
+    <tr><td><literal>#$00E1</literal></td><td>うつくしそう</td><td><literal>#$16D5</literal></td><td><link linkend="dq6.item_commands.desc.C3D361"><varname>$D361</varname></link></td></tr>
+  </tbody>
+</table>
+<para>
+メッセージインデックスと実際のテキストとの対応を次に示す：
+</para>
+<table id="table.dq6.item_commands.messages" class="lighttable">
+  <caption>メッセージ一覧</caption>
+  <thead>
+    <tr><th>ID</th><th>メッセージ</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$16D5</literal></td><td>しかし 何も おこらなかった。</td></tr>
+    <tr><td><literal>#$16D6</literal></td><td>しかし ここでは 何もおこらなかった。</td></tr>
+    <tr><td><literal>#$170E</literal></td><td>カギが あえば[AD]もっているだけで 扉はひらくぞ！</td></tr>
+    <tr><td><literal>#$1743</literal></td><td>[B5]は[AD]くしゃくしゃに なってしまった…。</td></tr>
+    <tr><td><literal>#$1745</literal></td><td>すこし ゆうきが わいてきた！</td></tr>
+    <tr><td><literal>#$1747</literal></td><td>乗船券は くしゃくしゃに[AD]なってしまった。</td></tr>
+    <tr><td><literal>#$1749</literal></td><td>文字は きたないが こころの[AD]こもった 文章で [C0]たちを[AD]よろしくと 書いてあった。</td></tr>
+    <tr><td><literal>#$174F</literal></td><td>小さいのに ズッシリと 重さが[AD]つたわってくる。</td></tr>
+    <tr><td><literal>#$1751</literal></td><td>[C0]は きもちわるく[AD]なってしまった…。</td></tr>
+    <tr><td><literal>#$1753</literal></td><td>どうぐは すぐにも 使えるよう[AD]ひとつ ひとつ みがきこまれている…。</td></tr>
+    <tr><td><literal>#$1755</literal></td><td>よく見ると ビキニを着た[AD]美しい女性の 絵が かいてある…。</td></tr>
+    <tr><td><literal>#$175D</literal></td><td>さびたつるぎには なにやら[AD]もようが きざまれている。[AF][AD]しかし さびていて[AD]よく わからない……。</td></tr>
+    <tr><td><literal>#$175E</literal></td><td>ラミアスのつるぎには なにやら[AD]いなずまのような しるしが[AD]きざまれている。</td></tr>
+    <tr><td><literal>#$1760</literal></td><td>スフィーダのたてには なにやら[AD]十字架のような しるしが[AD]きざまれている。</td></tr>
+    <tr><td><literal>#$1762</literal></td><td>オルゴーのよろいには なにやら[AD]ハートのような しるしが[AD]きざまれている。</td></tr>
+    <tr><td><literal>#$1763</literal></td><td>セバスのかぶとには なにやら[AD]太陽のような しるしが[AD]きざまれている。</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.item_commands.C3C8C0 -->
+
+<section id="dq6.item_commands.desc">
+<title>解析</title>
+<para>
+まずは各処理に共通して見受けられる仕様傾向を列挙しておこう：
+</para>
+<itemizedlist>
+  <listitem>
+    <simpara>
+      前述のメッセージに加えて、対象の道具に固有のメッセージを<link linkend="dq6.item.hack.C4003D">道具データ</link>から取得するときには、
+      サブルーチン <varname>$C3CA04</varname> を実行する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      コマンド入力のすべてが終了した直後にメッセージを表示するには、サブルーチン
+      <varname>$C3B8C5</varname> を実行する。
+      これは移動時の呪文コマンドハンドラーも利用するサブルーチンだが、
+      呪文とは異なり、道具に対しては呪文効果音が出ない。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      原則的にコマンド処理が成功するときにしか道具を消費することはない。
+      道具の消費処理については、サブルーチン <varname>$C3EE2E</varname> または
+      <varname>$C3EE03</varname> を呼び出すことで実現する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      原則的に、対象者が死んでいるとメッセージ <literal>#$1770</literal>
+      「しかし [C1]は 死んでいる」を表示して処理を終える。
+      例外はせかいじゅのはなど。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      回復系の処理なのに、対象者の回復する必要がない場合である等、
+      道具の効果が全くない場合にはサブルーチン <varname>$C3CA3B</varname> を実行する。
+      すなわちメッセージ <literal>#$16D5</literal> 「しかし 何も おこらなかった」を表示する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      コマンドが対象パーティーメンバーを必要とするときには「だれに」ウィンドウで入力する。
+      これはウィンドウ表示サブルーチン <varname>$C37236</varname> を実行するときに
+      <literal>#$002A</literal> を指定する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      幅のある乱数処理には、呪文コマンド同様にサブルーチン <varname>$C3B8FC</varname> を利用する
+      （詳細は <xref linkend="dq6.spell_commands.desc.C3B9A8" /> の説明を参照）。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      パーティーメンバーのパラメーターを上げる道具については、
+      もし既に彼のパラメーターが上限値のときには、結果メッセージを表示しないようになっている。
+      このような場合においても、道具を消費する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      道具の用途が高度に特殊な場合には、別の場所で実装されたサブルーチンに処理を委譲する。
+      乗り物やイベントアイテムにこの傾向が見られる。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      HP を回復するコマンドについては、効果音 <literal>#$00CD </literal> を鳴らす。
+      該当するのはやくそう、せかいじゅのしずく、アモールのみずだ。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      対象者のパラメーターを上昇させるコマンドについては、次の規則が働く：
+    </simpara>
+    <itemizedlist>
+      <listitem>
+        <simpara>道具を消費してから上昇値を抽選する。</simpara>
+      </listitem>
+      <listitem>
+        <simpara>
+          道具使用前後で対象者のパラメーターの値が変わらないときには、
+          何ポイント上がったかを伝えるメッセージを表示しない。
+        </simpara>
+      </listitem>
+    </itemizedlist>
+  </listitem>
+</itemizedlist>
+
+<para>
+以下、各道具の処理の特徴を簡単に記す。
+なお、普通のプレイヤーには常識である振る舞いについては細かい説明をしない。
+</para>
+
+<section id="dq6.item_commands.desc.C3CA5D">
+<title>やくそう</title>
+<para>
+HP の回復ポイント量は 30 から 40 だ。
+</para>
+</section> <!-- dq6.item_commands.desc.C3CA5D -->
+
+<section id="dq6.item_commands.desc.C3CAFD">
+<title>どくけしそう</title>
+<para>
+「もうどく」と「どく」のいずれの状態についてもリセットする。
+</para>
+</section> <!-- dq6.item_commands.desc.C3CAFD -->
+
+<section id="dq6.item_commands.desc.C3CB7D">
+<title>せかいじゅのは</title>
+<para>
+死んでいるメンバーの状態異常をすべてリセットし、HP を 999 ポイント回復する。
+</para>
+</section> <!-- dq6.item_commands.desc.C3CB7D -->
+
+<section id="dq6.item_commands.desc.C3CBFC">
+<title>せかいじゅのしずく</title>
+<para>
+まず生きているパーティーメンバーそれぞれに対して、
+その HP が 最大 HP と一致する者がいるかどうかを確かめる。
+もし生存者が皆そのようであれば、何も起こらないでコマンドを終了する。
+</para>
+<para>
+次に回復メッセージ <literal>#$1730</literal> を表示した後に、
+生きているパーティーメンバーそれぞれの HP を 999 ポイント回復する。
+<link linkend="dq6.spell_commands.desc.C3BA5B">ベホマズン</link>もそうだが、
+このときなぜか乱数処理が走る。
+</para>
+<para>
+最後に全員の HP を表示するウィンドウを表示してから、道具を消費してコマンドを終了する。
+</para>
+</section> <!-- dq6.item_commands.desc.C3CBFC -->
+
+<section id="dq6.item_commands.desc.C3CCB8">
+<title>まほうのせいすい</title>
+<para>
+MP の回復ポイント量は 40 から 50 だ。
+</para>
+</section> <!-- dq6.item_commands.desc.C3CCB8 -->
+
+<section id="dq6.item_commands.desc.C3CD3D">
+<title>ちからのたね</title>
+<para>
+ちからの上昇値は 1 から 3 だ。
+</para>
+</section> <!-- dq6.item_commands.desc.C3CD3D -->
+
+<section id="dq6.item_commands.desc.C3CD9B">
+<title>すばやさのたね</title>
+<para>
+すばやさの上昇値は 1 から 3 だ。
+</para>
+</section> <!-- dq6.item_commands.desc.C3CD9B -->
+
+<section id="dq6.item_commands.desc.C3CDF9">
+<title>かしこさのたね</title>
+<para>
+かしこさの上昇値は 1 から 3 だ。
+</para>
+</section> <!-- dq6.item_commands.desc.C3CDF9 -->
+
+<section id="dq6.item_commands.desc.C3CE57">
+<title>まもりのたね</title>
+<para>
+みのまもりの上昇値は 3 から 5 だ。
+</para>
+</section> <!-- dq6.item_commands.desc.C3CE57 -->
+
+<section id="dq6.item_commands.desc.C3CEB5">
+<title>いのちのきのみ</title>
+<para>
+さいだい HP の上昇値は 4 から 6 だ。
+</para>
+</section> <!-- dq6.item_commands.desc.C3CEB5 -->
+
+<section id="dq6.item_commands.desc.C3CF13">
+<title>ふしぎなきのみ</title>
+<para>
+さいだい MP の上昇値は 3 から 5 だ。
+</para>
+</section> <!-- dq6.item_commands.desc.C3CF13 -->
+
+<section id="dq6.item_commands.desc.C3CF71">
+<title>いのりのゆびわ</title>
+<para>
+さいだい MP がゼロのメンバーについては何も起こらない。
+</para>
+<para>
+MP の回復ポイント量は 20 から 30 だ。
+</para>
+<para>
+指輪が壊れる処理は道具コマンドのものではなく、
+パーティーメンバーの持ち物を消費する用途の汎用サブルーチン <varname>$C4535C</varname> に組み込まれている。
+この指輪は使用する度に一定の確率で壊れ、もし壊れたならばメッセージ
+<literal>#1733</literal> を表示する。
+</para>
+</section> <!-- dq6.item_commands.desc.C3CF71 -->
+
+<section id="dq6.item_commands.desc.C3D02B">
+<title>せいすい</title>
+<para>
+道具を消費した後に、カウンター <varname>$7E3BA9</varname> をリセットする。
+このカウンターは<link linkend="dq6.spell_commands.desc.C3BDDE">トヘロス</link>とせいすいとで共用になっている。
+</para>
+<para>
+カウンターリセット後に、どういうわけかトヘロスフラグとせいすいフラグの両方をセットする。
+それからメッセージ <literal>#$16B6</literal> を表示して、モンスターの気配が消えたことを通知する。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D02B -->
+
+<section id="dq6.item_commands.desc.C3D067">
+<title>むらのみんげいひん</title>
+<para>
+道具コマンド既定のメッセージ処理に加え、メッセージ
+<literal>#$173B</literal> 「とても よくできた 木ぼり細工と～」を表示する。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D067 -->
+
+<section id="dq6.item_commands.desc.C3D082">
+<title>ゆめみのしずく</title>
+<para>
+専用サブルーチン <varname>$C9A8D3</varname> にて処理をする。
+複雑ゆえ本項では解説しない。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D082 -->
+
+<section id="dq6.item_commands.desc.C3D098">
+<title>キメラのつばさ</title>
+<para>
+キメラのつばさの処理は概ね移動呪文コマンド<link linkend="dq6.spell_commands.desc.C3BC70">ルーラ</link>のコピーアンドペーストとなっている。
+違いは表示メッセージと消費するものだけだろう。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D098 -->
+
+<section id="dq6.item_commands.desc.C3D162">
+<title>かぜのぼうし</title>
+<para>
+かぜのぼうしは<link linkend="dq6.spell_commands.desc.C3BC70">ルーラ</link>の処理コードの途中にプログラムカウンターを飛ばす。
+これによりコマンド処理を共有している。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D162 -->
+
+<section id="dq6.item_commands.desc.C3D169">
+<title>おうごんのつるはし</title>
+<para>
+専用サブルーチン <varname>$C9AABC</varname> にて処理をする。
+複雑ゆえ本項では解説しない。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D169 -->
+
+<section id="dq6.item_commands.desc.C3D17F">
+<title>ラーのカガミ</title>
+<para>
+専用サブルーチン <varname>$C9AA29</varname> にて処理をする。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D17F -->
+
+<section id="dq6.item_commands.desc.C3D195">
+<title>すなのうつわ</title>
+<para>
+専用サブルーチン <varname>$C9AB92</varname> にて処理をする。
+複雑ゆえ本項では解説しない。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D195 -->
+
+<section id="dq6.item_commands.desc.C3D1AB">
+<title>まほうのじゅうたん</title>
+<para>
+専用サブルーチン <varname>$C304E1</varname> にて処理をする。
+複雑ゆえ本項では解説しない。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D1AB -->
+
+<section id="dq6.item_commands.desc.C3D1BC">
+<title>マーメイドハープ</title>
+<para>
+専用サブルーチン <varname>$C30614</varname> にて処理をする。
+複雑ゆえ本項では解説しない。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D1BC -->
+
+<section id="dq6.item_commands.desc.C3D1D1">
+<title>せかいちず</title>
+<para>
+専用サブルーチン <varname>$C30712</varname> にて処理をする。
+複雑ゆえ本項では解説しない。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D1D1 -->
+
+<section id="dq6.item_commands.desc.C3D1E6">
+<title>ふしぎなちず</title>
+<para>
+専用サブルーチン <varname>$C30728</varname> にて処理をする。
+複雑ゆえ本項では解説しない。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D1E6 -->
+
+<section id="dq6.item_commands.desc.C3D1FB">
+<title>ふるびたパイプ</title>
+<para>
+専用サブルーチン <varname>$C9AC45</varname> にて処理をする。
+複雑ゆえ本項では解説しない。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D1FB -->
+
+<section id="dq6.item_commands.desc.C3D211">
+<title>へいしのふく４つ</title>
+<para>
+専用サブルーチン <varname>$C9AC6C</varname> にて処理をする。
+複雑ゆえ本項では解説しない。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D211 -->
+
+<section id="dq6.item_commands.desc.C3D227">
+<title>ろうごくのカギ</title>
+<para>
+専用サブルーチン <varname>$C9ACE0</varname> にて処理をする。
+複雑ゆえ本項では解説しない。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D227 -->
+
+<section id="dq6.item_commands.desc.C3D23D">
+<title>しんじつのオーブ</title>
+<para>
+専用サブルーチン <varname>$C9AD6B</varname> にて処理をする。
+複雑ゆえ本項では解説しない。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D23D -->
+
+<section id="dq6.item_commands.desc.C3D253">
+<title>りせいのタネその他</title>
+<para>
+移動時ならばいかなる状況でも同じ実行結果になる道具は <varname>$C3D253</varname> で処理する。
+次に示す道具のコマンド処理は、道具データ固有のメッセージとコマンドハンドラーテーブル内のメッセージの二つを表示して終了する：
+
+<itemizedlist>
+  <listitem><simpara>りせいのタネ</simpara></listitem>
+  <listitem><simpara>つうこうしょう</simpara></listitem>
+  <listitem><simpara>くじけぬこころ</simpara></listitem>
+  <listitem><simpara>じょうせんけん</simpara></listitem>
+  <listitem><simpara>おうのしょじょう</simpara></listitem>
+  <listitem><simpara>ゆうきのかけら</simpara></listitem>
+  <listitem><simpara>ぎしきのそなえもの</simpara></listitem>
+  <listitem><simpara>エンデのどうぐ</simpara></listitem>
+  <listitem><simpara>さびたつるぎ</simpara></listitem>
+  <listitem><simpara>ラミアスのつるぎ（全種）</simpara></listitem>
+  <listitem><simpara>スフィーダのたて</simpara></listitem>
+  <listitem><simpara>オルゴーのよろい（全種）</simpara></listitem>
+  <listitem><simpara>セバスのかぶと</simpara></listitem>
+  <listitem><simpara>カガミのカギ</simpara></listitem>
+  <listitem><simpara>まほうのカギ</simpara></listitem>
+  <listitem><simpara>とうぞくのカギ</simpara></listitem>
+  <listitem><simpara>すいもんのカギ</simpara></listitem>
+  <listitem><simpara>さいごのカギ</simpara></listitem>
+</itemizedlist>
+</para>
+</section> <!-- dq6.item_commands.desc.C3D253 -->
+
+<section id="dq6.item_commands.desc.C3D274">
+<title>デセオのパス</title>
+<para>
+使用者が「おとこ」ならばメッセージ <literal>#1756</literal> を表示する。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D274 -->
+
+<section id="dq6.item_commands.desc.C3D2B0">
+<title>てんまのたづな</title>
+<para>
+専用サブルーチン <varname>$C30544</varname> にて処理をする。
+複雑ゆえ本項では解説しない。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D2B0 -->
+
+<section id="dq6.item_commands.desc.C3D2C1">
+<title>アモールのみず</title>
+<para>
+HP の回復ポイント量は 60 から 70 だ。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D2C1 -->
+
+<section id="dq6.item_commands.desc.C3D361">
+<title>うつくしそう</title>
+<para>
+かっこよさの上昇値は 1 固定だ。
+うつくしそうは唯一乱数処理を必要としないパラメーター上昇系アイテムだ。
+なお結果メッセージ <literal>#1764</literal> 内にこの数値がハードコードされている。
+</para>
+</section> <!-- dq6.item_commands.desc.C3D361 -->
+</section> <!-- dq6.item_commands.desc -->
+</section> <!-- dq6.item_commands -->

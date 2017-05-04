@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq3.medal"><?dbhtml filename="dq3_medal.html" ?>
 <title>メダルおじさん解析</title>
-<indexterm><primary>ちいさなメダル</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.medal"><primary>ちいさなメダル</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	メダルおじさんに「はなす」ときの処理を解析する。
 	おじさんはどのようにして、勇者一行がこれまでに渡してきたメダル枚数を記憶しているのか、
@@ -22,7 +27,7 @@
 <para>
 	メダルおじさん周りの台詞表示は、すべてサブルーチン <varname>$C1A92E</varname> 呼び出しで実現している。
 	このサブルーチンは、呼び出しコード直後に <literal>2</literal> バイトの定数を埋め込むことで、
-	その定数を<link linkend="dq3.message">メッセージ ID</link> として解釈する。
+	その定数を<link linkend="dq3.text.travel">メッセージ ID</link> として解釈する。
 	これにより、逆アセンブルコードの解読を安定的に進めることができる。
 </para>
 
@@ -347,7 +352,7 @@
 			サブルーチン呼び出し直後の <varname>X</varname> レジスタが褒美 ID を示している。
 			構造体のサイズが <literal>2</literal> であるので、<code>$C31350 + X * 2</code> を計算するため、
 			汎用乗算サブルーチン <varname>$C01098</varname> を利用する
-			<footnote>
+			<footnote id="ftn.dq3.medal.C3F21E">
 				<para>数値を二倍するだけなのに、乗算サブルーチンを呼びだす方法をとるのは珍しい。
 				<code>ASL</code> 命令を使うだけで間に合いそうなものだが。
 				</para>
@@ -392,7 +397,7 @@
 	これが、メダルおじさんの褒美リストだ。
 	構造体のメモリレイアウトは以下の通り。
 </para>
-<table class="memorylayout">
+<table id="table.dq3.C31350" class="memorylayout">
 	<caption>$C31350 褒美構造体</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -422,7 +427,7 @@
 <para>
 この配列を人間にとってわかりやすく表現すると、下のようになる。
 </para>
-<table class="lighttable">
+<table id="table.dq3.C31350.view" class="lighttable">
 	<caption>メダル景品</caption>
 	<thead>
 		<tr>

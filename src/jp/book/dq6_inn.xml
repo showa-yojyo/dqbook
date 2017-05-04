@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq6.inn"><?dbhtml filename="dq6_inn.html" ?>
 <title>宿屋解析</title>
-<indexterm><primary>宿屋</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.inn"><primary>宿屋</primary><secondary>DQ6</secondary></indexterm>
 <para>
 	解析作業の結果、宿屋の実装について判明したことを述べる。
 	また、すべての宿屋のデータをリストを見る手順を示す。
@@ -160,7 +165,7 @@ C7/D0F8:    4002  // 0005: [D4][DE][D3]たちは 目がさめた。
 	データを改竄することで、どう動きが変わるのかを見れば十分わかる。
 	この構造体の各メンバは、以下の表のとおりである。
 </para>
-<table class="memorylayout">
+<table id="table.dq6.C58E0B" class="memorylayout">
 	<caption>構造体 $C58E0B - 宿屋データ構造体 メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>

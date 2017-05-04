@@ -246,14 +246,4 @@
 
 <!-- ==================================================================== -->
 
-<xsl:template name="user.footer.navigation">
-  <div class="userfooter">
-    <hr/>
-    <span class="release-info">
-      <xsl:value-of select="//bookinfo/releaseinfo[1]"/>,
-      documentation updated on <xsl:value-of select="//bookinfo/pubdate[1]"/>.
-    </span>
-  </div>
-</xsl:template>
-
 </xsl:stylesheet>

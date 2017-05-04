@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq6.shop"><?dbhtml filename="dq6_shop.html" ?>
 <title>店屋解析</title>
-<indexterm><primary>店屋</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.shop"><primary>店屋</primary><secondary>DQ6</secondary></indexterm>
 <para>
 	武器屋や道具屋などの各店のデータが、
 	プログラム内でどのように表現されているかについて解析し、
@@ -167,7 +172,7 @@ C5/F64F:    19
 	データを改竄することで、メンバの意味を知れば十分だ。
 	この構造体の各メンバは、以下の表のとおりである。
 </para>
-<table class="memorylayout">
+<table id="table.dq6.C58B93" class="memorylayout">
 	<caption>構造体 $C58B93 - 店データ構造体 メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -211,7 +216,7 @@ C5/F64F:    19
 				店の人のしゃべるセリフの集合が定義されている配列が <literal>5</literal> 個存在するのだが、
 				そのどれを用いるかを指定する値と考えればよい。
 			</para>
-			<table class="lighttable">
+			<table id="table.dq6.C58B93.kind" class="lighttable">
 				<caption>店の種別</caption>
 				<thead>
 					<tr><th>値</th><th>店の種別</th></tr>

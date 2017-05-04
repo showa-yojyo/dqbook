@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq3.character"><?dbhtml filename="dq3_character.html" ?>
 <title>性格解析</title>
-<indexterm><primary>性格</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.character"><primary>性格</primary><secondary>DQ3</secondary></indexterm>
 <para>
 性格構造体 <varname>$C424BC</varname> のメンバー解析を行う。
 性格に関係しそうなデータと言われて、名前文字列 ID とレベルアップ時のパラメータ上昇に関係する値、
@@ -50,7 +55,7 @@ C4/6C27:    6B          RTL
 <calloutlist>
 <callout arearefs="dq3.character.co.1">
 <para>
-ドラクエ 3 の全プログラムコード内において、
+&dq3_1996; の全プログラムコード内において、
 サブルーチン <varname>$C90572</varname> の呼び出し行の直後には、
 必ず <literal>11</literal> バイトの「実引数」が静的に与えられている。
 この値を見ることで、ROM 内に静的に存在する構造体データ配列の定義が解析できる。
@@ -106,7 +111,7 @@ C4/6C27:    6B          RTL
 性格構造体のメモリレイアウトは以下のようになっている。
 "..." となっている部分は、データフィールドがバイト境界をまたぐことを示す。
 </para>
-<table class="memorylayout">
+<table id="table.C424BC" class="memorylayout">
 <caption>$C424BC 性格構造体</caption>
 <colgroup>
 <col span="1" width="12%"/>
@@ -179,7 +184,7 @@ C4/6C27:    6B          RTL
 <glossterm>文字列 ID</glossterm>
 <glossdef>
 <para>
-性格の名前を表す<link linkend="dq3.str">文字列 ID</link> である。
+性格の名前を表す<link linkend="dq3.string">文字列 ID</link> である。
 </para>
 </glossdef>
 </glossentry>

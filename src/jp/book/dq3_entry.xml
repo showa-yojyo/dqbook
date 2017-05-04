@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq3.entry"><?dbhtml filename="dq3_entry.html" ?>
 <title>仲間登録所解析</title>
-<indexterm><primary>仲間登録所</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.entry"><primary>仲間登録所</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	このセクションではルイーダの酒場二階に開設されている登録所の処理を解析する。
 	新規キャラクターの追加処理において、リメイク版は、オリジナル版とは決定的に違う処理を含んでいる。
@@ -1190,7 +1195,7 @@ C3/DE5C:    60          RTS
 			下の表に示すアドレスに、
 			新規作成キャラクター (<varname>A</varname>) に関する表の値をそれぞれ取得または計算し、セットする。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq3.C3DE95" class="lighttable">
 			<caption>$C3DE95 前半部処理</caption>
 			<thead>
 				<tr><th>Address</th><th>Value</th></tr>
@@ -1638,7 +1643,7 @@ C3/DE5C:    60          RTS
 		<para>
 			下の表の各アドレスにある値をゼロにセットする。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq3.C3E134.1" class="lighttable">
 			<caption>$E134 ゼロクリア表</caption>
 			<thead>
 				<tr><th>Address</th><th>Value</th></tr>
@@ -1656,7 +1661,7 @@ C3/DE5C:    60          RTS
 			下の表の各アドレスに、構造体データの各フィールドをセットする。
 			これらの値は性格 ID だ。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq3.C3E134.2" class="lighttable">
 			<caption>$E134 配列表 1</caption>
 			<thead>
 				<tr><th>Address</th><th>Value</th></tr>
@@ -1680,7 +1685,7 @@ C3/DE5C:    60          RTS
 			（必要に応じて右シフトされた値を）セットする。
 			これらの値は、上記配列に格納されている各性格の「重み」だ。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq3.C3E134.3" class="lighttable">
 			<caption>$E134 配列表 2</caption>
 			<thead>
 				<tr><th>Address</th><th>Value</th></tr>
@@ -1874,7 +1879,7 @@ C3/E2F0:    4B0B  ; [D6]なかなか [B2]さん[AD]のようですね。[AF][AC]
 	アドレス <varname>$C30EFD</varname> には登録所処理で参照される構造体データが定義されている。
 	この構造体のメモリレイアウトは以下の通り。
 </para>
-<table class="memorylayout">
+<table id="table.dq3.C30EFD" class="memorylayout">
 	<caption>$C30EFD 構造体 - 登録所・性格条件群</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -2002,7 +2007,7 @@ C3/E2F0:    4B0B  ; [D6]なかなか [B2]さん[AD]のようですね。[AF][AC]
 	新規作成キャラクターの初期性格を抽選するための表だ。
 	この構造体のメモリレイアウトは以下の通り。
 </para>
-<table class="memorylayout">
+<table id="table.dq3.C30FFC" class="memorylayout">
 	<caption>$C30FFC 構造体 - 登録所・性格群</caption>
 	<colgroup>
 		<col span="1" width="12%"/>

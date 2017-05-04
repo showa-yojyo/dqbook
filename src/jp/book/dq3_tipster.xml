@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq3.tipster"><?dbhtml filename="dq3_tipster.html" ?>
 <title>予想屋解析</title>
-<indexterm><primary>予想屋</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.tipster"><primary>予想屋</primary><secondary>DQ3</secondary></indexterm>
 <para>
 格闘場に必ず併設されている予想屋。
 本節では、その共通処理サブルーチンの解析を行う。
@@ -22,7 +27,7 @@
 世界各地の格闘場にいる予想屋に「はなす」と呼び出されるサブルーチンは共通して
 <link linkend="dq3.tipster.hack.C3EFBE"><varname>$C3EFBE</varname></link> を呼び出す。
 予想屋の話す台詞は、
-<link linkend="dq3.message">メッセージ ID</link>
+<link linkend="dq3.text.travel">メッセージ ID</link>
 <literal>2</literal> バイト値を引数として渡すサブルーチン <varname>$C1A92E</varname> でウィンドウに表示するようなので、
 逆アセンブルコードを解読する際には、これらの呼び出しの合間を読むようにする。
 </para>
@@ -165,7 +170,7 @@
 			してサブルーチン呼び出し元に処理を戻す。
 		</para>
 		<para>
-			構造体 <varname>$C30EF5</varname> は<link linkend="dq3.str">文字列 ID</link> 値が <literal>4</literal> つ並ぶ小さなものだ。
+			構造体 <varname>$C30EF5</varname> は<link linkend="dq3.string">文字列 ID</link> 値が <literal>4</literal> つ並ぶ小さなものだ。
 			先頭から <literal>#$0314</literal>, <literal>#$0315</literal>, <literal>#$0316</literal>, <literal>#$0317</literal> と配列されており、
 			その表す文字列は、それぞれ Ａ, Ｂ, Ｃ, Ｄ だ。
 		</para>

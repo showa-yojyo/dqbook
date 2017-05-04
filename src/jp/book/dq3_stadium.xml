@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq3.stadium"><?dbhtml filename="dq3_stadium.html" ?>
 <title>格闘場解析</title>
-<indexterm><primary>格闘場</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.stadium"><primary>格闘場</primary><secondary>DQ3</secondary></indexterm>
 <para>
 本節は、格闘場の胴元の共通処理サブルーチンを解析する。
 </para>
@@ -15,7 +20,7 @@
 </para>
 <para>
 サブルーチンでは、胴元の話す台詞を、
-<link linkend="dq3.message">メッセージ ID</link>
+<link linkend="dq3.text.travel">メッセージ ID</link>
 <literal>2</literal> バイト 値を引数として渡すサブルーチン <varname>$C1A92E</varname> でウィンドウに表示する。
 逆アセンブルコードを解読する際には、ここを手掛かりとして処理を読み進めることができる。
 </para>

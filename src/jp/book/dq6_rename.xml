@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq6.rename"><?dbhtml filename="dq6_rename.html" ?>
 <title>命名神解析</title>
-<indexterm><primary>命名神</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.rename"><primary>命名神</primary><secondary>DQ6</secondary></indexterm>
 <para>
 	ここでは、命名神の処理について述べる。
 	特に、変な名前をつけようと試みるときの展開に注目したい。
@@ -435,7 +440,7 @@ C3/EAE1:    6B          RTL
 	不定文字列データを表現する ID が存在するらしいということだ。
 	<varname>X</varname> レジスタにキャラクター ID をセットしてからすぐにサブルーチン
 	<varname>$C44FA1</varname> を呼ぶと、<varname>A</varname>/<varname>X</varname>/<varname>Y</varname> のどこかにその値が格納される。
-	このサブルーチンが取得する値は、<link linkend="dq6.str.data">文字列 ID</link>
+	このサブルーチンが取得する値は、<link linkend="dq6.string.data">文字列 ID</link>
 	の上限より大きい。
 </para>
 <programlisting>
@@ -704,7 +709,7 @@ C3/F349:    6B          RTL                 return false;
 </programlisting>
 <para>
 	平仮名と片仮名の両方とも、命名神の怒りに触れるようになっている。
-	<footnote>
+	<footnote id="ftn.dq6.rename">
 		<para>
 			つまり、小池一夫風に「ん」を「ン」と書けば通る（e.g. ちンこ）。
 			これは、堀井雄二が小池一夫の門下生だという事実と関係があるのか─────ッ

@@ -27,11 +27,11 @@
 # Paths which you may wish to customize:
 XSLTPROC = xsltproc
 XMLLINT = xmllint
-INSTALL_DATA = cp -r
+INSTALL_DATA = cp -ru
 MKDIR = mkdir -p
 RUN_HHC = ~/bin/runhhc.bat
 
-BOOK_VERSION = 1.12
+BOOK_VERSION = 1.13
 
 # You should not normally need to edit anything below here.
 SHELL = /bin/sh
@@ -39,6 +39,7 @@ SHELL = /bin/sh
 NAME = dqbook
 DIR = ./book
 IMAGES = $(DIR)/image/
+TEXTFILES = $(DIR)/data/
 TOOLS_DIR = ../tools
 XSL_DIR = `[ -d stylesheets ] && echo stylesheets || echo $(TOOLS_DIR)`
 OUTNAME = $(NAME)
@@ -87,7 +88,7 @@ IFIMAGES = if test -n "$(IMAGES)"; then
 ENDIF = ; fi
 
 # Customization hooks for xsltproc options
-HTML_XSLTPROC_OPTS = 
+HTML_XSLTPROC_OPTS = --xinclude
 FO_XSLTPROC_OPTS = 
 # FO example: --stringparam page.height 9in --stringparam page.width 6.4in
 

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq.hack"><?dbhtml filename="dq_hack.html" ?>
 <title>ドラクエ解析</title>
@@ -9,7 +14,7 @@
 	この項では、記者の解析環境を紹介する。
 	貧弱。
 </para>
-<table class="lighttable">
+<table id="table.environment" class="lighttable">
 	<caption>記者の解析環境 2007</caption>
 	<thead>
 		<tr>
@@ -40,11 +45,17 @@
 		</tr>
 	</tbody>
 </table>
+<caution>
+  <para>
+    現在は全然異なる。ここに記載されているものは十年前のものだ。
+    読者の参考になるかわからないが、敢えてこの情報は残しておこう。
+  </para>
+</caution>
 </section> <!-- dq.hack.env -->
 
 <section id="dq.hack.rom">
 <title>ロムイメージファイル</title>
-<indexterm><primary>ロムイメージ</primary><secondary>スーファミ ROM イメージ</secondary></indexterm>
+<indexterm id="term.dq.hack.rom"><primary>ロムイメージ</primary><secondary>スーファミ ROM イメージ</secondary></indexterm>
 
 <para>
 	ゲームショップ等で流通している正規のファミコン・スーパーファミコンのカートリッジから、
@@ -125,8 +136,8 @@
 
 <section id="dq.hack.ref">
 <title>参考書籍</title>
-<indexterm><primary>アクションリプレイ</primary></indexterm>
-<indexterm><primary>ゲームラボ</primary></indexterm>
+<indexterm id="term.actionreplay"><primary>アクションリプレイ</primary></indexterm>
+<indexterm id="term.gamelab"><primary>ゲームラボ</primary></indexterm>
 
 <para>
 	小サイトの蔵書から改造・解析の参考になるであろう書籍を、
@@ -141,7 +152,7 @@
 				「PAR でドラクエを遊ぶ」と題して、パラメータ最大化等の基本的な改造コードを掲載している。
 			</para>
 			<para>
-				記者はドラクエ 6 のデバッグフロアの侵入方法を読んだとき、少々感動した記憶がある。
+				記者は &dq6_1995; のデバッグフロアの侵入方法を読んだとき、少々感動した記憶がある。
 				この雑誌では冒険の書のセーブ地点を書き換える方法が紹介されているのだが、
 				記者が考えたアプローチは、フロア切替時のフロア番号だけを書き換えるというものだった。
 				改造者のセンスの違いを感じた。
@@ -155,7 +166,7 @@
 		<glossterm>ゲームラボ 10 月号 (2000) 株式会社三才ブックス</glossterm>
 		<glossdef>
 			<para>
-				巻頭特集として、ドラクエ 7 の改造コードを各種掲載している。
+				巻頭特集として &dq7_2000; の改造コードを各種掲載している。
 				パラメータ最大等の基本的な改造のほか、デバッグモード ON の方法を掲載している。
 			</para>
 			<para>
@@ -170,7 +181,7 @@
 			<para>
 				特集「裏ゲーマー養成講座」第 1 部 ハードの撃ワザ 検証＆実験集のワンコーナーとして、
 				「驚速！ 2 時間 50 分でクリアできる！ ドラクエIV」なる記事が組まれている。
-				プレステ版のドラクエ 4 である。
+				&dq4_2001; である。
 			</para>
 			<para>
 				プレイチャートや、基本的な改造コードが掲載されている一方、

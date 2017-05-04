@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq7.immortal"><?dbhtml filename="dq7_boss01.html" ?>
 <title>あのボスは倒せるか</title>
-<indexterm><primary>イベント戦闘</primary><secondary>DQ7</secondary></indexterm>
+<indexterm id="term.dq7.immortal"><primary>イベント戦闘</primary><secondary>DQ7</secondary></indexterm>
 <para>
-	ここでは、ドラクエ7 の「倒せない敵キャラ」戦について述べる。
+	ここでは &dq7_2000; の「倒せない敵キャラ」戦について述べる。
 	かなり昔に書いたものなので、内容が陳腐になっている点をご容赦いただきたい。
 </para>
 
 <section id="dq7.immortal.abstract">
 <title>概要</title>
-<indexterm><primary>死に抜け</primary></indexterm>
+<indexterm id="term.dq7.decease"><primary>死に抜け</primary></indexterm>
 <para>
 	一般にドラクエの各イベントで、そのクライマックスシーンでボスキャラと呼ばれる特殊な敵キャラクタと戦闘をすることが多い。
 	そして大抵の場合、そのキャラクタを倒すことができなければストーリーが進展しない。
-	これが古典時代のドラクエの鉄則であったのだが、ドラクエ4 のキングレオ戦からこれが覆された。
+	これが古典時代のドラクエの鉄則であったのだが、ドラクエ 4 のキングレオ戦からこれが覆された。
 	特定のイベント戦闘においては、「死に抜け」を前提としてストーリーが組まれるようになったのである。
 	以降のシリーズでは、この「死に抜け」戦が必ず存在するようになった。
 </para>
 <para>
-	ドラクエ7 も例外ではない。いくつかの「死に抜け」戦が存在する。
+	&dq7_2000; も例外ではない。いくつかの「死に抜け」戦が存在する。
 	次の<link linkend="dq7.immortal.battle">セクション</link>で確認したいことは次のふたつである。
 </para>
 <itemizedlist>
@@ -47,7 +52,7 @@
 
 <section id="dq7.immortal.battle.1">
 <title>対あらくれ スイフー ぶとうか戦</title>
-<figure>
+<figure id="fig.dq7_m319">
 	<title>あらくれ スイフー ぶとうか</title>
 	<graphic width="256px" fileref="./image/dq7_m319.png"/>
 </figure>
@@ -80,7 +85,7 @@
 
 <section id="dq7.immortal.battle.2">
 <title>対イノップ ゴンズ戦</title>
-<figure>
+<figure id="fig.dq7_m321">
 	<title>イノップ ゴンズ</title>
 	<graphic width="256px" fileref="./image/dq7_m321.png"/>
 </figure>
@@ -108,7 +113,7 @@
 
 <section id="dq7.immortal.battle.3">
 <title>対ゼッペル戦</title>
-<figure>
+<figure id="fig.dq7_m367">
 	<title>ゼッペル</title>
 	<graphic width="256px" fileref="./image/dq7_m367.png"/>
 </figure>
@@ -118,7 +123,7 @@
 	城へ向かう橋の上での対決である。
 </para>
 <para>
-	コイツはおそらくドラクエ7 に出てくるキャラクタ中最高のHPを持つものである。自動回復がないのが不幸中の幸いである。
+	コイツはおそらく &dq7_2000; に出てくるキャラクタ中最高のHPを持つものである。自動回復がないのが不幸中の幸いである。
 	ゼッペルの攻撃パターンはこごえるふぶきや痛恨の一撃などを、規則に従って繰り出してくる。
 </para>
 <para>
@@ -142,7 +147,7 @@
 <section id="dq7.immortal.conclusion">
 <title>結論</title>
 <para>
-	ドラクエ7 における「死に抜け」戦は場合によっては勝利することが可能である。
+	&dq7_2000; における「死に抜け」戦は場合によっては勝利することが可能である。
 	また、「死に抜け」戦の結果はストーリー展開には影響しない。
 </para>
 </section> <!-- dq7.immortal.conclusion -->

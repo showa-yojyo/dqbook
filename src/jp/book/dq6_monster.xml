@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq6.monster"><?dbhtml filename="dq6_monster.html" ?>
 <title>モンスター</title>
-<indexterm><primary>モンスター</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.monster"><primary>モンスター</primary><secondary>DQ6</secondary></indexterm>
 <para>
 	この文書では、<varname>$C20154</varname> に定義されているモンスター構造体の解析結果を説明する。
 	先人の手で「モンスター構造体データが <varname>$C20154</varname> に存在する」ことが判明している。
@@ -144,7 +149,7 @@ C2/6FE2:    2236F1C2    JSR $C2F136         ■(RTL+4) a = モンスター ID X 
 <para>
 	構造体一個あたりのデータ格納レイアウトを以下に示す。
 </para>
-<table class="memorylayout">
+<table id="table.dq6.C20154" class="memorylayout">
 	<caption>$C20154 モンスター構造体 メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -665,7 +670,7 @@ C2/C485:   5A14 // 90 + rnd(0..20)
 				初期確率ビットが <literal>1</literal> であるモンスターが、
 				戦闘開始直後にラリホーまたはマホカンタ状態であることがある。
 				そのどちらの状態なのかを示すビットだ。
-				<table class="lighttable">
+				<table id="table.dq6.C20154.initial" class="lighttable">
 					<caption>初期状態</caption>
 					<tbody>
 						<tr><td><literal>0</literal></td><td>ラリホー</td></tr>
@@ -695,7 +700,7 @@ C2/C485:   5A14 // 90 + rnd(0..20)
 		<glossterm>モンスター名文字列 ID</glossterm>
 		<glossdef>
 			<para>
-				ウィンドウに表示するモンスター名を表す<link linkend="dq6.str">文字列データの ID</link>
+				ウィンドウに表示するモンスター名を表す<link linkend="dq6.string">文字列データの ID</link>
 				だ。
 			</para>
 		</glossdef>

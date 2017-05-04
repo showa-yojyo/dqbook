@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq3.overcharge"><?dbhtml filename="dq3_overcharge.html" ?>
 <title>ふっかけ店屋解析</title>
-<indexterm><primary>ふっかけ店屋</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.overcharge"><primary>ふっかけ店屋</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	アッサラームの町には標準価格で商品を売るつもりのない店がある。
 	対応するデバッグメニューの名前にちなみ、これらの店を「ふっかけ店屋」と呼ぶことにする。

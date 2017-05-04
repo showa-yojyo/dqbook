@@ -1,146 +1,146 @@
-�f�o�b�N�t���A
-���̒m�肶������̉�
-�ڂ�����̂��僁�j���[
-�_�̂ق���
-�����Ȃ��ق���
-�Ȃ��̂Ƃ�
-�Ȃ܂�������
-���񂱂�
-�Ă񂵂傭
-�t�B�[���h�}�b�v�i���j		
-�t�B�[���h�}�b�v�i���j�G���AB	�E�b�h�p���i
-�t�B�[���h�}�b�v�i���j�G���AC	�I���t�B�[
-�t�B�[���h�}�b�v�i���j�G���AD	�G���S�E
-�t�B�[���h�}�b�v�i���j�G���AE	�_�C�A���b�N
-�t�B�[���h�}�b�v�i���j�G���AF	�v���r�i
-�t�B�[���h�}�b�v�i���j�G���AG	�t�H�[���b�V��
-�t�B�[���h�}�b�v�i���j�G���AH	���o�[��
-�t�B�[���h�}�b�v�i���j�G���AI	�O�����t���[�N
-�t�B�[���h�}�b�v�i���j�G���AJ	����
-�t�B�[���h�}�b�v�i���j�G���AK	�N���[�W��
-�t�B�[���h�}�b�v�i���j�G���AL	�_�[�}
-�t�B�[���h�}�b�v�i���j�G���AN	�n�[�����A
-�t�B�[���h�}�b�v�i���j�G���AO	���[����
-�t�B�[���h�}�b�v�i���j�G���AP	���[�g���[�h
-�t�B�[���h�}�b�v�i���j�G���AR	���u���T�b�N
-�t�B�[���h�}�b�v�i���j�G���AS	�}�[�f�B���X
-�t�B�[���h�}�b�v�i���j�G���AT	�����̒J
-�t�B�[���h�}�b�v�i���j�G���AU	�R�X�^�[��
-�t�B�[���h�}�b�v�i���j���G���AN	�n�[�����A���v
-�������t�B�[���h�}�b�v1
-�������t�B�[���h�}�b�v2
-�t�B�[���h�}�b�v�iT3�C�x���g)		�R�X�^�[������ɉ����Ƃ���
-�t�B�[���h�}�b�v�iS17��F15��j		�_�a������
-�t�B�[���h�}�b�v�i�_�̎g���̑D		���΂ŃN���X�^���p���X�֌�����
-�t�B�[���h�}�b�v�iC1�ɍ����j		�O�����G�X�^�[�h�łɗ�����
-�t�B�[���h�}�b�v�i�_�̍Ւd�j	
-�t�B�[���h�}�b�v�i�N���X�^���p���X�j	�S���삪�N���X�^���p���X��
-�t�B�[���h�}�b�v�i�ΎR�j		���̐��앜��
-�t�B�[���h�}�b�v�i����X1����_�[�}�ցj	�G�X�^�[�h���̈�Ղ��牊�����
-�퓬�f�o�b�ODBGFIGHT		�O���f�[�V�����o�b�N�̐퓬�f�o�b�O�p���
-�퓬�X�e�[�WDUNGEON
-�퓬�X�e�[�WMORI
-�퓬�X�e�[�WMORIN
-�퓬�X�e�[�WM8BTL		���[�����̊X���i
-�퓬�X�e�[�WM8YORU		������o�[�W����
-�퓬�X�e�[�WD11BTL		�C��s�s
-�퓬�X�e�[�WYORU		
-�퓬�X�e�[�WYOGAN
-�퓬�X�e�[�WUMI
-�퓬�X�e�[�WBTLSUNA
-�퓬�X�e�[�WBTLSEASOKO
-�퓬�X�e�[�WBTLYAMA
-�퓬�X�e�[�WSUNAYORU
-�퓬�X�e�[�WUMIYORU
-�퓬�X�e�[�WYAMAYORU
-�퓬�X�e�[�WNUMA
-�퓬�X�e�[�WNUMAYORU
-�퓬�X�e�[�WMORIYORU
-�퓬�X�e�[�WMEGARODOUT		�t�H���b�h�镗�i
-�퓬�X�e�[�WBOOKS
-�퓬�X�e�[�WBOOKS2
-�퓬�X�e�[�WTUBO1
-�퓬�X�e�[�WTUBO2
-�퓬�X�e�[�WBTLM3IN		���[�����Ƃ̒�
-�퓬�X�e�[�WBTLM3IN1		����
-�퓬�X�e�[�WMTLM3IN2		����B�قƂ�ǊԈႢ�T��
-�퓬�X�e�[�WMTLM21OUT		�}�[�f�B���X�鉺��
-�퓬�X�e�[�WTOWER1		
-�퓬�X�e�[�WBTLCOLO		������
-�퓬�X�e�[�WBTLC2IN
-�퓬�X�e�[�WBTLC3IN
-�퓬�X�e�[�WBTLC4		�}�[�f�B���X��
-�퓬�X�e�[�WFIELD
-�퓬�X�e�[�WBTLD2HK
-�퓬�X�e�[�WBTLD3
-�퓬�X�e�[�WBTLD4		���E���n��������
-�퓬�X�e�[�WBTLD4IN		�������̒�
-�퓬�X�e�[�WD5BTL		�G�̒�
-�퓬�X�e�[�WBTLD5BOSS		���̍����v�O
-�퓬�X�e�[�WBTLD6
-�퓬�X�e�[�WBTLD6TOP		���̌�����������
-�퓬�X�e�[�WBTLD6TP2
-�퓬�X�e�[�WBTLD8
-�퓬�X�e�[�WBTLD9
-�퓬�X�e�[�WBTLD11BOSS		�C��s�s�ʍ�
-�퓬�X�e�[�WBTLD12
-�퓬�X�e�[�WBTLD13
-�퓬�X�e�[�WBTLD13OUT1
-�퓬�X�e�[�WBTLD13OUT2
-�퓬�X�e�[�WBTLD13BOSS
-�퓬�X�e�[�WBTLD14
-�퓬�X�e�[�WBTLD14B4B		�Ō�̃C�m�b�v���S���Y��
-�퓬�X�e�[�WBTLD15IN
-�퓬�X�e�[�WBTLD18		���̂����ꂢ��
-�퓬�X�e�[�WBTLF19IN
-�퓬�X�e�[�WBTLD20
-�퓬�X�e�[�WBTLD21		����̂ق���
-�퓬�X�e�[�WBTLD24		�̐Ώ�
-�퓬�X�e�[�WBTLD25
-�퓬�X�e�[�WBTLD26
-�퓬�X�e�[�WBTLD27		�ً�Ԃ̐_�a
-�퓬�X�e�[�WBTLKAMA		���̋��l��
-�퓬�X�e�[�WBTLMAO		�ً�Ԃ̐_�a�ʍ�
-�퓬�X�e�[�WBTLF7		�}�[�f�B���X���̏�
-�퓬�X�e�[�WBTLF10A		���u���T�b�N��
-�퓬�X�e�[�WBTLF10B
-�퓬�X�e�[�WBTLM2		�{���b�N�@����
-�퓬�X�e�[�WBTLM9P		�N���[�W�������i
-�퓬�X�e�[�WBTLM13		�ӂ����܂�̊X���i
-�퓬�X�e�[�WBTLM23		�G���S�E�����i
-�퓬�X�e�[�WBTLM23D		�����t�B���^�[
-�퓬�X�e�[�WBTLT1		�ł̃h���S���̓��ŏ�K
-�퓬�X�e�[�WBTLT1D		�����t�B���^�[
-�퓬�X�e�[�WBTLT1B		�ł̃h���S���̓�
-�퓬�X�e�[�WBTLT2EV		�R���̓�����
-�퓬�X�e�[�WBTLT3
-�퓬�X�e�[�WBTLT3D
-�퓬�X�e�[�WT3BOSS		�o���N�i�W����
-�퓬�X�e�[�WBTLT4IN		�o���b�N�^���[
-�퓬�X�e�[�WBTLT5A		
-�퓬�X�e�[�WBTLT5B
-�퓬�X�e�[�WBTLT6IN
-�퓬�X�e�[�WBTLT7IN
-�퓬�X�e�[�WBTLS4IN		���炭�蕺�A�W�g
-�퓬�X�e�[�WBTLS16		�_�[�}��
-�퓬�X�e�[�WBTLX4OUT		����������
-�퓬�X�e�[�WBTLX4OUTD
-�퓬�X�e�[�WBTLX6IN		�_�[�}�_�a�Ւd
-�퓬�X�e�[�WBTLX8		���t�@���̐_�a����
-�퓬�X�e�[�WBTLX8EV		���t�@���̐_�a�Α��O
-�퓬�X�e�[�WBTLX9DP		�N���X�^���p���X
-�퓬�X�e�[�WBTLX9DPB		�_�[�N�p���X��
-�퓬�X�e�[�WBTLEGG		�_�[�N�p���X�����^�}�S
-�퓬�X�e�[�WBTX9DPB2		
-�퓬�X�e�[�WX9PDBOX		�_�[�N�p���X�̃p���h���{�b�N�X
-�퓬�X�e�[�WBTLX9DG		���n�̓�����
-�퓬�X�e�[�WBTLX9DW
-�퓬�X�e�[�WBTLX9DK		�󕗂̐_�a
-�퓬�X�e�[�WBTLX10IN		�n��s���~�b�h
-�퓬�X�e�[�WLAST1NIKU		�_�[�N�p���X��
-�퓬�X�e�[�WBTLURA		�_����
-�퓬�X�e�[�WBTLURA2		�S����
-�퓬�X�e�[�WFINAL		���X�g�o�g��
-�Q�[���V���[�p���j���[		��ʐ^����
+デバックフロア
+もの知りじいさんの家
+ぼうけんのしょメニュー
+雲のほこら
+名もなきほこら
+なぞのとう
+なまえかえや
+ぎんこう
+てんしょく
+フィールドマップ（現）		
+フィールドマップ（去）エリアB	ウッドパルナ
+フィールドマップ（去）エリアC	オルフィー
+フィールドマップ（去）エリアD	エンゴウ
+フィールドマップ（去）エリアE	ダイアラック
+フィールドマップ（去）エリアF	プロビナ
+フィールドマップ（去）エリアG	フォーリッシュ
+フィールドマップ（去）エリアH	ユバール
+フィールドマップ（去）エリアI	グリンフレーク
+フィールドマップ（去）エリアJ	砂漠
+フィールドマップ（去）エリアK	クレージュ
+フィールドマップ（去）エリアL	ダーマ
+フィールドマップ（去）エリアN	ハーメリア
+フィールドマップ（去）エリアO	ルーメン
+フィールドマップ（去）エリアP	リートルード
+フィールドマップ（去）エリアR	レブレサック
+フィールドマップ（去）エリアS	マーディラス
+フィールドマップ（去）エリアT	聖風の谷
+フィールドマップ（去）エリアU	コスタール
+フィールドマップ（去）水エリアN	ハーメリア水没
+かくしフィールドマップ1
+かくしフィールドマップ2
+フィールドマップ（T3イベント)		コスタール灯台に炎がともる
+フィールドマップ（S17とF15上）		神殿が浮上
+フィールドマップ（神の使いの船		飛空石でクリスタルパレスへ向かう
+フィールドマップ（C1に黒い）		グランエスタード闇に落ちる
+フィールドマップ（神の祭壇）	
+フィールドマップ（クリスタルパレス）	４精霊がクリスタルパレスへ
+フィールドマップ（火山）		炎の精霊復活
+フィールドマップ（炎がX1からダーマへ）	エスタード島の遺跡から炎が飛ぶ
+戦闘デバッグDBGFIGHT		グラデーションバックの戦闘デバッグ用画面
+戦闘ステージDUNGEON
+戦闘ステージMORI
+戦闘ステージMORIN
+戦闘ステージM8BTL		ルーメンの街風景
+戦闘ステージM8YORU		同封印バージョン
+戦闘ステージD11BTL		海底都市
+戦闘ステージYORU		
+戦闘ステージYOGAN
+戦闘ステージUMI
+戦闘ステージBTLSUNA
+戦闘ステージBTLSEASOKO
+戦闘ステージBTLYAMA
+戦闘ステージSUNAYORU
+戦闘ステージUMIYORU
+戦闘ステージYAMAYORU
+戦闘ステージNUMA
+戦闘ステージNUMAYORU
+戦闘ステージMORIYORU
+戦闘ステージMEGARODOUT		フォロッド城風景
+戦闘ステージBOOKS
+戦闘ステージBOOKS2
+戦闘ステージTUBO1
+戦闘ステージTUBO2
+戦闘ステージBTLM3IN		ルーメン家の中
+戦闘ステージBTLM3IN1		同上
+戦闘ステージMTLM3IN2		同上。ほとんど間違い探し
+戦闘ステージMTLM21OUT		マーディラス城下町
+戦闘ステージTOWER1		
+戦闘ステージBTLCOLO		決闘場
+戦闘ステージBTLC2IN
+戦闘ステージBTLC3IN
+戦闘ステージBTLC4		マーディラス城
+戦闘ステージFIELD
+戦闘ステージBTLD2HK
+戦闘ステージBTLD3
+戦闘ステージBTLD4		世界樹地下根っこ
+戦闘ステージBTLD4IN		根っこの中
+戦闘ステージD5BTL		絵の中
+戦闘ステージBTLD5BOSS		時の砂時計前
+戦闘ステージBTLD6
+戦闘ステージBTLD6TOP		星の結晶洞くつ頂上
+戦闘ステージBTLD6TP2
+戦闘ステージBTLD8
+戦闘ステージBTLD9
+戦闘ステージBTLD11BOSS		海底都市玉座
+戦闘ステージBTLD12
+戦闘ステージBTLD13
+戦闘ステージBTLD13OUT1
+戦闘ステージBTLD13OUT2
+戦闘ステージBTLD13BOSS
+戦闘ステージBTLD14
+戦闘ステージBTLD14B4B		最後のイノップ＆ゴンズ戦
+戦闘ステージBTLD15IN
+戦闘ステージBTLD18		炎のせいれい戦
+戦闘ステージBTLF19IN
+戦闘ステージBTLD20
+戦闘ステージBTLD21		封印のほこら
+戦闘ステージBTLD24		採石場
+戦闘ステージBTLD25
+戦闘ステージBTLD26
+戦闘ステージBTLD27		異空間の神殿
+戦闘ステージBTLKAMA		炎の巨人戦
+戦闘ステージBTLMAO		異空間の神殿玉座
+戦闘ステージBTLF7		マーディラス橋の上
+戦闘ステージBTLF10A		レブレサック南
+戦闘ステージBTLF10B
+戦闘ステージBTLM2		ボルック邸屋上
+戦闘ステージBTLM9P		クレージュ村風景
+戦闘ステージBTLM13		ふきだまりの街風景
+戦闘ステージBTLM23		エンゴウ村風景
+戦闘ステージBTLM23D		同上夜フィルター
+戦闘ステージBTLT1		闇のドラゴンの塔最上階
+戦闘ステージBTLT1D		同上夜フィルター
+戦闘ステージBTLT1B		闇のドラゴンの塔
+戦闘ステージBTLT2EV		山奥の塔頂上
+戦闘ステージBTLT3
+戦闘ステージBTLT3D
+戦闘ステージT3BOSS		バリクナジャ戦
+戦闘ステージBTLT4IN		バロックタワー
+戦闘ステージBTLT5A		
+戦闘ステージBTLT5B
+戦闘ステージBTLT6IN
+戦闘ステージBTLT7IN
+戦闘ステージBTLS4IN		からくり兵アジト
+戦闘ステージBTLS16		ダーマ南
+戦闘ステージBTLX4OUT		魔王像頂上
+戦闘ステージBTLX4OUTD
+戦闘ステージBTLX6IN		ダーマ神殿祭壇
+戦闘ステージBTLX8		リファ族の神殿内部
+戦闘ステージBTLX8EV		リファ族の神殿石像前
+戦闘ステージBTLX9DP		クリスタルパレス
+戦闘ステージBTLX9DPB		ダークパレス塔
+戦闘ステージBTLEGG		ダークパレス洞くつタマゴ
+戦闘ステージBTX9DPB2		
+戦闘ステージX9PDBOX		ダークパレスのパンドラボックス
+戦闘ステージBTLX9DG		死地の洞くつ
+戦闘ステージBTLX9DW
+戦闘ステージBTLX9DK		烈風の神殿
+戦闘ステージBTLX10IN		地底ピラミッド
+戦闘ステージLAST1NIKU		ダークパレス肉
+戦闘ステージBTLURA		神さま
+戦闘ステージBTLURA2		４精霊
+戦闘ステージFINAL		ラストバトル
+ゲームショー用メニュー		画面真っ黒
 B10UT
-...[�ȉ��ǂ��ł����[���i���j�Ő�������Ă���]
+...[以下どこでもルーラ（下）で整理されている]

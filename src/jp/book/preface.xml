@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE preface PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <preface id="preface"><?dbhtml filename="preface.html" ?>
 <title>まえがき</title>
@@ -13,7 +18,7 @@
 	すべてのシリーズについて、その一覧を作成したいという野望がある。
 	幸いファミコンで遊べるシリーズ、つまり 1 から 4 までの各作品については、
 	ソニタウンのドラクエビューワ
-	<footnote>
+	<footnote id="ftn.preface.dqviewer">
 		<para>
 			ドラクエ解析サイト「ソニタウン」
 			<ulink url="http://www.geocities.jp/sonitown/">http://www.geocities.jp/sonitown/</ulink>
@@ -72,45 +77,45 @@
 		</listitem>
 	</varlistentry>
 	<varlistentry>
-		<term><link linkend="dq3">ドラクエ3</link></term>
+		<term><link linkend="dq3">&dq3_1996;</link></term>
 		<listitem>
 			<para>
-				主に SFC ドラクエ3 をあらゆる方法で解析して得られたデータ、および事実を説明する。
+				主に &dq3_1996; をあらゆる方法で解析して得られたデータ、および事実を説明する。
 				おまけとして、バカ画像の陳列や GB 版のモンスターメダルデータに関する情報を提供する。
 			</para>
 		</listitem>
 	</varlistentry>
 	<varlistentry>
-		<term><link linkend="dq4">ドラクエ4</link></term>
+		<term><link linkend="dq4">&dq4_2001;</link></term>
 		<listitem>
 			<para>
-				PS ドラクエ4 の解析手法を説明する章になる予定。
+				&dq4_2001; の解析手法を説明する章になる予定。
 				現在は開店休業状態である。
 			</para>
 		</listitem>
 	</varlistentry>
 	<varlistentry>
-		<term><link linkend="dq5">ドラクエ5</link></term>
+		<term><link linkend="dq5">&dq5_1992;</link></term>
 		<listitem>
 			<para>
-				SFC ドラクエ5 をあらゆる方法で解析して得られたデータ、および事実を説明する。
+				&dq5_1992; をあらゆる方法で解析して得られたデータ、および事実を説明する。
 				おまけとして、バカ画像の陳列ページを用意してある。
 			</para>
 		</listitem>
 	</varlistentry>
 	<varlistentry>
-		<term><link linkend="dq6">ドラクエ6</link></term>
+		<term><link linkend="dq6">&dq6_1995;</link></term>
 		<listitem>
 			<para>
-				SFC ドラクエ6 をあらゆる方法で解析して得られたデータ、および事実を説明する。
+				&dq6_1995; をあらゆる方法で解析して得られたデータ、および事実を説明する。
 			</para>
 		</listitem>
 	</varlistentry>
 	<varlistentry>
-		<term><link linkend="dq7">ドラクエ7</link></term>
+		<term><link linkend="dq7">&dq7_2000;</link></term>
 		<listitem>
 			<para>
-				PS ドラクエ7 の解析手法を説明する章になる予定。
+				&dq7_2000; の解析手法を説明する章になる予定。
 				現在は開店休業状態である。
 			</para>
 		</listitem>
@@ -256,7 +261,7 @@
 				65816 解析手法を基本から教えていただいた「恩師」である。
 			</para>
 			<para>
-				ドラクエ3 のメッセージ解析の概要を完全に把握されており、
+				&dq3_1996; のメッセージ解析の概要を完全に把握されており、
 				記者は、主要なデータの構造・配置位置をそのサイトで知った。
 				さらに（別シリーズではあるが）メッセージアセンブリコードの解釈の添削までしていただいた。
 			</para>

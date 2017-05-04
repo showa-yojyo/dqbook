@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq6.level"><?dbhtml filename="dq6_level.html" ?>
 <title>レベルアップ解析</title>
-<indexterm><primary>レベル</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.level"><primary>レベル</primary><secondary>DQ6</secondary></indexterm>
 <para>
 	ここでは、<varname>$FFB6C2</varname> に定義されている構造体、
 	レベルアップ定義構造体の解析を中心に、
@@ -650,7 +655,7 @@ C4/45A2:    60          RTS
 <para>
 	構造体一個あたりのデータ格納レイアウトを以下に示す。
 </para>
-<table class="memorylayout">
+<table id="table.dq6.FFB6C2" class="memorylayout">
 	<caption>$FFB6C2 - レベルアップ定義構造体 メモリレイアウト</caption>
 	<colgroup>
 		<col span="1" width="12%"/>

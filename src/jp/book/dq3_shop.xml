@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq3.shop"><?dbhtml filename="dq3_shop.html" ?>
 <title>店屋解析</title>
-<indexterm><primary>店屋</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.shop"><primary>店屋</primary><secondary>DQ3</secondary></indexterm>
 <para>
 本節では武器と防具の店、道具屋、そしてよろず屋に共通する処理部のコードを解析する。
 店屋の処理を細かく分解すると、パーティーの所持金の変更、仲間キャラクターの持ち物状態の変更、
@@ -764,7 +769,7 @@
 Opcode <literal>#$BF</literal> の <code>LDA</code> 命令で以下のアドレスから ID 値をロードして、
 台詞表示サブルーチン <varname>$C1A95A</varname> で店屋の台詞を表示している。
 </para>
-<table class="lighttable">
+<table id="table.dq3.C3CA2A" class="lighttable">
 	<caption>店屋台詞集</caption>
 	<thead>
 		<tr><th>Address</th><th>X == 0 のときの台詞</th></tr>
@@ -2244,7 +2249,7 @@ Opcode <literal>#$BF</literal> の <code>LDA</code> 命令で以下のアドレ�
 				<para>
 					下の表の通り：
 				</para>
-				<table class="lighttable">
+				<table id="table.dq3.C3CEC6" class="lighttable">
 					<caption>サブルーチン $C3CEC6 事後条件</caption>
 					<thead>
 						<tr><th>Address</th><th>Value</th></tr>

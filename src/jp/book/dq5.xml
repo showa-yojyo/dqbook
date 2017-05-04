@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <chapter id="dq5"><?dbhtml filename="dq5.html" ?>
-<title>ドラクエ5</title>
+<title>&dq5_1992; (1992)</title>
 <para>
-	本章では、SFC ドラクエ5 に関する内容を扱っていく。
-	記者の個人的な考えだが、ドラクエ5 は
-	SFC で動くドラクエシリーズの中で、
-	最も逆アセンブル解析の難しいシリーズであると思う。
-	65816 逆アセンブルを試みればわかるが、
-	目まぐるしく MX レジスタビットが ON/OFF を繰り返すため、
-	「本物」のコードを抽出することがなかなか難しい。
-	ここをどうクリアするかが、本作を解析する最大の問題である。
+本章では &dq5_1992; に関する内容を扱っていく。
+記者の個人的な考えだが、&dq5_1992; は
+SFC で動くドラクエシリーズの中で、
+最も逆アセンブル解析の難しいシリーズであると思う。
+65816 逆アセンブルを試みればわかるが、
+目まぐるしく MX レジスタビットが ON/OFF を繰り返すため、
+「本物」のコードを抽出することがなかなか難しい。
+ここをどうクリアするかが、本作を解析する最大の問題である。
 </para>
 
-&dq5_gallery;
-&dq5_message_battle;
-&dq5_message;
-&dq5_str;
-<!-- &dq5_monster; 封印 -->
-&dq5_act;
-&dq5_store;
-&dq5_flow_encounter;
-&dq5_encounter;
-&dq5_chara_monster_init;
-&dq5_encounter_special;
-<!-- &dq5_fight_ring; 封印 -->
-&dq5_item;
-&dq5_chara_spell;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_gallery.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_brk.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_accessor.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_characters.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_combatants.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_text.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_string.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_window.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_battle_commands.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_shop.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_character_traits.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_monster.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_item.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_encounter.xml"/>
 </chapter> <!-- dq5 -->

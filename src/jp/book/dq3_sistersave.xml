@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq3.sistersave"><?dbhtml filename="dq3_sistersave.html" ?>
 <title>シスターセーブ解析</title>
-<indexterm><primary>冒険の書</primary><secondary>DQ3</secondary></indexterm>
-<indexterm><primary>シスターセーブ</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.save"><primary>冒険の書</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.save.nun"><primary>シスターセーブ</primary><secondary>DQ3</secondary></indexterm>
 <para>
 シスターセーブとは、アリアハンのルイーダの酒場にいるシスターの行う、
 冒険の書への記録サブルーチンを示す。

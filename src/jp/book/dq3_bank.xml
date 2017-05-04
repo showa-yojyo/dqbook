@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq3.bank"><?dbhtml filename="dq3_bank.html" ?>
 <title>ゴールド銀行解析</title>
-<indexterm><primary>ゴールド銀行</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.bank"><primary>ゴールド銀行</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	ゴールド銀行の窓口業務処理について解析した結果を述べる。
 	アリアハンのルイーダの酒場入口近くにあるカウンターが銀行の窓口だが、
@@ -30,7 +35,7 @@
 <para>
 	銀行処理周りの台詞表示はすべてサブルーチン <varname>$C1A92E</varname> 呼び出しで実現している。
 	このサブルーチンは、呼び出しコード直後に 2 バイトの定数を埋め込むことで、
-	その定数を<link linkend="dq3.message">メッセージ ID</link> として解釈する。
+	その定数を<link linkend="dq3.text.travel">メッセージ ID</link> として解釈する。
 </para>
 <para>
 	以下の記述では、銀行の預金単位が <literal>1000</literal> ゴールド単位であることをいちいち断らない。

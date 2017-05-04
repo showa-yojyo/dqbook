@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq3.window"><?dbhtml filename="dq3_window.html" ?>
 <title>ウィンドウ解析</title>
-<indexterm><primary>ウィンドウ</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.window"><primary>ウィンドウ</primary><secondary>DQ3</secondary></indexterm>
 <para>
 ウィンドウシステムを可能な限り解析する。
 解析の初期段階でウィンドウ解析を済ませておくべきだったと記者は反省している。
@@ -50,7 +55,7 @@
 <para>
 プログラム中に現れる、ウィンドウ関連のサブルーチン呼び出しを以下に示す。
 </para>
-<table class="lighttable">
+<table id="table.dq3.window.subroutines" class="lighttable">
 	<caption>ウィンドウ関連のサブルーチン</caption>
 	<thead>
 		<tr><th>サブルーチン</th><th>意味</th></tr>
@@ -191,7 +196,7 @@ C3/BE49:    4B          ; ステレオ・モノラル
 ここはまだ書きかけだ。
 </para>
 
-<table class="memorylayout">
+<table id="table.dq3.C30000" class="memorylayout">
 	<caption>$C30000 ウィンドウ構造体</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -301,7 +306,7 @@ C3/BE49:    4B          ; ステレオ・モノラル
 		<para>
 			サブルーチンテーブル <varname>$C31ACC</varname> のインデックスだ。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq3.C31ACC" class="lighttable">
 			<caption>JSR ($1ACC,X)</caption>
 			<thead>
 				<tr><th>値</th><th>処理</th></tr>
@@ -323,7 +328,7 @@ C3/BE49:    4B          ; ステレオ・モノラル
 			<varname>$33BC</varname>, <varname>$33BE</varname> のセットする値の決め方に影響する。
 			おそらくウィンド表示直後のカーソル位置を決めるサブルーチンなのではないかと思う。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq3.C33BB7" class="lighttable">
 			<caption>JSR ($3BB7,X)</caption>
 			<thead>
 				<tr><th>値</th><th>処理</th></tr>
@@ -353,7 +358,7 @@ C3/BE49:    4B          ; ステレオ・モノラル
 		<para>
 			ウィンドウが持つカーソルの種類を示す値だ。
 		</para>
-		<table class="lighttable">
+		<table id="table.dq3.window.cursor" class="lighttable">
 			<caption>カーソルタイプ</caption>
 			<thead>
 				<tr><th>値</th><th>カーソル</th></tr>

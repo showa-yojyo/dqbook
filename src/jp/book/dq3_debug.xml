@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq3.debug"><?dbhtml filename="dq3_debug.html" ?>
 <title>デバッグモード解析</title>
-<indexterm><primary>デバッグモード</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.debug"><primary>デバッグモード</primary><secondary>DQ3</secondary></indexterm>
 <para>
-	ドラクエ3 のデバッグモードについて解析する。
+	&dq3_1996; のデバッグモードについて解析する。
 	<!-- TODO: make reference -->
-	Shingo Endo 氏がドラクエ6 の解析文書で指摘している
-	「<varname>$C1FFFE</varname> の値によるプログラムの処理分岐」が、ドラクエ3 においても存在する。
+	Shingo Endo 氏が &dq6_1995; の解析文書で指摘している
+	「<varname>$C1FFFE</varname> の値によるプログラムの処理分岐」が &dq3_1996; においても存在する。
 </para>
 
 <section id="dq3.debug.hack">
@@ -32,7 +37,7 @@
 	ロードした <varname>$C1FFFE</varname> の値を扱う命令コード、
 	コードをおおまかに解読して推測した役割の表を示す。
 </para>
-<table class="lighttable">
+<table id="table.dq3.C1FFFE" class="lighttable">
 	<caption>$C1FFFE 参照位置一覧</caption>
 	<thead>
 		<tr><th>参照位置</th><th>命令</th><th>処理</th></tr>
@@ -78,7 +83,7 @@
 
 <section id="dq3.debug.hack.FFFF.menu">
 <title>デバッグメニュー使用可能</title>
-<figure>
+<figure id="fig.dq3.debug.menu">
 	<title>デバッグメニュー</title>
 	<graphic width="240px" fileref="./image/dq3.debug.menu.png"/>
 </figure>
@@ -91,7 +96,7 @@
 	<glossentry>
 	<glossterm>いんちきルーラ</glossterm>
 	<glossdef>
-		<figure><title>いんちきルーラ</title><graphic width="240px" fileref="./image/dq3.debug.fake.rura.png"/></figure>
+		<figure id="fig.dq3.debug.fake.rura"><title>いんちきルーラ</title><graphic width="240px" fileref="./image/dq3.debug.fake.rura.png"/></figure>
 		<para>
 			まず、行き先リストウィンドウ (ID: <literal>0002h</literal>) をサブメニューとして表示する。
 			明らかに、通常のルーラよりも行き先候補が多い。
@@ -123,7 +128,7 @@
 	<glossentry>
 	<glossterm>おみせ</glossterm>
 	<glossdef>
-		<figure><title>おみせ</title><graphic width="240px" fileref="./image/dq3.debug.shop.png"/></figure>
+		<figure id="fig.dq3.debug.shop"><title>おみせ</title><graphic width="240px" fileref="./image/dq3.debug.shop.png"/></figure>
 		<para>
 			図のようなサブメニューを表示する。
 			選択する項目により、店屋の共通処理が始まる。
@@ -151,7 +156,7 @@
 	<glossentry>
 	<glossterm>レベルアップ</glossterm>
 	<glossdef>
-		<figure><title>レベルアップ</title><graphic width="240px" fileref="./image/dq3.debug.level.png"/></figure>
+		<figure id="fig.dq3.debug.level"><title>レベルアップ</title><graphic width="240px" fileref="./image/dq3.debug.level.png"/></figure>
 		<para>
 			この項目を選択すると、コマンドウィンドウで「つよさ」を選択したときと同じサブウィンドウ群が出る。
 			さらにこの状態でキャラクターを選択すると、「つよさ」ウィンドウが出る代わりに、
@@ -177,7 +182,7 @@
 	<glossentry>
 	<glossterm>せいかく</glossterm>
 	<glossdef>
-		<figure><title>せいかく</title><graphic width="240px" fileref="./image/dq3.debug.character.png"/></figure>
+		<figure id="fig.dq3.debug.character"><title>せいかく</title><graphic width="240px" fileref="./image/dq3.debug.character.png"/></figure>
 		<para>
 			この項目を選択すると、コマンドウィンドウで「つよさ」を選択したときと同じサブウィンドウ群が出る。
 			さらにこの状態でキャラクターを選択すると、「つよさ」ウィンドウが出る代わりに、
@@ -200,7 +205,7 @@
 	<glossentry>
 	<glossterm>フラグショップ</glossterm>
 	<glossdef>
-		<figure><title>フラグショップ</title><graphic width="240px" fileref="./image/dq3.debug.flag.png"/></figure>
+		<figure id="fig.dq3.debug.flag"><title>フラグショップ</title><graphic width="240px" fileref="./image/dq3.debug.flag.png"/></figure>
 		<para>
 			図のようなサブメニューを表示する。
 			ここで項目を選択すると、その項目が示すゲーム状態になっていることが保証されるらしい。
@@ -217,7 +222,7 @@
 	<glossentry>
 	<glossterm>ひとじょうたい</glossterm>
 	<glossdef>
-		<figure><title>ひとじょうたい</title><graphic width="240px" fileref="./image/dq3.debug.status.party.png"/></figure>
+		<figure id="fig.dq3.debug.status.party"><title>ひとじょうたい</title><graphic width="240px" fileref="./image/dq3.debug.status.party.png"/></figure>
 		<para>
 			「だれを」ウィンドウが出現して、パーティ内キャラクターのだれか一人を選択することになる。
 			ここでキャラクターを選択すると、ステータスを「しに・まひ・どく」の中から設定することができる。
@@ -233,7 +238,7 @@
 	<glossentry>
 	<glossterm>ゲームじょうたい</glossterm>
 	<glossdef>
-		<figure><title>ゲームじょうたい</title><graphic width="240px" fileref="./image/dq3.debug.status.game.png"/></figure>
+		<figure id="fig.dq3.debug.status.game"><title>ゲームじょうたい</title><graphic width="240px" fileref="./image/dq3.debug.status.game.png"/></figure>
 		<para>
 			現在いるフロアの情報を表示するウィンドウ (ID: <literal>007Dh</literal>) が出現する。
 			例えば「ルーラ」では｢できる」「できない」「あたまをぶつける」のどれかが表示される。
@@ -253,7 +258,7 @@
 	<glossentry>
 	<glossterm>せんたくせんとう</glossterm>
 	<glossdef>
-		<figure><title>せんたくせんとう</title><graphic width="240px" fileref="./image/dq3.debug.enc.monster.png"/></figure>
+		<figure id="fig.dq3.debug.enc.monster"><title>せんたくせんとう</title><graphic width="240px" fileref="./image/dq3.debug.enc.monster.png"/></figure>
 		<para>
 			<link linkend="dq3.monster">モンスター</link>せんたくウィンドウ (ID: <literal>00D1h</literal>) が出現する。
 			ここでモンスターを示す項目を選択すると、さらに数値入力ウィンドウが出現する。
@@ -278,7 +283,7 @@
 	<glossentry>
 	<glossterm>タイルせんとう</glossterm>
 	<glossdef>
-		<figure><title>タイルせんとう</title><graphic width="240px" fileref="./image/dq3.debug.enc.tile.png"/></figure>
+		<figure id="fig.dq3.debug.enc.tile"><title>タイルせんとう</title><graphic width="240px" fileref="./image/dq3.debug.enc.tile.png"/></figure>
 		<para>
 			数値入力ウィンドウが出現する。
 			このウィンドウを出した場所によって、あらかじめゼロでない数値が表示されているかもしれない。
@@ -291,7 +296,7 @@
 	<glossentry>
 	<glossterm>モンスターをみる</glossterm>
 	<glossdef>
-		<figure><title>モンスターをみる</title><graphic width="248px" fileref="./image/dq3.debug.monster.ani.png"/></figure>
+		<figure id="fig.dq3.debug.monster.ani"><title>モンスターをみる</title><graphic width="248px" fileref="./image/dq3.debug.monster.ani.png"/></figure>
 		<para>
 			画面が切り替わり、モンスターのグラフィックを見るモードになる。
 			モンスターを選択すると、アニメーション個数だけリストされたミニウィンドウが出現する。
@@ -338,7 +343,7 @@
 	<glossentry>
 	<glossterm>ほこうせってい</glossterm>
 	<glossdef>
-		<figure><title>ほこうせってい</title><graphic width="240px" fileref="./image/dq3.debug.enable.cancel.png"/></figure>
+		<figure id="fig.dq3.debug.enable.cancel"><title>ほこうせってい</title><graphic width="240px" fileref="./image/dq3.debug.enable.cancel.png"/></figure>
 		<para>
 			図のようなメッセージが出現する。
 			「はい」と答えると、キャンセル歩行ができる (<varname>$7E3500</varname> |= <literal>0002h</literal>) ようになり、
@@ -355,7 +360,7 @@
 	<glossentry>
 	<glossterm>エンカウントせってい</glossterm>
 	<glossdef>
-		<figure><title>エンカウントせってい</title><graphic width="240px" fileref="./image/dq3.debug.enable.enc.png"/></figure>
+		<figure id="fig.dq3.debug.enable.enc"><title>エンカウントせってい</title><graphic width="240px" fileref="./image/dq3.debug.enable.enc.png"/></figure>
 		<para>
 			図のようなメッセージが出現する。
 			「いいえ」と答えると、フィールドやダンジョンを歩いていても敵が一切出現しなく (<varname>$7E3500</varname> &amp;= ~<literal>0001h</literal>) なる。
@@ -368,7 +373,7 @@
 	<glossentry>
 	<glossterm>スタートフロアせってい</glossterm>
 	<glossdef>
-		<figure><title>スタートフロアせってい</title><graphic width="240px" fileref="./image/dq3.debug.enable.startfloor.png"/></figure>
+		<figure id="fig.dq3.debug.enable.startfloor"><title>スタートフロアせってい</title><graphic width="240px" fileref="./image/dq3.debug.enable.startfloor.png"/></figure>
 		<para>
 			図のようなメッセージが出現する。
 			「はい」と答えると、
@@ -382,8 +387,8 @@
 	<glossentry>
 	<glossterm>ざひょうウィンドウ</glossterm>
 	<glossdef>
-		<figure><title>ざひょうウィンドウ</title><graphic width="240px" fileref="./image/dq3.debug.coord.png"/></figure>
-		<figure><title>ざひょうウィンドウ</title><graphic width="240px" fileref="./image/dq3.debug.enable.coord.png"/></figure>
+		<figure id="fig.dq3.debug.coord"><title>ざひょうウィンドウ</title><graphic width="240px" fileref="./image/dq3.debug.coord.png"/></figure>
+		<figure id="fig.dq3.debug.enable.coord"><title>ざひょうウィンドウ</title><graphic width="240px" fileref="./image/dq3.debug.enable.coord.png"/></figure>
 		<para>
 			図のようなメッセージが出現する。
 			「はい」と答えると、移動モードにおいて R ボタンを押したときに、
@@ -395,7 +400,7 @@
 	<glossentry>
 	<glossterm>ひとひょうじ</glossterm>
 	<glossdef>
-		<figure><title>ひとひょうじ</title><graphic width="240px" fileref="./image/dq3.debug.enable.people.png"/></figure>
+		<figure id="fig.dq3.debug.enable.people"><title>ひとひょうじ</title><graphic width="240px" fileref="./image/dq3.debug.enable.people.png"/></figure>
 		<para>
 			図のようなメッセージが出現する。
 			「いいえ」と答えると、パーティキャラクターを含む、人のグラフィックが描画されなくなる。
@@ -407,7 +412,7 @@
 	<glossentry>
 	<glossterm>ＲＯＭバージョン</glossterm>
 	<glossdef>
-		<figure><title>ＲＯＭバージョン</title><graphic width="240px" fileref="./image/dq3.debug.romver.png"/></figure>
+		<figure id="fig.dq3.debug.romver"><title>ＲＯＭバージョン</title><graphic width="240px" fileref="./image/dq3.debug.romver.png"/></figure>
 		<para>
 			ＲＯＭバージョンの情報を示すウィンドウが画面右上に出現する。
 			デバッグモードでは、このデバッグメニューから表示しなくても、
@@ -446,11 +451,11 @@
 
 <section id="dq3.debug.hack.FFFF.sugoroku">
 <title>すごろくでインチキ</title>
-<figure>
+<figure id="fig.dq3.debug.sugoroku.dice">
 	<title>この後にサイコロを振ること</title>
 	<graphic width="240px" fileref="./image/dq3.debug.sugoroku.dice.png"/>
 </figure>
-<figure>
+<figure id="fig.dq3.debug.sugoroku.question">
 	<title>サイコロ操作の画像と似てしまった</title>
 	<graphic width="240px" fileref="./image/dq3.debug.sugoroku.question.png"/>
 </figure>
@@ -473,7 +478,7 @@
 
 <section id="dq3.debug.hack.FFFF.log3">
 <title>「ぼうけんのしょ３」新規作成で謎のパーティになる</title>
-<figure>
+<figure id="fig.dq3.debug.motsuo">
 	<title>謎のパーティ</title>
 	<graphic width="240px" fileref="./image/dq3.debug.motsuo.png"/>
 </figure>
@@ -490,13 +495,13 @@
 
 <section id="dq3.debug.hack.0001">
 <title>ゲームショーモード</title>
-<figure>
+<figure id="fig.dq3.debug.bomb">
 	<title>まほうのたま使用直後</title>
 	<graphic width="240px" fileref="./image/dq3.debug.bomb.png"/>
 </figure>
 <para>
 	おそらく <varname>$C1FFFE</varname> が <literal>0001h</literal> になっているビルドは、
-	ドラクエ 3 の発売以前にゲームショー等でプログラムを動作させるためのものだと思われる。
+	&dq3_1996; の発売以前にゲームショー等でプログラムを動作させるためのものだと思われる。
 	<!--
 	（1996 年秋に開催されたゲームショーでは、このモードはなかったと記憶しているので、
 	それ以前のゲームショーのバージョンで利用されていたと推測する）。
@@ -599,7 +604,7 @@ C0/27B2:    80F8        BRA $27AC           }
 	ROM イメージのバイナリデータを書き換える代わりに、
 	以下のコードを必要に応じて入力するとよい。
 </para>
-<table class="lighttable">
+<table id="table.dq3.debug.crack" class="lighttable">
 	<caption>デバッグモードのための PAR コード改造</caption>
 	<thead>
 		<tr><th>Address</th><th>Value</th></tr>

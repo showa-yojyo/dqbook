@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq3.rename"><?dbhtml filename="dq3_rename.html" ?>
 <title>命名神解析</title>
-<indexterm><primary>命名神</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.rename"><primary>命名神</primary><secondary>DQ3</secondary></indexterm>
 <para>
-本節ではドラクエ6 から引き継いだ機能である、パーティーキャラクターの名前を変更する処理について解析する。
-ドラクエ3 の場合はキャラクターのデフォルトの名前という概念がないので、
-対応するドラクエ6 の処理コードよりも量が少ないと予想して解析を開始したが、
+本節では &dq6_1995; から引き継いだ機能である、パーティーキャラクターの名前を変更する処理について解析する。
+&dq3_1996; の場合はキャラクターのデフォルトの名前という概念がないので、
+対応する &dq6_1995; の処理コードよりも量が少ないと予想して解析を開始したが、
 しかし期待は外れた。
 </para>
 
@@ -798,7 +803,7 @@
 <para>
 <varname>$72</varname> の示す値の型は、見るからに絶対アドレスだ。
 実際 <varname>$C30AF5</varname> 周辺をダンプして、既に解析済みの文字列表と照合すれば、
-これが<link linkend="dq3.str">文字列 ID</link> の配列であることがわかる。
+これが<link linkend="dq3.string">文字列 ID</link> の配列であることがわかる。
 内容は以下の通り、エロ＆バカ系統の単語が配列されている。
 平仮名と片仮名が入り交じっていることに注意したい。
 </para>

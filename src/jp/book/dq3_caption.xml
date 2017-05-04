@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <section id="dq3.caption"><?dbhtml filename="dq3_caption.html" ?>
 <title>行動説明テキスト構造体</title>
-<indexterm><primary>行動</primary><secondary>説明テキスト</secondary></indexterm>
-<indexterm><primary>行動説明テキスト</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.caption.1"><primary>行動</primary><secondary>説明テキスト</secondary></indexterm>
+<indexterm id="term.dq3.caption.2"><primary>行動説明テキスト</primary><secondary>DQ3</secondary></indexterm>
 <para>
 	移動モードで「じゅもん」コマンドを選択し、
 	移動モードで利用可能な呪文を覚えているキャラクターにカーソルを合わせると、
@@ -40,7 +45,7 @@
 <para>
 	行動説明テキスト構造体のメモリレイアウトは以下のようになっている。
 </para>
-<table class="memorylayout">
+<table id="table.dq3.C2398E" class="memorylayout">
 	<caption>$C2398E 行動説明テキスト構造体</caption>
 	<colgroup>
 		<col span="1" width="12%"/>
@@ -82,7 +87,7 @@
 	<glossterm>N 行目文字列 ID</glossterm>
 	<glossdef>
 		<para>
-			説明ウィンドウの N 行目に表示する内容を表す<link linkend="dq3.str">文字列 ID</link> である。
+			説明ウィンドウの N 行目に表示する内容を表す<link linkend="dq3.string">文字列 ID</link> である。
 		</para>
 	</glossdef>
 	</glossentry>
@@ -91,7 +96,7 @@
 <para>
 	例を挙げると、行動「ルーラ」の説明テキスト構造体データは以下の表のようになっている。
 </para>
-<table class="lighttable">
+<table id="table.dq3.C2398E.example" class="lighttable">
 	<caption>ルーラ</caption>
 	<thead>
 		<tr><th>Address</th><th>文字列 ID</th><th>文字列</th></tr>

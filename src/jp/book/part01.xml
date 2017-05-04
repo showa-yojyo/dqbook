@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE part PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
 
 <part id="part01"><?dbhtml filename="part01.html" ?>
 <title>基本概念</title>
@@ -7,6 +12,13 @@
 	このパートは、ドラクエ各シリーズの解析作業に入る読者に確認してもらいたいことを書いていくつもりだ。
 	今はまだ内容がない状態であるが、今後詳細に記述する予定である。
 </para>
+<caution>
+  <para>
+  本パートは書き終えてから十年以上は経過してしまった。
+  今読み返すと内容が陳腐化し過ぎていて、何としても現代の知識と技術を反映したものに全面的に改訂したい。
+  もっとも読者に言いたいこと自体は当時も現在も本質的には変わりがない。
+  </para>
+</caution>
 </partintro>
 
 <!-- Chapters -->
@@ -26,14 +38,14 @@
 	以前からマニア誌の立ち読みで、PAR 改造というものの存在は知っていたが、
 	エミュレーターが PAR 改造をサポートしていることで、ようやく試すことができたのである。
 </para>
-<figure>
+<figure id="fig.dq.hack.intro.par">
 	<title>Snes9X PAR Entry</title>
 	<graphic width="426px" fileref="./image/dq.hack.intro.par.png"/>
 </figure>
 <para>
 	PAR 改造は解析の知識がなくても、割と簡単にできる。
 	対象となるゲーム自身の知識が必要なだけだ。
-	記者の場合、ドラクエ 3 で言えば、アイテム、モンスター、呪文、セリフ表を作成することに成功した。
+	記者の場合、&dq3_1996; で言えば、アイテム、モンスター、呪文、セリフ表を作成することに成功した。
 	といっても、せいぜい ID と名前の対応くらいがわかるだけで、ゲームデータの構造はわかるはずもなかった。
 	この暗黒の時代が 2, 3 年続いた。
 </para>
@@ -64,9 +76,9 @@
 	過去の文書を書き直しているところである。
 </para>
 
-	&hack;
+	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq_hack.xml" />
 </chapter>
 
-&chapter_tools;
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools.xml" />
 
 </part> <!-- part01 -->

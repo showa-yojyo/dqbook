@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.string"><?dbhtml filename="dq3_string.html" ?>
+<title>文字列</title>
+<indexterm id="term.dq3.string"><primary>文字列</primary><secondary>DQ3</secondary></indexterm>
+<para>
+	&dq3_1996; の文字列データ解析および結果について説明する。
+</para>
+
+<section id="dq3.string.hack">
+<title>解析</title>
+<para>
+	解析手順は、
+	<link linkend="dq6.string.hack">&dq6_1995; の文字列解析</link>
+	と同様に行う。
+	各種定数の違いを除けば、まったく同じ実装といってよい。
+</para>
+<para>
+	参考資料も同じものが有用である。
+</para>
+</section> <!-- dq3.string.hack -->
+</section> <!-- dq3.string -->

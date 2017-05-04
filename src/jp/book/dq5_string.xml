@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq5.string"><?dbhtml filename="dq5_string.html" ?>
+<title>文字列</title>
+<indexterm id="term.dq5.string"><primary>文字列</primary><secondary>DQ5</secondary></indexterm>
+<para> 
+本節では文字列処理について述べる。
+まず、いくつかの基本的な概念を簡単に説明する。
+次に、プログラムがどのように文字列データにアクセスするかを、具体的なコードと併せて示す。
+最後に、全文字列データを独自コードから UTF-8 に変換したテキストデータを作成する。
+</para>
+<para>
+なお、本節で言う文字列とはメニューウィンドウや戦闘時のウィンドウで用いられる文字列を指す。
+移動時のメッセージウィンドウに描画されるテキストに用いられる文字列は該当しない。
+そちらについては <xref linkend="dq5.text"/> で述べる。
+</para>
+
+<section id="dq5.string.overview">
+<title>概要</title>
+<para>
+ポイントとなる概念を以下に列挙していく。
+</para>
+
+<variablelist>
+  <varlistentry>
+    <term>文字コード</term>
+    <listitem>
+      <para>
+        文字列を構成する文字コードは、単に 1 バイトの数値として表現されている。
+        次に挙げる偉大な先人の業績を参照することで、文字コードと実際に画面上に描画される文字との対応がわかる：
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            ソニタウン <xref linkend="dqref.url2"/>
+            （dqviewer が出力する SFC_DQ5gra.bmp を参照）
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            スーパーファミコン版ドラゴンクエスト データ解析プログラム
+            （dq_analizer <xref linkend="dqref.url1"/> 内の <filename>dq5decode.c</filename> を参照）
+          </para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>文字列のデータ構造</term>
+    <listitem>
+      <para>
+        文字列はいわゆる Pascal 文字列の形式を採用しているようだ。
+        すなわち、最初の 1 バイトに文字列の長さ L を格納し、
+        次のバイトから L 個のバイトが文字列を構成する文字コードの配列だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>半濁点・濁点処理</term> 
+    <listitem>
+      <para>
+        データとしては「エ゛ヒル゜フラント」のように
+        半濁点、濁点はそれぞれひとつの文字として存在する。
+        ウィンドウに文字画像を描画するときには、
+        位置をずらすことで「ビ」「プ」のように見せる。
+        本書では、可読性を上げるために「エビルプラント」のように整形してある。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ベースアドレス</term>
+    <listitem>
+      <para>
+        アドレス <varname>$21955B</varname> に各種文字列表のアドレス表がある。
+        ウィンドウ描画時に、どれかのアドレスからデータを取得するのである。
+      </para>
+      <table id="table.dq5.string.overview" class="lighttable">
+        <caption>アドレス表</caption>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>アドレス</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th>00</th><td><varname>$23C5CE</varname></td><td>仲間の名前</td></tr>
+          <tr><th>01</th><td><varname>$23C5F9</varname></td><td>肩書</td></tr>
+          <tr><th>02</th><td><varname>$23C690</varname></td><td>性別</td></tr>
+          <tr><th>03</th><td><varname>$228000</varname></td><td>じゅもん・とくぎの名前</td></tr>
+          <tr><th>04</th><td><varname>$23C69C</varname></td><td>モンスター名</td></tr>
+          <tr><th>05</th><td><varname>$23CE0E</varname></td><td>アイテム名</td></tr>
+          <tr><th>06</th><td><varname>$23D5B5</varname></td><td>さくせん名</td></tr>
+          <tr><th>07</th><td><varname>$308000</varname></td><td>不明 1</td></tr>
+          <tr><th>08</th><td rowspan="2"><varname>$23D6A1</varname></td><td rowspan="2">不明 2</td></tr>
+          <tr><th>09</th></tr>
+          <tr><th>0A</th><td><varname>$23C242</varname></td><td>仲間モンスターの名前</td></tr>
+          <tr><th>0B</th><td><varname>$23D5F3</varname></td><td>ルーラ行き先</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq5.string.overview -->
+
+<section id="dq5.string.access">
+<title>文字列へのアクセス方法</title>
+<para>
+文字列の取得処理は BRK 命令を経由した汎用データアクセスサブルーチン呼び出しとして実現している。
+BRK のオペランドとしては <literal>#$80</literal> ... <literal>#$93</literal> が適用され、
+汎用データアクセス ID としては例えば <literal>#$2B</literal> が利用される。
+これらの一般的な振る舞いについては <xref linkend="dq5.brk.spec.80-93"/> と
+<xref linkend="dq5.accessor"/> で述べる。
+</para>
+<para>
+例えば現在のさくせんの名前を取得するコードは次のようなものになる。
+最初の BRK 呼び出しでは現在のさくせんを <varname>$46</varname> に取得する。
+二番目の BRK 呼び出しで対応する文字列を（ここでは説明しないが <varname>$00, ...</varname> に）取得する。
+異なる種類の ID をあらかじめ既定のアドレスに格納してから BRK するのが作法だ。
+<programlisting>
+04/B912:    0088        BRK #$88            ; #$88, #$4F: さくせんを参照する
+04/B914:    4F
+04/B915:    A546        LDA $46             ; さくせん ID
+04/B917:    8542        STA $42             ; オブジェクト ID を指示（＝さくせん ID の値）
+04/B919:    A906        LDA #$06
+04/B91B:    8543        STA $43             ; 上述のアドレステーブル $21955B の ID として 6 を指示（＝さくせん名テーブルアドレス）
+04/B91D:    0088        BRK #$88            ; #$88, #$2B: 指定オブジェクトの名前を得る
+04/B91F:    2B
+</programlisting>
+</para>
+</section> <!-- dq5.string.access -->
+
+<section id="dq5.string.data">
+<title>データ</title>
+<para>
+<xref linkend="appendix.b"/> に全文字列データをから UTF-8 に変換したテキストデータを置く。
+</para>
+</section> <!-- dq5.string.data -->
+</section> <!-- dq5.string -->
