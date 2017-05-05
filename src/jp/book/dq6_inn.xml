@@ -22,8 +22,8 @@
 	実行パスの共通部分を探し当て、宿屋のデータが存在することから確かめる。
 </para>
 <para>
-	<link linkend="dq6.debug.floor.028A">戦闘シーン動作チェック用のフロア</link>の女戦士と、
-	<link linkend="dq6.debug.floor.028A">店屋セリフチェック用のフロア</link>のおばさんが宿屋なので、
+	<link linkend="dq6.debug.room.028A">戦闘シーン動作チェック用のフロア</link>の女戦士と、
+	<link linkend="dq6.debug.room.028A">店屋セリフチェック用のフロア</link>のおばさんが宿屋なので、
 	彼女らの処理ルーチンを調べることにする。
 	例によって、GSD で <varname>$C0CACA</varname> の <literal>JMP</literal> 命令に Breakpoint Exec をセットすれば、
 	処理ルーチンの入口にたどり着ける。
