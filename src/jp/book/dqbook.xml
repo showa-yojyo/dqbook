@@ -10,5 +10,4 @@
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="appendix_a.xml" />
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="appendix_b.xml" />
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="glossary.xml" />
-  <index id="dq.index"><?dbhtml filename="dq_index.html" ?></index>
 </book>
