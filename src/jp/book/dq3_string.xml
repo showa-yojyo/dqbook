@@ -9,19 +9,109 @@
 <title>文字列</title>
 <indexterm id="term.dq3.string"><primary>文字列</primary><secondary>DQ3</secondary></indexterm>
 <para>
-	&dq3_1996; の文字列データ解析および結果について説明する。
+本節では文字列処理について述べる。
+まず、いくつかの基本的な概念を簡単に説明する。
+次に、プログラムがどのように文字列データにアクセスするかを簡単に述べる。
+最後に、全文字列データを独自コードから UTF-8 に変換したテキストデータを作成する。
+</para>
+<para>
+なお、本節で言う文字列とは &dq6_1995; でのそれと同じ定義とする。
+<xref linkend="dq6.string"/> の冒頭部を参照して欲しい。
 </para>
 
-<section id="dq3.string.hack">
-<title>解析</title>
+<section id="dq3.string.overview">
+<title>概要</title>
 <para>
-	解析手順は、
-	<link linkend="dq6.string.hack">&dq6_1995; の文字列解析</link>
-	と同様に行う。
-	各種定数の違いを除けば、まったく同じ実装といってよい。
+<xref linkend="dq6.string.overview"/> と同じだ。
 </para>
+
+<variablelist>
+  <varlistentry>
+    <term>文字コード</term>
+    <listitem>
+    <para>
+      前作同様。
+    </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>文字列のデータ構造</term>
+    <listitem>
+      <para>
+        前作同様。
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>半濁点・濁点処理</term>
+    <listitem>
+      <para>
+        半濁点・濁点分解処理らしきものがないことを除けば前作同様だ。
+      </para>
+      <para>
+        半濁点・濁点だけを表す文字コードはそれぞれ <literal>#$03</literal>, <literal>#$04</literal> となっている。
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>文字列データの格納アドレス配列</term>
+    <listitem>
+      <para>
+        前作同様。
+      </para>
+      <para>
+        文字列データはアドレス <varname>$FECFB7</varname> から延々と配列されている。
+        本作では ID を与えるだけで文字列データの特定ができる。
+      </para>
+      <para>
+        配列 <varname>$C1591F</varname> に 16 の倍数ごとの ID の文字列データの格納アドレスをキャッシュしておくことで、
+        実行時におけるアドレス計算の時間的複雑さが ID に対して線形にならないように工夫している。
+        これについて詳細を知りたければ、サブルーチン <varname>$C1BA53</varname> を確認して欲しい。
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>文字列 ID</term>
+    <listitem>
+      <para>
+        前作同様。
+      </para>
+      <para>
+        このことについても、サブルーチン <varname>$C1BA53</varname> の冒頭によると、
+        定数データの参照という意味では文字列 ID としての有効な値の範囲の下端は
+        <literal>#$0023</literal> だ。
+        それ未満の値は、仲間キャラクターの名前等を参照するために用いられる。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
 <para>
-	参考資料も同じものが有用である。
+ここまで出てきた重要（および関連する）機能のアドレスを表にまとめておく。
+後でウィンドウ解析を議論する際に参照して欲しい：
 </para>
-</section> <!-- dq3.string.hack -->
+<table id="table.dq3.string.model" class="lighttable">
+  <caption>文字列機能</caption>
+  <thead>
+    <tr><th>アドレス</th><th>分類</th><th>意味</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><varname>$C1591F</varname></td><td>データ</td><td>文字列データ格納アドレス計算配列</td></tr>
+    <tr><td><varname>$C1BA53</varname></td><td>サブルーチン</td><td>文字列 ID を入力して、データ格納アドレスを <varname>$BA</varname> に出力する</td></tr>
+    <tr><td><varname>$C1BACC</varname></td><td>サブルーチン</td><td>アドレス <varname>[$BA]</varname> から 1 コード読み取り、シークを進める</td></tr>
+    <tr><td><varname>$FECFB7</varname></td><td>データ</td><td>文字列データ配列</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq3.string.overview -->
+
+<section id="dq3.string.data">
+<title>データ</title>
+<para>
+<xref linkend="appendix.b"/> にアドレス <varname>$FECFB7</varname> 以降に表現されている全文字列データを UTF-8 に変換したテキストデータを置く。
+前述のとおり、意味のあるダンプは ID が <literal>#$0023</literal> 以上のものに限る。
+</para>
+</section> <!-- dq3.string.data -->
 </section> <!-- dq3.string -->
