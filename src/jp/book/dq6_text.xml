@@ -473,6 +473,7 @@ C0/2BD3:    80
     <tr><td><varname>$C15BB5</varname></td><td>データ</td><td>メッセージ格納アドレス計算配列</td></tr>
     <tr><td><varname>$C167BE</varname></td><td>データ</td><td>ハフマン木ノード (OFF)</td></tr>
     <tr><td><varname>$C1700E</varname></td><td>データ</td><td>ハフマン木ノード (ON)</td></tr>
+    <tr><td><varname>$C59969</varname></td><td>サブルーチン</td><td><varname>$C02E5F</varname> または <varname>$C02E48</varname> を実行する</td></tr>
     <tr><td><varname>$C59977</varname></td><td>サブルーチン</td><td><varname>$C02DD8</varname> または <varname>$C02DC2</varname> を実行する</td></tr>
     <tr><td><varname>$C59985</varname></td><td>サブルーチン</td><td><varname>$C02E05</varname> または <varname>$C02DEE</varname> を実行する</td></tr>
     <tr><td><varname>$F7175B</varname></td><td>データ</td><td>メッセージデータ</td></tr>
