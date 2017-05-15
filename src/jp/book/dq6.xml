@@ -14,7 +14,7 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_debug.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_string.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_text.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_people.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_talk.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_shop.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_inn.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_church.xml"/>

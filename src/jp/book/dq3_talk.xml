@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<section id="dq3.talk"><?dbhtml filename="dq3_talk.html" ?>
+<title>はなす</title>
+<para>
+まずは「はなす」コマンドの対象であるオブジェクトのすべてを表現する ROM データの構造について説明する。
+また、それらの構造それぞれについて、その型のオブジェクトデータを解釈して得られるテキスト CSV ファイルを提示する。
+それから「はなす」コマンドを実行するときのプログラムの手順を、可能な限りコードを引用した上で説明する。
+</para>
+
+<section id="dq3.talk.model">
+<title>モデル</title>
+<para>
+移動モードではプレイヤーの操作するパーティーとは他に、人々や動物、ときには魔物のが画面内をフラフラとしている。
+基本的にはパーティーの先頭者の正面にこれらのオブジェクトが存在すれば、コマンド「はなす」が成功することになっている。
+これらの「はなす対象オブジェクト」のデータとして、いつものように配列の形式で定義されている。
+以下、この「はなす対象オブジェクト」の構造を説明する。
+</para>
+
+<section id="dq3.talk.model.C808DA">
+<title>構造体 <varname>$C808DA</varname>: 「はなす」対象</title>
+<para>
+ROM のアドレス <varname>$C808DA</varname> には次の表で示すような型のオブジェクトが配列されている：
+</para>
+<table id="table.dq3.talk.model.C808DA" class="lighttable">
+  <caption>構造体 $C808DA</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td>#$3F</td><td>（調査中）</td></tr>
+    <tr><td><literal>#$00</literal></td><td>#$C0</td><td rowspan="2">典型</td></tr>
+    <tr><td><literal>#$01</literal></td><td>#$3F</td></tr>
+    <tr><td><literal>#$01</literal></td><td>#$C0</td><td>向き</td></tr>
+    <tr><td><literal>#$02</literal></td><td>#$FF</td><td rowspan="2">MX</td></tr>
+    <tr><td><literal>#$03</literal></td><td>#$01</td></tr>
+    <tr><td><literal>#$03</literal></td><td>#$FE</td><td rowspan="2">MY</td></tr>
+    <tr><td><literal>#$04</literal></td><td>#$03</td></tr>
+    <tr><td><literal>#$04</literal></td><td>#$1C</td><td>LV</td></tr>
+    <tr><td><literal>#$04</literal></td><td>#$E0</td><td rowspan="2">領域</td></tr>
+    <tr><td><literal>#$05</literal></td><td>#$07</td></tr>
+    <tr><td><literal>#$05</literal></td><td>#$F8</td><td>（未使用）</td></tr>
+    <tr><td><literal>#$06</literal></td><td>#$FF</td><td rowspan="3">歩行処理サブルーチン</td></tr>
+    <tr><td><literal>#$07</literal></td><td>#$FF</td></tr>
+    <tr><td><literal>#$08</literal></td><td>#$FF</td></tr>
+    <tr><td><literal>#$09</literal></td><td>#$FF</td><td rowspan="3">はなす処理サブルーチン</td></tr>
+    <tr><td><literal>#$0A</literal></td><td>#$FF</td></tr>
+    <tr><td><literal>#$0B</literal></td><td>#$FF</td></tr>
+  </tbody>
+</table>
+<para>
+属性の集合を見てわかるように、この構造体の役割は前作の <xref linkend="dq6.talk.model.FF243C"/> と同じだ。
+以下、新たに加わった属性について説明を与える。
+</para>
+
+<variablelist>
+  <varlistentry>
+    <term>典型</term>
+    <listitem>
+      <para>
+        典型とは、次節で説明する対象オブジェクトの ID を値とする属性だ。
+        前作ではスプライト ID を値とする属性があったのだが、本作ではこれに取って代わった。
+        詳しくは次節で説明する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>領域</term>
+    <listitem>
+      <para>
+        領域とは、この対象オブジェクトが配置空間内のどの領域、言い換えると屋内・屋外に存在するのかを示す値の属性だ。
+        いわゆる屋内・屋外の切り替え時に、この値の更新が発生する。
+      </para>
+      <para>
+        プレイヤーキャラクターが領域 A にいて、「はなす」対象オブジェクトが領域 B にいるとする。
+        このとき、たとえ両者が隣り合う位置にいて、かつプレイヤーが対象オブジェクトのほうを向いていても、
+        コマンド結果は「その方向には～」となるはずだ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.talk.model.C808DA -->
+
+<section id="dq6.talk.model.C893D4">
+<title>構造体 <varname>$C893D4</varname>: 「はなす」対象典型</title>
+<para>
+ROM のアドレス <varname>$C893D4</varname> には次の表で示すような型のオブジェクトが配列されている：
+</para>
+<table id="table.dq3.talk.model.C893D4" class="lighttable">
+  <caption>構造体 $C893D4</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td>#$FF</td><td rowspan="2">スプライト</td></tr>
+    <tr><td><literal>#$01</literal></td><td>#$01</td></tr>
+    <tr><td><literal>#$01</literal></td><td>#$FE</td><td>声色</td></tr>
+    <tr><td><literal>#$02</literal></td><td>#$FF</td><td>透明代理オブジェクト</td></tr>
+    <tr><td><literal>#$03</literal></td><td>#$FF</td><td rowspan="3">魔物への反応</td></tr>
+    <tr><td><literal>#$04</literal></td><td>#$FF</td></tr>
+    <tr><td><literal>#$05</literal></td><td>#$FF</td></tr>
+    <tr><td><literal>#$06</literal></td><td>#$FF</td><td rowspan="3">透明人間への反応</td></tr>
+    <tr><td><literal>#$07</literal></td><td>#$FF</td></tr>
+    <tr><td><literal>#$08</literal></td><td>#$FF</td></tr>
+  </tbody>
+</table>
+<para>
+この構造体は、前作の「はなす」系構造体にあったスプライト属性を拡張して、新しく別の構造体に切り出したものとみなせる。
+以下、新たに加わった属性について説明を与える。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>声色</term>
+    <listitem>
+      <para>
+        声色とは、ドラクエの台詞表示に伴うあの独特の音声を指定する値をとる属性だ。
+        実際に設定されている値は次に示すとおり：
+      </para>
+      <table id="table.dq3.talk.C893D4.tone" class="lighttable">
+        <caption>声色</caption>
+        <thead>
+          <tr><th>値</th><th>内容</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><literal>#$00</literal></td><td>（なし）</td></tr>
+          <tr><td><literal>#$4B</literal></td><td>中音</td></tr>
+          <tr><td><literal>#$4C</literal></td><td>高音</td></tr>
+          <tr><td><literal>#$4D</literal></td><td>低音</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>透明代理オブジェクト</term>
+    <listitem>
+      <para>
+        透明代理オブジェクトとは、パーティーがきえさりそうやレムオルの呪文で透明になるときに、
+        この典型オブジェクトの代わりを別の典型オブジェクトが果たすようになるのだが、
+        その別オブジェクトを指定する ID 値をとる属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>魔物への反応</term>
+    <listitem>
+      <para>
+        魔物への反応とは、パーティーがへんげのつえを使って変身している状態で話しかけられたときの、
+        この典型オブジェクトの振る舞いの処理を行うコードの開始アドレスの値をとる属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>透明人間への反応</term>
+    <listitem>
+      <para>
+        透明人間への反応とは、パーティーがきえさりそうやレムオルの呪文で透明になっている状態で話しかけられたときの、
+        この典型オブジェクトの振る舞いの処理を行うコードの開始アドレスの値をとる属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.talk.model.C893D4 -->
+
+<section id="dq3.talk.model.data">
+<title>データ</title>
+<para>
+<xref linkend="appendix.b"/> で前述の二構造体オブジェクトデータを解釈して作成した CSV ファイルを提供する。
+</para>
+</section> <!-- dq3.talk.model.data -->
+</section> <!-- dq3.talk.model -->
+
+<section id="dq3.talk.process">
+<title>処理手順</title>
+<para>
+TBW
+</para>
+</section> <!-- dq3.talk.process -->
+</section> <!-- dq3.talk -->

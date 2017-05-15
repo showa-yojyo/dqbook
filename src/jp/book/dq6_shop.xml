@@ -18,7 +18,7 @@
 <title>解析</title>
 <para>
 	PAR サーチを利用する方法も考えられるが、
-	<link linkend="dq6.people.hack.trace">人オブジェクト解析</link>
+	人オブジェクト解析
 	の過程を再利用するのがいいだろう。
 	おあつらえ向けなことに、
 	<link linkend="dq6.debug.room.028A">店屋セリフチェック用のフロア</link>が存在する。
