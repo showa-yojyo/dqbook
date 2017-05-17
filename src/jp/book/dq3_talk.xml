@@ -32,24 +32,24 @@ ROM のアドレス <varname>$C808DA</varname> には次の表で示すような
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td><literal>#$00</literal></td><td>#$3F</td><td>（調査中）</td></tr>
-    <tr><td><literal>#$00</literal></td><td>#$C0</td><td rowspan="2">典型</td></tr>
-    <tr><td><literal>#$01</literal></td><td>#$3F</td></tr>
-    <tr><td><literal>#$01</literal></td><td>#$C0</td><td>向き</td></tr>
-    <tr><td><literal>#$02</literal></td><td>#$FF</td><td rowspan="2">MX</td></tr>
-    <tr><td><literal>#$03</literal></td><td>#$01</td></tr>
-    <tr><td><literal>#$03</literal></td><td>#$FE</td><td rowspan="2">MY</td></tr>
-    <tr><td><literal>#$04</literal></td><td>#$03</td></tr>
-    <tr><td><literal>#$04</literal></td><td>#$1C</td><td>LV</td></tr>
-    <tr><td><literal>#$04</literal></td><td>#$E0</td><td rowspan="2">領域</td></tr>
-    <tr><td><literal>#$05</literal></td><td>#$07</td></tr>
-    <tr><td><literal>#$05</literal></td><td>#$F8</td><td>（未使用）</td></tr>
-    <tr><td><literal>#$06</literal></td><td>#$FF</td><td rowspan="3">歩行処理サブルーチン</td></tr>
-    <tr><td><literal>#$07</literal></td><td>#$FF</td></tr>
-    <tr><td><literal>#$08</literal></td><td>#$FF</td></tr>
-    <tr><td><literal>#$09</literal></td><td>#$FF</td><td rowspan="3">はなす処理サブルーチン</td></tr>
-    <tr><td><literal>#$0A</literal></td><td>#$FF</td></tr>
-    <tr><td><literal>#$0B</literal></td><td>#$FF</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3F</literal></td><td>（調査中）</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$C0</literal></td><td rowspan="2">典型</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$3F</literal></td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$C0</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$FF</literal></td><td rowspan="2">MX</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$01</literal></td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$FE</literal></td><td rowspan="2">MY</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$03</literal></td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$1C</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$E0</literal></td><td rowspan="2">領域</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$07</literal></td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$F8</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FF</literal></td><td rowspan="3">歩行処理サブルーチン</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$FF</literal></td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$FF</literal></td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$FF</literal></td><td rowspan="3">はなす処理サブルーチン</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$FF</literal></td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$FF</literal></td></tr>
   </tbody>
 </table>
 <para>
@@ -96,16 +96,16 @@ ROM のアドレス <varname>$C893D4</varname> には次の表で示すような
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td><literal>#$00</literal></td><td>#$FF</td><td rowspan="2">スプライト</td></tr>
-    <tr><td><literal>#$01</literal></td><td>#$01</td></tr>
-    <tr><td><literal>#$01</literal></td><td>#$FE</td><td>声色</td></tr>
-    <tr><td><literal>#$02</literal></td><td>#$FF</td><td>透明代理オブジェクト</td></tr>
-    <tr><td><literal>#$03</literal></td><td>#$FF</td><td rowspan="3">魔物への反応</td></tr>
-    <tr><td><literal>#$04</literal></td><td>#$FF</td></tr>
-    <tr><td><literal>#$05</literal></td><td>#$FF</td></tr>
-    <tr><td><literal>#$06</literal></td><td>#$FF</td><td rowspan="3">透明人間への反応</td></tr>
-    <tr><td><literal>#$07</literal></td><td>#$FF</td></tr>
-    <tr><td><literal>#$08</literal></td><td>#$FF</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FF</literal></td><td rowspan="2">スプライト</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$01</literal></td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$FE</literal></td><td>声色</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$FF</literal></td><td>透明代理オブジェクト</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$FF</literal></td><td rowspan="3">変身時の対応</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$FF</literal></td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$FF</literal></td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FF</literal></td><td rowspan="3">透明人間への反応</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$FF</literal></td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$FF</literal></td></tr>
   </tbody>
 </table>
 <para>
@@ -145,10 +145,10 @@ ROM のアドレス <varname>$C893D4</varname> には次の表で示すような
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>魔物への反応</term>
+    <term>変身時の対応</term>
     <listitem>
       <para>
-        魔物への反応とは、パーティーがへんげのつえを使って変身している状態で話しかけられたときの、
+        変身時の対応とは、パーティーがへんげのつえを使って変身している状態で話しかけられたときの、
         この典型オブジェクトの振る舞いの処理を行うコードの開始アドレスの値をとる属性だ。
       </para>
     </listitem>
@@ -176,7 +176,225 @@ ROM のアドレス <varname>$C893D4</varname> には次の表で示すような
 <section id="dq3.talk.process">
 <title>処理手順</title>
 <para>
-TBW
+サブルーチン <varname>$C6769D</varname> が「はなす」処理の主要部だ。
+処理手順の構造は前作の <xref linkend="dq6.talk.process"/> のマイナーチェンジ版であるので、
+以下、変更部分しか説明しない：
 </para>
+
+<variablelist>
+  <varlistentry>
+    <term>特に意味はない</term>
+    <listitem>
+      <para>
+        単に carry レジスターをオンにするだけのサブルーチンを呼び出す。
+      </para>
+      <para>
+        前作ではまずパーティーが「はなす」コマンドを実行可能かどうかをテストした。
+        しかし馬車のない今作ではこのテスト工程は論理的に不要だ。
+        ところが、前作で作成したコードはなるべくそのままコピーアンドペーストして流用したい。
+        そこでこのような処置を取ったと推察できる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>各種変数を設定・保存する Part 1</term>
+    <listitem>
+      <para>
+        パーティーメンバーのうち生存状態の者と、
+        処理が「はなす」なのか「しらべる」なのかを区別する値を設定・保存する。
+        後者の値はメッセージ表示時の声色演出に影響する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>パーティー先頭のほぼ正面に「はなす」対象者がいるかどうかテストする</term>
+    <listitem>
+      <para>
+        前作とほぼ同様の座標値比較アルゴリズムを適用する。
+        テストに失敗した場合は「はなす」実施済みマークをテストする工程までジャンプする。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>各種変数を設定・保存する Part 2</term>
+    <listitem>
+      <para>
+        「はなす」処理最中であることを示すフラグ、
+        「はなす」対象者の（話し始める直前の）向きの各値を設定・保存しておく。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」対象者の向きを変更するかテストする</term>
+    <listitem>
+      <para>
+        前作と同様だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>移動モードメッセージを出力するかテストする</term>
+    <listitem>
+      <para>
+        前作と同様だが、無効なメッセージ ID として <literal>#$0000</literal> を用いる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」対象者に関連付けられている処理を実行する</term>
+    <listitem>
+      <para>
+        ここは前作と大きく異なる。新規実装サブルーチンを実行することで対象者の振る舞いを指示している。
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>本来の振る舞いで初期化</term>
+          <listitem>
+            <para>
+              「はなす」対象オブジェクトの「はなす処理サブルーチン」属性である完全アドレス値を変数 <varname>$001D9A</varname> に設定する。
+              この後の各テストにひっかからなければ、このサブルーチンがそのまま実行される。
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>透明テスト</term>
+          <listitem>
+            <para>
+              変数 <varname>$7E353B</varname> のレムオル状態またはきえさりそう状態に対応するビットを見る。
+              つまり、パーティーが透明であるかどうかを試す。
+              もしどちらかの状態でもなければ、後述の工程「固有処理へジャンプして終了」にジャンプする。
+            </para>
+            <para>
+              透明であれば、「はなす」対象オブジェクトの「透明状態を考慮するか」フラグをテストする。
+              もし考慮するならば、<code>A = 6</code> として、後述の工程「アドレスをロードする」にジャンプする。
+              考慮しないのであれば、後述の工程「固有処理へジャンプして終了」にジャンプする。
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>魔物テスト</term>
+          <listitem>
+            <para>
+              変数 <varname>$7E353B</varname> のへんげのつえ状態に対応するビットを見て、
+              パーティーが現在へんげのつえを使用しているかどうかを試す。
+              使用中でないか、または「はなす」対象オブジェクトの「変身状態を考慮するか」フラグが 0 であれば、
+              後述の工程「固有処理へジャンプして終了」にジャンプする。
+            </para>
+            <para>
+              もし考慮するならば、<code>A = 3</code> として、後述の工程「アドレスをロードする」にジャンプする。
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>アドレスをロード</term>
+          <listitem>
+            <para>
+              「はなす」対象オブジェクトに対応する典型オブジェクトを配列 <varname>$C893D4</varname> から参照し、
+              <varname>A</varname> の値に応じて「変身時の対応」属性値または「透明人間への反応」属性値である完全アドレス値を得る。
+              それから変数 <varname>$001D9A</varname> にこの値を上書きする。
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>固有処理へジャンプして終了</term>
+          <listitem>
+            <para>
+              変数 <varname>$001D9A</varname> に設定されているアドレスにジャンプする。
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」実施済みマークを更新する</term>
+    <listitem>
+      <para>
+        変数 <varname>$7EC371</varname> をインクリメントする。意味は前作と同様だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>メッセージウィンドウを消去する</term>
+    <listitem>
+      <para>
+        ユーザーのコントローラー入力を待ってメッセージウィンドウを消去する。コードは前作と同様だが、
+        今作の「はなす」オブジェクトのウィンドウ消去フラグ属性はどれも 1 なのでこうなる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」対象者の向きを復元するかテストする</term>
+    <listitem>
+      <para>
+        前作と同様。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」実施済みマークをテストする</term>
+    <listitem>
+      <para>
+        前作と同様。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>終了する</term>
+    <listitem>
+      <para>
+        前作と同様。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+<para>
+こうしてみると、主人公パーティーの外見上の違いによる処理の分岐が際立っている。
+</para>
+
+<section id="dq3.talk.process.example">
+<title>例：ルイーダ</title>
+<para>
+ルイーダの処理がどのように指定されているのかを見てみよう。
+本処理の方は <xref linkend="dq3.pub"/> で述べるので、ここでは変身時の処理と透明人間の処理を見る。
+配列 <varname>$C893D4</varname> をダンプすることで、
+それぞれのコードが <varname>$CDBC2B</varname> および <varname>$CDB6C0</varname> に定義されていることがわかる。
+</para>
+<para>
+パーティー変身時の処理は次のようなものだ。
+ここで、サブルーチン <varname>$CDB4CE</varname> では変数 <varname>$001D9A</varname> に本来のはなす処理アドレス値をリロードして、
+ジャンプするという内容だ。
+</para>
+<programlisting>
+CD/BC2B:    22D7B4CD    JSR $CDB4D7
+CD/BC2F:    220EB5CD    JSR $CDB50E         ; へんげのつえで魔物に変身しているかテスト
+CD/BC33:    B003        BCS $BC38           if(魔物でない){
+CD/BC35:    4C42BC      JMP $BC42               goto スライムテスト
+                                            }
+CD/BC38:    008C0F      BRK #$0F8C          ; #$0F8C: なによ あんたたちっ！[AD]ここには 強い人たちが[AD](...)
+CD/BC3B:    22B0B4CD    JSR $CDB4B0
+CD/BC3F:    4C59BC      JMP $BC59           goto 終了
+                                            スライムテスト:
+CD/BC42:    221FB5CD    JSR $CDB51F         ; へんげのつえでスライムに変身しているかテスト
+CD/BC46:    B003        BCS $BC4B           if(スライムでない){
+CD/BC48:    4C55BC      JMP $BC55               goto 通常処理
+                                            }
+CD/BC4B:    008D0F      BRK #$0F8D          ; #$0F8D: あらあら いらっしゃい。[AD]でも ゴメンね。スライムの(...)
+CD/BC4E:    22B0B4CD    JSR $CDB4B0
+CD/BC52:    4C59BC      JMP $BC59           goto 終了
+                                            通常処理:
+CD/BC55:    22CEB4CD    JSR $CDB4CE         ; はなす対象者既定の振る舞い
+                                            終了:
+CD/BC59:    6B          RTL
+</programlisting>
+<para>
+パーティーが透明である場合の処理は次のようになる：
+</para>
+<programlisting>
+CD/B6C0:    00550F      BRK #$0F55          ; #$0F55: ここは ルイーダの酒場。[AD]冒険者たちが……[AF][AD]……って なんだ。[AD]だれも いないじゃない。
+CD/B6C3:    22B0B4CD    JSR $CDB4B0
+CD/B6C7:    6B          RTL
+</programlisting>
+</section> <!-- dq3.talk.process.example -->
 </section> <!-- dq3.talk.process -->
 </section> <!-- dq3.talk -->
