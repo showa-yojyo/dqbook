@@ -105,12 +105,18 @@
 <simplesect id="appendix.b.dq6">
 <title>&dq6_1995;</title>
 <simplelist type="vert" columns="1">
+  <member><ulink url="./data/dq6_C20000_search_classification.txt"><filename>dq6_C20000_search_classification.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C20154_monster.txt"><filename>dq6_C20154_monster.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C4003D_item.txt"><filename>dq6_C4003D_item.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C41C3E_class.txt"><filename>dq6_C41C3E_class.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C58B93_shop.txt"><filename>dq6_C58B93_shop.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C58E08_inn.txt"><filename>dq6_C58E08_inn.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C6843C_encounter.txt"><filename>dq6_C6843C_encounter.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C83E5C_search_item.txt"><filename>dq6_C83E5C_search_item.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C8477E_search_gold.txt"><filename>dq6_C8477E_search_gold.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C848B6_search_information.txt"><filename>dq6_C848B6_search_information.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C85534_search_trap.txt"><filename>dq6_C85534_search_trap.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C855AB_search_special.txt"><filename>dq6_C855AB_search_special.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C8BD12_character.txt"><filename>dq6_C8BD12_character.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C8C65D_action.txt"><filename>dq6_C8C65D_action.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_F6DEBD_text_battle.txt"><filename>dq6_F6DEBD_text_battle.txt</filename></ulink></member>
