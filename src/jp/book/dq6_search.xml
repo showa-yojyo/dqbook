@@ -377,6 +377,7 @@
 <para>
 アドレス <varname>$C848B6</varname> には以下に示すメモリレイアウトのオブジェクトが多数配列されている。
 これらは対象物を「しらべる」ことで何らかのテキストメッセージを出力することを表現している。
+もっと強く言うと、中身が空の引き出しやツボといった変哲のないオブジェクトのすべてもここに分類される。
 </para>
 <table id="table.dq6.search.model.C848B6" class="lighttable">
   <caption>構造体 $C848B6: 情報取得</caption>
@@ -401,7 +402,7 @@
     <term>とうぞくのはなに反応するかどうか</term>
     <listitem>
       <para>
-        TBW
+        これはブーリアン値の属性であり、移動中のコマンド「とうぞくのはな」実行時のカウンターを増加させるかどうかを示す。
       </para>
     </listitem>
   </varlistentry>
@@ -409,7 +410,7 @@
     <term>レミラーマに反応するかどうか</term>
     <listitem>
       <para>
-        TBW
+        これはブーリアン値の属性であり、移動中のコマンド「レミラーマ」実行時において座標 (MX, MY) を光らせるかどうかを示す。
       </para>
     </listitem>
   </varlistentry>
@@ -417,7 +418,7 @@
     <term>メッセージ ID</term>
     <listitem>
       <para>
-        TBW
+        「しらべる」コマンドの結果として、この属性値を ID とする移動モードメッセージを出力させる。
       </para>
     </listitem>
   </varlistentry>
@@ -425,12 +426,13 @@
 </section> <!-- dq6.search.model.C848B6 -->
 
 <section id="dq6.search.model.C85534">
-<title>構造体 <varname>$C85534</varname>: </title>
+<title>構造体 <varname>$C85534</varname>: 罠</title>
 <para>
-TBW
+アドレス <varname>$85534</varname> には以下に示すメモリレイアウトのオブジェクトが十数個配列されている。
+いずれも宝箱やツボがモンスターであるような対象物を表現している。
 </para>
 <table id="table.dq6.search.model.C85534" class="lighttable">
-  <caption>構造体 $C85534:</caption>
+  <caption>構造体 $C85534: 罠</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
@@ -451,7 +453,8 @@ TBW
     <term>イベント戦 ID</term>
     <listitem>
       <para>
-        TBW
+        この属性値は配列 <varname>$C88DF4</varname> のインデックスであり、
+        具体的には「しらべる」コマンド実行後に発生する戦闘に対するイベント戦の ID だ。
       </para>
     </listitem>
   </varlistentry>
@@ -459,7 +462,7 @@ TBW
     <term>フラグ ID</term>
     <listitem>
       <para>
-        TBW
+        <xref linkend="dq6.search.model.C83E5C"/> 参照。
       </para>
     </listitem>
   </varlistentry>
@@ -467,44 +470,38 @@ TBW
 </section> <!-- dq6.search.model.C85534 -->
 
 <section id="dq6.search.model.C855AB">
-<title>構造体 <varname>$C855AB</varname>: </title>
+<title>構造体 <varname>$C855AB</varname>: 特殊イベント</title>
 <para>
-TBW
+アドレス <varname>$C855AB</varname> には以下に示すメモリレイアウトのオブジェクトが多数配列されている。
+これらのオブジェクトは、これまで見てきた分類から逸脱した振る舞いを実現するものだ。
 </para>
 <table id="table.dq6.search.model.C855AB" class="lighttable">
-  <caption>構造体 $C855AB:</caption>
+  <caption>構造体 $C855AB: 特殊イベント</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td><literal>#$00</literal></td><td><literal>#$0001</litaral></td><td>ロードするかどうか</td></tr>
-    <tr><td><literal>#$00</literal></td><td><literal>#$003E</litaral></td><td>分類</td></tr>
-    <tr><td><literal>#$00</literal></td><td><literal>#$00C0</litaral></td><td>向き</td></tr>
-    <tr><td><literal>#$01</literal></td><td><literal>#$01FF</litaral></td><td>MX</td></tr>
-    <tr><td><literal>#$02</literal></td><td><literal>#$03FE</litaral></td><td>MY</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$000C</litaral></td><td>LV</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$0010</litaral></td><td>とうぞくのはなに反応するかどうか</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$0020</litaral></td><td>レミラーマに反応するかどうか</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$00C0</litaral></td><td>（未使用）</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$FFFF</litaral></td><td rowspan="2">イベントハンドラーアドレス</td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</litaral></td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$FFFF</litaral></td><td>不明</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0001</literal></td><td>ロードするかどうか</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$003E</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00C0</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000C</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0010</literal></td><td>とうぞくのはなに反応するかどうか</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0020</literal></td><td>レミラーマに反応するかどうか</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00C0</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">イベントハンドラーアドレス</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$FFFF</literal></td><td>不明</td></tr>
   </tbody>
 </table>
 <variablelist>
   <varlistentry>
     <term>とうぞくのはなに反応するかどうか</term>
-    <listitem>
-      <para>
-        TBW
-      </para>
-    </listitem>
-  </varlistentry>
-  <varlistentry>
     <term>レミラーマに反応するかどうか</term>
     <listitem>
       <para>
-        TBW
+        いずれも <xref linkend="dq6.search.model.C848B6"/> と同じ。
       </para>
     </listitem>
   </varlistentry>
@@ -512,7 +509,7 @@ TBW
     <term>イベントハンドラーアドレス</term>
     <listitem>
       <para>
-        TBW
+        この属性は「しらべる」コマンドによって実行されるサブルーチンの開始アドレスを値とする。
       </para>
     </listitem>
   </varlistentry>
@@ -520,7 +517,7 @@ TBW
     <term>不明</term>
     <listitem>
       <para>
-        TBW
+        何やら 2 バイトの値が設定されてはいるものの、用途が不明だ。
       </para>
     </listitem>
   </varlistentry>
@@ -531,7 +528,87 @@ TBW
 <section id="dq6.search.process">
 <title>処理手順</title>
 <para>
-サブルーチン <varname></varname> が「しらべる」処理の主要部だ。
+サブルーチン <varname>$C0D831</varname> が「しらべる」処理の主要部だ。
+まず、対象物の分類にほとんど関わらない工程を示した後、
+分類ごとに異なる工程をそれぞれ挙げていく：
 </para>
+<para>
+以下に主要部の手順を示す。これは対象物の分類とはほぼ独立している：
+</para>
+<variablelist>
+  <varlistentry>
+    <term>「しらべる」コマンドを実行可能かどうかテストする</term>
+    <listitem>
+      <para>
+        馬車外のメンバーで最低一人は生存状態であることを確認する。
+      </para>
+      <para>
+        テストに成功すれば次の工程へ進むが、
+        もし馬車外の全員が死亡状態であれば、メッセージ ID <literal>#$177F</literal> の文言
+        <quote>このままでは 調べられない！</quote> を出力する。
+        そして後述の「しらべる」コマンドの後始末をするにジャンプする。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>各種変数を設定・保存する</term>
+    <listitem>
+      <para>
+        馬車外の生存状態のパーティーメンバーを一人、
+        および「しらべる」処理最中であることを示すフラグを設定・保存しておく。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>乗り物を使用中かどうかテストする</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「しらべる」対象物があるかどうかテストする</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>パーティー先頭者と対象物との向きがマッチしているかテストする</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>対象物が調査済みであるかどうかをテストする</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「しらべる」コマンドの後始末をする</term>
+    <listitem>
+      <para>
+        対象物の分類によってやることが多少異なるが、
+        基本的にはプレイヤーのコントローラー入力を待機して、
+        それからテキストウィンドウを消去したり画面内のアニメーションを再開したりというようなことを行う。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「しらべる」コマンドを終了する</term>
+    <listitem>
+      <para>
+        本処理を終了する。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
 </section> <!-- dq6.search.process -->
 </section> <!-- dq6.search -->
