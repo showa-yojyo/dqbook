@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<section id="dq3.search"><?dbhtml filename="dq3_search.html" ?>
+<title>しらべる</title>
+<para>
+本節では移動コマンド「しらべる」の実装詳細について述べる。
+まずは「しらべる」コマンドの対象であるオブジェクトのすべてを表現する ROM データの構造について説明する。
+また、それらの構造それぞれについて、その型のオブジェクトデータを解釈して得られるテキスト CSV ファイルを提示する。
+それから「しらべる」コマンドを実行するときのプログラムの手順を、可能な限りコードを引用した上で説明する。
+</para>
+
+<section id="dq3.search.model">
+<title>モデル</title>
+<para>
+本節では移動コマンド「しらべる」に直接関係するデータ構造を説明していく。
+本質的には前作モデルのマイナーチェンジでしかないので、
+<xref linkend="dq6.search.model"/> での説明が通用する要素についてはここでは繰り返さない。
+また、読者の必要に応じて <xref linkend="appendix.b"/> に収録したデータを確認しながら読んで欲しい。
+</para>
+
+<section id="dq3.search.model.C898E2">
+<title>構造体 <varname>$C898E2</varname>: 「しらべる」対象分類</title>
+<para>
+アドレス <varname>$C898E2</varname> には以下に示すメモリレイアウトのオブジェクトが 30 弱配列されている。
+この構造体は前作の <xref linkend="dq6.search.model.C20000"/> と同じ役割がある。
+</para>
+<table id="table.dq3.search.model.C898E2" class="lighttable">
+  <caption>構造体 $C898E2</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00F0</literal></td><td>ヒットテスト座標成分上限</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000F</literal></td><td>ヒットテスト座標成分右限</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00F0</literal></td><td>ヒットテスト座標成分下限</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$000F</literal></td><td>ヒットテスト座標成分左限</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0007</literal></td><td>キャラクターが上向きのときの対応座標成分オフセット</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$01C0</literal></td><td>キャラクターが右向きのときの対応座標成分オフセット</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0038</literal></td><td>キャラクターが下向きのときの対応座標成分オフセット</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0010</literal></td><td>キャラクターが左向きのときの対応座標成分オフセット</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0020</literal></td><td>キャラクターが上向き禁止</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0040</literal></td><td>キャラクターが右向き禁止</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0080</literal></td><td>キャラクターが下向き禁止</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000E</literal></td><td>キャラクターが左向き禁止</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$FFFF</literal></td><td>初訪問時のメッセージ</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FFFF</literal></td><td>無効な方向からのメッセージ</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$FFFF</literal></td><td>罠であるときのメッセージ</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$FFFF</literal></td><td>何もないときのメッセージ</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$FFFF</literal></td><td>再訪問時のメッセージ</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$FFFF</literal></td><td>王さま用実行メッセージ</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$FFFF</literal></td><td>王さま用結果メッセージ</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$FFFF</literal></td><td>女王さま用実行メッセージ</td></tr>
+    <tr><td><literal>#$14</literal></td><td><literal>#$FFFF</literal></td><td>女王さま用結果メッセージ</td></tr>
+    <tr><td><literal>#$16</literal></td><td><literal>#$01FF</literal></td><td>初訪問時の効果音</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$03FE</literal></td><td>再訪問時の効果音</td></tr>
+  </tbody>
+</table>
+<para>
+以下、前作の対応構造体に存在しない属性しか記さない。次節以降も同様。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>王さま用実行メッセージ</term>
+    <term>王さま用結果メッセージ</term>
+    <listitem>
+      <para>
+        これらの属性は、主人公がロマリアで王様になっているときに参照される。
+        主人公が何をしらべても、これらの値を ID とするメッセージがウィンドウに出力され、
+        「しらべる」対象の状態が変化することを防ぐ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>女王さま用実行メッセージ</term>
+    <term>女王さま用結果メッセージ</term>
+    <listitem>
+      <para>
+        これらの属性は、主人公が女勇者のときのロマリアイベントで参照される。
+        上述の対と同じ意味がこれらの属性にはある。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.search.model.C898E2 -->
+
+<section id="dq3.search.model.base">
+<title>「しらべる」対象抽象基底構造体</title>
+<para>
+前作と設計が同様であるため、本節でも次のような概念上の構造体を導入しておく。
+これを抽象クラスとみなして、後述の構造体群をその派生クラスとみなすことで論理的な構造を見通しやすくなるはずだ。
+</para>
+<table id="table.dq3.search.model.base" class="lighttable">
+  <caption>「しらべる」対象抽象基底構造体</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$001F</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3FE0</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$7FC0</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0180</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$007E</literal></td><td>描画関連</td></tr>
+  </tbody>
+</table>
+<para>
+これについては属性を省略しないで説明しておきたい。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>分類</term>
+    <listitem>
+      <para>
+        分類とは、<xref linkend="dq3.search.model.C898E2"/> オブジェクト ID を値とする属性だ。
+        この値が「足もと」「宝箱」「ツボ」「タル」等々を表現していると解釈できる。
+        これは前作にもあった属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>MX</term>
+    <term>MY</term>
+    <listitem>
+      <para>
+        MX または MY とは、それぞれこのオブジェクトの位置する MX または MY 座標を M 座標系で表現した値をとる属性だ。
+        これらの属性は前作モデルにも存在する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>LV</term>
+    <listitem>
+      <para>
+        LV とは、これも前作から引き継いだ概念の属性であり、このオブジェクトが存在する空間内のどの「高さ」に配置されるかを示す値をとる属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>描画関連</term>
+    <listitem>
+      <para>
+        描画関連とは、このオブジェクトがどのように描画されるのかを制御する数をとる属性だと思われる。
+        既に開封済みの宝箱のスプライトをどうするか、等に影響を与えるのではないだろうか。
+        本書では現在詳細不明の属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.search.model.base -->
+
+<section id="dq3.search.model.C87067">
+<title>構造体 <varname>$C87067</varname>: アイテム発見</title>
+<para>
+アドレス <varname>$C87067</varname> には以下に示すメモリレイアウトのオブジェクトが 450 弱配列されている。
+この構造体は前作の <xref linkend="dq6.search.model.C83E5C"/> と同じ役割がある。
+</para>
+<table id="table.dq3.search.model.C87067" class="lighttable">
+  <caption>構造体 $C87067</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$001F</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3FE0</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$7FC0</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0180</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$007E</literal></td><td>描画関連</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$7F80</literal></td><td>アイテム</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0080</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$FFFF</literal></td><td>フラグ</td></tr>
+  </tbody>
+</table>
+<para>
+以下、抽象基底構造体にない属性しか記述しない（後続の構造体も同様）。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>アイテム</term>
+    <listitem>
+      <para>
+        アイテムとは、この対象を「しらべる」ことによって入手できるアイテムの ID を値とする属性だ。
+        前作同様。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>フラグ</term>
+    <listitem>
+      <para>
+        フラグ ID とは、この対象が調査済みであるかどうかを管理するフラグの ID を値とする属性だ。
+        仕様は前作と同様だが、本作ではフラグビット列のベースアドレスは <varname>$7E353A</varname> だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.search.model.C87067 -->
+
+<section id="dq3.search.model.C87C99">
+<title>構造体 <varname>$C87C99</varname>: ゴールド発見</title>
+<para>
+アドレス <varname>$C8477E</varname> には以下に示すメモリレイアウトのオブジェクトが 30 以上配列されている。
+この構造体は前作の <xref linkend="dq6.search.model.C8477E"/> と同じ役割がある。
+</para>
+<table id="table.dq3.search.model.C87C99" class="lighttable">
+  <caption>構造体 $C87C99</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$001F</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3FE0</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$7FC0</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0180</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$007E</literal></td><td>描画関連</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0080</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$FFFF</literal></td><td>ゴールド</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FFFF</literal></td><td>フラグ</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>ゴールド</term>
+    <listitem>
+      <para>
+        ゴールドとは、このオブジェクトを「しらべる」ことで入手できるゴールドの正味の額面を値とする属性だ。
+        前作とは異なり、金額が直接一つの属性値として表現されている。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.search.model.C87C99 -->
+
+<section id="dq3.search.model.C87DB1">
+<title>構造体 <varname>$C87DB1</varname>: 情報取得</title>
+<para>
+アドレス <varname>$C848B6</varname> には以下に示すメモリレイアウトのオブジェクトが 140 配列されている。
+この構造体は前作の <xref linkend="dq6.search.model.C848B6"/> と同じ役割がある。
+</para>
+<table id="table.dq3.search.model.C87DB1" class="lighttable">
+  <caption>構造体 $C87DB1</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$001F</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3FE0</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$7FC0</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0180</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$007E</literal></td><td>描画関連</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0080</literal></td><td>とうぞくのはな</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0001</literal></td><td>レミラーマ</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FE</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$FFFF</literal></td><td>メッセージ</td></tr>
+  </tbody>
+</table>
+<para>
+派生部分の属性については前作と同様につき、説明を省く。
+<xref linkend="dq6.search.model.C848B6"/> を参照して欲しい。
+</para>
+</section> <!-- dq3.search.model.C87DB1 -->
+
+<section id="dq3.search.model.C88185">
+<title>構造体 <varname>$C88185</varname>: 罠</title>
+<para>
+アドレス <varname>$C85534</varname> には以下に示すメモリレイアウトのオブジェクトが 20 強配列されている。
+この構造体は前作の <xref linkend="dq6.search.model.C85534"/> と同じ役割がある。
+</para>
+<table id="table.dq3.search.model.C88185" class="lighttable">
+  <caption>構造体 $C85534</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$001F</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3FE0</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$7FC0</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0180</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$007E</literal></td><td>描画関連</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$1F80</literal></td><td>イベント戦</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$FFFF</literal></td><td>フラグ</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>イベント戦</term>
+    <listitem>
+      <para>
+        この属性値は配列 <varname>$C8AC66</varname> のインデックス、
+        すなわち「しらべる」コマンド実行後に発生する戦闘に対するイベント戦の ID だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.search.model.C88185 -->
+
+<section id="dq3.search.model.C88218">
+<title>構造体 <varname>$C88218</varname>: 特殊イベント</title>
+<para>
+アドレス <varname>$C855AB</varname> には以下に示すメモリレイアウトのオブジェクトが 140 配列されている。
+この構造体は前作の <xref linkend="dq6.search.model.C855AB"/> と同じ役割がある。
+</para>
+<table id="table.dq3.search.model.C88218" class="lighttable">
+  <caption>構造体 $C88218</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$001F</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3FE0</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$7FC0</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0180</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$007E</literal></td><td>描画関連</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0080</literal></td><td>とうぞくのはな</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0001</literal></td><td>レミラーマ</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FE</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">しらべる処理</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">インパス処理</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$FFFF</literal></td><td>フラグ</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>インパス処理</term>
+    <listitem>
+      <para>
+        インパス処理とは、このオブジェクトに移動コマンド「インパス」を適用したときの処理の開始アドレスを値とする属性だ。
+        前作ではオブジェクトの型および中身で色を決定したが、本作ではサブルーチンへのジャンプで実装されている。
+        しかし、データによると各処理の中身は定数を共通する変数に設定するだけに過ぎない。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.search.model.C88218 -->
+</section> <!-- dq3.search.model -->
+
+<section id="dq3.search.process">
+<title>処理手順</title>
+<para>
+サブルーチン <varname>$C66F59</varname> が「しらべる」処理の主要部だ。
+</para>
+</section> <!-- dq3.search.process -->
+</section> <!-- dq3.search -->
