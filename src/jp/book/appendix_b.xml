@@ -153,11 +153,12 @@
   <member><ulink url="./data/dq3_C85A62_floor_exit.txt"><filename>dq3_C85A62_floor_exit.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C85A70_site_exit.txt"><filename>dq3_C85A70_site_exit.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C86A9A_location.txt"><filename>dq3_C86A9A_location.txt</filename></ulink></member>
-  <member><ulink url="./data/dq3_C87067_get_item.txt"><filename>dq3_C87067_get_item.txt</filename></ulink></member>
-  <member><ulink url="./data/dq3_C87C99_get_money.txt"><filename>dq3_C87C99_get_money.txt</filename></ulink></member>
-  <member><ulink url="./data/dq3_C87DB1_get_others.txt"><filename>dq3_C87DB1_get_others.txt</filename></ulink></member>
-  <member><ulink url="./data/dq3_C88185_mimic.txt"><filename>dq3_C88185_mimic.txt</filename></ulink></member>
-  <member><ulink url="./data/dq3_C88218_look.txt"><filename>dq3_C88218_look.txt</filename></ulink></member>
+  <member><ulink url="./data/dq3_C87067_search_item.txt"><filename>dq3_C87067_search_item.txt</filename></ulink></member>
+  <member><ulink url="./data/dq3_C87C99_search_gold.txt"><filename>dq3_C87C99_search_gold.txt</filename></ulink></member>
+  <member><ulink url="./data/dq3_C87DB1_search_information.txt"><filename>dq3_C87DB1_search_information.txt</filename></ulink></member>
+  <member><ulink url="./data/dq3_C88185_search_trap.txt"><filename>dq3_C88185_search_trap.txt</filename></ulink></member>
+  <member><ulink url="./data/dq3_C88218_search_special.txt"><filename>dq3_C88218_search_special.txt</filename></ulink></member>
+  <member><ulink url="./data/dq3_C898E2_search_classification.txt"><filename>dq3_C898E2_search_classification.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C88934_door.txt"><filename>dq3_C88934_door.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C893D4_talk_stereotype.txt"><filename>dq3_C893D4_talk_stereotype.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C89BB7_coord.txt"><filename>dq3_C89BB7_coord.txt</filename></ulink></member>
