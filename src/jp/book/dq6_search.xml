@@ -382,15 +382,15 @@
     <tr><td><literal>#$01</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
     <tr><td><literal>#$02</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
     <tr><td><literal>#$03</literal></td><td><literal>#$000C</literal></td><td>LV</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$0010</literal></td><td>とうぞくのはなに反応するかどうか</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$0020</literal></td><td>レミラーマに反応するかどうか</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0010</literal></td><td>とうぞくのはな</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0020</literal></td><td>レミラーマ</td></tr>
     <tr><td><literal>#$03</literal></td><td><literal>#$00C0</literal></td><td>（未使用）</td></tr>
     <tr><td><literal>#$04</literal></td><td><literal>#$FFFF</literal></td><td>メッセージ ID</td></tr>
   </tbody>
 </table>
 <variablelist>
   <varlistentry>
-    <term>とうぞくのはなに反応するかどうか</term>
+    <term>とうぞくのはな</term>
     <listitem>
       <para>
         これはブーリアン値の属性であり、移動中のコマンド「とうぞくのはな」実行時のカウンターを増加させるかどうかを示す。
@@ -398,7 +398,7 @@
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>レミラーマに反応するかどうか</term>
+    <term>レミラーマ</term>
     <listitem>
       <para>
         これはブーリアン値の属性であり、移動中のコマンド「レミラーマ」実行時において座標 (MX, MY) を光らせるかどうかを示す。
@@ -478,18 +478,18 @@
     <tr><td><literal>#$01</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
     <tr><td><literal>#$02</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
     <tr><td><literal>#$03</literal></td><td><literal>#$000C</literal></td><td>LV</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$0010</literal></td><td>とうぞくのはなに反応するかどうか</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$0020</literal></td><td>レミラーマに反応するかどうか</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0010</literal></td><td>とうぞくのはな</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0020</literal></td><td>レミラーマ</td></tr>
     <tr><td><literal>#$03</literal></td><td><literal>#$00C0</literal></td><td>（未使用）</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">イベントハンドラーアドレス</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">しらべる処理</td></tr>
     <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$FFFF</literal></td><td>不明</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$FFFF</literal></td><td>フラグ ID</td></tr>
   </tbody>
 </table>
 <variablelist>
   <varlistentry>
-    <term>とうぞくのはなに反応するかどうか</term>
-    <term>レミラーマに反応するかどうか</term>
+    <term>とうぞくのはな</term>
+    <term>レミラーマ</term>
     <listitem>
       <para>
         いずれも <xref linkend="dq6.search.model.C848B6"/> と同じ。
@@ -497,7 +497,7 @@
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>イベントハンドラーアドレス</term>
+    <term>しらべる処理</term>
     <listitem>
       <para>
         この属性は「しらべる」コマンドによって実行されるサブルーチンの開始アドレスを値とする。
@@ -505,11 +505,10 @@
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>不明</term>
+    <term>フラグ ID</term>
     <listitem>
       <para>
-        何やら 2 バイトの値が設定されてはいるものの、用途が不明だ。
-        オブジェクトによって用途が異なる可能性すらある。
+        <xref linkend="dq6.search.model.C83E5C"/> 参照。
       </para>
     </listitem>
   </varlistentry>
@@ -592,7 +591,7 @@
       <para>
         対象の分類の属性値を参照して処理する。
         まずは初訪問時の効果音が設定されていれば、それを再生する。
-        次に初訪問時のメッセージをウィンドウに出力する。
+        次に初訪問時のメッセージをウィンドウに出力する。ただし特殊イベントの場合はこの出力がない。
         最後に、しらべる対象の型によって変わる処理を行い、次の工程に進む。
       </para>
       <variablelist>
@@ -600,7 +599,7 @@
           <term>アイテム発見</term>
           <listitem>
             <para>
-              対象の分類がゴールドであれば、パーティーはオブジェクトに設定されたアイテムを入手する。
+              対象の分類がアイテムであれば、パーティーはオブジェクトに設定されたアイテムを入手する。
               万が一アイテムを表す属性値がゼロである場合は、何もないときのメッセージの出力しかしない。
             </para>
             <para>
@@ -662,7 +661,7 @@
           <term>特殊イベント</term>
           <listitem>
             <para>
-              対象の分類が特殊イベントであれば、属性値のイベントハンドラーアドレスを
+              対象の分類が特殊イベントであれば、属性値のしらべる処理アドレスを
               <varname>$00</varname> にロードしてジャンプする。
             </para>
           </listitem>
@@ -701,12 +700,12 @@
     <term>何もない場合</term>
     <listitem>
       <para>
-        現在使用中の乗り物に応じて、メッセージを 2 通出力する。
+        現在使用中の乗り物に応じてメッセージを 2 通出力する。
         ただし最初のメッセージは船に乗っている場合は、海底にいるか否かで場合分けがある。
         海底の場合は<quote>[C0]は 海の底を 目をこらして[AD]みつめた。[AF]</quote>だ。
       </para>
       <table id="table.dq6.search.process.C0D9EE" class="lighttable">
-        <caption>構造体 $C0D9EE: 何もないときのメッセージ</caption>
+        <caption>配列 $C0D9EE: 何もないときのメッセージ</caption>
         <thead>
           <tr><th>乗り物</th><th>メッセージ</th></tr>
         </thead>
@@ -722,7 +721,7 @@
         </tbody>
       </table>
       <table id="table.dq6.search.process.C0D9FE" class="lighttable">
-        <caption>構造体 $C0D9FE: 何もないときのメッセージ</caption>
+        <caption>配列 $C0D9FE: 何もないときのメッセージ</caption>
         <thead>
           <tr><th>乗り物</th><th>メッセージ</th></tr>
         </thead>
