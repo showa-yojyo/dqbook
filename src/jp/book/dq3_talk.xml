@@ -32,37 +32,30 @@ ROM のアドレス <varname>$C808DA</varname> には次の表で示すような
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td><literal>#$00</literal></td><td><literal>#$3F</literal></td><td>（調査中）</td></tr>
-    <tr><td><literal>#$00</literal></td><td><literal>#$C0</literal></td><td rowspan="2">典型</td></tr>
-    <tr><td><literal>#$01</literal></td><td><literal>#$3F</literal></td></tr>
-    <tr><td><literal>#$01</literal></td><td><literal>#$C0</literal></td><td>向き</td></tr>
-    <tr><td><literal>#$02</literal></td><td><literal>#$FF</literal></td><td rowspan="2">MX</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$01</literal></td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$FE</literal></td><td rowspan="2">MY</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$03</literal></td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$1C</literal></td><td>LV</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$E0</literal></td><td rowspan="2">領域</td></tr>
-    <tr><td><literal>#$05</literal></td><td><literal>#$07</literal></td></tr>
-    <tr><td><literal>#$05</literal></td><td><literal>#$F8</literal></td><td>（未使用）</td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$FF</literal></td><td rowspan="3">歩行処理サブルーチン</td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$FF</literal></td></tr>
-    <tr><td><literal>#$08</literal></td><td><literal>#$FF</literal></td></tr>
-    <tr><td><literal>#$09</literal></td><td><literal>#$FF</literal></td><td rowspan="3">はなす処理サブルーチン</td></tr>
-    <tr><td><literal>#$0A</literal></td><td><literal>#$FF</literal></td></tr>
-    <tr><td><literal>#$0B</literal></td><td><literal>#$FF</literal></td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$003F</literal></td><td>（調査中）</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3FC0</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00C0</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$001C</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$07E0</literal></td><td>領域</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00F8</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">歩行処理サブルーチン</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">はなす処理サブルーチン</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td></tr>
   </tbody>
 </table>
 <para>
 属性の集合を見てわかるように、この構造体の役割は前作の <xref linkend="dq6.talk.model.FF243C"/> と同じだ。
 以下、新たに加わった属性について説明を与える。
 </para>
-
 <variablelist>
   <varlistentry>
-    <term>典型</term>
+    <term>分類</term>
     <listitem>
       <para>
-        典型とは、次節で説明する対象オブジェクトの ID を値とする属性だ。
+        分類とは、次節で説明する対象オブジェクトの ID を値とする属性だ。
         前作ではスプライト ID を値とする属性があったのだが、本作ではこれに取って代わった。
         詳しくは次節で説明する。
       </para>
@@ -85,8 +78,8 @@ ROM のアドレス <varname>$C808DA</varname> には次の表で示すような
 </variablelist>
 </section> <!-- dq6.talk.model.C808DA -->
 
-<section id="dq6.talk.model.C893D4">
-<title>構造体 <varname>$C893D4</varname>: 「はなす」対象典型</title>
+<section id="dq3.talk.model.C893D4">
+<title>構造体 <varname>$C893D4</varname>: 「はなす」対象分類</title>
 <para>
 ROM のアドレス <varname>$C893D4</varname> には次の表で示すような型のオブジェクトが配列されている：
 </para>
@@ -96,16 +89,13 @@ ROM のアドレス <varname>$C893D4</varname> には次の表で示すような
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td><literal>#$00</literal></td><td><literal>#$FF</literal></td><td rowspan="2">スプライト</td></tr>
-    <tr><td><literal>#$01</literal></td><td><literal>#$01</literal></td></tr>
-    <tr><td><literal>#$01</literal></td><td><literal>#$FE</literal></td><td>声色</td></tr>
-    <tr><td><literal>#$02</literal></td><td><literal>#$FF</literal></td><td>透明代理オブジェクト</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$FF</literal></td><td rowspan="3">変身時の対応</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$FF</literal></td></tr>
-    <tr><td><literal>#$05</literal></td><td><literal>#$FF</literal></td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$FF</literal></td><td rowspan="3">透明人間への反応</td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$FF</literal></td></tr>
-    <tr><td><literal>#$08</literal></td><td><literal>#$FF</literal></td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$01FF</literal></td><td>スプライト</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00FE</literal></td><td>声色</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00FF</literal></td><td>透明時の代理オブジェクトの分類</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">変身時の反応</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">透明人間への反応</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td></tr>
   </tbody>
 </table>
 <para>
@@ -135,11 +125,11 @@ ROM のアドレス <varname>$C893D4</varname> には次の表で示すような
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>透明代理オブジェクト</term>
+    <term>透明時の代理オブジェクトの分類</term>
     <listitem>
       <para>
         透明代理オブジェクトとは、パーティーがきえさりそうやレムオルの呪文で透明になるときに、
-        この典型オブジェクトの代わりを別の典型オブジェクトが果たすようになるのだが、
+        この分類オブジェクトの代わりを別の分類オブジェクトが果たすようになるのだが、
         その別オブジェクトを指定する ID 値をとる属性だ。
       </para>
     </listitem>
@@ -149,7 +139,7 @@ ROM のアドレス <varname>$C893D4</varname> には次の表で示すような
     <listitem>
       <para>
         変身時の対応とは、パーティーがへんげのつえを使って変身している状態で話しかけられたときの、
-        この典型オブジェクトの振る舞いの処理を行うコードの開始アドレスの値をとる属性だ。
+        この分類オブジェクトの振る舞いの処理を行うコードの開始アドレスの値をとる属性だ。
       </para>
     </listitem>
   </varlistentry>
@@ -158,7 +148,7 @@ ROM のアドレス <varname>$C893D4</varname> には次の表で示すような
     <listitem>
       <para>
         透明人間への反応とは、パーティーがきえさりそうやレムオルの呪文で透明になっている状態で話しかけられたときの、
-        この典型オブジェクトの振る舞いの処理を行うコードの開始アドレスの値をとる属性だ。
+        この分類オブジェクトの振る舞いの処理を行うコードの開始アドレスの値をとる属性だ。
       </para>
     </listitem>
   </varlistentry>
@@ -289,7 +279,7 @@ ROM のアドレス <varname>$C893D4</varname> には次の表で示すような
           <term>アドレスをロード</term>
           <listitem>
             <para>
-              「はなす」対象オブジェクトに対応する典型オブジェクトを配列 <varname>$C893D4</varname> から参照し、
+              「はなす」対象オブジェクトに対応する分類オブジェクトを配列 <varname>$C893D4</varname> から参照し、
               <varname>A</varname> の値に応じて「変身時の対応」属性値または「透明人間への反応」属性値である完全アドレス値を得る。
               それから変数 <varname>$001D9A</varname> にこの値を上書きする。
             </para>

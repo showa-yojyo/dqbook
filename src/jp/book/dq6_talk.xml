@@ -33,26 +33,20 @@ ROM のアドレス <varname>$FF08DA</varname> には次の表で示すような
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td><literal>#$00</literal></td><td><literal>#$3F</literal></td><td>（調査中）</td></tr>
-    <tr><td><literal>#$00</literal></td><td><literal>#$C0</literal></td><td rowspan="2">スプライト ID</td></tr>
-    <tr><td><literal>#$01</literal></td><td><literal>#$3F</literal></td></tr>
-    <tr><td><literal>#$01</literal></td><td><literal>#$C0</literal></td><td>向き</td></tr>
-    <tr><td><literal>#$02</literal></td><td><literal>#$FF</literal></td><td rowspan="2">MX</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$01</literal></td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$FE</literal></td><td rowspan="2">MY</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$03</literal></td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$1C</literal></td><td>LV</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$20</literal></td><td>描画</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$40</literal></td><td>（未使用）</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$80</literal></td><td>（未使用）</td></tr>
-    <tr><td><literal>#$05</literal></td><td><literal>#$FF</literal></td><td rowspan="3">歩行処理サブルーチン</td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$FF</literal></td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$FF</literal></td></tr>
-    <tr><td><literal>#$08</literal></td><td><literal>#$FF</literal></td><td rowspan="2">メッセージ ID</td></tr>
-    <tr><td><literal>#$09</literal></td><td><literal>#$FF</literal></td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$003F</literal></td><td>（調査中）</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3FC0</literal></td><td>スプライト ID</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00C0</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$001C</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0020</literal></td><td>描画</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00C0</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">歩行処理サブルーチン</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">メッセージ ID</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$00FF</literal></td></tr>
   </tbody>
 </table>
-
 <variablelist>
   <varlistentry>
     <term>スプライト ID</term>
@@ -170,24 +164,19 @@ ROM のアドレス <varname>$FF243C</varname> には次の表で示すような
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td><literal>#$00</literal></td><td><literal>#$3F</literal></td><td>（調査中）</td></tr>
-    <tr><td><literal>#$00</literal></td><td><literal>#$C0</literal></td><td rowspan="2">スプライト ID</td></tr>
-    <tr><td><literal>#$01</literal></td><td><literal>#$3F</literal></td></tr>
-    <tr><td><literal>#$01</literal></td><td><literal>#$C0</literal></td><td>向き</td></tr>
-    <tr><td><literal>#$02</literal></td><td><literal>#$FF</literal></td><td rowspan="2">MX</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$01</literal></td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$FE</literal></td><td rowspan="2">MY</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$03</literal></td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$1C</literal></td><td>LV</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$20</literal></td><td>描画</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$40</literal></td><td>ウィンドウ消去</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$80</literal></td><td>（未使用）</td></tr>
-    <tr><td><literal>#$05</literal></td><td><literal>#$FF</literal></td><td rowspan="3">歩行処理サブルーチン</td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$FF</literal></td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$FF</literal></td></tr>
-    <tr><td><literal>#$08</literal></td><td><literal>#$FF</literal></td><td rowspan="3">はなす処理サブルーチン</td></tr>
-    <tr><td><literal>#$09</literal></td><td><literal>#$FF</literal></td></tr>
-    <tr><td><literal>#$0A</literal></td><td><literal>#$FF</literal></td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$003F</literal></td><td>（調査中）</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3FC0</literal></td><td>スプライト ID</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00C0</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$001C</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0020</literal></td><td>描画</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0040</literal></td><td>ウィンドウ消去</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0080</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">歩行処理サブルーチン</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">はなす処理サブルーチン</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td></tr>
   </tbody>
 </table>
 <para>
