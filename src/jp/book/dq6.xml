@@ -23,6 +23,7 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_rename.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_class.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_item.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_combatant.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_act.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_monster.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_character.xml"/>
