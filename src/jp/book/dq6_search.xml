@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<section id="dq6.search"><?dbhtml filename="dq6_search.html" ?>
+<title>しらべる</title>
+<para>
+本節では移動コマンド「しらべる」の実装詳細について述べる。
+まずは「しらべる」コマンドの対象であるオブジェクトのすべてを表現する ROM データの構造について説明する。
+また、それらの構造それぞれについて、その型のオブジェクトデータを解釈して得られるテキスト CSV ファイルを提示する。
+それから「しらべる」コマンドを実行するときのプログラムの手順を、可能な限りコードを引用した上で説明する。
+</para>
+
+<section id="dq6.search.model">
+<title>モデル</title>
+<para>
+本節では移動コマンド「しらべる」に直接関係するデータ構造を説明していく。
+移動コマンド「はなす」の構造よりも複雑であり、関与するデータ型間の関係を図式で示したい。
+また、これらのデータ構造には、文章だけではその役割が想像しにくい属性がある。
+読者の必要に応じて <xref linkend="appendix.b"/> に収録したデータを確認しながら読んで欲しい。
+</para>
+
+<section id="dq6.search.model.C20000">
+<title>構造体 <varname>$C20000</varname>: 「しらべる」対象分類</title>
+<para>
+アドレス <varname>$C20000</varname> には以下に示すメモリレイアウトのオブジェクトが 20 個ほど配列されている。
+これらのオブジェクトが表現するのは、宝箱、ツボ、タンス、等々というようなオブジェクトの分類項目だ。
+ゲーム中にバラバラと存在する「しらべる」対象のすべてが、この配列にあるいずれか一つの要素を「共有」している。
+「しらべる」対象のすべてを、この共有オブジェクトにより類別することができる。
+</para>
+<table id="table.dq6.search.model.C20000" class="lighttable">
+  <caption>構造体 $C20000</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000F</literal></td><td>ヒットテスト座標成分上限</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00F0</literal></td><td>ヒットテスト座標成分右限</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$000F</literal></td><td>ヒットテスト座標成分下限</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00F0</literal></td><td>ヒットテスト座標成分左限</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0007</literal></td><td>キャラクターが上向きのときの対応座標成分オフセット</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0038</literal></td><td>キャラクターが右向きのときの対応座標成分オフセット</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$01C0</literal></td><td>キャラクターが下向きのときの対応座標成分オフセット</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000E</literal></td><td>キャラクターが左向きのときの対応座標成分オフセット</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0010</literal></td><td>キャラクターが上向き禁止</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0020</literal></td><td>キャラクターが右向き禁止</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0040</literal></td><td>キャラクターが下向き禁止</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0080</literal></td><td>キャラクターが左向き禁止</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$FFFF</literal></td><td>初訪問時のメッセージ</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FFFF</literal></td><td>無効な方向からのメッセージ</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$FFFF</literal></td><td>罠であるときのメッセージ</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$FFFF</literal></td><td>何もないときのメッセージ</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$FFFF</literal></td><td>再訪問時のメッセージ</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$01FF</literal></td><td>初訪問時の効果音</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$03FE</literal></td><td>再訪問時の効果音</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>ヒットテスト座標成分[上右下左]限</term>
+    <listitem>
+      <para>
+        ヒットテスト座標成分各属性は、「しらべる」対象の外見上の外接矩形を定義する数を値としてとるものだ。
+        「しらべる」対象の位置を基準として、これらの値で「ふくらませた」矩形を考えることができる。
+        「しらべる」処理では、この矩形とパーティー先頭との位置関係とに対するヒットテストを行う。
+      </para>
+      <para>
+        実際にデータを検証すると、ムドーの城にある魔物の像や、月鏡の塔の大鏡には大きな矩形が定義されていることがわかる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>キャラクターが[上右下左]向きのときの対応座標成分オフセット</term>
+    <listitem>
+      <para>
+        これらはヒットテストの計算時に適用される値をとる属性だ。
+        パーティー先頭の座標が「しらべる」対象の外接矩形と少々ズレがあってもヒットテストが成功させるための工夫だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>キャラクターが[上右下左]向き禁止</term>
+    <listitem>
+      <para>
+        これらは「しらべる」コマンドが成功するために必要な先頭キャラクターの向きに関する条件を与える属性だ。いずれもブーリアン値をとる。
+        例えばタンスや看板は上向き禁止が指定されている。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>初訪問時のメッセージ</term>
+    <listitem>
+      <para>
+        この属性はメッセージ ID を値とする属性であり、「しらべる」コマンドを実行して最初にウィンドウに出力されるメッセージの ID だ。
+        ゲーム中に初めてこの対象を「しらべる」ときには、必ずこの値が参照される。
+        ただし、値がまともに設定されていないものについては「最初の」メッセージという概念がないものとして了解すること。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>無効な方向からのメッセージ</term>
+    <listitem>
+      <para>
+        この属性はメッセージ ID を値とする属性であり、「しらべる」コマンドを対象が禁止する向きで実行したときに表示されるメッセージの ID だ。
+        「裏からはわからない」のような文言をプレイヤーに示す。
+      </para>
+      <para>
+        無効な方向がないものについては、この値は参照されないはずだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>罠であるときのメッセージ</term>
+    <listitem>
+      <para>
+        この属性はメッセージ ID を値とする属性であり、対象が罠であるときに表示されるメッセージの ID だ。
+      </para>
+      <para>
+        この作品では宝箱、ツボ、および井戸にしか意味をなさない属性のはずだが、タル、看板、貼り紙等、
+        挙句の果てには足もとについても専用メッセージが用意されている。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>何もないときのメッセージ</term>
+    <listitem>
+      <para>
+        この属性はメッセージ ID を値とする属性であり、対象に異状がないときに表示されるメッセージの ID だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>再訪問時のメッセージ</term>
+    <listitem>
+      <para>
+        この属性はメッセージ ID を値とする属性であり、「しらべる」コマンドを実行して最初にウィンドウに出力されるメッセージの ID だ。
+        ただし、対象の調査済みフラグが存在して、かつそれがオンのときにしかこの値は参照されない。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>初訪問時の効果音</term>
+    <listitem>
+      <para>
+        初訪問時の効果音とは、この対象に「しらべる」コマンドを実行したときに演奏される効果音の ID を値とする属性だ。
+        ゲーム中に初めてこの対象を「しらべる」ときには、必ずこの値が参照される。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>再訪問時の効果音</term>
+    <listitem>
+      <para>
+        再訪問時の効果音とは、この対象に「しらべる」コマンドを実行したときに演奏される効果音の ID を値とする属性だ。
+        ただし、対象の調査済みフラグが存在して、かつそれがオンのときにしかこの値は参照されない。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.search.model.C20000 -->
+
+<section id="dq6.search.model.base">
+<title>「しらべる」対象抽象基底構造体</title>
+<para>
+本節はあくまでもあるモデルにおいての議論なので、ここで示すようなデータ構造のでっちあげが認められるだろう。
+プログラム中には次に示すような構造体は存在しないが、次節以降の構造体を説明する便宜上導入しておく。
+つまり、後述する実在の構造体群が、あたかも本節で導入する構造体の派生型であるかのように説明したいのだ。
+よそではこの議論は通用しないので、読者は注意して欲しい。
+</para>
+<table id="table.dq6.search.model.base" class="lighttable">
+  <caption>「しらべる」対象抽象基底構造体</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0001</literal></td><td>ロードするかどうか</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$003E</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00C0</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000C</literal></td><td>LV</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>ロードするかどうか</term>
+    <listitem>
+      <para>
+        ブーリアン値の属性。
+        詳細はまだ判明していないが、ある一定のタイミングで対象データを ROM からロードするか否かを示すらしい。
+      </para>
+      <para>
+        対象ほとんどすべてについてこの値はゼロが設定されているのだが、
+        例外として「きたのどうくつ」地下 3 階にある「はぐれのさとり」、ひょうたん島の操舵輪、
+        「もりのみずうみ」の特殊な宝箱等には 1 が設定されている。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>分類</term>
+    <listitem>
+      <para>
+        分類とは、<xref linkend="dq6.search.model.C20000"/> オブジェクト ID を値とする属性だ。
+        この値が「足もと」「宝箱」「ツボ」「タル」等々を表現していると解釈できる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>向き</term>
+    <listitem>
+      <para>
+        便宜上向きと名前を付けてしまったが、この属性は必ずゼロでなければならないはずだ。
+        この属性には意味はないはずだが、プログラム中から確実に参照されている。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>MX</term>
+    <listitem>
+      <para>
+        MX とは、このオブジェクトが存在する空間内のどの X 座標に配置されるかを M 座標系で表現した値をとる属性だ。
+        言い忘れたが、本節で登場する座標成分はすべて M 座標系で表現された値だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>MY</term>
+    <listitem>
+      <para>
+        MX とは、このオブジェクトが存在する空間内のどの Y 座標に配置されるかを M 座標系で表現した値をとる属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>LV</term>
+    <listitem>
+      <para>
+        LV とは、このオブジェクトが存在する空間内のどの「高さ」に配置されるかを示す値をとる属性だ。
+        LV の詳細は <xref linkend="dq6.talk.model.FF08DA"/> での記述を参照して欲しい。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.search.model.base -->
+
+<section id="dq6.search.model.C83E5C">
+<title>構造体 <varname>$C83E5C</varname>: アイテム発見</title>
+<para>
+アドレス <varname>$C83E5C</varname> には以下に示すメモリレイアウトのオブジェクトが多数配列されている。
+これらは「しらべる」対象から何らかのアイテムを一度だけ入手可能であることを表現している。
+</para>
+<table id="table.dq6.search.model.C83E5C" class="lighttable">
+  <caption>構造体 $C83E5C: アイテム発見</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0001</literal></td><td>ロードするかどうか</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$003E</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00C0</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000C</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0FF0</literal></td><td>アイテム</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00F0</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$FFFF</literal></td><td>フラグ ID</td></tr>
+  </tbody>
+</table>
+<para>
+以下、抽象基底構造体にない属性しか記述しない（後続の構造体も同様）。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>アイテム</term>
+    <listitem>
+      <para>
+        アイテムとは、この対象を「しらべる」ことによって入手できるアイテムの ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>フラグ ID</term>
+    <listitem>
+      <para>
+        フラグ ID とは、この対象が調査済みであるかどうかを管理するフラグの ID を値とする属性だ。
+      </para>
+      <para>
+        簡単に説明すると、アドレス <varname>$7E3D2A</varname> からブーリアンフラグが延々と配列されている。
+        <varname>$7E3D2A</varname> の最下位ビットをゼロ番目として、何番目のビットかを示す値がフラグ ID だとみなせる。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.search.model.C83E5C -->
+
+<section id="dq6.search.model.C8477E">
+<title>構造体 <varname>$C8477E</varname>: ゴールド発見</title>
+<para>
+アドレス <varname>$C8477E</varname> には以下に示すメモリレイアウトのオブジェクトが 40 程度配列されている。
+これらは「しらべる」対象からいくらかのゴールドを一度だけ入手可能であることを表現している。
+</para>
+<table id="table.dq6.search.model.C8477E" class="lighttable">
+  <caption>構造体 $C8477E: ゴールド発見</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0001</literal></td><td>ロードするかどうか</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$003E</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00C0</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000C</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0030</literal></td><td>指数</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$3FC0</literal></td><td>係数</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$3FC0</literal></td><td>乱数</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00C0</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FFFF</literal></td><td>フラグ ID</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>指数</term>
+    <listitem>
+      <para>
+        指数とは、この対象から得られるゴールドを算出するのに用いられる値をとる属性の一つだ。
+        値が十進数表現で数桁におよぶようなものについては、Python コードの記法を用いれば、その数を <code>F * 10 ** E</code> のように捉えて、
+        <code>E</code> と <code>F</code> を保持するというパターンがこの頃のドラクエにはあるようだ。
+        この属性はその表現法における <code>E</code> の値だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>係数</term>
+    <listitem>
+      <para>
+        前項の <code>F</code> を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>乱数</term>
+    <listitem>
+      <para>
+        乱数とは、上記の 2 属性から定まる金額に対して、さらにボーナス額が加算される場合の、
+        加算値の振れ幅を示す値をとる属性だ。
+      </para>
+      <para>
+        残念ながら、どのゴールド発見オブジェクトについても、属性値はゼロとなっている。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>フラグ ID</term>
+    <listitem>
+      <para>
+        <xref linkend="dq6.search.model.C83E5C"/> 参照。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.search.model.C8477E -->
+
+<section id="dq6.search.model.C848B6">
+<title>構造体 <varname>$C848B6</varname>: 情報取得</title>
+<para>
+アドレス <varname>$C848B6</varname> には以下に示すメモリレイアウトのオブジェクトが多数配列されている。
+これらは対象を「しらべる」ことで何らかのテキストメッセージを出力することを表現している。
+もっと強く言うと、中身が空の引き出しやツボといった変哲のないオブジェクトのすべてもここに分類される。
+</para>
+<table id="table.dq6.search.model.C848B6" class="lighttable">
+  <caption>構造体 $C848B6: 情報取得</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0001</literal></td><td>ロードするかどうか</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$003E</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00C0</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000C</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0010</literal></td><td>とうぞくのはな</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0020</literal></td><td>レミラーマ</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00C0</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$FFFF</literal></td><td>メッセージ ID</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>とうぞくのはな</term>
+    <listitem>
+      <para>
+        これはブーリアン値の属性であり、移動中のコマンド「とうぞくのはな」実行時のカウンターを増加させるかどうかを示す。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>レミラーマ</term>
+    <listitem>
+      <para>
+        これはブーリアン値の属性であり、移動中のコマンド「レミラーマ」実行時において座標 (MX, MY) を光らせるかどうかを示す。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>メッセージ ID</term>
+    <listitem>
+      <para>
+        「しらべる」コマンドの結果として、この属性値を ID とする移動モードメッセージを出力させる。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.search.model.C848B6 -->
+
+<section id="dq6.search.model.C85534">
+<title>構造体 <varname>$C85534</varname>: 罠</title>
+<para>
+アドレス <varname>$85534</varname> には以下に示すメモリレイアウトのオブジェクトが十数個配列されている。
+いずれも宝箱やツボがモンスターであるような対象を表現している。
+</para>
+<table id="table.dq6.search.model.C85534" class="lighttable">
+  <caption>構造体 $C85534: 罠</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0001</literal></td><td>ロードするかどうか</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$003E</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00C0</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000C</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$03F0</literal></td><td>イベント戦 ID</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00C0</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$FFFF</literal></td><td>フラグ ID</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>イベント戦 ID</term>
+    <listitem>
+      <para>
+        この属性値は配列 <varname>$C88DF4</varname> のインデックスであり、
+        具体的には「しらべる」コマンド実行後に発生する戦闘に対するイベント戦の ID だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>フラグ ID</term>
+    <listitem>
+      <para>
+        <xref linkend="dq6.search.model.C83E5C"/> 参照。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.search.model.C85534 -->
+
+<section id="dq6.search.model.C855AB">
+<title>構造体 <varname>$C855AB</varname>: 特殊イベント</title>
+<para>
+アドレス <varname>$C855AB</varname> には以下に示すメモリレイアウトのオブジェクトが多数配列されている。
+これらのオブジェクトは、これまで見てきた分類から逸脱した振る舞いを実現するものだ。
+</para>
+<table id="table.dq6.search.model.C855AB" class="lighttable">
+  <caption>構造体 $C855AB: 特殊イベント</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0001</literal></td><td>ロードするかどうか</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$003E</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00C0</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000C</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0010</literal></td><td>とうぞくのはな</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0020</literal></td><td>レミラーマ</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00C0</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">しらべる処理</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$FFFF</literal></td><td>フラグ ID</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>とうぞくのはな</term>
+    <term>レミラーマ</term>
+    <listitem>
+      <para>
+        いずれも <xref linkend="dq6.search.model.C848B6"/> と同じ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>しらべる処理</term>
+    <listitem>
+      <para>
+        この属性は「しらべる」コマンドによって実行されるサブルーチンの開始アドレスを値とする。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>フラグ ID</term>
+    <listitem>
+      <para>
+        <xref linkend="dq6.search.model.C83E5C"/> 参照。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.search.model.C855AB -->
+</section> <!-- dq6.search.model -->
+
+<section id="dq6.search.process">
+<title>処理手順</title>
+<para>
+サブルーチン <varname>$C0D831</varname> が「しらべる」処理の主要部だ。
+まずは主要部の手順のうち、例外的な部分を除外した流れを示す：
+</para>
+<variablelist>
+  <varlistentry>
+    <term>「しらべる」コマンドを実行可能かどうかテストする</term>
+    <listitem>
+      <para>
+        馬車外のメンバーで最低一人は生存状態であることを確認する。
+        テストに成功すれば次の工程へ進むが、失敗すれば後述の全員カンオケの場合へジャンプする。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>各種変数を設定・保存する</term>
+    <listitem>
+      <para>
+        馬車外の生存状態のパーティーメンバーを一人、
+        および「しらべる」処理最中であることを示すフラグを設定・保存しておく。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>乗り物を使用中かどうかテストする</term>
+    <listitem>
+      <para>
+        パーティーが何らかの乗り物を使用中であるかどうかをテストする。
+        これには変数 <varname>$7E85EF</varname> の値を参照するだけでよい。
+        値がゼロであれば成功であり、次の工程へ進むが、さもなければ後述の何もない場合の工程にジャンプする。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「しらべる」対象があるかどうかテストする</term>
+    <listitem>
+      <para>
+        サブルーチンを呼び出すことで、現在の空間内にある「しらべる」対象それぞれに対して、
+        それらの外接矩形領域で、パーティー先頭者の座標にオフセット量を考慮した領域を包含するものを探索する。
+        探索が成功すれば次の工程へ進むが、失敗すれば後述の何もない工程にジャンプする。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>パーティー先頭者と対象との向きがマッチしているかテストする</term>
+    <listitem>
+      <para>
+        サブルーチンを呼び出すことで、パーティー先頭者の向きと「しらべる」対象の規定する向きとがマッチするかテストする。
+        内容は向きに対応するジャンプテーブルがあって、
+        そのそれぞれで対応する「しらべる」対象分類の「キャラクターが向き禁止」属性値を突き合わせるだけで済む。
+        マッチしていれば次の工程へ進むが、失敗すれば後述の無効な方向からしらべた場合の工程にジャンプする。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>対象が調査済みであるかどうかをテストする</term>
+    <listitem>
+      <para>
+        サブルーチンを呼び出すことで、対象に対応する RAM 内フラグが既に立っているかどうかをテストする。
+        立っていなければフラグを立てて次の工程へ進むが、そうでなければ後述の調査済みの場合の工程にジャンプする。
+      </para>
+      <para>
+        対象の型によって処理が分岐する。これによるとアイテム発見、ゴールド発見、および罠についてはそのフラグ ID に基づいてビットを参照したり更新したりする。
+        情報取得または特殊イベントについてはそういったことは行わない。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>初めて対象を「しらべる」場合</term>
+    <listitem>
+      <para>
+        対象の分類の属性値を参照して処理する。
+        まずは初訪問時の効果音が設定されていれば、それを再生する。
+        次に初訪問時のメッセージをウィンドウに出力する。ただし特殊イベントの場合はこの出力がない。
+        最後に、しらべる対象の型によって変わる処理を行い、次の工程に進む。
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>アイテム発見</term>
+          <listitem>
+            <para>
+              対象の分類がアイテムであれば、パーティーはオブジェクトに設定されたアイテムを入手する。
+              万が一アイテムを表す属性値がゼロである場合は、何もないときのメッセージの出力しかしない。
+            </para>
+            <para>
+              演出の都合上、アイテムが「ちいさなメダル」、貴重品、それ以外の 3 通りで場合分けする。
+              詳細は割愛する。
+            </para>
+            <para>
+              パーティーのメンバーを先頭から順に、発見したアイテムを試しに追加してみる。もし成功すれば、
+              メッセージ <literal>#$16AE</literal><quote>[C1]は[AD][B5]を 手に入れた。</quote> を出力する。
+              メンバー全員について所持品追加が失敗したら、次はふくろが利用可能かどうかをテストする。
+              利用可能であるときに限り、ふくろに発見したアイテムを追加し、
+              メッセージ <literal>#16E7</literal><quote>[B5]を [C3]に入れた。</quote> を出力する。
+            </para>
+            <para>
+              なお、ここまでの追加処理を全部失敗した場合は何もしない。
+              調査済みのフラグを立てた後なので、プレイヤーは対象アイテムの入手機会を永遠に失うことになる。
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>ゴールド発見</term>
+          <listitem>
+            <para>
+              対象の分類がゴールドであれば、獲得金額を計算してメッセージを出力してからパーティー所持金を加算する。
+            </para>
+            <para>
+              獲得金額の計算処理では、係数と指数を基に算術演算的に基本金額を算出し、最後に乱数を加算する。
+              この過程でオブジェクトの対応属性値を参照する。
+              乗算には汎用乗算サブルーチン <varname>$C00C9C</varname> を利用する。
+            </para>
+            <para>
+              メッセージは ID <literal>#$16E8</literal> のもので固定であり、
+              内容は<quote>[C0]は[AD][BB]ゴールドを 手に入れた。</quote> という文言だ。
+            </para>
+            <para>
+              所持金を加算するには、専用サブルーチン <varname>$C42862</varname> を呼び出す。
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>情報取得</term>
+          <listitem>
+            <para>
+              対象の分類が情報取得であれば、オブジェクトのメッセージ ID 属性値を基にウィンドウにメッセージを出力する。
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>罠</term>
+          <listitem>
+            <para>
+              対象の分類が罠であれば、イベント戦 ID を基に罠であるときのメッセージを完成させる。
+              そのメッセージをウィンドウに出力し、イベント戦 ID を基に戦闘を開始させる。
+              その後にフラグ ID に対応する RAM 内のビットを 1 に更新する。
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>特殊イベント</term>
+          <listitem>
+            <para>
+              対象の分類が特殊イベントであれば、属性値のしらべる処理アドレスを
+              <varname>$00</varname> にロードしてジャンプする。
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「しらべる」コマンドの後始末前のテスト</term>
+    <listitem>
+      <para>
+        対象の分類が特殊イベントであれば、直ちに当サブルーチン呼び出し元に復帰する。
+        罠であれば、ウィンドウを消去してから当サブルーチン呼び出し元に復帰する。
+        それ以外の場合は、後述する後始末工程に進む。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+
+<para>
+本流の処理中に何らかのテストが失敗したときに処理される工程を以下に示す。
+ここに挙げる工程それぞれにはお互いに関係しない。
+また、いずれの工程の終了後も後述の後始末処理に移るものだ。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>全員カンオケの場合</term>
+    <listitem>
+      <para>
+        もし馬車外の全員が死亡状態であれば、メッセージ ID <literal>#$177F</literal> の文言
+        <quote>このままでは 調べられない！</quote> を出力する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>何もない場合</term>
+    <listitem>
+      <para>
+        現在使用中の乗り物に応じてメッセージを 2 通出力する。
+        ただし最初のメッセージは船に乗っている場合は、海底にいるか否かで場合分けがある。
+        海底の場合は<quote>[C0]は 海の底を 目をこらして[AD]みつめた。[AF]</quote>だ。
+      </para>
+      <table id="table.dq6.search.process.C0D9EE" class="lighttable">
+        <caption>配列 $C0D9EE: 何もないときのメッセージ</caption>
+        <thead>
+          <tr><th>乗り物</th><th>メッセージ</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>徒歩</td><td>[C0]は 足もとを 調べた！[AF]</td></tr>
+          <tr><td>船</td><td>[C0]は 水面を 目をこらして[AD]みつめた。[AF]</td></tr>
+          <tr><td>ひょうたん島</td><td>[C0]は 水面を 目をこらして[AD]みつめた。[AF]</td></tr>
+          <tr><td>まほうのじゅうたん</td><td>[C0]は じゅうたんから[AD]身をのりだして 地面をながめた。[AF]</td></tr>
+          <tr><td>空飛ぶベッド</td><td>[C0]は ベッドから[AD]身をのりだして 地面をながめた。[AF]</td></tr>
+          <tr><td>船（屋内）</td><td>[C0]は 水面を 目をこらして[AD]みつめた。[AF]</td></tr>
+          <tr><td>船（不明）</td><td>[C0]は 水面を 目をこらして[AD]みつめた。[AF]</td></tr>
+          <tr><td>ペガサス</td><td>[C0]は 馬車から[AD]身をのりだして 大地をながめた。[AF]</td></tr>
+        </tbody>
+      </table>
+      <table id="table.dq6.search.process.C0D9FE" class="lighttable">
+        <caption>配列 $C0D9FE: 何もないときのメッセージ</caption>
+        <thead>
+          <tr><th>乗り物</th><th>メッセージ</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>徒歩</td><td>しかし 何も 見つからなかった。</td></tr>
+          <tr><td>船</td><td>しかし 何も 見つからなかった。</td></tr>
+          <tr><td>ひょうたん島</td><td>しかし 何も 見つからなかった。</td></tr>
+          <tr><td>まほうのじゅうたん</td><td>とくに 何も 見つからなかった。</td></tr>
+          <tr><td>空飛ぶベッド</td><td>とくに 何も 見つからなかった。</td></tr>
+          <tr><td>船（屋内）</td><td>しかし 何も 見つからなかった。</td></tr>
+          <tr><td>船（不明）</td><td>しかし 何も 見つからなかった。</td></tr>
+          <tr><td>ペガサス</td><td>とくに 何も 見つからなかった。</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>無効な方向からしらべた場合</term>
+    <listitem>
+      <para>
+        対象の分類から決まる無効な方向からのメッセージ ID に基づいた文言をウィンドウに出力する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>調査済みの場合</term>
+    <listitem>
+      <para>
+        対象の分類の属性値を参照して処理する。
+        まずは再訪問時の効果音が設定されていれば、それを再生する。
+        次に再訪問時のメッセージをウィンドウに出力する。
+        最後に何もないときのメッセージをウィンドウに出力する。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+
+<para>
+成功時と失敗時に共通する後処理とは「はなす」処理のそれと同様であり、
+プレイヤーのコントローラー入力を待機して、ウィンドウを消去して画面内のアニメーションを再開するものだ。
+</para>
+
+</section> <!-- dq6.search.process -->
+</section> <!-- dq6.search -->

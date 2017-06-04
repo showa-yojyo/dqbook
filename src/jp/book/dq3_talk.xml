@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<section id="dq3.talk"><?dbhtml filename="dq3_talk.html" ?>
+<title>はなす</title>
+<para>
+まずは「はなす」コマンドの対象であるオブジェクトのすべてを表現する ROM データの構造について説明する。
+また、それらの構造それぞれについて、その型のオブジェクトデータを解釈して得られるテキスト CSV ファイルを提示する。
+それから「はなす」コマンドを実行するときのプログラムの手順を、可能な限りコードを引用した上で説明する。
+</para>
+
+<section id="dq3.talk.model">
+<title>モデル</title>
+<para>
+移動モードではプレイヤーの操作するパーティーとは他に、人々や動物、ときには魔物のが画面内をフラフラとしている。
+基本的にはパーティーの先頭者の正面にこれらのオブジェクトが存在すれば、コマンド「はなす」が成功することになっている。
+これらの「はなす対象オブジェクト」のデータとして、いつものように配列の形式で定義されている。
+以下、この「はなす対象オブジェクト」の構造を説明する。
+</para>
+
+<section id="dq3.talk.model.C808DA">
+<title>構造体 <varname>$C808DA</varname>: 「はなす」対象</title>
+<para>
+ROM のアドレス <varname>$C808DA</varname> には次の表で示すような型のオブジェクトが配列されている：
+</para>
+<table id="table.dq3.talk.model.C808DA" class="lighttable">
+  <caption>構造体 $C808DA</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$003F</literal></td><td>（調査中）</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3FC0</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00C0</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$001C</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$07E0</literal></td><td>領域</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00F8</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">歩行処理サブルーチン</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">はなす処理サブルーチン</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td></tr>
+  </tbody>
+</table>
+<para>
+属性の集合を見てわかるように、この構造体の役割は前作の <xref linkend="dq6.talk.model.FF243C"/> と同じだ。
+以下、新たに加わった属性について説明を与える。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>分類</term>
+    <listitem>
+      <para>
+        分類とは、次節で説明する対象オブジェクトの ID を値とする属性だ。
+        前作ではスプライト ID を値とする属性があったのだが、本作ではこれに取って代わった。
+        詳しくは次節で説明する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>領域</term>
+    <listitem>
+      <para>
+        領域とは、この対象オブジェクトが配置空間内のどの領域、言い換えると屋内・屋外に存在するのかを示す値の属性だ。
+        いわゆる屋内・屋外の切り替え時に、この値の更新が発生する。
+      </para>
+      <para>
+        プレイヤーキャラクターが領域 A にいて、「はなす」対象オブジェクトが領域 B にいるとする。
+        このとき、たとえ両者が隣り合う位置にいて、かつプレイヤーが対象オブジェクトのほうを向いていても、
+        コマンド結果は「その方向には～」となるはずだ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.talk.model.C808DA -->
+
+<section id="dq3.talk.model.C893D4">
+<title>構造体 <varname>$C893D4</varname>: 「はなす」対象分類</title>
+<para>
+ROM のアドレス <varname>$C893D4</varname> には次の表で示すような型のオブジェクトが配列されている：
+</para>
+<table id="table.dq3.talk.model.C893D4" class="lighttable">
+  <caption>構造体 $C893D4</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$01FF</literal></td><td>スプライト</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00FE</literal></td><td>声色</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00FF</literal></td><td>透明時の代理オブジェクトの分類</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">変身時の反応</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">透明人間への反応</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td></tr>
+  </tbody>
+</table>
+<para>
+この構造体は、前作の「はなす」系構造体にあったスプライト属性を拡張して、新しく別の構造体に切り出したものとみなせる。
+以下、新たに加わった属性について説明を与える。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>声色</term>
+    <listitem>
+      <para>
+        声色とは、ドラクエの台詞表示に伴うあの独特の音声を指定する値をとる属性だ。
+        実際に設定されている値は次に示すとおり：
+      </para>
+      <table id="table.dq3.talk.C893D4.tone" class="lighttable">
+        <caption>声色</caption>
+        <thead>
+          <tr><th>値</th><th>内容</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><literal>#$00</literal></td><td>（なし）</td></tr>
+          <tr><td><literal>#$4B</literal></td><td>中音</td></tr>
+          <tr><td><literal>#$4C</literal></td><td>高音</td></tr>
+          <tr><td><literal>#$4D</literal></td><td>低音</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>透明時の代理オブジェクトの分類</term>
+    <listitem>
+      <para>
+        透明代理オブジェクトとは、パーティーがきえさりそうやレムオルの呪文で透明になるときに、
+        この分類オブジェクトの代わりを別の分類オブジェクトが果たすようになるのだが、
+        その別オブジェクトを指定する ID 値をとる属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>変身時の対応</term>
+    <listitem>
+      <para>
+        変身時の対応とは、パーティーがへんげのつえを使って変身している状態で話しかけられたときの、
+        この分類オブジェクトの振る舞いの処理を行うコードの開始アドレスの値をとる属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>透明人間への反応</term>
+    <listitem>
+      <para>
+        透明人間への反応とは、パーティーがきえさりそうやレムオルの呪文で透明になっている状態で話しかけられたときの、
+        この分類オブジェクトの振る舞いの処理を行うコードの開始アドレスの値をとる属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.talk.model.C893D4 -->
+
+<section id="dq3.talk.model.data">
+<title>データ</title>
+<para>
+<xref linkend="appendix.b"/> で前述の二構造体オブジェクトデータを解釈して作成した CSV ファイルを提供する。
+</para>
+</section> <!-- dq3.talk.model.data -->
+</section> <!-- dq3.talk.model -->
+
+<section id="dq3.talk.process">
+<title>処理手順</title>
+<para>
+サブルーチン <varname>$C6769D</varname> が「はなす」処理の主要部だ。
+処理手順の構造は前作の <xref linkend="dq6.talk.process"/> のマイナーチェンジ版であるので、
+以下、変更部分しか説明しない：
+</para>
+
+<variablelist>
+  <varlistentry>
+    <term>特に意味はない</term>
+    <listitem>
+      <para>
+        単に carry レジスターをオンにするだけのサブルーチンを呼び出す。
+      </para>
+      <para>
+        前作ではまずパーティーが「はなす」コマンドを実行可能かどうかをテストした。
+        しかし馬車のない今作ではこのテスト工程は論理的に不要だ。
+        ところが、前作で作成したコードはなるべくそのままコピーアンドペーストして流用したい。
+        そこでこのような処置を取ったと推察できる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>各種変数を設定・保存する Part 1</term>
+    <listitem>
+      <para>
+        パーティーメンバーのうち生存状態の者と、
+        処理が「はなす」なのか「しらべる」なのかを区別する値を設定・保存する。
+        後者の値はメッセージ表示時の声色演出に影響する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>パーティー先頭のほぼ正面に「はなす」対象者がいるかどうかテストする</term>
+    <listitem>
+      <para>
+        前作とほぼ同様の座標値比較アルゴリズムを適用する。
+        テストに失敗した場合は「はなす」実施済みマークをテストする工程までジャンプする。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>各種変数を設定・保存する Part 2</term>
+    <listitem>
+      <para>
+        「はなす」処理最中であることを示すフラグ、
+        「はなす」対象者の（話し始める直前の）向きの各値を設定・保存しておく。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」対象者の向きを変更するかテストする</term>
+    <listitem>
+      <para>
+        前作と同様だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>移動モードメッセージを出力するかテストする</term>
+    <listitem>
+      <para>
+        前作と同様だが、無効なメッセージ ID として <literal>#$0000</literal> を用いる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」対象者に関連付けられている処理を実行する</term>
+    <listitem>
+      <para>
+        ここは前作と大きく異なる。新規実装サブルーチンを実行することで対象者の振る舞いを指示している。
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>本来の振る舞いで初期化</term>
+          <listitem>
+            <para>
+              「はなす」対象オブジェクトの「はなす処理サブルーチン」属性である完全アドレス値を変数 <varname>$001D9A</varname> に設定する。
+              この後の各テストにひっかからなければ、このサブルーチンがそのまま実行される。
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>透明テスト</term>
+          <listitem>
+            <para>
+              変数 <varname>$7E353B</varname> のレムオル状態またはきえさりそう状態に対応するビットを見る。
+              つまり、パーティーが透明であるかどうかを試す。
+              もしどちらかの状態でもなければ、後述の工程「固有処理へジャンプして終了」にジャンプする。
+            </para>
+            <para>
+              透明であれば、「はなす」対象オブジェクトの「透明状態を考慮するか」フラグをテストする。
+              もし考慮するならば、<code>A = 6</code> として、後述の工程「アドレスをロードする」にジャンプする。
+              考慮しないのであれば、後述の工程「固有処理へジャンプして終了」にジャンプする。
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>魔物テスト</term>
+          <listitem>
+            <para>
+              変数 <varname>$7E353B</varname> のへんげのつえ状態に対応するビットを見て、
+              パーティーが現在へんげのつえを使用しているかどうかを試す。
+              使用中でないか、または「はなす」対象オブジェクトの「変身状態を考慮するか」フラグが 0 であれば、
+              後述の工程「固有処理へジャンプして終了」にジャンプする。
+            </para>
+            <para>
+              もし考慮するならば、<code>A = 3</code> として、後述の工程「アドレスをロードする」にジャンプする。
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>アドレスをロード</term>
+          <listitem>
+            <para>
+              「はなす」対象オブジェクトに対応する分類オブジェクトを配列 <varname>$C893D4</varname> から参照し、
+              <varname>A</varname> の値に応じて「変身時の対応」属性値または「透明人間への反応」属性値である完全アドレス値を得る。
+              それから変数 <varname>$001D9A</varname> にこの値を上書きする。
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>固有処理へジャンプして終了</term>
+          <listitem>
+            <para>
+              変数 <varname>$001D9A</varname> に設定されているアドレスにジャンプする。
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」実施済みマークを更新する</term>
+    <listitem>
+      <para>
+        変数 <varname>$7EC371</varname> をインクリメントする。意味は前作と同様だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>メッセージウィンドウを消去する</term>
+    <listitem>
+      <para>
+        ユーザーのコントローラー入力を待ってメッセージウィンドウを消去する。コードは前作と同様だが、
+        今作の「はなす」オブジェクトのウィンドウ消去フラグ属性はどれも 1 なのでこうなる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」対象者の向きを復元するかテストする</term>
+    <listitem>
+      <para>
+        前作と同様。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」実施済みマークをテストする</term>
+    <listitem>
+      <para>
+        前作と同様。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>終了する</term>
+    <listitem>
+      <para>
+        前作と同様。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+<para>
+こうしてみると、主人公パーティーの外見上の違いによる処理の分岐が際立っている。
+</para>
+
+<section id="dq3.talk.process.example">
+<title>例：ルイーダ</title>
+<para>
+ルイーダの処理がどのように指定されているのかを見てみよう。
+本処理の方は <xref linkend="dq3.pub"/> で述べるので、ここでは変身時の処理と透明人間の処理を見る。
+配列 <varname>$C893D4</varname> をダンプすることで、
+それぞれのコードが <varname>$CDBC2B</varname> および <varname>$CDB6C0</varname> に定義されていることがわかる。
+</para>
+<para>
+パーティー変身時の処理は次のようなものだ。
+ここで、サブルーチン <varname>$CDB4CE</varname> では変数 <varname>$001D9A</varname> に本来のはなす処理アドレス値をリロードして、
+ジャンプするという内容だ。
+</para>
+<programlisting>
+CD/BC2B:    22D7B4CD    JSR $CDB4D7
+CD/BC2F:    220EB5CD    JSR $CDB50E         ; へんげのつえで魔物に変身しているかテスト
+CD/BC33:    B003        BCS $BC38           if(魔物でない){
+CD/BC35:    4C42BC      JMP $BC42               goto スライムテスト
+                                            }
+CD/BC38:    008C0F      BRK #$0F8C          ; #$0F8C: なによ あんたたちっ！[AD]ここには 強い人たちが[AD](...)
+CD/BC3B:    22B0B4CD    JSR $CDB4B0
+CD/BC3F:    4C59BC      JMP $BC59           goto 終了
+                                            スライムテスト:
+CD/BC42:    221FB5CD    JSR $CDB51F         ; へんげのつえでスライムに変身しているかテスト
+CD/BC46:    B003        BCS $BC4B           if(スライムでない){
+CD/BC48:    4C55BC      JMP $BC55               goto 通常処理
+                                            }
+CD/BC4B:    008D0F      BRK #$0F8D          ; #$0F8D: あらあら いらっしゃい。[AD]でも ゴメンね。スライムの(...)
+CD/BC4E:    22B0B4CD    JSR $CDB4B0
+CD/BC52:    4C59BC      JMP $BC59           goto 終了
+                                            通常処理:
+CD/BC55:    22CEB4CD    JSR $CDB4CE         ; はなす対象者既定の振る舞い
+                                            終了:
+CD/BC59:    6B          RTL
+</programlisting>
+<para>
+パーティーが透明である場合の処理は次のようになる：
+</para>
+<programlisting>
+CD/B6C0:    00550F      BRK #$0F55          ; #$0F55: ここは ルイーダの酒場。[AD]冒険者たちが……[AF][AD]……って なんだ。[AD]だれも いないじゃない。
+CD/B6C3:    22B0B4CD    JSR $CDB4B0
+CD/B6C7:    6B          RTL
+</programlisting>
+</section> <!-- dq3.talk.process.example -->
+</section> <!-- dq3.talk.process -->
+</section> <!-- dq3.talk -->

@@ -6,61 +6,136 @@
 ]>
 
 <section id="dq6.string"><?dbhtml filename="dq6_string.html" ?>
-<title>文字列解析</title>
+<title>文字列</title>
 <indexterm id="term.dq6.string"><primary>文字列</primary><secondary>DQ6</secondary></indexterm>
+<para>
+本節では文字列処理について述べる。
+まず、いくつかの基本的な概念を簡単に説明する。
+次に、プログラムがどのように文字列データにアクセスするかを簡単に述べる。
+最後に、全文字列データを独自コードから UTF-8 に変換したテキストデータを作成する。
+</para>
+<para>
+なお、本節で言う文字列とは &dq5_1992; でのそれと同じ定義とする。
+<xref linkend="dq5.string"/> の冒頭部を参照して欲しい。
+</para>
 
-<section id="dq6.string.hack">
-<title>解析手順</title>
+<section id="dq6.string.overview">
+<title>概要</title>
 <para>
-	既に先人 <xref linkend="dqref.url1"/>, <xref linkend="dqref.url2"/>
-	の手によってデータ格納位置および文字コードが判明している。
-	それで終わるのも味気ないので、以下記者の昔とった手順を参考までに紹介する。
-	まず、勝手に以下のことを仮定した。
-	これは結構強引な仮定なのだが、解析作業中にこれらが正しいことが判明する。
+文字列の扱いにおける要所を以下に列挙していく。
 </para>
-<itemizedlist>
-	<listitem>
-		<para>
-			文字コードの型は <literal>1</literal> バイトで表現されている
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			移動モード時に画面下側に表示されることのあるウィンドウの文字コードとは別体系である
-		</para>
-	</listitem>
-</itemizedlist>
+
+<variablelist>
+  <varlistentry>
+    <term>文字コード</term>
+    <listitem>
+    <para>
+      前作同様、文字列を構成する文字コードは、単に 1 バイトの数値として表現されている。
+      この文字コードの配列を文字列と呼んでいるのだった。
+    </para>
+    <para>
+      既に先人 <xref linkend="dqref.url1"/>, <xref linkend="dqref.url2"/>
+      の手によってデータ格納位置および文字コードが判明している。
+    </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>文字列のデータ構造</term>
+    <listitem>
+      <para>
+        文字列は前作では Pascal 風の構造を有していたが、今作では C 言語風に改められている。
+        すなわち、表現する文字列に対応する文字コード列に続き、
+        終端を意味させるために空文字 <literal>#$AC</literal> が末尾にあるものとする。
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>半濁点・濁点処理</term>
+    <listitem>
+      <para>
+        半濁点・濁点処理についてはサブルーチン <varname>$C03221</varname> のコードが参考になる。
+        文字コードが <literal>#$C9</literal> 以上の文字については、次に述べる事情を考慮するようだ。
+      </para>
+      <para>
+        「パ」とか「バ」のような文字はデータとしては 1 コードで表現されているものの、
+        表示の都合上、これらを 2 コードに分けたデータとして管理することもある。
+        そのために参照する「半濁点・濁点付き仮名文字から半濁点・濁点を抜いた文字に変換する表」や、
+        半濁点・濁点だけを表す文字コードが定義されている。
+      </para>
+      <para>
+        「半濁点・濁点付き仮名文字から半濁点・濁点を抜いた文字に変換する表」は
+        アドレス <varname>$C029A4</varname> と <varname>$C0297B</varname> にそれぞれ定義されている。
+        これを参照して、例えば「ガ」を「カ」「゛」と分解できる。
+        半濁点・濁点分解処理では、前作とは対照的に、半濁点・濁点コードのほうを上位バイトに配置する規則がある。
+      </para>
+      <para>
+        半濁点・濁点だけを表す文字コードはそれぞれ <literal>#$84</literal>, <literal>#$83</literal> となっている。
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>文字列データの格納アドレス配列</term>
+    <listitem>
+      <para>
+        文字列データはアドレス <varname>$FB8703</varname> から延々と配列されている。
+        前作では文字列の意味によって論理的にグループ分けされていて、ID の意味が弱かったのだが、
+        本作では ID を与えるだけで文字列データの特定ができる。
+      </para>
+      <para>
+        先に述べたように、文字列の末端に <literal>#$AC</literal> があるという性質を用いれば、
+        この先頭アドレスから ID 個の <literal>#$AC</literal> を検索していって、
+        到達したアドレスが与える ID で示される文字列データの格納位置となる。
+        ただし、このようなアルゴリズムでは定数時間アクセスどころか、
+        明らかに ID の大きい文字列データほどアクセスに時間を要するようになってしまう。
+        そこで、実際のプログラムでは 16 の倍数ごとの ID の文字列データの格納アドレスを
+        あらかじめ配列 <varname>$C165E7</varname> にキャッシュしておくことで頑張っている。
+        これについて詳細を知りたければ、サブルーチン <varname>$C0315E</varname> を確認して欲しい。
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>文字列 ID</term>
+    <listitem>
+      <para>
+        文字列 ID としての有効な値の範囲は、定数データの参照という意味では
+        <literal>#$09A7</literal> 未満である必要がある。
+        それ以上の値は、仲間キャラクターの名前等を参照するために用いられている。
+        その場合には、ID は <literal>#$09CA</literal> 未満である必要がある。
+        このことについても、サブルーチン <varname>$C0315E</varname> 以下から確認できる。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
 <para>
-	文字データが <literal>#$00</literal> から <literal>#$FF</literal> の範囲内の数値で表現されているのであれば、
-	「ある仲間キャラクターの名前データを格納するメモリ」は
-	「あるアドレスから連続した <literal>4</literal> バイトのメモリ」であるだろう、
-	とこれもまた勝手に推測するのである。
+ここまで出てきた重要（および関連する）機能のアドレスを表にまとめておく。
+後でウィンドウ解析を議論する際に参照して欲しい：
 </para>
-<para>
-	次は特定の仲間キャラクターの名前アドレスを PAR サーチでなんとか見つける。
-	幸い、&dq6_1995; には仲間キャラクターの名前を簡単に変更できるシステム
-	<footnote id="ftn.dq6.string"><para>ゲントの村の近くの海底。</para></footnote>がゲーム中に存在する。
-	あとは頻繁に同一キャラの名前を変更しながら Diff サーチをかける。
-</para>
-<para>
-	仲間キャラの名前のアドレスが特定できたら、数値を <literal>#$00</literal> から <literal>#$FF</literal> まで変更して、
-	画面上（小さい文字用ウィンドウ上）にどのように表示されるかを目視で確認し、
-	メモをとればよい。
-</para>
-<para>
-	最後の最後に「ROM イメージファイルの全データ文字コンバート」を試みる。
-	すなわち、「unsigned char → 文字」マップなり配列なりを定義して、
-	4 メガの全データを文字に変換してみる自分でプログラムを書き、走らせるのである。
-	そして出来上がったファイルをバイナリエディタで開き、
-	「メガザルダンス」「ふるびたパイプ」といった
-	ドラクエ的に意味のある単語が分布していることを確認するのである。
-</para>
-</section> <!-- dq6.string.hack -->
+<table id="table.dq6.string.model" class="lighttable">
+  <caption>文字列機能</caption>
+  <thead>
+    <tr><th>アドレス</th><th>分類</th><th>意味</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><varname>$C0297B</varname></td><td>データ</td><td>濁点文字コードから濁点を抜いた文字コードへの対応を与える配列</td></tr>
+    <tr><td><varname>$C029A4</varname></td><td>データ</td><td>半濁点文字コードから半濁点を抜いた文字コードへの対応を与える配列</td></tr>
+    <tr><td><varname>$C029AE</varname></td><td>データ</td><td>ある文字コードから「～」や「＋」へ変換するための配列</td></tr>
+    <tr><td><varname>$C0315E</varname></td><td>サブルーチン</td><td>文字列 ID を入力して、データ格納アドレスを <varname>$00:$03,X</varname> に出力する</td></tr>
+    <tr><td><varname>$C03221</varname></td><td>サブルーチン</td><td>必要に応じて文字コードを変換する</td></tr>
+    <tr><td><varname>$C165E7</varname></td><td>データ</td><td>文字列データ格納アドレス計算配列</td></tr>
+    <tr><td><varname>$FB8703</varname></td><td>データ</td><td>文字列データ配列</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.string.overview -->
 
 <section id="dq6.string.data">
-<title>文字列リスト</title>
+<title>データ</title>
 <para>
-	<xref linkend="appendix.b" />
+<xref linkend="appendix.b"/> にアドレス <varname>$FB8703</varname> 以降に表現されている全文字列データを UTF-8 に変換したテキストデータを置く。
+前述のとおり、意味のあるダンプは ID が <literal>#$09A7</literal> 未満のものに限る。
 </para>
 </section> <!-- dq6.string.data -->
 </section> <!-- dq6.string -->

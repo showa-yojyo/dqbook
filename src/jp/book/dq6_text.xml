@@ -5,33 +5,30 @@
   %replacement;
 ]>
 
-<section id="dq6.text"><?dbhtml filename="dq6_text.html" ?>
-<title>テキスト解析</title>
+<section id="dq6.text"><?dbhtml filename="dq6_text.html"?>
+<title>テキスト</title>
 <para>
 本節ではテキスト出力について見ていく。
 移動モードと戦闘モードとでテキスト処理系統を分離してあるのは前作同様だが、
 前者が圧縮符号の復号処理を有するのに対し、後者は生の文字コードを取り扱うように簡略化された。
 解読が容易な戦闘モードから述べる。
+最後に両モードのテキストデータをそれぞれ提供する。
 </para>
 
 <section id="dq6.text.battle">
-<title>戦闘モードテキスト解析</title>
+<title>戦闘モード</title>
 <indexterm id="term.dq6.text.battle"><primary>メッセージ</primary><secondary>DQ6</secondary></indexterm>
 <para>
-既に先人 <xref linkend="dqref.url1"/> の手によって戦闘モードにおける全テキストデータの格納アドレスが判明している。
-ROM イメージさえあれば、ドラクエビューワで戦闘用メッセージの完全なリストを閲覧することができる。
-本節では「どのようにすれば戦闘メッセージのデータ格納アドレスをサーチできるか」を述べる。
+既に先人 <xref linkend="dqref.url1"/> の手によって戦闘モードにおける全テキストデータの格納アドレスが判明しているが、
+ここでは「どのようにすれば戦闘メッセージのデータ格納アドレスをサーチできるか」を考えてみよう。
 </para>
-
-<section id="dq6.text.battle.disasm">
-<title>解析手法</title>
 <para>
 以下のことを（都合が良いのだが）仮定し、Diff サーチを提供するエミュレータを使用して探索作業を行う。
 </para>
 <itemizedlist>
   <listitem>
     <para>
-      メッセージ ID 自体のサイズは <literal>2</literal> バイト
+      メッセージ ID 自体のサイズは 2 バイト
     </para>
   </listitem>
 </itemizedlist>
@@ -101,7 +98,7 @@ $C0/27C1 AD 98 59    LDA $5998  [$7E:5998]   A:0003 X:0004 Y:0000 D:1E1F DB:7E S
 なお、バンクごとに逆アセンブリコードを用意しておくのは解析人の鉄則だ。
 すると <varname>$C0/27B8</varname> と <varname>$C0/27C1</varname> の命令を一つのサブルーチンが含んでいる。
 これが戦闘用メッセージのデータを取得するものであると推論したい。
-そのサブルーチンの逆アセンブリコードは次のものだ：
+そのサブルーチンの逆アセンブリコードは次のものだ（アセンブリコード右側の擬似コードは記者の解釈による。以下同様）：
 </para>
 <programlisting>
 C0/27B0:    08          PHP
@@ -125,23 +122,23 @@ C0/27CC:    68          PLA
 C0/27CD:    BFD15AC1    LDA $C15AD1,X       ; 戦闘用テキスト 開始アドレス群
 C0/27D1:    18          CLC
 C0/27D2:    69BDDE      ADC #$DEBD
-C0/27D5:    85A0        STA $A0             $A0 = アドレス + DEBDh;
+C0/27D5:    85A0        STA $A0             $A0 = アドレス + DEBDh
 C0/27D7:    BFD35AC1    LDA $C15AD3,X       ; 戦闘用テキスト 開始アドレス群
 C0/27DB:    29FF00      AND #$00FF
 C0/27DE:    69F600      ADC #$00F6
-C0/27E1:    85A2        STA $A2             $A2 = (バンク &amp; 0x00FF) + 00F6h;
+C0/27E1:    85A2        STA $A2             $A2 = (バンク &amp; 0x00FF) + 00F6h
 C0/27E3:    64A4        STZ $A4             $A4 = 0000h;
                                             for(;;){
 C0/27E5:    AD1E5A      LDA $5A1E
-C0/27E8:    F013        BEQ $27FD               if($5A1E)  return;
+C0/27E8:    F013        BEQ $27FD               if($5A1E) return
                                                 do{
 C0/27EA:    22FF27C0    JSR $C027FF                 ; $A0 にストアされているアドレス値を増加させる
                                                     ; a = 文字コードをセット
 C0/27EE:    C9AC00      CMP #$00AC
-C0/27F1:    F005        BEQ $27F8                   if(a == 00ACh) break;
+C0/27F1:    F005        BEQ $27F8                   if(a == 00ACh) break
 C0/27F3:    C9AE00      CMP #$00AE
-C0/27F6:    D0F2        BNE $27EA               }while(a != 00AEh);
-C0/27F8:    CE1E5A      DEC $5A1E               --$5A1E;
+C0/27F6:    D0F2        BNE $27EA               }while(a != 00AEh)
+C0/27F8:    CE1E5A      DEC $5A1E               --$5A1E
 C0/27FB:    80E8        BRA $27E5           }
 C0/27FD:    28          PLP
 C0/27FE:    6B          RTL
@@ -150,34 +147,82 @@ C0/27FE:    6B          RTL
 このルーチンの LDA 命令をチェックしておくと、
 <varname>$C15AD1</varname> がいかにも戦闘用メッセージデータのアドレスの先頭であることが特定できる。
 ソニタウン <xref linkend="dqref.url2"/> の結果と一致して、まずは一安心である。
-あとはこのアドレスから <literal>1</literal> バイトずつ &dq6_1995; の小フォント文字コードとみなして、
+あとはこのアドレスから 1 バイトずつ &dq6_1995; の小フォント文字コードとみなして、
 力にまかせてデコードしていけばよい。
 こちらは dq_analyzer <xref linkend="dqref.url1"/> のデコーダにある配列を流用すればよい。
 最初から <command>dq6decoder -s</command> する場合、戦闘メッセージは出力ファイルの
-<literal>655599</literal> 行目の <literal>39</literal> 半角文字目に現れる。
+655,599 行目の 39 半角文字目に現れる。
 </para>
-</section> <!-- dq6.text.battle.disasm -->
-
-<section id="dq6.text.battle.data">
-<title>データ</title>
 <para>
-ここにテキストベースの戦闘メッセージリストを<link linkend="appendix.b">公開</link>する。
-dq_analyzer <xref linkend="dqref.url1"/> のデコーダが出力するものと基本的に同等のものである。
-ただし「印字不可能文字」は文字コードの直接出力に修正した。
+このコードを呼び出し構造の上側へとたどっていくことにより、
+メッセージ ID を指定して、画面にテキストを描画するような高水準サブルーチンを発見する。
+A レジスターの値を ID とするものと、呼び出し命令の直後に値をハードコードして ID を指定するものとがあることがわかる。
+それらの呼び出し例を次に示す：
 </para>
-</section> <!-- dq6.text.battle.data -->
+<programlisting>
+C2/B3BB:    8D285A      STA $5A28
+C2/B3BE:    22162AC0    JSR $C02A16         ; message #$01A1: [BC]なんと [B4]が おきあがり[AD]なかまに なりたそうに こちらをみている！[AF]
+C2/B3C2:    A101
+C2/B3C4:    22393FC4    JSR $C43F39         ; パーティーメンバー数が限界かテストする
+C2/B3C8:    900D        BCC $B3D7           if(パーティーメンバー数限界状態){
+C2/B3CA:    22162AC0    JSR $C02A16             ; message #$01AB: [BC]しかし ばしゃも ルイーダも[AD]いっぱいだった！[AF]
+C2/B3CE:    AB01
+C2/B3D0:    22162AC0    JSR $C02A16             ; message #$01AC: [BC][B4]は さびしそうに[AD]さっていった！
+C2/B3D4:    AC01
+C2/B3D6:    60          RTS                     return
+                                            }
+C2/B3D7:    22162AC0    JSR $C02A16         ; message #$01A2: [BC][B2]という なまえ らしい。[AD]なかまに してあげますか？[AF]
+C2/B3DB:    A201
+C2/B3DD:    A90400      LDA #$0004
+C2/B3E0:    229881C3    JSR $C38198
+C2/B3E4:    9007        BCC $B3ED           if(!はい || キャンセル){
+C2/B3E6:    22162AC0    JSR $C02A16             ; message #$01AA: [BC][B2]は さみしそうに さっていった。
+C2/B3EA:    AA01
+C2/B3EC:    60          RTS                     return
+                                            }
+</programlisting>
+<programlisting>
+C2/8A9C:    BFA58AC2    LDA $C28AA5,X       ; 敵一体減ったときのメッセージ ID の配列
+C2/8AA0:    22292AC0    JSR $C02A29         ; 戦闘テキスト出力 @a
+C2/8AA4:    60          RTS
+
+C2/8AA5:    2C00                            ; [B8]は いなくなった！
+C2/8AA7:    2A00                            ; [B8]は しんでしまった！
+C2/8AA9:    2B00                            ; [B8]を たおした！
+</programlisting>
+<para>
+ここで紹介し切れなかったものも含め、戦闘モードのテキスト処理に関係する機能をまとめておこう：
+</para>
+<table id="table.dq6.text.battle" class="lighttable">
+  <caption>重要な戦闘モードテキスト機能</caption>
+  <thead>
+    <tr><th>アドレス</th><th>分類</th><th>意味</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><varname>$C02671</varname></td><td>サブルーチン</td><td>戦闘モードテキスト出力共通部</td></tr>
+    <tr><td><varname>$C027B0</varname></td><td>サブルーチン</td><td>メッセージ ID を入力して、データ格納アドレスを <varname>$A0:$A3</varname> に出力する</td></tr>
+    <tr><td><varname>$C02831</varname></td><td>サブルーチン</td><td>必要に応じて文字コードを変換する</td></tr>
+    <tr><td><varname>$C0297B</varname></td><td>データ</td><td>濁点文字コードから濁点を抜いた文字コードへの対応を与える配列</td></tr>
+    <tr><td><varname>$C029A4</varname></td><td>データ</td><td>半濁点文字コードから半濁点を抜いた文字コードへの対応を与える配列</td></tr>
+    <tr><td><varname>$C029AE</varname></td><td>データ</td><td>ある文字コードから「～」や「＋」へ変換するための配列</td></tr>
+    <tr><td><varname>$C02A16</varname></td><td>サブルーチン</td><td>戦闘モードテキスト出力（実引数を ID とする）</td></tr>
+    <tr><td><varname>$C02A29</varname></td><td>サブルーチン</td><td>戦闘モードテキスト出力（A レジスター値を ID とする）</td></tr>
+    <tr><td><varname>$C15AD1</varname></td><td>データ</td><td>メッセージ格納アドレス計算配列</td></tr>
+    <tr><td><varname>$F6DEBD</varname></td><td>データ</td><td>メッセージデータ</td></tr>
+  </tbody>
+</table>
 </section> <!-- dq6.text.battle -->
 
 <section id="dq6.text.travel">
-<title>移動モードテキスト解析</title>
+<title>移動モード</title>
 <indexterm id="term.dq6.text.travel"><primary>メッセージ</primary><secondary>DQ6</secondary></indexterm>
 <para>
 この文書では人々・動物・魔物の台詞やナレーション等の
 「大きいフォントを用いて表示するテキスト」全般の解析手段の検討および実践について述べる。
 </para>
 
-<section id="dq6.text.travel.amateur">
-<title>素人の解析手法</title>
+<section id="dq6.text.travel.naive">
+<title>素朴な解析手法</title>
 <para>
 &dq6_1995; で初登場した移動中の呪文コマンド「おもいだす」「わすれる」を組み合わせて、RAM Diff サーチを行う。
 これにより、セリフ・メッセージの内容と ID の対応表を手作業で作ることが可能だと考える（実際可能であった）。
@@ -201,7 +246,7 @@ dq_analyzer <xref linkend="dqref.url1"/> のデコーダが出力するものと
   </listitem>
   <listitem>
     <para>
-      メッセージ ID は <literal>2</literal> バイト 長である
+      メッセージ ID は 2 バイト 長である
     </para>
   </listitem>
 </itemizedlist>
@@ -220,10 +265,10 @@ dq_analyzer <xref linkend="dqref.url1"/> のデコーダが出力するものと
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq6.text.travel.amateur -->
+</section> <!-- dq6.text.travel.naive -->
 
-<section id="dq6.text.travel.pro">
-<title>達人の解析手法</title>
+<section id="dq6.text.travel.gsd">
+<title>デバッガーを活用する</title>
 <para>
 GSD さえあれば、特定のセリフまたはメッセージと ID の対応がわかれば十分であり、憶えておく対応は一つでいい。
 本節では記者の実体験、というより達人の追体験を比較的ゆっくりとしたペースで述べる。
@@ -232,7 +277,7 @@ GSD さえあれば、特定のセリフまたはメッセージと ID の対応
 例えば、ダーマの広間にいる熟練度を教える婆さんのセリフのしょっぱなの ID は <literal>#$199F</literal> であることが判明しているとする。
 この婆さんに話しかけるや否や、<literal>#$199F</literal> になっているメモリアドレスをサーチする。
 そうすることで、プログラムが RAM 中のどのアドレスにメッセージ ID を格納するのかを特定したいのだ。
-実際にサーチすると、<literal>3</literal> つ程度
+実際にサーチすると、3 つ程度
 (<varname>$7E3EEC</varname>, <varname>$7E5998</varname>, <varname>$7FB0AC</varname>) しか該当しない。
 この際バンクが <literal>$7F</literal> のものはうさんくさいので、候補から除外する。
 ここで一旦エミュレータを GSD に切り替え、残り二つのアドレスを Read タイプの Break Point で監視する。
@@ -249,7 +294,7 @@ $C6/E0E1 AD 98 59    LDA $5998  [$7E:5998]   A:0001 X:0003 Y:0018 D:0000 DB:7E S
 以下、このサブルーチン全体のアセンブリコードを詳しく見ていく。
 </para>
 
-<section id="dq6.text.travel.pro.location">
+<section id="dq6.text.travel.gsd.location">
 <title>メッセージ ID からメッセージデータ位置を特定するルーチン</title>
 <para>
 このサブルーチンは大きく分けて二つのことを行っている。
@@ -260,24 +305,24 @@ $C6/E0E1 AD 98 59    LDA $5998  [$7E:5998]   A:0001 X:0003 Y:0018 D:0000 DB:7E S
 <itemizedlist>
   <listitem>
     <para>
-      <varname>$7E5998</varname> にメッセージ ID が格納 (<literal>2</literal> バイト) されている
+      <varname>$7E5998</varname> にメッセージ ID が格納されている
     </para>
   </listitem>
   <listitem>
     <para>
-      <varname>$7E5A1E</varname> にメッセージ ID の下位3ビットが格納されている
+      <varname>$7E5A1E</varname> にメッセージ ID の下位 3 ビットが格納されている
     </para>
   </listitem>
   <listitem>
     <para>
       <varname>$A0</varname>-<varname>$A3</varname> には、アドレスらしきデータが格納
-      (<literal>3</literal> バイト + <literal>#$00</literal>); <varname>$F7175B</varname> 以上の値だ
+      (3 バイト + <literal>#$00</literal>); <varname>$F7175B</varname> 以上の値だ
     </para>
   </listitem>
   <listitem>
     <para>
       <varname>$A4</varname> には、<varname>$C02BCC</varname> - <varname>$C02BD3</varname> にある
-      <literal>1</literal> バイト の値のどれかが格納されている
+      1 バイト の値のどれかが格納されている
     </para>
   </listitem>
   <listitem>
@@ -297,47 +342,42 @@ C0/2B77:    4A          LSR A
 C0/2B78:    48          PHA 
 C0/2B79:    0A          ASL A
 C0/2B7A:    6301        ADC $01,S
-C0/2B7C:    AA          TAX                 ; x1 = メッセージ ID の上位13bit
-; x1 は C15BB5 からのオフセットを意味する
+C0/2B7C:    AA          TAX                 ; x1 = メッセージ ID の上位 13 bit
+; x1 は $C15BB5 からのオフセットを意味する
 ; 8 個の連続した ID が一つのアドレスを見ているのがわかる
 C0/2B7D:    68          PLA 
 C0/2B7E:    BFB55BC1    LDA $C15BB5,X
-C0/2B82:    85A0        STA $A0             $A0 = $(C15BB5 + x1);
-; $A0-$A1: something data
+C0/2B82:    85A0        STA $A0             $A0 = $C15BB5,x1
 C0/2B84:    290700      AND #$0007
 C0/2B87:    DA          PHX
-; x2: something data from C15BB5,X の下位 3bit
-C0/2B88:    AA          TAX                 x2 = $(C15BB5 + x1) &amp; 0007h
+C0/2B88:    AA          TAX                 x2 = $C15BB5,x1 &amp; 0007h
 C0/2B89:    BFCC2BC0    LDA $C02BCC,X
 C0/2B8D:    29FF00      AND #$00FF          ; マスクビット取得
-C0/2B90:    85A4        STA $A4             $A4 = $(C02BCC + x2) &amp; 00FFh
-; $A4: mask from C02BCC,X
-; $A5: 00h
+C0/2B90:    85A4        STA $A4             $A4 = $C02BCC,x2 &amp; 00FFh
 C0/2B92:    FA          PLX
 C0/2B93:    BFB75BC1    LDA $C15BB7,X
 C0/2B97:    29FF00      AND #$00FF
-C0/2B9A:    4A          LSR A               ; LSR と ROR が入り乱れているわけだが
-C0/2B9B:    66A0        ROR $A0             ; carry bit を介して $C15BB7,X の
-C0/2B9D:    4A          LSR A               ; 下位 3 ビットが $A1 の上位 3 ビットになる
+C0/2B9A:    4A          LSR A               ; 24 ビット値の上位 17 ビットがアドレス値の情報なので
+C0/2B9B:    66A0        ROR $A0             ; シフト演算を駆使して先に得られた
+C0/2B9D:    4A          LSR A               ; $A0 の上位ビットに流し込む
 C0/2B9E:    66A0        ROR $A0             ;
 C0/2BA0:    4A          LSR A               ;
-C0/2BA1:    66A0        ROR $A0
-C0/2BA3:    85A2        STA $A2             $A0 = cast&lt;3byte&gt;($(C15BB5 + x1)) &gt;&gt; 3;
+C0/2BA1:    66A0        ROR $A0             ;
+C0/2BA3:    85A2        STA $A2             $A0:$A4 = メッセージ格納アドレス
 C0/2BA5:    A5A0        LDA $A0
 C0/2BA7:    18          CLC 
 C0/2BA8:    695B17      ADC #$175B
 C0/2BAB:    85A0        STA $A0
 C0/2BAD:    A5A2        LDA $A2
 C0/2BAF:    69F700      ADC #$00F7
-C0/2BB2:    85A2        STA $A2             $A0 += 00F7175Bh;
-; $A0 に何らかのアドレス値がセットされた
+C0/2BB2:    85A2        STA $A2             $A0:$A4 += 00F7175Bh ; ベースアドレスを加算
 </programlisting>
 <para>
 ここで <varname>$C15BB5</varname> から格納されているデータを ROM イメージファイルからダンプしてみる。
 この時点ではメッセージの個数がわからないため、データ領域の終端位置もわからない。
 しかし、いざダンプリストを見ると、データが単調増加しているではないか。
 これに注目すれば自ずと終端位置がわかる。すなわち、
-データ一個につき、メッセージ <literal>8</literal> 個が対応しているので、
+データ一個につき、メッセージ 8 個が対応しているので、
 最後のメッセージ ID の候補もあたりがつけられる。
 </para>
 <programlisting>
@@ -356,20 +396,20 @@ C1/65E7:    000060  ; ここからは明らかに異質なデータなので除�
 このループ＋サブルーチン <varname>$C02BD4</varname> がメッセージデータの取得部の核心だ。
 </para>
 <programlisting>
-C0/2BB4:    AD1E5A      LDA $5A1E           while($7E5A1E){ ; == メッセージ ID &amp; 0007h;
+C0/2BB4:    AD1E5A      LDA $5A1E           while($7E5A1E){ ; == メッセージ ID &amp; #$0007
 C0/2BB7:    F012        BEQ $2BCB               do{
-C0/2BB9:    20D42B      JSR $2BD4                   ; サブルーチン呼び出し
-C0/2BBC:    C9AC00      CMP #$00AC                  if(a == 00ACh) ; delimeter の役を果たす
-C0/2BBF:    F005        BEQ $2BC6                       break;
+C0/2BB9:    20D42B      JSR $2BD4                   ; a = 大文字コード
+C0/2BBC:    C9AC00      CMP #$00AC                  if(a == 00ACh)
+C0/2BBF:    F005        BEQ $2BC6                       break
 C0/2BC1:    C9AE00      CMP #$00AE
-C0/2BC4:    D0F3        BNE $2BB9               }while(a != 0x00AE);
-C0/2BC6:    CE1E5A      DEC $5A1E               --$7E5A1E;
+C0/2BC4:    D0F3        BNE $2BB9               }while(a != 0x00AE)
+C0/2BC6:    CE1E5A      DEC $5A1E               --$7E5A1E
 C0/2BC9:    80E9        BRA $2BB4           }
-C0/2BCB:    60          RTS                 return;
+C0/2BCB:    60          RTS
 </programlisting>
-</section> <!-- dq6.text.travel.pro.location -->
+</section> <!-- dq6.text.travel.gsd.location -->
 
-<section id="dq6.text.travel.pro.decode">
+<section id="dq6.text.travel.gsd.decode">
 <title>文字コード取得ルーチン</title>
 <para>
 サブルーチン <varname>$C02BD4</varname> も二つのパートにわかれているが、
@@ -378,8 +418,8 @@ C0/2BCB:    60          RTS                 return;
 <para>
 前作における対応サブルーチンについての考察
 <xref linkend="dq5.text.travel.decode"/> を参照して欲しいが、ここで文字コードを逐次ハフマン木から取得している。
-本サブルーチンの目的とは、<varname>$A0</varname> が示すアドレスに格納されている値から文字コード (<literal>2</literal> バイト) を復号し、
-アキュームレータに格納する。さらに、<varname>$A0</varname> の示すアドレスも必要に応じてインクリメントすることだ。
+本サブルーチンの目的とは、<varname>$A0</varname> が示すアドレスに格納されている値から文字コード 2 バイトを復号し、
+A レジスターに格納する。さらに、<varname>$A0</varname> の示すアドレスも必要に応じてインクリメントすることだ。
 </para>
 <para>
 <varname>$A0</varname> に格納されているアドレスに格納されているデータは、
@@ -387,108 +427,148 @@ C0/2BCB:    60          RTS                 return;
 圧縮してある故、各データの格納位置がビット単位で指定されていなければならず、
 その「ベース」アドレスが <varname>$A0</varname>-<varname>$A3</varname> に、
 オフセット・ビットを示す値が <varname>$A4</varname> にストアされているのだと、ここで理解できる。
-前項で触れたが、<varname>$A0</varname> の初期値はメッセージ ID の下位 <literal>3</literal> ビットから決まる、
+前項で触れたが、<varname>$A0</varname> の初期値はメッセージ ID の下位 3 ビットから決まる、
 配列 <varname>$C02BBC</varname> のどれかとなる。
 </para>
 <programlisting>
-C0/2BCC:    01   ; == 1 &lt;&lt; 0
-C0/2BCD:    02   ; == 1 &lt;&lt; 1
-C0/2BCE:    04   ; == 1 &lt;&lt; 2
-C0/2BCF:    08   ; == 1 &lt;&lt; 3
-C0/2BD0:    10   ; == 1 &lt;&lt; 4
-C0/2BD1:    20   ; == 1 &lt;&lt; 5
-C0/2BD2:    40   ; == 1 &lt;&lt; 6
-C0/2BD3:    80   ; == 1 &lt;&lt; 7
+C0/2BCC:    01
+C0/2BCD:    02
+C0/2BCE:    04
+C0/2BCF:    08
+C0/2BD0:    10
+C0/2BD1:    20
+C0/2BD2:    40
+C0/2BD3:    80
 </programlisting>
-</section> <!-- dq6.text.travel.pro.decode -->
 
-<section id="dq6.text.travel.pro.dog">
-<title>照合</title>
 <para>
-前項で見たアキュームレータの値が、本当に文字コードを表すものかを確認すべく、
-アセンブリコードを見るのではなく、デバッガの力を借りて検証する。
-上記サブルーチンの呼び出し元に遡って、Exec ブレークポイントを一個セットする。
-ここでセリフと文字とコードの対応がわかりやすいキャラに話しかけ、
-文字一個一個をウィンドウにアウトプットするたびに、
-ブレークポイントに到達すれば OK だ。
+ここで、移動モードのテキスト処理に関係する機能を現在判明している分だけまとめておこう：
 </para>
-<para>
-記者は、イヌに話しかけた。
-<literal>＊「わんっ わんっ わんっ！</literal>
-という、お誂え向けのセリフを持つイヌがモンストルにいるのだ。
-以下、そのトレースである：
-</para>
-<programlisting>
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:0511     不明
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:0577     不明
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:00AB     不明
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:0523     「わ」
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:04F7     「ん」
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:0620     「っ」
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:0200     スペース
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:0523     「わ」
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:04F7     「ん」
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:0620     「っ」
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:0200     スペース
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:0523     「わ」
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:04F7     「ん」
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:0620     「っ」
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:0551     「！」
-$C0/2C92 8D B2 59    STA $59B2  [$7E:59B2]   A:00AC     00ACh は終端を意味する？
-</programlisting>
-<para>
-「わ」「ん」「っ」を見ると、
-<varname>A</varname> レジスタの値と表示される文字が一対一対応している。
-これにより、アキュームレータの値はコードと断定してよいことがわかる。
-念を入れて、他の人物に話しかけてコードと表示される文字の対応をもう少し調べてもよい。
-</para>
-<para>
-ここで、ドラクエビューア <xref linkend="dqref.url2"/> が出力する
-<filename>SFC_DQ6gra.bmp</filename> のフォントテーブルと、「わ」「ん」等の位置＝インデックスを照合してみる。
-</para>
-
-<table id="table.dq6.text.dog" class="lighttable">
-  <caption>わんっ！</caption>
+<table id="table.dq6.text.travel" class="lighttable">
+  <caption>重要な移動モードテキスト機能</caption>
   <thead>
-    <tr><th>文字</th><th>A</th><th>BMP</th></tr>
+    <tr><th>アドレス</th><th>分類</th><th>意味</th></tr>
   </thead>
   <tbody>
-    <tr><td>わ</td><td><literal>#$0523</literal></td><td><literal>#$0322</literal></td></tr>
-    <tr><td>ん</td><td><literal>#$04F7</literal></td><td><literal>#$02F6</literal></td></tr>
-    <tr><td>っ</td><td><literal>#$0620</literal></td><td><literal>#$041F</literal></td></tr>
-    <tr><td>！</td><td><literal>#$0551</literal></td><td><literal>#$0350</literal></td></tr>
+    <tr><td><varname>$C02AE2</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキストを出力する</td></tr>
+    <tr><td><varname>$C02B09</varname></td><td>サブルーチン</td><td>(type 2) 移動モードテキストを出力する</td></tr>
+    <tr><td><varname>$C02B69</varname></td><td>サブルーチン</td><td>メッセージ ID に対応するデータ格納アドレスと復号用マスクビットを得る</td></tr>
+    <tr><td><varname>$C02BCC</varname></td><td>データ</td><td>マスクビット配列</td></tr>
+    <tr><td><varname>$C02BD4</varname></td><td>サブルーチン</td><td>データ格納アドレスと復号用マスクビットを基にハフマン符号を復号、取得する</td></tr>
+    <tr><td><varname>$C02C28</varname></td><td>サブルーチン</td><td>小フォント文字コードを対応する大フォント文字コードに変換する</td></tr>
+    <tr><td><varname>$C02DC2</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td></tr>
+    <tr><td><varname>$C02DD8</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td></tr>
+    <tr><td><varname>$C02DEE</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（A レジスター値を ID とする）</td></tr>
+    <tr><td><varname>$C02E05</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（A レジスター値を ID とする）</td></tr>
+    <tr><td><varname>$C02E1C</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td></tr>
+    <tr><td><varname>$C02E32</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td></tr>
+    <tr><td><varname>$C02E48</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（A レジスター値を ID とする）</td></tr>
+    <tr><td><varname>$C02E76</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td></tr>
+    <tr><td><varname>$C02EC1</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td></tr>
+    <tr><td><varname>$C02F0F</varname></td><td>サブルーチン</td><td>(type 2) 移動モードテキスト出力（実引数を ID とする）</td></tr>
+    <tr><td><varname>$C02F59</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（A レジスター値を ID とする）</td></tr>
+    <tr><td><varname>$C02FA0</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（A レジスター値を ID とする）</td></tr>
+    <tr><td><varname>$C0FFA8</varname></td><td>BRK ハンドラー</td><td><varname>$C02E32</varname> または <varname>$C02E1C</varname> を実行する</td></tr>
+    <tr><td><varname>$C11100</varname></td><td>データ</td><td>小から大への文字コード変換対応</td></tr>
+    <tr><td><varname>$C15BB5</varname></td><td>データ</td><td>メッセージ格納アドレス計算配列</td></tr>
+    <tr><td><varname>$C167BE</varname></td><td>データ</td><td>ハフマン木ノード (OFF)</td></tr>
+    <tr><td><varname>$C1700E</varname></td><td>データ</td><td>ハフマン木ノード (ON)</td></tr>
+    <tr><td><varname>$C59969</varname></td><td>サブルーチン</td><td><varname>$C02E5F</varname> または <varname>$C02E48</varname> を実行する</td></tr>
+    <tr><td><varname>$C59977</varname></td><td>サブルーチン</td><td><varname>$C02DD8</varname> または <varname>$C02DC2</varname> を実行する</td></tr>
+    <tr><td><varname>$C59985</varname></td><td>サブルーチン</td><td><varname>$C02E05</varname> または <varname>$C02DEE</varname> を実行する</td></tr>
+    <tr><td><varname>$F7175B</varname></td><td>データ</td><td>メッセージデータ</td></tr>
   </tbody>
 </table>
+</section> <!-- dq6.text.travel.gsd.decode -->
+</section> <!-- dq6.text.travel.gsd -->
 
+<section id="dq6.text.travel.brk">
+<title>BRK 命令もメッセージ表示を行う</title>
 <para>
-どの文字も差が定数 <literal>#$0201</literal> になる。
-復号ルーチンはこのフォントテーブルへのインデックス値を直接取得していると考えてよい。
-定数分の差は、何か別のデータがフォントの直前にあり、
-そこから生じたのものだと、とりあえず予想しておく。
+逆アセンブリコードを目視で眺めていると気付くことではあるが、
+プログラム全体を通して BRK 命令のオペランドが 65816 の仕様とは異なり 2 バイトになっている。
+以下、これまでに述べた事実を利用して、
+すべての BRK 命令実行が、オペランドの値をメッセージ ID とした移動モードにおけるテキスト出力命令として振る舞うということを示す。
 </para>
-</section> <!-- dq6.text.travel.pro.dog -->
-</section> <!-- dq6.text.travel.pro -->
+<para>
+ROM ヘッダーを見るという基本調査により、BRK 命令のハンドラーがアドレス <varname>$C0FFA8</varname> から始まる処理であることは直ちに判明する。
+そのコードを見ると、別バンクのコードへ JMP するものに過ぎない：
+</para>
+<programlisting>
+C0/FFA8:    5C4299C5    JMP $C59942
+</programlisting>
+<para>
+ジャンプ先のアドレス <varname>$C59942</varname> から始まるコードを見ると、
+移動モードテキスト出力サブルーチンのいずれかを実行するらしいことがわかる。
+</para>
+<programlisting>
+C5/9942:    28          PLP                 ; BRK による状態レジスターを捨てる
+C5/9943:    C230        REP #$30
+C5/9945:    48          PHA
+C5/9946:    A303        LDA $03,S           ; BRK 本来の仕様を拡張するべく
+C5/9948:    3A          DEC A               ; 復帰アドレスを調整する
+C5/9949:    3A          DEC A               ;
+C5/994A:    8303        STA $03,S           ;
+C5/994C:    68          PLA
+C5/994D:    229399C5    JSR $C59993         ; 何かを判定
+C5/9951:    9004        BCC $9957           if(何かの条件){
+C5/9953:    5C322EC0    JMP $C02E32             ; 移動モードテキスト出力（実引数を ID とする）
+                                                ; RTL も含む
+                                            }
+C5/9957:    5C1C2EC0    JMP $C02E1C         ; 移動モードテキスト出力（実引数を ID とする）
+                                            ; RTL も含む
+</programlisting>
+<para>
+ここでいう実引数とは、BRK 命令の呼び出しに伴う 2 バイトのオペランドだ。
+テキスト出力ルーチンはスタックを経由してこの値を参照する。
+</para>
+<para>
+実際の BRK 命令実行コードをいくつか確かめよう。
+次の例は某所のウシの振る舞いを実装したものだ。
+ゲームの進行度によって鳴き声を変えていることが読み取れる：
+</para>
+<programlisting>
+CA/1F0C:    AD373D      LDA $3D37           ; フラグ列
+CA/1F0F:    298000      AND #$0080
+CA/1F12:    D003        BNE $1F17
+CA/1F14:    4C1D1F      JMP $1F1D
+CA/1F17:    004500      BRK #$0045          ; #$0045: モーッ モーッ！
+CA/1F1A:    4C311F      JMP $1F31
+CA/1F1D:    AD2D3D      LDA $3D2D           ; フラグ列
+CA/1F20:    298000      AND #$0080
+CA/1F23:    D003        BNE $1F28
+CA/1F25:    4C2E1F      JMP $1F2E
+CA/1F28:    004400      BRK #$0044          ; #$0044: モー モー。
+CA/1F2B:    4C311F      JMP $1F31
+CA/1F2E:    004600      BRK #$0046          ; #$0046: モー。
+CA/1F31:    6B          RTL
+</programlisting>
+<para>
+余談だが、出来合いの 65816 逆アセンブラーは当然だが BRK 命令のオペランドを 1 バイトとしている。
+それゆえ、このプログラムを逆アセンブルするときには専用の逆アセンブラーを製作するのが望ましい。
+</para>
+</section> <!-- dq6.text.travel.brk -->
+</section> <!-- dq6.text.travel -->
 
-<section id="dq6.text.travel.data">
+<section id="dq6.text.data">
 <title>データ</title>
+<para>
+抽出した戦闘モードおよび移動モードにおける全テキストデータそれぞれを UTF-8 テキストファイルとして <xref linkend="appendix.b"/> で提供する。
+</para>
 <para>
 今まで見てきたサブルーチンおよびフォントテーブルを Python スクリプトで再現し、
 没メッセージを含むすべての移動モード時のテキストを ROM イメージファイルから抽出することに成功した。
 ソースコードは GitHub の記者のアカウント内のどこかのリポジトリーで公開中のはずだ。
-また、抽出したテキストデータは UTF-8 テキストファイルとして <xref linkend="appendix.b" /> に含めてある。
 </para>
 <para>
-テキスト抽出スクリプトを書くに当たっての最大の難関は、符号データから UTF-8 文字に変換する仕組みの実装だ。
+テキスト抽出スクリプトを書くに当たっての最大の難関は、復号済みコードから UTF-8 文字へのコード変換表の実装だ。
 ここは偉大な先人の成果をありがたく再利用させていただくことで果たせる。
 具体的に言うと dq_analyzer <xref linkend="dqref.url1"/> に同梱されている
 <filename>dq6decode.c</filename> の「メッセージ文字列用」配列を自作するソースファイル内に、
 自作プログラムの言語仕様に合わせてコピー＆ペーストする。
-</para>
-<para>
 そうすると残りは上で述べたサブルーチン、
 つまりメッセージ ID からデータ格納位置を取得するコードとハフマン復号をするコードを
 65816 コードから C/C++ 言語なり Python なりに書き直すだけで済む。
 </para>
-</section> <!-- dq6.text.travel.data -->
-</section> <!-- dq6.text.travel -->
+</section> <!-- dq6.text.data -->
 </section> <!-- dq6.text -->

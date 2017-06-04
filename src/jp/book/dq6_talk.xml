@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<section id="dq6.talk"><?dbhtml filename="dq6_talk.html" ?>
+<title>はなす</title>
+<para>
+本節では移動コマンド「はなす」の実装詳細について述べる。
+まずは「はなす」コマンドの対象であるオブジェクトのすべてを表現する ROM データの構造について説明する。
+また、それらの構造それぞれについて、その型のオブジェクトデータを解釈して得られるテキスト CSV ファイルを提示する。
+それから「はなす」コマンドを実行するときのプログラムの手順を、可能な限りコードを引用した上で説明する。
+</para>
+
+<section id="dq6.talk.model">
+<title>モデル</title>
+<para>
+移動モードではプレイヤーの操作するパーティーとは他に、人々や動物、ときには魔物のが画面内をフラフラとしている。
+基本的にはパーティーの先頭の正面にこれらのオブジェクトが存在すれば、コマンド「はなす」が成功することになっている。
+これらの「はなす対象オブジェクト」のデータとして、いつものように配列の形式で定義されている。
+以下、この「はなす対象オブジェクト」の構造を説明する。
+</para>
+
+<section id="dq6.talk.model.FF08DA">
+<title>構造体 <varname>$FF08DA</varname>: 「はなす」対象簡易版</title>
+<para>
+ROM のアドレス <varname>$FF08DA</varname> には次の表で示すような型のオブジェクトが配列されている：
+</para>
+<table id="table.dq6.talk.FF08DA" class="lighttable">
+  <caption>構造体 $FF08DA</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$003F</literal></td><td>（調査中）</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3FC0</literal></td><td>スプライト ID</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00C0</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$001C</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0020</literal></td><td>描画</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00C0</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">歩行処理サブルーチン</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">メッセージ ID</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$00FF</literal></td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>スプライト ID</term>
+    <listitem>
+      <para>
+        スプライト ID とは、「はなす」対象オブジェクトの図像的表現であるスプライトを管理するための ID の値をとる属性だ。
+        スプライト ID と内容との対応については別項で述べたい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>向き</term>
+    <listitem>
+      <para>
+        向きとは、「はなす」対象オブジェクトのスプライトの「向き」を示す 0 から 4 の値をとる属性だ。
+        これは初期値であり、このオブジェクトが配置される空間にプレイヤーが入場した瞬間にしか保証されない。
+      </para>
+      <para>
+        次に示す表は向きの値と意味の対応だ：
+      </para>
+      <table id="table.dq6.talk.FF80DA.direction" class="lighttable">
+        <caption>向き</caption>
+        <thead>
+          <tr><th>値</th><th>向き</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>上</td></tr>
+          <tr><td>1</td><td>右</td></tr>
+          <tr><td>2</td><td>下</td></tr>
+          <tr><td>3</td><td>左</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>MX</term>
+    <listitem>
+      <para>
+        MX とは、「はなす」対象オブジェクトのスプライトを配置する空間の M 座標系における位置の X 座標成分のための属性だ。
+      </para>
+      <para>
+        座標系については別の節で説明したいが、本作の移動モードでは座標系は M と W の二つがある。
+        スプライトの関係するオブジェクトについては、前者で管理されている。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>MY</term>
+    <listitem>
+      <para>
+        MY とは、「はなす」対象オブジェクトのスプライトを配置する空間の M 座標系における位置の Y 座標成分のための属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>LV</term>
+    <listitem>
+      <para>
+        LV とは、「はなす」対象オブジェクトのスプライト配置に関する情報のための属性であり、
+        同一空間内の対象オブジェクト群を仮想的な標高で分類するために用いられる。
+      </para>
+      <para>
+        これはわかりづらいので例を出す。
+        ロンガデセオのホックは最初は家屋の屋上にいる。こういう状況を表現するための値が LV だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>描画</term>
+    <listitem>
+      <para>
+        描画とは、「はなす」対象オブジェクトを実際に描画するかどうかを示すブーリアン値の属性だろう。詳細不明。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>歩行処理サブルーチン</term>
+    <listitem>
+      <para>
+        歩行処理サブルーチンとは、「はなす」コマンドが実行されていない状態において、
+        オブジェクトがたまに移動したり、あるいは静止したままだったりする様子を与えるコードのアドレス値の属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>メッセージ ID</term>
+    <listitem>
+      <para>
+        メッセージ ID とは、このオブジェクトに対して「はなす」コマンドが実行されるときに、
+        画面メッセージウィンドウに出力されるメッセージの ID の値の属性だ。
+      </para>
+      <para>
+        移動モードのテキストについては <xref linkend="dq6.text"/> を参照して欲しい。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+<para>
+この型は面白くない。「はなす」コマンド実行によって引き起こされる結果が常に同じだからだ。
+それどころか、実際のデータを観察してみると、メッセージの指定すらなく、
+単に画面内にいることしか目的としないようなオブジェクトさえ存在する。
+一般には、「はなす」コマンドの対象として意味がある振る舞いを提供するのは、次節で示す型だ。
+</para>
+</section> <!-- dq6.talk.model.FF08DA -->
+
+<section id="dq6.talk.model.FF243C">
+<title>構造体 <varname>$FF243C</varname>: 「はなす」対象標準版</title>
+<para>
+ROM のアドレス <varname>$FF243C</varname> には次の表で示すような型のオブジェクトが配列されている：
+</para>
+
+<table id="table.dq6.talk.model.FF243C" class="lighttable">
+  <caption>構造体 $FF243C</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$003F</literal></td><td>（調査中）</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3FC0</literal></td><td>スプライト ID</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00C0</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$01FF</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$03FE</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$001C</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0020</literal></td><td>描画</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0040</literal></td><td>ウィンドウ消去</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0080</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">歩行処理サブルーチン</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">はなす処理サブルーチン</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td></tr>
+  </tbody>
+</table>
+<para>
+属性のほとんどが前節と共通している。以下、こちらの構造体に固有の属性を述べる。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>ウィンドウ消去</term>
+    <listitem>
+      <para>
+        ウィンドウ消去とは、ブーリアン値の属性であり、
+        「はなす」コマンドの出力メッセージウィンドウを処理後に消去するかどうかを示すためのものだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>はなす処理サブルーチン</term>
+    <listitem>
+      <para>
+        はなす処理サブルーチンとは、対象オブジェクトの会話内容の出力を主として実行するための処理コードの開始アドレスを指定する属性だ。
+      </para>
+      <para>
+        単に台詞を表示するだけでなく、店屋処理に制御を委譲したり、フラグを参照や更新をしたり、あるいはゲーム上のイベントを引き起こしたりする等、
+        柔軟な振る舞いを実現するのにこの属性は重要だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.talk.model.FF243C -->
+
+<section id="dq6.talk.model.data">
+<title>データ</title>
+<para>
+<xref linkend="appendix.b"/> で前述の二構造体オブジェクトデータを解釈して作成した CSV ファイルを提供する。
+</para>
+</section> <!-- dq6.talk.model.data -->
+</section> <!-- dq6.talk.model -->
+
+<section id="dq6.talk.process">
+<title>処理手順</title>
+<para>
+サブルーチン <varname>$C0C9B9</varname> が「はなす」処理の主要部だ。
+処理手順の構造は直線的なもので、次のように進む：
+</para>
+<variablelist>
+  <varlistentry>
+    <term>パーティーが「はなす」コマンドを実行可能かどうかテストする</term>
+    <listitem>
+      <para>
+        馬車外のメンバーで最低一人は生存状態であることを確認する。
+      </para>
+      <para>
+        テストに成功すれば次の工程へ進むが、
+        もし馬車外の全員が死亡状態であれば、メッセージ ID <literal>#$17D7</literal> の文言
+        <quote>このままでは 話せない！</quote> を出力する。
+        ユーザーがコントローラーのボタンを押すまでウィンドウを表示し続けるが、
+        ボタンを押すとウィンドウを消去して、それからこの処理全体を終了する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>各種変数を設定・保存する</term>
+    <listitem>
+      <para>
+        馬車外の生存状態のパーティーメンバー、
+        「はなす」処理最中であることを示すフラグ、
+        「はなす」対象者の（話し始める直前の）向きの各値を設定・保存しておく。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>パーティー先頭のほぼ正面に「はなす」対象者がいるかどうかテストする</term>
+    <listitem>
+      <para>
+        パーティー先頭の向き（上右下左）によって座標比較アルゴリズムを分岐する。
+        対象者がいなければ、後述の「はなす」実施マークをテストする工程にジャンプする。
+      </para>
+      <para>
+        右向きのときの処理を説明する。
+        先頭の座標 (MX, MY) に対して座標が (MX + 1, MY), (MX + 1, MY - 1), (MX + 1, MY + 1) の位置にいる「はなす」オブジェクトを現在空間内から検索する。
+        このとき前述の LV 値も一致している必要がある。
+      </para>
+      <para>
+        これら四方向それぞれの処理は対称的なのかと思いきや、そうではない。
+        実は左向きや下向きの処理は、上向きや右向きの処理より若干複雑なものになっている。
+        余談だが、初代ドラクエにはサブコマンドに「きた」「ひがし」「みなみ」「にし」があった。
+        本コードを観察すると、ユーザーが向きを指示するだけで相当の処理コードを手抜きできることを実感できる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」対象者の向きを変更するかテストする</term>
+    <listitem>
+      <para>
+        対象者がパーティー先頭に対して向かい合わせる必要があるかどうかを、はなすオブジェクト属性の値で決める。
+        必要があれば、実際に対象者のスプライトを適当な向きのものに更新する。
+      </para>
+      <para>
+        プログラムではキャラクターの向きは 0 から 7 までの数で表現している（スプライトの構造に由来する）。
+        0, 1, 2, 3, 4, 5, 6, 7 はそれぞれ上上右右下下左左を意味する。
+        ここではこれらの値から 4, 4, 6, 6, 0, 0, 2, 2 に変換するだけでよいらしく、
+        先頭の向き値に 4 を加えて 6 で論理積を取るだけで済ませている。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>移動モードメッセージを出力するかテストする</term>
+    <listitem>
+      <para>
+        「はなす」対象者がメッセージ ID を持っているかどうかを確認する。
+        もし持っていれば、そのメッセージをメッセージウィンドウに出力する。
+      </para>
+      <para>
+        メッセージ ID を持っているということは、この「はなす」オブジェクトが
+        先述の簡易版構造体 <varname>$FF08DA</varname> 配列から得られたものであることを意味し、
+        作業用変数の値が <literal>#$168F</literal> でないことと同値だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」対象者に関連付けられている処理を実行する</term>
+    <listitem>
+      <para>
+        対象の「はなす」オブジェクトが構造体 <varname>$FF243C</varname> 配列から得られたものであれば、
+        固有のアドレスが得られるが、そうでない場合には既定の空処理コードアドレスが得られる。
+        その完全アドレスをアドレス <varname>$0006B0</varname> にロードしてジャンプする。
+        この処理が「はなす」オブジェクトそれぞれに固有の振る舞いを表現している。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」実施済みマークを更新する</term>
+    <listitem>
+      <para>
+        変数 <varname>$7E5E8C</varname> をインクリメントする。
+        後ほど本処理および便利コマンド処理がこの値を参照する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」オブジェクトのメッセージウィンドウ消去フラグ属性をテストする</term>
+    <listitem>
+      <para>
+        先述の属性の値が 1 であれば、ユーザーのコントローラー入力を待たずにウィンドウを消去する。
+        そうでなければ、コントローラー入力があるまでウィンドウを消去しない。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」対象者の向きを復元するかテストする</term>
+    <listitem>
+      <para>
+        もし会話が終わった後に「はなす」対象者の向きを元に戻す必要があれば、そのようにする。
+        このために先ほど退避させておいた変数を参照する。
+      </para>
+      <para>
+        テストの結果にかかわらず、終了する工程までジャンプする。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>「はなす」実施済みマークをテストする</term>
+    <listitem>
+      <para>
+        変数 <varname>$7E5E8C</varname> の値を見る。ゼロでなければ終了する。
+        ゼロならば、メッセージ ID <literal>#$1777</literal> の文言
+        <quote>[D4]その方向には 誰もいない。</quote>を出力し、
+        ユーザーのボタン押しを待ってウィンドウを消去する
+      </para>
+      <para>
+        余談だが、便利コマンドから本処理を実行する場合には、
+        あらかじめ <varname>$7E5E8C</varname> の値を水増ししておくことでこのメッセージ出力を抑止させるようになっている。
+        そして復帰後に値が増えていなければ「しらべる」本処理へ進む。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>終了する</term>
+    <listitem>
+      <para>
+        「はなす」処理最中であることを示すフラグをオフにして、本処理を終了する。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+<para>
+オブジェクトの細かい属性値や、オブジェクトの位置や向きが影響するとはいえ、
+「はなす」コマンドの本処理は、基本的に一本道の処理だと言える。
+</para>
+</section> <!-- dq6.talk.process -->
+</section> <!-- dq6.talk -->

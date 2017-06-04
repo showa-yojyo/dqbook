@@ -12,214 +12,83 @@
 </para>
 
 <section id="dq3.text.battle">
-<title>戦闘モードテキスト解析</title>
+<title>戦闘モード</title>
 <indexterm id="term.dq3.text.battle"><primary>メッセージ</primary><secondary>DQ3</secondary></indexterm>
 <para>
-&dq3_1996; の戦闘モードで表示するテキストについての解析は <xref linkend="dq6.text.battle"/> と同様に行えばよい。
-各種定数の違いを除けば、まったく同じ実装といってよい。
-参考資料も同じものが有用である。
+戦闘モードのテキスト処理は、各種定数の違いを除けば前作 <xref linkend="dq6.text.battle"/> と同じ設計だ。
+細部の違いはあるものの、ほとんど同じ実装とみなしてよい。
+したがって、戦闘モードのテキスト処理に関係する機能を次の表に示してこの節を終える：
 </para>
-<para>
-解読済みテキストデータは付録 <xref linkend="appendix.b" /> を参照。
-</para>
+<table id="table.dq3.text.battle" class="lighttable">
+  <caption>重要な戦闘モードテキスト機能</caption>
+  <thead>
+    <tr><th>アドレス</th><th>分類</th><th>意味</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><varname>$C152A4</varname></td><td>データ</td><td>メッセージ格納アドレス計算配列</td></tr>
+    <tr><td><varname>$C1A867</varname></td><td>サブルーチン</td><td>戦闘モードテキスト出力（実引数を ID とする）</td></tr>
+    <tr><td><varname>$C1A87A</varname></td><td>サブルーチン</td><td>戦闘モードテキスト出力（A レジスター値を ID とする）</td></tr>
+    <tr><td><varname>$C1ABC0</varname></td><td>サブルーチン</td><td>戦闘モードテキスト出力共通部</td></tr>
+    <tr><td><varname>$C1AC61</varname></td><td>サブルーチン</td><td>メッセージ ID を入力して、データ格納アドレスを <varname>$A0:$A3</varname> に出力する</td></tr>
+    <tr><td><varname>$C1ACCE</varname></td><td>サブルーチン</td><td>必要に応じて文字コードを変換する</td></tr>
+    <tr><td><varname>$C1AD4A</varname></td><td>データ</td><td>濁点文字コードから濁点を抜いた文字コードへの対応を与える配列</td></tr>
+    <tr><td><varname>$C1AD73</varname></td><td>データ</td><td>半濁点文字コードから半濁点を抜いた文字コードへの対応を与える配列</td></tr>
+    <tr><td><varname>$C1AD7D</varname></td><td>データ</td><td>ある文字コードから「～」や「＋」へ変換するための配列</td></tr>
+    <tr><td><varname>$FC9C22</varname></td><td>データ</td><td>メッセージデータ</td></tr>
+  </tbody>
+</table>
 </section> <!-- dq3.text.battle -->
 
 <section id="dq3.text.travel">
-<title>移動モードテキスト解析</title>
+<title>移動モード</title>
 <indexterm id="term.dq3.text.travel"><primary>メッセージ</primary><secondary>DQ3</secondary></indexterm>
 <para>
-人々・動物・魔物の台詞やナレーション等の 「大きいフォントを用いて表示するテキスト」
-（以下、単にメッセージと呼ぶ）全般の解析および結果について述べる。
+移動モードのテキスト処理は、各種定数の違いを除けば前作 <xref linkend="dq3.text.travel"/> と同じ設計だ。
+細部の違いはあるものの、ほとんど同じ実装とみなしてよい。
+また、BRK 命令が移動モードにおけるテキスト出力を実行することも同じだ。
+したがって、移動モードのテキスト処理に関係する機能を次の表に示してこの節を終える：
 </para>
-<para>
-実のところ、記者は &dq3_1996; のメッセージ解析手法の大部分を人に教わり、
-それを元にして &dq5_1992; および &dq6_1995; のメッセージ抽出を実現した経緯がある。
-その内容は、メッセージ表示を実装している 65816 コードの解説という形でどこかに存在する。
-よって、ここには解説を書かず（本物は一つでいい）、要所要所のメモだけを残すにとどめる。
-</para>
-<para>
-もっとも、&dq3_1996; のテキスト処理周辺の実装は、
-まったくといっていいほど<link linkend="dq6.text">&dq6_1995; のそれ</link>と同じであるため、
-定数（データ格納アドレスやキャラクターセット）の違いだけ読んでいくといいかもしれない。
-</para>
-
-<section id="dq3.text.travel.decode">
-<title>復号サブルーチン</title>
-<para>
-テキストデータは圧縮されており、これを復号しながらテキストを表示するという方式である。
-これは &dq6_1995; の実装と同じである。
-以下、要点のみを箇条書きするに留める。
-</para>
-<itemizedlist>
-  <listitem>
-    <para>メッセージ ID は 2 バイトで表現する。</para>
-  </listitem>
-  <listitem>
-    <para>
-      プログラムはメッセージ表示直前に、その ID を <literal>$7EBDDF</literal> に格納しておく。
-      PAR 改造でこのアドレスの値を書き換えることが有効である。
-    </para>
-  </listitem>
-  <listitem>
-    <para>
-    サブルーチン <literal>$C1AFB9</literal> はメッセージ ID から圧縮メッセージデータの格納アドレスを求める
-    （&dq6_1995; の<link linkend="dq6.text.travel.pro.location">サブルーチン <literal>$C02B69</literal></link>
-    に相当）。
-    </para>
-  </listitem>
-  <listitem>
-    <para>
-      サブルーチン <literal>$C1B024</literal> は圧縮メッセージデータを展開する
-      （&dq6_1995; の<link linkend="dq6.text.travel.pro.decode">サブルーチン <literal>$C02BD4</literal></link>
-      に相当）。
-    </para>
-  </listitem>
-</itemizedlist>
-</section> <!-- dq3.text.travel.decode -->
-
-<section id="dq3.text.travel.call">
-<title>表示サブルーチン</title>
-<para>
-テキストを画面下部のウィンドウ（もしくは画面中央）に出力するために呼び出すサブルーチンは複数存在する。
-そのいずれもが、上述の復号サブルーチンを呼び出していると推測できるため、
-メッセージ表示（描画）サブルーチンすべてのアドレスを特定できる。
-</para>
-<para>
-表示サブルーチン方法は、メッセージ ID の受け取り方で二系統に分類できる。
-ひとつはメッセージ ID をサブルーチンの「引数」として扱うものである。
-もうひとつは、アキュームレータに格納されている値を
-サブルーチン側でメッセージ ID として解釈するものである。
-</para>
-
-<section id="dq3.text.travel.call.arg">
-<title>呼び出しコードの直後 2 バイトをメッセージ ID とするサブルーチン</title>
-<para>
-現在までに発見したものは、以下ですべてである。
-ただし、これらのサブルーチンのうち、いくつかの呼び出しを薄くラップしただけのサブルーチンも存在する。
-それらは言わば二軍のメッセージ表示サブルーチンだが、解析作業の点からは一軍と同様に重要だ。
-</para>
-<programlisting>
-JSL $C1A8D4  システムからのメッセージに利用することが多い
-JSL $C1A8EA  $C737BE 呼び出し経由で呼び出し
-JSL $C1A92E  店屋のメッセージに利用することが多い
-JSL $C1A944  ちょっとしたイベント用か
-JSL $C1A988  テキストを中央寄せで表示する
-JSL $C1A9D3  ゾーマ専用
-</programlisting>
-<para>
-一例を挙げてみよう。
-これはたった今、記者の手許にある逆アセンブリコードから、
-サブルーチン <varname>$C1A8D4</varname> 呼び出しを含むコード塊を切り取ってきたものだ。
-このように、メッセージ ID とテキストの対照表さえあれば、
-サブルーチン <varname>$C1A8D4</varname> 呼び出しの周辺を丁寧に解読することにより、
-これが「冒険の書を消す手続き」の一部抜粋だということが容易に特定できる。
-</para>
-<programlisting>
-C3/BEA4:    8578        STA $78
-C3/BEA6:    9C82BE      STZ $BE82
-C3/BEA9:    1A          INC A
-C3/BEAA:    8D81BE      STA $BE81
-C3/BEAD:    22D4A8C1    JSR $C1A8D4         <co id="dq3.text.co.1" /> ぼうけんのしょ[BB]を[AD]消してもいいですか？[AC]
-C3/BEB1:    2701
-C3/BEB3:    225122C3    JSR $C32251         <co id="dq3.text.co.2" /> 「はい・いいえ」
-C3/BEB7:    4C
-C3/BEB8:    22C622C3    JSR $C322C6
-C3/BEBC:    4C
-C3/BEBD:    B0DB        BCS $BE9A
-C3/BEBF:    C90000      CMP #$0000
-C3/BEC2:    D0D6        BNE $BE9A
-C3/BEC4:    22AC63C4    JSR $C463AC         <co id="dq3.text.co.3" />
-C3/BEC8:    78
-C3/BEC9:    22D4A8C1    JSR $C1A8D4         <co id="dq3.text.co.4" /> ぼうけんのしょ[BB]を[AD]消しました。[AC]
-C3/BECD:    2801
-C3/BECF:    22F740C3    JSR $C340F7
-C3/BED3:    4C91BD      JMP $BD91
-</programlisting>
-<calloutlist>
-  <callout arearefs="dq3.text.co.1 dq3.text.co.4">
-    <para>
-      <code>JSR $C1A8D4</code> によりメッセージを表示する。
-      メッセージの ID を次の 2 バイト値埋め込みにより指定していることに注目する事。
-      <literal>#$0127</literal>, <literal>#$0128</literal> はともにメッセージ ID だ。
-    </para>
-  </callout>
-  <callout arearefs="dq3.text.co.2">
-    <para>
-      <code>JSR $C32251</code> はウィンドウの表示を行う。
-      ウィンドウの ID は後続の埋め込み 1 バイト値で指定する。
-      これは処理の文脈上そう判断しただけだが、
-      今調べたいことはウィンドウではないので、これで構わない。
-    </para>
-    <para>
-      <literal>#$4C</literal> を指定する意味は、「はい・いいえ」ウィンドウを表示するためだということが容易く想像できる。
-    </para>
-  </callout>
-  <callout arearefs="dq3.text.co.3">
-    <para>
-      前後のメッセージ内容や、プレイヤーの応答分岐から推理すれば、
-      サブルーチン <literal>$C463AC</literal> で冒険の書を削除するに違いない。
-    </para>
-  </callout>
-</calloutlist>
-</section> <!-- dq3.text.travel.call.arg -->
-
-<section id="dq3.text.travel.call.accum">
-<title>アキュームレータにメッセージ ID をセットしてから呼び出すサブルーチン</title>
-<para>
-表示するテキストを動的に決定する処理においては、こちらの方式でテキスト表示を実装している。
-特に、配列の形でメッセージ ID をプログラムに埋め込んでおき、
-以下に示すいずれかのメッセージ表示サブルーチン呼び出しの直前で、
-その配列から <varname>A</varname> に ID 値をロードするというのが定番の実装になっている。
-</para>
-<programlisting>
-JSL $C1A900  詳細不明
-JSL $C1A917  $C737CB 呼び出し経由で呼び出し
-JSL $C1A95A  店屋のメッセージに利用することが多い
-JSL $C1A971  $C737B1 呼び出し経由で呼び出し
-JSL $C1AA21  詳細不明
-JSL $C1AA6B  詳細不明
-JSL $C1AAB2  詳細不明
-</programlisting>
-<para>
-先程と同様にして、手許にある逆アセンブリ済みコード片から拾った<code>JSL $C1A87A</code> の呼び出し例を記す。
-どうやらコマンドメニューの「どうぐ→わたす」辺りだろう。
-</para>
-<programlisting>
-C2/8265:    0A          ASL A
-C2/8266:    AA          TAX
-C2/8267:    BF7082C2    LDA $C28270,X       <co id="dq3.text.co.5" />
-C2/826B:    227AA8C1    JSR $C1A87A         <co id="dq3.text.co.6" />
-C2/826F:    60          RTS
-
-C2/8270:    B100        ; message #$00B1: [C1]は [C3]から[AD][B5]を だした。[AC]
-C2/8272:    B500        ; message #$00B5: [CB]は [C3]の[AD][B5]を いれかえた。[AC]
-C2/8274:    B600        ; message #$00B6: [C3]の [B5]と[AD][C1]の [C7]を[AD]交換した。[AC]
-C2/8276:    B700        ; message #$00B7: [CB]は [C3]の[AD][B5]と [C1]の[AD][C7]を 交換した。[AC]
-C2/8278:    B800        ; message #$00B8: 装備しますか？[AC]
-C2/827A:    B900        ; message #$00B9: [C0]は 道具を[AD]持っていない。[AC]
-C2/827C:    BA00        ; message #$00BA: [C0]は [B5]を[AD]道具として 使ってみた。[AF][AC]
-C2/827E:    BB00        ; message #$00BB: [C0]は [B5]を[AD]道具として 使ってみた。[AC]
-C2/8280:    BC00        ; message #$00BC: [C0]は[AD][B5]を 使った！[AF][AC]
-</programlisting>
-<calloutlist>
-  <callout arearefs="dq3.text.co.5">
-    <para>
-      <code>LDA $C28270</code> でメッセージ ID を <varname>A</varname> にロードする。
-      配列 <literal>$C28270</literal> は 2 バイト値の配列ゆえ、<literal>LDA long,X</literal> 命令の直前に
-      <literal>ASL</literal> と <literal>TAX</literal> をセットで用いていることに着目する事。
-    </para>
-  </callout>
-  <callout arearefs="dq3.text.co.6">
-    <para>
-      <literal>A</literal> がメッセージ ID を示すという事前条件の下、
-      <code>JSR $C1A87A</code> は テキストを処理する。
-    </para>
-  </callout>
-</calloutlist>
-<para>
-解読済みテキストデータは付録 <xref linkend="appendix.b" /> を参照。
-</para>
-</section> <!-- dq3.text.travel.call.accum -->
-</section> <!-- dq3.text.travel.call -->
+<table id="table.dq3.text.travel" class="lighttable">
+  <caption>重要な移動モードテキスト機能</caption>
+  <thead>
+    <tr><th>アドレス</th><th>分類</th><th>意味</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><varname>$C0FFA8</varname></td><td>BRK ハンドラー</td><td><varname>$C1A944</varname> または <varname>$C1A92E</varname> を実行する</td></tr>
+    <tr><td><varname>$C10CD5</varname></td><td>データ</td><td>小から大への文字コード変換対応</td></tr>
+    <tr><td><varname>$C1A8EA</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td></tr>
+    <tr><td><varname>$C1A900</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（A レジスターを ID とする）</td></tr>
+    <tr><td><varname>$C1A917</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（A レジスターを ID とする）</td></tr>
+    <tr><td><varname>$C1A92E</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td></tr>
+    <tr><td><varname>$C1A944</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td></tr>
+    <tr><td><varname>$C1A95A</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（A レジスターを ID とする）</td></tr>
+    <tr><td><varname>$C1A971</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（A レジスターを ID とする）</td></tr>
+    <tr><td><varname>$C1A988</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td></tr>
+    <tr><td><varname>$C1A9D3</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td></tr>
+    <tr><td><varname>$C1AA21</varname></td><td>サブルーチン</td><td>(type 2) 移動モードテキスト出力（A レジスターを ID とする）</td></tr>
+    <tr><td><varname>$C1AA6B</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（A レジスターを ID とする）</td></tr>
+    <tr><td><varname>$C1AAB2</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力（A レジスターを ID とする）</td></tr>
+    <tr><td><varname>$C1AF1D</varname></td><td>サブルーチン</td><td>(type 1) 移動モードテキスト出力共通部</td></tr>
+    <tr><td><varname>$C1AF44</varname></td><td>サブルーチン</td><td>(type 2) 移動モードテキスト出力共通部</td></tr>
+    <tr><td><varname>$C1AFB9</varname></td><td>サブルーチン</td><td>メッセージ ID に対応するデータ格納アドレスと復号用マスクビットを得る</td></tr>
+    <tr><td><varname>$C1B01C</varname></td><td>データ</td><td>マスクビット配列</td></tr>
+    <tr><td><varname>$C1B024</varname></td><td>サブルーチン</td><td>データ格納アドレスと復号用マスクビットを基にハフマン符号を復号、取得する</td></tr>
+    <tr><td><varname>$C1B078</varname></td><td>サブルーチン</td><td>小フォント文字コードを対応する大フォント文字コードに変換する</td></tr>
+    <tr><td><varname>$C15331</varname></td><td>データ</td><td>メッセージ格納アドレス計算配列</td></tr>
+    <tr><td><varname>$C159D3</varname></td><td>データ</td><td>ハフマン木ノード (OFF)</td></tr>
+    <tr><td><varname>$C161A7</varname></td><td>データ</td><td>ハフマン木ノード (ON)</td></tr>
+    <tr><td><varname>$C737B1</varname></td><td>サブルーチン</td><td><varname>$C1A971</varname> または <varname>$C1A95A</varname> を実行する</td></tr>
+    <tr><td><varname>$C737BE</varname></td><td>サブルーチン</td><td><varname>$C1A8EA</varname> または <varname>$C1A8D4</varname> を実行する</td></tr>
+    <tr><td><varname>$C737CB</varname></td><td>サブルーチン</td><td><varname>$C1A917</varname> または <varname>$C1A900</varname> を実行する</td></tr>
+    <tr><td><varname>$FCC258</varname></td><td>データ</td><td>メッセージデータ</td></tr>
+  </tbody>
+</table>
 </section> <!-- dq3.text.travel -->
+
+<section id="dq3.text.data">
+<title>データ</title>
+<para>
+抽出した戦闘モードおよび移動モードにおける全テキストデータそれぞれを UTF-8 テキストファイルとして <xref linkend="appendix.b"/> で提供する。
+</para>
+</section> <!-- dq3.text.data -->
 </section> <!-- dq3.text -->
