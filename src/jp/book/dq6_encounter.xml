@@ -32,7 +32,7 @@
 	（<link linkend="dq6.monster">モンスター</link>、
 	<link linkend="dq6.character">仲間キャラクター</link>、
 	<link linkend="dq6.item">アイテム</link>、
-	<link linkend="dq6.act">行動</link>構造体等）
+	<link linkend="dq6.battle.commands">コマンド</link>構造体等）
 	と同じく、データ構造体配列と、そのデータへのポインタ配列の二本立てである。
 </para>
 <para>

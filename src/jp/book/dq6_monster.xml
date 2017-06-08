@@ -41,8 +41,8 @@
 <section id="dq6.monster.hack.C22B54">
 <title><varname>$C22B54</varname> - モンスター構造体へのポインタ配列</title>
 <para>
-	<link linkend="dq6.item.hack.C41A3D">アイテム構造体へのポインタ配列</link>や、
-	<link linkend="dq6.act.hack.C8EE67">戦闘行動構造体へのポインタ配列</link>と同じ役割を果たす。
+	アイテム構造体へのポインタ配列や、
+	戦闘行動構造体へのポインタ配列と同じ役割を果たす。
 	格納されているデータは、モンスター ID に対応するモンスターのデータが格納されているアドレスだ。
 	ただし、この値を <literal>#$C20154</literal> に加算したものが正確なアドレスだ。
 </para>
@@ -356,7 +356,7 @@ C2/6FE2:    2236F1C2    JSR $C2F136         ■(RTL+4) a = モンスター ID X 
 		<glossterm>戦闘行動<literal>[00-05]</literal></glossterm>
 		<glossdef>
 			<para>
-				モンスターが戦闘中にとり得る<link linkend="dq6.act">戦闘行動 ID</link>
+				モンスターが戦闘中にとり得る<link linkend="dq6.battle.commands">戦闘行動 ID</link>
 				のリスト。
 			</para>
 		</glossdef>
