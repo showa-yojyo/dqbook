@@ -20,7 +20,7 @@
 </para>
 
 <section id="dq6.battle.commands.C8C65D">
-<title>構造体 <varname>$C8C65D</varname>: 戦闘コマンド構造体</title>
+<title>構造体 <varname>$C8C65D</varname>: 戦闘コマンド</title>
 <para>
 戦闘コマンド構造体とは、サイズが <literal>#$19</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるようなものだ。
 この型のオブジェクトがアドレス <varname>$C8C65D</varname> から 410 個直列しているので、本書ではたまに戦闘コマンド構造体のことを表題のように表記することがある。
@@ -31,61 +31,61 @@
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td><literal>#$00</literal></td><td><literal>#$0001</literal></td><td>呪文フラグ</td></tr>
-    <tr><td><literal>#$00</literal></td><td><literal>#$00FE</literal></td><td>対象決定判断 0</td></tr>
-    <tr><td><literal>#$01</literal></td><td><literal>#$0001</literal></td><td>踊りフラグ</td></tr>
-    <tr><td><literal>#$01</literal></td><td><literal>#$00FE</literal></td><td>対象決定判断 1</td></tr>
-    <tr><td><literal>#$02</literal></td><td><literal>#$0001</literal></td><td>炎・吹雪フラグ</td></tr>
-    <tr><td><literal>#$02</literal></td><td><literal>#$00FE</literal></td><td>対象決定判断 2</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$003F</literal></td><td>MP</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$0040</literal></td><td>マヌーサ考慮フラグ</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$0080</literal></td><td>だいぼうぎょ考慮フラグ</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$0007</literal></td><td>ダメージ確率 ID</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$0008</literal></td><td>みかわし考慮フラグ</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$0010</literal></td><td>ため考慮フラグ</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$0020</literal></td><td>バイキルト考慮フラグ</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$0040</literal></td><td>会心痛恨考慮フラグ</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$0080</literal></td><td>対象詳細抽選フラグ</td></tr>
-    <tr><td><literal>#$05</literal></td><td><literal>#$001F</literal></td><td>系統分類</td></tr>
-    <tr><td><literal>#$05</literal></td><td><literal>#$0020</literal></td><td>まじんのかなづち装備考慮フラグ</td></tr>
-    <tr><td><literal>#$05</literal></td><td><literal>#$0040</literal></td><td>複数対象武器有効フラグ</td></tr>
-    <tr><td><literal>#$05</literal></td><td><literal>#$0080</literal></td><td>特殊武器ダメージ倍率考慮フラグ</td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$0003</literal></td><td>対象陣営分類</td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$0004</literal></td><td>どくばり装備考慮フラグ</td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$0008</literal></td><td>追加効果武器装備考慮フラグ</td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$0010</literal></td><td>連続攻撃武器装備考慮フラグ</td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$0020</literal></td><td>追加ダメージ武器装備考慮フラグ</td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$0040</literal></td><td>きせきのつるぎ装備考慮フラグ</td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$0080</literal></td><td>（未使用）</td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$0003</literal></td><td>対象範囲分類</td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$0004</literal></td><td>集中攻撃許可フラグ</td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$0008</literal></td><td>パラディン即死考慮フラグ</td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$0010</literal></td><td>アストロン考慮フラグ</td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$0020</literal></td><td>みがわり考慮フラグ</td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$0040</literal></td><td>マホカンタ・マホターン考慮フラグ</td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$0080</literal></td><td>うけながし考慮フラグ</td></tr>
-    <tr><td><literal>#$08</literal></td><td><literal>#$0007</literal></td><td>目的分類</td></tr>
-    <tr><td><literal>#$08</literal></td><td><literal>#$0018</literal></td><td>まねまね反応分類</td></tr>
-    <tr><td><literal>#$08</literal></td><td><literal>#$0060</literal></td><td>モード</td></tr>
-    <tr><td><literal>#$08</literal></td><td><literal>#$0080</literal></td><td>不能確認フラグ</td></tr>
-    <tr><td><literal>#$09</literal></td><td><literal>#$003F</literal></td><td>ダメージ評価 ID</td></tr>
-    <tr><td><literal>#$09</literal></td><td><literal>#$00C0</literal></td><td>退場分類</td></tr>
-    <tr><td><literal>#$0A</literal></td><td><literal>#$003F</literal></td><td>効能評価 ID</td></tr>
-    <tr><td><literal>#$0A</literal></td><td><literal>#$0040</literal></td><td>メッセージ表示フラグ</td></tr>
-    <tr><td><literal>#$0A</literal></td><td><literal>#$0080</literal></td><td>意識回復フラグ</td></tr>
-    <tr><td><literal>#$0B</literal></td><td><literal>#$007F</literal></td><td>ダメージ ID</td></tr>
-    <tr><td><literal>#$0B</literal></td><td><literal>#$0080</literal></td><td>仲間許可フラグ</td></tr>
-    <tr><td><literal>#$0C</literal></td><td><literal>#$00FF</literal></td><td>説明文 ID</td></tr>
-    <tr><td><literal>#$0D</literal></td><td><literal>#$00FF</literal></td><td>画面演出 ID</td></tr>
-    <tr><td><literal>#$0E</literal></td><td><literal>#$7FFF</literal></td><td>（調査中）</td></tr>
-    <tr><td><literal>#$0F</literal></td><td><literal>#$0080</literal></td><td>戦果逸失フラグ</td></tr>
-    <tr><td><literal>#$10</literal></td><td><literal>#$0003</literal></td><td>特殊演出 ID</td></tr>
-    <tr><td><literal>#$10</literal></td><td><literal>#$003C</literal></td><td>呪文演出効果 ID</td></tr>
-    <tr><td><literal>#$10</literal></td><td><literal>#$FFC0</literal></td><td>実行時効果音 ID</td></tr>
-    <tr><td><literal>#$12</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">実行処理アドレス</td></tr>
-    <tr><td><literal>#$14</literal></td><td><literal>#$00FF</literal></td></tr>
-    <tr><td><literal>#$15</literal></td><td><literal>#$FFFF</literal></td><td>戦闘メッセージ ID</td></tr>
-    <tr><td><literal>#$17</literal></td><td><literal>#$FFFF</literal></td><td>名前文字列 ID</td></tr>
+    <tr><td align="right"><literal>#$00</literal></td><td><literal>#$0001</literal></td><td>呪文フラグ</td></tr>
+    <tr><td align="right"><literal>#$00</literal></td><td><literal>#$00FE</literal></td><td>対象決定判断 0</td></tr>
+    <tr><td align="right"><literal>#$01</literal></td><td><literal>#$0001</literal></td><td>踊りフラグ</td></tr>
+    <tr><td align="right"><literal>#$01</literal></td><td><literal>#$00FE</literal></td><td>対象決定判断 1</td></tr>
+    <tr><td align="right"><literal>#$02</literal></td><td><literal>#$0001</literal></td><td>炎・吹雪フラグ</td></tr>
+    <tr><td align="right"><literal>#$02</literal></td><td><literal>#$00FE</literal></td><td>対象決定判断 2</td></tr>
+    <tr><td align="right"><literal>#$03</literal></td><td><literal>#$003F</literal></td><td>MP</td></tr>
+    <tr><td align="right"><literal>#$03</literal></td><td><literal>#$0040</literal></td><td>マヌーサ考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$03</literal></td><td><literal>#$0080</literal></td><td>だいぼうぎょ考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal>#$0007</literal></td><td>ダメージ確率 ID</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal>#$0008</literal></td><td>みかわし考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal>#$0010</literal></td><td>ため考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal>#$0020</literal></td><td>バイキルト考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal>#$0040</literal></td><td>会心痛恨考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal>#$0080</literal></td><td>対象詳細抽選フラグ</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td><literal>#$001F</literal></td><td>系統分類</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td><literal>#$0020</literal></td><td>まじんのかなづち装備考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td><literal>#$0040</literal></td><td>複数対象武器有効フラグ</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td><literal>#$0080</literal></td><td>特殊武器ダメージ倍率考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$0003</literal></td><td>対象陣営分類</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$0004</literal></td><td>どくばり装備考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$0008</literal></td><td>追加効果武器装備考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$0010</literal></td><td>連続攻撃武器装備考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$0020</literal></td><td>追加ダメージ武器装備考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$0040</literal></td><td>きせきのつるぎ装備考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$0080</literal></td><td>（未使用）</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$0003</literal></td><td>対象範囲分類</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$0004</literal></td><td>集中攻撃許可フラグ</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$0008</literal></td><td>パラディン即死考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$0010</literal></td><td>アストロン考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$0020</literal></td><td>みがわり考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$0040</literal></td><td>マホカンタ・マホターン考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$0080</literal></td><td>うけながし考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td><literal>#$0007</literal></td><td>目的分類</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td><literal>#$0018</literal></td><td>まねまね反応分類</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td><literal>#$0060</literal></td><td>モード</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td><literal>#$0080</literal></td><td>不能確認フラグ</td></tr>
+    <tr><td align="right"><literal>#$09</literal></td><td><literal>#$003F</literal></td><td>ダメージ評価 ID</td></tr>
+    <tr><td align="right"><literal>#$09</literal></td><td><literal>#$00C0</literal></td><td>退場分類</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td><td><literal>#$003F</literal></td><td>効能評価 ID</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td><td><literal>#$0040</literal></td><td>メッセージ表示フラグ</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td><td><literal>#$0080</literal></td><td>意識回復フラグ</td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td><td><literal>#$007F</literal></td><td>ダメージ ID</td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td><td><literal>#$0080</literal></td><td>仲間許可フラグ</td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td><td><literal>#$00FF</literal></td><td>説明文 ID</td></tr>
+    <tr><td align="right"><literal>#$0D</literal></td><td><literal>#$00FF</literal></td><td>画面演出 ID</td></tr>
+    <tr><td align="right"><literal>#$0E</literal></td><td><literal>#$7FFF</literal></td><td>（調査中）</td></tr>
+    <tr><td align="right"><literal>#$0F</literal></td><td><literal>#$0080</literal></td><td>戦果逸失フラグ</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td><td><literal>#$0003</literal></td><td>特殊演出 ID</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td><td><literal>#$003C</literal></td><td>呪文演出効果 ID</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td><td><literal>#$FFC0</literal></td><td>実行時効果音 ID</td></tr>
+    <tr><td align="right"><literal>#$12</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">実行処理アドレス</td></tr>
+    <tr><td align="right"><literal>#$14</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td align="right"><literal>#$15</literal></td><td><literal>#$FFFF</literal></td><td>戦闘メッセージ ID</td></tr>
+    <tr><td align="right"><literal>#$17</literal></td><td><literal>#$FFFF</literal></td><td>名前文字列 ID</td></tr>
   </tbody>
 </table>
 <para>
@@ -268,38 +268,38 @@
         <tr><th>値</th><th>系統</th></tr>
       </thead>
       <tbody>
-        <tr><td><literal>#$00</literal></td><td>メラ</td></tr>
-        <tr><td><literal>#$01</literal></td><td>ギラ</td></tr>
-        <tr><td><literal>#$02</literal></td><td>イオ</td></tr>
-        <tr><td><literal>#$03</literal></td><td>ヒャド</td></tr>
-        <tr><td><literal>#$04</literal></td><td>バギ</td></tr>
-        <tr><td><literal>#$05</literal></td><td>デイン</td></tr>
-        <tr><td><literal>#$06</literal></td><td>マヌーサ</td></tr>
-        <tr><td><literal>#$07</literal></td><td>ラリホー</td></tr>
-        <tr><td><literal>#$08</literal></td><td>ザキ</td></tr>
-        <tr><td><literal>#$09</literal></td><td>ニフラム</td></tr>
-        <tr><td><literal>#$0A</literal></td><td>マホトラ</td></tr>
-        <tr><td><literal>#$0B</literal></td><td>マホトーン</td></tr>
-        <tr><td><literal>#$0C</literal></td><td>メダパニ</td></tr>
-        <tr><td><literal>#$0D</literal></td><td>ルカニ</td></tr>
-        <tr><td><literal>#$0E</literal></td><td>n/a</td></tr>
-        <tr><td><literal>#$0F</literal></td><td>どく</td></tr>
-        <tr><td><literal>#$10</literal></td><td>やすみ</td></tr>
-        <tr><td><literal>#$11</literal></td><td>おどりふうじ</td></tr>
-        <tr><td><literal>#$12</literal></td><td>ほのお</td></tr>
-        <tr><td><literal>#$13</literal></td><td>ふぶき</td></tr>
-        <tr><td><literal>#$14</literal></td><td>たたき</td></tr>
-        <tr><td><literal>#$15</literal></td><td>まひ</td></tr>
-        <tr><td><literal>#$16</literal></td><td>ぐんたい</td></tr>
-        <tr><td><literal>#$17</literal></td><td>n/a</td></tr>
-        <tr><td><literal>#$18</literal></td><td>n/a</td></tr>
-        <tr><td><literal>#$19</literal></td><td>n/a</td></tr>
-        <tr><td><literal>#$1A</literal></td><td>n/a</td></tr>
-        <tr><td><literal>#$1B</literal></td><td>n/a</td></tr>
-        <tr><td><literal>#$1C</literal></td><td>n/a</td></tr>
-        <tr><td><literal>#$1D</literal></td><td>n/a</td></tr>
-        <tr><td><literal>#$1E</literal></td><td>n/a</td></tr>
-        <tr><td><literal>#$1F</literal></td><td>無属性</td></tr>
+        <tr><th><literal>#$00</literal></th><td>メラ</td></tr>
+        <tr><th><literal>#$01</literal></th><td>ギラ</td></tr>
+        <tr><th><literal>#$02</literal></th><td>イオ</td></tr>
+        <tr><th><literal>#$03</literal></th><td>ヒャド</td></tr>
+        <tr><th><literal>#$04</literal></th><td>バギ</td></tr>
+        <tr><th><literal>#$05</literal></th><td>デイン</td></tr>
+        <tr><th><literal>#$06</literal></th><td>マヌーサ</td></tr>
+        <tr><th><literal>#$07</literal></th><td>ラリホー</td></tr>
+        <tr><th><literal>#$08</literal></th><td>ザキ</td></tr>
+        <tr><th><literal>#$09</literal></th><td>ニフラム</td></tr>
+        <tr><th><literal>#$0A</literal></th><td>マホトラ</td></tr>
+        <tr><th><literal>#$0B</literal></th><td>マホトーン</td></tr>
+        <tr><th><literal>#$0C</literal></th><td>メダパニ</td></tr>
+        <tr><th><literal>#$0D</literal></th><td>ルカニ</td></tr>
+        <tr><th><literal>#$0E</literal></th><td>n/a</td></tr>
+        <tr><th><literal>#$0F</literal></th><td>どく</td></tr>
+        <tr><th><literal>#$10</literal></th><td>やすみ</td></tr>
+        <tr><th><literal>#$11</literal></th><td>おどりふうじ</td></tr>
+        <tr><th><literal>#$12</literal></th><td>ほのお</td></tr>
+        <tr><th><literal>#$13</literal></th><td>ふぶき</td></tr>
+        <tr><th><literal>#$14</literal></th><td>たたき</td></tr>
+        <tr><th><literal>#$15</literal></th><td>まひ</td></tr>
+        <tr><th><literal>#$16</literal></th><td>ぐんたい</td></tr>
+        <tr><th><literal>#$17</literal></th><td rowspan="8">n/a</td></tr>
+        <tr><th><literal>#$18</literal></th></tr>
+        <tr><th><literal>#$19</literal></th></tr>
+        <tr><th><literal>#$1A</literal></th></tr>
+        <tr><th><literal>#$1B</literal></th></tr>
+        <tr><th><literal>#$1C</literal></th></tr>
+        <tr><th><literal>#$1D</literal></th></tr>
+        <tr><th><literal>#$1E</literal></th></tr>
+        <tr><th><literal>#$1F</literal></th><td>無属性</td></tr>
       </tbody>
     </table>
     </listitem>
@@ -339,12 +339,12 @@
           <tr><th>ID</th><th>装備武器</th><th>ダメージ調整方式</th></tr>
         </thead>
         <tbody>
-          <tr><th><literal>#$0D</literal></th><td>ドラゴンキラー</td><td>ドラゴン系統のモンスター対してはダメージ値を 1.5 倍に調整する</td></tr>
-          <tr><th><literal>#$10</literal></th><td>はやぶさのけん</td><td>ダメージ値を 3/4 に調整する</td></tr>
-          <tr><th><literal>#$12</literal></th><td>ゾンビキラー</td><td>ゾンビ系統のモンスターに対してはダメージ値を 1.5 倍に調整する</td></tr>
-          <tr><th><literal>#$43</literal></th><td>ドラゴンキラー</td><td><literal>#$0D</literal> と同じ</td></tr>
-          <tr><th><literal>#$44</literal></th><td>はやぶさのけん</td><td><literal>#$10</literal> と同じ</td></tr>
-          <tr><th><literal>#$46</literal></th><td>ゾンビキラー</td><td><literal>#$12</literal> と同じ</td></tr>
+          <tr><td><literal>#$0D</literal></td><td>ドラゴンキラー</td><td>ドラゴン系統のモンスター対してはダメージ値を 1.5 倍に調整する</td></tr>
+          <tr><td><literal>#$10</literal></td><td>はやぶさのけん</td><td>ダメージ値を 3/4 に調整する</td></tr>
+          <tr><td><literal>#$12</literal></td><td>ゾンビキラー</td><td>ゾンビ系統のモンスターに対してはダメージ値を 1.5 倍に調整する</td></tr>
+          <tr><td><literal>#$43</literal></td><td>ドラゴンキラー</td><td><literal>#$0D</literal> と同じ</td></tr>
+          <tr><td><literal>#$44</literal></td><td>はやぶさのけん</td><td><literal>#$10</literal> と同じ</td></tr>
+          <tr><td><literal>#$46</literal></td><td>ゾンビキラー</td><td><literal>#$12</literal> と同じ</td></tr>
         </tbody>
       </table>
     </listitem>
@@ -358,7 +358,7 @@
         次の表のような解釈ができる：
       </para>
       <table id="table.dq6.battle.commands.targets" class="lighttable">
-        <caption></caption>
+        <caption>対象陣営分類</caption>
         <thead>
           <tr><th>値</th><th>意味</th></tr>
         </thead>
@@ -773,4 +773,74 @@
   </varlistentry>
 </variablelist>
 </section> <!-- dq6.battle.commands.C8C65D -->
+
+<section id="dq6.battle.commands.methods">
+<title>戦闘コマンド構造体メソッド</title>
+<para>
+バンク <varname>$C2</varname> の逆アセンブルの便宜を図るため、
+以下に <varname>$C8C65D</varname> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
+ただし、<code>LDA $C8C662,X</code> のように直接値にアクセスする処理も当然のように存在する。
+</para>
+<table id="table.dq6.battle.commands.methods" class="lighttable">
+  <caption>戦闘コマンド構造体の属性にアクセスするサブルーチン</caption>
+  <thead>
+    <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="center"><varname>$C2F0C2</varname></td><td align="center">2</td><td>x</td><td>2 バイト型属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2F0C9</varname></td><td align="center">2</td><td>y</td><td>2 バイト型属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2F0DF</varname></td><td align="center">4</td><td>x</td><td>ビットフィールド型属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2F0E6</varname></td><td align="center">4</td><td>y</td><td>ビットフィールド型属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2F0FC</varname></td><td align="center">4</td><td>x</td><td>ビットフィールド型属性値が設定されているかを見る</td></tr>
+    <tr><td align="center"><varname>$C2F103</varname></td><td align="center">4</td><td>y</td><td>ビットフィールド型属性値が設定されているかを見る</td></tr>
+  </tbody>
+</table>
+<para>
+ここで、レジスター x および y は戦闘員の添字をそれぞれ指定する。
+また、いずれの処理においても出力をレジスター a に格納する。
+出力値としては属性値か、ビットシフト工程を省略した値のいずれかだ。
+</para>
+<para>
+固定引数長とあるのは、各 JSR 命令に続く非プログラムバイト列の長さのことだ。
+値が 2 ならばオブジェクトのベースアドレスからのオフセット値が、
+値が 4 ならばオフセット値とビットマスク値がコード中に埋め込まれていることを示す。
+以下に参考コードと解釈例を示す。
+本節の表と <xref linkend="dq6.combatant.7E2030"/> を照合しながら内容を確かめるといいだろう：
+</para>
+<programlisting>
+C2/741B:    22FCF0C2    JSR $C2F0FC         戦闘コマンド x の属性値が設定されているかを見る
+C2/741F:    5FC6
+C2/7421:    0100                            対象属性は炎・吹雪フラグ
+C2/7423:    F00B        BEQ $7430           if(炎・吹雪フラグ){
+C2/7425:    A90100      LDA #$0001              a = 1
+C2/7428:    223DF0C2    JSR $C2F03D             戦闘員 y の属性を値 a で更新する
+C2/742C:    5620
+C2/742E:    1000                                対象属性は「炎・吹雪コマンドを相手に実行された」フラグ
+                                            }
+C2/7430:    22FCF0C2    JSR $C2F0FC         戦闘コマンド x の属性値が設定されているかを見る
+C2/7434:    5DC6
+C2/7436:    0100                            対象属性は呪文フラグ
+C2/7438:    F00B        BEQ $7445           if(呪文フラグ){
+C2/743A:    A90100      LDA #$0001              a = 1
+C2/743D:    223DF0C2    JSR $C2F03D             戦闘員 y の属性を値 a で更新する
+C2/7441:    5620
+C2/7443:    2000                                対象属性は「呪文コマンドを相手に実行された」フラグ
+                                            }
+C2/7445:    22FCF0C2    JSR $C2F0FC         戦闘コマンド x の属性値が設定されているかを見る
+C2/7449:    5EC6
+C2/744B:    0100                            対象属性はおどりフラグ
+C2/744D:    F00B        BEQ $745A           if(おどりフラグ){
+C2/744F:    A90100      LDA #$0001              a = 1
+C2/7452:    223DF0C2    JSR $C2F03D             戦闘員 y の属性を値 a で更新する
+C2/7456:    5620
+C2/7458:    4000                                対象属性は「おどりコマンドを相手に実行された」フラグ
+                                            }
+C2/745A:    7A          PLY
+C2/745B:    60          RTS
+</programlisting>
+<para>
+この処理は戦闘員が相手陣による戦闘コマンド実行を受けて、呪文、踊り、炎・吹雪の対策を講じるようなものだろう。
+前節ではこれらの三つのタイプは重複しないと述べたが、上記のコードでは重複したコマンドが存在したとしても対応できる。
+</para>
+</section> <!-- dq6.battle.commands.methods -->
 </section> <!-- dq6.battle.commands -->
