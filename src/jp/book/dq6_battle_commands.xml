@@ -843,4 +843,98 @@ C2/745B:    60          RTS
 前節ではこれらの三つのタイプは重複しないと述べたが、上記のコードでは重複したコマンドが存在したとしても対応できる。
 </para>
 </section> <!-- dq6.battle.commands.methods -->
+
+<section id="dq6.battle.commands.data">
+<title>データ</title>
+<para>
+付録のデータについて、コマンドの名前、メッセージ内容、さらに処理アドレスを見ても実態を特定しづらいオブジェクトがある。
+それについてここで補足しておく。
+</para>
+<para>
+ダメージの応酬や状態の変化しか行わないようなコマンドは、先ほど述べた属性値から簡単にその振る舞いが理解できるが、
+一部の特殊なコマンドは別途処理コードが存在する。
+そのようなものについてはサブルーチン <varname>$C2791C</varname> 以下の実装を解読する必要がある。
+</para>
+<para>
+他にも通常攻撃に加えて状態変化を伴うコマンドがいくつかあることと、
+装備武器に由来する追加ダメージの発生がコマンドとして実現されていること、
+あるいはそれ以外にも注意しないとコマンドの全容が把握できないだろう。
+CSV に載せられないコマンド概要を表にして次に示す：
+</para>
+<table id="table.dq6.battle.commands.special" class="lighttable">
+  <caption>特別な戦闘コマンド</caption>
+  <thead>
+    <tr><th>ID</th><th>コマンドの挙動</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$0000</literal></td><td>（なし）</td></tr>
+    <tr><td><literal>#$0042</literal></td><td>通常攻撃</td></tr>
+    <tr><td><literal>#$004B</literal></td><td>せいれいのうたの終了時に起こる</td></tr>
+    <tr><td><literal>#$004F</literal></td><td>まねまね不発時に起こる</td></tr>
+    <tr><td><literal>#$0057</literal></td><td>メガザルダンス終了時に起こる</td></tr>
+    <tr><td><literal>#$00AF</literal></td><td>攻撃ミス１（混乱による）</td></tr>
+    <tr><td><literal>#$00B0</literal></td><td>攻撃ミス２（混乱による）</td></tr>
+    <tr><td><literal>#$00B1</literal></td><td>混乱による逃げる（失敗）</td></tr>
+    <tr><td><literal>#$00C3</literal></td><td>パルプンテによる HP の全回復</td></tr>
+    <tr><td><literal>#$00C4</literal></td><td>パルプンテによる砕け散る作用</td></tr>
+    <tr><td><literal>#$00C6</literal></td><td>パルプンテによる力がみなぎる作用</td></tr>
+    <tr><td><literal>#$00C7</literal></td><td>ラリホー中</td></tr>
+    <tr><td><literal>#$00C8</literal></td><td>MP 全消費</td></tr>
+    <tr><td><literal>#$00CA</literal></td><td>パルプンテによるドラゴラム作用</td></tr>
+    <tr><td><literal>#$00CB</literal></td><td>パルプンテによる魔神</td></tr>
+    <tr><td><literal>#$00CC</literal></td><td>パルプンテによる時間逆戻り</td></tr>
+    <tr><td><literal>#$00CD</literal></td><td>パルプンテによる自陣全員回復</td></tr>
+    <tr><td><literal>#$00CE</literal></td><td>パルプンテによる冷たい風</td></tr>
+    <tr><td><literal>#$00CF</literal></td><td>（死亡者生き返り）</td></tr>
+    <tr><td><literal>#$00D0</literal></td><td>MP 回復</td></tr>
+    <tr><td><literal>#$00DA</literal></td><td>攻撃ミス３</td></tr>
+    <tr><td><literal>#$00DB</literal></td><td>合体</td></tr>
+    <tr><td><literal>#$00DC</literal></td><td>痛恨の一撃１</td></tr>
+    <tr><td><literal>#$00DD</literal></td><td>痛恨の一撃２</td></tr>
+    <tr><td><literal>#$00DE</literal></td><td>眠り攻撃</td></tr>
+    <tr><td><literal>#$00DF</literal></td><td>毒攻撃</td></tr>
+    <tr><td><literal>#$00E0</literal></td><td>マヒ攻撃</td></tr>
+    <tr><td><literal>#$00E1</literal></td><td>混乱攻撃</td></tr>
+    <tr><td><literal>#$0101</literal></td><td>馬車のドアを閉める</td></tr>
+    <tr><td><literal>#$0102</literal></td><td>声真似して作戦を変える</td></tr>
+    <tr><td><literal>#$0104</literal></td><td>自分の所属グループに仲間を呼ぶ１</td></tr>
+    <tr><td><literal>#$0105</literal></td><td>自分の所属グループに仲間を呼ぶ２（即時コマンド実行型？）</td></tr>
+    <tr><td><literal>#$0106</literal></td><td>自分の所属グループに仲間を呼ぶ３（収容枠まで連続して呼ぶ）</td></tr>
+    <tr><td><literal>#$0107</literal></td><td>しのどれいを呼ぶ</td></tr>
+    <tr><td><literal>#$0108</literal></td><td>ホイミスライムを呼ぶ</td></tr>
+    <tr><td><literal>#$0109</literal></td><td>ぬけがらへいを呼ぶ</td></tr>
+    <tr><td><literal>#$010A</literal></td><td>ダークホーンを呼ぶ</td></tr>
+    <tr><td><literal>#$010B</literal></td><td>トロルを呼ぶ</td></tr>
+    <tr><td><literal>#$010C</literal></td><td>ランプのまじんを呼ぶ</td></tr>
+    <tr><td><literal>#$010D</literal></td><td>ベホマスライムを呼ぶ</td></tr>
+    <tr><td><literal>#$010E</literal></td><td>ヒートギズモを呼ぶ</td></tr>
+    <tr><td><literal>#$010F</literal></td><td>ランプのまおうを呼ぶ</td></tr>
+    <tr><td><literal>#$0110</literal></td><td>しもべのきりさきピエロを呼び付ける</td></tr>
+    <tr><td><literal>#$0111</literal></td><td>助けを呼ぶ１</td></tr>
+    <tr><td><literal>#$0112</literal></td><td>助けを呼ぶ２（即時コマンド実行型？）</td></tr>
+    <tr><td><literal>#$0113</literal></td><td>しもべのデビルアーマーを大声で呼び付ける</td></tr>
+    <tr><td><literal>#$0114</literal></td><td>デスタムーア <literal>#$EF</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$0115</literal></td><td>デスタムーア <literal>#$F1</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$0116</literal></td><td>デスタムーア <literal>#$F3</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$0117</literal></td><td>ダークドレアム <literal>#$F7</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$0118</literal></td><td>ダークドレアム <literal>#$F8</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$0119</literal></td><td>まおうのつかい <literal>#$E1</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$011A</literal></td><td>デスタムーア <literal>#$EE</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$011B</literal></td><td>デスタムーア <literal>#$F0</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$011C</literal></td><td>デスタムーア <literal>#$F2</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$011D</literal></td><td>ダークドレアム <literal>#$F6</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$011E</literal></td><td>ムラサキのひとみ</td></tr>
+    <tr><td><literal>#$0129</literal></td><td>戦闘コマンドに割り当てられていない道具を使う</td></tr>
+    <tr><td><literal>#$015A</literal></td><td>ふぶきのつるぎ装備時の追加ダメージ発生作用</td></tr>
+    <tr><td><literal>#$015B</literal></td><td>ほのおのつるぎ装備時の追加ダメージ発生作用</td></tr>
+    <tr><td><literal>#$015C</literal></td><td>ほのおのツメ装備時の追加ダメージ発生作用</td></tr>
+    <tr><td><literal>#$015D</literal></td><td>こおりのやいば装備時の追加ダメージ発生作用</td></tr>
+    <tr><td><literal>#$015E</literal></td><td>ラミアスのつるぎ装備時の追加ダメージ発生作用</td></tr>
+    <tr><td><literal>#$0198</literal></td><td>（なし）</td></tr>
+  </tbody>
+</table>
+<para>
+併せて、モンスターデータのコマンドリストも参照して欲しい。
+</para>
+</section> <!-- dq6.battle.commands.data -->
 </section> <!-- dq6.battle.commands -->
