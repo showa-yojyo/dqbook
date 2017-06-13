@@ -107,6 +107,7 @@
 <simplelist type="vert" columns="1">
   <member><ulink url="./data/dq6_C20000_search_classification.txt"><filename>dq6_C20000_search_classification.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C20154_monster.txt"><filename>dq6_C20154_monster.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C22D54_playing.txt"><filename>dq6_C22D54_playing.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C4003D_item.txt"><filename>dq6_C4003D_item.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C41C3E_class.txt"><filename>dq6_C41C3E_class.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C58B93_shop.txt"><filename>dq6_C58B93_shop.txt</filename></ulink></member>
@@ -123,6 +124,7 @@
   <member><ulink url="./data/dq6_C9002E_descriptions.txt"><filename>dq6_C9002E_descriptions.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_F6DEBD_text_battle.txt"><filename>dq6_F6DEBD_text_battle.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_F7175B_text_travel.txt"><filename>dq6_F7175B_text_travel.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C8F19B_monster.txt"><filename>dq6_C8F19B_monster.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_FB8703_string.txt"><filename>dq6_FB8703_string.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_FF08DA_talk.txt"><filename>dq6_FF08DA_talk.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_FF243C_talk.txt"><filename>dq6_FF243C_talk.txt</filename></ulink></member>
