@@ -143,12 +143,12 @@
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>耐性 k (k = 00..1E)</term>
+    <term>耐性 k (k = <literal>#$00</literal>..<literal>#$1E</literal>)</term>
     <listitem>
       <para>
         耐性とは、このモンスターの戦闘コマンドに対する耐久度を示す指標を値とする属性だ。
         取り得る値は 0..3 であり、数値が高いほど耐久度が高い（ただし耐久度の意味はコマンドの耐性分類による）。
-        数値と耐性の対応関係については <xref linkend="table.dq6.battle.commands.classifications"/> に示したとおりだ。
+        数値と耐性の対応関係については <xref linkend="table.dq6.battle.commands.classifications"/> のとおり。
       </para>
     </listitem>
   </varlistentry>
@@ -489,7 +489,7 @@
     <term>スプライト</term>
     <listitem>
       <para>
-        スプライトとは、画面上に描画されるモンスターのイメージの形状データを指示する属性だ。
+        スプライトとは、画面上に描画されるモンスターの画像の形状データを指示する属性だ。
         詳細は調査中。
       </para>
     </listitem>
@@ -583,7 +583,7 @@
 逆アセンブルの便宜を図るため、以下に <varname>$C20154</varname> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
 </para>
 <table id="table.dq6.monster.methods" class="lighttable">
-  <caption></caption>
+  <caption>モンスター構造体メソッド</caption>
   <thead>
     <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
   </thead>
@@ -592,12 +592,10 @@
     <tr><td align="center"><varname>$C2F120</varname></td><td>2</td><td>y</td><td>2 バイト型属性値を取得する</td></tr>
     <tr><td align="center"><varname>$C2F136</varname></td><td>4</td><td>x</td><td>ビットフィールド型属性値を取得する</td></tr>
     <tr><td align="center"><varname>$C2F13D</varname></td><td>4</td><td>y</td><td>ビットフィールド型属性値を取得する</td></tr>
-    <tr><td align="center"><varname>$C2F153</varname></td><td>4</td><td>x</td><td>ビットフィールド型属性値が設定されているかを見る</td></tr>
-    <tr><td align="center"><varname>$C2F15A</varname></td><td>4</td><td>y</td><td>ビットフィールド型属性値が設定されているかを見る</td></tr>
   </tbody>
 </table>
 <para>
-ここで、レジスター x および y は戦闘員の添字をそれぞれ指定する。
+ここで、レジスター x および y はモンスター配列の添字をそれぞれ指定する。
 また、いずれの処理においても出力をレジスター a に格納する。
 出力値としては属性値か、ビットシフト工程を省略した値のいずれかだ。
 </para>
