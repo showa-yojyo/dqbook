@@ -263,4 +263,308 @@
   </varlistentry>
 </variablelist>
 </section> <!-- dq6.class.C41C3E -->
+
+<section id="dq6.class.privilege">
+<title>職業に就いていることによる特典</title>
+<para>
+仲間キャラクターが何かの職業に就いていると、どのような良いことが起こるのかを以下に説明する。
+これらの特典は基本的には戦闘モードにおいて有利に働くことが多いようだ。
+</para>
+<para>
+以下の各表で列が ID とあるのは、つよさウィンドウで表示さえる星の数から 1 を引いた値と等しい。
+</para>
+
+<section id="dq6.class.privilege.03">
+<title>ぶとうか</title>
+<para>
+職業がぶとうかである仲間キャラクターは、戦闘中に会心痛恨属性が 1 の戦闘コマンドを実行すると、
+次の表の確率で会心の一撃が発生する：
+</para>
+<table id="table.dq6.class.privilege.C28827" class="lighttable">
+  <caption>ぶとうかが会心の一撃を発生する確率</caption>
+  <thead>
+    <tr><th>ID</th><th>確率</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">0</td></tr>
+    <tr><th>1</th><td align="right">0</td></tr>
+    <tr><th>2</th><td align="right">1/64</td></tr>
+    <tr><th>3</th><td align="right">1/48</td></tr>
+    <tr><th>4</th><td align="right">1/32</td></tr>
+    <tr><th>5</th><td align="right">1/24</td></tr>
+    <tr><th>6</th><td align="right">1/16</td></tr>
+    <tr><th>7</th><td align="right">1/8</td></tr>
+  </tbody>
+</table>
+<para>
+抽選が外れると、通常の職業キャラクターと同様の抽選を行う。
+</para>
+</section> <!-- dq6.class.privilege.03 -->
+
+<section id="dq6.class.privilege.06">
+<title>おどりこ</title>
+<para>
+職業がおどりこであるである仲間キャラクターは、戦闘中にみかわし考慮属性が 1 の戦闘コマンドを受け、
+通常のみかわし判定処理が失敗すると次の表の確率で身をかわす：
+</para>
+<table id="table.dq6.class.privilege.C2711A" class="lighttable">
+  <caption>おどりこが身をかわす確率</caption>
+  <thead>
+    <tr><th>ID</th><th>確率</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">0</td></tr>
+    <tr><th>1</th><td align="right">0</td></tr>
+    <tr><th>2</th><td align="right">1/64</td></tr>
+    <tr><th>3</th><td align="right">1/32</td></tr>
+    <tr><th>4</th><td align="right">1/16</td></tr>
+    <tr><th>5</th><td align="right">1/16</td></tr>
+    <tr><th>6</th><td align="right">1/16</td></tr>
+    <tr><th>7</th><td align="right">1/8</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.class.privilege.06 -->
+
+<section id="dq6.class.privilege.07">
+<title>とうぞく</title>
+<para>
+職業がとうぞくである仲間キャラクターが戦闘後に馬車外にいると、
+倒した敵陣戦闘員から宝箱を盗んでいたことになることがある。
+モンスターのアイテム確率属性から決まる乱数と職業レベル（ここでは星の数）を比較して、大きければ盗み確定となる。
+</para>
+<para>
+とうぞくが複数いる場合は、その人数分だけこのような判定が実行される。
+</para>
+</section> <!-- dq6.class.privilege.07 -->
+
+<section id="dq6.class.privilege.08">
+<title>まものつかい</title>
+<para>
+職業がまものつかいである仲間キャラクターが戦闘後に馬車外にいると、
+倒した敵陣戦闘員が起き上がって仲間になりたそうにすることがある。
+これには、その敵陣戦闘員のモンスターレベルよりも職業レベル（ここでは星の数） * 8 + 1 のほうが大きい（等しいのはダメ）必要がある。
+</para>
+<para>
+まものつかいが複数いる場合は、そのうちのもっとも高い職業レベルが採用される。
+</para>
+</section> <!-- dq6.class.privilege.08 -->
+
+<section id="dq6.class.privilege.09">
+<title>しょうにん</title>
+<para>
+職業がしょうにんである仲間キャラクターが戦闘後に馬車外にいると、
+戦闘後に敵から得られるゴールドが増える。
+追加分は本来の額面に対する割合で次の表のように与えられている：
+</para>
+<table id="table.dq6.class.privilege.C2B277" class="lighttable">
+  <caption>しょうにんが獲得するゴールドの正規獲得額に対する割合</caption>
+  <thead>
+    <tr><th>ID</th><th>割合</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">1/15</td></tr>
+    <tr><th>1</th><td align="right">1/14</td></tr>
+    <tr><th>2</th><td align="right">1/13</td></tr>
+    <tr><th>3</th><td align="right">1/12</td></tr>
+    <tr><th>4</th><td align="right">1/11</td></tr>
+    <tr><th>5</th><td align="right">1/10</td></tr>
+    <tr><th>6</th><td align="right">1/9</td></tr>
+    <tr><th>7</th><td align="right">1/4</td></tr>
+  </tbody>
+</table>
+<para>
+しょうにんが複数いる場合は、その人数分だけこのような判定が実行される。
+</para>
+</section> <!-- dq6.class.privilege.09 -->
+
+<section id="dq6.class.privilege.0A">
+<title>あそびにん</title>
+<para>
+職業があそびにんである仲間キャラクターは、命令に関わらず 1/5 の確率で「あそび」コマンドを実行する。
+このとき、実行コマンドの抽選は職業レベルに依存する。
+選択肢はどのキャラクターも最大 8 個あり、ちょうど職業レベルの取り得る範囲と一致するので乱数は自然に取る。
+「あそび」の選択肢は <varname>$C22D54</varname> に定義されている。
+このデータは <xref linkend="appendix.b"/> に収録した。
+</para>
+</section> <!-- dq6.class.privilege.0A -->
+
+<section id="dq6.class.privilege.0B">
+<title>バトルマスター</title>
+<para>
+職業がバトルマスターである仲間キャラクターは、みかわし考慮属性が 1 の戦闘コマンドを受け、
+通常のみかわし判定処理が失敗すると次の表の確率で相手の攻撃を打ち払う：
+</para>
+<table id="table.dq6.class.privilege.C270D8" class="lighttable">
+  <caption>バトルマスターが敵からの攻撃を打ち払う確率</caption>
+  <thead>
+    <tr><th>ID</th><th>確率</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">0</td></tr>
+    <tr><th>1</th><td align="right">1/64</td></tr>
+    <tr><th>2</th><td align="right">1/48</td></tr>
+    <tr><th>3</th><td align="right">1/32</td></tr>
+    <tr><th>4</th><td align="right">1/16</td></tr>
+    <tr><th>5</th><td align="right">1/16</td></tr>
+    <tr><th>6</th><td align="right">1/16</td></tr>
+    <tr><th>7</th><td align="right">1/8</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.class.privilege.0B -->
+
+<section id="dq6.class.privilege.0D">
+<title>パラディン</title>
+<para>
+職業がパラディンである仲間キャラクターは、パラディン考慮属性が 1 の戦闘コマンドを実行するときに次の表の確率でコマンド対象を即死させる：
+</para>
+<table id="table.dq6.class.privilege.C272FB" class="lighttable">
+  <caption>パラディンが対象を即死させる確率</caption>
+  <thead>
+    <tr><th>ID</th><th>確率</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">0</td></tr>
+    <tr><th>1</th><td align="right">1/64</td></tr>
+    <tr><th>2</th><td align="right">1/48</td></tr>
+    <tr><th>3</th><td align="right">1/32</td></tr>
+    <tr><th>4</th><td align="right">1/32</td></tr>
+    <tr><th>5</th><td align="right">1/16</td></tr>
+    <tr><th>6</th><td align="right">1/16</td></tr>
+    <tr><th>7</th><td align="right">1/8</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.class.privilege.0D-->
+
+<section id="dq6.class.privilege.0E">
+<title>けんじゃ</title>
+<para>
+職業がけんじゃである仲間キャラクターは、移動モード戦闘モードを問わず、コマンド実行時の必要 MP 消費量が緩和される。
+コマンドが規定する消費量がゼロ以外の定数であるようなものについては、次の表で示す量か 1 のどちらかになる：
+</para>
+<table id="table.dq6.class.privilege.C2C297" class="lighttable">
+  <caption>けんじゃの MP 消費</caption>
+  <thead>
+    <tr><th>ID</th><th>消費量</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td>規定量と同じ</td></tr>
+    <tr><th>1</th><td>規定量と同じ</td></tr>
+    <tr><th>2</th><td>規定量の 7/8</td></tr>
+    <tr><th>3</th><td>規定量の 7/8</td></tr>
+    <tr><th>4</th><td>規定量の 3/4</td></tr>
+    <tr><th>5</th><td>規定量の 3/4</td></tr>
+    <tr><th>6</th><td>規定量の 5/8</td></tr>
+    <tr><th>7</th><td>規定量の 1/2</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.class.privilege.0E -->
+
+<section id="dq6.class.privilege.0F">
+<title>レンジャー</title>
+<para>
+職業がレンジャーである仲間キャラクターがいると、戦闘コマンド「にげる」の成功率が次の表のようになる：
+</para>
+<table id="table.dq6.class.privilege.C23F6A" class="lighttable">
+  <caption>レンジャーによる逃走成功確率</caption>
+  <thead>
+    <tr><th>ID</th><th>確率</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">1/8</td></tr>
+    <tr><th>1</th><td align="right">1/8</td></tr>
+    <tr><th>2</th><td align="right">3/8</td></tr>
+    <tr><th>3</th><td align="right">3/8</td></tr>
+    <tr><th>4</th><td align="right">5/8</td></tr>
+    <tr><th>5</th><td align="right">5/8</td></tr>
+    <tr><th>6</th><td align="right">5/8</td></tr>
+    <tr><th>7</th><td align="right">1</td></tr>
+  </tbody>
+</table>
+<para>
+レンジャーが複数いる場合は、そのうちのもっとも高い職業レベルが採用される。
+</para>
+</section> <!-- dq6.class.privilege.0F -->
+
+<section id="dq6.class.privilege.10">
+<title>スーパースター</title>
+<para>
+職業がスーパースターである仲間キャラクターがいると、
+戦闘中に敵陣戦闘員が次の確率で見とれて休み状態になることがある：
+</para>
+<table id="table.dq6.class.privilege.C258C4" class="lighttable">
+  <caption></caption>
+  <thead>
+    <tr><th>ID</th><th>確率</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">0</td></tr>
+    <tr><th>1</th><td align="right">0</td></tr>
+    <tr><th>2</th><td align="right">1/64</td></tr>
+    <tr><th>3</th><td align="right">1/64</td></tr>
+    <tr><th>4</th><td align="right">1/48</td></tr>
+    <tr><th>5</th><td align="right">1/48</td></tr>
+    <tr><th>6</th><td align="right">1/32</td></tr>
+    <tr><th>7</th><td align="right">1/8</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.class.privilege.10 -->
+
+<section id="dq6.class.privilege.11">
+<title>ゆうしゃ</title>
+<para>
+職業がゆうしゃである仲間キャラクターは、戦闘中の各ターン終了時に HP が次の表に示す値だけ自動回復する：
+</para>
+<table id="table.dq6.class.privilege.C2ACF7" class="lighttable">
+  <caption>ゆうしゃの自動回復</caption>
+  <thead>
+    <tr><th>ID</th><th>回復量</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">0</td></tr>
+    <tr><th>1</th><td align="right">0</td></tr>
+    <tr><th>2</th><td align="right">0</td></tr>
+    <tr><th>3</th><td align="right">30</td></tr>
+    <tr><th>4</th><td align="right">40</td></tr>
+    <tr><th>5</th><td align="right">50</td></tr>
+    <tr><th>6</th><td align="right">60</td></tr>
+    <tr><th>7</th><td align="right">80</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.class.privilege.11 -->
+
+<section id="dq6.class.privilege.12">
+<title>ドラゴン</title>
+<para>
+職業がドラゴンである仲間キャラクターがいると、戦闘開始時に先制を取りやすくなる。
+ドラゴンでないときの確率の何倍だけ先制を取りやすいかを次の表で示す：
+</para>
+<table id="table.dq6.class.privilege.C232EA" class="lighttable">
+  <caption>ドラゴンの先制しやすさ</caption>
+  <thead>
+    <tr><th>ID</th><th>倍率</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">2</td></tr>
+    <tr><th>1</th><td align="right">2</td></tr>
+    <tr><th>2</th><td align="right">2</td></tr>
+    <tr><th>3</th><td align="right">3</td></tr>
+    <tr><th>4</th><td align="right">3</td></tr>
+    <tr><th>5</th><td align="right">3</td></tr>
+    <tr><th>6</th><td align="right">3</td></tr>
+    <tr><th>7</th><td align="right">4</td></tr>
+  </tbody>
+</table>
+<para>
+ドラゴンが複数いる場合は、そのうちのもっとも高い職業レベルが採用される。
+</para>
+</section> <!-- dq6.class.privilege.12 -->
+
+<section id="dq6.class.privilege.13">
+<title>はぐれメタル</title>
+<para>
+職業がはぐれメタルである仲間キャラクターは、
+職業レベルが上限に達していると、すべてのコマンド耐性の属性値が 3 であるかのように扱われる。
+</para>
+</section> <!-- dq6.class.privilege.13 -->
+</section> <!-- dq6.class.privilege -->
 </section> <!-- dq6.class -->
