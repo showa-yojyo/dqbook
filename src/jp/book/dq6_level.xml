@@ -6,916 +6,344 @@
 ]>
 
 <section id="dq6.level"><?dbhtml filename="dq6_level.html" ?>
-<title>レベルアップ解析</title>
+<title>レベルアップ</title>
 <indexterm id="term.dq6.level"><primary>レベル</primary><secondary>DQ6</secondary></indexterm>
 <para>
-	ここでは、<varname>$FFB6C2</varname> に定義されている構造体、
-	レベルアップ定義構造体の解析を中心に、
-	レベルアップ時のキャラクターのパラメータ変化について述べる。
+本節ではレベルアップについて説明する。
+最初にレベルアップの詳細がレベルアップ構造体と呼ばれる型のオブジェクトで決定されるものであることを示し、
+それからレベルアップに必要となる経験値や、仲間キャラクターの属性値の変動量、習得コマンド決定処理手順を解説する。
+ここで示した型の配列データは CSV として <xref linkend="appendix.b"/> に収録してある。
 </para>
+
+<section id="dq6.level.FFB6C2">
+<title>構造体 <varname>$FFB6C2</varname>: レベルアップ</title>
 <para>
-	いつものように、構造体のアドレス・概略については Shingo Endo 氏
-	<xref linkend="dqref.url1"/>
-	等によって解析済であるため、そこから解析作業を始める。
+レベルアップ構造体とは、サイズが <literal>#$B1</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
+この型のオブジェクトがアドレス <varname>$FFB6C2</varname> から 27 個直列している。
 </para>
-
-<section id="dq6.level.hack">
-<title>解析</title>
-<para>
-	まずはプログラムがレベルアップ定義構造体を参照する箇所を全て洗い出す。
-	レベルアップ定義構造体については、いつものような「ポインタ配列」がないようなので、
-	プログラムはこの構造体のデータの格納アドレスを直接参照していると考えられる。
-	そこで、Stirling の <command>BGREP</command> コマンドで、<literal>C2 B6 FF</literal> を検索する。
-</para>
-<literallayout>
-C:\home\yojyo\data\work_dq6.smc : 000431CE
-C:\home\yojyo\data\work_dq6.smc : 000431E7
-C:\home\yojyo\data\work_dq6.smc : 00043200
-C:\home\yojyo\data\work_dq6.smc : 00043219
-C:\home\yojyo\data\work_dq6.smc : 00043232
-C:\home\yojyo\data\work_dq6.smc : 0004324B
-C:\home\yojyo\data\work_dq6.smc : 00043264
-C:\home\yojyo\data\work_dq6.smc : 0004327D
-C:\home\yojyo\data\work_dq6.smc : 00044104
-C:\home\yojyo\data\work_dq6.smc : 000475C4
-C:\home\yojyo\data\work_dq6.smc : 000475DD
-C:\home\yojyo\data\work_dq6.smc : 000475F6
-C:\home\yojyo\data\work_dq6.smc : 0004760F
-C:\home\yojyo\data\work_dq6.smc : 00047628
-C:\home\yojyo\data\work_dq6.smc : 00047641
-C:\home\yojyo\data\work_dq6.smc : 0004765A
-C:\home\yojyo\data\work_dq6.smc : 00047673
-C:\home\yojyo\data\work_dq6.smc : 003CB6BE
-18件見つかりました
-</literallayout>
-<para>
-	参照箇所が大体固まっていることが想像できる。
-	<varname>$FCB6BE</varname> だけ特異な結果なので、後回し。
-	逆アセンブリ済みのコードで、これらの周辺を調べることにする。
-	<simplelist>
-		<member><varname>$C431CE</varname>-<varname>$C4327D</varname> をひとつのサブルーチンが包含している可能性が濃厚</member>
-		<member><varname>$C44104</varname> を含むサブルーチンが存在する可能性が濃厚</member>
-		<member><varname>$C475C4</varname>-<varname>$C47673</varname> をひとつのサブルーチンが包含している可能性が濃厚</member>
-	</simplelist>
-</para>
-<para>
-	場合によっては、
-	上のサブルーチンが補助的に利用するサブルーチンや、
-	呼び出しもとのサブルーチンのコードを解読する必要も生じてくる。
-	（今回のレベルアップ構造体の場合、パラメータの上がり方を見る箇所がそれに該当する）
-</para>
-
-<section id="dq6.level.hack.C43061">
-<title>サブルーチン <varname>$C43061</varname> - キャラクター初期化</title>
-<para>
-	「<varname>$C431CE</varname>-<varname>$C4327D</varname> を包含するひとつのサブルーチン」はかなり長いコードからなる。
-	実装から、このサブルーチンは、新しくキャラクターがパーティに加わるときに用いられるものと推測できる。
-	前半ではキャラクター構造体からの初期化を行い、
-	後半ではレベルアップ構造体からの初期化を行っている。
-	ここでは後者の様子を解析する。
-</para>
-<para>
-	<varname>$7E4025</varname> 構造体に値をセットする箇所を読むことにより、
-	レベルアップ構造体にある各パラメータの初期値を意味するメンバーの存在と、その位置が判明する。
-</para>
-<programlisting>
-C4/312E:    AE9948      LDX $4899
-C4/3131:    22D42BC9    JSR $C92BD4         ■(RTL+7) $00,arg[06] = [arg[03-05][06]] @x
-            01
-            2A00
-            3826C4  // キャラクターパラメータ格納アドレス
-            4A
-// 省略...
-C4/317D:    AE9848      LDX $4898           x = キャラクター;
-// 省略...
-C4/3193:    22B52AC9    JSR $C92AB5         ■(RTL+8) a = $40 = (arg[00] ? [arg[03-05]] : @x * arg[01-02] + args)
-            01
-            1B00
-            B8C5C8  // キャラクター構造体へのポインタ
-            0500    // [05]: 初期レベル
-C4/319F:    48          PHA                 // ** 初期レベル **
-C4/31A0:    A000        LDY #$00
-C4/31A2:    A901        LDA #$01
-C4/31A4:    4941        EOR #$41            // 主人公の場合は $4A == 7E4025h (3byte)
-C4/31A6:    974A        STA [$4A],Y         [$4A],Y = 01h ^ 41h;
-
-// 省略...
-
-// 最大 HP の初期値を
-// $7E4025 構造体の最大 HP メンバーにセット:
-//
-// 最初の $C92AB5 呼び出しで
-// キャラクター x に関連するレベルアップ構造体[10] (2byte) メンバーを
-// $40 にセットする
-C4/31C7:    22B52AC9    JSR $C92AB5         ■(RTL+8) a = $40 = (arg[00] ? [arg[03-05]] : @x * arg[01-02] + args)
-            00
-            B100
-            C2B6FF  // レベルアップ
-            1000    // [10]: HP
-// 次に $C92E15 呼び出しで
-// $7E4025 構造体の [0B] &amp; 03FFh ビット列、すなわち
-// 最大 HP メンバーに $40 の値を格納する
-//
-// （これにより、レベルアップ構造体[10] の意味が判明した）
-C4/31D3:    F44A00      PEA $004A
-C4/31D6:    F4FF03      PEA $03FF
-C4/31D9:    F40B00      PEA $000B           // [$4A],0B &amp;= ~03FFh |= $40 と思えばよい
-C4/31DC:    22152EC9    JSR $C92E15         ■[PEA1-L],PEA3-L &amp;= ~PEA2 |= $40?
-// 同様にして
-// 最大 MP 初期値セット
-C4/31E0:    22B52AC9    JSR $C92AB5         ■(RTL+8) a = $40 = (arg[00] ? [arg[03-05]] : @x * arg[01-02] + args)
-            00
-            B100
-            C2B6FF  // レベルアップ
-            2000    // [20]: MP
-C4/31EC:    F44A00      PEA $004A
-C4/31EF:    F4FF03      PEA $03FF
-C4/31F2:    F40F00      PEA $000F
-C4/31F5:    22152EC9    JSR $C92E15         ■[PEA1-L],PEA3-L &amp;= ~PEA2 |= $40?
-// ...以下、
-// レベルアップ構造体[30] → ちから初期値セット、
-// レベルアップ構造体[40] → すばやさ初期値セット、
-// レベルアップ構造体[50] → かしこさ初期値セット、
-// レベルアップ構造体[60] → みのまもり初期値セット、
-// レベルアップ構造体[70] → かっこよさ初期値セット、と続く……
-</programlisting>
-</section> <!-- dq6.level.hack.C43061 -->
-
-<section id="dq6.level.hack.C4754B">
-<title>サブルーチン <varname>$C4754B</varname> - 初期レベルにリセットと職業データをゼロで初期化</title>
-<para>
-	「<varname>$C475C4</varname>-<varname>$C47673</varname> を包含するサブルーチン」は、
-	キャラクターを初期レベルにセットし、職業データをゼロ初期化、
-	そしてキャラクターパラメータを、初期レベル時のそれにセットすることを行うサブルーチン <varname>$C4754B</varname> だ。
-	レベルアップ構造体へのアクセスは、
-	<link linkend="dq6.level.hack.C43061">前述</link>
-	の処理と似ている。
-	よって、ここにコードを掲載せずに先に進む。
-</para>
-</section> <!-- dq6.level.hack.C4754B -->
-
-<section id="dq6.level.hack.C441C2">
-<title>サブルーチン <varname>$C441C2</varname> - レベルアップ処理</title>
-<para>
-	敵全滅時点での処理における、味方パーティ各キャラクターのレベルアップ処理をたどることで、
-	レベルアップ構造体のデータ構成を解析することを試みる。
-	以下のコード片が、レベルアップの「一番外側」だ。
-</para>
-<programlisting>
-C2/AF5C:    AD4D25      LDA $254D           // 戦闘 経験値 LO
-C2/AF5F:    8500        STA $00
-C2/AF61:    AD4F25      LDA $254F           // 戦闘 経験値 HI
-C2/AF64:    8502        STA $02
-C2/AF66:    221C2BC4    JSR $C42B1C         ●(RTL+2) $4898 がどうとか
-            0204
-C2/AF6C:    A20000      LDX #$0000
-                                            for(x = 0; x &lt; $04; ++x){
-C2/AF6F:    22A34CC4    JSR $C44CA3             ■(RTL+3) ねむり/まひ/もうどく/どく/しに
-            02FEFF
-C2/AF76:    290100      AND #$0001
-C2/AF79:    D014        BNE $AF8F               if(a &amp; 0001h == 0){
-C2/AF7B:    22FB3FC4    JSR $C43FFB                 ■(RTL+3) キャラクター経験値 += $00 (3byte)
-            02FE00
-                                                    for(;;){
-C2/AF82:    22C241C4    JSR $C441C2                     ■(RTL+2) レベルアップ処理
-            02FE
-C2/AF88:    9005        BCC $AF8F                       if(!carry) break;
-C2/AF8A:    2095AF      JSR $AF95                           ■「○○○○は レべル○に あがった！」表示あり
-C2/AF8D:    80F3        BRA $AF82                       }
-                                                    }
-                                                }
-C2/AF8F:    E8          INX
-C2/AF90:    E404        CPX $04
-C2/AF92:    90DB        BCC $AF6F           }
-C2/AF94:    60          RTS
-</programlisting>
-<para>
-	右側にある C 言語風メモの「レベルアップ処理」サブルーチンにどんどん潜ってみる。
-	ここの内側の反復処理の中止条件が不明のままだが、それは今は気にしない。
-	なお、<varname>$C441C2</varname> 全体をここに掲載するとやや長くなるため、要所だけをピックアップしていく。
-</para>
-<programlisting>
-.routine レベルアップ処理
-// コード省略部分の処理内容は以下のようになっている：
-// $C441C2-$C441CA: サブルーチン呼び出しに伴うスタック処理
-// $C441CB-$C441E9: X = キャラクター ID (1byte)
-// $C441EA-$C441F7: AL = $7E4025 構造体からキャラクターのレベル値
-C4/41F8:    C963        CMP #$63
-C4/41FA:    B058        BCS $4254           if(AL &gt;= 63h) goto 経験値が既に極限;
-C4/41FC:    A8          TAY                 Y = レベル;
-C4/41FD:    C8          INY                 ++Y;
-C4/41FE:    20D240      JSR $40D2           ■$48A8 = レベル Y 最低経験値計算 (3byte)
-C4/4201:    ADA848      LDA $48A8
-C4/4204:    2DA948      AND $48A9
-C4/4207:    2DAA48      AND $48AA
-C4/420A:    C9FF        CMP #$FF
-C4/420C:    F046        BEQ $4254           if(($48A8 &amp; $48A9 &amp; $48AA) == FFh) goto 経験値が既に極限;
-C4/420E:    FA          PLX                 // ↓は $4A = 現在のキャラクターの経験値 (3byte)
-C4/420F:    22D42BC9    JSR $C92BD4         ■(RTL+7) $00,arg[06] = [arg[03-05][06]] (x as index)
-            01
-            2A00
-            3826C4
-            4A
-C4/421A:    A003        LDY #$03
-C4/421C:    B74A        LDA [$4A],Y         // 現在経験値最上位
-C4/421E:    CDAA48      CMP $48AA
-C4/4221:    9010        BCC $4233           if(現在経験値H  &lt; 次経験値H) goto レベル上げない;
-C4/4223:    D03B        BNE $4260           if(現在経験値H != 次経験値H) goto レベル上げる;
-C4/4225:    C220        REP #$20
-C4/4227:    A001        LDY #$01
-C4/4229:    B74A        LDA [$4A],Y
-C4/422B:    492641      EOR #$4126
-C4/422E:    CDA848      CMP $48A8
-C4/4231:    B02D        BCS $4260           if(現在経験値ML &gt;= 次経験値ML) goto レベル上げる;
-.label レベル上げない
-// コード省略部の実装：
-// $C44233-$C44250: $4854 = 次のレベルに達するまでに必要な経験値 (3byte)
-// $7E4025 データが持つ経験値を利用して計算する
-// ※ EOR 4126h を考慮している
-C4/4251:    82D40A      BRL $4D28           goto (RTL+2);
-.label 経験値が既に極限
-// コード省略部の実装：
-// $C44254-$C4425C: $4854 = 000000h (3byte)
-C4/425D:    82C80A      BRL $4D28           goto (RTL+2);
-</programlisting>
-<para>
-	ここまでの処理で注目したいのは、
-	<varname>C4/41FE</varname> におけるサブルーチン呼び出しでの
-	「<varname>$48A8</varname> = レベル <varname>Y</varname> 最低経験値計算 (<literal>3</literal> バイト)」
-	だ。
-	<link linkend="dq6.level.hack.C440D2">後述</link>の通り、
-	この内部ではレベルアップ構造体データのかなりの範囲へアクセスする可能性がある。
-	<varname>$7E48A8</varname> だけでなく、<varname>$7E48B0</varname> にインデックス値が格納されることにも注意する。
-</para>
-<para>
-	レベルを上げることが決定した場合の処理に入る。
-	レベルアップ構造体のレベル配列において、
-	隣り合う要素の差を計算しているようだ。
-	この計算は、次のレベルがいくつであるかに強く依存している。
-	（どうにも最初のループの実装意図が明確ではないが）
-</para>
-<programlisting>
-.label レベル上げる
-// コード省略部の実装：
-// $C44260-$C4426D: レベルをインクリメントして $7E4025 データに格納
-// $C4426E-$C4427B: $4A = $48B4 (3 バイト) すなわち
-// そのキャラクターに対応するレベルアップ構造体データの先頭アドレス
-// ※ SEP #$30 状態
-C4/427C:    9CB748      STZ $48B7           $48B7 = 00h;
-                                            for(;;){
-C4/427F:    ADB048      LDA $48B0               // LDA [$4A],Y の Y; レベル配列の upper-bound index
-C4/4282:    18          CLC
-C4/4283:    6903        ADC #$03
-C4/4285:    A8          TAY                     Y = $48B0 + 3;
-C4/4286:    C003        CPY #$03                // Y はレベルアップ構造体データ 0 バイト位置からのオフセット
-C4/4288:    D009        BNE $4293               if(Y == 3){  // レベル配列の最初を指している
-// コード省略部の実装：
-// $C4428A-$C44290: $40 = キャラクターの現在のレベル
-//                  AL  = レベルアップ構造体レベル配列[0] - 1
-// ※ $48B7 == 00h
-C4/4291:    8025        BRA $42B8                   goto 各パラメータ増分計算開始;
-                                                }
-C4/4293:    A301        LDA $01,S               // 次レベル
-C4/4295:    88          DEY                     --Y;  // レベルアップ構造体レベル配列を reverse-iterate
-C4/4296:    D74A        CMP [$4A],Y             // レベルアップ直後のレベルと、Lv[?-1] の比較
-C4/4298:    D005        BNE $429F               if(次レベル != レベル配列[Y]) break;
-C4/429A:    EEB748      INC $48B7               ++$48B7;  // Y を デクリメントした回数 - 1 となる
-C4/429D:    80E0        BRA $427F           }
-// 省略部：
-// $C4429F-$C442A4: $40 = 次レベル - レベル配列[Y - ?];
-C4/42A5:    C8          INY                 ++Y;
-C4/42A6:    C009        CPY #$09
-C4/42A8:    9008        BCC $42B2           if(Y &gt;= 9){  // Y がレベル配列の存在範囲を超えている
-// 省略部：
-// $C442AA-$C442AF: AL = 63h - レベル配列[5]
-C4/42B0:    8006        BRA $42B8           }else{
-// 省略部：
-// $C442B2-$C442B7: AL = レベル配列[Y] - レベル配列[Y-1]
-                                            }
-</programlisting>
-<para>
-	レベルアップの重要な意味は、キャラクターのパラメータが増えることだ。
-	その処理は、以下のように、パラメータごとに増分ポイントを計算していく。
-	<link linkend="dq6.level.hack.C444BC">後述</link>
-	するように、パラメータの増分計算サブルーチンは、
-	レベルアップ構造体内に定義されているパラメータ配列にアクセスする。
-</para>
-<programlisting>
-.label 各パラメータ増分計算開始
-C4/42B8:    8DB848      STA $48B8           $48B8 = AL;   // レベル配列[Y] - レベル配列[Y-1] が普通
-C4/42BB:    A540        LDA $40
-C4/42BD:    8DB948      STA $48B9           $48B9 = $40;  // 次レベル - レベル配列[Y-?] が普通
-C4/42C0:    C220        REP #$20            // m-
-C4/42C2:    A91200      LDA #$0012          // レベルアップ構造体[12]以降が狙い
-C4/42C5:    20BC44      JSR $44BC           ■レベルアップ - パラメータ増分計算
-C4/42C8:    8D5748      STA $4857           // さいだいＨＰ 増分
-
-C4/42CB:    A92200      LDA #$0022          // レベルアップ構造体[22]
-C4/42CE:    20BC44      JSR $44BC           ■レベルアップ - パラメータ増分計算
-C4/42D1:    8D5948      STA $4859           // さいだいＭＰ 増分
-
-C4/42D4:    A93200      LDA #$0032          // レベルアップ構造体[32]
-C4/42D7:    20BC44      JSR $44BC           ■レベルアップ - パラメータ増分計算
-C4/42DA:    8D5B48      STA $485B           // ちから 増分
-
-C4/42DD:    A94200      LDA #$0042          // レベルアップ構造体[42]
-C4/42E0:    20BC44      JSR $44BC           ■レベルアップ - パラメータ増分計算
-C4/42E3:    8D5F48      STA $485F           // すばやさ 増分
-
-C4/42E6:    A95200      LDA #$0052          // レベルアップ構造体[52]
-C4/42E9:    20BC44      JSR $44BC           ■レベルアップ - パラメータ増分計算
-C4/42EC:    8D6148      STA $4861           // かしこさ 増分
-
-C4/42EF:    A96200      LDA #$0062          // レベルアップ構造体[62]
-C4/42F2:    20BC44      JSR $44BC           ■レベルアップ - パラメータ増分計算
-C4/42F5:    8D5D48      STA $485D           // みのまもり 増分
-
-C4/42F8:    A97200      LDA #$0072          // レベルアップ構造体[72]
-C4/42FB:    20BC44      JSR $44BC           ■レベルアップ - パラメータ増分計算
-C4/42FE:    8D6348      STA $4863           // かっこよさ 増分
-</programlisting>
-<para>
-	レベルアップのもうひとつの重要な意味は、
-	新しい呪文・特技が使えるようになることだ。
-	<link linkend="dq6.level.hack.C44509">後述</link>するように、
-	サブルーチン <varname>$C44509</varname> がそれを処理する。
-</para>
-<programlisting>
-C4/4301:    AE9848      LDX $4898           X = キャラクター;
-C4/4304:    200945      JSR $4509           ■レベルアップ - 呪文・特技
-// 省略部：
-// $C44307-$C44315: 職業関係の補正を行い、carry フラグを立てる
-C4/4316:    820F0A      BRL $4D28           goto (RTL+2);
-</programlisting>
-</section> <!-- dq6.level.hack.C441C2 -->
-
-<section id="dq6.level.hack.C440D2">
-<title>サブルーチン <varname>$C440D2</varname> - レベル <varname>y</varname> であるための経験値の最小値を計算</title>
-<para>
-	<link linkend="dq6.level.hack">前述</link>の
-	「<varname>$C44104</varname> を含むサブルーチン」は、これだ。
-	レベルアップ処理途中で利用されるだけでなく、
-	教会で「おいのりをする」ときにも呼び出される。
-</para>
-<para>
-	このサブルーチンは
-	「あるキャラクターが、あるレベルであるときの経験値の最小値を計算する」
-	ものだ。
-	この計算の過程で、レベルアップ構造体一つあたりのデータ内の
-	<literal>00</literal> バイト目から <literal>0F</literal> バイト目まで、
-	および、<literal>B0</literal> バイト目が参照され得ることがわかる。
-	配列へのアクセスをどのように行うかを、感覚で理解してもらいたいので、
-	あえてサブルーチン内のコード全体を以下に示す。
-</para>
-<programlisting>
-..routine レベル y 最低経験値計算
-// x := キャラクター ID
-// y := レベルの値 + 1 で呼び出すのが普通
-C4/40D2:    08          PHP 
-C4/40D3:    C230        REP #$30
-C4/40D5:    A90100      LDA #$0001
-C4/40D8:    8DB248      STA $48B2           $7E48B2 = 0001h;
-C4/40DB:    CCB248      CPY $48B2
-C4/40DE:    D009        BNE $40E9           if(y == $7E48B2){  // レベル 1
-C4/40E0:    9CA848      STZ $48A8
-C4/40E3:    9CA948      STZ $48A9               $7E48A8 = 000000h;
-C4/40E6:    82D700      BRL $41C0               goto finish;
-                                            }
-C4/40E9:    5A          PHY                 // save y (== レベル + 1)
-C4/40EA:    9CB048      STZ $48B0           $7E48B0 = 0000h;   // LDA [$4A],Y 用のインデックス値
-C4/40ED:    22B52AC9    JSR $C92AB5         ■(RTL+8) a = $40 = (arg[00] ? [arg[03-05]] : @x * arg[01-02] + args)
-            01
-            1B00
-            B8C5C8  // キャラデータ 先頭アドレス
-            0600    // 6 byte 目にレベルアップ構造体 ID がある
-C4/40F9:    29FF00      AND #$00FF
-C4/40FC:    AA          TAX                 x = a &amp; 00FFh;
-C4/40FD:    22D42BC9    JSR $C92BD4         ■(RTL+7) $00,arg[06] = [arg[03-05][06]] @a
-            00
-            B100
-            C2B6FF  // レベルアップ構造体データ 先頭アドレス
-            4A
-C4/4108:    F44A00      PEA $004A           // $4A: レベルアップ構造体データ アドレス
-C4/410B:    F47F00      PEA $007F           // 
-C4/410E:    F4B000      PEA $00B0           // [B0]: レベルアップ構造体にある「最大レベル」
-C4/4111:    22DE2DC9    JSR $C92DDE         ●a = [$4A][B0]
-C4/4115:    C301        CMP $01,S
-C4/4117:    B00D        BCS $4126           if(最大レベル &lt; レベル + 1){
-C4/4119:    A9FFFF      LDA #$FFFF
-C4/411C:    8DA848      STA $48A8
-C4/411F:    8DA948      STA $48A9               $7E48A8 = FFFFFFh;
-C4/4122:    7A          PLY                     // restore y
-C4/4123:    829A00      BRL $41C0               goto finish;
-                                            }
-C4/4126:    A54A        LDA $4A             // 3byte load
-C4/4128:    8DB448      STA $48B4           //
-C4/412B:    A54B        LDA $4B             //
-C4/412D:    8DB548      STA $48B5           $7E48B4 = $4A; (3byte)
-C4/4130:    A00100      LDY #$0001          // assign 3byte: レベルアップ構造体[00-02]
-C4/4133:    B74A        LDA [$4A],Y         // この 3byte 値はレベル 2 のときの経験値の最小値
-C4/4135:    8DA948      STA $48A9           //
-C4/4138:    88          DEY                 //
-C4/4139:    B74A        LDA [$4A],Y         //
-C4/413B:    8DA848      STA $48A8           $7E48A8 = [$4A] (3byte); // 現在のレベルの最小経験値
-C4/413E:    9CAC48      STZ $48AC           // assign 3byte
-C4/4141:    9CAD48      STZ $48AD           $7E48AC = 000000h (3byte); // 前のレベルの最小経験値
-                                            for(;;){
-C4/4144:    EEB248      INC $48B2               ++$7E48B2; // レベル値
-C4/4147:    A301        LDA $01,S
-C4/4149:    CDB248      CMP $48B2
-C4/414C:    F071        BEQ $41BF               if(レベル + 1 == $7E48B2)  goto restore y;
-C4/414E:    ADB048      LDA $48B0               // LDA [$4A],Y 用の index
-C4/4151:    18          CLC 
-C4/4152:    690300      ADC #$0003              // レベルアップ構造体[03-09]
-C4/4155:    A8          TAY                     y = $7E48B0 + 0003h;
-C4/4156:    C00900      CPY #$0009              // このループは std::upper_bound
-C4/4159:    B012        BCS $416D               while(y &lt; 0009h){
-C4/415B:    B74A        LDA [$4A],Y                 // 基準レベルデータ[00-05]
-C4/415D:    29FF00      AND #$00FF                  a = 基準レベルデータ[@y] &amp; 00FFh;
-C4/4160:    CDB248      CMP $48B2
-C4/4163:    F002        BEQ $4167                   // レベル値
-C4/4165:    B006        BCS $416D                   if($7E48B2 &lt; a)  break;
-C4/4167:    C8          INY                         ++y;
-C4/4168:    EEB048      INC $48B0                   ++$7E48B0;  // LDA [$4A],Y 用のインデックス値
-C4/416B:    80E9        BRA $4156               }
-C4/416D:    ADA848      LDA $48A8               // 3byte subtraction
-C4/4170:    38          SEC                     // 現在のレベルの最小経験値から
-C4/4171:    EDAC48      SBC $48AC               // 前のレベルの最小経験値を減じる
-C4/4174:    8540        STA $40                 // --&gt; $40 へ (3byte)
-C4/4176:    E230        SEP #$30                //
-C4/4178:    ADAA48      LDA $48AA               //
-C4/417B:    EDAE48      SBC $48AE               //
-C4/417E:    8542        STA $42                 $40 = $7E48A8 - $7E48AC; (3 byte)
-C4/4180:    ADB048      LDA $48B0
-C4/4183:    18          CLC 
-C4/4184:    6909        ADC #$09                // 公比[00-06] 用 index 
-C4/4186:    A8          TAY
-C4/4187:    B74A        LDA [$4A],Y             AL = [$4A],($7E48B0 + 09h);
-C4/4189:    C230        REP #$30                // mx
-C4/418B:    A24000      LDX #$0040              x = 0040h;  // $40
-C4/418E:    22CD0CC0    JSR $C00CCD             ■$00,x *= AL (4byte)
-
-C4/4192:    A20500      LDX #$0005              // $40 &gt;&gt;= 5 (3byte)
-C4/4195:    4642        LSR $42                 //
-C4/4197:    6640        ROR $40                 //
-C4/4199:    CA          DEX                     //
-C4/419A:    D0F9        BNE $4195               //
-
-C4/419C:    ADA848      LDA $48A8               // assign 3byte
-C4/419F:    8DAC48      STA $48AC               // Exp = Exp
-C4/41A2:    ADA948      LDA $48A9               // 
-C4/41A5:    8DAD48      STA $48AD               $7E48AC = $7E48A8 (3byte);
-
-C4/41A8:    ADA848      LDA $48A8               // add 3byte
-C4/41AB:    18          CLC                     // Exp += Exp
-C4/41AC:    6540        ADC $40                 //
-C4/41AE:    8DA848      STA $48A8               //
-C4/41B1:    E220        SEP #$20                //
-C4/41B3:    ADAA48      LDA $48AA               //
-C4/41B6:    6542        ADC $42                 //
-C4/41B8:    8DAA48      STA $48AA               $7E48A8 += $40; (3byte);
-
-C4/41BB:    C220        REP #$20
-C4/41BD:    8085        BRA $4144           }
-.label  restore y
-C4/41BF:    7A          PLY                 // restore y
-.label  finish
-C4/41C0:    28          PLP 
-C4/41C1:    60          RTS                 return;
-@end
-</programlisting>
-<para>
-	このコードから、レベルと最小経験値の関係が判明した：
-
-	「レベル n であるときの経験値の最小値」という数列 {E<subscript>n</subscript>} (n = 1, 2, .., 最大レベル) を考える。
-	このとき、数列 E<subscript>n</subscript> の第一階差数列
-	{D<subscript>n</subscript>} := {E<subscript>n+1</subscript> - E<subscript>n</subscript>} (n = 1, 2, .., 最大レベル - 1)
-	が区分的に等比数列になっている。
-	つまり、数列 {L<subscript>n</subscript>} と {R<subscript>n</subscript>} が存在して、
-	<simplelist>
-		<member>D<subscript>i+1</subscript> / D<subscript>i</subscript> = R<subscript>1</subscript>, (i = 0, .., L<subscript>1</subscript> - 1)</member>
-		<member>D<subscript>i+1</subscript> / D<subscript>i</subscript> = R<subscript>2</subscript>, (i = L<subscript>1</subscript>, .., L<subscript>2</subscript> - 1)</member>
-		<member>...</member>
-	</simplelist>
-	を満たしている。
-</para>
-<para>
-	このサブルーチンがセットするメモリ <varname>$7E48B0</varname> 等は、
-	後ほど呼び出されるパラメータ増分計算サブルーチン内で参照される。
-</para>
-</section> <!-- dq6.level.hack.C440D2 -->
-
-<section id="dq6.level.hack.C444BC">
-<title>サブルーチン <varname>$C444BC</varname> - パラメータ増分計算</title>
-<para>
-	レベルアップ構造体内部だけで閉じた演算により、
-	レベルアップによる各パラメータ増分ポイントを決定するサブルーチンだ。
-	増分ポイントは、パラメータ配列の隣り合う二要素の差を、
-	対応するレベル配列の隣り合う二要素の差で按分したものと捉えて構わないようだ。
-	（どのキャラクターも、レベルがレベル配列<literal>[Y]</literal> からレベル配列<literal>[Y+1]</literal> まで、
-	各パラメータが同じポイントずつ上がっていくイメージ。）
-</para>
-<programlisting>
-C4/44BC:    8540        STA $40             // A の値はこのサブルーチンの呼び出し元で直セットしている
-C4/44BE:    ADB048      LDA $48B0           // 経験値の計算部で $48B0 をセットしている
-C4/44C1:    0A          ASL A               // パラメータ配列は 2byte 型なので、インデックスを倍にする
-C4/44C2:    18          CLC 
-C4/44C3:    6540        ADC $40
-C4/44C5:    A8          TAY                 Y = $48B0 &lt;&lt; 1 + $40;
-C4/44C6:    B74A        LDA [$4A],Y         a = [$4A],Y;  // レベルアップ構造体パラメータ値
-C4/44C8:    88          DEY 
-C4/44C9:    88          DEY                 Y -= 2;
-C4/44CA:    38          SEC
-C4/44CB:    F74A        SBC [$4A],Y         a -= [$4A],Y; // 一つ前のパラメータ値で減じる
-C4/44CD:    48          PHA
-C4/44CE:    8540        STA $40             $40 = パラメータ値差分;
-C4/44D0:    ADB948      LDA $48B9           a = $48B9;
-C4/44D3:    A240        LDX #$40
-C4/44D5:    229C0CC0    JSR $C00C9C         ■$00,X *= a;  // パラメータ差分 * $48B9
-C4/44D9:    ADB848      LDA $48B8           a = $48B8;
-C4/44DC:    22090EC0    JSR $C00E09         ■$00,x /= AL (3byte); a = R (1 or 2byte)  // パラメータ差分 * $48B9 / $48B8
-C4/44E0:    A8          TAY                 y = a; // 余りを憶えておく --&gt; $C4/44FF
-C4/44E1:    68          PLA
-C4/44E2:    8544        STA $44             $44 = パラメータ値差分;
-C4/44E4:    ADB948      LDA $48B9
-C4/44E7:    3A          DEC A               a = $48B9 - 1;
-C4/44E8:    A244        LDX #$44
-C4/44EA:    229C0CC0    JSR $C00C9C         ■$00,X *= a;  // パラメータ差分 * ($48B9 - 1)
-C4/44EE:    ADB848      LDA $48B8           a = $48B8;
-C4/44F1:    22090EC0    JSR $C00E09         ■$00,x /= AL (3byte); a = R (1 or 2byte)  // パラメータ差分 * ($48B9 - 1) % $48B8
-C4/44F5:    A540        LDA $40
-C4/44F7:    38          SEC 
-C4/44F8:    E544        SBC $44             a = $40 - $44;  // これが戻り値候補
-// a == (パラメータ差分 * $48B9 / $48B8) - (パラメータ差分 * ($48B9 - 1) / $48B8)
-C4/44FA:    AEB748      LDX $48B7           X = $48B7;  // see $C4429A
-C4/44FD:    F005        BEQ $4504           if(X == 00h) return;
-C4/44FF:    C000        CPY #$00            // 余りをチェック
-C4/4501:    F001        BEQ $4504           if(Y == 00h) return;
-C4/4503:    1A          INC A               ++a;  // 1 増やす（帳尻あわせに違いない）
-C4/4504:    60          RTS
-</programlisting>
-</section> <!-- dq6.level.hack.C444BC -->
-
-<section id="dq6.level.hack.C44509">
-<title>サブルーチン <varname>$C44509</varname> - 呪文・特技習得</title>
-<para>
-	レベルアップ構造体の <literal>[80-97]</literal> と <literal>[98-AF]</literal> がそれぞれペアをなすことがわかる。
-	この二つの配列はそれぞれ、呪文・特技（のウィンドウ表示用データ）ID と、
-	習得レベルを表現することがわかる。
-</para>
-<programlisting>
-C4/4509:    08          PHP 
-C4/450A:    E230        SEP #$30            // MX
-C4/450C:    DA          PHX 
-C4/450D:    C220        REP #$20            // mX
-C4/450F:    A90000      LDA #$0000
-C4/4512:    A200        LDX #$00
-// ゼロクリア
-C4/4514:    9D6548      STA $4865,X
-C4/4517:    9D6D48      STA $486D,X
-C4/451A:    E8          INX 
-C4/451B:    E8          INX 
-C4/451C:    E008        CPX #$08
-C4/451E:    90F4        BCC $4514
-C4/4520:    9C7548      STZ $4875
-// $48BA と $48BB を定数にセットしている
-// これがレベルアップ構造体データの内部を指す index となる 
-C4/4523:    E220        SEP #$20            // MX
-C4/4525:    A998        LDA #$98
-C4/4527:    8DBA48      STA $48BA           $48BA = 98h;
-C4/452A:    A980        LDA #$80
-C4/452C:    8DBB48      STA $48BB           $48BB = 80h;
-C4/452F:    FA          PLX 
-
-C4/4530:    22B52AC9    JSR $C92AB5         ■(RTL+8) a = $40 = (arg[00] ? [arg[03-05]] : @x * arg[01-02] + args)
-            01
-            2A00
-            3826C4  // $7E4025 構造体へのポインタ 
-            0000
-C4/453C:    4941        EOR #$41            // EOR するとレベルそのものになる 
-C4/453E:    8DBC48      STA $48BC
-                                            for($48BC = AL; ++$48BA, ++$48BA; $48BA &lt; B0h){
-C4/4541:    ADBC48      LDA $48BC
-C4/4544:    ACBA48      LDY $48BA               Y = $48BA;  // レベルアップ構造体内部を指す index ( &gt;= 98h) 
-C4/4547:    D74A        CMP [$4A],Y
-C4/4549:    D047        BNE $4592               if($48BC != [$4A],Y) continue;
-C4/454B:    ACBB48      LDY $48BB               Y = $48BB;  // レベルアップ構造体内部を指す index ( &gt;= 80h) 
-C4/454E:    B74A        LDA [$4A],Y
-C4/4550:    C99A        CMP #$9A                // 値 9Ah は「なし」の意味 
-C4/4552:    F03E        BEQ $4592               if([$4A],Y == 9Ah) continue;
-C4/4554:    DA          PHX 
-C4/4555:    48          PHA 
-C4/4556:    20B745      JSR $45B7               ●乗算を含むサブルーチン
-C4/4559:    68          PLA 
-C4/455A:    FA          PLX 
-C4/455B:    A8          TAY                     Y = AL;  // レベルアップ構造体内部[80-] の値 1byte 
-C4/455C:    C220        REP #$20                // mX 
-C4/455E:    08          PHP 
-C4/455F:    22A92AC9    JSR $C92AA9             ■(RTL+8) a = $40 = (arg[00] ? [arg[03-05]] : @y * arg[01-02] + args)
-            00
-            0400
-            6DC9FF  // 呪文の配置1
-            0000
-C4/456B:    28          PLP                     // mX 
-C4/456C:    B013        BCS $4581               if(!carry){
-C4/456E:    48          PHA                         // ** 呪文・特技 ** 
-C4/456F:    A000        LDY #$00                    for(Y = 0; Y &lt; 8; Y += 2){
-C4/4571:    B96548      LDA $4865,Y
-C4/4574:    C90000      CMP #$0000                      // 空きスペース発見 
-C4/4577:    F015        BEQ $458E                       if($4865,Y == 0000h) goto 呪文・特技をセット;
-C4/4579:    C8          INY 
-C4/457A:    C8          INY 
-C4/457B:    C008        CPY #$08
-C4/457D:    90F2        BCC $4571                   }
-C4/457F:    80FE        BRA $457F                   assert(false);
-                                                }
-C4/4581:    AC7548      LDY $4875               Y = $4875;
-C4/4584:    996D48      STA $486D,Y             $486D,Y = AL;
-C4/4587:    C8          INY 
-C4/4588:    C8          INY 
-C4/4589:    8C7548      STY $4875               $4875 = Y + 2;
-C4/458C:    8004        BRA $4592               continue;
-.label 呪文・特技をセット
-C4/458E:    68          PLA                     // ** 呪文・特技 ** 
-C4/458F:    996548      STA $4865,Y             $4865,Y = a; continue;
-
-C4/4592:    E230        SEP #$30                // MX
-C4/4594:    EEBA48      INC $48BA               // レベルアップ構造体内部を指す index ( &gt;= 98h)
-C4/4597:    EEBB48      INC $48BB               // レベルアップ構造体内部を指す index ( &gt;= 80h)
-C4/459A:    ADBA48      LDA $48BA
-C4/459D:    C9B0        CMP #$B0                // B0h: レベルアップ構造体データのサイズ - 1
-C4/459F:    90A0        BCC $4541           }
-C4/45A1:    28          PLP 
-C4/45A2:    60          RTS
-</programlisting>
-</section> <!-- dq6.level.hack.C44509 -->
-
-<section id="dq6.level.hack.FFB6C2">
-<title><varname>$FFB6C2</varname> - レベルアップ定義構造体</title>
-<para>
-	構造体一個あたりのデータ格納レイアウトを以下に示す。
-</para>
-<table id="table.dq6.FFB6C2" class="memorylayout">
-	<caption>$FFB6C2 - レベルアップ定義構造体 メモリレイアウト</caption>
-	<colgroup>
-		<col span="1" width="12%"/>
-		<col span="7" width="11%"/>
-	</colgroup>
-	<thead>
-		<tr><th>Byte:Bit</th>
-			<th>80</th>
-			<th>40</th>
-			<th>20</th>
-			<th>10</th>
-			<th>08</th>
-			<th>04</th>
-			<th>02</th>
-			<th>01</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr><th>00-02</th>
-			<td colspan="8">レベル <literal>2</literal> のための経験値 (<literal>3</literal> バイト)</td>
-		</tr>
-		<tr><th>03-08</th>
-			<td colspan="8">経験値数列の第一階差数列が変化するレベルのリスト <literal>[00-05]</literal> (<literal>1</literal> バイト * <literal>6</literal>)</td>
-		</tr>
-		<tr><th>09-0F</th>
-			<td colspan="8">経験値数列の第一階差数列の公比リスト <literal>[00-06]</literal> (<literal>1</literal> バイト * <literal>7</literal>)</td>
-		</tr>
-		<tr><th>10-11</th>
-			<td colspan="8">最大 HP 初期値 (<literal>2</literal> バイト)</td>
-		</tr>
-		<tr><th>12-1F</th>
-			<td colspan="8">最大 HP <literal>[00-06]</literal> (<literal>2</literal> バイト * <literal>7</literal>)</td>
-		</tr>
-		<tr><th>20-21</th>
-			<td colspan="8">最大 MP 初期値 (<literal>2</literal> バイト)</td>
-		</tr>
-		<tr><th>22-2F</th>
-			<td colspan="8">最大 MP <literal>[00-06]</literal> (<literal>2</literal> バイト * <literal>7</literal>)</td>
-		</tr>
-		<tr><th>30-31</th>
-			<td colspan="8">ちから初期値 (<literal>2</literal> バイト)</td>
-		</tr>
-		<tr><th>32-3F</th>
-			<td colspan="8">ちから <literal>[00-06]</literal> (<literal>2</literal> バイト * <literal>7</literal>)</td>
-		</tr>
-		<tr><th>40-41</th>
-			<td colspan="8">すばやさ初期値 (<literal>2</literal> バイト)</td>
-		</tr>
-		<tr><th>42-4F</th>
-			<td colspan="8">すばやさ <literal>[00-06]</literal> (<literal>2</literal> バイト * <literal>7</literal>)</td>
-		</tr>
-		<tr><th>50-51</th>
-			<td colspan="8">かしこさ初期値 (<literal>2</literal> バイト)</td>
-		</tr>
-		<tr><th>52-5F</th>
-			<td colspan="8">かしこさ <literal>[00-06]</literal> (<literal>2</literal> バイト * <literal>7</literal>)</td>
-		</tr>
-		<tr><th>60-61</th>
-			<td colspan="8">みのまもり初期値 (<literal>2</literal> バイト)</td>
-		</tr>
-		<tr><th>62-6F</th>
-			<td colspan="8">みのまもり <literal>[00-06]</literal> (<literal>2</literal> バイト * <literal>7</literal>)</td>
-		</tr>
-		<tr><th>70-71</th>
-			<td colspan="8">かっこよさ初期値 (<literal>2</literal> バイト)</td>
-		</tr>
-		<tr><th>72-7F</th>
-			<td colspan="8">かっこよさ <literal>[00-06]</literal> (<literal>2</literal> バイト * <literal>7</literal>)</td>
-		</tr>
-		<tr><th>80-97</th>
-			<td colspan="8">習得呪文特技 <literal>[00-17]</literal> (<literal>1</literal> バイト * <literal>18h</literal>)</td>
-		</tr>
-		<tr><th>98-AF</th>
-			<td colspan="8">習得レベル <literal>[00-17]</literal> (<literal>1</literal> バイト * <literal>18h</literal>)</td>
-		</tr>
-		<tr><th>B0</th>
-			<td colspan="8">最大レベル (<literal>1</literal> バイト)</td>
-		</tr>
-	</tbody>
+<table id="table.dq6.level.FFB6C2" class="lighttable">
+  <caption>構造体 $FFB6C2</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">レベル 2 の必要経験値</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF</literal></td><td>レベル区間上限 0</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td><td>レベル区間上限 1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>レベル区間上限 2</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td><td>レベル区間上限 3</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td><td>レベル区間上限 4</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td><td>レベル区間上限 5</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$00FF</literal></td><td>経験値計算用引数 0</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td><td>経験値計算用引数 1</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$00FF</literal></td><td>経験値計算用引数 2</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$00FF</literal></td><td>経験値計算用引数 3</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$00FF</literal></td><td>経験値計算用引数 4</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$00FF</literal></td><td>経験値計算用引数 5</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$00FF</literal></td><td>経験値計算用引数 6</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$00FF</literal></td><td>さいだい HP 標準値 0</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$00FF</literal></td><td>さいだい HP 標準値 1</td></tr>
+    <tr><td><literal>#$14</literal></td><td><literal>#$00FF</literal></td><td>さいだい HP 標準値 2</td></tr>
+    <tr><td><literal>#$16</literal></td><td><literal>#$00FF</literal></td><td>さいだい HP 標準値 3</td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$00FF</literal></td><td>さいだい HP 標準値 4</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$00FF</literal></td><td>さいだい HP 標準値 5</td></tr>
+    <tr><td><literal>#$1C</literal></td><td><literal>#$00FF</literal></td><td>さいだい HP 標準値 6</td></tr>
+    <tr><td><literal>#$1E</literal></td><td><literal>#$00FF</literal></td><td>さいだい HP 標準値 7</td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$00FF</literal></td><td>さいだい MP 標準値 0</td></tr>
+    <tr><td><literal>#$22</literal></td><td><literal>#$00FF</literal></td><td>さいだい MP 標準値 1</td></tr>
+    <tr><td><literal>#$24</literal></td><td><literal>#$00FF</literal></td><td>さいだい MP 標準値 2</td></tr>
+    <tr><td><literal>#$26</literal></td><td><literal>#$00FF</literal></td><td>さいだい MP 標準値 3</td></tr>
+    <tr><td><literal>#$28</literal></td><td><literal>#$00FF</literal></td><td>さいだい MP 標準値 4</td></tr>
+    <tr><td><literal>#$2A</literal></td><td><literal>#$00FF</literal></td><td>さいだい MP 標準値 5</td></tr>
+    <tr><td><literal>#$2C</literal></td><td><literal>#$00FF</literal></td><td>さいだい MP 標準値 6</td></tr>
+    <tr><td><literal>#$2E</literal></td><td><literal>#$00FF</literal></td><td>さいだい MP 標準値 7</td></tr>
+    <tr><td><literal>#$30</literal></td><td><literal>#$00FF</literal></td><td>ちから標準値 0</td></tr>
+    <tr><td><literal>#$32</literal></td><td><literal>#$00FF</literal></td><td>ちから標準値 1</td></tr>
+    <tr><td><literal>#$34</literal></td><td><literal>#$00FF</literal></td><td>ちから標準値 2</td></tr>
+    <tr><td><literal>#$36</literal></td><td><literal>#$00FF</literal></td><td>ちから標準値 3</td></tr>
+    <tr><td><literal>#$38</literal></td><td><literal>#$00FF</literal></td><td>ちから標準値 4</td></tr>
+    <tr><td><literal>#$3A</literal></td><td><literal>#$00FF</literal></td><td>ちから標準値 5</td></tr>
+    <tr><td><literal>#$3C</literal></td><td><literal>#$00FF</literal></td><td>ちから標準値 6</td></tr>
+    <tr><td><literal>#$3E</literal></td><td><literal>#$00FF</literal></td><td>ちから標準値 7</td></tr>
+    <tr><td><literal>#$40</literal></td><td><literal>#$00FF</literal></td><td>すばやさ標準値 0</td></tr>
+    <tr><td><literal>#$42</literal></td><td><literal>#$00FF</literal></td><td>すばやさ標準値 1</td></tr>
+    <tr><td><literal>#$44</literal></td><td><literal>#$00FF</literal></td><td>すばやさ標準値 2</td></tr>
+    <tr><td><literal>#$46</literal></td><td><literal>#$00FF</literal></td><td>すばやさ標準値 3</td></tr>
+    <tr><td><literal>#$48</literal></td><td><literal>#$00FF</literal></td><td>すばやさ標準値 4</td></tr>
+    <tr><td><literal>#$4A</literal></td><td><literal>#$00FF</literal></td><td>すばやさ標準値 5</td></tr>
+    <tr><td><literal>#$4C</literal></td><td><literal>#$00FF</literal></td><td>すばやさ標準値 6</td></tr>
+    <tr><td><literal>#$4E</literal></td><td><literal>#$00FF</literal></td><td>すばやさ標準値 7</td></tr>
+    <tr><td><literal>#$50</literal></td><td><literal>#$00FF</literal></td><td>かしこさ標準値 0</td></tr>
+    <tr><td><literal>#$52</literal></td><td><literal>#$00FF</literal></td><td>かしこさ標準値 1</td></tr>
+    <tr><td><literal>#$54</literal></td><td><literal>#$00FF</literal></td><td>かしこさ標準値 2</td></tr>
+    <tr><td><literal>#$56</literal></td><td><literal>#$00FF</literal></td><td>かしこさ標準値 3</td></tr>
+    <tr><td><literal>#$58</literal></td><td><literal>#$00FF</literal></td><td>かしこさ標準値 4</td></tr>
+    <tr><td><literal>#$5A</literal></td><td><literal>#$00FF</literal></td><td>かしこさ標準値 5</td></tr>
+    <tr><td><literal>#$5C</literal></td><td><literal>#$00FF</literal></td><td>かしこさ標準値 6</td></tr>
+    <tr><td><literal>#$5E</literal></td><td><literal>#$00FF</literal></td><td>かしこさ標準値 7</td></tr>
+    <tr><td><literal>#$60</literal></td><td><literal>#$00FF</literal></td><td>みのまもり標準値 0</td></tr>
+    <tr><td><literal>#$62</literal></td><td><literal>#$00FF</literal></td><td>みのまもり標準値 1</td></tr>
+    <tr><td><literal>#$64</literal></td><td><literal>#$00FF</literal></td><td>みのまもり標準値 2</td></tr>
+    <tr><td><literal>#$66</literal></td><td><literal>#$00FF</literal></td><td>みのまもり標準値 3</td></tr>
+    <tr><td><literal>#$68</literal></td><td><literal>#$00FF</literal></td><td>みのまもり標準値 4</td></tr>
+    <tr><td><literal>#$6A</literal></td><td><literal>#$00FF</literal></td><td>みのまもり標準値 5</td></tr>
+    <tr><td><literal>#$6C</literal></td><td><literal>#$00FF</literal></td><td>みのまもり標準値 6</td></tr>
+    <tr><td><literal>#$6E</literal></td><td><literal>#$00FF</literal></td><td>みのまもり標準値 7</td></tr>
+    <tr><td><literal>#$70</literal></td><td><literal>#$00FF</literal></td><td>かっこよさ標準値 0</td></tr>
+    <tr><td><literal>#$72</literal></td><td><literal>#$00FF</literal></td><td>かっこよさ標準値 1</td></tr>
+    <tr><td><literal>#$74</literal></td><td><literal>#$00FF</literal></td><td>かっこよさ標準値 2</td></tr>
+    <tr><td><literal>#$76</literal></td><td><literal>#$00FF</literal></td><td>かっこよさ標準値 3</td></tr>
+    <tr><td><literal>#$78</literal></td><td><literal>#$00FF</literal></td><td>かっこよさ標準値 4</td></tr>
+    <tr><td><literal>#$7A</literal></td><td><literal>#$00FF</literal></td><td>かっこよさ標準値 5</td></tr>
+    <tr><td><literal>#$7C</literal></td><td><literal>#$00FF</literal></td><td>かっこよさ標準値 6</td></tr>
+    <tr><td><literal>#$7E</literal></td><td><literal>#$00FF</literal></td><td>かっこよさ標準値 7</td></tr>
+    <tr><td><literal>#$80</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 00</td></tr>
+    <tr><td><literal>#$81</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 01</td></tr>
+    <tr><td><literal>#$82</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 02</td></tr>
+    <tr><td><literal>#$83</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 03</td></tr>
+    <tr><td><literal>#$84</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 04</td></tr>
+    <tr><td><literal>#$85</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 05</td></tr>
+    <tr><td><literal>#$86</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 06</td></tr>
+    <tr><td><literal>#$87</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 07</td></tr>
+    <tr><td><literal>#$88</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 08</td></tr>
+    <tr><td><literal>#$89</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 09</td></tr>
+    <tr><td><literal>#$8A</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 0A</td></tr>
+    <tr><td><literal>#$8B</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 0B</td></tr>
+    <tr><td><literal>#$8C</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 0C</td></tr>
+    <tr><td><literal>#$8D</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 0D</td></tr>
+    <tr><td><literal>#$8E</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 0E</td></tr>
+    <tr><td><literal>#$8F</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 0F</td></tr>
+    <tr><td><literal>#$90</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 10</td></tr>
+    <tr><td><literal>#$91</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 11</td></tr>
+    <tr><td><literal>#$92</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 12</td></tr>
+    <tr><td><literal>#$93</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 13</td></tr>
+    <tr><td><literal>#$94</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 14</td></tr>
+    <tr><td><literal>#$95</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 15</td></tr>
+    <tr><td><literal>#$96</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 16</td></tr>
+    <tr><td><literal>#$97</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 17</td></tr>
+    <tr><td><literal>#$98</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 00</td></tr>
+    <tr><td><literal>#$99</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 01</td></tr>
+    <tr><td><literal>#$9A</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 02</td></tr>
+    <tr><td><literal>#$9B</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 03</td></tr>
+    <tr><td><literal>#$9C</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 04</td></tr>
+    <tr><td><literal>#$9D</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 05</td></tr>
+    <tr><td><literal>#$9E</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 06</td></tr>
+    <tr><td><literal>#$9F</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 07</td></tr>
+    <tr><td><literal>#$A0</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 08</td></tr>
+    <tr><td><literal>#$A1</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 09</td></tr>
+    <tr><td><literal>#$A2</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 0A</td></tr>
+    <tr><td><literal>#$A3</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 0B</td></tr>
+    <tr><td><literal>#$A4</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 0C</td></tr>
+    <tr><td><literal>#$A5</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 0D</td></tr>
+    <tr><td><literal>#$A6</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 0E</td></tr>
+    <tr><td><literal>#$A7</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 0F</td></tr>
+    <tr><td><literal>#$A8</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 10</td></tr>
+    <tr><td><literal>#$A9</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 11</td></tr>
+    <tr><td><literal>#$AA</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 12</td></tr>
+    <tr><td><literal>#$AB</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 13</td></tr>
+    <tr><td><literal>#$AC</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 14</td></tr>
+    <tr><td><literal>#$AD</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 15</td></tr>
+    <tr><td><literal>#$AE</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 16</td></tr>
+    <tr><td><literal>#$AF</literal></td><td><literal>#$00FF</literal></td><td>習得レベル 17</td></tr>
+    <tr><td><literal>#$B0</literal></td><td><literal>#$007F</literal></td><td>レベル上限</td></tr>
+    <tr><td><literal>#$B0</literal></td><td><literal>#$0080</literal></td><td>（未使用）</td></tr>
+  </tbody>
 </table>
 <para>
-	以下、各メンバーの説明をする。
+以下に各属性の概要を記す。
 </para>
-<glosslist>
-	<glossentry>
-		<glossterm>レベル <literal>2</literal> のための経験値</glossterm>
-		<glossdef>
-			<para>
-				このレベルアップタイプのキャラクターがレベル <literal>2</literal> であるために必要な経験値の最小値だ。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>経験値数列の第一階差数列が変化するレベルのリスト</glossterm>
-		<glossdef>
-			<para>
-				<link linkend="dq6.level.hack.C440D2">前述の説明中</link>
-				における、数列 L<subscript>n</subscript> を表現するメンバーだ。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>経験値数列の第一階差数列の公比リスト</glossterm>
-		<glossdef>
-			<para>
-				<link linkend="dq6.level.hack.C440D2">前述の説明中</link>
-				における、数列 R<subscript>n</subscript> を表現するメンバーだ。
-				ただし、実際の公比に <literal>32</literal> を乗じた値になっている。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>最大 HP 初期値</glossterm>
-		<glossdef>
-			<para>
-				このデータのレベルアップをするキャラクターの最大 HP の初期値だ。
-				仲間になった時点での最大 HP と考えてよい。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>最大 HP</glossterm>
-		<glossdef>
-			<para>
-				レベルアップ時にどれだけさいだいＭＰが上がるのかを計算するための配列だ。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>最大 MP 初期値</glossterm>
-		<glossdef>
-			<para>
-				このデータのレベルアップをするキャラクターの最大 MP の初期値だ。
-				仲間になった時点での最大 MP と考えてよい。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>最大 MP</glossterm>
-		<glossdef>
-			<para>
-				レベルアップ時にどれだけさいだいＨＰが上がるのかを計算するための配列だ。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>ちから初期値</glossterm>
-		<glossdef>
-			<para>
-				このデータのレベルアップをするキャラクターのの初期値だ。
-				仲間になった時点でのと考えてよい。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>ちから</glossterm>
-		<glossdef>
-			<para>
-				レベルアップ時にどれだけちからが上がるのかを計算するための配列だ。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>すばやさ初期値</glossterm>
-		<glossdef>
-			<para>
-				このデータのレベルアップをするキャラクターのすばやさの初期値だ。
-				仲間になった時点でのすばやさと考えてよい。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>すばやさ</glossterm>
-		<glossdef>
-			<para>
-				レベルアップ時にどれだけすばやさが上がるのかを計算するための配列だ。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>かしこさ初期値</glossterm>
-		<glossdef>
-			<para>
-				このデータのレベルアップをするキャラクターのかしこさの初期値だ。
-				仲間になった時点でのかしこさと考えてよい。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>かしこさ</glossterm>
-		<glossdef>
-			<para>
-				レベルアップ時にどれだけかしこさが上がるのかを計算するための配列だ。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>みのまもり初期値</glossterm>
-		<glossdef>
-			<para>
-				このデータのレベルアップをするキャラクターのみのまもりの初期値だ。
-				仲間になった時点でのみのまもりと考えてよい。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>みのまもり</glossterm>
-		<glossdef>
-			<para>
-				レベルアップ時にどれだけみのまもりが上がるのかを計算するための配列だ。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>かっこよさ初期値</glossterm>
-		<glossdef>
-			<para>
-				このデータのレベルアップをするキャラクターのかっこよさの初期値だ。
-				仲間になった時点でのかっこよさと考えてよい。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>かっこよさ</glossterm>
-		<glossdef>
-			<para>
-				レベルアップ時にどれだけがかっこよさ上がるのかを計算するための配列だ。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>習得呪文特技</glossterm>
-		<glossdef>
-			<para>
-				レベルアップ時に、習得する呪文・特技の ID だ。
-				ただし、ID は戦闘行動 ID ではなく
-				<varname>$FFC96D</varname> 構造体の ID ある。
-				この構造体は、ウィンドウに呪文・特技をリストするときの、
-				名前表示位置を表す。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>習得レベル</glossterm>
-		<glossdef>
-			<para>
-				上記習得呪文特技を習得するレベルだ。
-				習得レベル <literal>[i]</literal> (<code>0 &lt; i &lt; 18h</code>) が習得呪文特技 <literal>[i]</literal> に対応する。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>最大レベル</glossterm>
-		<glossdef>
-			<para>
-				このタイプのレベルアップパターンのキャラクターが達しうる、レベルの最大値だ。
-			</para>
-		</glossdef>
-	</glossentry>
-</glosslist>
-</section> <!-- dq6.level.hack.FFB6C2 -->
-</section> <!-- dq6.level.hack -->
+<variablelist>
+  <varlistentry>
+    <term>レベル 2 の必要経験値</term>
+    <listitem>
+      <para>
+        レベル 2 の必要経験値とは、このレベルアップ規則が適用される仲間キャラクターのレベルが 2 であるために必要な経験値を指定する属性だ。
+        この属性値は、たとえそのキャラクターの最低レベル（仲間になる時点でのレベル）が 2 よりも大きいとしても意味があることに注意を要する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>レベル区間上限 k</term>
+    <listitem>
+      <para>
+        まずレベル区間とは何かを説明する。
+        初項がレベル 1 で末項がレベル上限値の数列を考える。
+        この数列を最大 7 個の部分区間に分割したものを考え、本節ではそれぞれをレベル区間と呼ぶことにする。
+        このレベル区間は下限値と上限値とで表現することができるが、隣接するレベル区間の下限値と上限値は一致するので、どちらか一方でレベル区間の代表すれば十分だ。
+        この属性は、そのようなレベル区間を上限として値に持つものだ。
+      </para>
+      <para>
+        例えば主人公のレベルアップオブジェクトではレベル区間上限 0 の値は 5 だ。
+        これは「到達レベルが 2 から 5 までのレベルアップにおいては、
+        必要経験値が経験値計算用引数 0 属性値で決定される」ことを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>経験値計算用引数 k</term>
+    <listitem>
+      <para>
+        経験値計算用引数とは、レベルアップに必要な経験値を計算するためのパラメーターだ。詳しくは後で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>さいだい HP 標準値 k</term>
+    <term>さいだい MP 標準値 k</term>
+    <term>ちから標準値 k</term>
+    <term>すばやさ標準値 k</term>
+    <term>かしこさ標準値 k</term>
+    <term>みのまもり標準値 k</term>
+    <term>かっこよさ標準値 k</term>
+    <listitem>
+      <para>
+        これらの各属性値は、このレベルアップ規則が適用される仲間キャラクターのレベルが 1 のとき、
+        各レベル区間上限属性値のとき、そして上限値のときの対応するキャラクター属性値の標準値を指定する。
+        それ以外のレベルにおける標準値については、そのレベル値を含む区間両端点の定める標準値から線形補間して得る。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>習得コマンド k</term>
+    <listitem>
+      <para>
+        習得コマンド k とは、このレベルアップ規則が適用される仲間キャラクターが規定のレベルに達すると習得するコマンドがあって、そのコマンドを指定する値を取る属性だ。
+        ただし、型はコマンド ID ではなく、コマンドウィンドウ内の項目位置を指示するオブジェクト配列の添字という、馴染みのないものになっている。
+        このオブジェクトはアドレス <varname>$FFC96D</varname> にある配列の要素であり、
+        構造としてはコマンド ID の値、移動コマンドウィンドウでの項目位置、戦闘コマンドウィンドウでの項目位置の三つ組の配列とみなせる。
+        詳しくは <xref linkend="appendix.b"/> のデータを参照して欲しい。
+      </para>
+      <para>
+        この属性値が <literal>#$9A</literal> であれば、それは空き項目であることを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>習得レベル k</term>
+    <listitem>
+      <para>
+        習得レベル k とは、このレベルアップ規則が適用される仲間キャラクターがこのレベルに上がることにより、
+        もしその時点で未習得ならば、習得コマンド k を習得するということを指定する属性だ。
+      </para>
+      <para>
+        属性値が 99 であるものは、それは空き項目であることを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>レベル上限</term>
+    <listitem>
+      <para>
+        レベル上限とは、このレベルアップ規則が適用される仲間キャラクターが達し得るレベルの上限値を指定する属性だ。
+        主人公などのメインメンバーは 99 に設定されている。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.level.FFB6C2 -->
+
+<section id="dq6.level.C441C2">
+<title>サブルーチン <varname>$C441C2</varname>: レベルアップ処理</title>
+<para>
+ここでのレベルアップ処理は次のようなものだ。
+</para>
+<orderedlist>
+  <listitem>
+    <para>
+      対象の仲間キャラクターに対応するレベルアップオブジェクトを取得する
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      レベルアップオブジェクトに基づいて、キャラクターの次のレベルが必要とする総経験値を計算する
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      現在の経験値と比較し、レベルアップでなければ処理を終了する
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      キャラクター属性値それぞれの増加量を計算する
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      習得コマンドを決定する
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      職業補正を行う
+    </para>
+  </listitem>
+</orderedlist>
+<para>
+このうちの総経験値を計算する処理、属性値の増加量を計算する処理、習得コマンドを決定する処理は後で述べる。
+</para>
+</section> <!-- dq6.level.C441C2 -->
+
+<section id="dq6.level.C440D2">
+<title>サブルーチン <varname>$C440D2</varname>: 指定レベルであるための必要経験値を計算する</title>
+<para>
+サブルーチン <varname>$C440D2</varname> は次に示す Python 風擬似コードのような処理を実行する：
+</para>
+<programlisting><![CDATA[
+level_work = 1
+if next_level == level_work:
+    return 0
+
+level_upper_bound = UPPER_BOUND
+if level_upper_bound < next_level:
+    return 0xFFFFFFFF
+
+exp_total = EXP_FOR_LEVEL_2
+index = 0
+exp_prev = 0
+while True:
+    level_work += 1
+    if next_level == level_work:
+        return exp_total
+
+    while index < len(LEVEL_BOUNDS):
+        if LEVEL_BOUNDS[index] > level_work:
+            break
+        index += 1
+
+    delta = exp_total - exp_prev
+    delta *= EXP_PARAMS[index]
+    delta >>= 5
+    exp_prev = exp_total
+    exp_total += delta
+]]></programlisting>
+<para>
+ここで <varname>EXP_FOR_LEVEL_2</varname>, <varname>LEVEL_BOUNDS</varname>, <varname>EXP_PARAMS</varname>, <varname>UPPER_BOUND</varname>
+はぞれぞれレベル 2 の必要経験値、レベル区間列、経験値計算用引数列の各属性に対応し、
+戻り値がレベル <varname>next_level</varname> であるために必要な経験値だ。
+</para>
+</section> <!-- dq6.level.C440D2 -->
+
+<section id="dq6.level.C444BC">
+<title>サブルーチン <varname>$C444BC</varname>: 仲間キャラクター属性値増量分を計算する</title>
+<para>
+どの属性値についてもサブルーチン <varname>$C444BC</varname> で増加量を決定する。
+基本的には、新レベルを含むレベル区間の両端における属性値標準値の差分に対して、
+区間下限と新レベルとの差に対するレベル区間の長さとの割合に応じた値を増加量とする。
+</para>
+</section> <!-- dq6.level.C444BC -->
+
+<section id="dq6.level.C44509">
+<title>サブルーチン <varname>$C44509</varname>: 習得コマンドを決定する</title>
+<para>
+レベルアップオブジェクトの習得レベル列に対して新レベル値を逐次探索する。
+その添字を習得コマンド列に適用すれば、習得コマンドがコマンド表示ウィンドウ位置の値で得られる。
+具体的に言えば三つ組オブジェクトの配列 <varname>$FFC96D</varname> の添字だ。
+ただし値が <literal>#$9A</literal> のものは無効値なので、それが現れた時点で処理を打ち切る。
+</para>
+<para>
+配列 <varname>$FFC96D</varname> については <xref linkend="appendix.b"/> のデータを参照して欲しい。
+</para>
+</section> <!-- dq6.level.C44509 -->
 </section> <!-- dq6.level -->
