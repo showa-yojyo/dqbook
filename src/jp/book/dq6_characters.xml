@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<section id="dq6.characters"><?dbhtml filename="dq6_characters.html" ?>
+<title>仲間キャラクター構造体</title>
+<para>
+この節では仲間のキャラクターを表現するデータ構造体のうち、RAM 内に存在するものについて述べる。
+すなわち、基本情報構造体、職業経験構造体、習得コマンド構造体を説明する。
+</para>
+
+<section id="dq6.characters.7E4025">
+<title>構造体 <varname>$7E4025</varname>: 基本情報構造体</title>
+<para>
+呼び名を付けるのが難しいのだが、基本情報構造体とは配列 <varname>$7E4025</varname> の要素の型だ。
+この構造体はサイズが <literal>#$2A</literal> バイトであり、次の表に示すような属性で構成されている：
+</para>
+<table id="table.dq6.characters.7E4025" class="lighttable">
+  <caption>構造体 $7E4025</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00FF</literal></td><td>レベル (EOR #$41)</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$FFFF</literal></td><td>経験値 (EOR #$4126)</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF</literal></td><td>経験値最上位バイト</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0001</literal></td><td>死亡フラグ</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0002</literal></td><td>どくフラグ</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0004</literal></td><td>もうどくフラグ</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0008</literal></td><td>マヒフラグ</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0010</literal></td><td>ねむりフラグ</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$3FE0</literal></td><td>ちから</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$7FC0</literal></td><td>すばやさ</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FF80</literal></td><td>かしこさ</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$001F</literal></td><td>職業 ID</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00E0</literal></td><td>職業レベル</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$03FF</literal></td><td>HP</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FC</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$03FF</literal></td><td>さいだい HP</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$00FC</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$03FF</literal></td><td>MP</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$00FC</literal></td><td>最後に使用した移動中のじゅもん（下位 6 ビット）</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$03FF</literal></td><td>さいだい MP</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$07FC</literal></td><td>みのまもり</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$0FF8</literal></td><td>かっこよさ</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$0010</literal></td><td>ルイーダに預けるの禁止フラグ</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$00E0</literal></td><td>最後に使用した移動中のじゅもん（上位 3 ビット）</td></tr>
+    <tr><td><literal>#$13</literal></td><td><literal>#$00FF</literal></td><td>最後に使用した戦闘中のじゅもん</td></tr>
+    <tr><td><literal>#$14</literal></td><td><literal>#$00FF</literal></td><td>最後に使用した戦闘中のとくぎ</td></tr>
+    <tr><td><literal>#$15</literal></td><td><literal>#$00FF</literal></td><td>装備状態</td></tr>
+    <tr><td><literal>#$16</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$00</literal></td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$01</literal></td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$02</literal></td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$03</literal></td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$04</literal></td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$05</literal></td></tr>
+    <tr><td><literal>#$1C</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$06</literal></td></tr>
+    <tr><td><literal>#$1D</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$07</literal></td></tr>
+    <tr><td><literal>#$1E</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$00</literal></td></tr>
+    <tr><td><literal>#$1F</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$01</literal></td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$02</literal></td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$03</literal></td></tr>
+    <tr><td><literal>#$22</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$04</literal></td></tr>
+    <tr><td><literal>#$23</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$05</literal></td></tr>
+    <tr><td><literal>#$24</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$06</literal></td></tr>
+    <tr><td><literal>#$25</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$07</literal></td></tr>
+    <tr><td><literal>#$26</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$08</literal></td></tr>
+    <tr><td><literal>#$27</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$09</literal></td></tr>
+    <tr><td><literal>#$28</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$0A</literal></td></tr>
+    <tr><td><literal>#$29</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$0B</literal></td></tr>
+  </tbody>
+</table>
+<para>
+上の表で（未使用）の属性は、プログラムからの参照がない、いわば属性の隙間だ。
+以下に各属性の概要を記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>レベル</term>
+    <listitem>
+      <para>
+        この属性値は仲間キャラクターのレベルの値と定数 <literal>#$41</literal> との排他的論理和を表す。
+      </para>
+      <para>
+        キャラクターのレベルについては <xref linkend="dq6.level"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>経験値</term>
+    <listitem>
+      <para>
+        仲間キャラクターの経験値は 3 バイト長の値で表現する。
+        ただし、下位 2 バイトの値は定数 <literal>#$4126</literal> との排他的論理和の値を保持するようにしている。
+        チートツールのユーザーでいきなりレベルアップをしようと企む者は、この点を留意しなければならない。
+        可能ならばデバッグメニューを駆使したほうがよいだろう。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>死亡フラグ</term>
+    <term>どくフラグ</term>
+    <term>もうどくフラグ</term>
+    <term>マヒフラグ</term>
+    <term>ねむりフラグ</term>
+    <listitem>
+      <para>
+        それぞれが仲間キャラクターの異常状態を示すブーリアン値属性だ。
+        物によっては同時に 1 とならない属性の組み合わせがある。
+        例えば死亡フラグが 1 ならば、その他の異常状態フラグはいずれも 0 とするようにしている。
+      </para>
+      <para>
+        <xref linkend="dq6.combatant"/> で関連属性を述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ちから</term>
+    <term>すばやさ</term>
+    <term>かしこさ</term>
+    <term>みのまもり</term>
+    <term>かっこよさ</term>
+    <term>さいだい HP</term>
+    <term>さいだい MP</term>
+    <listitem>
+      <para>
+        一般的には、これらの属性値は「つよさ」メニューで確認できる内容の値と異なる。
+        対象キャラクターの職業と装備品にも依存するからだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>HP</term>
+    <term>MP</term>
+    <listitem>
+      <para>
+        それぞれ仲間キャラクターの現在の HP と MP の値を示す属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>職業 ID</term>
+    <listitem>
+      <para>
+        キャラクターの現在就いている職業を表す値を取る属性だ。
+        職業については <xref linkend="dq6.class"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>職業レベル</term>
+    <listitem>
+      <para>
+        キャラクターの現在就いている職業の職業レベルを 0..7 で表す値を取る属性だ。
+        「つよさ」ウィンドウで確認できる星の数より 1 小さい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>最後に使用した移動中のじゅもん</term>
+    <term>最後に使用した戦闘中のじゅもん</term>
+    <term>最後に使用した戦闘中のとくぎ</term>
+    <listitem>
+      <para>
+        最後にキャラクターが使用したそれぞれのコマンドを記憶しておくための属性だ。
+        値の型はコマンド ID ではなくコマンド表示位置 ID だ。
+        後述の <xref linkend="dq6.characters.7E45DD"/> の対応コマンドのベースアドレスからの「距離」と解釈してもよい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ルイーダに預けるの禁止フラグ</term>
+    <term>装備状態</term>
+    <listitem>
+      <para>
+        それぞれの属性の意味は <xref linkend="table.dq6.character.C8BD12"/> の対応するそれぞれの属性と同じだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>名前文字列 k (k = <literal>#$00</literal>..<literal>#$07</literal>)</term>
+    <listitem>
+      <para>
+        この 8 バイトでキャラクターの名前を表現する文字コードの列を保持する。
+        文字列については <xref linkend="dq6.string"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>所持品 k (k = <literal>#$00</literal>..<literal>#$0B</literal>)</term>
+    <listitem>
+      <para>
+        キャラクターの道具袋に入っているアイテムを順番に表す配列だ。
+        アイテムについては <xref linkend="dq6.item"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.characters.7E4025 -->
+
+<section id="dq6.characters.7E4415">
+<title>構造体 <varname>$7E4415</varname>: 職業経験構造体</title>
+<para>
+職業経験構造体とは、キャラクターが戦闘で得た職業経験値を記録するためのオブジェクトを表現する型だ。
+</para>
+<para>
+構造体の物理的なレイアウトは次の表のようになっている。
+構造体の属性のそれぞれが、対応する職業の職業経験値を属性値として取る。
+この <literal>#$14</literal> バイト長のオブジェクトがアドレス <varname>$7E4415</varname> に配列してある。
+</para>
+
+<table id="table.dq6.characters.7E4415" class="lighttable">
+  <caption>構造体 $7E4415</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00FF</literal></td><td>せんし職業経験値</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00FF</literal></td><td>ぶとうか職業経験値</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00FF</literal></td><td>まほうつかい職業経験値</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF</literal></td><td>そうりょ職業経験値</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$007F</literal></td><td>おどりこ職業経験値</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$7F80</literal></td><td>とうぞく職業経験値</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$7F80</literal></td><td>まものつかい職業経験値</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$7F80</literal></td><td>しょうにん職業経験値</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$7F80</literal></td><td>あそびにん職業経験値</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$7F80</literal></td><td>バトルマスター職業経験値</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$7F80</literal></td><td>まほうせんし職業経験値</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$FF80</literal></td><td>パラディン職業経験値</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$01FF</literal></td><td>けんじゃ職業経験値</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$01FE</literal></td><td>レンジャー職業経験値</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$01FE</literal></td><td>スーパースター職業経験値</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$01FE</literal></td><td>ゆうしゃ職業経験値</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$03FE</literal></td><td>ドラゴン職業経験値</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$07FC</literal></td><td>はぐれメタル職業経験値</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$00F8</literal></td><td>（未使用）</td></tr>
+  </tbody>
+</table>
+<para>
+<xref linkend="dq6.class.C41C3E"/> で述べるように、このメモリレイアウトは職業構造体で指定されている。
+</para>
+</section> <!-- dq6.characters.7E4415 -->
+
+<section id="dq6.characters.7E45DD">
+<title>構造体 <varname>$7E45DD</varname>: 習得コマンド構造体</title>
+<para>
+習得コマンド構造体とは、キャラクターが移動中または戦闘中に実行することができるコマンドを表現するオブジェクト型だ。
+</para>
+<para>
+構造体の物理的なレイアウトは次の表のようになっている。
+構造体の属性の全てが 1 ビットで表現されていて、意味としてはブーリアン値属性の集合だ。
+いずれも値が 1 ならば対応するコマンドを利用可能であることを意味する。
+この <literal>#$14</literal> バイト長のオブジェクトがアドレス <varname>$7E45DD</varname> に配列してある。
+</para>
+<table id="table.dq6.characters.7E45DD" class="lighttable">
+  <caption>構造体 $7E45DD</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$01</literal></td><td>ホイミ</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$02</literal></td><td>キアリー</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$04</literal></td><td>べホイミ</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$08</literal></td><td>ザオラル</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$10</literal></td><td>べホマ</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$20</literal></td><td>ザオリク</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$40</literal></td><td>べホマラー</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$80</literal></td><td>べホマズン</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$01</literal></td><td>メラ</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$02</literal></td><td>ギラ</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$04</literal></td><td>ヒャド</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$08</literal></td><td>バギ</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$10</literal></td><td>ザキ</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$20</literal></td><td>イオ</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$40</literal></td><td>メラミ</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$80</literal></td><td>べギラマ</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$01</literal></td><td>ヒャダルコ</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$02</literal></td><td>バギマ</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$04</literal></td><td>ザラキ</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$08</literal></td><td>イオラ</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$10</literal></td><td>ライデイン</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$20</literal></td><td>メラゾーマ</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$40</literal></td><td>べギラゴン</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$80</literal></td><td>マヒャド</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$01</literal></td><td>バギクロス</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$02</literal></td><td>ザラキーマ</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$04</literal></td><td>イオナズン</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$08</literal></td><td>ギガデイン</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$10</literal></td><td>ミナデイン</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$20</literal></td><td>キアリク</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$40</literal></td><td>ニフラム</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$80</literal></td><td>マホトーン</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$01</literal></td><td>マホトラ</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$02</literal></td><td>マホターン</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$04</literal></td><td>マホキテ</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$08</literal></td><td>マホカンタ</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$10</literal></td><td>マジックバリア</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$20</literal></td><td>ルカニ</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$40</literal></td><td>ルカナン</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$80</literal></td><td>スカラ</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$01</literal></td><td>スクルト</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$02</literal></td><td>ラリホー</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$04</literal></td><td>ラリホーマ</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$08</literal></td><td>マヌーサ</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$10</literal></td><td>メダパニ</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$20</literal></td><td>フバーハ</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$40</literal></td><td>バイキルト</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$80</literal></td><td>アストロン</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$01</literal></td><td>ドラゴラム</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$02</literal></td><td>メガンテ</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$04</literal></td><td>メガザル</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$08</literal></td><td>バシルーラ</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$10</literal></td><td>パルプンテ</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$20</literal></td><td>マダンテ</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$40</literal></td><td>ひゃくれつなめ</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$80</literal></td><td>ビッグバン</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$01</literal></td><td>つめたいいき</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$02</literal></td><td>あまいいき</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$04</literal></td><td>かえんのいき</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$08</literal></td><td>どくのいき</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$10</literal></td><td>やけつくいき</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$20</literal></td><td>あしばらい</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$40</literal></td><td>せいけんづき</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$80</literal></td><td>まわしげり</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$01</literal></td><td>きゅうしょづき</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$02</literal></td><td>かまいたち</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$04</literal></td><td>ともえなげ</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$08</literal></td><td>みかわしきゃく</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$10</literal></td><td>ばくれつけん</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$20</literal></td><td>みなごろし</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$40</literal></td><td>きあいため</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$80</literal></td><td>はやぶさぎり</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$01</literal></td><td>もろばぎり</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$02</literal></td><td>まじんぎり</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$04</literal></td><td>しっぷうづき</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$08</literal></td><td>ちからため</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$10</literal></td><td>あそび</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$20</literal></td><td>おたけび</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$40</literal></td><td>なめまわし</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$80</literal></td><td>たいあたり</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$01</literal></td><td>ぱふぱふ</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$02</literal></td><td>ぐんたいよび</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$04</literal></td><td>まねまね</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$08</literal></td><td>うけながし</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$10</literal></td><td>さそうおどり</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$20</literal></td><td>マホトラおどり</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$40</literal></td><td>ふしぎなおどり</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$80</literal></td><td>しのおどり</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$01</literal></td><td>メダパニダンス</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$02</literal></td><td>おどりふうじ</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$04</literal></td><td>へんしん</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$08</literal></td><td>とびひざげり</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$10</literal></td><td>しんくうぎり</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$20</literal></td><td>ドラゴンぎり</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$40</literal></td><td>ゾンビぎり</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$80</literal></td><td>がんせきおとし</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$01</literal></td><td>さみだれけん</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$02</literal></td><td>メタルぎり</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$04</literal></td><td>みがわり</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$08</literal></td><td>グランドクロス</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$10</literal></td><td>しんくうは</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$20</literal></td><td>つなみ</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$40</literal></td><td>すてみ</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$80</literal></td><td>しょうかん</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$01</literal></td><td>におうだち</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$02</literal></td><td>じわれ</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$04</literal></td><td>すなけむり</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$08</literal></td><td>じひびき</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$10</literal></td><td>いしつぶて</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$20</literal></td><td>だいぼうぎょ</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$40</literal></td><td>つきとばし</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$80</literal></td><td>ひばしら</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$01</literal></td><td>もうどくのきり</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$02</literal></td><td>おいかぜ</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$04</literal></td><td>ぶきみなひかり</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$08</literal></td><td>まぶしいひかり</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$10</literal></td><td>ハッスルダンス</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$20</literal></td><td>いなずま</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$40</literal></td><td>ムーンサルト</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$80</literal></td><td>メガザルダンス</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$01</literal></td><td>せいれいのうた</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$02</literal></td><td>かえんぎり</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$04</literal></td><td>いてつくはどう</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$08</literal></td><td>いなずまぎり</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$10</literal></td><td>めいそう</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$20</literal></td><td>マヒャドぎり</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$40</literal></td><td>ジゴスパーク</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$80</literal></td><td>マグマ</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$01</literal></td><td>ギガスラッシュ</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$02</literal></td><td>こごえるふぶき</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$04</literal></td><td>ひのいき</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$08</literal></td><td>しゃくねつ</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$10</literal></td><td>こおりのいき</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$20</literal></td><td>かがやくいき</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$40</literal></td><td>はげしいほのお</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$80</literal></td><td>し</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$01</literal></td><td>ルーラ</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$02</literal></td><td>リレミト</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$04</literal></td><td>インパス</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$08</literal></td><td>トラマナ</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$10</literal></td><td>トヘロス</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$20</literal></td><td>フローミ</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$40</literal></td><td>レミラーマ</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$80</literal></td><td>タカのめ</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$01</literal></td><td>ねる</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$02</literal></td><td>とうぞくのはな</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$04</literal></td><td>おおごえ</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$08</literal></td><td>しのびあし</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$10</literal></td><td>くちぶえ</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$20</literal></td><td>あなほり</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$40</literal></td><td>おもいだす</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$80</literal></td><td>もっとおもいだす</td></tr>
+    <tr><td><literal>#$13</literal></td><td><literal>#$01</literal></td><td>ふかくおもいだす</td></tr>
+    <tr><td><literal>#$13</literal></td><td><literal>#$02</literal></td><td>わすれる</td></tr>
+    <tr><td><literal>#$13</literal></td><td><literal>#$FC</literal></td><td>（未使用）</td></tr>
+  </tbody>
+</table>
+<para>
+コマンドの配列規則は配列 <varname>$FFC69D</varname> に準じている。
+コマンド入力ウィンドウでのメニュー項目位置と対応していることが重要だ。
+</para>
+</section> <!-- dq6.characters.7E45DD -->
+</section> <!-- dq6.characters -->
