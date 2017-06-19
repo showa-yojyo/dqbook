@@ -313,5 +313,5 @@
 入力が x または y となっているものは、対応するレジスターの値で仲間キャラクター配列の添字をそれぞれ指定することを意味する。
 また、「固定引数で指定する」とは、固定バイトの値が入力元の種別を指定することを意味する。
 </para>
-</section> <!-- dq6.monster.methods -->
+</section> <!-- dq6.character.methods -->
 </section> <!-- dq6.character -->
