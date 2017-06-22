@@ -134,8 +134,9 @@ C3/C9FE:    E100D51661D3
 <itemizedlist>
   <listitem>
     <simpara>
-      前述のメッセージに加えて、対象の道具に固有のメッセージを<link linkend="dq6.item.hack.C4003D">道具データ</link>から取得するときには、
+      前述のメッセージに加えて、対象の道具に固有のメッセージを道具データから取得するときには、
       サブルーチン <varname>$C3CA04</varname> を実行する。
+      道具データのメッセージ各種属性については <xref linkend="dq6.item.C4003D"/> で述べる。
     </simpara>
   </listitem>
   <listitem>
