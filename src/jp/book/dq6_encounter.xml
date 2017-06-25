@@ -437,9 +437,90 @@
 <title>敵陣決定手順</title>
 <para>
 敵陣決定手順を説明する。
+最初に、戦闘地域を移動中に一歩ずつ行われる判定処理の概要を記す：
+</para>
+<itemizedlist>
+  <listitem>
+    <simpara>
+      必要ならば「しのびあし」の状態を更新する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      必要ならば「トヘロス」または「せいすい」の状態を更新する。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      「しのびあし」「トヘロス」「せいすい」のいずれかを適用している状態ならば、
+      主人公のレベルと戦闘構成オブジェクトのレベル + 5 を比較する。
+    </simpara>
+    <simpara>
+      主人公のレベルのほうが小さくなければ、戦闘を発生させずに判定処理を終える。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      戦闘発生カウンターを更新する。
+      減少量を決めるのに戦闘発生カウンター減少量係数属性値を参照。
+      減少量を求め、その値を戦闘発生カウンターから差し引く。
+    </simpara>
+    <simpara>
+      戦闘発生カウンターがまだ正の値ならば、戦闘を発生させずに判定処理を終える。
+    </simpara>
+  </listitem>
+</itemizedlist>
+<para>
+判定処理で戦闘発生が確定すると、次に敵陣を構成する処理を行う。それは次に述べるようなものだ：
+</para>
+<itemizedlist>
+  <listitem><simpara>戦闘構成オブジェクトのモンスター抽選属性値の総和 S を取る。</simpara></listitem>
+  <listitem><simpara>乱数 <code>r = randint(0, S)</code> を取る。</simpara></listitem>
+  <listitem>
+    <simpara>
+      戦闘構成オブジェクトのモンスター抽選属性値の部分和 s を求め、
+      <code><![CDATA[s >= r]]></code> なるモンスター抽選属性値添字 k を求める。
+      この添字 k の値により、次の (a), (b), (c) のいずれかの処理を行う：
+    </simpara>
+    <itemizedlist>
+      <listitem><simpara>(a) 添字 k が上限値のときには対応するレア戦闘構成オブジェクトから敵陣を構成する。</simpara></listitem>
+      <listitem><simpara>(b) 添字 k が配列後半にあれば単独グループを構成する処理を行う。</simpara></listitem>
+      <listitem><simpara>(c) そうでなければ複数グループを構成する処理を行う。</simpara></listitem>
+    </itemizedlist>
+  </listitem>
+  <listitem>
+    <simpara>
+      戦闘構成オブジェクトのレベルと仲間処理無視フラグの属性値をしかるべきビットにセットする。
+    </simpara>
+  </listitem>
+</itemizedlist>
+<para>
+分岐 (a) の処理は <xref linkend="dq6.encounter.model.C58F64"/> で述べた。
 </para>
 <para>
-TBW
+分岐 (b) の処理は、モンスターと頭数をグループ単数時モンスター k とグループ単数時頭数 k によりそれぞれ定める。
+この k は先の k から定数 <literal>#$000A</literal> すなわち 5 * 2 を引いたものを用いる。
+具体的な頭数の決定方法は <xref linkend="dq6.encounter.model.C6843C"/> の属性のところで説明した。
 </para>
+<para>
+分岐 (c) の処理は、次のようなものだ：
+</para>
+<itemizedlist>
+  <listitem>
+    <simpara>追加グループ数を抽選する。</simpara>
+    <simpara>戦闘構成オブジェクトの追加グループ数抽選 k 属性値に対して、先ほどの総和・部分和比較処理相当のことを行う。</simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      各グループについて添字 k を、モンスター抽選 <literal>00</literal>..<literal>04</literal> を用いて総和・部分和比較方式で抽選して決める。
+    </simpara>
+  </listitem>
+  <listitem>
+    <simpara>
+      戦闘構成オブジェクトのグループ複数時モンスター k 属性値とグループ複数時頭数 k 属性値からモンスターと頭数をそれぞれ決定する。
+      具体的な頭数の決定方法は <code>randint(0, 複数時頭数属性値)</code> とする。
+    </simpara>
+  </listitem>
+</itemizedlist>
 </section> <!-- dq6.encounter.procedure -->
 </section> <!-- dq6.encounter -->

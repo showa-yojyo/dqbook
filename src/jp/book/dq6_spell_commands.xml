@@ -759,7 +759,7 @@ C3/BE6D:    C416
       パーティーがいる地域のタイルせんとうデータを参照する。
     </simpara>
     <simpara>
-      <link linkend="dq6.encounter.hack.C6843C">タイルせんとうデータ</link>内の謎の重みメンバーデータ 10 個の和を計算する。
+      <link linkend="dq6.encounter.model.C6843C">タイルせんとうデータ</link>内のモンスター抽選属性値の総和を計算する。
       この和がゼロならば、アイテム抽選を行わないものとする。
     </simpara>
     <simpara>
