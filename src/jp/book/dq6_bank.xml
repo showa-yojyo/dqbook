@@ -6,371 +6,82 @@
 ]>
 
 <section id="dq6.bank"><?dbhtml filename="dq6_bank.html" ?>
-<title>ゴールド銀行解析</title>
+<title>ゴールド銀行</title>
 <indexterm id="term.dq6.bank"><primary>ゴールド銀行</primary><secondary>DQ6</secondary></indexterm>
 <para>
-	ここでは銀行の処理について述べる。
-	データ解析はないはずなので、処理の解読に焦点を置く。
+本節ではゴールド銀行に関係のあるデータ構造および処理手順について述べる。
 </para>
 
-<section id="dq6.bank.hack">
-<title>解析</title>
+<section id="dq6.bank.structure">
+<title>データ構造</title>
 <para>
-	いつものように GSD を利用して、
-	<varname>$C0CACA</varname> に Breakpoint をセット、銀行の受付嬢にはなす。
-	すると、銀行の処理実装のアドレスがわかる。
-	<varname>$C1F7D1</varname> がそれである。
-	このサブルーチンを逆アセンブラでコードリストを抽出して、
-	いくつかの <literal>JSL</literal> の直後のコードを正しく修正したものを以下に記す。
-	長いのでキリのよいところで区切りながら進める。
+いずれのゴールド銀行においても営業内容が同一であるため、ROM には専用データがない。
 </para>
+</section> <!-- dq6.bank.structure -->
 
-<section id="dq6.bank.hack.C1F7D1">
-<title>サブルーチン <varname>$C1F7D1</varname> - 銀行処理</title>
-
-<section id="dq6.bank.hack.C1F7D1.menu">
-<title>メニュー決定まで</title>
+<section id="dq6.bank.behavior">
+<title>処理手順</title>
 <para>
-	銀行の受付に話しかけてから、メニューウィンドウを終えるまでの処理である。
+はなすオブジェクトがゴールド銀行であるならば、その振る舞いは基本的に次のようになる：
 </para>
 <programlisting>
-C1/F7D1:    08          PHP 
-C1/F7D2:    C230        REP #$30
-C1/F7D4:    48          PHA 
-C1/F7D5:    DA          PHX 
-C1/F7D6:    5A          PHY 
-C1/F7D7:    8B          PHB 
-C1/F7D8:    F47E7E      PEA $7E7E
-C1/F7DB:    AB          PLB 
-C1/F7DC:    AB          PLB 
-C1/F7DD:    A90200      LDA #$0002          a = 0002h;
-C1/F7E0:    223672C3    JSR $C37236         ■所持金ウィンドウ表示準備
-C1/F7E4:    AF2C3D7E    LDA $7E3D2C
-C1/F7E8:    290200      AND #$0002          // 初めての利用
-C1/F7EB:    D012        BNE $F7FF           if($7E3D2C &amp; 0002h = 0000h){
-C1/F7ED:    221C2EC0    JSR $C02E1C             ■愛と信頼の ゴールド銀行へ ようこそ。[AD]皆さまの ～
-C1/F7F1:    4719
-C1/F7F3:    22502EC9    JSR $C92E50             ■$7E3D2C |= 0002h
-C1/F7F7:    2C3D7E
-C1/F7FA:    020000
-C1/F7FD:    8006        BRA $F805               goto メニュー;
-                                            }
-C1/F7FF:    221C2EC0    JSR $C02E1C         ■愛と信頼の ゴールド銀行へ ようこそ。[AD][D3]さまは～
-C1/F803:    4819
-.label  ゴールド銀行::メニュー
-C1/F805:    A92000      LDA #$0020          a = 0020h;
-C1/F808:    223672C3    JSR $C37236         ■「あずける・ひきだす・やめる」表示＆待ち
-C1/F80C:    9006        BCC $F814           if(carry){
-C1/F80E:    2228B7C3    JSR $C3B728             ■ウィンドウ消去
-C1/F812:    8026        BRA $F83A               goto ありがとうございました;
-                                            }
-C1/F814:    C90200      CMP #$0002
-C1/F817:    9009        BCC $F822           if(a &gt; 0002h){
-C1/F819:    CEB038      DEC $38B0               --$7E38B0;
-C1/F81C:    2228B7C3    JSR $C3B728             ■ウィンドウ消去
-C1/F820:    8018        BRA $F83A               goto ありがとうございました;
-                                            }
-C1/F822:    48          PHA 
-C1/F823:    CEB038      DEC $38B0           --$7E38B0;
-C1/F826:    2228B7C3    JSR $C3B728         ■ウィンドウ消去
-C1/F82A:    68          PLA 
-C1/F82B:    0A          ASL A
-C1/F82C:    AA          TAX 
-C1/F82D:    7C30F8      JMP ($F830,X)       ■処理へ
-@end
-.dataarea ゴールド銀行 メニュー処理ジャンプテーブル
-C1/F830:    67F8  // あずける
-C1/F832:    08F9  // ひきだす
-@end
+CA/B6FF:    228366CD    JSR $CD6683         ; ゴールド銀行
+CA/B703:    6B          RTL
 </programlisting>
 <para>
-	<varname>$7E3D2C</varname> の <literal>#$02</literal> の位のビットが
-	「銀行の受付に話しかけたことがあるかどうかフラグ」であることがわかる。
-	ゴールド銀行の受付に初めて話しかけたときに、
-	受付はゴールド銀行の宣伝文句（メッセージ ID: <literal>#$1947</literal>）を言うことになっていることがわかる。
-	また、その直後に同フラグをセットすることで、このメッセージは二度と見られなくなる。
-</para>
-<para>
-	メニューを「あずける」または「ひきだす」を選択した場合、
-	<varname>$C1F82D </varname>の <literal>JMP</literal> 命令で然るべき処理へジャンプする。
-	ジャンプテーブルは <varname>$C1F830</varname> に、
-	すなわちこの <literal>JMP</literal> のすぐ直後に定義されている。
-</para>
-</section> <!-- dq6.bank.hack.C1F7D1.menu -->
-
-<section id="dq6.bank.hack.C1F7D1.put">
-<title>あずける</title>
-<para>
-	「あずける」を選択してから、その処理が終わるまでの処理は以下の通りである。
-</para>
-<programlisting>
-.label ゴールド銀行::あずける
-C1/F867:    22ED28C4    JSR $C428ED         ■$70 = $7E3EA5; 残高（一千単位）
-C1/F86B:    70          // $C42797 LDA のアドレス
-C1/F86C:    A570        LDA $70
-C1/F86E:    C91027      CMP #$2710          // 2710h == 10000d
-C1/F871:    9008        BCC $F87B           if($70 &gt;= 2710h){
-.label ゴールド銀行::預金オーバーフロー
-C1/F873:    221C2EC0    JSR $C02E1C             ■お客さま 申しわけありませんが～
-C1/F877:    4919
-C1/F879:    80BF        BRA $F83A               goto ありがとうございました;
-                                            }
-C1/F87B:    221C2EC0    JSR $C02E1C         ■ご入金は １０００ゴールド単位で
-C1/F87F:    4A19
-C1/F881:    A90200      LDA #$0002
-C1/F884:    8DE43A      STA $3AE4           $7E38E4 = 0002h;
-C1/F887:    AEB038      LDX $38B0           x = $7E38B0;
-C1/F88A:    224D2BC9    JSR $C92B4D         ■$7E38B4 構造体[16] らしいが意味不明
-            00
-            2000
-            B438
-            7E
-            1600
-C1/F896:    A92100      LDA #$0021          a = 0021h;
-C1/F899:    221373C3    JSR $C37313         ■金額入力ウィンドウ表示＆待ち
-C1/F89D:    9007        BCC $F8A6           if(carry){
-C1/F89F:    2228B7C3    JSR $C3B728             ■ウィンドウ消去
-C1/F8A3:    828EFF      BRL $F834               goto キャンセル処理;
-                                            }
-C1/F8A6:    AD7A38      LDA $387A           // 入力金額チェック
-C1/F8A9:    D00A        BNE $F8B5           if($7E387A == 0000h){
-C1/F8AB:    CEB038      DEC $38B0               --$7E38B0;
-C1/F8AE:    2228B7C3    JSR $C3B728             ■ウィンドウ消去
-C1/F8B2:    827FFF      BRL $F834               goto キャンセル処理;
-                                            }
-C1/F8B5:    8590        STA $90             $90 = $7E387A;
-C1/F8B7:    22BAF9C1    JSR $C1F9BA         ■$70 *= 03E8h; (1000d)
-C1/F8BB:    A570        LDA $70
-C1/F8BD:    8D7A38      STA $387A           $7E387A = $70;  (4 byte) // 残高をちゃんと 1000 倍
-C1/F8C0:    8D2E5A      STA $5A2E           $7E5A2E = $70;  (4 byte) // 表示用アドレス
-C1/F8C3:    A572        LDA $72
-C1/F8C5:    8D7C38      STA $387C
-C1/F8C8:    8D305A      STA $5A30
-C1/F8CB:    2259EEC3    JSR $C3EE59         ●残高と入力金額との大小チェックのハズ
-C1/F8CF:    9010        BCC $F8E1           if(carry){
-C1/F8D1:    221C2EC0    JSR $C02E1C             ■しつれいですが[AD]お客さまは 今 それほど
-C1/F8D5:    4B19
-C1/F8D7:    CEB038      DEC $38B0               --$7E38B0;
-C1/F8DA:    2228B7C3    JSR $C3B728             ■ウィンドウ消去
-C1/F8DE:    8259FF      BRL $F83A               goto ありがとうございました;
-                                            }
-C1/F8E1:    221729C4    JSR $C42917         ■$90
-C1/F8E5:    90
-C1/F8E6:    9010        BCC $F8F8           if(10001 以上){
-C1/F8E8:    221C2EC0    JSR $C02E1C             ■[BB]ゴールドですね。[AF][D5]
-C1/F8EC:    4D19
-C1/F8EE:    CEB038      DEC $38B0               --$7E38B0;
-C1/F8F1:    2228B7C3    JSR $C3B728             ■ウィンドウ消去
-C1/F8F5:    827BFF      BRL $F873               goto 預金オーバーフロー;
-                                            }
-C1/F8F8:    221C2EC0    JSR $C02E1C         ■[BB]ゴールドですね。[AD]では たしかに
-C1/F8FC:    4C19
-C1/F8FE:    CEB038      DEC $38B0           --$7E38B0;
-C1/F901:    2228B7C3    JSR $C3B728         ■ウィンドウ消去
-C1/F905:    8232FF      BRL $F83A           goto ありがとうございました;
-@end
-</programlisting>
-<para>
-	処理の要点は以下の通りである。
+サブルーチン <varname>$CD6683</varname> は結局 <varname>$C1F7D1</varname> を呼び出すことしかしないので、
+本書では後者のほうをゴールド銀行共通処理と位置付ける。
+このコードは対話的な処理を含むので、比較的長いものとなっている。
+要点を以下に列挙する：
 </para>
 <itemizedlist>
-	<listitem>
-		<para>
-			<varname>$7E3EA3</varname> に所持金が格納されている。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			<varname>$7E3EA5</varname> に預金残高（の一千分の一）が格納されている。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			預金額が <literal>10,000,000</literal> ゴールドの場合、預金を断られる。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			<varname>$7E387A</varname> に入力金額（の一千分の一）が格納されている。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			<varname>$7E5A2E</varname> に金額を格納するのは、
-			画面下メッセージウィンドウに数値を表示するのに必要であるから。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			所持金を越える金額を預金しようとすると、銀行員からやんわりと指摘される。
-			そして全処理終了扱いになる。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			残高が <literal>10,000,000</literal> ゴールドを越えるような預金は受け付けない。
-			そして全処理終了扱いになる。
-		</para>
-	</listitem>
+  <listitem>
+    <para>
+      初回訪問時には専用の台詞を表示する。
+      <varname>$7E3D2C</varname> の <literal>#$0002</literal> をフラグとして用いる。
+      この台詞を表示した直後にフラグを立てる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      サービス内容は「あずける」または「ひきだす」のどちらか。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      預金額はアドレス <varname>$7E3EA5</varname> に 1,000 ゴールド単位で表現されている。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      預金単位で 10,001 以上になるようなゴールドを預けようとすると、銀行員から断られる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      所持金以上のゴールドを預けようとすると、銀行員から断られる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      預金ゼロの状態で任意の金額を引き出そうとすると、銀行員から冗談を言うなと起こられる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      預金額を超えるゴールドを引き出そうとすると、銀行員から断られる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      引き出すと所持金が 1,000,000 ゴールド以上になるようだと、銀行員から断られる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      利用状況の如何を問わず、最後に預金残高を台詞の形で知らせる。
+    </para>
+  </listitem>
 </itemizedlist>
-</section> <!-- dq6.bank.hack.C1F7D1.put -->
-
-<section id="dq6.bank.hack.C1F7D1.get">
-<title>ひきだす</title>
-<para>
-	「ひきだす」を選択してから、その処理が終わるまでの処理は以下の通りである。
-</para>
-<programlisting>
-.label ゴールド銀行::ひきだす
-C1/F908:    22ED28C4    JSR $C428ED         ■$70 = $7E3EA5; 残高（一千単位）
-C1/F90C:    70
-C1/F90D:    A570        LDA $70
-C1/F90F:    8D3E30      STA $303E           $7E303E = $70;
-C1/F912:    D009        BNE $F91D           if($70 == 0000h){
-C1/F914:    221C2EC0    JSR $C02E1C             ■これは ごじょうだんを。
-C1/F918:    4E19
-C1/F91A:    821DFF      BRL $F83A               goto ありがとうございました;
-                                            }
-C1/F91D:    22BAF9C1    JSR $C1F9BA         ■$70 *= 03E8h; (1000d)
-C1/F921:    A570        LDA $70
-C1/F923:    8D2E5A      STA $5A2E
-C1/F926:    A572        LDA $72             // 表示用アドレス
-C1/F928:    8D305A      STA $5A30           $7E5A2E = $70;  (4 byte)
-.label ゴールド銀行::いくら引き出す？
-C1/F92B:    221C2EC0    JSR $C02E1C         ■現在 [BB]ゴールド[AD]お預かりしていますが
-C1/F92F:    4F19
-C1/F931:    A90200      LDA #$0002
-C1/F934:    8DE43A      STA $3AE4           $7E3AE4 = 0002h;
-C1/F937:    AEB038      LDX $38B0           x = $7E38B0;
-C1/F93A:    224D2BC9    JSR $C92B4D         ■$7E38B4 構造体[16] らしいが意味不明
-            00
-            2000
-            B438
-            7E
-            1600
-C1/F946:    A92100      LDA #$0021          a = 0021h;
-C1/F949:    221373C3    JSR $C37313         ■金額入力ウィンドウ表示＆待ち
-C1/F94D:    9007        BCC $F956           if(キャンセル){
-C1/F94F:    2228B7C3    JSR $C3B728             ■ウィンドウ消去
-C1/F953:    82DEFE      BRL $F834               goto キャンセル処理;
-                                            }
-C1/F956:    AD7A38      LDA $387A           // ゼロを入力したか
-C1/F959:    D00A        BNE $F965           if($7E387A == 0000h){
-C1/F95B:    CEB038      DEC $38B0               --$7E38B0;
-C1/F95E:    2228B7C3    JSR $C3B728             ■ウィンドウ消去
-C1/F962:    82CFFE      BRL $F834               goto キャンセル処理;
-                                            }
-C1/F965:    CD3E30      CMP $303E
-C1/F968:    9012        BCC $F97C           // 過剰な引き出しを試みたか
-C1/F96A:    F010        BEQ $F97C           if($7E387A &gt; $7E303E){
-C1/F96C:    221C2EC0    JSR $C02E1C             ■そんなに たくさん[AD]お預かりしておりませんが
-C1/F970:    5019
-C1/F972:    CEB038      DEC $38B0               --$7E38B0;
-C1/F975:    2228B7C3    JSR $C3B728             ■ウィンドウ消去
-C1/F979:    82AFFF      BRL $F92B               goto いくら引き出す？;
-                                            }
-C1/F97C:    22E027C4    JSR $C427E0         ●$70
-C1/F980:    70
-C1/F981:    22DAF9C1    JSR $C1F9DA         ●数値計算のみ
-C1/F985:    A570        LDA $70
-C1/F987:    18          CLC 
-C1/F988:    6D7A38      ADC $387A           a = $70 + $7E387A;  // 所持金＋指定金額
-C1/F98B:    C9E803      CMP #$03E8
-C1/F98E:    9010        BCC $F9A0           if(a &gt;= 03E8h){  // &gt;= 1000d
-C1/F990:    221C2EC0    JSR $C02E1C             ■お客さまは そんなに たくさん[AD]おもちに
-C1/F994:    5119
-C1/F996:    CEB038      DEC $38B0               --$7E38B0;
-C1/F999:    2228B7C3    JSR $C3B728             ■ウィンドウ消去
-C1/F99D:    828BFF      BRL $F92B               goto いくら引き出す？;
-                                            }
-C1/F9A0:    AD7A38      LDA $387A
-C1/F9A3:    8570        STA $70             $70 = $7E387A;  // 入力金額 (/ 1000d)
-C1/F9A5:    226A29C4    JSR $C4296A         ●所持金と残高を同時更新
-C1/F9A9:    70
-C1/F9AA:    221C2EC0    JSR $C02E1C         ■しょうちいたしました。
-C1/F9AE:    5219
-C1/F9B0:    CEB038      DEC $38B0           --$7E38B0;
-C1/F9B3:    2228B7C3    JSR $C3B728         ■ウィンドウ消去
-C1/F9B7:    8280FE      BRL $F83A           goto ありがとうございました;
-@end
-</programlisting>
-<para>
-	処理の要点は以下の通りである。
-</para>
-<itemizedlist>
-	<listitem>
-		<para>
-			残高ゼロにもかかわらず「ひきだす」を選択した場合、
-			銀行員から「ご冗談を」といわれてしまう。
-			そして全処理終了扱いになる。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			引出金額にゼロを入力した場合、「ひきだす」処理が取り消し扱いになる。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			残高を越える金額を引き出そうとした場合、
-			銀行員から「そんなに預かっていない」と言われる。
-			そして再度引出金額を問われる。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			引出金額と所持金の和が 1,000,000 ゴールド以上になる場合、
-			銀行員から「そんなにたくさん持てない」と言われる。
-			そして再度引出金額を問われる。
-		</para>
-	</listitem>
-</itemizedlist>
-</section> <!-- dq6.bank.hack.C1F7D1.get -->
-
-<section id="dq6.bank.hack.C1F7D1.cancel">
-<title>取り消し</title>
-<para>
-	銀行処理の色々なところからここへ来ることができる。
-	銀行員のセリフの後、終了処理が走る。
-</para>
-<programlisting>
-.label ゴールド銀行::キャンセル処理
-C1/F834:    221C2EC0    JSR $C02E1C         ■おやめに なるのですね。
-C1/F838:    5319
-</programlisting>
-</section> <!-- dq6.bank.hack.C1F7D1.cancel -->
-
-<section id="dq6.bank.hack.C1F7D1.end">
-<title>終了</title>
-<para>
-	銀行処理の終了である。
-	プレイヤーに取引直後の所持金と、預金残高の両方を確認させる。
-</para>
-<programlisting>
-.label ゴールド銀行::ありがとうございました
-C1/F83A:    A90300      LDA #$0003          a = 0003h;
-C1/F83D:    223672C3    JSR $C37236         ■所持金ウィンドウ表示
-C1/F841:    CEB038      DEC $38B0           --$7E38B0;
-C1/F844:    22ED28C4    JSR $C428ED         ■$70 = $7E3EA5; 残高（一千単位）
-C1/F848:    70
-C1/F849:    A570        LDA $70             a = $70;
-C1/F84B:    22BAF9C1    JSR $C1F9BA         ■$70 *= 03E8h; (1000d)
-C1/F84F:    A570        LDA $70
-C1/F851:    8D2E5A      STA $5A2E
-C1/F854:    A572        LDA $72             // 表示用アドレス
-C1/F856:    8D305A      STA $5A30           $7E5A2E = $70; (4 byte)
-C1/F859:    221C2EC0    JSR $C02E1C         ■現在[BB]ゴールド[AD]お預かりしています
-C1/F85D:    5519
-C1/F85F:    AB          PLB 
-C1/F860:    C230        REP #$30
-C1/F862:    7A          PLY 
-C1/F863:    FA          PLX 
-C1/F864:    68          PLA 
-C1/F865:    28          PLP 
-C1/F866:    6B          RTL
-@end
-</programlisting>
-</section> <!-- dq6.bank.hack.C1F7D1.end -->
-</section> <!-- dq6.bank.hack.C1F7D1 -->
-</section> <!-- dq6.bank.hack -->
+</section> <!-- dq6.bank.behavior -->
 </section> <!-- dq6.bank -->
