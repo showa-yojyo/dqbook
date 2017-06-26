@@ -133,7 +133,7 @@ C3/D3E2:    6B          RTL                 // すなわち RTL で戻る先の�
 	まず、神父やシスターに話しかけてから、
 	メニューウィンドウが表示されるまでのコードリストを以下に示す。
 	各コメントは、<link linkend="dq6.shop.hack">店屋解析</link>や、
-	<link linkend="dq6.inn.hack">宿屋解析</link>で得た解読結果を利用したものを含む
+	<link linkend="dq6.inn.behavior">宿屋解析</link>で得た解読結果を利用したものを含む
 	例えば <literal>LDA</literal> 直後の <literal>JSR $D7B9</literal> はセリフ表示ルーチンであることを既に知っている。
 </para>
 <programlisting>
@@ -301,7 +301,7 @@ C3/D499:    B000B6D6  // どくのちりょう
 		<glossterm>セリフ種別</glossterm>
 		<glossdef>
 			<para>
-				<link linkend="dq6.shop.hack.C58B93">店屋</link>や<link linkend="dq6.inn.hack.C58E0B">宿屋</link>のデータ構造体の対応するメンバーと同じ役割を果たす。
+				<link linkend="dq6.shop.hack.C58B93">店屋</link>や<link linkend="dq6.inn.structure">宿屋</link>のデータ構造体の対応するメンバーと同じ役割を果たす。
 				値の意味は以下のとおり。
 			</para>
 			<table id="table.dq6.C58E9F.kind" class="lighttable">
