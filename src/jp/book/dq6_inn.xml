@@ -15,6 +15,12 @@
 </para>
 
 <section id="dq6.inn.structure">
+<title>データ</title>
+<para>
+各地の宿屋を表現するデータ構造を説明する。
+</para>
+
+<section id="dq6.inn.structure.C58E0B">
 <title>構造体 <varname>$C58E0B</varname>: 宿屋</title>
 <para>
 以下に示すメモリレイアウトのオブジェクトがアドレス <varname>$C58E0B</varname> から 37 個配列されている。
@@ -58,6 +64,46 @@
     </listitem>
   </varlistentry>
 </variablelist>
+</section> <!-- dq6.inn.structure.C58E0B -->
+
+<section id="dq6.inn.structure.C7D0DD">
+<title>配列 <varname>$C7D0DD</varname>: 宿屋台詞セット</title>
+<para>
+宿屋の話す台詞集はメッセージ ID の配列の形式で表現されている。
+その台詞セットのアドレスの配列がアドレス <varname>$C7D0DD</varname> にある。
+</para>
+<para>
+以下に台詞セットのデータを直接示す。セミコロンから右側が本書が独自に付したコメントだ：
+読者はメッセージ ID と実際のテキストとの対応を <link linkend="appendix.b"/> に収録した移動モードテキストデータを参照すれば確認できる。
+</para>
+<programlisting><![CDATA[
+C7/D0DD:    E1D0    ; 一般の宿屋のセリフ ID セット
+C7/D0DF:    EDD0    ; マウントスノーの宿屋の剣士のセリフセット
+
+C7/D0E1:    FD18    ; #$00: [DE]ようこそ 旅の宿に。[AF]
+C7/D0E3:    FE18    ; #$01: [DE]ひと晩 [BB]ゴールドですが[AD]お泊まりに なりますか？
+C7/D0E6:    FF18    ; #$02: [DE]さようなら 旅の人。[AD]お気をつけて 旅を[AD]つづけられますように。
+C7/D0E7:    0019    ; #$03: [DE]でも お金が[AD]たりないようですね。[AF][D5]
+C7/D0E9:    0119    ; #$04: [DE]それでは ごゆっくり[AD]おやすみください。
+C7/D0EB:    0219    ; #$05: [DE]おはようございます。[AD]では いってらっしゃいませ。
+
+C7/D0ED:    3D02    ; #$00: この町の ありさまは[AD]いったい どうしたことなのだ。[AF](...)
+C7/D0F0:    3E02    ; #$01: おぬしらも 泊まっていくか？[AD]宿代の [BB]ゴールドは[AD]わしが あずかっておこう。
+C7/D0F2:    4202    ; #$02: そうか ならば[AD]好きに するが いい。
+C7/D0F4:    4102    ; #$03: わしも タダで 泊まって[AD]いるわけでは ない。[AD]金が ないなら ダメだな。
+C7/D0F6:    3F02    ; #$04: よかろう。[AD]ゆっくり 休むが いい。
+C7/D0F8:    4002    ; #$05: [D4][DE][D3]たちは 目がさめた。
+]]></programlisting>
+<para>
+これらの台詞を表示するためのサブルーチンが用意されており、
+宿屋の処理中では汎用のメッセージ表示サブルーチンを呼び出す代わりに、
+サブルーチン <varname>$C7D0BA</varname> を用いる。
+呼び出し例を示す：
+<programlisting><![CDATA[
+C7/CF9C:    A90100      LDA #$0001          ; [DE]ひと晩 [BB]ゴールドですが[AD]お泊まりに なりますか？ or おぬしらも 泊まっていくか？
+C7/CF9F:    20BAD0      JSR $D0BA           ; 台詞表示
+]]></programlisting>
+</section> <!-- dq6.inn.structure.C7D0DD -->
 </section> <!-- dq6.inn.structure -->
 
 <section id="dq6.inn.behavior">
