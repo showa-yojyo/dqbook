@@ -650,7 +650,8 @@ C3/BE6D:    C416
         <listitem>
           <simpara>教会の場合には ID <literal>#$0006</literal> の教会が現れる。
           つまり「おいのりをする」がない教会だ。
-          それから <xref linkend="dq6.church.hack.C3D3AE" /> を実行する。</simpara>
+          それから教会共通処理を実行する。
+          この場合は <xref linkend="dq6.church.behavior.C3D3AE"/> で述べるサービスを受けられる。</simpara>
         </listitem>
       </itemizedlist>
     </listitem>

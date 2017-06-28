@@ -6,433 +6,422 @@
 ]>
 
 <section id="dq6.church"><?dbhtml filename="dq6_church.html" ?>
-<title>教会解析</title>
+<title>教会</title>
 <indexterm id="term.dq6.church"><primary>教会</primary><secondary>DQ6</secondary></indexterm>
 <para>
-	教会の処理について簡単に述べる。
+本節では各地の教会を表現するデータ構造と処理を説明する。
 </para>
 
-<section id="dq6.church.hack">
-<title>解析</title>
-<para>
-	いつものように、GSD の Breakpoint Exec を <varname>$C0CACA</varname> にセットする。
-	そして、いろいろな教会に行き、神父やシスターに「はなす」。
-	複数のアセンブリコードを控えておき、比較して共通部分を見る。
-</para>
-<programlisting>
-ゼニスのしろ教会神父
-$C0/CACA DC B0 06    JML [$06B0][$CE:1823]   A:00CE X:0C14 Y:000A
-$CE/1823 AD 39 3D    LDA $3D39  [$7E:3D39]   A:00CE X:0C14 Y:000A
-$CE/1826 29 80 00    AND #$0080              A:001F X:0C14 Y:000A
-$CE/1829 D0 03       BNE $03    [$182E]      A:0000 X:0C14 Y:000A
-$CE/182B 4C 34 18    JMP $1834  [$7E:1834]   A:0000 X:0C14 Y:000A
-$CE/1834 22 DD 65 CD JSL $CD65DD[$CD:65DD]   A:0000 X:0C14 Y:000A
-$CD/65DD A2 01 00    LDX #$0001              A:0000 X:0C14 Y:000A
-$CD/65E0 A9 A8 00    LDA #$00A8              A:0000 X:0001 Y:000A
-$CD/65E3 A0 A8 00    LDY #$00A8              A:00A8 X:0001 Y:000A
-$CD/65E6 22 AE D3 C3 JSL $C3D3AE[$C3:D3AE]   A:00A8 X:0001 Y:00A8
-</programlisting>
-<programlisting>
-シエーナ教会シスター
-$C0/CACA DC B0 06    JML [$06B0][$CA:B67B]   A:00CA X:022E Y:000A
-$CA/B67B 22 C5 64 CD JSL $CD64C5[$CD:64C5]   A:00CA X:022E Y:000A
-$CD/64C5 A2 02 00    LDX #$0002              A:00CA X:022E Y:000A
-$CD/64C8 A9 90 00    LDA #$0090              A:00CA X:0002 Y:000A
-$CD/64CB A0 90 00    LDY #$0090              A:0090 X:0002 Y:000A
-$CD/64CE 22 AE D3 C3 JSL $C3D3AE[$C3:D3AE]   A:0090 X:0002 Y:0090
-</programlisting>
-<programlisting>
-レイドック教会神父
-$C0/CACA DC B0 06    JML [$06B0][$CC:97CF]   A:00CC X:0360 Y:000A
-$CC/97CF A2 01 00    LDX #$0001              A:00CC X:0360 Y:000A
-$CC/97D2 A9 A2 00    LDA #$00A2              A:00CC X:0001 Y:000A
-$CC/97D5 A0 A2 00    LDY #$00A2              A:00A2 X:0001 Y:000A
-$CC/97D8 22 AE D3 C3 JSL $C3D3AE[$C3:D3AE]   A:00A2 X:0001 Y:00A2
-</programlisting>
-<programlisting>
-デスコッド教会魔物
-$C0/CACA DC B0 06    JML [$06B0][$C9:DC7E]   A:00C9 X:0282 Y:000A
-$C9/DC7E 22 F9 65 CD JSL $CD65F9[$CD:65F9]   A:00C9 X:0282 Y:000A
-$CD/65F9 A2 06 00    LDX #$0006              A:00C9 X:0282 Y:000A
-$CD/65FC A9 A9 00    LDA #$00A9              A:00C9 X:0006 Y:000A
-$CD/65FF A0 A9 00    LDY #$00A9              A:00A9 X:0006 Y:000A
-$CD/6602 22 AE D3 C3 JSL $C3D3AE[$C3:D3AE]   A:00A9 X:0006 Y:00A9
-</programlisting>
-<para>
-	以上のコードの比較により、教会処理の序盤について以下のようなことが想像できる。
-</para>
-<itemizedlist>
-	<listitem>
-		<para>
-			サブルーチン <varname>$C3D3AE</varname> が各教会に共通する処理を行う
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			同サブルーチンは <varname>X</varname>, <varname>A</varname>, <varname>Y</varname> 各レジスタの値を参照する
-		</para>
-	</listitem>
-</itemizedlist>
-
-<section id="dq6.church.hack.C3D3AE">
-<title>サブルーチン <varname>$C3D3AE</varname> - 教会共通処理</title>
-<para>
-	それではサブルーチン <varname>$C3D3AE</varname> のアセンブリコードを見ていこう。
-	DisPel による逆アセンブルコードリストを以下に示す。
-</para>
-<programlisting>
-教会共通
-C3/D3AE:    08          PHP 
-C3/D3AF:    C230        REP #$30
-C3/D3B1:    48          PHA 
-C3/D3B2:    DA          PHX 
-C3/D3B3:    5A          PHY 
-C3/D3B4:    8B          PHB 
-C3/D3B5:    F47E7E      PEA $7E7E
-C3/D3B8:    AB          PLB 
-C3/D3B9:    AB          PLB 
-C3/D3BA:    8DAF3B      STA $3BAF           // (Unknown)
-C3/D3BD:    8CB13B      STY $3BB1           // (Unknown)
-C3/D3C0:    8E753B      STX $3B75           // 教会 ID に相当する
-C3/D3C3:    E220        SEP #$20
-C3/D3C5:    22B52AC9    JSR $C92AB5         ■A = C58E9Fh + 0006h * x [05];
-            00
-            0600
-            9F8E
-            C5
-            0500                            // A は教会構造体メンバ[05]だ
-C3/D3D1:    48          PHA                 // この 1 byte の値をプッシュ
-C3/D3D2:    C220        REP #$20
-C3/D3D4:    22B52AC9    JSR $C92AB5         ■a = C58E9Fh + 0006h * x [03];
-            00
-            0600
-            9F8E
-            C5
-            0300                            // a == 教会構造体メンバ[03-04]
-C3/D3E0:    3A          DEC A               // それを DEC
-C3/D3E1:    48          PHA                 // この 2 byte の値をプッシュ
-C3/D3E2:    6B          RTL                 // すなわち RTL で戻る先のアドレスを改竄している
-</programlisting>
-<para>
-	いつものように、サブルーチン <varname>$C92AB5</varname> の呼び出しがあることから、
-	その直後のインラインデータを見ることにより、
-	<emphasis><varname>$C58E9F</varname> に <literal>6</literal> バイト長の構造体データがいくつか直列している</emphasis>ことが断定できる。
-	この サブルーチンは <varname>$C92AB5</varname> 呼び出しを二回行うことで、
-	アドレスデータをスタックにプッシュし、そのまま <literal>RTL</literal> 命令を用いることで、
-	教会の処理に移る、ということを意図して行っている。
-</para>
-</section> <!-- dq6.church.hack.C3D3AE -->
-
-<section id="dq6.church.hack.C3D3E3">
-<title>サブルーチン <varname>$C3D3E3</varname> - 教会標準処理</title>
-<para>
-	教会の処理は後で見るように <literal>4</literal> 通り存在する。
-	ここでは、一般的な教会の処理を行うサブルーチン <varname>$C3D3E3</varname> をおおまかに見ていく。
-</para>
-<para>
-	まず、神父やシスターに話しかけてから、
-	メニューウィンドウが表示されるまでのコードリストを以下に示す。
-	各コメントは、<link linkend="dq6.shop.hack">店屋解析</link>や、
-	<link linkend="dq6.inn.behavior">宿屋解析</link>で得た解読結果を利用したものを含む
-	例えば <literal>LDA</literal> 直後の <literal>JSR $D7B9</literal> はセリフ表示ルーチンであることを既に知っている。
-</para>
-<programlisting>
-C3/D3E3:    F47E7E      PEA $7E7E
-C3/D3E6:    AB          PLB 
-C3/D3E7:    AB          PLB 
-C3/D3E8:    AE753B      LDX $3B75           // 教会 ID をセット
-C3/D3EB:    22B52AC9    JSR $C92AB5         // 先頭のアドレス値をセット
-            00          // ($09,S),01h
-            0600        // ($09,S),02h
-            9F8E        // ($09,S),04h
-            C5          // ($09,S),06h
-            0000        // ($09,S),07h
-C3/D3F7:    8D793B      STA $3B79           $7E3B79 = 教会構造体データ先頭アドレス;
-C3/D3FA:    A90200      LDA #$0002          a = 0002h;
-C3/D3FD:    223672C3    JSR $C37236         ●処理が深そうなため、今は調査しない
-C3/D401:    A90000      LDA #$0000          // セリフ配列のインデックス
-C3/D404:    20B9D7      JSR $D7B9           ■生きとし生けるものは～
-.label  メニュー項目を選択させる
-C3/D407:    A90000      LDA #$0000
-C3/D40A:    8DE43A      STA $3AE4           // 不明
-C3/D40D:    AEB038      LDX $38B0           // 不明
-C3/D410:    224D2BC9    JSR $C92B4D         ■$7E38B4 構造体[16] らしいが意味不明
-            00          // ($09,S),01h:  00 であればいい
-            2000        // ($09,S),02h:  sizeof
-            B438        // ($09,S),04h:  addr-lo
-            7E          // ($09,S),06h:  addr-hi
-            1600        // ($09,S),07h:  addr-lo に足す; $7E38B4[16]
-C3/D41C:    AE753B      LDX $3B75           // 教会 ID をセット
-C3/D41F:    22392CC9    JSR $C92C39         //a = $C58E9F[02] &amp; 01h
-            00
-            0600
-            9F8E
-            C5          // $C58E9F[02] &amp; 01
-            0200        // メニューの内容を決め
-            01
-            0000
-C3/D42E:    C90100      CMP #$0001
-C3/D431:    F009        BEQ $D43C           if(a != 0001h)
-C3/D433:    A91000      LDA #$0010              a = 0010h;
-C3/D436:    223672C3    JSR $C37236             ■教会メニュー;「おいのりをする」なし
-C3/D43A:    8007        BRA $D443           }else{
-C3/D43C:    A90F00      LDA #$000F              a = 000Fh;
-C3/D43F:    223672C3    JSR $C37236             ■教会メニュー;「おいのりをする」あり
-                                            }
-C3/D443:    9015        BCC $D45A           if(キャンセル){
-.label  教会::やめる
-C3/D445:    2228B7C3    JSR $C3B728             // 今は調査しない
-C3/D449:    2016D8      JSR $D816               // 今は調査しない
-C3/D44C:    A90100      LDA #$0001              // セリフ配列のインデックス
-C3/D44F:    20B9D7      JSR $D7B9               ■おお 神よ！[AD]この者[B2]に～
-C3/D452:    AB          PLB 
-C3/D453:    C230        REP #$30
-C3/D455:    7A          PLY 
-C3/D456:    FA          PLX 
-C3/D457:    68          PLA 
-C3/D458:    28          PLP 
-C3/D459:    6B          RTL
-                                            }
-.label  選択項目をチェック
-C3/D45A:    AD7438      LDA $3874
-C3/D45D:    C9BD00      CMP #$00BD          // 「やめる」
-C3/D460:    D005        BNE $D467           if($3874 == 00BDh){
-C3/D462:    CEB038      DEC $38B0               --$38B0;
-C3/D465:    80DE        BRA $D445               goto 教会::やめる;
-                                            }
-</programlisting>
-<para>
-	ここで押さえておくべきことは以下の通りだ。
-</para>
-<itemizedlist>
-	<listitem>
-		<para>
-			メニューに「おいのりをする」を含むかどうかは、
-			<link linkend="dq6.church.data">教会構造体</link>のデータだけで決まる。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			メニューウィンドウで項目を選択すると、その<link linkend="dq6.string.data">文字列の ID</link>
-			がメモリ <varname>$7E3874</varname> に格納される（らしい）
-		</para>
-	</listitem>
-</itemizedlist>
-<para>
-	メニュー分岐は以下のように実装されている。
-	<literal>JMP</literal> 命令で処理を分けている。
-</para>
-<programlisting>
-.label  ここは不明
-C3/D467:    CEB038      DEC $38B0
-C3/D46A:    2228B7C3    JSR $C3B728
-C3/D46E:    A99DD4      LDA #$D49D
-C3/D471:    38          SEC 
-C3/D472:    E98DD4      SBC #$D48D
-C3/D475:    8D0030      STA $3000
-C3/D478:    A20000      LDX #$0000
-.label  find-if
-                                            for(x = 0000h; ; x += 4){
-C3/D47B:    AD7438      LDA $3874               // 選択文字列 ID と一致するか
-C3/D47E:    DF8DD4C3    CMP $C3D48D,X           if($3874 == $C3D48D[x])
-C3/D482:    F006        BEQ $D48A                   break;
-C3/D484:    E8          INX 
-C3/D485:    E8          INX 
-C3/D486:    E8          INX 
-C3/D487:    E8          INX
-C3/D488:    80F1        BRA $D47B           }
-.label
-C3/D48A:    7C8FD4      JMP ($D48F,X)       ■メニュー項目によってジャンプ
-@end
-.dataarea  map&lt;メニュー項目, 処理アドレス&gt;
-// [00-01]: 文字列配列のインデックス
-// [02-03]: 処理アドレス
-C3/D48D:    AD009DD4  // おいのりをする
-C3/D491:    AE008BD5  // おつげをきく
-C3/D495:    AF000CD6  // いきかえらせる
-C3/D499:    B000B6D6  // どくのちりょう
-@end
-</programlisting>
-</section> <!-- dq6.church.hack.C3D3E3 -->
-
-<section id="dq6.church.hack.C58E9F">
-<title>構造体 <varname>$C58E9F</varname> - 教会データ構造体</title>
-<para>
-	構造体 <varname>$C58E9F</varname> が教会のデータだ。
-	データ長が <literal>6</literal> バイトと小さいため、
-	各メンバの意味を特定するのに ROM 改造を試すのが有効だ。
-	この構造体の各メンバは、以下の表のとおりだ。
-</para>
-<table id="table.dq6.C58E9F" class="memorylayout">
-	<caption>構造体 $C58E9F - 教会データ構造体 メモリレイアウト</caption>
-	<colgroup>
-		<col span="1" width="12%"/>
-		<col span="7" width="11%"/>
-	</colgroup>
-	<thead>
-		<tr><th>Byte:Bit</th>
-			<th>80</th>
-			<th>40</th>
-			<th>20</th>
-			<th>10</th>
-			<th>08</th>
-			<th>04</th>
-			<th>02</th>
-			<th>01</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr><th>00</th><td rowspan="2" colspan="8">セリフ種別</td></tr>
-		<tr><th>01</th></tr>
-		<tr><th>02</th>
-			<td colspan="7">未使用</td>
-			<td>おいのりフラグ</td>
-		</tr>
-		<tr><th>03</th>
-			<td rowspan="3" colspan="8">処理アドレス</td>
-		</tr>
-		<tr><th>04</th></tr>
-		<tr><th>05</th></tr>
-	</tbody>
-</table>
-
-<glosslist>
-	<glossentry>
-		<glossterm>セリフ種別</glossterm>
-		<glossdef>
-			<para>
-				<link linkend="dq6.shop.hack.C58B93">店屋</link>や<link linkend="dq6.inn.structure">宿屋</link>のデータ構造体の対応するメンバーと同じ役割を果たす。
-				値の意味は以下のとおり。
-			</para>
-			<table id="table.dq6.C58E9F.kind" class="lighttable">
-				<caption>セリフ種別</caption>
-				<thead>
-					<tr><th>値</th><th>意味</th></tr>
-				</thead>
-				<tbody>
-					<tr><td><literal>#$01</literal></td><td>神父系のセリフ ID 配列のアドレス</td></tr>
-					<tr><td><literal>#$02</literal></td><td>シスター系のセリフ ID 配列のアドレス</td></tr>
-					<tr><td><literal>#$03</literal></td><td>上記のどちらでもない</td></tr>
-				</tbody>
-			</table>
-			<para>
-				コードは簡単なので省略する。データの概要だけを以下に示す。
-				セリフ ID と実際のメッセージについては、<xref linkend="appendix.b"/> を参照すること。
-			</para>
-<programlisting>
-.dataarea  教会セリフグループアドレスの配列
-C3/D9F8:    FCD9  // セリフグループ 1
-C3/D9FB:    32DA  // セリフグループ 2
-@end
-.dataarea  教会セリフグループ 1
-C3/D9FC:    CA18  // 00: [DE]生きとし生けるものは～
-C3/D9FE:    E418  // 01: [DE]おお 神よ！[AD]この者[B2]に～
-C3/DA00:    CB18  // 02: [DE]では 神のまえに[AD]これまでの～
-C3/DA02:    CE18  // 03: [DE]なんばんの 冒険の書に[AD]記録するのじゃ？
-C3/DA04:    D318  // 04: [DE]たしかに 記録しましたぞ～
-C3/DA06:    D418  // 05: [DE]おお神よ！[AD]この者[B2]に ひとときの～
-C3/DA08:    CD18  // 06: [DE]記録しないと申されるか～
-C3/DA0A:    D018  // 07: [DE]まだ 冒険を～
-C3/DA0C:    D118  // 08: [DE]なんと 記録せずに～
-C3/DA0E:    D218  // 09: [DE]では そなたの冒険が～
-C3/DA10:    CC18  // 0A: [DE]そして この冒険の書に～
-C3/DA12:    CF18  // 0B: [DE]そうすると [B2]ＬＶ[BB]の[AD]記録が～
-C3/DA14:    D518  // 0C: [DE]神の声が 聞こえます。[AF][D5]
-C3/DA16:    D618  // 0D: [DE][C0]よ。[AD]あと[BB]の経験で～
-C3/DA18:    E318  // 0E: [DE]ほかに ご用は おありかな？
-C3/DA1A:    D718  // 0F: [DE][C0]よ。[AD]そなたは もう～
-C3/DA1C:    D818  // 10: [DE]どなたを 生きかえして～
-C3/DA1E:    D918  // 11: [DE]なんと [B3]どのは～
-C3/DA20:    E218  // 12: [DE]なんと やめると申されるか。[AF]
-C3/DA22:    DF18  // 13: [DE]さすれば わが教会に[AD][BB]ゴールドの～
-C3/DA24:    E018  // 14: [DE]なんと 寄付をするには～
-C3/DA26:    E118  // 15: [DE]それもまた そなたの意志～
-C3/DA28:    DA18  // 16: [DE]おお わが主よ！[AD]全知全能の神よ～
-C3/DA2A:    DB18  // 17: [DE][B3]は よみがえった！[AF][D5]
-C3/DA2C:    DC18  // 18: [DE]どなたの毒を～
-C3/DA2E:    DE18  // 19: [DE]おお神よ！ わが主よ！[AD][B3]の身体より～
-C3/DA30:    DD18  // 1A: [DE]はて [B3]どのは～
-@end
-シスター系のセリフ ID 配列も同様に存在する
-</programlisting>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>おいのりフラグ</glossterm>
-		<glossdef>
-			<para>
-				教会のメニューに「おいのりをする」があるかどうかを示す。
-				<literal>1</literal> のとき、「おいのりをする」がメニューに現れる。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>処理アドレス</glossterm>
-		<glossdef>
-			<para>
-				教会の実装は、前処理をまず行い、
-				その直後に個々の教会での処理が続く構成になっている。
-				その「個々の教会での処理」のサブルーチンのアドレスデータだ。
-				<literal>JSL</literal> ではなく <literal>RTL</literal> でここへ飛ぶように「工夫」がされている。
-			</para>
-			<para>
-				このアドレスは <literal>4</literal> 通り存在して、
-				それぞれの処理の内容は以下の通りだ。
-			</para>
-			<table id="table.dq6.C58E9F.subroutines" class="lighttable">
-				<caption>処理アドレス</caption>
-				<thead>
-					<tr><th>値</th><th>意味</th></tr>
-				</thead>
-				<tbody>
-					<tr><td><varname>$C3D3E3</varname></td><td>普通の教会処理</td></tr>
-					<tr><td><varname>$C3D849</varname></td><td>アモールの教会が掃除をしている最中</td></tr>
-					<tr><td><varname>$C3D8C3</varname></td><td>下の世界で、パーティが実体化していないとき</td></tr>
-					<tr><td><varname>$C3D910</varname></td><td>マウントスノー初期状態の教会</td></tr>
-				</tbody>
-			</table>
-		</glossdef>
-	</glossentry>
-</glosslist>
-</section> <!-- dq6.church.hack.C58E9F -->
-</section> <!-- dq6.church.hack -->
-
-<section id="dq6.church.data">
+<section id="dq6.church.structure">
 <title>データ</title>
 <para>
-	データの総数が <literal>8</literal> しかないので、ここに直接記述する。
+各地の教会を表現するデータ構造を説明する。
 </para>
-<table id="table.dq6.church.data" class="lighttable">
-	<caption>$C58E9F 構造体データ</caption>
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>セリフ</th>
-			<th>おいのり</th>
-			<th>処理アドレス</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr><th><literal>0000</literal></th><td><literal>#$0000</literal></td><td><literal>0</literal></td><td><varname>$C3D3E3</varname></td></tr>
-		<tr><th><literal>0001</literal></th><td><literal>#$0001</literal></td><td><literal>1</literal></td><td><varname>$C3D3E3</varname></td></tr>
-		<tr><th><literal>0002</literal></th><td><literal>#$0002</literal></td><td><literal>1</literal></td><td><varname>$C3D3E3</varname></td></tr>
-		<tr><th><literal>0003</literal></th><td><literal>#$0003</literal></td><td><literal>1</literal></td><td><varname>$C3D849</varname></td></tr>
-		<tr><th><literal>0004</literal></th><td><literal>#$0003</literal></td><td><literal>1</literal></td><td><varname>$C3D8C3</varname></td></tr>
-		<tr><th><literal>0005</literal></th><td><literal>#$0003</literal></td><td><literal>1</literal></td><td><varname>$C3D910</varname></td></tr>
-		<tr><th><literal>0006</literal></th><td><literal>#$0001</literal></td><td><literal>0</literal></td><td><varname>$C3D3E3</varname></td></tr>
-		<tr><th><literal>0007</literal></th><td><literal>#$0002</literal></td><td><literal>0</literal></td><td><varname>$C3D3E3</varname></td></tr>
-	</tbody>
-</table>
-</section> <!-- dq6.church.data -->
 
-<section id="dq6.church.todo">
-<title>TODO リスト</title>
+<section id="dq6.church.structure.C58E9F">
+<title>構造体 <varname>$C58E9F</varname>: 教会</title>
+<para>
+アドレス <varname>$C58E9F</varname> にある配列要素のそれぞれが対応する教会オブジェクトを表現する。
+</para>
+<table id="table.dq6.church.C58E9F" class="lighttable">
+  <caption>構造体 $C58E9F</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>台詞セット</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0001</literal></td><td>おいのり</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00FE</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$FFFF</literal></td><td>処理アドレス</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>*</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味は次のとおり：
+</para>
+<variablelist>
+  <varlistentry>
+    <term>台詞セット</term>
+    <listitem>
+      <para>
+        台詞セット属性は、教会にいる神父等の台詞の集合を指定する ID 値を取る。
+        具体的に言えば、後述する配列 <varname>$C3D9F8</varname> の添字に相当する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>おいのり</term>
+    <listitem>
+      <para>
+        おいのりはブーリアン型属性で、教会のメニューに「おいのりをする」の項目があるかどうかを示す。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>処理アドレス</term>
+    <listitem>
+      <para>
+        教会の処理は大部分は一つのサブルーチンで実装されてはいるものの、
+        場所によっては若干振る舞いに差異がある。
+        この属性はその「差分」を実装するサブルーチンのフルアドレスを値とする。
+      </para>
+      <para>
+        データによると以下のようなことを表現していることがわかる：
+      </para>
+      <table id="table.dq6.C58E9F.handlers" class="lighttable">
+        <caption>処理アドレス</caption>
+        <thead>
+          <tr><th>値</th><th>意味</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><varname>$C3D3E3</varname></td><td>普通の教会処理</td></tr>
+          <tr><td><varname>$C3D849</varname></td><td>アモールの教会が掃除をしている最中</td></tr>
+          <tr><td><varname>$C3D8C3</varname></td><td>下の世界で、パーティが実体化していないとき</td></tr>
+          <tr><td><varname>$C3D910</varname></td><td>マウントスノー初期状態の教会</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.church.structure.C58E9F -->
+
+<section id="dq6.church.structure.C3D9F8">
+<title>配列 <varname>$C3D9F8</varname>: 教会台詞セット</title>
+<para>
+教会のサービス担当者の話す台詞集（一部システムメッセージを含む）はメッセージ ID の配列の形式で表現されている。
+その台詞セットのアドレスの配列がアドレス <varname>$C3D9F8</varname> にある。
+</para>
+<para>
+以下に台詞セットのデータを直接示す。セミコロンから右側が本書が独自に付したコメントだ：
+読者はメッセージ ID と実際のテキストとの対応を <link linkend="appendix.b"/> に収録した移動モードテキストデータを参照すれば確認できる。
+</para>
+<programlisting><![CDATA[
+C3/D9F8:    FCD9    ; 台詞セット 1 のアドレス
+C3/D9FB:    32DA    ; 台詞セット 2 のアドレス
+
+C3/D9FC:    CA18    ; #$00: [DE]生きとし生けるものは(...)
+C3/D9FE:    E418    ; #$01: [DE]おお 神よ！[AD]この者[B2]に(...)
+C3/DA00:    CB18    ; #$02: [DE]では 神のまえに[AD]これまでの(...)
+C3/DA02:    CE18    ; #$03: [DE]なんばんの 冒険の書に[AD]記録するのじゃ？
+C3/DA04:    D318    ; #$04: [DE]たしかに 記録しましたぞ(...)
+C3/DA06:    D418    ; #$05: [DE]おお神よ！[AD]この者[B2]に ひとときの(...)
+C3/DA08:    CD18    ; #$06: [DE]記録しないと申されるか(...)
+C3/DA0A:    D018    ; #$07: [DE]まだ 冒険を(...)
+C3/DA0C:    D118    ; #$08: [DE]なんと 記録せずに(...)
+C3/DA0E:    D218    ; #$09: [DE]では そなたの冒険が(...)
+C3/DA10:    CC18    ; #$0A: [DE]そして この冒険の書に(...)
+C3/DA12:    CF18    ; #$0B: [DE]そうすると [B2]ＬＶ[BB]の[AD]記録が(...)
+C3/DA14:    D518    ; #$0C: [DE]神の声が 聞こえます。[AF][D5]
+C3/DA16:    D618    ; #$0D: [DE][C0]よ。[AD]あと[BB]の経験で(...)
+C3/DA18:    E318    ; #$0E: [DE]ほかに ご用は おありかな？
+C3/DA1A:    D718    ; #$0F: [DE][C0]よ。[AD]そなたは もう(...)
+C3/DA1C:    D818    ; #$10: [DE]どなたを 生きかえして(...)
+C3/DA1E:    D918    ; #$11: [DE]なんと [B3]どのは(...)
+C3/DA20:    E218    ; #$12: [DE]なんと やめると申されるか。[AF]
+C3/DA22:    DF18    ; #$13: [DE]さすれば わが教会に[AD][BB]ゴールドの(...)
+C3/DA24:    E018    ; #$14: [DE]なんと 寄付をするには(...)
+C3/DA26:    E118    ; #$15: [DE]それもまた そなたの意志(...)
+C3/DA28:    DA18    ; #$16: [DE]おお わが主よ！[AD]全知全能の神よ(...)
+C3/DA2A:    DB18    ; #$17: [DE][B3]は よみがえった！[AF][D5]
+C3/DA2C:    DC18    ; #$18: [DE]どなたの毒を(...)
+C3/DA2E:    DE18    ; #$19: [DE]おお神よ！ わが主よ！[AD][B3]の身体より(...)
+C3/DA30:    DD18    ; #$1A: [DE]はて [B3]どのは(...)
+
+C3/DA32:    E518    ; #$00: [DE]ここは 神にみちびかれし[AD]迷える子羊たちの(...)
+C3/DA34:    FB18    ; #$01: [DE]神さまは いつも 私たちを[AD]みまもってくれています(...)
+C3/DA36:    E618    ; #$02: [DE]では 神のまえに[AD]これまでの おこないを(...)
+C3/DA38:    E918    ; #$03: [DE]なんばんの 冒険の書に(...)
+C3/DA3A:    EE18    ; #$04: [DE]たしかに 記録しました(...)
+C3/DA3C:    EF18    ; #$05: [DE]あなた[B2]に ひとときの[AD]やすらぎが(...)
+C3/DA3E:    E818    ; #$06: [DE]では これまでのことは[AD]記録しないで(...)
+C3/DA40:    EB18    ; #$07: [DE]まだ 冒険を[AD]おつづけに なりますか？
+C3/DA42:    EC18    ; #$08: [DE]では 記録せずに[AD]休むと(...)
+C3/DA44:    ED18    ; #$09: [DE]そうすると 冒険が[AD]前の記録まで(...)
+C3/DA46:    E718    ; #$0A: [DE]そして この冒険の書に(...)
+C3/DA48:    EA18    ; #$0B: [DE]すると [B2]ＬＶ[BB]の[AD]記録が(...)
+C3/DA4A:    D518    ; #$0C: [DE]神の声が 聞こえます。[AF][D5]
+C3/DA4C:    D618    ; #$0D: [DE][C0]よ。[AD]あと[BB]の経験で(...)
+C3/DA4E:    FA18    ; #$0E: [DE]ほかに ご用は ありますか？
+C3/DA50:    D718    ; #$0F: [DE][C0]よ。[AD]そなたは もう(...)
+C3/DA52:    F018    ; #$10: [DE]どなたを 生きかえして(...)
+C3/DA54:    F118    ; #$11: [DE]あら [B3]さんは(...)
+C3/DA56:    F918    ; #$12: [DE]あら？ やめるのですね。[AF]
+C3/DA58:    F618    ; #$13: [DE]それでは わが教会に[AD][BB]ゴールドの(...)
+C3/DA5A:    F718    ; #$14: [DE]ざんねんですが[AD]お金が(...)
+C3/DA5C:    F818    ; #$15: [DE]無理にとは いいません(...)
+C3/DA5E:    F218    ; #$16: [DE]ああ 天に まします[AD]われらが 神よ(...)
+C3/DA60:    DB18    ; #$17: [DE][B3]は よみがえった！[AF][D5]
+C3/DA62:    F318    ; #$18: [DE]どなたの毒を(...)
+C3/DA64:    F518    ; #$19: [DE]ああ われらが神よ。[AD][B3]を むしばむ毒を(...)
+C3/DA66:    F418    ; #$1A: [DE]あら？ [B3]さんは[AD]毒に(...)
+]]></programlisting>
+
+<para>
+これらの台詞を表示するためのサブルーチンが用意されており、
+教会の処理中では汎用のメッセージ表示サブルーチンを呼び出す代わりに、
+サブルーチン <varname>$C2D7B9</varname> を用いる。
+呼び出し例を示す：
+</para>
+<programlisting><![CDATA[
+C3/D401:    A90000      LDA #$0000          ; [DE]生きとし生けるものは(...) or [DE]ここは 神にみちびかれし[AD]迷える子羊たちの(...)
+C3/D404:    20B9D7      JSR $D7B9           ; 台詞表示
+]]></programlisting>
+</section> <!-- dq6.church.structure.C3D9F8 -->
+</section> <!-- dq6.church.structure -->
+
+<section id="dq6.church.behavior">
+<title>処理手順</title>
+<para>
+各地の教会に共通する処理手順を説明する。
+本当の意味での共通サブルーチンは <varname>$C3D3AE</varname> から始まるが、
+本節では教会オブジェクトの処理アドレス属性値が表すサブルーチンを解説する。
+</para>
+
+<section id="dq6.church.behavior.C3D3E3">
+<title>サブルーチン <varname>$C3D3E3</varname>: 標準的な教会</title>
+<para>
+サブルーチン <varname>$C3D3E3</varname> は標準的な教会処理の実装だ。
+対話的な処理が多いのでコードがたいへん長い。要点のみをいくつかに分けて列挙していく。
+</para>
+<para>
+初期状態からメニューの表示までの処理手順を次に示す。以下では説明の便宜上、担当者を神父と呼ぶ。
+</para>
 <itemizedlist>
-	<listitem>
-		<para>
-			「おつげをきく」の処理を解読して、各キャラの経験値-レベル対応表をサーチ
-		</para>
-	</listitem>
+  <listitem>
+    <para>
+      教会 ID を基に台詞セットの ID を参照する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      神父が挨拶する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>メニュー表示</emphasis>。
+      教会オブジェクトのおいのり属性値に基づき、メニューを表示し分ける。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      プレイヤーの選択項目に対応する処理手順にスキップする。
+    </para>
+  </listitem>
 </itemizedlist>
-</section> <!-- dq6.church.todo -->
+<para>
+<quote>おいのりをする</quote>の処理概要を次に示す：
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      <emphasis>初期状態</emphasis>。
+      冒険の書に記録するかどうかを神父が問うので、プレイヤーは回答する。
+      「はい」ならば<emphasis>冒険の書選択</emphasis>に、
+      それ以外は<emphasis>記録取り消し</emphasis>にそれぞれ処理手順を進める。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>記録取り消し</emphasis>。
+      神父が冒険の書を更新しないことをやんわりと断る。
+      それから<emphasis>続行確認</emphasis>に処理手順を進める。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>冒険の書選択</emphasis>。
+      神父の台詞のあと、冒険の書選択ウィンドウが表示される。
+      ここでキャンセルすると、<emphasis>記録取り消し</emphasis>に処理手順を進める。
+    </para>
+    <para>
+      次に、選択された冒険の書が、現在のそれとマッチするかどうかを調べる。
+      マッチしていれば<emphasis>記録開始</emphasis>に処理手順を進める。
+      そうでなければ、神父が上書きになるが構わないかと聞いてくるので、プレイヤーは回答する。
+      「はい」ならば再度<emphasis>冒険の書選択</emphasis>の冒頭に処理手順を戻し、
+      それ以外ならば<emphasis>記録開始</emphasis>に処理手順を進める。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>記録開始</emphasis>。
+      たいへん重要な処理であるので、別サブルーチン呼び出しで実現する。
+      神父が冒険の書に記録したことを告げ、冒険を続行するか尋ねるので、プレイヤーは回答する。
+      「はい」ならば終了状態に処理手順を進める。
+      それ以外は<emphasis>冒険中断</emphasis>に処理手順を進める。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>冒険中断</emphasis>。
+      神父の台詞を以って画面暗転、おつかれさまでしたメッセージの表示となる。
+      パーティーの人数が単数か複数かで僅かに文面を変える必要があり、
+      そのためのちょっとしたサブルーチン呼び出しがある。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>続行確認</emphasis>。
+      神父がまだ冒険を続けるか問うので、プレイヤーは回答する。
+      「はい」ならば終了状態に処理手順を進める。
+      それ以外は神父が記録をしていないのにいいのかと念を押してくる。
+      ここで再度回答する必要がある。
+      「はい」ならば<emphasis>冒険中断</emphasis>に、
+      それ以外は<emphasis>初期状態</emphasis>に処理手順を進める。
+    </para>
+  </listitem>
+</itemizedlist>
+
+<para>
+<quote>おつげをきく</quote>の処理概要を次に示す：
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      各パーティーメンバーにつき、以下の手順を繰り返す：
+      まず、仲間キャラクターの次のレベルがいくつかを求める。
+      この新レベルに対して、必要経験値をサブルーチン呼び出しで得る。
+      同時に現在レベルが既に上限に達しているかどうかも判明する。そのときは、そなたはもう十分に強いという台詞となる。
+      そうでなければ、必要経験値と現在経験値の差を求め、神父がその差分を告げる。
+    </para>
+    <para>
+      レベルアップ処理自体については <xref linkend="dq6.level"/> の述べる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>他の用事の有無を問う</emphasis>。
+      神父が他に用があるか尋ねる。
+      そして、先述の<emphasis>メニュー表示</emphasis>手順に戻る。
+    </para>
+  </listitem>
+</itemizedlist>
+
+<para>
+<quote>いきかえらせる</quote>の処理概要を次に示す：
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      神父の台詞のあとに<quote>だれを</quote>ウィンドウを表示する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      選択した仲間キャラクターの状態が<quote>しに</quote>であることを試す。
+      死んでいない場合は神父の台詞の後、先述の<emphasis>他の用事の有無を問う</emphasis>に処理手順を進める。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      寄付金計算請求処理を呼び出す。
+      生き返らせる際の寄付金は、キャラクターのレベルを <literal>level</literal> とすると Python コード風に言えば
+      <code><![CDATA[(((level ** 2) // 10) + 1) * 10]]></code> ゴールドとなる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      神父の台詞のあとに、対象の仲間キャラクターの状態ビットを全てリセットする専用サブルーチンを呼び出す。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      対象の仲間キャラクターの HP を回復する専用サブルーチンを、回復量 999 として呼び出す。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      効果音 <literal>#$0026</literal> を再生する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      メッセージ <quote>～は よみがえった！</quote>を表示する。
+      先述の<emphasis>他の用事の有無を問う</emphasis>に処理手順を進める。
+    </para>
+  </listitem>
+</itemizedlist>
+
+<para>
+<quote>どくのちりょう</quote>の処理概要を次に示す：
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      神父の台詞のあとに<quote>だれを</quote>ウィンドウを表示する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      選択した仲間キャラクターの状態が<quote>もうどく</quote>または<quote>どく</quote>であることを試す。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      金額を 5 ゴールドとして、寄付金請求処理を呼び出す。
+      キャンセルすると、先述の<emphasis>他の用事の有無を問う</emphasis>に処理手順を進める。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      効果音 <literal>#$0026</literal> を再生し、
+      <quote>もうどく</quote>または<quote>どく</quote>状態をリセットする専用サブルーチンを呼び出す。
+      それから先述の<emphasis>他の用事の有無を問う</emphasis>に処理手順を進める。
+    </para>
+  </listitem>
+</itemizedlist>
+
+<para>
+料金請求処理を細かく説明すると、次のようになる：
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      <emphasis>料金請求処理</emphasis>。
+      神父が寄付金を要求するので、プレイヤーが回答する。
+      答えが「はい」でなければ、神父の台詞を表示して呼び出し元に戻る。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      所持金から寄付金額を差し引く処理を実行する。
+      これに失敗すると、神父の台詞を表示して呼び出し元に戻る。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      寄付が発生したフラグをレジスターに立てて呼び出し元に返す。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq6.church.behavior.C3D3E3 -->
+
+<section id="dq6.church.behavior.C3D849">
+<title>サブルーチン <varname>$C3D849</varname>: アモールの掃除中の教会</title>
+<para>
+サブルーチン <varname>$C3D849</varname> はアモールの教会が掃除中のときに神父に話すときの処理だ。
+サービスは冒険の書に記録することしかできない。
+なお、現在の冒険の書以外のものに上書きしようとしても、プレイヤーに対する意志確認がない。
+</para>
+</section> <!-- dq6.church.behavior.C3D849 -->
+
+<section id="dq6.church.behavior.C3D8C3">
+<title>サブルーチン <varname>$C3D8C3</varname>: 透明モード中のトルッカの教会</title>
+<para>
+サブルーチン <varname>$C3D8C3</varname> はゲーム序盤でトルッカの教会の神父に話すときの処理だ。
+サービスは冒険の書に記録することしかできない。
+こっそりおいのりすることに決めると、冒険の書メニューが無言で表示される。
+その上、現在の冒険の書以外のものに上書きしようとしても警告がない。
+</para>
+</section> <!-- dq6.church.behavior.C3D8C3 -->
+
+<section id="dq6.church.behavior.C3D910">
+<title>サブルーチン <varname>$C3D910</varname>: マウントスノーの凍りついた神父</title>
+<para>
+サブルーチン <varname>$C3D910</varname> はマウントスノーの凍りついた神父に話すときの処理だ。
+サービスは冒険の書に記録することしかできない。
+こちらは上書きの際の意志確認がある。
+</para>
+</section> <!-- dq6.church.behavior.C3D910 -->
+</section> <!-- dq6.church.behavior -->
 </section> <!-- dq6.church -->
