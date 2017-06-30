@@ -644,14 +644,14 @@ C3/BE6D:    C416
         </listitem>
         <listitem>
           <simpara>宿屋の場合には ID <literal>#$0024</literal> の宿屋が現れる。
-          それから <xref linkend="dq6.inn.behavior"/> で述べたサブルーチンを実行する。
+          それから <xref linkend="dq6.inn.behavior"/> で述べるサブルーチンを実行する。
           宿賃は一人 100 ゴールドだ。</simpara>
         </listitem>
         <listitem>
           <simpara>教会の場合には ID <literal>#$0006</literal> の教会が現れる。
           つまり「おいのりをする」がない教会だ。
-          それから教会共通処理を実行する。
-          この場合は <xref linkend="dq6.church.behavior.C3D3AE"/> で述べるサービスを受けられる。</simpara>
+          それから <xref linkend="dq6.church.behavior.C3D3E3"/> で述べるサブルーチンを実行する。
+          </simpara>
         </listitem>
       </itemizedlist>
     </listitem>
