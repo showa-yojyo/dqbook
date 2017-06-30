@@ -640,7 +640,7 @@ C3/BE6D:    C416
         <listitem>
           <simpara>店屋の場合には <varname>$7E3B77</varname> に格納済みの店屋 ID を参照する。
           店の種別に合わせて出力メッセージ用に誰が現れるのかを決め、
-          <xref linkend="dq6.shop.hack.C5F5BE" /> を実行する。</simpara>
+          <xref linkend="dq6.shop.behavior" /> で述べる処理を実行する。</simpara>
         </listitem>
         <listitem>
           <simpara>宿屋の場合には ID <literal>#$0024</literal> の宿屋が現れる。
