@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE simplesect PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<simplesect id="appendix.b.dq4">
+<title>&dq4_2001;</title>
+<para>
+放置状態。
+</para>
+<simplelist type="vert" columns="1">
+  <member><ulink url="./data/dq7_act.txt"><filename>dq7_act.txt</filename></ulink></member>
+  <member><ulink url="./data/dq7_ch2.txt"><filename>dq7_ch2.txt</filename></ulink></member>
+  <member><ulink url="./data/dq7_kiefer_talk_b.txt"><filename>dq7_kiefer_talk_b.txt</filename></ulink></member>
+  <member><ulink url="./data/dq7_rura1.txt"><filename>dq7_rura1.txt</filename></ulink></member>
+  <member><ulink url="./data/dq7_r.txt"><filename>dq7_r.txt</filename></ulink></member>
+  <member><ulink url="./data/dq7_imm.txt"><filename>dq7_imm.txt</filename></ulink></member>
+  <member><ulink url="./data/dq7_item.txt"><filename>dq7_item.txt</filename></ulink></member>
+  <member><ulink url="./data/dq7_monster_parameter.txt"><filename>dq7_monster_parameter.txt</filename></ulink></member>
+</simplelist>
+</simplesect> <!-- appendix.b.dq4 -->
