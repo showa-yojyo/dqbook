@@ -37,7 +37,7 @@
 本節ではこの型をレベルアップ構造体と呼ぼう：
 </para>
 
-<table id="table.dq5.character.traits.239E41" class="lighttable">
+<table id="table.dq5.traits.239E41" class="lighttable">
   <caption>構造体 $239E41: レベルアップ構造体</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -180,7 +180,7 @@ TODO: 必要経験値算出アルゴリズムの説明。
 <para>
 前者は具体的には次のような不定サイズのデータで表現されている：
 </para>
-<table id="table.dq5.character.traits.23B819" class="lighttable">
+<table id="table.dq5.traits.23B819" class="lighttable">
   <caption>構造体 $23B819: 習得レベル定義</caption>
   <thead>
     <tr><th>オフセット</th><th>意味</th></tr>
@@ -228,7 +228,7 @@ TODO: 必要経験値算出アルゴリズムの説明。
 <para>
 習得可能な能力の集合のほうは不定サイズのコマンド ID の配列の形式で定義されている：
 </para>
-<table id="table.dq5.character.traits.23BE27" class="lighttable">
+<table id="table.dq5.traits.23BE27" class="lighttable">
   <caption>構造体 $23BE27: 習得能力配列</caption>
   <thead>
     <tr><th>オフセット</th><th>意味</th></tr>
@@ -264,7 +264,7 @@ TODO: 必要経験値算出アルゴリズムの説明。
 <para>
 構造体 <varname>$23AED1</varname> は次の表に示すような構成だ：
 </para>
-<table id="table.dq5.character.traits.23AED1" class="lighttable">
+<table id="table.dq5.traits.23AED1" class="lighttable">
   <caption>構造体 $23AED1: 仲間モンスター初期状態</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>

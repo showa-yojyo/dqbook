@@ -17,7 +17,7 @@
 呼び名を付けるのが難しいのだが、基本情報構造体とは配列 <varname>$7E4025</varname> の要素の型だ。
 この構造体はサイズが <literal>#$2A</literal> バイトであり、次の表に示すような属性で構成されている：
 </para>
-<table id="table.dq6.characters.7E4025" class="lighttable">
+<table id="table.dq6.7E4025" class="lighttable">
   <caption>構造体 $7E4025</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -175,7 +175,7 @@
     <term>装備状態</term>
     <listitem>
       <para>
-        それぞれの属性の意味は <xref linkend="table.dq6.character.traits.C8BD12"/> の対応するそれぞれの属性と同じだ。
+        それぞれの属性の意味は <xref linkend="table.dq6.C8BD12"/> の対応するそれぞれの属性と同じだ。
       </para>
     </listitem>
   </varlistentry>
@@ -211,7 +211,7 @@
 この <literal>#$14</literal> バイト長のオブジェクトがアドレス <varname>$7E4415</varname> に配列してある。
 </para>
 
-<table id="table.dq6.characters.7E4415" class="lighttable">
+<table id="table.dq6.7E4415" class="lighttable">
   <caption>構造体 $7E4415</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -254,7 +254,7 @@
 いずれも値が 1 ならば対応するコマンドを利用可能であることを意味する。
 この <literal>#$14</literal> バイト長のオブジェクトがアドレス <varname>$7E45DD</varname> に配列してある。
 </para>
-<table id="table.dq6.characters.7E45DD" class="lighttable">
+<table id="table.dq6.7E45DD" class="lighttable">
   <caption>構造体 $7E45DD</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>

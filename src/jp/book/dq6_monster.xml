@@ -25,7 +25,7 @@
 これらのモンスターオブジェクトは戦闘員オブジェクトの初期化や属性値の再設定の目的で参照されることになる。
 あるいは、戦闘員としてのモンスターの状態に依存しないような属性、例えば使えるコマンドの集合、耐性、経験値といった量が格納されている。
 </para>
-<table id="table.dq6.monster.C20154" class="lighttable">
+<table id="table.dq6.C20154" class="lighttable">
   <caption>構造体 $C20154</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -196,7 +196,7 @@
         アイテム確率とは、戦闘終了後にこのモンスターが（他に条件が加わらないときの）宝箱を落とす確率を制御する値の配列の添字を値とする属性だ。
         その配列とは <varname>$C2B1C3</varname> であり、その要素らが意味するところは次の表のようになる：
       </para>
-      <table id="table.dq6.monster.C2B1C3" class="lighttable">
+      <table id="table.dq6.C2B1C3" class="lighttable">
         <caption>アイテム確率</caption>
         <thead>
           <tr><th>ID</th><th>確率</th></tr>
@@ -225,7 +225,7 @@
         値が 0..3 であれば、配列 <varname>$C24549</varname> で決められた確率表に従う抽選でコマンドを決める。
         ただし、同一グループ制約があり先約済みであれば、その項目を選択失敗とする。
       </para>
-      <table id="table.dq6.monster.C24549" class="lighttable">
+      <table id="table.dq6.C24549" class="lighttable">
         <caption>コマンド選択確率</caption>
         <thead>
           <tr><th>ID</th><th>コマンド 0</th><th>コマンド 1</th><th>コマンド 2</th><th>コマンド 3</th><th>コマンド 4</th><th>コマンド 5</th></tr>
@@ -242,7 +242,7 @@
         このときは配列 <varname>$C24549</varname> の値をマスクとして用いる
         （ビットに対応する項目しか抽選しないようにする）。
       </para>
-      <table id="table.dq6.monster.C24561" class="lighttable">
+      <table id="table.dq6.C24561" class="lighttable">
         <caption>コマンド選択確率</caption>
         <thead>
           <tr><th>ID</th><th>コマンド 0</th><th>コマンド 1</th><th>コマンド 2</th><th>コマンド 3</th><th>コマンド 4</th><th>コマンド 5</th></tr>
@@ -277,7 +277,7 @@
         この属性値は、みかわしの発生する確率を決定する配列 <varname>$C27001</varname> の添字に他ならない。
         この値と 0 以上 <literal>#$C0</literal> 以下の範囲にある乱数との大小比較でみかわし発生を決める。
       </para>
-      <table id="table.dq6.monster.C27001" class="lighttable">
+      <table id="table.dq6.C27001" class="lighttable">
         <caption>みかわし確率</caption>
         <thead>
           <tr><th>ID</th><th>値</th></tr>
@@ -298,7 +298,7 @@
         仲間確率とは、戦闘終了後にこのモンスターが（他に条件が加わらないときの）立ち上がる確率を制御する値の配列の添字を値とする属性だ。
         その配列とは <varname>$C2B502</varname> であり、その要素らが意味するところは次の表のようになる。
       </para>
-       <table id="table.dq6.monster.C2B502" class="lighttable">
+       <table id="table.dq6.C2B502" class="lighttable">
          <caption>仲間確率</caption>
          <thead>
            <tr><th>ID</th><th>1 頭目確率</th><th>2 頭目確率</th><th>3 頭目確率</th></tr>
@@ -369,7 +369,7 @@
         直接的にはこの属性値は配列 <varname>$C236A1</varname> の添字にほかならない。
         属性値と確率の対応を次の表に示す：
       </para>
-      <table id="table.dq6.monster.C236A1" class="lighttable">
+      <table id="table.dq6.C236A1" class="lighttable">
         <caption>初期確率</caption>
         <thead>
           <tr><th>ID</th><th>確率</th></tr>
@@ -449,7 +449,7 @@
         自動回復とは、このモンスター戦闘員がターン終了時に回復する HP の量を指定する属性だ。
         配列 <varname>$C2C47F</varname> に回復量の範囲が表現されている。次の表のように解釈できる：
       </para>
-      <table id="table.dq6.monster.C2C47F" class="lighttable">
+      <table id="table.dq6.C2C47F" class="lighttable">
         <caption>自動回復</caption>
         <thead>
           <tr><th>ID</th><th>回復量</th></tr>
@@ -471,7 +471,7 @@
         値としてはアドレス <varname>$C25D69</varname> にあるジャンプテーブルの添字と 1 だけものだ。
         属性値と集中攻撃方式の対応は次の表のようなものだ：
       </para>
-      <table id="table.dq6.monster.C25D69" class="lighttable">
+      <table id="table.dq6.C25D69" class="lighttable">
         <caption></caption>
         <thead>
           <tr><th>ID</th><th>標的</th></tr>

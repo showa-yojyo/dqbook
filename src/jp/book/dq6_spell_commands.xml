@@ -777,7 +777,7 @@ C3/BE6D:    C416
     </simpara>
     <simpara>
       このモンスターの宝箱を落とす確率を<link linkend="dq6.monster.C20154">モンスターデータ</link>の対応属性に基いて決定する。
-      確率表は <varname>$C2B1C3</varname> のものを参照する。
+      確率表は <xref linkend="table.dq6.C2B1C3"/> のものを参照する。
       それから当選確率がこの値であるような抽選をする。
     </simpara>
     <simpara>
@@ -790,22 +790,6 @@ C3/BE6D:    C416
   </listitem>
 </itemizedlist>
 </para>
-<table id="table.dq6.C2B1C3" class="lighttable">
-  <caption>$C2B1C3 モンスター宝箱確率</caption>
-  <thead>
-    <tr><th>ID</th><th>値</th><th>確率</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>0</td><td><literal>#$0000</literal></td><td align="right">1/1</td></tr>
-    <tr><td>1</td><td><literal>#$0007</literal></td><td align="right">1/8</td></tr>
-    <tr><td>2</td><td><literal>#$000F</literal></td><td align="right">1/16</td></tr>
-    <tr><td>3</td><td><literal>#$001F</literal></td><td align="right">1/32</td></tr>
-    <tr><td>4</td><td><literal>#$003F</literal></td><td align="right">1/64</td></tr>
-    <tr><td>5</td><td><literal>#$007F</literal></td><td align="right">1/128</td></tr>
-    <tr><td>6</td><td><literal>#$00FF</literal></td><td align="right">1/256</td></tr>
-    <tr><td>7</td><td><literal>#$0FFF</literal></td><td align="right">1/4096</td></tr>
-  </tbody>
-</table>
 <para>
 補足だが、処理中に乱数取得処理がいくつかあるが、そのほとんどはサブルーチン
 <varname>$C00F28</varname> だが、アイテム確率だけは分母が大きいのでサブルーチン

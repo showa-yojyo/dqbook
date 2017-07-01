@@ -30,7 +30,7 @@
 ゲーム中にバラバラと存在する「しらべる」対象のすべてが、この配列にあるいずれか一つの要素を「共有」している。
 「しらべる」対象のすべてを、この共有オブジェクトにより類別することができる。
 </para>
-<table id="table.dq6.search.model.C20000" class="lighttable">
+<table id="table.dq6.C20000" class="lighttable">
   <caption>構造体 $C20000</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -251,7 +251,7 @@
 アドレス <varname>$C83E5C</varname> には以下に示すメモリレイアウトのオブジェクトが多数配列されている。
 これらは「しらべる」対象から何らかのアイテムを一度だけ入手可能であることを表現している。
 </para>
-<table id="table.dq6.search.model.C83E5C" class="lighttable">
+<table id="table.dq6.C83E5C" class="lighttable">
   <caption>構造体 $C83E5C: アイテム発見</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -301,7 +301,7 @@
 アドレス <varname>$C8477E</varname> には以下に示すメモリレイアウトのオブジェクトが 40 程度配列されている。
 これらは「しらべる」対象からいくらかのゴールドを一度だけ入手可能であることを表現している。
 </para>
-<table id="table.dq6.search.model.C8477E" class="lighttable">
+<table id="table.dq6.C8477E" class="lighttable">
   <caption>構造体 $C8477E: ゴールド発見</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -370,7 +370,7 @@
 これらは対象を「しらべる」ことで何らかのテキストメッセージを出力することを表現している。
 もっと強く言うと、中身が空の引き出しやツボといった変哲のないオブジェクトのすべてもここに分類される。
 </para>
-<table id="table.dq6.search.model.C848B6" class="lighttable">
+<table id="table.dq6.C848B6" class="lighttable">
   <caption>構造体 $C848B6: 情報取得</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -422,7 +422,7 @@
 アドレス <varname>$85534</varname> には以下に示すメモリレイアウトのオブジェクトが十数個配列されている。
 いずれも宝箱やツボがモンスターであるような対象を表現している。
 </para>
-<table id="table.dq6.search.model.C85534" class="lighttable">
+<table id="table.dq6.C85534" class="lighttable">
   <caption>構造体 $C85534: 罠</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -466,7 +466,7 @@
 アドレス <varname>$C855AB</varname> には以下に示すメモリレイアウトのオブジェクトが多数配列されている。
 これらのオブジェクトは、これまで見てきた分類から逸脱した振る舞いを実現するものだ。
 </para>
-<table id="table.dq6.search.model.C855AB" class="lighttable">
+<table id="table.dq6.C855AB" class="lighttable">
   <caption>構造体 $C855AB: 特殊イベント</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -704,7 +704,7 @@
         ただし最初のメッセージは船に乗っている場合は、海底にいるか否かで場合分けがある。
         海底の場合は<quote>[C0]は 海の底を 目をこらして[AD]みつめた。[AF]</quote>だ。
       </para>
-      <table id="table.dq6.search.process.C0D9EE" class="lighttable">
+      <table id="table.dq6.C0D9EE" class="lighttable">
         <caption>配列 $C0D9EE: 何もないときのメッセージ</caption>
         <thead>
           <tr><th>乗り物</th><th>メッセージ</th></tr>
@@ -720,7 +720,7 @@
           <tr><td>ペガサス</td><td>[C0]は 馬車から[AD]身をのりだして 大地をながめた。[AF]</td></tr>
         </tbody>
       </table>
-      <table id="table.dq6.search.process.C0D9FE" class="lighttable">
+      <table id="table.dq6.C0D9FE" class="lighttable">
         <caption>配列 $C0D9FE: 何もないときのメッセージ</caption>
         <thead>
           <tr><th>乗り物</th><th>メッセージ</th></tr>

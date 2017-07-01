@@ -25,7 +25,7 @@
 アドレス <varname>$C58B93</varname> にある配列要素のそれぞれが対応する店屋オブジェクトを表現する。
 以下に示すメモリレイアウトの 8 バイト長のオブジェクトが 80 弱配列されている：
 </para>
-<table id="table.dq6.shop.C58B93" class="lighttable">
+<table id="table.dq6.C58B93" class="lighttable">
   <caption>構造体 $C58B93</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -52,7 +52,7 @@
         この属性値は店屋の台詞回しを指定するために参照される。
         値と意味との対応は次のとおりだ：
       </para>
-      <table id="table.dq6.shop.C58B93.classifications" class="lighttable">
+      <table id="table.dq6.shop.classifications" class="lighttable">
         <caption>店屋分類</caption>
         <thead>
           <tr><th>値</th><th>分類</th></tr>

@@ -32,7 +32,7 @@
 この配列はそれを制御するためのオブジェクトからなる。
 それらのオブジェクトの構造を次に示す：
 </para>
-<table id="table.dq6.encounter.model.C6843C" class="lighttable">
+<table id="table.dq6.C6843C" class="lighttable">
   <caption>構造体 $C6843C</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -114,7 +114,7 @@
         具体的にはこの属性値は配列 <varname>$C3F9AE</varname> の添字を決定するものであり、
         配列の内容が定義する先制攻撃発生条件は次のようなものだ：
       </para>
-      <table id="table.dq6.encounter.C3F9AE" class="lighttable">
+      <table id="table.dq6.C3F9AE" class="lighttable">
         <caption>配列 $C3F9AE: 先制発生率</caption>
         <thead>
           <tr><th>ID</th><th>自陣側</th><th>敵陣側</th></tr>
@@ -142,7 +142,7 @@
         具体的に言えば、この属性値は配列 <varname>$C3015C</varname> の添字を決定するものであり、
         配列の内容が定義する係数は次のようなものだ：
       </para>
-      <table id="table.dq6.encounter.C3015C" class="lighttable">
+      <table id="table.dq6.C3015C" class="lighttable">
         <caption>配列 $C3015C: 戦闘発生カウンター減少量係数</caption>
         <thead>
           <tr><th>ID</th><th>係数</th></tr>
@@ -195,7 +195,7 @@
         何頭のモンスターがこのグループを構成するのかを決めるコードのジャンプテーブルの行 ID を表す属性だ。
         次の表が示すように、必要ならば乱数を用いて頭数を定める：
       </para>
-      <table id="table.dq6.encounter.C3F862" class="lighttable">
+      <table id="table.dq6.C3F862" class="lighttable">
         <caption>ジャンプテーブル $C3F862 による指定頭数</caption>
         <thead>
           <tr><th>ID</th><th>頭数</th></tr>
@@ -267,7 +267,7 @@
 正規の抽選処理から分岐して、こちらのオブジェクトのいずれかで敵陣を指定するという場合が起こり得る。
 オブジェクトの構造を次に示す：
 </para>
-<table id="table.dq6.encounter.model.C58F64" class="lighttable">
+<table id="table.dq6.C58F64" class="lighttable">
   <caption>構造体 $C58F64</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -300,7 +300,7 @@
     <listitem>
       <para>
         頭数 k とは、敵陣グループ k を構成するモンスターの頭数を決めるコードのジャンプテーブルの行 ID を表す属性だ。
-        先述の <xref linkend="table.dq6.encounter.C3F862"/> を用いる。
+        先述の <xref linkend="table.dq6.C3F862"/> を用いる。
       </para>
     </listitem>
   </varlistentry>
@@ -314,7 +314,7 @@
 このオブジェクト群は固定戦闘とイベント戦闘の構成を表現するためのものだ。
 それらのオブジェクトの構造を次に示す：
 </para>
-<table id="table.dq6.encounter.model.C88DF4" class="lighttable">
+<table id="table.dq6.C88DF4" class="lighttable">
   <caption>構造体 $C88DF4</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>

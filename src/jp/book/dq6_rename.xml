@@ -25,7 +25,7 @@
 アドレス <varname>$C58AC8</varname> は文字列 ID の値 49 個からなる（ただし末尾の要素はダミー）配列だ。
 対象者の名前をここにある文字列のいずれかに変更するときに限り、命名神の怒りを買う。
 </para>
-<table id="table.dq6.rename.C58AC8" class="lighttable">
+<table id="table.dq6.C58AC8" class="lighttable">
   <caption>配列 $C58AC8</caption>
   <thead>
     <tr><th>ID</th><th>文字列</th></tr>
@@ -94,7 +94,7 @@
 命名神は対象者の名前をここにある文字列のいずれにも変更することはしない。
 </para>
 
-<table id="table.dq6.rename.C58B2A" class="lighttable">
+<table id="table.dq6.C58B2A" class="lighttable">
   <caption>配列 $C58B2A</caption>
   <thead>
     <tr><th>ID</th><th>文字列</th></tr>

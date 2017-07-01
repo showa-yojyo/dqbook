@@ -19,7 +19,7 @@
 職業構造体とは、サイズが <literal>#$77</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
 この型のオブジェクトがアドレス <varname>$C41C3E</varname> から 21 個直列している。
 </para>
-<table id="table.dq6.class.C41C3E" class="lighttable">
+<table id="table.dq6.C41C3E" class="lighttable">
   <caption>構造体 $C41C3E</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -280,7 +280,7 @@
 職業がぶとうかである仲間キャラクターは、戦闘中に会心痛恨属性が 1 の戦闘コマンドを実行すると、
 次の表の確率で会心の一撃が発生する：
 </para>
-<table id="table.dq6.class.privilege.C28827" class="lighttable">
+<table id="table.dq6.C28827" class="lighttable">
   <caption>ぶとうかが会心の一撃を発生する確率</caption>
   <thead>
     <tr><th>ID</th><th>確率</th></tr>
@@ -307,7 +307,7 @@
 職業がおどりこであるである仲間キャラクターは、戦闘中にみかわし考慮属性が 1 の戦闘コマンドを受け、
 通常のみかわし判定処理が失敗すると次の表の確率で身をかわす：
 </para>
-<table id="table.dq6.class.privilege.C2711A" class="lighttable">
+<table id="table.dq6.C2711A" class="lighttable">
   <caption>おどりこが身をかわす確率</caption>
   <thead>
     <tr><th>ID</th><th>確率</th></tr>
@@ -356,7 +356,7 @@
 戦闘後に敵から得られるゴールドが増える。
 追加分は本来の額面に対する割合で次の表のように与えられている：
 </para>
-<table id="table.dq6.class.privilege.C2B277" class="lighttable">
+<table id="table.dq6.C2B277" class="lighttable">
   <caption>しょうにんが獲得するゴールドの正規獲得額に対する割合</caption>
   <thead>
     <tr><th>ID</th><th>割合</th></tr>
@@ -394,7 +394,7 @@
 職業がバトルマスターである仲間キャラクターは、みかわし考慮属性が 1 の戦闘コマンドを受け、
 通常のみかわし判定処理が失敗すると次の表の確率で相手の攻撃を打ち払う：
 </para>
-<table id="table.dq6.class.privilege.C270D8" class="lighttable">
+<table id="table.dq6.C270D8" class="lighttable">
   <caption>バトルマスターが敵からの攻撃を打ち払う確率</caption>
   <thead>
     <tr><th>ID</th><th>確率</th></tr>
@@ -417,7 +417,7 @@
 <para>
 職業がパラディンである仲間キャラクターは、パラディン考慮属性が 1 の戦闘コマンドを実行するときに次の表の確率でコマンド対象を即死させる：
 </para>
-<table id="table.dq6.class.privilege.C272FB" class="lighttable">
+<table id="table.dq6.C272FB" class="lighttable">
   <caption>パラディンが対象を即死させる確率</caption>
   <thead>
     <tr><th>ID</th><th>確率</th></tr>
@@ -441,7 +441,7 @@
 職業がけんじゃである仲間キャラクターは、移動モード戦闘モードを問わず、コマンド実行時の必要 MP 消費量が緩和される。
 コマンドが規定する消費量がゼロ以外の定数であるようなものについては、次の表で示す量か 1 のどちらかになる：
 </para>
-<table id="table.dq6.class.privilege.C2C297" class="lighttable">
+<table id="table.dq6.C2C297" class="lighttable">
   <caption>けんじゃの MP 消費</caption>
   <thead>
     <tr><th>ID</th><th>消費量</th></tr>
@@ -464,7 +464,7 @@
 <para>
 職業がレンジャーである仲間キャラクターがいると、戦闘コマンド「にげる」の成功率が次の表のようになる：
 </para>
-<table id="table.dq6.class.privilege.C23F6A" class="lighttable">
+<table id="table.dq6.C23F6A" class="lighttable">
   <caption>レンジャーによる逃走成功確率</caption>
   <thead>
     <tr><th>ID</th><th>確率</th></tr>
@@ -491,7 +491,7 @@
 職業がスーパースターである仲間キャラクターがいると、
 戦闘中に敵陣戦闘員が次の確率で見とれて休み状態になることがある：
 </para>
-<table id="table.dq6.class.privilege.C258C4" class="lighttable">
+<table id="table.dq6.C258C4" class="lighttable">
   <caption></caption>
   <thead>
     <tr><th>ID</th><th>確率</th></tr>
@@ -514,7 +514,7 @@
 <para>
 職業がゆうしゃである仲間キャラクターは、戦闘中の各ターン終了時に HP が次の表に示す値だけ自動回復する：
 </para>
-<table id="table.dq6.class.privilege.C2ACF7" class="lighttable">
+<table id="table.dq6.C2ACF7" class="lighttable">
   <caption>ゆうしゃの自動回復</caption>
   <thead>
     <tr><th>ID</th><th>回復量</th></tr>
@@ -538,7 +538,7 @@
 職業がドラゴンである仲間キャラクターがいると、戦闘開始時に先制を取りやすくなる。
 ドラゴンでないときの確率の何倍だけ先制を取りやすいかを次の表で示す：
 </para>
-<table id="table.dq6.class.privilege.C232EA" class="lighttable">
+<table id="table.dq6.C232EA" class="lighttable">
   <caption>ドラゴンの先制しやすさ</caption>
   <thead>
     <tr><th>ID</th><th>倍率</th></tr>

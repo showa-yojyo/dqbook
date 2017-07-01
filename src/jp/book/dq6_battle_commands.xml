@@ -25,7 +25,7 @@
 戦闘コマンド構造体とは、サイズが <literal>#$19</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるようなものだ。
 この型のオブジェクトがアドレス <varname>$C8C65D</varname> から 410 個直列しているので、本書ではたまに戦闘コマンド構造体のことを表題のように表記することがある。
 </para>
-<table id="table.dq6.battle.commands.C8C65D" class="lighttable">
+<table id="table.dq6.C8C65D" class="lighttable">
   <caption>構造体 $C8C65D</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -192,7 +192,7 @@
         この各値を 256 で割った値が生ダメージ値への係数になるのだが、
         コマンドによっては全く別の利用法を採用するものもあることを注意しておく。
       </para>
-      <table id="table.dq6.battle.commands.C28C30" class="lighttable">
+      <table id="table.dq6.C28C30" class="lighttable">
         <caption>構造体 $C28C30</caption>
         <thead>
           <tr><th>ID</th><th>耐性 0</th><th>耐性 1</th><th>耐性 2</th><th>耐性 3</th></tr>

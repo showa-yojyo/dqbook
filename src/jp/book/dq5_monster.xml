@@ -29,7 +29,7 @@
 相異なるモンスターオブジェクト 235 個がアドレス <varname>$238000</varname> に配列している。
 </para>
 
-<table id="table.dq5.monster.238000" class="lighttable">
+<table id="table.dq5.238000" class="lighttable">
   <caption>構造体 $238000: モンスター構造体</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>

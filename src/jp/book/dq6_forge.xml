@@ -23,7 +23,7 @@
 これは鍛造前後のアイテム ID の組の配列という形式で表現されている。
 念のため対応表の各項目のメモリレイアウトを示す：
 </para>
-<table id="table.dq6.forge.C58ECF" class="lighttable">
+<table id="table.dq6.C58ECF" class="lighttable">
   <caption>対応表 $C58ECF</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>

@@ -23,7 +23,7 @@
 <para>
 アドレス <varname>$C58E9F</varname> にある配列要素のそれぞれが対応する教会オブジェクトを表現する。
 </para>
-<table id="table.dq6.church.C58E9F" class="lighttable">
+<table id="table.dq6.C58E9F" class="lighttable">
   <caption>構造体 $C58E9F</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>

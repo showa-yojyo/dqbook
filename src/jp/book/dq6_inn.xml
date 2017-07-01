@@ -26,7 +26,7 @@
 以下に示すメモリレイアウトのオブジェクトがアドレス <varname>$C58E0B</varname> から 37 個配列されている。
 この 4 バイト長のサイズしかないオブジェクトそれぞれが関係する宿屋のサービスを表現している。
 </para>
-<table id="table.dq6.inn.C58E0B" class="lighttable">
+<table id="table.dq6.C58E0B" class="lighttable">
   <caption>構造体 $C58E0B</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
