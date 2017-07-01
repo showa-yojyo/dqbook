@@ -5,25 +5,29 @@
   %replacement;
 ]>
 
-<section id="dq6.character"><?dbhtml filename="dq6_character.html" ?>
-<title>仲間キャラクター</title>
-<indexterm id="term.dq6.character"><primary>キャラクター</primary><secondary>DQ6</secondary></indexterm>
+<section id="dq6.character.traits"><?dbhtml filename="dq6_character_traits.html" ?>
+<title>仲間キャラクターの特性データ</title>
+<indexterm id="term.dq6.character.traits"><primary>キャラクター</primary><secondary>DQ6</secondary></indexterm>
 <para>
-この節では仲間キャラクターデータについて述べる。
-ここで言う仲間キャラクターデータとは、仲間キャラクターそれぞれの静的な性質を定義したオブジェクトのことを意味するものであり、
+この節では仲間キャラクターそれぞれの特性を表現するデータ構造について述べる。
+ここで言うキャラクター特性とは、仲間キャラクターそれぞれの静的な性質を定義したオブジェクトのことを意味するものであり、
 物理的にはアドレス <varname>$C8BD12</varname> に存在する配列の要素型を意味する。
 </para>
-
-<section id="dq6.character.C8BD12">
-<title>構造体 <varname>$C8BD12</varname>: 仲間キャラクター</title>
 <para>
-仲間キャラクター構造体とは、サイズが <literal>#$1B</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
+なお、仲間キャラクターそれぞれのレベルアップに関する特徴もモデルによってはキャラクター特性の部分ではあるが、
+本書ではそれについては <xref linkend="dq6.level"/> で取り扱う。
+</para>
+
+<section id="dq6.character.traits.C8BD12">
+<title>構造体 <varname>$C8BD12</varname>: 仲間キャラクター特性</title>
+<para>
+仲間キャラクター特性構造体とは、サイズが <literal>#$1B</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
 この型のオブジェクトがアドレス <varname>$C8BD12</varname> から 82 個直列している。
 </para>
 <para>
 これらのオブジェクトはキャラクターがパーティーに参入した時点の状態、ルイーダの酒場で許可する操作の決定、戦闘時のキャラクターの性質として参照される。
 </para>
-<table id="table.dq6.character.C8BD12" class="lighttable">
+<table id="table.dq6.character.traits.C8BD12" class="lighttable">
   <caption>構造体 $C8BD12</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -278,15 +282,15 @@
     </listitem>
   </varlistentry>
 </variablelist>
-</section> <!-- dq6.character.C8BD12 -->
+</section> <!-- dq6.character.traits.C8BD12 -->
 
-<section id="dq6.character.methods">
+<section id="dq6.character.traits.methods">
 <title>仲間キャラクター構造体メソッド</title>
 <para>
 <varname>$C8BD12</varname> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
 専用サブルーチンと汎用サブルーチンをどちらも用いるが、前者は後者で実装することが可能だ。
 </para>
-<table id="table.dq6.character.methods" class="lighttable">
+<table id="table.dq6.character.traits.methods" class="lighttable">
   <caption>仲間キャラクター構造体メソッド</caption>
   <thead>
     <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
@@ -313,5 +317,5 @@
 入力が x または y となっているものは、対応するレジスターの値で仲間キャラクター配列の添字をそれぞれ指定することを意味する。
 また、「固定引数で指定する」とは、固定バイトの値が入力元の種別を指定することを意味する。
 </para>
-</section> <!-- dq6.character.methods -->
-</section> <!-- dq6.character -->
+</section> <!-- dq6.character.traits.methods -->
+</section> <!-- dq6.character.traits -->
