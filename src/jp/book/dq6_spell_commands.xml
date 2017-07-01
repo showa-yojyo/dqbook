@@ -5,7 +5,7 @@
   %replacement;
 ]>
 
-<section id="dq6.spell_commands"><?dbhtml filename="dq6_spell_commands.html" ?>
+<section id="dq6.spell.commands"><?dbhtml filename="dq6_spell_commands.html" ?>
 <title>移動中の呪文コマンド処理</title>
 <para>
 本節では移動中に呪文を唱えるときに発生する処理を呪文ごとに見ていく。
@@ -14,7 +14,7 @@
 すると十分な MP があるときに、プログラムは選択された呪文に対応するサブルーチンを呼び出す。
 </para>
 
-<section id="dq6.spell_commands.C3B814">
+<section id="dq6.spell.commands.C3B814">
 <title>呪文ハンドラーテーブル</title>
 <para>
 呪文の文字列インデックスと処理コードの開始アドレスとの対応表はアドレス
@@ -50,9 +50,9 @@ C3/B870:    AD0079C7    ; もっとおもいだす
 C3/B874:    AC008EC7    ; ふかくおもいだす
 C3/B878:    AE00A3C7    ; わすれる
 </programlisting>
-</section> <!-- dq6.spell_commands.C3B814 -->
+</section> <!-- dq6.spell.commands.C3B814 -->
 
-<section id="dq6.spell_commands.desc">
+<section id="dq6.spell.commands.desc">
 <title>解析</title>
 <para>
 以下、各呪文の処理を簡単に説明していく。
@@ -73,7 +73,7 @@ C3/B878:    AE00A3C7    ; わすれる
 </itemizedlist>
 </para>
 
-<section id="dq6.spell_commands.desc.C3B9A8">
+<section id="dq6.spell.commands.desc.C3B9A8">
 <title>ホイミ・べホイミ・ベホマ</title>
 <para>
 ホイミ・べホイミ・ベホマの各コマンドは開始直後に同一の処理 <varname>$C3B9A8</varname> に合流するので、まとめて解説する。
@@ -119,9 +119,9 @@ C3/B97B:    3A00E703E703 ; べホマズン
 <para>
 最後に効果音 <literal>#$00CD</literal> を鳴らし、メッセージを表示して終了する。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3B9A8 -->
+</section> <!-- dq6.spell.commands.desc.C3B9A8 -->
 
-<section id="dq6.spell_commands.desc.C3BA5B">
+<section id="dq6.spell.commands.desc.C3BA5B">
 <title>べホマラー・べホマズン</title>
 <para>
 べホマラー・べホマズンの各コマンドは開始直後に同一の処理 <varname>$C3BA5B</varname> に合流するので、まとめて解説する。
@@ -129,15 +129,15 @@ C3/B97B:    3A00E703E703 ; べホマズン
 <para>
 これらの呪文は、パーティーにいるメンバーを先頭から順番に、HP をある量だけ回復しようとするものだ。
 ただし、死んでいるメンバーは単にスキップする。
-また、回復量をメンバーごとに <xref linkend="dq6.spell_commands.desc.C3B9A8"/> のようにしてランダムに決定する。
+また、回復量をメンバーごとに <xref linkend="dq6.spell.commands.desc.C3B9A8"/> のようにしてランダムに決定する。
 回復処理、効果音、メッセージについても同様だが、呪文を受けたメンバーごとに発生する。
 </para>
 <para>
 全員の回復メッセージを表示し終えた後、パーティーの HP/MP ウィンドウを表示してコマンドを終了する。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3BA5B -->
+</section> <!-- dq6.spell.commands.desc.C3BA5B -->
 
-<section id="dq6.spell_commands.desc.C3BAD1">
+<section id="dq6.spell.commands.desc.C3BAD1">
 <title>キアリー</title>
 <para>
 キアリーは、対象者一人が死んでいなければ、その毒状態をクリアするコマンドだ。
@@ -157,9 +157,9 @@ C3/B97B:    3A00E703E703 ; べホマズン
 <para>
 最後にメッセージ <literal>#$16A9</literal> を表示し、コマンドを終了する。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3BAD1 -->
+</section> <!-- dq6.spell.commands.desc.C3BAD1 -->
 
-<section id="dq6.spell_commands.desc.C3BB4A">
+<section id="dq6.spell.commands.desc.C3BB4A">
 <title>ザオラル</title>
 <para>
 ザオラルは対象者一人が死んでいれば、半分の確率で生き返らせ、HP を最大値の半分とするコマンドだ。
@@ -191,18 +191,18 @@ C3/B97B:    3A00E703E703 ; べホマズン
 <para>
 最後にメッセージ <literal>#$16A7</literal> を表示し、コマンドを終了する。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3BB4A -->
+</section> <!-- dq6.spell.commands.desc.C3BB4A -->
 
-<section id="dq6.spell_commands.desc.C3BBF8">
+<section id="dq6.spell.commands.desc.C3BBF8">
 <title>ザオリク</title>
 <para>
 ザオリクは対象者一人が死んでいれば、HP ごと完全回復するコマンドだ。
-処理内容は <xref linkend="dq6.spell_commands.desc.C3BB4A" /> で説明したものから、
+処理内容は <xref linkend="dq6.spell.commands.desc.C3BB4A" /> で説明したものから、
 乱数関連と半減関連を取り除いたものになる。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3BBF8 -->
+</section> <!-- dq6.spell.commands.desc.C3BBF8 -->
 
-<section id="dq6.spell_commands.desc.C3BC70">
+<section id="dq6.spell.commands.desc.C3BC70">
 <title>ルーラ</title>
 <para>
 ルーラはパーティーが訪問したことがある場所の一定の集合から一点を選択し、そこへ一瞬で移動するコマンドだ。
@@ -267,9 +267,9 @@ C3/B97B:    3A00E703E703 ; べホマズン
     </listitem>
   </itemizedlist>
 </para>
-</section> <!-- dq6.spell_commands.desc.C3BC70 -->
+</section> <!-- dq6.spell.commands.desc.C3BC70 -->
 
-<section id="dq6.spell_commands.desc.C3BD4A">
+<section id="dq6.spell.commands.desc.C3BD4A">
 <title>リレミト</title>
 <para>
 リレミトは現在パーティーがいる地域から「脱出」するコマンドだ。
@@ -316,9 +316,9 @@ C3/B97B:    3A00E703E703 ; べホマズン
 
 リレミトが成功する条件が思いのほか複雑であることがわかる。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3BD4A -->
+</section> <!-- dq6.spell.commands.desc.C3BD4A -->
 
-<section id="dq6.spell_commands.desc.C3BDA6">
+<section id="dq6.spell.commands.desc.C3BDA6">
 <title>くちぶえ</title>
 <para>
 くちぶえは現在パーティーがいる戦闘地域に基いて、強制的に通常戦闘を引き起こすコマンドだ。
@@ -344,9 +344,9 @@ C3/B97B:    3A00E703E703 ; べホマズン
 
 全くの個人的な感想だが、フラグのテストを ID 取得より先に処理して欲しい。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3BDA6 -->
+</section> <!-- dq6.spell.commands.desc.C3BDA6 -->
 
-<section id="dq6.spell_commands.desc.C3BDDE">
+<section id="dq6.spell.commands.desc.C3BDDE">
 <title>トヘロス</title>
 <para>
 トヘロスは次の処理を行うコマンドだ：
@@ -365,17 +365,17 @@ C3/B97B:    3A00E703E703 ; べホマズン
 
 最後にメッセージ <literal>#$16B6</literal> を表示し、コマンドを終了する。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3BDDE -->
+</section> <!-- dq6.spell.commands.desc.C3BDDE -->
 
-<section id="dq6.spell_commands.desc.C3BE10">
+<section id="dq6.spell.commands.desc.C3BE10">
 <title>トラマナ</title>
 <para>
 トラマナはトラマナフラグ <code>$7E3D2B &amp; #$0020</code> をセットするコマンドだ。
 実装はここというよりはサブルーチン <varname>$C7CC5C</varname> の呼び出しで済ませている。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3BE10 -->
+</section> <!-- dq6.spell.commands.desc.C3BE10 -->
 
-<section id="dq6.spell_commands.desc.C3BE24">
+<section id="dq6.spell.commands.desc.C3BE24">
 <title>フローミ</title>
 <para>
 フローミはパーティーが現在いる場所のメッセージを表示するコマンドだ。
@@ -396,25 +396,25 @@ C3/B97B:    3A00E703E703 ; べホマズン
       ID <literal>#$16C4</literal> のメッセージを出力する。
       </simpara>
 <programlisting>
-C3/BE59:    49FFFF      EOR #$FFFF          <co id="dq6.spell_comannds.desc.C3BE24.co.1" />
-C3/BE5C:    1A          INC A               <co id="dq6.spell_comannds.desc.C3BE24.co.2" />
-C3/BE5D:    8D2E5A      STA $5A2E           <co id="dq6.spell_comannds.desc.C3BE24.co.3" />
-C3/BE60:    AD305A      LDA $5A30           <co id="dq6.spell_comannds.desc.C3BE24.co.4" />
+C3/BE59:    49FFFF      EOR #$FFFF          <co id="dq6.spell.commands.desc.C3BE24.co.1" />
+C3/BE5C:    1A          INC A               <co id="dq6.spell.commands.desc.C3BE24.co.2" />
+C3/BE5D:    8D2E5A      STA $5A2E           <co id="dq6.spell.commands.desc.C3BE24.co.3" />
+C3/BE60:    AD305A      LDA $5A30           <co id="dq6.spell.commands.desc.C3BE24.co.4" />
 C3/BE63:    2900FF      AND #$FF00
 C3/BE66:    8D305A      STA $5A30
-C3/BE69:    22C22DC0    JSR $C02DC2         <co id="dq6.spell_comannds.desc.C3BE24.co.5" />
+C3/BE69:    22C22DC0    JSR $C02DC2         <co id="dq6.spell.commands.desc.C3BE24.co.5" />
 C3/BE6D:    C416
 </programlisting>
 <calloutlist>
-  <callout arearefs="dq6.spell_comannds.desc.C3BE24.co.1 dq6.spell_comannds.desc.C3BE24.co.2">
+  <callout arearefs="dq6.spell.commands.desc.C3BE24.co.1 dq6.spell.commands.desc.C3BE24.co.2">
     <simpara>情報処理試験の基本問題でよく見かけるように、
     負の整数はそのビットを反転させて 1 を加えれば絶対値を得る。</simpara>
   </callout>
-  <callout arearefs="dq6.spell_comannds.desc.C3BE24.co.3 dq6.spell_comannds.desc.C3BE24.co.4">
+  <callout arearefs="dq6.spell.commands.desc.C3BE24.co.3 dq6.spell.commands.desc.C3BE24.co.4">
     <simpara><varname>$5A2E</varname> は次のメッセージ中の [BB] に当てはめる値。
     一方 <varname>$5A30</varname> はこの場合は無視してよい。</simpara>
   </callout>
-  <callout arearefs="dq6.spell_comannds.desc.C3BE24.co.5">
+  <callout arearefs="dq6.spell.commands.desc.C3BE24.co.5">
     <simpara>メッセージ <literal>#$16C4</literal>: ここは [B2]の[AD]地下[BB]階のようだ。</simpara>
   </callout>
 </calloutlist>
@@ -423,9 +423,9 @@ C3/BE6D:    C416
 
 どちらかのメッセージを出力した後、コマンドを終了する。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3BE24 -->
+</section> <!-- dq6.spell.commands.desc.C3BE24 -->
 
-<section id="dq6.spell_commands.desc.C3BE7F">
+<section id="dq6.spell.commands.desc.C3BE7F">
 <title>タカのめ</title>
 <para>
 タカのめは近くにある城や街等の現在パーティーがいる地点からの相対的な位置を調べるコマンドだ。
@@ -503,9 +503,9 @@ C3/BE6D:    C416
   </listitem>
 </itemizedlist>
 </para>
-</section> <!-- dq6.spell_commands.desc.C3BE7F -->
+</section> <!-- dq6.spell.commands.desc.C3BE7F -->
 
-<section id="dq6.spell_commands.desc.C3BEF9">
+<section id="dq6.spell.commands.desc.C3BEF9">
 <title>とうぞくのはな</title>
 <para>
 とうぞくのはなは現在パーティーがいる階や部屋に「しらべる」で入手できるお宝やゴールドがどれだけあるかを知るコマンドだ。
@@ -588,9 +588,9 @@ C3/BE6D:    C416
     <tr><td>4</td><td>（不明）</td><td><varname>$C855AB</varname></td></tr>
   </tbody>
 </table>
-</section> <!-- dq6.spell_commands.desc.C3BEF9 -->
+</section> <!-- dq6.spell.commands.desc.C3BEF9 -->
 
-<section id="dq6.spell_commands.desc.C3BF55">
+<section id="dq6.spell.commands.desc.C3BF55">
 <title>しのびあし</title>
 <para>
 しのびあしは次の処理を行うコマンドだ：
@@ -606,16 +606,16 @@ C3/BE6D:    C416
 
 最後にメッセージ <literal>#$16B6</literal> を表示し、コマンドを終了する。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3BF55 -->
+</section> <!-- dq6.spell.commands.desc.C3BF55 -->
 
-<section id="dq6.spell_commands.desc.C3BF77">
+<section id="dq6.spell.commands.desc.C3BF77">
 <title>ねる</title>
 <para>
 ねるは本人の状態をサブルーチン <varname>$C44F0D</varname> 呼び出しによってねむり状態にするコマンドだ。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3BF77 -->
+</section> <!-- dq6.spell.commands.desc.C3BF77 -->
 
-<section id="dq6.spell_commands.desc.C3BF95">
+<section id="dq6.spell.commands.desc.C3BF95">
 <title>おおごえ</title>
 <para>
 おおごえは旅の店屋を呼びつけて営業をさせるコマンドだ。次のようなことを行う：
@@ -662,9 +662,9 @@ C3/BE6D:    C416
 
 フラグをリセットしたら、コマンドを終了する。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3BF95 -->
+</section> <!-- dq6.spell.commands.desc.C3BF95 -->
 
-<section id="dq6.spell_commands.desc.C3C066">
+<section id="dq6.spell.commands.desc.C3C066">
 <title>あなほり</title>
 <para>
 あなほりは物品またはゴールドをランダムに入手するコマンドだ。
@@ -811,9 +811,9 @@ C3/BE6D:    C416
 <varname>$C00F28</varname> だが、アイテム確率だけは分母が大きいのでサブルーチン
 <varname>$C00F49</varname> を採用している。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3C066 -->
+</section> <!-- dq6.spell.commands.desc.C3C066 -->
 
-<section id="dq6.spell_commands.desc.C3C344">
+<section id="dq6.spell.commands.desc.C3C344">
 <title>インパス</title>
 <para>
 インパスは次のような三段構造のコマンドだ：
@@ -854,7 +854,7 @@ C3/BE6D:    C416
   </listitem>
   <listitem>
     <simpara>
-      <link linkend="dq6.spell_commands.desc.C3BC70">ルーラフラグ列</link>内「まじゅつしのとう」のビットをセットする。
+      <link linkend="dq6.spell.commands.desc.C3BC70">ルーラフラグ列</link>内「まじゅつしのとう」のビットをセットする。
       これにはサブルーチン <varname>$C6DE8A</varname> を呼び出すことで達成する。
     </simpara>
   </listitem>
@@ -995,9 +995,9 @@ C3/BE6D:    C416
 
 以上でコマンドを終了する。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3C344 -->
+</section> <!-- dq6.spell.commands.desc.C3C344 -->
 
-<section id="dq6.spell_commands.desc.C3C71B">
+<section id="dq6.spell.commands.desc.C3C71B">
 <title>レミラーマ</title>
 <para>
 レミラーマはパーティーの近くにある怪しいものを目立たせるコマンドだ。
@@ -1029,7 +1029,7 @@ C3/BE6D:    C416
 <itemizedlist>
   <listitem>
     <simpara>
-      <link linkend="dq6.spell_commands.desc.C3BEF9">とうぞくのはな</link>のアルゴリズムと同様にして、
+      <link linkend="dq6.spell.commands.desc.C3BEF9">とうぞくのはな</link>のアルゴリズムと同様にして、
       パーティーがいる地点近辺の怪しい地点を探索する。
       ただし、配列 <varname>$7E641D</varname> のテストするビットが異なる。
       レミラーマの場合は最上位ビットに加えて <literal>#$0200</literal> を見る。
@@ -1038,14 +1038,14 @@ C3/BE6D:    C416
   <listitem>
     <simpara>
       怪しい地点が光るときの効果音は <literal>#$00CD</literal> を用いる。
-      これは<link linkend="dq6.spell_commands.desc.C3B9A8">ホイミ系</link>と同じ効果音だ。
+      これは<link linkend="dq6.spell.commands.desc.C3B9A8">ホイミ系</link>と同じ効果音だ。
     </simpara>
   </listitem>
 </itemizedlist>
 </para>
-</section> <!-- dq6.spell_commands.desc.C3C71B -->
+</section> <!-- dq6.spell.commands.desc.C3C71B -->
 
-<section id="dq6.spell_commands.desc.C7CDAF">
+<section id="dq6.spell.commands.desc.C7CDAF">
 <title>おもいだす・もっとおもいだす・ふかくおもいだす</title>
 <para>
 おもいだす・もっとおもいだす・ふかくおもいだすの各コマンドは同一の処理
@@ -1082,9 +1082,9 @@ C3/BE6D:    C416
 出力するメッセージが残っていてもコマンドを終了する。
 また、配列内が事実上空のときにはメッセージ <literal>#$16DB</literal> を表示してコマンドを終了する。
 </para>
-</section> <!-- dq6.spell_commands.desc.C7CDAF -->
+</section> <!-- dq6.spell.commands.desc.C7CDAF -->
 
-<section id="dq6.spell_commands.desc.C3C7A3">
+<section id="dq6.spell.commands.desc.C3C7A3">
 <title>わすれる</title>
 <para>
 わすれるは、メッセージ配列 <varname>$7E3EAC</varname> の内容を対話的に削除するコマンドだ。
@@ -1110,6 +1110,6 @@ C3/BE6D:    C416
 画面に「？つまえ」ウィンドウが表示している間にプレイヤーがキャンセルボタンを押すか、
 わすれるためのメッセージ配列が空になったらコマンドを終了する。
 </para>
-</section> <!-- dq6.spell_commands.desc.C3C7A3 -->
-</section> <!-- dq6.spell_commands.desc -->
-</section> <!-- dq6.spell_commands -->
+</section> <!-- dq6.spell.commands.desc.C3C7A3 -->
+</section> <!-- dq6.spell.commands.desc -->
+</section> <!-- dq6.spell.commands -->

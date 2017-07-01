@@ -512,7 +512,7 @@
       </para>
       <para>
         アイテムについては <xref linkend="dq6.item"/> および
-        <xref linkend="dq6.item_commands"/> で述べる。
+        <xref linkend="dq6.item.commands"/> で述べる。
       </para>
     </listitem>
   </varlistentry>

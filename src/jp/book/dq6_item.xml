@@ -15,7 +15,7 @@
 </para>
 <para>
 アイテムの引き起こす振る舞いについては、移動モードと戦闘モードの両方について考慮する必要がある。
-前者については <xref linkend="dq6.item_commands"/> で述べる。
+前者については <xref linkend="dq6.item.commands"/> で述べる。
 後者については戦闘コマンドとして実装されているので <xref linkend="dq6.battle.commands"/> が関連項目となる。
 </para>
 
