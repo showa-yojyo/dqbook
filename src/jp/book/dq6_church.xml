@@ -32,8 +32,8 @@
     <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>台詞セット</td></tr>
     <tr><td><literal>#$02</literal></td><td><literal>#$0001</literal></td><td>おいのり</td></tr>
     <tr><td><literal>#$02</literal></td><td><literal>#$00FE</literal></td><td>（未使用）</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$FFFF</literal></td><td>処理アドレス</td></tr>
-    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>*</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">処理アドレス</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td></tr>
   </tbody>
 </table>
 <para>
@@ -93,7 +93,7 @@
 </para>
 <para>
 以下に台詞セットのデータを直接示す。セミコロンから右側が本書が独自に付したコメントだ：
-読者はメッセージ ID と実際のテキストとの対応を <link linkend="appendix.b"/> に収録した移動モードテキストデータを参照すれば確認できる。
+読者はメッセージ ID と実際のテキストとの対応を <xref linkend="appendix.b"/> に収録した移動モードテキストデータを参照すれば確認できる。
 </para>
 <programlisting><![CDATA[
 C3/D9F8:    FCD9    ; 台詞セット 1 のアドレス
