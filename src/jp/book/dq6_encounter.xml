@@ -128,7 +128,7 @@
       </table>
       <para>
         これらの確率は「しのびあし」コマンドの適用状態やドラゴン職の仲間の有無で変動する。
-        <xref linkend="dq6.spell.commands"/> や <xref linkend="dq6.class"/> の記述を参照して欲しい。
+        <xref linkend="dq6.spell.commands"/> や <xref linkend="dq6.vocations"/> の記述を参照して欲しい。
       </para>
     </listitem>
   </varlistentry>

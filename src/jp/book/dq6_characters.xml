@@ -145,7 +145,7 @@
     <listitem>
       <para>
         キャラクターの現在就いている職業を表す値を取る属性だ。
-        職業については <xref linkend="dq6.class"/> で述べる。
+        職業については <xref linkend="dq6.vocations"/> で述べる。
       </para>
     </listitem>
   </varlistentry>
@@ -239,7 +239,7 @@
   </tbody>
 </table>
 <para>
-<xref linkend="dq6.class.C41C3E"/> で述べるように、このメモリレイアウトは職業構造体で指定されている。
+<xref linkend="dq6.vocations.C41C3E"/> で述べるように、このメモリレイアウトは職業構造体で指定されている。
 </para>
 </section> <!-- dq6.characters.7E4415 -->
 

@@ -5,15 +5,15 @@
   %replacement;
 ]>
 
-<section id="dq6.class"><?dbhtml filename="dq6_class.html" ?>
+<section id="dq6.vocations"><?dbhtml filename="dq6_vocations.html" ?>
 <title>職業</title>
-<indexterm id="term.dq6.class"><primary>職業</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.vocations"><primary>職業</primary><secondary>DQ6</secondary></indexterm>
 <para>
 この節では職業構造体を中心に説明する。
 いつものように、オブジェクトを CSV 形式でダンプしたテキストファイルを <xref linkend="appendix.b"/> に収録した。
 </para>
 
-<section id="dq6.class.C41C3E">
+<section id="dq6.vocations.C41C3E">
 <title>構造体 <varname>$C41C3E</varname>: 職業構造体</title>
 <para>
 職業構造体とは、サイズが <literal>#$77</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
@@ -262,9 +262,9 @@
     </listitem>
   </varlistentry>
 </variablelist>
-</section> <!-- dq6.class.C41C3E -->
+</section> <!-- dq6.vocations.C41C3E -->
 
-<section id="dq6.class.privilege">
+<section id="dq6.vocations.privilege">
 <title>職業に就いていることによる特典</title>
 <para>
 仲間キャラクターが何かの職業に就いていると、どのような良いことが起こるのかを以下に説明する。
@@ -274,7 +274,7 @@
 以下の各表で列が ID とあるのは、つよさウィンドウで表示さえる星の数から 1 を引いた値と等しい。
 </para>
 
-<section id="dq6.class.privilege.03">
+<section id="dq6.vocations.privilege.03">
 <title>ぶとうか</title>
 <para>
 職業がぶとうかである仲間キャラクターは、戦闘中に会心痛恨属性が 1 の戦闘コマンドを実行すると、
@@ -299,9 +299,9 @@
 <para>
 抽選が外れると、通常の職業キャラクターと同様の抽選を行う。
 </para>
-</section> <!-- dq6.class.privilege.03 -->
+</section> <!-- dq6.vocations.privilege.03 -->
 
-<section id="dq6.class.privilege.06">
+<section id="dq6.vocations.privilege.06">
 <title>おどりこ</title>
 <para>
 職業がおどりこであるである仲間キャラクターは、戦闘中にみかわし考慮属性が 1 の戦闘コマンドを受け、
@@ -323,9 +323,9 @@
     <tr><th>7</th><td align="right">1/8</td></tr>
   </tbody>
 </table>
-</section> <!-- dq6.class.privilege.06 -->
+</section> <!-- dq6.vocations.privilege.06 -->
 
-<section id="dq6.class.privilege.07">
+<section id="dq6.vocations.privilege.07">
 <title>とうぞく</title>
 <para>
 職業がとうぞくである仲間キャラクターが戦闘後に馬車外にいると、
@@ -335,9 +335,9 @@
 <para>
 とうぞくが複数いる場合は、その人数分だけこのような判定が実行される。
 </para>
-</section> <!-- dq6.class.privilege.07 -->
+</section> <!-- dq6.vocations.privilege.07 -->
 
-<section id="dq6.class.privilege.08">
+<section id="dq6.vocations.privilege.08">
 <title>まものつかい</title>
 <para>
 職業がまものつかいである仲間キャラクターが戦闘後に馬車外にいると、
@@ -347,9 +347,9 @@
 <para>
 まものつかいが複数いる場合は、そのうちのもっとも高い職業レベルが採用される。
 </para>
-</section> <!-- dq6.class.privilege.08 -->
+</section> <!-- dq6.vocations.privilege.08 -->
 
-<section id="dq6.class.privilege.09">
+<section id="dq6.vocations.privilege.09">
 <title>しょうにん</title>
 <para>
 職業がしょうにんである仲間キャラクターが戦闘後に馬車外にいると、
@@ -375,9 +375,9 @@
 <para>
 しょうにんが複数いる場合は、その人数分だけこのような判定が実行される。
 </para>
-</section> <!-- dq6.class.privilege.09 -->
+</section> <!-- dq6.vocations.privilege.09 -->
 
-<section id="dq6.class.privilege.0A">
+<section id="dq6.vocations.privilege.0A">
 <title>あそびにん</title>
 <para>
 職業があそびにんである仲間キャラクターは、命令に関わらず 1/5 の確率で「あそび」コマンドを実行する。
@@ -386,9 +386,9 @@
 「あそび」の選択肢は <varname>$C22D54</varname> に定義されている。
 このデータは <xref linkend="appendix.b"/> に収録した。
 </para>
-</section> <!-- dq6.class.privilege.0A -->
+</section> <!-- dq6.vocations.privilege.0A -->
 
-<section id="dq6.class.privilege.0B">
+<section id="dq6.vocations.privilege.0B">
 <title>バトルマスター</title>
 <para>
 職業がバトルマスターである仲間キャラクターは、みかわし考慮属性が 1 の戦闘コマンドを受け、
@@ -410,9 +410,9 @@
     <tr><th>7</th><td align="right">1/8</td></tr>
   </tbody>
 </table>
-</section> <!-- dq6.class.privilege.0B -->
+</section> <!-- dq6.vocations.privilege.0B -->
 
-<section id="dq6.class.privilege.0D">
+<section id="dq6.vocations.privilege.0D">
 <title>パラディン</title>
 <para>
 職業がパラディンである仲間キャラクターは、パラディン考慮属性が 1 の戦闘コマンドを実行するときに次の表の確率でコマンド対象を即死させる：
@@ -433,9 +433,9 @@
     <tr><th>7</th><td align="right">1/8</td></tr>
   </tbody>
 </table>
-</section> <!-- dq6.class.privilege.0D-->
+</section> <!-- dq6.vocations.privilege.0D-->
 
-<section id="dq6.class.privilege.0E">
+<section id="dq6.vocations.privilege.0E">
 <title>けんじゃ</title>
 <para>
 職業がけんじゃである仲間キャラクターは、移動モード戦闘モードを問わず、コマンド実行時の必要 MP 消費量が緩和される。
@@ -457,9 +457,9 @@
     <tr><th>7</th><td>規定量の 1/2</td></tr>
   </tbody>
 </table>
-</section> <!-- dq6.class.privilege.0E -->
+</section> <!-- dq6.vocations.privilege.0E -->
 
-<section id="dq6.class.privilege.0F">
+<section id="dq6.vocations.privilege.0F">
 <title>レンジャー</title>
 <para>
 職業がレンジャーである仲間キャラクターがいると、戦闘コマンド「にげる」の成功率が次の表のようになる：
@@ -483,9 +483,9 @@
 <para>
 レンジャーが複数いる場合は、そのうちのもっとも高い職業レベルが採用される。
 </para>
-</section> <!-- dq6.class.privilege.0F -->
+</section> <!-- dq6.vocations.privilege.0F -->
 
-<section id="dq6.class.privilege.10">
+<section id="dq6.vocations.privilege.10">
 <title>スーパースター</title>
 <para>
 職業がスーパースターである仲間キャラクターがいると、
@@ -507,9 +507,9 @@
     <tr><th>7</th><td align="right">1/8</td></tr>
   </tbody>
 </table>
-</section> <!-- dq6.class.privilege.10 -->
+</section> <!-- dq6.vocations.privilege.10 -->
 
-<section id="dq6.class.privilege.11">
+<section id="dq6.vocations.privilege.11">
 <title>ゆうしゃ</title>
 <para>
 職業がゆうしゃである仲間キャラクターは、戦闘中の各ターン終了時に HP が次の表に示す値だけ自動回復する：
@@ -530,9 +530,9 @@
     <tr><th>7</th><td align="right">80</td></tr>
   </tbody>
 </table>
-</section> <!-- dq6.class.privilege.11 -->
+</section> <!-- dq6.vocations.privilege.11 -->
 
-<section id="dq6.class.privilege.12">
+<section id="dq6.vocations.privilege.12">
 <title>ドラゴン</title>
 <para>
 職業がドラゴンである仲間キャラクターがいると、戦闘開始時に先制を取りやすくなる。
@@ -557,14 +557,14 @@
 <para>
 ドラゴンが複数いる場合は、そのうちのもっとも高い職業レベルが採用される。
 </para>
-</section> <!-- dq6.class.privilege.12 -->
+</section> <!-- dq6.vocations.privilege.12 -->
 
-<section id="dq6.class.privilege.13">
+<section id="dq6.vocations.privilege.13">
 <title>はぐれメタル</title>
 <para>
 職業がはぐれメタルである仲間キャラクターは、
 職業レベルが上限に達していると、すべてのコマンド耐性の属性値が 3 であるかのように扱われる。
 </para>
-</section> <!-- dq6.class.privilege.13 -->
-</section> <!-- dq6.class.privilege -->
-</section> <!-- dq6.class -->
+</section> <!-- dq6.vocations.privilege.13 -->
+</section> <!-- dq6.vocations.privilege -->
+</section> <!-- dq6.vocations -->

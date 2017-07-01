@@ -22,7 +22,7 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_forge.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_bank.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_rename.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_class.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_vocations.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_item.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_monster.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_characters.xml"/>
