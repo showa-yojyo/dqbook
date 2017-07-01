@@ -24,10 +24,10 @@
 <para>
 はなすオブジェクトがゴールド銀行であるならば、その振る舞いは基本的に次のようになる：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 CA/B6FF:    228366CD    JSR $CD6683         ; ゴールド銀行
 CA/B703:    6B          RTL
-</programlisting>
+]]></programlisting>
 <para>
 サブルーチン <varname>$CD6683</varname> は結局 <varname>$C1F7D1</varname> を呼び出すことしかしないので、
 本書では後者のほうをゴールド銀行共通処理と位置付ける。

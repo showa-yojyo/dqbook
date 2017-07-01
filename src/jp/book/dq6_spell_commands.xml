@@ -22,7 +22,7 @@
 呪文ウィンドウで選択された呪文文字列のインデックスと行前半が一致すれば、
 プログラムカウンターを行後半のアドレスへ JMP させる。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 C3/B814:    3000A4B9    ; ホイミ
 C3/B818:    330049BA    ; べホイミ
 C3/B81C:    360050BA    ; べホマ
@@ -49,7 +49,7 @@ C3/B86C:    AB0064C7    ; おもいだす
 C3/B870:    AD0079C7    ; もっとおもいだす
 C3/B874:    AC008EC7    ; ふかくおもいだす
 C3/B878:    AE00A3C7    ; わすれる
-</programlisting>
+]]></programlisting>
 </section> <!-- dq6.spell.commands.C3B814 -->
 
 <section id="dq6.spell.commands.desc">
@@ -82,13 +82,13 @@ C3/B878:    AE00A3C7    ; わすれる
 これらの呪文は、対象者一人が死んでいなければ、そのメンバーの HP をある量だけ回復しようとするものだ。
 ここで、ある量とは指定する範囲にある数からランダムに選ぶものであり、
 ホイミ系 5 種の呪文に対する回復量テーブルは <varname>$C3B963</varname> において次のように定められている。
-<programlisting>
+<programlisting><![CDATA[
 C3/B963:    30001E002800 ; ホイミ
 C3/B969:    33004B005F00 ; べホイミ
 C3/B96F:    3600E703E703 ; べホマ
 C3/B975:    390064007800 ; べホマラー
 C3/B97B:    3A00E703E703 ; べホマズン
-</programlisting>
+]]></programlisting>
 
 十六進数を十進数で書き直し、表にまとめると次のようになる：
   <table id="table.dq6.C3B963" class="lighttable">
@@ -295,12 +295,12 @@ C3/B97B:    3A00E703E703 ; べホマズン
         </listitem>
         <listitem>
           <simpara>現在「不思議なちから」が作用する場にいるか、
-          または <code>$7E3E28 &amp; #$0001</code> がセットされているかを調べる。
+          または <code><![CDATA[$7E3E28 & #$0001]]></code> がセットされているかを調べる。
           どちらかならば、リレミトに「不思議なちから」が作用する。
           </simpara>
         </listitem>
         <listitem>
-          <simpara><code>$7E3D2B &amp; #$0002</code> がセットされているか。
+          <simpara><code><![CDATA[$7E3D2B & #$0002]]></code> がセットされているか。
           セットされていればリレミトが発動する。
           </simpara>
         </listitem>
@@ -333,7 +333,7 @@ C3/B97B:    3A00E703E703 ; べホマズン
     </listitem>
     <listitem>
       <simpara>現在、通常戦闘が発生してよい状況なのかどうかをフラグ
-      <code>$7E3D2A &amp; #$0010</code> をテストすることで確認する。
+      <code><![CDATA[$7E3D2A & #$0010]]></code> をテストすることで確認する。
       なお、このフラグは <xref linkend="dq6.debug.menu.C908E9" />メニューにある「エンカウント」の操作対象そのものだ。
       フラグがリセットされていると、メッセージ「しかし 何も おこらなかった」を出力してコマンドを終了する。</simpara>
     </listitem>
@@ -356,10 +356,10 @@ C3/B97B:    3A00E703E703 ; べホマズン
       <simpara>トヘロス系カウンター <varname>$7E3BA9</varname> をリセットする。</simpara>
     </listitem>
     <listitem>
-      <simpara>トヘロスフラグ <code>$7E3D2B &amp; #$0004</code> をセットする。</simpara>
+      <simpara>トヘロスフラグ <code><![CDATA[$7E3D2B & #$0004]]></code> をセットする。</simpara>
     </listitem>
     <listitem>
-      <simpara>せいすいフラグ <code>$7E3D2B &amp; #$0010</code> をリセットする。</simpara>
+      <simpara>せいすいフラグ <code><![CDATA[$7E3D2B & #$0010]]></code> をリセットする。</simpara>
     </listitem>
   </itemizedlist>
 
@@ -370,7 +370,7 @@ C3/B97B:    3A00E703E703 ; べホマズン
 <section id="dq6.spell.commands.desc.C3BE10">
 <title>トラマナ</title>
 <para>
-トラマナはトラマナフラグ <code>$7E3D2B &amp; #$0020</code> をセットするコマンドだ。
+トラマナはトラマナフラグ <code><![CDATA[$7E3D2B & #$0020]]></code> をセットするコマンドだ。
 実装はここというよりはサブルーチン <varname>$C7CC5C</varname> の呼び出しで済ませている。
 </para>
 </section> <!-- dq6.spell.commands.desc.C3BE10 -->
@@ -600,7 +600,7 @@ C3/BE6D:    C416
       <simpara>しのびあし歩数 <varname>$7E3BAD</varname> をリセットする。</simpara>
     </listitem>
     <listitem>
-      <simpara>しのびあしフラグ <code>$7E3D2B &amp; #$0008</code> をセットする。</simpara>
+      <simpara>しのびあしフラグ <code><![CDATA[$7E3D2B & #$0008]]></code> をセットする。</simpara>
     </listitem>
   </itemizedlist>
 
@@ -630,7 +630,7 @@ C3/BE6D:    C416
       </simpara>
     </listitem>
     <listitem>
-      <simpara>おおごえフラグ <code>$7E3D2B &amp; #$0040</code> をセットする。</simpara>
+      <simpara>おおごえフラグ <code><![CDATA[$7E3D2B & #$0040]]></code> をセットする。</simpara>
     </listitem>
     <listitem>
       <simpara>最近訪問した店と同じ品揃えの旅の店屋、
@@ -656,7 +656,7 @@ C3/BE6D:    C416
       </itemizedlist>
     </listitem>
     <listitem>
-      <simpara>おおごえフラグ <code>$7E3D2B &amp; #$0040</code> をリセットする。</simpara>
+      <simpara>おおごえフラグ <code><![CDATA[$7E3D2B & #$0040]]></code> をリセットする。</simpara>
     </listitem>
   </itemizedlist>
 

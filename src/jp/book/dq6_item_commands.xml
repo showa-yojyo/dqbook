@@ -25,13 +25,13 @@
 もし見つかれば後述する道具固有の処理を実行するようになっている。
 そうでなければ、単純な汎用処理を実行する。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 C3/C8C0:    D100D5165DCA
 C3/C8C6:    D200D516FDCA
 C3/C8CC:    D500D5167DCB
 ...
 C3/C9FE:    E100D51661D3
-</programlisting>
+]]></programlisting>
 <para>
 このデータコードを見易いように表にまとめておく：
 </para>

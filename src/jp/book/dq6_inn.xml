@@ -112,11 +112,11 @@ C7/CF9F:    20BAD0      JSR $D0BA           ; 台詞表示
 <para>
 はなすオブジェクトが宿屋である場合は、その振る舞いは基本的に次のようになる：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 CD/FEDE:    A22300      LDX #$0023          ; 宿屋 ID
 CD/FEE1:    2221CFC7    JSR $C7CF21         ; 宿屋処理
 CD/FEE5:    6B          RTL
-</programlisting>
+]]></programlisting>
 <para>
 サブルーチン <varname>$C7CF21</varname> が宿屋共通処理を実装するコードだ。
 このコードは対話的な処理を含むので、比較的長いものとなっている。

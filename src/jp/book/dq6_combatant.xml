@@ -871,7 +871,7 @@
 値が 4 ならばオフセット値とビットマスク値がコード中に埋め込まれていることを示す。
 以下に参考コードと解釈例を示す。本節の表と照合しながら確かめるといいだろう：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 C2/56C7:    22F4EFC2    JSR $C2EFF4         戦闘員 x の属性を取得する
 C2/56CB:    5020
 C2/56CD:    0400                            対象属性はアストロン状態
@@ -895,6 +895,6 @@ C2/56F6:    8700
 C2/56F8:    38          SEC
                                             }
 C2/56F9:    60          RTS
-</programlisting>
+]]></programlisting>
 </section> <!-- dq6.combatant.methods -->
 </section> <!-- dq6.combatant -->
