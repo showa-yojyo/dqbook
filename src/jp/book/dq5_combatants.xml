@@ -22,7 +22,7 @@
 戦闘終了後はこの 8 個のオブジェクトの内容は放棄される。
 </para>
 
-<table id="table.dq5.combatants.000760" class="lighttable">
+<table id="table.dq5.000760" class="lighttable">
   <caption>構造体 $000760</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>性質</th><th>アクセス例</th><th>備考</th></tr>
@@ -101,7 +101,7 @@
 戦闘終了後はこの 16 個のオブジェクトの内容は放棄される。
 </para>
 
-<table id="table.dq5.combatants.0007C0" class="lighttable">
+<table id="table.dq5.0007C0" class="lighttable">
   <caption>構造体 $0007C0: 敵キャラクター</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>性質</th><th>アクセス例</th><th>備考</th></tr>

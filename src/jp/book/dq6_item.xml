@@ -6,574 +6,332 @@
 ]>
 
 <section id="dq6.item"><?dbhtml filename="dq6_item.html" ?>
-<title>アイテム解析</title>
+<title>アイテム</title>
 <indexterm id="term.dq6.item"><primary>アイテム</primary><secondary>DQ6</secondary></indexterm>
 <para>
-	アイテムデータの解析を行う。
-	なお、アイテムデータは既に先人の手によって解明されているため、
-	今回はトレースからデータのアドレスを突き止めるのではなく、
-	「あらかじめアドレスが判明しているときに、どのように構造体のメンバーの意味を見切るか」
-	を重点的に解説する。
+本節ではアイテム一般のデータ構造について述べる。
+アイテムを表現する構造体をメンバーごとに簡単に解説した後、
+プログラムがそれらの属性をどのように参照や更新するのかについてまとめていく。
+</para>
+<para>
+アイテムの引き起こす振る舞いについては、移動モードと戦闘モードの両方について考慮する必要がある。
+前者については <xref linkend="dq6.item.commands"/> で述べる。
+後者については戦闘コマンドとして実装されているので <xref linkend="dq6.battle.commands"/> が関連項目となる。
 </para>
 
-<section id="dq6.item.hack">
-<title>解析</title>
+<section id="dq6.item.C4003D">
+<title>構造体 <varname>$C4003D</varname>: アイテム</title>
 <para>
-	いつもとは違い、ロムデータの <command>grep</command> から始める。
-	アイテムデータに関するアドレスは既に判明しており、次の通りだ。
+次の表に示すようなメモリレイアウトの構造体オブジェクトがアドレス <varname>$C4003D</varname> から 256 個配列されている。
+本章ではこの型をアイテム構造体と呼ぶことにする：
 </para>
-<itemizedlist>
-	<listitem>
-		<para>
-			<varname>$C41A3D</varname> - アイテム構造体へのポインタ
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			<varname>$C4003D</varname> - アイテム構造体
-		</para>
-	</listitem>
-</itemizedlist>
-<para>
-	プログラムは、いろいろな方法でアイテム ID から、
-	そのアイテムの構造体データのアドレスを取得する。
-	まずは、そのパターンをすべて <command>grep</command> で洗い出す。
-</para>
-
-<section id="dq6.item.hack.C41A3D">
-<title><varname>$C41A3D</varname> - アイテム構造体へのポインタ</title>
-<para>
-	<varname>$C41A3D</varname> におけるバイナリデータの格納形式は以下のようになっている。
-</para>
-<programlisting>
-C4/1A3D:    C4    // DB
-C4/1A3E:    3D00  // アイテム ID == 00h
-C4/1A40:    5700  // アイテム ID == 01h
-C4/1A42:    7100  // アイテム ID == 02h
-C4/1A44:    8B00  // アイテム ID == 03h
-C4/1A46:    A500  // アイテム ID == 04h
-C4/1A48:    BF00  // アイテム ID == 05h
-...
-</programlisting>
-<para>
-	アイテム ID を <varname>X</varname> レジスタにセットして、
-	<code>LDA $C41A3E,X</code> のような感じでアクセスしていると想像できる。
-	よって、バイナリエディタで <literal>BF 3E 1A C4</literal> をロムイメージから検索する。
-	すると、以下のように数件ヒットさせることに成功する。
-</para>
-<programlisting>
-C:\home\yojyo\data\work_dq6.smc : 00046096
-C:\home\yojyo\data\work_dq6.smc : 000460E8
-C:\home\yojyo\data\work_dq6.smc : 00046135
-C:\home\yojyo\data\work_dq6.smc : 00046185
-C:\home\yojyo\data\work_dq6.smc : 00046256
-C:\home\yojyo\data\work_dq6.smc : 0004784F
-6件見つかりました
-</programlisting>
-<para>
-	すべてバンク <varname>C4</varname> のサブルーチン内から呼ばれていることがわかった。
-	試しに <varname>$C46096</varname> を含むサブルーチンのアセンブルコードを見てみよう。
-	<code>LDA $C41A3E,X</code> によって、アキュームレータに <literal>2</literal> バイトの値がロードされるが、
-	これは ID が <varname>X</varname> であるアイテムの構造体データの先頭を指しているのだ
-	（この事実は、<varname>$C41A3D</varname> をバイナリダンプしないとわからないが）。
-	そして <code>LDA $C40005,X</code> や <code>LDA $C4000B,X</code> といった形で、
-	アイテム構造体の <literal>[05]</literal> や <literal>[0B]</literal> の値をロードしているのだ。
-</para>
-<programlisting>
-AL = アイテム構造体[05]; C = !アイテム構造体[0B] &amp; 04h;
-C4/608D:    18          CLC 
-C4/608E:    08          PHP                 //*+5
-C4/608F:    C230        REP #$30
-C4/6091:    48          PHA                 //*+3
-C4/6092:    DA          PHX                 //*+1
-C4/6093:    8A          TXA 
-C4/6094:    0A          ASL A
-C4/6095:    AA          TAX 
-C4/6096:    BF3E1AC4    LDA $C41A3E,X       // アイテム構造体
-C4/609A:    AA          TAX 
-C4/609B:    E220        SEP #$20            // M-
-C4/609D:    BF0500C4    LDA $C40005,X
-C4/60A1:    8303        STA $03,S           $03,S = アイテム構造体[05];
-C4/60A3:    BF0B00C4    LDA $C4000B,X
-C4/60A7:    2904        AND #$04            AL = アイテム構造体[0B] &amp; 04h;
-C4/60A9:    D006        BNE $60B1           if(AL == 00h){
-C4/60AB:    A305        LDA $05,S
-C4/60AD:    0901        ORA #$01                // carry flag
-C4/60AF:    8305        STA $05,S               $05,S |= 01h;
-                                            }
-C4/60B1:    C230        REP #$30            // mx
-C4/60B3:    FA          PLX 
-C4/60B4:    68          PLA                 // アイテム構造体[05];
-C4/60B5:    28          PLP                 // Carry may be changed
-C4/60B6:    6B          RTL
-</programlisting>
-</section> <!-- dq6.item.hack.C41A3D -->
-
-<section id="dq6.item.hack.C92AB5">
-<title><code>JSL $C92AB5</code> によるデータ取得</title>
-<para>
-	項タイトルのサブルーチン呼び出しの意味はここでは説明しない。
-	とりあえず今理解していただくのは、
-	以下のようなアセンブリコードがアイテム構造体のデータへのアクセスを行うということだけだ。
-</para>
-<programlisting>
-C4/5ED6:    22B52AC9    JSR $C92AB5         ■$00 = $C41A3D[0000]
-            01
-            1A00
-            3D1AC4  // アイテム構造体データへのポインタ by sonitown
-            0000    // [0000]: 名前文字列 ID
-            00
-C4/5EE2:    AE9948      LDX $4899
-...</programlisting>
-<para>
-	まずは、ロムイメージファイル全体から、
-	<literal>22 B5 2A C9</literal> の <literal>1</literal> バイト後に <literal>1A 00 3D 1A C4</literal> がくるパターンを
-	<command>grep</command> する。
-	次のリストは自作プログラムの <command>grep</command> 結果だ。
-	<literal>2</literal> 番目のフィールドがアイテム構造体を <literal>1</literal> バイト値の配列としてみなしたときのインデックスだ。
-	これを知りたいがために、簡易検索プログラムを自作しただけだ。
-	今回の作業と同様のことは Stirling で十分行える。
-</para>
-<programlisting>
-C389A6, 0017h
-C389B5, 0019h
-C3C4E9, 0013h
-C3C507, 0015h
-C3C532, 0013h
-C3C54D, 0015h
-C3CA24, 0011h
-C45ED6, 0000h
-C5F710, 0017h
-C5F71F, 0019h
-C5F780, 0015h
-C5FCC1, 0017h
-C5FCCF, 0019h
-</programlisting>
-<para>
-	その後に、検索ヒットアドレスの周辺のサブルーチンを丹念に解読していけばよい。
-	過去の解析作業ですでに解読が済んでいるものである可能性が十分ある。
-	試しにひとつ紹介する。
-</para>
-</section> <!-- dq6.item.hack.C92AB5 -->
-
-<section id="dq6.item.hack.C92BD4">
-<title><code>JSL $C92BD4</code> によるデータ取得</title>
-<para>
-	前項とほぼ同様だ。
-	<literal>22 B5 2A C9 1A 00 3D 1A C4</literal>
-	今回は <literal>3</literal> 件だけしかない。
-</para>
-<programlisting>
-C:\home\yojyo\data\work_dq6.smc : 00045F0A
-C:\home\yojyo\data\work_dq6.smc : 00045F79
-C:\home\yojyo\data\work_dq6.smc : 00046020
-3件見つかりました
-</programlisting>
-<para>
-	アイテム構造体のどこをアクセスしているのかを調べるには、
-	それぞれのサブルーチン呼び出しの周囲のコードを解読すればよい。
-	以下は <literal>[0002,0004]</literal> がアイテムの価格であることを突き止めたものだ。
-	<code>JSL $C45F70</code> しているサブルーチンを遡行していけば、
-	解析が終わっている店屋共通処理の真っ只中にあるのがわかるだろう。
-	セリフの表示する行の直前にあることから、
-	以下に示すサブルーチンがアイテムの下取り価格であることが断定できる。
-</para>
-<programlisting>
-.routine  $40 = アイテムの売値
-C4/5F70:    08          PHP 
-C4/5F71:    C230        REP #$30
-C4/5F73:    48          PHA 
-C4/5F74:    DA          PHX 
-C4/5F75:    29FF00      AND #$00FF
-C4/5F78:    AA          TAX                 x = アイテム ID;
-C4/5F79:    22D42BC9    JSR $C92BD4         ■$4A = $C41A3D[x] (2 byte)
-            01          // STA アドレスを ** で指定する
-            1A00        // sizeof
-            3D1AC4      // アイテム構造体 ptr
-            4A          // **
-C4/5F84:    A00200      LDY #$0002
-C4/5F87:    B74A        LDA [$4A],Y
-C4/5F89:    8540        STA $40             $40 = [$4A],0002h;
-C4/5F8B:    C8          INY 
-C4/5F8C:    B74A        LDA [$4A],Y
-C4/5F8E:    8541        STA $41             $41 = [$4A],0003h;
-C4/5F90:    A24000      LDX #$0040          x = 0040h;
-C4/5F93:    A90300      LDA #$0003          a = 0003h
-C4/5F96:    22CD0CC0    JSR $C00CCD         ■$40,x *= AL (4 byte)
-C4/5F9A:    4642        LSR $42
-C4/5F9C:    6640        ROR $40
-C4/5F9E:    4642        LSR $42
-C4/5FA0:    6640        ROR $40             $40 &gt;&gt;= 2 (3 byte);
-C4/5FA2:    FA          PLX 
-C4/5FA3:    68          PLA 
-C4/5FA4:    28          PLP 
-C4/5FA5:    6B          RTL
-@end
-</programlisting>
-</section> <!-- dq6.item.hack.C92BD4 -->
-
-<section id="dq6.item.hack.C92C39">
-<title><code>JSL $C92C39</code> によるデータ取得</title>
-<para>
-	前項とほぼ同様だ。
-	<code>JSL $C92C39</code> の呼び出し時に、
-	構造体のアドレス、インデックス、そしてビットマスクを指定することで、
-	アイテム構造体の特定のメンバーデータにアクセスする箇所を
-	<command>grep</command> する。
-	以下がその結果だ。見やすいように整形してある。
-</para>
-<programlisting>
-C0DCB2, C41A3D[000B],  mask: 0002h
-C0FC64, C41A3D[000F],  mask: 0010h
-C3C6DD, C41A3D[0010],  mask: 00E0h
-C453B5, C41A3D[000B],  mask: 0001h
-C46233, C41A3D[000B],  mask: 0002h
-C4AE21, C41A3D[000F],  mask: 1FE0h
-</programlisting>
-<para>
-	例えば <varname>$C3C6DD</varname> 周辺を見てみる。すると、
-	アイテム構造体の <literal>[0010] &amp; 00E0</literal> 部分が、
-	使用後のアイテムの持続性に関係していることが判明する：
-</para>
-<programlisting>
-C3/C6CE:    08          PHP 
-C3/C6CF:    C230        REP #$30
-C3/C6D1:    48          PHA 
-C3/C6D2:    DA          PHX 
-C3/C6D3:    5A          PHY 
-C3/C6D4:    8B          PHB 
-C3/C6D5:    F47E7E      PEA $7E7E
-C3/C6D8:    AB          PLB 
-C3/C6D9:    AB          PLB 
-C3/C6DA:    AE2A5A      LDX $5A2A
-C3/C6DD:    22392CC9    JSR $C92C39         ■(RTL+B) a = $40 = $C41A3D[0010] &amp; 00E0h
-            01
-            1A00
-            3D1AC4      // アイテム構造体
-            1000        // [0010h]
-            E000        // &amp; 00E0h
-            00
-C3/C6EC:    C90000      CMP #$0000
-C3/C6EF:    D002        BNE $C6F3           if(a == 0000h){
-C3/C6F1:    8020        BRA $C713               goto finish;
-                                            }
-C3/C6F3:    C90100      CMP #$0001
-C3/C6F6:    D008        BNE $C700           if(a == 0001h){
-C3/C6F8:    227799C5    JSR $C59977             ■メッセージ
-            3F16        // しかし いちど使えば[AD]なくなってしまうだろう。[AF]
-C3/C6FE:    8013        BRA $C713               goto finish;
-                                            }
-C3/C700:    C90200      CMP #$0002          
-C3/C703:    D008        BNE $C70D           if(a == 0002h){ 
-C3/C705:    227799C5    JSR $C59977             ■メッセージ
-            4016        // しかも なんかい使っても[AD]なくならないぞ。[AF]
-C3/C70B:    8006        BRA $C713               goto finish;
-                                            }
-C3/C70D:    227799C5    JSR $C59977         ■メッセージ
-            4116        // しかし 使ったあと[AD]こわれてしまうことが あるようだ。[AF]
-.label finish
-C3/C713:    AB          PLB 
-C3/C714:    C230        REP #$30
-C3/C716:    7A          PLY 
-C3/C717:    FA          PLX 
-C3/C718:    68          PLA 
-C3/C719:    28          PLP 
-C3/C71A:    60          RTS
-</programlisting>
-</section> <!-- dq6.item.hack.C92C39 -->
-
-<section id="dq6.item.hack.C4003D">
-<title><varname>$C4003D</varname> - アイテム構造体</title>
-<para>
-	構造体一個あたりのデータ格納レイアウトを以下に示す。
-</para>
-<table id="table.dq6.C4003D" class="memorylayout">
-	<caption>$C4003D アイテム構造体 メモリレイアウト</caption>
-	<colgroup>
-		<col span="1" width="12%"/>
-		<col span="7" width="11%"/>
-	</colgroup>
-	<thead>
-		<tr><th>Byte:Bit</th>
-			<th>80</th>
-			<th>40</th>
-			<th>20</th>
-			<th>10</th>
-			<th>08</th>
-			<th>04</th>
-			<th>02</th>
-			<th>01</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr><th>00</th><td rowspan="2" colspan="8">アイテム名文字列 ID (<literal>2</literal>)</td></tr>
-		<tr><th>01</th></tr>
-		<tr><th>02</th><td rowspan="3" colspan="8">価格 (<literal>3</literal>)</td></tr>
-		<tr><th>03</th></tr>
-		<tr><th>04</th></tr>
-		<tr><th>05</th><td colspan="8">品目分類 (<literal>1</literal>)</td></tr>
-		<tr><th>06</th><td colspan="8">パラメータ分類 (<literal>1</literal>)</td></tr>
-		<tr><th>07</th><td rowspan="2" colspan="8">装備時のパラメータ上昇値 (<literal>2</literal>)</td></tr>
-		<tr><th>08</th></tr>
-		<tr><th>09</th><td rowspan="2" colspan="8">装備時のかっこよさ上昇値 (<literal>2</literal>)</td></tr>
-		<tr><th>0A</th></tr>
-		<tr><th>0B</th>
-			<td colspan="4">未使用</td>
-			<td>Carry</td>
-			<td></td>
-			<td>捨てる</td>
-			<td>壊す</td>
-		</tr>
-		<tr><th>0C</th>
-			<td colspan="4">装備グループフラグ</td>
-			<td colspan="4">未使用</td>
-		</tr>
-		<tr><th>0D</th><td rowspan="2" colspan="8">装備グループフラグ</td></tr>
-		<tr><th>0E</th></tr>
-		<tr><th>0F</th>
-			<td colspan="3">キャプションマップキー</td>
-			<td colspan="1"><literal>1C</literal></td>
-			<td colspan="4">装備グループフラグ</td>
-		</tr>
-		<tr><th>10</th>
-			<td colspan="3">耐久度</td>
-			<td colspan="5">キャプションマップキー</td>
-		</tr>
-		<tr><th>11</th><td rowspan="2" colspan="8">「つかう」メッセージ ID (<literal>2</literal>)</td></tr>
-		<tr><th>12</th></tr>
-		<tr><th>13</th><td rowspan="2" colspan="8">インパス用メッセージ <literal>1</literal> メッセージ ID (<literal>2</literal>)</td></tr>
-		<tr><th>14</th></tr>
-		<tr><th>15</th><td rowspan="2" colspan="8">インパス用メッセージ <literal>2</literal> メッセージ ID (<literal>2</literal>)</td></tr>
-		<tr><th>16</th></tr>
-		<tr><th>17</th><td rowspan="3" colspan="8">カジノ景品コイン枚数 (<literal>3</literal>)</td></tr>
-		<tr><th>18</th></tr>
-		<tr><th>19</th></tr>
-	</tbody>
+<table id="table.dq6.C4003D" class="lighttable">
+  <caption>構造体 $C4003D</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>名前</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">価格</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>アイテム分類</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td><td>装備作用属性</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$FFFF</literal></td><td>属性値変化量</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$FFFF</literal></td><td>かっこよさ変化量</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$0001</literal></td><td>永続フラグ</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$0002</literal></td><td>処分許可フラグ</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$0004</literal></td><td>安全フラグ</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$0008</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$0010</literal></td><td>装備者 <literal>#$00</literal></td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$0020</literal></td><td>装備者 <literal>#$01</literal></td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$0040</literal></td><td>装備者 <literal>#$02</literal></td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$0080</literal></td><td>装備者 <literal>#$03</literal></td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$0001</literal></td><td>装備者 <literal>#$04</literal></td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$0002</literal></td><td>装備者 <literal>#$05</literal></td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$0004</literal></td><td>装備者 <literal>#$06</literal></td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$0008</literal></td><td>装備者 <literal>#$07</literal></td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$0010</literal></td><td>装備者 <literal>#$08</literal></td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$0020</literal></td><td>装備者 <literal>#$09</literal></td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$0040</literal></td><td>装備者 <literal>#$0A</literal></td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$0080</literal></td><td>装備者 <literal>#$0B</literal></td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$0001</literal></td><td>装備者 <literal>#$0C</literal></td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$0002</literal></td><td>装備者 <literal>#$0D</literal></td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$0004</literal></td><td>装備者 <literal>#$0E</literal></td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$0008</literal></td><td>装備者 <literal>#$0F</literal></td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$0010</literal></td><td>装備者 <literal>#$10</literal></td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$0020</literal></td><td>装備者 <literal>#$11</literal></td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$0040</literal></td><td>装備者 <literal>#$12</literal></td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$0080</literal></td><td>装備者 <literal>#$13</literal></td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$0001</literal></td><td>装備者 <literal>#$14</literal></td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$0002</literal></td><td>装備者 <literal>#$15</literal></td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$0004</literal></td><td>装備者 <literal>#$16</literal></td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$0008</literal></td><td>装備者 <literal>#$17</literal></td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$0010</literal></td><td>整理フラグ</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$1FE0</literal></td><td>戦闘時攻撃アニメーション</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$00E0</literal></td><td>消費度</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$FFFF</literal></td><td>つかうコマンドメッセージ</td></tr>
+    <tr><td><literal>#$13</literal></td><td><literal>#$FFFF</literal></td><td>鑑定メッセージ <literal>#$00</literal></td></tr>
+    <tr><td><literal>#$15</literal></td><td><literal>#$FFFF</literal></td><td>鑑定メッセージ <literal>#$01</literal></td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">カジノコイン交換枚数</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$00FF</literal></td></tr>
+  </tbody>
 </table>
 <para>
-	各メンバーの意味は次の通り。
+以下に各属性の概要を記す。
 </para>
-<glosslist>
-	<glossentry>
-		<glossterm>アイテム名文字列 ID</glossterm>
-		<glossdef>
-			<para>
-				アイテム名を表す<link linkend="dq6.string.data">文字列</link>（e.g. やくそう、こんぼう、etc.）である。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>価格</glossterm>
-		<glossdef>
-			<para>
-				店屋がそのアイテムを売るときの、ゴールド換算での価格。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>品目分類</glossterm>
-		<glossdef>
-			<para>
-				アイテムのおおまかな分類を示す値だ。
-				意味は次の通り。
-			</para>
-			<table id="table.dq6.C4003D.kind" class="lighttable">
-				<caption>品目分類</caption>
-				<thead>
-					<tr><th>値</th><th>分類</th></tr>
-				</thead>
-				<tbody>
-					<tr><td><literal>0</literal></td><td>武器</td></tr>
-					<tr><td><literal>1</literal></td><td>身をかざる物</td></tr>
-					<tr><td><literal>2</literal></td><td>道具</td></tr>
-					<tr><td><literal>3</literal></td><td>身につける物</td></tr>
-					<tr><td><literal>4</literal></td><td>盾</td></tr>
-					<tr><td><literal>5</literal></td><td>頭に かぶる物</td></tr>
-				</tbody>
-			</table>
-			<para>
-				道具に関しては、やや特殊な処理をすることがあるらしい。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>パラメータ分類</glossterm>
-		<glossdef>
-			<para>
-				もしそのアイテムが装備可能であるとき、
-				装備時にどのパラメータのポイントが上昇するのかを表す。
-				値とパラメータの対応は次の通り。
-			</para>
-			<table id="table.dq6.C4003D.param" class="lighttable">
-				<caption>パラメータ分類</caption>
-				<thead>
-					<tr><th>値</th><th>分類</th></tr>
-				</thead>
-				<tbody>
-					<tr><td><literal>1</literal></td><td>攻撃力</td></tr>
-					<tr><td><literal>2</literal></td><td>すばやさ</td></tr>
-					<tr><td><literal>3</literal></td><td>守備力</td></tr>
-				</tbody>
-			</table>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>装備時のパラメータ上昇値</glossterm>
-		<glossdef>
-			<para>
-				もしそのアイテムが装備可能であるとき、
-				上記が示すパラメータのポイントがどれだけ上昇するのかを表す。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>装備時のかっこよさ上昇値</glossterm>
-		<glossdef>
-			<para>
-				もしそのアイテムが装備可能であるとき、
-				上記が示すパラメータのポイントがどれだけ上昇するのかを表す。
-				符合込み？
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>Carry</glossterm>
-		<glossdef>
-			<para>
-				調査中。
-				すべてのアイテムでこの値がゼロであるのが逆に気になる。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>捨てる</glossterm>
-		<glossdef>
-			<para>
-				このフラグが立っているアイテムは、
-				店屋に売ったり、「すてる」ことができる。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>壊す</glossterm>
-		<glossdef>
-			<para>
-				アイテムを「つかう」後に、それがなくなるかどうかを表すフラグだ。
-				「いのりのゆびわ」はこのフラグとは別に、処理が入ることがある。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>装備グループフラグ</glossterm>
-		<glossdef>
-			<para>
-				&dq5_1992; のときと同じ考え方に基づくフラグセット。
-				説明が難しい。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>キャプションマップキー</glossterm>
-		<glossdef>
-			<para>
-				調査中。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm><literal>1C</literal></glossterm>
-		<glossdef>
-			<para>
-				調査中。
-				「どうぐせいり」で道具袋に収納するかどうかを示すフラグのような気がする。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>耐久度</glossterm>
-		<glossdef>
-			<para>
-				アイテムを「つかう」ことによる破壊確率を鑑定するための数値。
-				以下の順で決定する。
-			</para>
-			<itemizedlist>
-				<listitem>
-					<para>
-						<literal>#$0000</literal> ならば、特に指定なし。
-					</para>
-				</listitem>
-				<listitem>
-					<para>
-						<literal>#$0001</literal> ならば、一度の使用でアイテムは壊れる。
-					</para>
-				</listitem>
-				<listitem>
-					<para>
-						<literal>#$0002</literal> ならば、何度使ってもなくならないことを強調する。
-					</para>
-				</listitem>
-				<listitem>
-					<para>
-						それ以外であれば、壊れることがあることを断っておく。
-					</para>
-				</listitem>
-			</itemizedlist>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>「つかう」メッセージ ID</glossterm>
-		<glossdef>
-			<para>
-				調査中。
-				値から「つかう」のときのウィンドウに表示されるメッセージの
-				ID であることを予想している。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>インパス用メッセージ メッセージ ID</glossterm>
-		<glossdef>
-			<para>
-				そのアイテムにインパスの呪文をかけたときに表示するメッセージの ID だ。
-				特徴のないアイテムは、この値が <literal>#$169A</literal> になっている。
-			</para>
-		</glossdef>
-	</glossentry>
-	<glossentry>
-		<glossterm>カジノ景品コイン枚数</glossterm>
-		<glossdef>
-			<para>
-				カジノの景品交換所で、そのアイテムを手に入れるときのコイン枚数。
-			</para>
-		</glossdef>
-	</glossentry>
-</glosslist>
-</section> <!-- dq6.item.hack.C4003D -->
-</section> <!-- dq6.item.hack -->
+<variablelist>
+  <varlistentry>
+    <term>名前</term>
+    <listitem>
+      <para>
+        このアイテムの名前を表す文字列の ID を値とする属性だ。
+        この文字列は仲間キャラクターの所持品リストウィンドウや店屋のメニューウィンドウに表示される。
+      </para>
+      <para>
+        文字列については <xref linkend="dq6.string"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>価格</term>
+    <listitem>
+      <para>
+        価格とは、このアイテムを店屋で購入するときに必要となるゴールドの値を表す属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>アイテム分類</term>
+    <listitem>
+      <para>
+        すべてのアイテムオブジェクトをこの属性値で分類することができる。下の表のような意味がある：
+      </para>
+      <table id="table.dq6.item.classification" class="lighttable">
+        <caption>アイテム分類</caption>
+        <thead>
+          <tr><th>値</th><th>分類</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td>武器</td></tr>
+          <tr><th>1</th><td>装飾品</td></tr>
+          <tr><th>2</th><td>道具</td></tr>
+          <tr><th>3</th><td>鎧</td></tr>
+          <tr><th>4</th><td>盾</td></tr>
+          <tr><th>5</th><td>兜</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>装備作用属性</term>
+    <listitem>
+      <para>
+        装備作用属性とは、このアイテムを装備する仲間キャラクターに対して、
+        どの属性値を増加させるのかを表す値を取る属性だ。
+        値と作用する仲間キャラクター型の属性との対応を次の表に示す：
+      </para>
+      <table id="table.dq6.item.applications" class="lighttable">
+        <caption>装備作用属性</caption>
+        <thead>
+          <tr><th>値</th><th>作用する属性</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>なし</td></tr>
+          <tr><td>1</td><td>攻撃力</td></tr>
+          <tr><td>2</td><td>すばやさ</td></tr>
+          <tr><td>3</td><td>守備力</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>属性値変化量</term>
+    <listitem>
+      <para>
+        属性値変化量とは、このアイテムを装備する仲間キャラクターに対して、
+        装備作用属性の値をどの値だけ増減させるのかを表す値を取る属性だ。
+        例えば、この属性値が 100 で装備作用属性値が 1 ならば、
+        攻撃力を 100 ポイント増加させることを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>かっこよさ変化量</term>
+    <listitem>
+      <para>
+        かっこよさ変化量とは、このアイテムを装備する仲間キャラクターに対して、
+        そのかっこよさ属性値をどの値だけ増減させるのかを表す値を取る属性だ。
+      </para>
+      <para>
+        この属性値に関しては負の値であるものがある。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>永続フラグ</term>
+    <listitem>
+      <para>
+        永続フラグとは、このアイテムを「つかう」ことによって、
+        オブジェクトが消滅せず、道具袋に残るかどうかを意味するブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>処分許可フラグ</term>
+    <listitem>
+      <para>
+        処分許可フラグとは、このアイテムを捨てたり売ったりすることが許されているかどうかを意味するブーリアン値を取る属性だ。
+        宝箱等からこのアイテムを発見したときに効果音が再生されるか否かについても、この属性値で決まる。
+      </para>
+      <para>
+        この属性値が 0 ならば、永続フラグ属性値は 1 でなければならないと思わがちだが、
+        「せかいじゅのしずく」や「ときのすな」のような用例のものはその限りではない。
+        余談になるが、「ときのすな」を一度使うと消滅してしまうのはこれらの属性値から生じる現象ではなく、
+        別に存在する不具合による。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>安全フラグ</term>
+    <listitem>
+      <para>
+        安全フラグとは、このアイテムが装備について安全であるかどうかを意味するブーリアン値を取る属性だ。
+        といっても、プログラムを読み解いた限りでは、この属性値は意味のある使われ方をしていないようだ。
+        本作では呪いの状態の概念が存在しないからだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>装備者 k (k = <literal>#$00</literal>..<literal>#$17</literal>)</term>
+    <listitem>
+      <para>
+        <xref linkend="dq6.character.traits.C8BD12"/> の属性「装備グループ」の項を参照して欲しい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>整理フラグ</term>
+    <listitem>
+      <para>
+        整理フラグとは、移動中の「どうぐせいり」コマンドによって、
+        仲間キャラクターの装備状態にない所持品が「ふくろ」に収納されるかどうかを意味するブーリアン値を取る属性だ。
+        例えば「けんじゃのいし」等の回復用品や「まほうのじゅうたん」等の移動用品に 1 が設定されている。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>戦闘時攻撃アニメーション</term>
+    <listitem>
+      <para>
+        戦闘において、仲間キャラクターがこのアイテムを装備して標準攻撃コマンドを実行するときのアニメーションを指定する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>消費度</term>
+    <listitem>
+      <para>
+        消費度とは、このアイテムを「インパス」コマンドで鑑定するときの内容を指示する属性値だ。
+        値と鑑定内容の対応は次のようなものだ：
+      </para>
+      <table id="table.dq6.item.consumption" class="lighttable">
+        <caption>消費度</caption>
+        <thead>
+          <tr><th>値</th><th>鑑定結果</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td>言及なし</td></tr>
+          <tr><th>1</th><td>一度きりの使い捨て</td></tr>
+          <tr><th>2</th><td>永続性がある</td></tr>
+          <tr><th>3</th><td>壊れることがある</td></tr>
+        </tbody>
+      </table>
+      <para>
+        先の永続性フラグ属性との違いは、「使う」の意味合いの違いから来るようだ。
+        永続性フラグでの「使う」はコマンドとしての「つかう」に対応し、
+        本属性での「使う」はそれに加えて、それ以外の状況での利用をも考慮して意味を表しているようだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>つかうコマンドメッセージ</term>
+    <listitem>
+      <para>
+        移動中にこのアイテムを「つかう」と（何も起こらないようなときに）表示されるメッセージの ID を値とする属性だ。
+      </para>
+      <para>
+        移動中のメッセージウィンドウに描画されるテキストについては
+        <xref linkend="dq6.text"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>鑑定メッセージ k (k = <literal>#$00</literal>..<literal>#$01</literal>)</term>
+    <listitem>
+      <para>
+        このアイテムを「インパス」コマンドで鑑定するときにメッセージウィンドウに描画されるメッセージの ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>カジノコイン交換枚数</term>
+    <listitem>
+      <para>
+        このアイテムをカジノの景品交換所で購入するときに必要となるコインの枚数を表す属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.item.C4003D -->
 
-<section id="dq6.item.todo">
-<title>TODO リスト</title>
-<itemizedlist>
-	<listitem>
-		<para>
-			メンバー "Carry" の意味を調べる。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			メンバー "<literal>1C</literal>" が、道具整理に関するものであることを証明する。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			メンバー "キャプションマップキー" の詳細を調査する。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			装備グループとキャラクターグループの対応を示す。別項になる。
-		</para>
-	</listitem>
-</itemizedlist>
-</section> <!-- dq6.item.todo -->
+<section id="dq6.item.methods">
+<title>アイテム構造体メソッド</title>
+<para>
+以下に <varname>$C4003D</varname> 構造体の各属性を参照するためのサブルーチンの一覧を示す。
+アイテム ID の他に、他の構造体（仲間キャラクター構造体）をも呼び出し側が指定する必要があるものについては掲載しない。
+</para>
+<table id="table.dq6.item.methods" class="lighttable">
+  <caption>アイテム構造体メソッド</caption>
+  <thead>
+    <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>出力</th><th>機能</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="center"><varname>$C45EB8</varname></td><td>2</td><td>par0</td><td>par1</td><td>名前文字列を取得</td></tr>
+    <tr><td align="center"><varname>$C45EEC</varname></td><td>2</td><td>par0</td><td>par1</td><td>価格を取得</td></tr>
+    <tr><td align="center"><varname>$C45F3C</varname></td><td>2</td><td>par0</td><td>par1</td><td>下取価格を取得</td></tr>
+    <tr><td align="center"><varname>$C460B7</varname></td><td>2</td><td>par0</td><td>par1</td><td>攻撃力の変化量</td></tr>
+    <tr><td align="center"><varname>$C46104</varname></td><td>2</td><td>par0</td><td>par1</td><td>守備力の変化量</td></tr>
+    <tr><td align="center"><varname>$C46151</varname></td><td>2</td><td>par0</td><td>par1</td><td>すばやさの変化量</td></tr>
+    <tr><td align="center"><varname>$C461CC</varname></td><td>2</td><td>par0</td><td>par1</td><td>かっこよさの変化量</td></tr>
+    <tr><td align="center"><varname>$C461FA</varname></td><td>1</td><td>par0</td><td>c</td><td>処分禁止かどうかを判定</td></tr>
+    <tr><td align="center"><varname>$C4624D</varname></td><td>0</td><td>A</td><td>A</td><td>装備作用属性を取得</td></tr>
+  </tbody>
+</table>
+<para>
+固定引数長とあるのは、各 JSR 命令に続く非プログラムバイト列の長さのことだ。
+入力列および出力列に現れる par0 および par1 は、固定引数列の 0 および 1 バイト目の値が示す何らかのアドレスまたはレジスターを意味する。
+例えば値が <literal>4A</literal> ならばアドレス <literal>$4A</literal> を意味し、
+値が <literal>FF</literal>, <literal>FE</literal>, <literal>FD</literal> ならばレジスター A, X, Y をそれぞれ指定していることを意味する。
+小文字の c は carry レジスターを意味する。
+</para>
+<para>
+例として、アイテムのかっこよさを参照する処理を一つ挙げておく。
+ここでは <varname>$C461CC</varname> の入力と出力がそれぞれ A と X レジスターとなる。
+負であるかもしれない値と正の定数との大小比較のコードについてはここでの本題ではないので説明を省く。
+</para>
+<programlisting><![CDATA[
+C1/FB27:    AD4230      LDA $3042           ; アイテム ID
+C1/FB2A:    22CC61C4    JSR $C461CC         ; かっこよさの変化量
+C1/FB2E:    FFFE
+C1/FB30:    8A          TXA
+C1/FB31:    3005        BMI $FB38
+C1/FB33:    C91500      CMP #$0015
+C1/FB36:    B003        BCS $FB3B           if(かっこよさ < 0 || かっこよさ < 20){
+C1/FB38:    006719      BRK #$1967              ; message #$1967: [DE]ああ こりゃひどい！ センスの[AD]かけらもないや！ (...)
+                                            }
+]]></programlisting>
+<para>
+なお、この表にないアイテム属性の参照には、<varname>$C92C39</varname> 等の汎用の構造体メンバー参照サブルーチンを用いる。
+</para>
+</section> <!-- dq6.item.methods -->
 </section> <!-- dq6.item -->

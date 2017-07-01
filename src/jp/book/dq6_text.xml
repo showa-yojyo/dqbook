@@ -88,11 +88,11 @@
 その次の <varname>$7E5998</varname> でそれらしい挙動を見せるようになる。
 GSD のアウトプットウィンドウの表示はこうなる：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 $C0/2A36 8D 98 59    STA $5998  [$7E:5998]   A:000B X:0042 Y:0000 D:1E1F DB:7E S:083E [...]
 $C0/27B8 AD 98 59    LDA $5998  [$7E:5998]   A:0001 X:0004 Y:0000 D:1E1F DB:7E S:0837 [...]
 $C0/27C1 AD 98 59    LDA $5998  [$7E:5998]   A:0003 X:0004 Y:0000 D:1E1F DB:7E S:0837 [...]
-</programlisting>
+]]></programlisting>
 <para>
 ここで、あらかじめ用意しておいた逆アセンブリコードリストと照合する。
 なお、バンクごとに逆アセンブリコードを用意しておくのは解析人の鉄則だ。
@@ -100,7 +100,7 @@ $C0/27C1 AD 98 59    LDA $5998  [$7E:5998]   A:0003 X:0004 Y:0000 D:1E1F DB:7E S
 これが戦闘用メッセージのデータを取得するものであると推論したい。
 そのサブルーチンの逆アセンブリコードは次のものだ（アセンブリコード右側の擬似コードは記者の解釈による。以下同様）：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 C0/27B0:    08          PHP
 C0/27B1:    C230        REP #$30
 C0/27B3:    F47E7E      PEA $7E7E
@@ -126,7 +126,7 @@ C0/27D5:    85A0        STA $A0             $A0 = アドレス + DEBDh
 C0/27D7:    BFD35AC1    LDA $C15AD3,X       ; 戦闘用テキスト 開始アドレス群
 C0/27DB:    29FF00      AND #$00FF
 C0/27DE:    69F600      ADC #$00F6
-C0/27E1:    85A2        STA $A2             $A2 = (バンク &amp; 0x00FF) + 00F6h
+C0/27E1:    85A2        STA $A2             $A2 = (バンク & 0x00FF) + 00F6h
 C0/27E3:    64A4        STZ $A4             $A4 = 0000h;
                                             for(;;){
 C0/27E5:    AD1E5A      LDA $5A1E
@@ -142,7 +142,7 @@ C0/27F8:    CE1E5A      DEC $5A1E               --$5A1E
 C0/27FB:    80E8        BRA $27E5           }
 C0/27FD:    28          PLP
 C0/27FE:    6B          RTL
-</programlisting>
+]]></programlisting>
 <para>
 このルーチンの LDA 命令をチェックしておくと、
 <varname>$C15AD1</varname> がいかにも戦闘用メッセージデータのアドレスの先頭であることが特定できる。
@@ -159,7 +159,7 @@ C0/27FE:    6B          RTL
 A レジスターの値を ID とするものと、呼び出し命令の直後に値をハードコードして ID を指定するものとがあることがわかる。
 それらの呼び出し例を次に示す：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 C2/B3BB:    8D285A      STA $5A28
 C2/B3BE:    22162AC0    JSR $C02A16         ; message #$01A1: [BC]なんと [B4]が おきあがり[AD]なかまに なりたそうに こちらをみている！[AF]
 C2/B3C2:    A101
@@ -180,8 +180,8 @@ C2/B3E6:    22162AC0    JSR $C02A16             ; message #$01AA: [BC][B2]は �
 C2/B3EA:    AA01
 C2/B3EC:    60          RTS                     return
                                             }
-</programlisting>
-<programlisting>
+]]></programlisting>
+<programlisting><![CDATA[
 C2/8A9C:    BFA58AC2    LDA $C28AA5,X       ; 敵一体減ったときのメッセージ ID の配列
 C2/8AA0:    22292AC0    JSR $C02A29         ; 戦闘テキスト出力 @a
 C2/8AA4:    60          RTS
@@ -189,7 +189,7 @@ C2/8AA4:    60          RTS
 C2/8AA5:    2C00                            ; [B8]は いなくなった！
 C2/8AA7:    2A00                            ; [B8]は しんでしまった！
 C2/8AA9:    2B00                            ; [B8]を たおした！
-</programlisting>
+]]></programlisting>
 <para>
 ここで紹介し切れなかったものも含め、戦闘モードのテキスト処理に関係する機能をまとめておこう：
 </para>
@@ -283,11 +283,11 @@ GSD さえあれば、特定のセリフまたはメッセージと ID の対応
 ここで一旦エミュレータを GSD に切り替え、残り二つのアドレスを Read タイプの Break Point で監視する。
 すると、<varname>$7E5998</varname> のほうで有力な処理が見つかる：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 $C0/2B69 AD 98 59    LDA $5998  [$7E:5998]   A:0000 X:0051 Y:FFFF D:0000 DB:7E S:083B P:envmxdIZc [...]
 $C0/2B72 AD 98 59    LDA $5998  [$7E:5998]   A:0007 X:0051 Y:FFFF D:0000 DB:7E S:083B P:envmxdIzc [...]
 $C6/E0E1 AD 98 59    LDA $5998  [$7E:5998]   A:0001 X:0003 Y:0018 D:0000 DB:7E S:083A P:envmxdIZC [...]
-</programlisting>
+]]></programlisting>
 <para>
 <varname>$C02B69</varname>, <varname>$C02B72</varname> がお互いに近いところにあるので、
 これらの命令は一つのサブルーチンの中にあると考えるのが自然だ。
@@ -331,10 +331,10 @@ $C6/E0E1 AD 98 59    LDA $5998  [$7E:5998]   A:0001 X:0003 Y:0018 D:0000 DB:7E S
     </para>
   </listitem>
 </itemizedlist>
-<programlisting>
+<programlisting><![CDATA[
 C0/2B69:    AD9859      LDA $5998           ; $7E5998 にメッセージ ID が格納されている
 C0/2B6C:    290700      AND #$0007
-C0/2B6F:    8D1E5A      STA $5A1E           $7E5A1E = メッセージ ID &amp; 0007h
+C0/2B6F:    8D1E5A      STA $5A1E           $7E5A1E = メッセージ ID & 0007h
 C0/2B72:    AD9859      LDA $5998
 C0/2B75:    4A          LSR A
 C0/2B76:    4A          LSR A
@@ -350,10 +350,10 @@ C0/2B7E:    BFB55BC1    LDA $C15BB5,X
 C0/2B82:    85A0        STA $A0             $A0 = $C15BB5,x1
 C0/2B84:    290700      AND #$0007
 C0/2B87:    DA          PHX
-C0/2B88:    AA          TAX                 x2 = $C15BB5,x1 &amp; 0007h
+C0/2B88:    AA          TAX                 x2 = $C15BB5,x1 & 0007h
 C0/2B89:    BFCC2BC0    LDA $C02BCC,X
 C0/2B8D:    29FF00      AND #$00FF          ; マスクビット取得
-C0/2B90:    85A4        STA $A4             $A4 = $C02BCC,x2 &amp; 00FFh
+C0/2B90:    85A4        STA $A4             $A4 = $C02BCC,x2 & 00FFh
 C0/2B92:    FA          PLX
 C0/2B93:    BFB75BC1    LDA $C15BB7,X
 C0/2B97:    29FF00      AND #$00FF
@@ -371,7 +371,7 @@ C0/2BAB:    85A0        STA $A0
 C0/2BAD:    A5A2        LDA $A2
 C0/2BAF:    69F700      ADC #$00F7
 C0/2BB2:    85A2        STA $A2             $A0:$A4 += 00F7175Bh ; ベースアドレスを加算
-</programlisting>
+]]></programlisting>
 <para>
 ここで <varname>$C15BB5</varname> から格納されているデータを ROM イメージファイルからダンプしてみる。
 この時点ではメッセージの個数がわからないため、データ領域の終端位置もわからない。
@@ -380,7 +380,7 @@ C0/2BB2:    85A2        STA $A2             $A0:$A4 += 00F7175Bh ; ベースア�
 データ一個につき、メッセージ 8 個が対応しているので、
 最後のメッセージ ID の候補もあたりがつけられる。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 C1/5BB5:    070000  ; ID 0000h:0008h に対応するデータ
 C1/5BB8:    A60200  ; ID 0008h:0010h
 C1/5BBB:    D90600  ; ID 0010h:0018h
@@ -389,14 +389,14 @@ C1/65E1:    986F23  ; ID 1B20h:1B28h
 C1/65E4:    817823  ; ID 1B28h:1B30h
 C1/65E7:    000060  ; ここからは明らかに異質なデータなので除外
 ; ...
-</programlisting>
+]]></programlisting>
 <para>
 このサブルーチンの後半で、別のサブルーチンを複数回呼び出している。
 これにより、<varname>$7E5A1E</varname> の意味が「何らかの処理の反復回数」と判明する。
 このループ＋サブルーチン <varname>$C02BD4</varname> がメッセージデータの取得部の核心だ。
 </para>
-<programlisting>
-C0/2BB4:    AD1E5A      LDA $5A1E           while($7E5A1E){ ; == メッセージ ID &amp; #$0007
+<programlisting><![CDATA[
+C0/2BB4:    AD1E5A      LDA $5A1E           while($7E5A1E){ ; == メッセージ ID & #$0007
 C0/2BB7:    F012        BEQ $2BCB               do{
 C0/2BB9:    20D42B      JSR $2BD4                   ; a = 大文字コード
 C0/2BBC:    C9AC00      CMP #$00AC                  if(a == 00ACh)
@@ -406,7 +406,7 @@ C0/2BC4:    D0F3        BNE $2BB9               }while(a != 0x00AE)
 C0/2BC6:    CE1E5A      DEC $5A1E               --$7E5A1E
 C0/2BC9:    80E9        BRA $2BB4           }
 C0/2BCB:    60          RTS
-</programlisting>
+]]></programlisting>
 </section> <!-- dq6.text.travel.gsd.location -->
 
 <section id="dq6.text.travel.gsd.decode">
@@ -430,7 +430,7 @@ A レジスターに格納する。さらに、<varname>$A0</varname> の示す�
 前項で触れたが、<varname>$A0</varname> の初期値はメッセージ ID の下位 3 ビットから決まる、
 配列 <varname>$C02BBC</varname> のどれかとなる。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 C0/2BCC:    01
 C0/2BCD:    02
 C0/2BCE:    04
@@ -439,7 +439,7 @@ C0/2BD0:    10
 C0/2BD1:    20
 C0/2BD2:    40
 C0/2BD3:    80
-</programlisting>
+]]></programlisting>
 
 <para>
 ここで、移動モードのテキスト処理に関係する機能を現在判明している分だけまとめておこう：
@@ -494,14 +494,14 @@ C0/2BD3:    80
 ROM ヘッダーを見るという基本調査により、BRK 命令のハンドラーがアドレス <varname>$C0FFA8</varname> から始まる処理であることは直ちに判明する。
 そのコードを見ると、別バンクのコードへ JMP するものに過ぎない：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 C0/FFA8:    5C4299C5    JMP $C59942
-</programlisting>
+]]></programlisting>
 <para>
 ジャンプ先のアドレス <varname>$C59942</varname> から始まるコードを見ると、
 移動モードテキスト出力サブルーチンのいずれかを実行するらしいことがわかる。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 C5/9942:    28          PLP                 ; BRK による状態レジスターを捨てる
 C5/9943:    C230        REP #$30
 C5/9945:    48          PHA
@@ -517,7 +517,7 @@ C5/9953:    5C322EC0    JMP $C02E32             ; 移動モードテキスト出
                                             }
 C5/9957:    5C1C2EC0    JMP $C02E1C         ; 移動モードテキスト出力（実引数を ID とする）
                                             ; RTL も含む
-</programlisting>
+]]></programlisting>
 <para>
 ここでいう実引数とは、BRK 命令の呼び出しに伴う 2 バイトのオペランドだ。
 テキスト出力ルーチンはスタックを経由してこの値を参照する。
@@ -527,7 +527,7 @@ C5/9957:    5C1C2EC0    JMP $C02E1C         ; 移動モードテキスト出力�
 次の例は某所のウシの振る舞いを実装したものだ。
 ゲームの進行度によって鳴き声を変えていることが読み取れる：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 CA/1F0C:    AD373D      LDA $3D37           ; フラグ列
 CA/1F0F:    298000      AND #$0080
 CA/1F12:    D003        BNE $1F17
@@ -542,7 +542,7 @@ CA/1F28:    004400      BRK #$0044          ; #$0044: モー モー。
 CA/1F2B:    4C311F      JMP $1F31
 CA/1F2E:    004600      BRK #$0046          ; #$0046: モー。
 CA/1F31:    6B          RTL
-</programlisting>
+]]></programlisting>
 <para>
 余談だが、出来合いの 65816 逆アセンブラーは当然だが BRK 命令のオペランドを 1 バイトとしている。
 それゆえ、このプログラムを逆アセンブルするときには専用の逆アセンブラーを製作するのが望ましい。

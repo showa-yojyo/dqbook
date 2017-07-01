@@ -76,9 +76,9 @@
 その N を格納する配列がアドレス <varname>$23B159</varname> から始まっている。
 言い換えると、&dq5_1992; では、各アイテムの価格を次のような形で物理的に格納している：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 P * Q, (where 0 &lt;= P and P &lt; 256; 0 &lt;= Q and Q &lt; 65536)
-</programlisting>
+]]></programlisting>
 <para>
 このデータ表現を採用することで、消費する ROM が 135 バイトほど節約できる。
 上記計算コードのメモリ量が 135 を下回っていれば、全体としても節約できたと言える。

@@ -21,94 +21,94 @@
 <para>
 以下、この構造体の各属性を詳しく見ていくことにする。
 </para>
-<table id="table.dq6.combatant.7E2030" class="lighttable">
+<table id="table.dq6.7E2030" class="lighttable">
   <caption>構造体 $7E2030</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>HP</td></tr>
-    <tr><td><literal>#$02</literal></td><td><literal>#$FFFF</literal></td><td>MP</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$01FF</literal></td><td>戦闘コマンド 0</td></tr>
-    <tr><td><literal>#$05</literal></td><td><literal>#$00FE</literal></td><td>戦闘コマンド対象 0</td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$01FF</literal></td><td>戦闘コマンド 1</td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$00FE</literal></td><td>戦闘コマンド対象 1</td></tr>
-    <tr><td><literal>#$08</literal></td><td><literal>#$01FF</literal></td><td>戦闘コマンド 2</td></tr>
-    <tr><td><literal>#$09</literal></td><td><literal>#$00FE</literal></td><td>戦闘コマンド対象 2</td></tr>
-    <tr><td><literal>#$0A</literal></td><td><literal>#$FFFF</literal></td><td>敵キャラクター位置</td></tr>
-    <tr><td><literal>#$0C</literal></td><td><literal>#$FFFF</literal></td><td>MHP</td></tr>
-    <tr><td><literal>#$0E</literal></td><td><literal>#$FFFF</literal></td><td>HP + 総合対策評価値</td></tr>
-    <tr><td><literal>#$10</literal></td><td><literal>#$FFFF</literal></td><td>呪文対策評価値</td></tr>
-    <tr><td><literal>#$12</literal></td><td><literal>#$FFFF</literal></td><td>おどり対策評価値</td></tr>
-    <tr><td><literal>#$14</literal></td><td><literal>#$FFFF</literal></td><td>炎・吹雪対策評価値</td></tr>
-    <tr><td><literal>#$16</literal></td><td><literal>#$FFFF</literal></td><td>打撃対策評価値</td></tr>
-    <tr><td><literal>#$18</literal></td><td><literal>#$FFFF</literal></td><td>一般的対策評価値</td></tr>
-    <tr><td><literal>#$1A</literal></td><td><literal>#$FFFF</literal></td><td>総合対策評価値</td></tr>
-    <tr><td><literal>#$1C</literal></td><td><literal>#$FFFF</literal></td><td>誰の歌声の余韻に浸っているか</td></tr>
-    <tr><td><literal>#$1E</literal></td><td><literal>#$0007</literal></td><td>グループ</td></tr>
-    <tr><td><literal>#$1E</literal></td><td><literal>#$0008</literal></td><td>スカラ・ルカニ状態</td></tr>
-    <tr><td><literal>#$1E</literal></td><td><literal>#$0010</literal></td><td>おいかぜ状態</td></tr>
-    <tr><td><literal>#$1E</literal></td><td><literal>#$0020</literal></td><td>バイキルト状態</td></tr>
-    <tr><td><literal>#$1E</literal></td><td><literal>#$0040</literal></td><td>ドア閉め状態</td></tr>
-    <tr><td><literal>#$1E</literal></td><td><literal>#$0080</literal></td><td>ちからがみなぎる状態</td></tr>
-    <tr><td><literal>#$1F</literal></td><td><literal>#$00FF</literal></td><td>キャラクター・モンスター ID</td></tr>
-    <tr><td><literal>#$20</literal></td><td><literal>#$0001</literal></td><td>自陣・敵陣フラグ</td></tr>
-    <tr><td><literal>#$20</literal></td><td><literal>#$0002</literal></td><td>死亡状態</td></tr>
-    <tr><td><literal>#$20</literal></td><td><literal>#$0004</literal></td><td>アストロン状態</td></tr>
-    <tr><td><literal>#$20</literal></td><td><literal>#$0008</literal></td><td>マヒ状態</td></tr>
-    <tr><td><literal>#$20</literal></td><td><literal>#$0010</literal></td><td>戦闘コマンド判断良化フラグ</td></tr>
-    <tr><td><literal>#$20</literal></td><td><literal>#$00E0</literal></td><td>ラリホーカウンター</td></tr>
-    <tr><td><literal>#$21</literal></td><td><literal>#$01FF</literal></td><td>変身相手</td></tr>
-    <tr><td><literal>#$22</literal></td><td><literal>#$0002</literal></td><td>メダパニ状態</td></tr>
-    <tr><td><literal>#$22</literal></td><td><literal>#$0004</literal></td><td>変身状態</td></tr>
-    <tr><td><literal>#$22</literal></td><td><literal>#$0008</literal></td><td>マホトーン状態</td></tr>
-    <tr><td><literal>#$22</literal></td><td><literal>#$0010</literal></td><td>マヌーサ状態</td></tr>
-    <tr><td><literal>#$22</literal></td><td><literal>#$0020</literal></td><td>砂煙状態</td></tr>
-    <tr><td><literal>#$22</literal></td><td><literal>#$00C0</literal></td><td>まぶしいひかりカウンター</td></tr>
-    <tr><td><literal>#$23</literal></td><td><literal>#$001F</literal></td><td>モシャス相手添字</td></tr>
-    <tr><td><literal>#$23</literal></td><td><literal>#$0020</literal></td><td>モシャス状態</td></tr>
-    <tr><td><literal>#$23</literal></td><td><literal>#$0040</literal></td><td>マホキテ状態</td></tr>
-    <tr><td><literal>#$23</literal></td><td><literal>#$0080</literal></td><td>フバーハ状態</td></tr>
-    <tr><td><literal>#$24</literal></td><td><literal>#$000F</literal></td><td>防御状態</td></tr>
-    <tr><td><literal>#$24</literal></td><td><literal>#$00F0</literal></td><td>どうぐつかうコマンド添字</td></tr>
-    <tr><td><literal>#$25</literal></td><td><literal>#$0001</literal></td><td>マジックバリア状態</td></tr>
-    <tr><td><literal>#$25</literal></td><td><literal>#$0002</literal></td><td>ぶきみなひかり状態</td></tr>
-    <tr><td><literal>#$25</literal></td><td><literal>#$003C</literal></td><td>同一モンスター識別子</td></tr>
-    <tr><td><literal>#$25</literal></td><td><literal>#$00C0</literal></td><td>やすみ・アストロンカウンター</td></tr>
-    <tr><td><literal>#$26</literal></td><td><literal>#$000F</literal></td><td>やすみ分類</td></tr>
-    <tr><td><literal>#$26</literal></td><td><literal>#$0010</literal></td><td>炎・吹雪コマンドを相手に実行された</td></tr>
-    <tr><td><literal>#$26</literal></td><td><literal>#$0020</literal></td><td>呪文コマンドを相手に実行された</td></tr>
-    <tr><td><literal>#$26</literal></td><td><literal>#$0040</literal></td><td>おどりコマンドを相手に実行された</td></tr>
-    <tr><td><literal>#$26</literal></td><td><literal>#$0080</literal></td><td>せいれいのうた状態</td></tr>
-    <tr><td><literal>#$27</literal></td><td><literal>#$001F</literal></td><td>特殊防御対象のキャラクター添字</td></tr>
-    <tr><td><literal>#$27</literal></td><td><literal>#$0020</literal></td><td>集中攻撃フラグ</td></tr>
-    <tr><td><literal>#$27</literal></td><td><literal>#$0040</literal></td><td>戦闘コマンド実行を無視するかどうか</td></tr>
-    <tr><td><literal>#$27</literal></td><td><literal>#$0080</literal></td><td>メダパニ状態から回復した直後かどうか</td></tr>
-    <tr><td><literal>#$28</literal></td><td><literal>#$03FF</literal></td><td>守備力</td></tr>
-    <tr><td><literal>#$29</literal></td><td><literal>#$000C</literal></td><td>ちからため系カウンター</td></tr>
-    <tr><td><literal>#$29</literal></td><td><literal>#$0030</literal></td><td>ちからため系分類</td></tr>
-    <tr><td><literal>#$29</literal></td><td><literal>#$0040</literal></td><td>マホカンタ状態</td></tr>
-    <tr><td><literal>#$29</literal></td><td><literal>#$0080</literal></td><td>マホターン状態</td></tr>
-    <tr><td><literal>#$2A</literal></td><td><literal>#$03FF</literal></td><td>攻撃力</td></tr>
-    <tr><td><literal>#$2B</literal></td><td><literal>#$0FFC</literal></td><td>すばやさ</td></tr>
-    <tr><td><literal>#$2C</literal></td><td><literal>#$3FF0</literal></td><td>コマンド実行優位</td></tr>
-    <tr><td><literal>#$2D</literal></td><td><literal>#$0040</literal></td><td>おどりふうじ状態</td></tr>
-    <tr><td><literal>#$2D</literal></td><td><literal>#$0080</literal></td><td>こおりつき状態</td></tr>
-    <tr><td><literal>#$2E</literal></td><td><literal>#$0003</literal></td><td>まねまね反応準備状態</td></tr>
-    <tr><td><literal>#$2E</literal></td><td><literal>#$0004</literal></td><td>馬車待機中フラグ</td></tr>
-    <tr><td><literal>#$2E</literal></td><td><literal>#$0018</literal></td><td>みかわしきゃく系カウンター</td></tr>
-    <tr><td><literal>#$2E</literal></td><td><literal>#$00E0</literal></td><td>戦闘コマンド決定用カウンター</td></tr>
-    <tr><td><literal>#$2F</literal></td><td><literal>#$0001</literal></td><td>アクティブフラグ</td></tr>
-    <tr><td><literal>#$2F</literal></td><td><literal>#$00FE</literal></td><td>集中攻撃の対象</td></tr>
-    <tr><td><literal>#$30</literal></td><td><literal>#$00FF</literal></td><td>どうぐつかうコマンドアイテム ID</td></tr>
-    <tr><td><literal>#$31</literal></td><td><literal>#$001F</literal></td><td>キャラクター添字</td></tr>
-    <tr><td><literal>#$31</literal></td><td><literal>#$0020</literal></td><td>もうどく状態</td></tr>
-    <tr><td><literal>#$31</literal></td><td><literal>#$0040</literal></td><td>どく状態</td></tr>
-    <tr><td><literal>#$31</literal></td><td><literal>#$0080</literal></td><td>戦闘コマンドがどうぐつかう</td></tr>
-    <tr><td><literal>#$32</literal></td><td><literal>#$0007</literal></td><td>戦闘コマンドアニメーション 0</td></tr>
-    <tr><td><literal>#$32</literal></td><td><literal>#$0038</literal></td><td>戦闘コマンドアニメーション 1</td></tr>
-    <tr><td><literal>#$32</literal></td><td><literal>#$01C0</literal></td><td>戦闘コマンドアニメーション 2</td></tr>
-    <tr><td><literal>#$33</literal></td><td><literal>#$00FE</literal></td><td>（未使用）</td></tr>
+    <tr><td align="right"><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>HP</td></tr>
+    <tr><td align="right"><literal>#$02</literal></td><td><literal>#$FFFF</literal></td><td>MP</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal>#$01FF</literal></td><td>戦闘コマンド 0</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td><literal>#$00FE</literal></td><td>戦闘コマンド対象 0</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$01FF</literal></td><td>戦闘コマンド 1</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$00FE</literal></td><td>戦闘コマンド対象 1</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td><literal>#$01FF</literal></td><td>戦闘コマンド 2</td></tr>
+    <tr><td align="right"><literal>#$09</literal></td><td><literal>#$00FE</literal></td><td>戦闘コマンド対象 2</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td><td><literal>#$FFFF</literal></td><td>敵キャラクター位置</td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td><td><literal>#$FFFF</literal></td><td>MHP</td></tr>
+    <tr><td align="right"><literal>#$0E</literal></td><td><literal>#$FFFF</literal></td><td>HP + 総合対策評価値</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td><td><literal>#$FFFF</literal></td><td>呪文対策評価値</td></tr>
+    <tr><td align="right"><literal>#$12</literal></td><td><literal>#$FFFF</literal></td><td>おどり対策評価値</td></tr>
+    <tr><td align="right"><literal>#$14</literal></td><td><literal>#$FFFF</literal></td><td>炎・吹雪対策評価値</td></tr>
+    <tr><td align="right"><literal>#$16</literal></td><td><literal>#$FFFF</literal></td><td>打撃対策評価値</td></tr>
+    <tr><td align="right"><literal>#$18</literal></td><td><literal>#$FFFF</literal></td><td>一般的対策評価値</td></tr>
+    <tr><td align="right"><literal>#$1A</literal></td><td><literal>#$FFFF</literal></td><td>総合対策評価値</td></tr>
+    <tr><td align="right"><literal>#$1C</literal></td><td><literal>#$FFFF</literal></td><td>誰の歌声の余韻に浸っているか</td></tr>
+    <tr><td align="right"><literal>#$1E</literal></td><td><literal>#$0007</literal></td><td>グループ</td></tr>
+    <tr><td align="right"><literal>#$1E</literal></td><td><literal>#$0008</literal></td><td>スカラ・ルカニ状態</td></tr>
+    <tr><td align="right"><literal>#$1E</literal></td><td><literal>#$0010</literal></td><td>おいかぜ状態</td></tr>
+    <tr><td align="right"><literal>#$1E</literal></td><td><literal>#$0020</literal></td><td>バイキルト状態</td></tr>
+    <tr><td align="right"><literal>#$1E</literal></td><td><literal>#$0040</literal></td><td>ドア閉め状態</td></tr>
+    <tr><td align="right"><literal>#$1E</literal></td><td><literal>#$0080</literal></td><td>ちからがみなぎる状態</td></tr>
+    <tr><td align="right"><literal>#$1F</literal></td><td><literal>#$00FF</literal></td><td>キャラクター・モンスター ID</td></tr>
+    <tr><td align="right"><literal>#$20</literal></td><td><literal>#$0001</literal></td><td>自陣・敵陣フラグ</td></tr>
+    <tr><td align="right"><literal>#$20</literal></td><td><literal>#$0002</literal></td><td>死亡状態</td></tr>
+    <tr><td align="right"><literal>#$20</literal></td><td><literal>#$0004</literal></td><td>アストロン状態</td></tr>
+    <tr><td align="right"><literal>#$20</literal></td><td><literal>#$0008</literal></td><td>マヒ状態</td></tr>
+    <tr><td align="right"><literal>#$20</literal></td><td><literal>#$0010</literal></td><td>戦闘コマンド判断良化フラグ</td></tr>
+    <tr><td align="right"><literal>#$20</literal></td><td><literal>#$00E0</literal></td><td>ラリホーカウンター</td></tr>
+    <tr><td align="right"><literal>#$21</literal></td><td><literal>#$01FF</literal></td><td>変身相手</td></tr>
+    <tr><td align="right"><literal>#$22</literal></td><td><literal>#$0002</literal></td><td>メダパニ状態</td></tr>
+    <tr><td align="right"><literal>#$22</literal></td><td><literal>#$0004</literal></td><td>変身状態</td></tr>
+    <tr><td align="right"><literal>#$22</literal></td><td><literal>#$0008</literal></td><td>マホトーン状態</td></tr>
+    <tr><td align="right"><literal>#$22</literal></td><td><literal>#$0010</literal></td><td>マヌーサ状態</td></tr>
+    <tr><td align="right"><literal>#$22</literal></td><td><literal>#$0020</literal></td><td>砂煙状態</td></tr>
+    <tr><td align="right"><literal>#$22</literal></td><td><literal>#$00C0</literal></td><td>まぶしいひかりカウンター</td></tr>
+    <tr><td align="right"><literal>#$23</literal></td><td><literal>#$001F</literal></td><td>モシャス相手添字</td></tr>
+    <tr><td align="right"><literal>#$23</literal></td><td><literal>#$0020</literal></td><td>モシャス状態</td></tr>
+    <tr><td align="right"><literal>#$23</literal></td><td><literal>#$0040</literal></td><td>マホキテ状態</td></tr>
+    <tr><td align="right"><literal>#$23</literal></td><td><literal>#$0080</literal></td><td>フバーハ状態</td></tr>
+    <tr><td align="right"><literal>#$24</literal></td><td><literal>#$000F</literal></td><td>防御状態</td></tr>
+    <tr><td align="right"><literal>#$24</literal></td><td><literal>#$00F0</literal></td><td>どうぐつかうコマンド添字</td></tr>
+    <tr><td align="right"><literal>#$25</literal></td><td><literal>#$0001</literal></td><td>マジックバリア状態</td></tr>
+    <tr><td align="right"><literal>#$25</literal></td><td><literal>#$0002</literal></td><td>ぶきみなひかり状態</td></tr>
+    <tr><td align="right"><literal>#$25</literal></td><td><literal>#$003C</literal></td><td>同一モンスター識別子</td></tr>
+    <tr><td align="right"><literal>#$25</literal></td><td><literal>#$00C0</literal></td><td>やすみ・アストロンカウンター</td></tr>
+    <tr><td align="right"><literal>#$26</literal></td><td><literal>#$000F</literal></td><td>やすみ分類</td></tr>
+    <tr><td align="right"><literal>#$26</literal></td><td><literal>#$0010</literal></td><td>炎・吹雪コマンドを相手に実行された</td></tr>
+    <tr><td align="right"><literal>#$26</literal></td><td><literal>#$0020</literal></td><td>呪文コマンドを相手に実行された</td></tr>
+    <tr><td align="right"><literal>#$26</literal></td><td><literal>#$0040</literal></td><td>おどりコマンドを相手に実行された</td></tr>
+    <tr><td align="right"><literal>#$26</literal></td><td><literal>#$0080</literal></td><td>せいれいのうた状態</td></tr>
+    <tr><td align="right"><literal>#$27</literal></td><td><literal>#$001F</literal></td><td>特殊防御対象のキャラクター添字</td></tr>
+    <tr><td align="right"><literal>#$27</literal></td><td><literal>#$0020</literal></td><td>集中攻撃フラグ</td></tr>
+    <tr><td align="right"><literal>#$27</literal></td><td><literal>#$0040</literal></td><td>戦闘コマンド実行を無視するかどうか</td></tr>
+    <tr><td align="right"><literal>#$27</literal></td><td><literal>#$0080</literal></td><td>メダパニ状態から回復した直後かどうか</td></tr>
+    <tr><td align="right"><literal>#$28</literal></td><td><literal>#$03FF</literal></td><td>守備力</td></tr>
+    <tr><td align="right"><literal>#$29</literal></td><td><literal>#$000C</literal></td><td>ちからため系カウンター</td></tr>
+    <tr><td align="right"><literal>#$29</literal></td><td><literal>#$0030</literal></td><td>ちからため系分類</td></tr>
+    <tr><td align="right"><literal>#$29</literal></td><td><literal>#$0040</literal></td><td>マホカンタ状態</td></tr>
+    <tr><td align="right"><literal>#$29</literal></td><td><literal>#$0080</literal></td><td>マホターン状態</td></tr>
+    <tr><td align="right"><literal>#$2A</literal></td><td><literal>#$03FF</literal></td><td>攻撃力</td></tr>
+    <tr><td align="right"><literal>#$2B</literal></td><td><literal>#$0FFC</literal></td><td>すばやさ</td></tr>
+    <tr><td align="right"><literal>#$2C</literal></td><td><literal>#$3FF0</literal></td><td>コマンド実行優位</td></tr>
+    <tr><td align="right"><literal>#$2D</literal></td><td><literal>#$0040</literal></td><td>おどりふうじ状態</td></tr>
+    <tr><td align="right"><literal>#$2D</literal></td><td><literal>#$0080</literal></td><td>こおりつき状態</td></tr>
+    <tr><td align="right"><literal>#$2E</literal></td><td><literal>#$0003</literal></td><td>まねまね反応準備状態</td></tr>
+    <tr><td align="right"><literal>#$2E</literal></td><td><literal>#$0004</literal></td><td>馬車待機中フラグ</td></tr>
+    <tr><td align="right"><literal>#$2E</literal></td><td><literal>#$0018</literal></td><td>みかわしきゃく系カウンター</td></tr>
+    <tr><td align="right"><literal>#$2E</literal></td><td><literal>#$00E0</literal></td><td>戦闘コマンド決定用カウンター</td></tr>
+    <tr><td align="right"><literal>#$2F</literal></td><td><literal>#$0001</literal></td><td>アクティブフラグ</td></tr>
+    <tr><td align="right"><literal>#$2F</literal></td><td><literal>#$00FE</literal></td><td>集中攻撃の対象</td></tr>
+    <tr><td align="right"><literal>#$30</literal></td><td><literal>#$00FF</literal></td><td>どうぐつかうコマンドアイテム ID</td></tr>
+    <tr><td align="right"><literal>#$31</literal></td><td><literal>#$001F</literal></td><td>キャラクター添字</td></tr>
+    <tr><td align="right"><literal>#$31</literal></td><td><literal>#$0020</literal></td><td>もうどく状態</td></tr>
+    <tr><td align="right"><literal>#$31</literal></td><td><literal>#$0040</literal></td><td>どく状態</td></tr>
+    <tr><td align="right"><literal>#$31</literal></td><td><literal>#$0080</literal></td><td>戦闘コマンドがどうぐつかう</td></tr>
+    <tr><td align="right"><literal>#$32</literal></td><td><literal>#$0007</literal></td><td>戦闘コマンドアニメーション 0</td></tr>
+    <tr><td align="right"><literal>#$32</literal></td><td><literal>#$0038</literal></td><td>戦闘コマンドアニメーション 1</td></tr>
+    <tr><td align="right"><literal>#$32</literal></td><td><literal>#$01C0</literal></td><td>戦闘コマンドアニメーション 2</td></tr>
+    <tr><td align="right"><literal>#$33</literal></td><td><literal>#$00FE</literal></td><td>（未使用）</td></tr>
   </tbody>
 </table>
 <variablelist>
@@ -127,6 +127,9 @@
       <para>
         この戦闘員が実行するコマンドの ID を値に取る属性だ。
         ここでいうコマンド ID とは、コマンドオブジェクトの配列 <varname>$C8C65D</varname> の添字を意味する。
+      </para>
+      <para>
+        戦闘コマンドについては <xref linkend="dq6.battle.commands"/> で述べる。
       </para>
     </listitem>
   </varlistentry>
@@ -259,14 +262,14 @@
           <tr><th>ID</th><th>意味</th></tr>
         </thead>
         <tbody>
-          <tr><td>0</td><td>敵陣グループ 0</td></tr>
-          <tr><td>1</td><td>敵陣グループ 1</td></tr>
-          <tr><td>2</td><td>敵陣グループ 2</td></tr>
-          <tr><td>3</td><td>敵陣グループ 3</td></tr>
-          <tr><td>4</td><td>敵陣に「しょうかん」した精霊グループ</td></tr>
-          <tr><td>5</td><td>自陣に「しょうかん」した精霊グループ</td></tr>
-          <tr><td>6</td><td>自陣グループ</td></tr>
-          <tr><td>7</td><td>（未使用）</td></tr>
+          <tr><th>0</th><td>敵陣グループ 0</td></tr>
+          <tr><th>1</th><td>敵陣グループ 1</td></tr>
+          <tr><th>2</th><td>敵陣グループ 2</td></tr>
+          <tr><th>3</th><td>敵陣グループ 3</td></tr>
+          <tr><th>4</th><td>敵陣に「しょうかん」した精霊グループ</td></tr>
+          <tr><th>5</th><td>自陣に「しょうかん」した精霊グループ</td></tr>
+          <tr><th>6</th><td>自陣グループ</td></tr>
+          <tr><th>7</th><td>（未使用）</td></tr>
         </tbody>
       </table>
     </listitem>
@@ -485,15 +488,15 @@
            <tr><th>値</th><th>実行中のコマンド</th></tr>
          </thead>
          <tbody>
-           <tr><td>0</td><td>（なし）</td></tr>
-           <tr><td>1</td><td>うけながし</td></tr>
-           <tr><td>2</td><td>だいぼうぎょ</td></tr>
-           <tr><td>3</td><td>ぼうぎょ２</td></tr>
-           <tr><td>4</td><td>ぼうぎょ</td></tr>
-           <tr><td>5</td><td>みがわり</td></tr>
-           <tr><td>6</td><td>におうだち</td></tr>
-           <tr><td>7</td><td>すてみ</td></tr>
-           <tr><td>8</td><td>まねまね</td></tr>
+           <tr><th>0</th><td>（なし）</td></tr>
+           <tr><th>1</th><td>うけながし</td></tr>
+           <tr><th>2</th><td>だいぼうぎょ</td></tr>
+           <tr><th>3</th><td>ぼうぎょ２</td></tr>
+           <tr><th>4</th><td>ぼうぎょ</td></tr>
+           <tr><th>5</th><td>みがわり</td></tr>
+           <tr><th>6</th><td>におうだち</td></tr>
+           <tr><th>7</th><td>すてみ</td></tr>
+           <tr><th>8</th><td>まねまね</td></tr>
          </tbody>
        </table>
     </listitem>
@@ -662,10 +665,10 @@
           <tr><th>ID</th><th>実行中のコマンド</th></tr>
         </thead>
         <tbody>
-          <tr><td>0</td><td>普通の「ちからため」</td></tr>
-          <tr><td>1</td><td>普通の「きあいため」</td></tr>
-          <tr><td>2</td><td>モンスターの「ちからをためている」</td></tr>
-          <tr><td>3</td><td>モンスターの「おおきく いきをすいこんだ」</td></tr>
+          <tr><th>0</th><td>普通の「ちからため」</td></tr>
+          <tr><th>1</th><td>普通の「きあいため」</td></tr>
+          <tr><th>2</th><td>モンスターの「ちからをためている」</td></tr>
+          <tr><th>3</th><td>モンスターの「おおきく いきをすいこんだ」</td></tr>
         </tbody>
       </table>
     </listitem>
@@ -841,7 +844,7 @@
 以下に <varname>$7E2030</varname> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
 ただし、<code>LDA $7E205F,X</code> のように直接値にアクセスする処理も当然のように存在する。
 </para>
-<table id="table.combatant.methods" class="lighttable">
+<table id="table.dq6.combatant.methods" class="lighttable">
   <caption>戦闘キャラクター構造体の属性にアクセスするサブルーチン</caption>
   <thead>
     <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
@@ -868,30 +871,30 @@
 値が 4 ならばオフセット値とビットマスク値がコード中に埋め込まれていることを示す。
 以下に参考コードと解釈例を示す。本節の表と照合しながら確かめるといいだろう：
 </para>
-<programlisting>
-C2/56C7:    22F4EFC2    JSR $C2EFF4         ; 指定する長さのビットフィールド属性値を取得する @x
+<programlisting><![CDATA[
+C2/56C7:    22F4EFC2    JSR $C2EFF4         戦闘員 x の属性を取得する
 C2/56CB:    5020
-C2/56CD:    0400                            ; アストロン状態
+C2/56CD:    0400                            対象属性はアストロン状態
 C2/56CF:    18          CLC
 C2/56D0:    F027        BEQ $56F9           if(アストロン状態){
-C2/56D2:    22A7EFC2    JSR $C2EFA7             ; 指定する長さのビットフィールド属性値を取得する @x
+C2/56D2:    22A7EFC2    JSR $C2EFA7             戦闘員 x の属性を取得する
 C2/56D6:    4E20
-C2/56D8:    0700                                ; 所属グループ
+C2/56D8:    0700                                対象属性は所属グループ
 C2/56DA:    C90500      CMP #$0005
 C2/56DD:    B013        BCS $56F2               if(敵陣){
-C2/56DF:    A90000      LDA #$0000
-C2/56E2:    2234F0C2    JSR $C2F034                 ; 指定する長さのビットフィールド属性値を更新する @a @x
+C2/56DF:    A90000      LDA #$0000                  a = 0
+C2/56E2:    2234F0C2    JSR $C2F034                 戦闘員 x の属性を値 a で更新する
 C2/56E6:    5020
-C2/56E8:    0400                                    ; アストロン状態
-C2/56EA:    22162AC0    JSR $C02A16                 ; メッセージ 0086: [BC][B7]の アストロンが とけた！[B1][AC]
+C2/56E8:    0400                                    対象属性はアストロン状態
+C2/56EA:    22162AC0    JSR $C02A16                 メッセージ 0086: [BC][B7]の アストロンが とけた！[B1][AC]
 C2/56EE:    8600
 C2/56F0:    8006        BRA $56F8               }else{
-C2/56F2:    22162AC0    JSR $C02A16                 ; メッセージ 0087: [BC][B7]は てつのかたまりになっている！[B1][AC]
+C2/56F2:    22162AC0    JSR $C02A16                 メッセージ 0087: [BC][B7]は てつのかたまりになっている！[B1][AC]
 C2/56F6:    8700
                                                 }
 C2/56F8:    38          SEC
                                             }
 C2/56F9:    60          RTS
-</programlisting>
+]]></programlisting>
 </section> <!-- dq6.combatant.methods -->
 </section> <!-- dq6.combatant -->

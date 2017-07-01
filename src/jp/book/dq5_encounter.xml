@@ -40,7 +40,7 @@
 アドレス <varname>$2396F3</varname> にはバイトサイズ <literal>#$16</literal> のオブジェクトが配列されている。
 それらのオブジェクトの構造を次に示す：
 </para>
-<table id="table.dq5.encounter.2396F3" class="lighttable">
+<table id="table.dq5.2396F3" class="lighttable">
   <caption>構造体 $2396F3: 通常の戦闘用編成</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -112,7 +112,7 @@
         プレイヤーキャラクターが戦闘地域を移動しているとする。戦闘発生テストは一歩進むたびに行われると考える。
         前回戦闘時から S 歩動いたとすると、まず次の係数表から対応する戦闘発生率調整値 M を取る：
       </para>
-      <table id="table.dq5.encounter.23EA44" class="lighttable">
+      <table id="table.dq5.23EA44" class="lighttable">
         <caption>配列 $23EA44: 戦闘発生係数</caption>
         <thead>
           <tr><th>オフセット</th><th>値</th></tr>
@@ -226,7 +226,7 @@
         下に示す表のように暫定的にグループを構成するモンスターの頭数が決まるが、
         グラフィック上の都合なのか、後ほど頭数が間引かれることがある。
       </para>
-      <table id="table.dq5.encounter.23EA63" class="lighttable">
+      <table id="table.dq5.23EA63" class="lighttable">
         <caption>配列 $23EA63 および $23EA73: 頭数範囲指定</caption>
         <thead>
           <tr><th>オフセット</th><th><varname>$EA63</varname></th><th><varname>$EA73</varname></th><th>暫定頭数</th></tr>
@@ -307,7 +307,7 @@
 アドレス <varname>$23B04B</varname> にはバイトサイズ <literal>#$06</literal> のオブジェクトが配列されている。
 それらのオブジェクトの構造を次に示す：
 </para>
-<table id="table.dq5.encounter.23B04B" class="lighttable">
+<table id="table.dq5.23B04B" class="lighttable">
   <caption>構造体 $23B04B: 特殊な通常戦闘用編成</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -370,7 +370,7 @@
 アドレス <varname>$23D757</varname> にはバイトサイズ <literal>#$0D</literal> のオブジェクトが配列されている。
 それらのオブジェクトの構造を次に示す：
 </para>
-<table id="table.dq5.encounter.23D757" class="lighttable">
+<table id="table.dq5.23D757" class="lighttable">
   <caption>構造体 $23D757: イベント戦専用編成</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>

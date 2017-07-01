@@ -37,7 +37,7 @@ RAM の節約に一役買うというわけだ。
 メモリレイアウトを次の表に示す。
 </para>
 
-<table id="table.dq5.characters.7E2040" class="lighttable">
+<table id="table.dq5.7E2040" class="lighttable">
   <caption>構造体 $7E2040: パーティーメンバー</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -222,7 +222,7 @@ RAM の節約に一役買うというわけだ。
 メモリレイアウトを次の表に示す。
 </para>
 
-<table id="table.dq5.characters.7E2332" class="lighttable">
+<table id="table.dq5.7E2332" class="lighttable">
   <caption>構造体 $7E2332: 預けてあるモンスターメンバー</caption>
   <thead>
     <tr><th>オフセット</th><th>属性</th></tr>
@@ -277,7 +277,7 @@ RAM の節約に一役買うというわけだ。
 メモリレイアウトを次の表に示す。
 </para>
 
-<table id="table.dq5.characters.7E294A" class="lighttable">
+<table id="table.dq5.7E294A" class="lighttable">
   <caption>構造体 $7E294A: 預けてある人間メンバー</caption>
   <thead>
     <tr><th>オフセット</th><th>属性</th></tr>

@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq6.vocations"><?dbhtml filename="dq6_vocations.html" ?>
+<title>職業</title>
+<indexterm id="term.dq6.vocations"><primary>職業</primary><secondary>DQ6</secondary></indexterm>
+<para>
+この節では職業構造体を中心に説明する。
+いつものように、オブジェクトを CSV 形式でダンプしたテキストファイルを <xref linkend="appendix.b"/> に収録した。
+</para>
+
+<section id="dq6.vocations.C41C3E">
+<title>構造体 <varname>$C41C3E</varname>: 職業構造体</title>
+<para>
+職業構造体とは、サイズが <literal>#$77</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
+この型のオブジェクトがアドレス <varname>$C41C3E</varname> から 21 個直列している。
+</para>
+<table id="table.dq6.C41C3E" class="lighttable">
+  <caption>構造体 $C41C3E</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>名前</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$FFFF</literal></td><td>職業経験値構造体オフセット</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">職業経験値構造体マスク</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$FFFF</literal></td><td>職業経験値構造体シフトビット</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$FFFF</literal></td><td>経験値上限</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$FFFF</literal></td><td>経験値 0</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$FFFF</literal></td><td>経験値 1</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$FFFF</literal></td><td>経験値 2</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$FFFF</literal></td><td>経験値 3</td></tr>
+    <tr><td><literal>#$13</literal></td><td><literal>#$FFFF</literal></td><td>経験値 4</td></tr>
+    <tr><td><literal>#$15</literal></td><td><literal>#$FFFF</literal></td><td>経験値 5</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$FFFF</literal></td><td>経験値 6</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$FFFF</literal></td><td>等級名 0</td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$FFFF</literal></td><td>等級名 1</td></tr>
+    <tr><td><literal>#$1D</literal></td><td><literal>#$FFFF</literal></td><td>等級名 2</td></tr>
+    <tr><td><literal>#$1F</literal></td><td><literal>#$FFFF</literal></td><td>等級名 3</td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$FFFF</literal></td><td>等級名 4</td></tr>
+    <tr><td><literal>#$23</literal></td><td><literal>#$FFFF</literal></td><td>等級名 5</td></tr>
+    <tr><td><literal>#$25</literal></td><td><literal>#$FFFF</literal></td><td>等級名 6</td></tr>
+    <tr><td><literal>#$27</literal></td><td><literal>#$FFFF</literal></td><td>等級名 7</td></tr>
+    <tr><td><literal>#$29</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 00</td></tr>
+    <tr><td><literal>#$2B</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 00 </td></tr>
+    <tr><td><literal>#$2C</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 01</td></tr>
+    <tr><td><literal>#$2E</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 01</td></tr>
+    <tr><td><literal>#$2F</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 02</td></tr>
+    <tr><td><literal>#$31</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 02</td></tr>
+    <tr><td><literal>#$32</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 03</td></tr>
+    <tr><td><literal>#$34</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 03</td></tr>
+    <tr><td><literal>#$35</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 04</td></tr>
+    <tr><td><literal>#$37</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 04</td></tr>
+    <tr><td><literal>#$38</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 05</td></tr>
+    <tr><td><literal>#$3A</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 05</td></tr>
+    <tr><td><literal>#$3B</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 06</td></tr>
+    <tr><td><literal>#$3D</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 06</td></tr>
+    <tr><td><literal>#$3E</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 07</td></tr>
+    <tr><td><literal>#$40</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 07</td></tr>
+    <tr><td><literal>#$41</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 08</td></tr>
+    <tr><td><literal>#$43</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 08</td></tr>
+    <tr><td><literal>#$44</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 09</td></tr>
+    <tr><td><literal>#$46</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 09</td></tr>
+    <tr><td><literal>#$47</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 0A</td></tr>
+    <tr><td><literal>#$49</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 0A</td></tr>
+    <tr><td><literal>#$4A</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 0B</td></tr>
+    <tr><td><literal>#$4C</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 0B</td></tr>
+    <tr><td><literal>#$4D</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 0C</td></tr>
+    <tr><td><literal>#$4F</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 0C</td></tr>
+    <tr><td><literal>#$50</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 0D</td></tr>
+    <tr><td><literal>#$52</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 0D</td></tr>
+    <tr><td><literal>#$53</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 0E</td></tr>
+    <tr><td><literal>#$55</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 0E</td></tr>
+    <tr><td><literal>#$56</literal></td><td><literal>#$FFFF</literal></td><td>コマンド習得経験値 0F</td></tr>
+    <tr><td><literal>#$58</literal></td><td><literal>#$00FF</literal></td><td>習得コマンド 0F</td></tr>
+    <tr><td><literal>#$59</literal></td><td><literal>#$FFFF</literal></td><td>さいだい HP ボーナス</td></tr>
+    <tr><td><literal>#$5B</literal></td><td><literal>#$FFFF</literal></td><td>さいだい MP ボーナス</td></tr>
+    <tr><td><literal>#$5D</literal></td><td><literal>#$FFFF</literal></td><td>ちからボーナス</td></tr>
+    <tr><td><literal>#$5F</literal></td><td><literal>#$FFFF</literal></td><td>すばやさボーナス</td></tr>
+    <tr><td><literal>#$61</literal></td><td><literal>#$FFFF</literal></td><td>かしこさボーナス</td></tr>
+    <tr><td><literal>#$63</literal></td><td><literal>#$FFFF</literal></td><td>みのまもりボーナス</td></tr>
+    <tr><td><literal>#$65</literal></td><td><literal>#$FFFF</literal></td><td>かっこよさボーナス</td></tr>
+    <tr><td><literal>#$67</literal></td><td><literal>#$00FF</literal></td><td>ちからに対する係数</td></tr>
+    <tr><td><literal>#$68</literal></td><td><literal>#$00FF</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$69</literal></td><td><literal>#$00FF</literal></td><td>すばやさに対する係数</td></tr>
+    <tr><td><literal>#$6A</literal></td><td><literal>#$00FF</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$6B</literal></td><td><literal>#$00FF</literal></td><td>みのまもりに対する係数</td></tr>
+    <tr><td><literal>#$6C</literal></td><td><literal>#$00FF</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$6D</literal></td><td><literal>#$00FF</literal></td><td>かしこさに対する係数</td></tr>
+    <tr><td><literal>#$6E</literal></td><td><literal>#$00FF</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$6F</literal></td><td><literal>#$00FF</literal></td><td>かっこよさに対する係数</td></tr>
+    <tr><td><literal>#$70</literal></td><td><literal>#$00FF</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$71</literal></td><td><literal>#$00FF</literal></td><td>さいだい HP に対する係数</td></tr>
+    <tr><td><literal>#$72</literal></td><td><literal>#$00FF</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$73</literal></td><td><literal>#$00FF</literal></td><td>さいだい MP に対する係数</td></tr>
+    <tr><td><literal>#$74</literal></td><td><literal>#$00FF</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$75</literal></td><td><literal>#$FFFF</literal></td><td>（不明）</td></tr>
+  </tbody>
+</table>
+<para>
+上の表で（未使用）等の括弧付きの属性はプログラムからの参照がない。
+付録の CSV ファイルではこのような項目について記載を省略する。
+以下に各属性の概要を記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>名前</term>
+    <listitem>
+      <para>
+        名前とは、この職業の名前を表す文字列の ID を値とする属性だ。
+        職業名は各キャラクターの「つよさ」ウィンドウや転職時の職業選択ウィンドウ等に表示されるものだ。
+      </para>
+      <para>
+        ROM に定義されているデータを確認すると、ヌル職業と無職のときとで値が異なっている。
+        前者と後者の職業名はそれぞれ「なし」と空文字列だ。
+      </para>
+      <para>
+        文字列については <xref linkend="dq6.string"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>職業経験値構造体オフセット</term>
+    <term>職業経験値構造体マスク</term>
+    <term>職業経験値構造体シフトビット</term>
+    <listitem>
+      <para>
+        職業経験値構造体オフセットとは、職業経験値オブジェクトにおいて、
+        この職業に関する職業経験値がそのオブジェクトのベースアドレスから数えて何バイト目から開始するのかを意味する値の属性だ。
+      </para>
+      <para>
+        職業経験値構造体マスクとは、さらに職業経験値構造体オフセット属性値で示されるバイト中の何ビット目から
+        当該職業データが格納されているのかを意味する値の属性だ。
+      </para>
+      <para>
+        職業経験値構造体シフトビットとは、さらにそのマスクされたビット列を値として解釈するために必要な右シフト回数を意味する値の属性だ。
+        ただし、この属性はプログラムから利用されていない可能性がある（マスクだけで適当なシフト数が判明するため）。
+      </para>
+      <para>
+        例えば「とうぞく」のこれらの属性値は <literal>(#$0004, #$007F80, #$0007)</literal> と読める。
+        これが意味するのは、「とうぞく」の職業経験値が職業経験値オブジェクトの 4 バイト目の最上位ビットから 5 バイト目の最上位ビットの一つ手前までに亘ることだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>経験値上限</term>
+    <listitem>
+      <para>
+        経験値上限とは、この職業を極めた時点での職業経験値を示す属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>経験値 k (k = 0..6)</term>
+    <listitem>
+      <para>
+        経験値 k とは、この職業の等級（仲間キャラクターの「つよさ」ウィンドウで確認できる星の数）が k + 2 になるのに必要な職業経験値を示す属性だ。
+        最後の経験値 6 属性値と経験値上限属性値は等しい。
+      </para>
+      <para>
+        言い忘れたが、本節で言う職業経験値とは戦闘勝利回数に対応するほうの概念だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>等級名 k (k = 0..7)</term>
+    <listitem>
+      <para>
+        等級名 k とは、この職業の等級 k + 1 の呼び名を指定する文字列 ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンド習得経験値 k (k = <literal>#$00</literal>..<literal>#$0F</literal>)</term>
+    <listitem>
+      <para>
+        コマンド習得経験値 k とは、習得コマンド k を習得するのに必要な職業経験値を取る属性だ。
+        最小値が 2 となっていることに注意を要する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>習得コマンド k (k = <literal>#$00</literal>..<literal>#$0F</literal>)</term>
+    <listitem>
+      <para>
+        習得コマンド k とは、職業に就いている者が規定の職業経験値を得ると習得するコマンドを意味する属性だ。
+        ただし、型はコマンド ID ではなく、コマンドウィンドウ内の項目位置を指示するオブジェクト配列の添字という、馴染みのないものになっている。
+        このオブジェクトはアドレス <varname>$FFC96D</varname> にある配列の要素であり、
+        構造としてはコマンド ID の値、移動コマンドウィンドウでの項目位置、戦闘コマンドウィンドウでの項目位置の三つ組の配列とみなせる。
+        詳しくは付録のデータを参照して欲しい。
+      </para>
+      <para>
+        この属性値が <literal>#$9A</literal> であれば、それも含むそこから先の習得コマンド属性値は全て無効値であることを示している。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>さいだい HP ボーナス</term>
+    <term>さいだい MP ボーナス</term>
+    <term>ちからボーナス</term>
+    <term>すばやさボーナス</term>
+    <term>かしこさボーナス</term>
+    <term>みのまもりボーナス</term>
+    <term>かっこよさボーナス</term>
+    <listitem>
+      <para>
+        各キャラクター属性ボーナスとは、職業レベルが最大のときに、
+        この職業に就いている者の対応属性値がこの属性値分だけ加算されるというものだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ちからに対する係数</term>
+    <term>すばやさに対する係数</term>
+    <term>みのまもりに対する係数</term>
+    <term>かしこさに対する係数</term>
+    <term>かっこよさに対する係数</term>
+    <term>さいだい HP に対する係数</term>
+    <term>さいだい MP に対する係数</term>
+    <listitem>
+      <para>
+        各キャラクター属性に対する係数とは、この職業に就いている者のキャラクター属性値を乗算によって変化する処理におけるそれを示す属性だ。
+        係数属性値を 128 で除算した値が実質的な係数と考えたほうがよい。
+        ただし値 255 は厳密に言えばマジックナンバーであり、このときには正確に 2 倍を意味する。
+      </para>
+      <para>
+        良い機会なので、仲間キャラクターの各属性値の補正手順をここで簡単にまとめておく：
+      </para>
+      <orderedlist>
+        <listitem>
+          <para>
+            仲間キャラクターの素（無職かつ装備品なしの状態）の属性値を取得する
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            就いている職業が指定する各キャラクター属性に対する係数（から一意に決まる定数）を乗算する
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            職業レベルが最大であれば、各キャラクター属性ボーナス属性値を加算する
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            仲間キャラクターの装備品から決まる属性値変動を適用する
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            以上の結果、キャラクター属性値がゼロと評価されれば最終的な値を 1 に、
+            属性固有の上限値を超えていたら、その上限値を値とする
+          </para>
+        </listitem>
+      </orderedlist>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.vocations.C41C3E -->
+
+<section id="dq6.vocations.privilege">
+<title>職業に就いていることによる特典</title>
+<para>
+仲間キャラクターが何かの職業に就いていると、どのような良いことが起こるのかを以下に説明する。
+これらの特典は基本的には戦闘モードにおいて有利に働くことが多いようだ。
+</para>
+<para>
+以下の各表で列が ID とあるのは、つよさウィンドウで表示さえる星の数から 1 を引いた値と等しい。
+</para>
+
+<section id="dq6.vocations.privilege.03">
+<title>ぶとうか</title>
+<para>
+職業がぶとうかである仲間キャラクターは、戦闘中に会心痛恨属性が 1 の戦闘コマンドを実行すると、
+次の表の確率で会心の一撃が発生する：
+</para>
+<table id="table.dq6.C28827" class="lighttable">
+  <caption>ぶとうかが会心の一撃を発生する確率</caption>
+  <thead>
+    <tr><th>ID</th><th>確率</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">0</td></tr>
+    <tr><th>1</th><td align="right">0</td></tr>
+    <tr><th>2</th><td align="right">1/64</td></tr>
+    <tr><th>3</th><td align="right">1/48</td></tr>
+    <tr><th>4</th><td align="right">1/32</td></tr>
+    <tr><th>5</th><td align="right">1/24</td></tr>
+    <tr><th>6</th><td align="right">1/16</td></tr>
+    <tr><th>7</th><td align="right">1/8</td></tr>
+  </tbody>
+</table>
+<para>
+抽選が外れると、通常の職業キャラクターと同様の抽選を行う。
+</para>
+</section> <!-- dq6.vocations.privilege.03 -->
+
+<section id="dq6.vocations.privilege.06">
+<title>おどりこ</title>
+<para>
+職業がおどりこであるである仲間キャラクターは、戦闘中にみかわし考慮属性が 1 の戦闘コマンドを受け、
+通常のみかわし判定処理が失敗すると次の表の確率で身をかわす：
+</para>
+<table id="table.dq6.C2711A" class="lighttable">
+  <caption>おどりこが身をかわす確率</caption>
+  <thead>
+    <tr><th>ID</th><th>確率</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">0</td></tr>
+    <tr><th>1</th><td align="right">0</td></tr>
+    <tr><th>2</th><td align="right">1/64</td></tr>
+    <tr><th>3</th><td align="right">1/32</td></tr>
+    <tr><th>4</th><td align="right">1/16</td></tr>
+    <tr><th>5</th><td align="right">1/16</td></tr>
+    <tr><th>6</th><td align="right">1/16</td></tr>
+    <tr><th>7</th><td align="right">1/8</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.vocations.privilege.06 -->
+
+<section id="dq6.vocations.privilege.07">
+<title>とうぞく</title>
+<para>
+職業がとうぞくである仲間キャラクターが戦闘後に馬車外にいると、
+倒した敵陣戦闘員から宝箱を盗んでいたことになることがある。
+モンスターのアイテム確率属性から決まる乱数と職業レベル（ここでは星の数）を比較して、大きければ盗み確定となる。
+</para>
+<para>
+とうぞくが複数いる場合は、その人数分だけこのような判定が実行される。
+</para>
+</section> <!-- dq6.vocations.privilege.07 -->
+
+<section id="dq6.vocations.privilege.08">
+<title>まものつかい</title>
+<para>
+職業がまものつかいである仲間キャラクターが戦闘後に馬車外にいると、
+倒した敵陣戦闘員が起き上がって仲間になりたそうにすることがある。
+これには、その敵陣戦闘員のモンスターレベルよりも職業レベル（ここでは星の数） * 8 + 1 のほうが大きい（等しいのはダメ）必要がある。
+</para>
+<para>
+まものつかいが複数いる場合は、そのうちのもっとも高い職業レベルが採用される。
+</para>
+</section> <!-- dq6.vocations.privilege.08 -->
+
+<section id="dq6.vocations.privilege.09">
+<title>しょうにん</title>
+<para>
+職業がしょうにんである仲間キャラクターが戦闘後に馬車外にいると、
+戦闘後に敵から得られるゴールドが増える。
+追加分は本来の額面に対する割合で次の表のように与えられている：
+</para>
+<table id="table.dq6.C2B277" class="lighttable">
+  <caption>しょうにんが獲得するゴールドの正規獲得額に対する割合</caption>
+  <thead>
+    <tr><th>ID</th><th>割合</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">1/15</td></tr>
+    <tr><th>1</th><td align="right">1/14</td></tr>
+    <tr><th>2</th><td align="right">1/13</td></tr>
+    <tr><th>3</th><td align="right">1/12</td></tr>
+    <tr><th>4</th><td align="right">1/11</td></tr>
+    <tr><th>5</th><td align="right">1/10</td></tr>
+    <tr><th>6</th><td align="right">1/9</td></tr>
+    <tr><th>7</th><td align="right">1/4</td></tr>
+  </tbody>
+</table>
+<para>
+しょうにんが複数いる場合は、その人数分だけこのような判定が実行される。
+</para>
+</section> <!-- dq6.vocations.privilege.09 -->
+
+<section id="dq6.vocations.privilege.0A">
+<title>あそびにん</title>
+<para>
+職業があそびにんである仲間キャラクターは、命令に関わらず 1/5 の確率で「あそび」コマンドを実行する。
+このとき、実行コマンドの抽選は職業レベルに依存する。
+選択肢はどのキャラクターも最大 8 個あり、ちょうど職業レベルの取り得る範囲と一致するので乱数は自然に取る。
+「あそび」の選択肢は <varname>$C22D54</varname> に定義されている。
+このデータは <xref linkend="appendix.b"/> に収録した。
+</para>
+</section> <!-- dq6.vocations.privilege.0A -->
+
+<section id="dq6.vocations.privilege.0B">
+<title>バトルマスター</title>
+<para>
+職業がバトルマスターである仲間キャラクターは、みかわし考慮属性が 1 の戦闘コマンドを受け、
+通常のみかわし判定処理が失敗すると次の表の確率で相手の攻撃を打ち払う：
+</para>
+<table id="table.dq6.C270D8" class="lighttable">
+  <caption>バトルマスターが敵からの攻撃を打ち払う確率</caption>
+  <thead>
+    <tr><th>ID</th><th>確率</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">0</td></tr>
+    <tr><th>1</th><td align="right">1/64</td></tr>
+    <tr><th>2</th><td align="right">1/48</td></tr>
+    <tr><th>3</th><td align="right">1/32</td></tr>
+    <tr><th>4</th><td align="right">1/16</td></tr>
+    <tr><th>5</th><td align="right">1/16</td></tr>
+    <tr><th>6</th><td align="right">1/16</td></tr>
+    <tr><th>7</th><td align="right">1/8</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.vocations.privilege.0B -->
+
+<section id="dq6.vocations.privilege.0D">
+<title>パラディン</title>
+<para>
+職業がパラディンである仲間キャラクターは、パラディン考慮属性が 1 の戦闘コマンドを実行するときに次の表の確率でコマンド対象を即死させる：
+</para>
+<table id="table.dq6.C272FB" class="lighttable">
+  <caption>パラディンが対象を即死させる確率</caption>
+  <thead>
+    <tr><th>ID</th><th>確率</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">0</td></tr>
+    <tr><th>1</th><td align="right">1/64</td></tr>
+    <tr><th>2</th><td align="right">1/48</td></tr>
+    <tr><th>3</th><td align="right">1/32</td></tr>
+    <tr><th>4</th><td align="right">1/32</td></tr>
+    <tr><th>5</th><td align="right">1/16</td></tr>
+    <tr><th>6</th><td align="right">1/16</td></tr>
+    <tr><th>7</th><td align="right">1/8</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.vocations.privilege.0D-->
+
+<section id="dq6.vocations.privilege.0E">
+<title>けんじゃ</title>
+<para>
+職業がけんじゃである仲間キャラクターは、移動モード戦闘モードを問わず、コマンド実行時の必要 MP 消費量が緩和される。
+コマンドが規定する消費量がゼロ以外の定数であるようなものについては、次の表で示す量か 1 のどちらかになる：
+</para>
+<table id="table.dq6.C2C297" class="lighttable">
+  <caption>けんじゃの MP 消費</caption>
+  <thead>
+    <tr><th>ID</th><th>消費量</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td>規定量と同じ</td></tr>
+    <tr><th>1</th><td>規定量と同じ</td></tr>
+    <tr><th>2</th><td>規定量の 7/8</td></tr>
+    <tr><th>3</th><td>規定量の 7/8</td></tr>
+    <tr><th>4</th><td>規定量の 3/4</td></tr>
+    <tr><th>5</th><td>規定量の 3/4</td></tr>
+    <tr><th>6</th><td>規定量の 5/8</td></tr>
+    <tr><th>7</th><td>規定量の 1/2</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.vocations.privilege.0E -->
+
+<section id="dq6.vocations.privilege.0F">
+<title>レンジャー</title>
+<para>
+職業がレンジャーである仲間キャラクターがいると、戦闘コマンド「にげる」の成功率が次の表のようになる：
+</para>
+<table id="table.dq6.C23F6A" class="lighttable">
+  <caption>レンジャーによる逃走成功確率</caption>
+  <thead>
+    <tr><th>ID</th><th>確率</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">1/8</td></tr>
+    <tr><th>1</th><td align="right">1/8</td></tr>
+    <tr><th>2</th><td align="right">3/8</td></tr>
+    <tr><th>3</th><td align="right">3/8</td></tr>
+    <tr><th>4</th><td align="right">5/8</td></tr>
+    <tr><th>5</th><td align="right">5/8</td></tr>
+    <tr><th>6</th><td align="right">5/8</td></tr>
+    <tr><th>7</th><td align="right">1</td></tr>
+  </tbody>
+</table>
+<para>
+レンジャーが複数いる場合は、そのうちのもっとも高い職業レベルが採用される。
+</para>
+</section> <!-- dq6.vocations.privilege.0F -->
+
+<section id="dq6.vocations.privilege.10">
+<title>スーパースター</title>
+<para>
+職業がスーパースターである仲間キャラクターがいると、
+戦闘中に敵陣戦闘員が次の確率で見とれて休み状態になることがある：
+</para>
+<table id="table.dq6.C258C4" class="lighttable">
+  <caption></caption>
+  <thead>
+    <tr><th>ID</th><th>確率</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">0</td></tr>
+    <tr><th>1</th><td align="right">0</td></tr>
+    <tr><th>2</th><td align="right">1/64</td></tr>
+    <tr><th>3</th><td align="right">1/64</td></tr>
+    <tr><th>4</th><td align="right">1/48</td></tr>
+    <tr><th>5</th><td align="right">1/48</td></tr>
+    <tr><th>6</th><td align="right">1/32</td></tr>
+    <tr><th>7</th><td align="right">1/8</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.vocations.privilege.10 -->
+
+<section id="dq6.vocations.privilege.11">
+<title>ゆうしゃ</title>
+<para>
+職業がゆうしゃである仲間キャラクターは、戦闘中の各ターン終了時に HP が次の表に示す値だけ自動回復する：
+</para>
+<table id="table.dq6.C2ACF7" class="lighttable">
+  <caption>ゆうしゃの自動回復</caption>
+  <thead>
+    <tr><th>ID</th><th>回復量</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">0</td></tr>
+    <tr><th>1</th><td align="right">0</td></tr>
+    <tr><th>2</th><td align="right">0</td></tr>
+    <tr><th>3</th><td align="right">30</td></tr>
+    <tr><th>4</th><td align="right">40</td></tr>
+    <tr><th>5</th><td align="right">50</td></tr>
+    <tr><th>6</th><td align="right">60</td></tr>
+    <tr><th>7</th><td align="right">80</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.vocations.privilege.11 -->
+
+<section id="dq6.vocations.privilege.12">
+<title>ドラゴン</title>
+<para>
+職業がドラゴンである仲間キャラクターがいると、戦闘開始時に先制を取りやすくなる。
+ドラゴンでないときの確率の何倍だけ先制を取りやすいかを次の表で示す：
+</para>
+<table id="table.dq6.C232EA" class="lighttable">
+  <caption>ドラゴンの先制しやすさ</caption>
+  <thead>
+    <tr><th>ID</th><th>倍率</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td align="right">2</td></tr>
+    <tr><th>1</th><td align="right">2</td></tr>
+    <tr><th>2</th><td align="right">2</td></tr>
+    <tr><th>3</th><td align="right">3</td></tr>
+    <tr><th>4</th><td align="right">3</td></tr>
+    <tr><th>5</th><td align="right">3</td></tr>
+    <tr><th>6</th><td align="right">3</td></tr>
+    <tr><th>7</th><td align="right">4</td></tr>
+  </tbody>
+</table>
+<para>
+ドラゴンが複数いる場合は、そのうちのもっとも高い職業レベルが採用される。
+</para>
+</section> <!-- dq6.vocations.privilege.12 -->
+
+<section id="dq6.vocations.privilege.13">
+<title>はぐれメタル</title>
+<para>
+職業がはぐれメタルである仲間キャラクターは、
+職業レベルが上限に達していると、すべてのコマンド耐性の属性値が 3 であるかのように扱われる。
+</para>
+</section> <!-- dq6.vocations.privilege.13 -->
+</section> <!-- dq6.vocations.privilege -->
+</section> <!-- dq6.vocations -->

@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq6.character.traits"><?dbhtml filename="dq6_character_traits.html" ?>
+<title>仲間キャラクターの特性データ</title>
+<indexterm id="term.dq6.character.traits"><primary>キャラクター</primary><secondary>DQ6</secondary></indexterm>
+<para>
+この節では仲間キャラクターそれぞれの特性を表現するデータ構造について述べる。
+ここで言うキャラクター特性とは、仲間キャラクターそれぞれの静的な性質を定義したオブジェクトのことを意味するものであり、
+物理的にはアドレス <varname>$C8BD12</varname> に存在する配列の要素型を意味する。
+</para>
+<para>
+なお、仲間キャラクターそれぞれのレベルアップに関する特徴もモデルによってはキャラクター特性の部分ではあるが、
+本書ではそれについては <xref linkend="dq6.level"/> で取り扱う。
+</para>
+
+<section id="dq6.character.traits.C8BD12">
+<title>構造体 <varname>$C8BD12</varname>: 仲間キャラクター特性</title>
+<para>
+仲間キャラクター特性構造体とは、サイズが <literal>#$1B</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
+この型のオブジェクトがアドレス <varname>$C8BD12</varname> から 82 個直列している。
+</para>
+<para>
+これらのオブジェクトはキャラクターがパーティーに参入した時点の状態、ルイーダの酒場で許可する操作の決定、戦闘時のキャラクターの性質として参照される。
+</para>
+<table id="table.dq6.C8BD12" class="lighttable">
+  <caption>構造体 $C8BD12</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>名前</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$FFFF</literal></td><td>肩書</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0003</literal></td><td>性別</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0004</literal></td><td>（モンスターフラグ）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0008</literal></td><td>ルイーダに預けるのを禁止するフラグ</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0010</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0060</literal></td><td>命令分類</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0080</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>レベル初期値</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td><td>レベルアップ ID</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$0001</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$0002</literal></td><td>ルイーダで別れるのを許可するフラグ</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$00</literal>: メラ</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$0030</literal></td><td>耐性 <literal>#$01</literal>: ギラ</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00C0</literal></td><td>耐性 <literal>#$02</literal>: イオ</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$0003</literal></td><td>耐性 <literal>#$03</literal>: ヒャド</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$04</literal>: バギ</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$0030</literal></td><td>耐性 <literal>#$05</literal>: デイン</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00C0</literal></td><td>耐性 <literal>#$06</literal>: マヌーサ</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$0003</literal></td><td>耐性 <literal>#$07</literal>: ラリホー</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$08</literal>: ザキ</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$0030</literal></td><td>耐性 <literal>#$09</literal>: ニフラム</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$00C0</literal></td><td>耐性 <literal>#$0A</literal>: マホトラ</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$0003</literal></td><td>耐性 <literal>#$0B</literal>: マホトーン</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$0C</literal>: メダパニ</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$0030</literal></td><td>耐性 <literal>#$0D</literal>: ルカニ</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00C0</literal></td><td>耐性 <literal>#$0E</literal>: （未使用）</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$0003</literal></td><td>耐性 <literal>#$0F</literal>: 毒</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$10</literal>: 休み</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$0030</literal></td><td>耐性 <literal>#$11</literal>: おどりふうじ</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$00C0</literal></td><td>耐性 <literal>#$12</literal>: 炎</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$0003</literal></td><td>耐性 <literal>#$13</literal>: 吹雪</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$14</literal>: 叩き</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$0030</literal></td><td>耐性 <literal>#$15</literal>: マヒ</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$00C0</literal></td><td>耐性 <literal>#$16</literal>: ぐんたい</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$0003</literal></td><td>コマンド選択判断</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$000C</literal></td><td>複数回</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$0030</literal></td><td>自動回復</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$01C0</literal></td><td>みかわし</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$001E</literal></td><td>コマンド決定戦略</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$07E0</literal></td><td>遊び分類</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$00F8</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$00FF</literal></td><td>所持品 0</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$00FF</literal></td><td>所持品 1</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$00FF</literal></td><td>所持品 2</td></tr>
+    <tr><td><literal>#$13</literal></td><td><literal>#$00FF</literal></td><td>所持品 3</td></tr>
+    <tr><td><literal>#$14</literal></td><td><literal>#$00FF</literal></td><td>所持品 4</td></tr>
+    <tr><td><literal>#$15</literal></td><td><literal>#$001F</literal></td><td>装備グループ</td></tr>
+    <tr><td><literal>#$15</literal></td><td><literal>#$00E0</literal></td><td>装備状態</td></tr>
+    <tr><td><literal>#$16</literal></td><td><literal>#$0FFF</literal></td><td>移動モードスプライト</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$0FF0</literal></td><td>戦闘モードスプライト</td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$3FF0</literal></td><td>戦闘モードパレット</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$0040</literal></td><td>スライム系</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$0080</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$00FF</literal></td><td>（キャラクター分類）</td></tr>
+  </tbody>
+</table>
+<para>
+上の表で（未使用）等の括弧付きの属性は、オブジェクトによって値が異なっているかもしれないが、プログラムからの参照がないものだ。
+特に値がどのオブジェクトもゼロであるような属性については、付録の CSV ファイルでの記載を省略する。
+以下に各属性の概要を記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>名前</term>
+    <listitem>
+      <para>
+        名前とは、このキャラクターのオリジナルの名前を表す文字列の ID を値とする属性だ。
+      </para>
+      <para>
+        文字列については <xref linkend="dq6.string"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>肩書</term>
+    <listitem>
+      <para>
+        肩書は、このキャラクターが人間かモンスターかで意味が変わる属性だが、いずれも場合でも文字列 ID を値とする。
+        人間の場合にはその人物の設定を簡単に表現する言葉であり、モンスターの場合にはそのモンスター名だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>性別</term>
+    <listitem>
+      <para>
+        性別もこのキャラクターが人間かモンスターかで意味が変わる属性だ。
+        値と意味については前作に準拠する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>（モンスターフラグ）</term>
+    <listitem>
+      <para>
+        モンスターフラグとは、このキャラクターがモンスターであるかどうかを示す値を取るブーリアン型属性だ。
+        データとしては設定されているが、プログラムから参照されてはいないようだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ルイーダに預けるのを禁止するフラグ</term>
+    <listitem>
+      <para>
+        ルイーダに預けるのを禁止するフラグとは、このキャラクターをルイーダが預かり拒否するかどうかを示す値を取るブーリアン型属性だ。
+        主人公自身だけでなく、バーバラをどうしても預けられないのは、この属性値が 1 であることによる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>命令分類</term>
+    <listitem>
+      <para>
+        命令分類は詳細不明の属性だ。
+        全キャラクターについて値が 1 に設定されている。
+        プログラムを見ると、この値が 2 のときには例えば命名神で名前を変えられなかったり、
+        教会のお告げでレベルアップ経験値を教えてもらえなくなる等、
+        前作の NPC の扱いを思い起こさせるようなことを実現させるための属性であったのかもしれない。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>レベル初期値</term>
+    <listitem>
+      <para>
+        レベル初期値とは、このキャラクターを仲間にした時点でのその人物のレベルの値を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>レベルアップ ID</term>
+    <listitem>
+      <para>
+        レベルアップ ID とは、このキャラクターがレベルを上がるときの状態変化を管理するオブジェクトの ID を値に取る属性だ。
+      </para>
+      <para>
+        レベルアップについては <xref linkend="dq6.level"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ルイーダで別れるのを許可するフラグ</term>
+    <listitem>
+      <para>
+        ルイーダで別れるのを許可するフラグとは、このキャラクターをルイーダの酒場に預けてあるときに別れられるかどうかを示す値を取るブーリアン型属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>耐性 k (k = <literal>#$00</literal>..<literal>#$16</literal>)</term>
+    <listitem>
+      <para>
+        耐性は、値の範囲の違いがなぜかあることを除けば、モンスター構造体のそれと同じ概念の属性だ。
+        <xref linkend="dq6.monster.C20154"/> の耐性の記述を参照して欲しい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンド選択判断</term>
+    <term>複数回</term>
+    <term>自動回復</term>
+    <term>みかわし</term>
+    <term>コマンド決定戦略</term>
+    <listitem>
+      <para>
+        これらの属性についても、モンスター構造体のそれぞれと同じ概念の属性だ。
+        <xref linkend="dq6.monster.C20154"/> の耐性の記述を参照して欲しい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>遊び分類</term>
+    <listitem>
+      <para>
+        遊び分類とは、このキャラクターが「あそぶ」戦闘コマンドを直接的または間接的に発動するときに、
+        どのような遊びが起こり得るかを表現するオブジェクト配列 <varname>$C22D54</varname> ID を値とする属性だ。
+      </para>
+      <para>
+        <xref linkend="appendix.b"/> にデータを収録した。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>所持品 k (k = 0..4)</term>
+    <listitem>
+      <para>
+        所持品とは、このキャラクターを仲間にした時点でのその人物の道具袋にあるアイテム ID を表す属性だ。
+      </para>
+      <para>
+        アイテムについては <xref linkend="dq6.item"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>装備グループ</term>
+    <listitem>
+      <para>
+        装備グループとは、このキャラクターが装備可能であるかどうかを判定するために、
+        対象となるアイテムオブジェクトの装備グループ属性と照合するための値だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>装備状態</term>
+    <listitem>
+      <para>
+        装備状態とは、このキャラクターを仲間にした時点で所持品属性の示すアイテムのうちのどれを本当に装備しているかを表す値を取る属性だ。
+        形式としては、所持品配列の先頭 0 から何番目までの品物までを装備しているかを表現する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>移動モードスプライト</term>
+    <listitem>
+      <para>
+        移動モードスプライトとは、移動モードにおいてこのキャラクターを表現するスプライトセットを特定する ID を表す属性だ。
+        詳細不明。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>戦闘モードスプライト</term>
+    <term>戦闘モードパレット</term>
+    <listitem>
+      <para>
+        これらの属性は、このキャラクターを戦闘モードにおいて画面上に描画する画像を特定する属性だ。
+        「モシャス」を使えるモンスターの変身後の姿はこの属性で決まる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>スライム系</term>
+    <listitem>
+      <para>
+        スライム系とは、このキャラクターがスライム格闘場に参戦できることや、
+        同控室に出入りできるかどうかを表すブーリアン型属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>（キャラクター分類）</term>
+    <listitem>
+      <para>
+        参照箇所が見当たらないので、詳細不明。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.character.traits.C8BD12 -->
+
+<section id="dq6.character.traits.methods">
+<title>仲間キャラクター構造体メソッド</title>
+<para>
+<varname>$C8BD12</varname> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
+専用サブルーチンと汎用サブルーチンをどちらも用いるが、前者は後者で実装することが可能だ。
+</para>
+<table id="table.dq6.character.traits.methods" class="lighttable">
+  <caption>仲間キャラクター構造体メソッド</caption>
+  <thead>
+    <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="center"><varname>$C43B76</varname></td><td align="right">3</td><td>固定引数で指定</td><td>肩書を取得する</td></tr>
+    <tr><td align="center"><varname>$C43C0B</varname></td><td align="right">2</td><td>固定引数で指定</td><td>ルイーダで別れるのを許可するか問い合わせる</td></tr>
+    <tr><td align="center"><varname>$C44FA1</varname></td><td align="right">3</td><td>固定引数で指定</td><td>名前を取得する</td></tr>
+    <tr><td align="center"><varname>$C450A4</varname></td><td align="right">3</td><td>固定引数で指定</td><td>性別を取得する</td></tr>
+    <tr><td align="center"><varname>$C45DAF</varname></td><td align="right">2</td><td>固定引数で指定</td><td>コマンド選択判断を取得する</td></tr>
+    <tr><td align="center"><varname>$C45D7A</varname></td><td align="right">2</td><td>固定引数で指定</td><td>命令分類を取得する</td></tr>
+    <tr><td align="center"><varname>$C45DE4</varname></td><td align="right">2</td><td>固定引数で指定</td><td>複数回を取得する</td></tr>
+    <tr><td align="center"><varname>$C45E19</varname></td><td align="right">2</td><td>固定引数で指定</td><td>自動回復取得する</td></tr>
+    <tr><td align="center"><varname>$C45E4E</varname></td><td align="right">2</td><td>固定引数で指定</td><td>みかわしを取得する</td></tr>
+    <tr><td align="center"><varname>$C45E83</varname></td><td align="right">2</td><td>固定引数で指定</td><td>コマンド決定戦略を取得する</td></tr>
+    <tr><td align="center"><varname>$C92AA9</varname></td><td align="right">8</td><td>y</td><td>2 バイト型属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C92AB5</varname></td><td align="right">8</td><td>x</td><td>2 バイト型属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C92BD4</varname></td><td align="right">7</td><td>x</td><td>オブジェクトのアドレスを取得する</td></tr>
+    <tr><td align="center"><varname>$C92C2D</varname></td><td align="right">11</td><td>y</td><td>ビットフィールド型属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C92C39</varname></td><td align="right">11</td><td>x</td><td>ビットフィールド型属性値を取得する</td></tr>
+  </tbody>
+</table>
+<para>
+入力が x または y となっているものは、対応するレジスターの値で仲間キャラクター配列の添字をそれぞれ指定することを意味する。
+また、「固定引数で指定する」とは、固定バイトの値が入力元の種別を指定することを意味する。
+</para>
+</section> <!-- dq6.character.traits.methods -->
+</section> <!-- dq6.character.traits -->

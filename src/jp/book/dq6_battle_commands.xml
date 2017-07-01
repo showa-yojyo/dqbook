@@ -1,0 +1,945 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<section id="dq6.battle.commands"><?dbhtml filename="dq6_battle_commands.html" ?>
+<title>戦闘コマンド</title>
+<para>
+この節では戦闘コマンドの構造について述べる。
+戦闘コマンドとは、戦闘中における主人公とその仲間たちへの命令、そして敵の実行するそれを表現するのに必要な情報をカプセル化したものだと定義する。
+プログラムではこれを多くの属性の組からなる構造体で表現していて、
+コマンドに応じた属性値や処理を必要に応じて参照したり実行したりする仕組みがある。
+</para>
+<para>
+コマンドオブジェクトはその性質を動的に変更するような設計にはなっておらず、オブジェクトの特定には ID の値さえあればよい。
+コマンドオブジェクトの一覧については <xref linkend="appendix.b"/> に CSV ファイルを収録したので、必要があれば参照して欲しい。
+このような ID は戦闘キャラクターオブジェクトそれぞれの属性として保存される。
+詳しくは <xref linkend="dq6.combatant"/> を参照して欲しい。
+</para>
+
+<section id="dq6.battle.commands.C8C65D">
+<title>構造体 <varname>$C8C65D</varname>: 戦闘コマンド</title>
+<para>
+戦闘コマンド構造体とは、サイズが <literal>#$19</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるようなものだ。
+この型のオブジェクトがアドレス <varname>$C8C65D</varname> から 410 個直列しているので、本書ではたまに戦闘コマンド構造体のことを表題のように表記することがある。
+</para>
+<table id="table.dq6.C8C65D" class="lighttable">
+  <caption>構造体 $C8C65D</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="right"><literal>#$00</literal></td><td><literal>#$0001</literal></td><td>呪文フラグ</td></tr>
+    <tr><td align="right"><literal>#$00</literal></td><td><literal>#$00FE</literal></td><td>対象決定判断 0</td></tr>
+    <tr><td align="right"><literal>#$01</literal></td><td><literal>#$0001</literal></td><td>踊りフラグ</td></tr>
+    <tr><td align="right"><literal>#$01</literal></td><td><literal>#$00FE</literal></td><td>対象決定判断 1</td></tr>
+    <tr><td align="right"><literal>#$02</literal></td><td><literal>#$0001</literal></td><td>炎・吹雪フラグ</td></tr>
+    <tr><td align="right"><literal>#$02</literal></td><td><literal>#$00FE</literal></td><td>対象決定判断 2</td></tr>
+    <tr><td align="right"><literal>#$03</literal></td><td><literal>#$003F</literal></td><td>MP</td></tr>
+    <tr><td align="right"><literal>#$03</literal></td><td><literal>#$0040</literal></td><td>マヌーサ考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$03</literal></td><td><literal>#$0080</literal></td><td>だいぼうぎょ考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal>#$0007</literal></td><td>ダメージ確率 ID</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal>#$0008</literal></td><td>みかわし考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal>#$0010</literal></td><td>ため考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal>#$0020</literal></td><td>バイキルト考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal>#$0040</literal></td><td>会心痛恨考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal>#$0080</literal></td><td>対象詳細抽選フラグ</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td><literal>#$001F</literal></td><td>系統分類</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td><literal>#$0020</literal></td><td>まじんのかなづち装備考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td><literal>#$0040</literal></td><td>複数対象武器有効フラグ</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td><literal>#$0080</literal></td><td>特殊武器ダメージ倍率考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$0003</literal></td><td>対象陣営分類</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$0004</literal></td><td>どくばり装備考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$0008</literal></td><td>追加効果武器装備考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$0010</literal></td><td>連続攻撃武器装備考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$0020</literal></td><td>追加ダメージ武器装備考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$0040</literal></td><td>きせきのつるぎ装備考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal>#$0080</literal></td><td>（未使用）</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$0003</literal></td><td>対象範囲分類</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$0004</literal></td><td>集中攻撃許可フラグ</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$0008</literal></td><td>パラディン即死考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$0010</literal></td><td>アストロン考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$0020</literal></td><td>みがわり考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$0040</literal></td><td>マホカンタ・マホターン考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal>#$0080</literal></td><td>うけながし考慮フラグ</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td><literal>#$0007</literal></td><td>目的分類</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td><literal>#$0018</literal></td><td>まねまね反応分類</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td><literal>#$0060</literal></td><td>モード</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td><literal>#$0080</literal></td><td>不能確認フラグ</td></tr>
+    <tr><td align="right"><literal>#$09</literal></td><td><literal>#$003F</literal></td><td>ダメージ評価 ID</td></tr>
+    <tr><td align="right"><literal>#$09</literal></td><td><literal>#$00C0</literal></td><td>退場分類</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td><td><literal>#$003F</literal></td><td>効能評価 ID</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td><td><literal>#$0040</literal></td><td>メッセージ表示フラグ</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td><td><literal>#$0080</literal></td><td>意識回復フラグ</td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td><td><literal>#$007F</literal></td><td>ダメージ ID</td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td><td><literal>#$0080</literal></td><td>仲間許可フラグ</td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td><td><literal>#$00FF</literal></td><td>説明文 ID</td></tr>
+    <tr><td align="right"><literal>#$0D</literal></td><td><literal>#$00FF</literal></td><td>画面演出 ID</td></tr>
+    <tr><td align="right"><literal>#$0E</literal></td><td><literal>#$7FFF</literal></td><td>（調査中）</td></tr>
+    <tr><td align="right"><literal>#$0F</literal></td><td><literal>#$0080</literal></td><td>戦果逸失フラグ</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td><td><literal>#$0003</literal></td><td>特殊演出 ID</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td><td><literal>#$003C</literal></td><td>呪文演出効果 ID</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td><td><literal>#$FFC0</literal></td><td>実行時効果音 ID</td></tr>
+    <tr><td align="right"><literal>#$12</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">実行処理アドレス</td></tr>
+    <tr><td align="right"><literal>#$14</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td align="right"><literal>#$15</literal></td><td><literal>#$FFFF</literal></td><td>戦闘メッセージ ID</td></tr>
+    <tr><td align="right"><literal>#$17</literal></td><td><literal>#$FFFF</literal></td><td>名前文字列 ID</td></tr>
+  </tbody>
+</table>
+<para>
+前作と今作の戦闘コマンドの表現を比較すると、本作で戦闘コマンドが一気に多様化したことがうかがえる。
+（未使用）とあるものは、オブジェクトによって値が異なってはいるものの、参照箇所がないためそのように記した。
+以下に各属性の概要を記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>呪文フラグ</term>
+    <listitem>
+      <para>
+        呪文フラグとは、このコマンドが呪文を唱えるものであることを意味するブーリアン型の属性だ。
+        この値は、コマンド実行には規定の MP 消費を必要とすることや、
+        ある種のコマンドが適用された標的に対しては、このコマンドの実行が無効化されること等を示唆する。
+      </para>
+      <para>
+        余談だが、データを調べると呪文フラグが 1 であるときは、踊りフラグと炎・吹雪フラグのいずれの属性も値が 0 に設定されている。
+        ということは、全ての戦闘コマンドをこの 3 つと、それらのいずれにも該当しないものの 1 つとに類別して考えることができる。
+        もう一つ言うと、これらの分類 3 フラグを 2 ビット長のメンバーにまとめてしまい、浮いた 1 ビット分を他に回すこともできたようだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>対象決定判断 k (k = 0, 1, 2)</term>
+    <listitem>
+      <para>
+        対象決定判断とは、戦闘員がこのコマンドを自分のレパートリーの中から選択するかどうかを決定するサブルーチンを要素とするジャンプテーブルの行番号を値とする属性だ。
+        ここで k の値は戦闘員のコマンド選択能力属性から決まるものなのだが、
+        単純化して説明すると k の値が高いほど選択判断の質が高くなる。
+        詳しくはモンスターの節で述べる。
+      </para>
+      <para>
+        例えばラリホーのコマンドは決定判断ロジックは 3 通りある。
+        最も愚直なものは、相手陣の生存キャラクターの有無しか確認しない。
+        中間のものは、それに加えてラリホー状態の者の有無を考慮に入れる。
+        最も高級な判断は、さらにマホカンタ・マホターン状態まで考慮に入れ、グループ別に詳細に吟味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>踊りフラグ</term>
+    <listitem>
+      <para>
+        踊りフラグとは、このコマンドが踊るものであることを意味するブーリアン型の属性だ。
+        この値が 1 のコマンドは、「おどりふうじ」のコマンドが適用された戦闘員による実行が無効化されることを意味する。
+      </para>
+      <para>
+        先述の通り、踊りフラグが 1 のコマンドについては、呪文フラグと炎・吹雪フラグのどちらも 0 に設定されている。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>炎・吹雪フラグ</term>
+    <listitem>
+      <para>
+        炎・吹雪フラグとは、このコマンドが炎または吹雪を吐き出すものであることを意味するブーリアン型の属性だ。
+        この値が 1 のコマンドは、「フバーハ」や「おいかぜ」のコマンドが適用された戦闘員に対して特別な意味があることを意味する。
+      </para>
+      <para>
+        先述の通り、炎・吹雪フラグが 1 のコマンドについては、呪文フラグと踊りフラグのどちらも 0 に設定されている。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>MP</term>
+    <listitem>
+      <para>
+        MP とは、このコマンドを実行する戦闘員が必要とする MP の量を意味する数値型の属性だ。
+        実行する際にこの数だけの MP がなければならないし、実行するとこの数だけ戦闘員の MP が減少する。
+      </para>
+      <para>
+        一部のコマンドについては、マジックナンバーが設定されている。
+        これらについては、戦闘員が実行時にその時点における MP 全てを消費することを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>マヌーサ考慮フラグ</term>
+    <listitem>
+      <para>
+        マヌーサ考慮フラグとは、マヌーサ、すなけむり、まぶしいひかりの効いている戦闘員がこのコマンドを実行すると失敗する可能性があることを示すブーリアン型属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>だいぼうぎょ考慮フラグ</term>
+    <listitem>
+      <para>
+        だいぼうぎょ考慮フラグとは、だいぼうぎょを適用中の戦闘員にこのコマンドでダメージを与えると、
+        ダメージの値が規定の 1/10 になることを示すブーリアン型属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ダメージ確率 ID</term>
+    <listitem>
+      <para>
+        ダメージ確率 ID とは、このコマンドがダメージ系については係数を、確率的については的中率を指定する値からなる表の行番号を値に取る属性だ。
+        表は論理的には 3 つあり、それぞれマジックバリア適用向け、ぶきみなひかり適用向け、一般版だ。
+      </para>
+      <para>
+        参考までに一般版の確率表を次に示す。横軸と縦軸は戦闘員耐性属性と本属性値をそれぞれ意味する。
+        この各値を 256 で割った値が生ダメージ値への係数になるのだが、
+        コマンドによっては全く別の利用法を採用するものもあることを注意しておく。
+      </para>
+      <table id="table.dq6.C28C30" class="lighttable">
+        <caption>構造体 $C28C30</caption>
+        <thead>
+          <tr><th>ID</th><th>耐性 0</th><th>耐性 1</th><th>耐性 2</th><th>耐性 3</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td align="right">256</td><td align="right">218</td><td align="right">128</td><td align="right">0</td></tr>
+          <tr><th>1</th><td align="right">256</td><td align="right">256</td><td align="right">192</td><td align="right">0</td></tr>
+          <tr><th>2</th><td align="right">128</td><td align="right">51</td><td align="right">26</td><td align="right">0</td></tr>
+          <tr><th>3</th><td align="right">256</td><td align="right">179</td><td align="right">102</td><td align="right">0</td></tr>
+          <tr><th>4</th><td align="right">256</td><td align="right">205</td><td align="right">128</td><td align="right">0</td></tr>
+          <tr><th>5</th><td align="right">333</td><td align="right">294</td><td align="right">192</td><td align="right">77</td></tr>
+          <tr><th>6</th><td align="right">192</td><td align="right">128</td><td align="right">64</td><td align="right">0</td></tr>
+          <tr><th>7</th><td align="right">230</td><td align="right">154</td><td align="right">77</td><td align="right">0</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>みかわし考慮フラグ</term>
+    <listitem>
+      <para>
+        みかわし考慮フラグとは、標的の自陣側戦闘員がかわすことにより失敗する可能性がこのコマンドにあることを示すブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ため考慮フラグ</term>
+    <listitem>
+      <para>
+        ため考慮フラグとは、「ちからため」「きあいため」等のコマンド適用中戦闘員が実行すると、このコマンドの威力が増幅することを示すブーリアン値を取る属性だ。
+        他に条件がなければ、ダメージ値を 1.5 倍とするような処理が有効になる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>バイキルト考慮フラグ</term>
+    <listitem>
+      <para>
+        バイキルト考慮フラグとは、このコマンドの威力が「バイキルト」コマンド適用中戦闘員が実行すると、このコマンドの威力が増幅することを示すブーリアン値を取る属性だ。
+        他に条件がなければ、ダメージ値を 2 倍にする処理が有効になる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>会心考慮フラグ</term>
+    <listitem>
+      <para>
+        会心痛恨考慮フラグとは、このコマンドの実行について<quote>かいしんの いちげき！</quote>または<quote>つうこんの いちげき！</quote>が発生する可能性があることを示すブーリアン値を取る属性だ。
+        ダメージ量がコマンド実行者の攻撃力（と乱数）だけで決まるようになる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>対象詳細抽選フラグ</term>
+    <listitem>
+      <para>
+        対象抽選フラグとは、このコマンドの標的を抽選によって決定することを示すブーリアン値を取る属性だ。
+        敵陣側の抽選方針だけ説明すると、自陣の誰を標的とするかを、馬車外の生存者の人数と並び順によって決める。
+        自陣側のロジックは複雑でよく判明していないが、敵陣戦闘員のマヒ状態やメダパニ状態も抽選に影響するようだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>系統分類</term>
+    <listitem>
+      <para>
+        系統分類とは、このコマンドの系統的性質を表現する数を値に取る属性だ。
+        次のような対応関係があるようだ（ドラクエ 7 のデバッグ機能を参考にした）。
+      </para>
+    <table id="table.dq6.battle.commands.classifications" class="lighttable">
+      <caption>系統分類</caption>
+      <thead>
+        <tr><th>値</th><th>系統</th></tr>
+      </thead>
+      <tbody>
+        <tr><th><literal>#$00</literal></th><td>メラ</td></tr>
+        <tr><th><literal>#$01</literal></th><td>ギラ</td></tr>
+        <tr><th><literal>#$02</literal></th><td>イオ</td></tr>
+        <tr><th><literal>#$03</literal></th><td>ヒャド</td></tr>
+        <tr><th><literal>#$04</literal></th><td>バギ</td></tr>
+        <tr><th><literal>#$05</literal></th><td>デイン</td></tr>
+        <tr><th><literal>#$06</literal></th><td>マヌーサ</td></tr>
+        <tr><th><literal>#$07</literal></th><td>ラリホー</td></tr>
+        <tr><th><literal>#$08</literal></th><td>ザキ</td></tr>
+        <tr><th><literal>#$09</literal></th><td>ニフラム</td></tr>
+        <tr><th><literal>#$0A</literal></th><td>マホトラ</td></tr>
+        <tr><th><literal>#$0B</literal></th><td>マホトーン</td></tr>
+        <tr><th><literal>#$0C</literal></th><td>メダパニ</td></tr>
+        <tr><th><literal>#$0D</literal></th><td>ルカニ</td></tr>
+        <tr><th><literal>#$0E</literal></th><td>n/a</td></tr>
+        <tr><th><literal>#$0F</literal></th><td>どく</td></tr>
+        <tr><th><literal>#$10</literal></th><td>やすみ</td></tr>
+        <tr><th><literal>#$11</literal></th><td>おどりふうじ</td></tr>
+        <tr><th><literal>#$12</literal></th><td>ほのお</td></tr>
+        <tr><th><literal>#$13</literal></th><td>ふぶき</td></tr>
+        <tr><th><literal>#$14</literal></th><td>たたき</td></tr>
+        <tr><th><literal>#$15</literal></th><td>まひ</td></tr>
+        <tr><th><literal>#$16</literal></th><td>ぐんたい</td></tr>
+        <tr><th><literal>#$17</literal></th><td rowspan="8">n/a</td></tr>
+        <tr><th><literal>#$18</literal></th></tr>
+        <tr><th><literal>#$19</literal></th></tr>
+        <tr><th><literal>#$1A</literal></th></tr>
+        <tr><th><literal>#$1B</literal></th></tr>
+        <tr><th><literal>#$1C</literal></th></tr>
+        <tr><th><literal>#$1D</literal></th></tr>
+        <tr><th><literal>#$1E</literal></th></tr>
+        <tr><th><literal>#$1F</literal></th><td>無属性</td></tr>
+      </tbody>
+    </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>まじんのかなづち装備考慮フラグ</term>
+    <listitem>
+      <para>
+        まじんのかなづち装備考慮フラグとは、まじんのかなづちを装備している戦闘員がこのコマンドを実行すると、
+        その結果が失敗と会心の一撃発生かのどちらかにしかならないことを示すブーリアン値を取る属性だ。
+      </para>
+      <para>
+        他に条件がなければ 1/4 の確率で会心の一撃化する。
+        ちなみにまじんぎりによる会心の一撃が発生する確率と同じだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>複数対象武器有効フラグ</term>
+    <listitem>
+      <para>
+        複数対象武器有効フラグとは、自陣戦闘員がグループ以上対象武器を装備しているときにこのコマンドを実行することで、
+        指定した標的戦闘員全てにダメージが発生するかどうかを示すブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>特殊武器ダメージ倍率考慮フラグ</term>
+    <listitem>
+      <para>
+        特殊武器ダメージ倍率考慮フラグとは、自陣戦闘員が次に挙げる武器のいずれかを装備している状態でこのコマンドを実行することで、
+        特別なダメージ調整が発生することを示すブーリアン値を取る属性だ。
+      </para>
+      <table id="table.dq6.battle.commands.weapons.scalar" class="lighttable">
+        <caption>特殊武器ダメージ倍率</caption>
+        <thead>
+          <tr><th>ID</th><th>装備武器</th><th>ダメージ調整方式</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><literal>#$0D</literal></td><td>ドラゴンキラー</td><td>ドラゴン系統のモンスター対してはダメージ値を 1.5 倍に調整する</td></tr>
+          <tr><td><literal>#$10</literal></td><td>はやぶさのけん</td><td>ダメージ値を 3/4 に調整する</td></tr>
+          <tr><td><literal>#$12</literal></td><td>ゾンビキラー</td><td>ゾンビ系統のモンスターに対してはダメージ値を 1.5 倍に調整する</td></tr>
+          <tr><td><literal>#$43</literal></td><td>ドラゴンキラー</td><td><literal>#$0D</literal> と同じ</td></tr>
+          <tr><td><literal>#$44</literal></td><td>はやぶさのけん</td><td><literal>#$10</literal> と同じ</td></tr>
+          <tr><td><literal>#$46</literal></td><td>ゾンビキラー</td><td><literal>#$12</literal> と同じ</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>対象陣営分類</term>
+    <listitem>
+      <para>
+        対象陣営分類とは、このコマンドの対象をどの陣営から選択され得るかを示す数を値として取る属性だ。
+        この値と対象範囲分類属性を組み合わせることで、コマンドの用途が大づかみできる。
+        次の表のような解釈ができる：
+      </para>
+      <table id="table.dq6.battle.commands.targets" class="lighttable">
+        <caption>対象陣営分類</caption>
+        <thead>
+          <tr><th>値</th><th>意味</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td>コマンド実行者自身もしくは誰でもない</td></tr>
+          <tr><th>1</th><td>コマンド実行者の属する陣営</td></tr>
+          <tr><th>2</th><td>コマンド実行者の反対側の陣営</td></tr>
+          <tr><th>3</th><td>その場にいる全員</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>どくばり装備考慮フラグ</term>
+    <listitem>
+      <para>
+        どくばり装備考慮フラグとは、自陣戦闘員がどくばりを装備している状態でこのコマンドを実行すると、
+        標的戦闘員へダメージを 1 しか与えないか、急所を直撃するかのいずれかになることを示すブーリアン値を取る属性だ。
+      </para>
+      <para>
+        例えばさみだれけんのコマンドをどくばり装備者が実行すると、敵陣全員に対して上記のダメージ判定が適用される。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>追加効果武器装備考慮フラグ</term>
+    <listitem>
+      <para>
+        追加効果武器装備考慮フラグとは、自陣戦闘員が次の表にある武器を装備している状態でこのコマンドを実行すると、
+        標的にダメージを与えるだけでなく、追加で対応する状態属性値をセットすることを示すブーリアン値を取る属性だ。
+      </para>
+      <table id="table.dq6.battle.commands.weapons.effect" class="lighttable">
+        <caption>追加効果武器</caption>
+        <thead>
+          <tr><th>ID</th><th>装備武器</th><th>追加効果</th></tr>
+        </thead>
+        <tbody>
+          <tr><th><literal>#$0A</literal></th><td>どくがのナイフ</td><td>標的戦闘員のマヒ状態を 1/6 の確率でセット</td></tr>
+          <tr><th><literal>#$0E</literal></th><td>ゆうわくのけん</td><td>標的戦闘員のメダパニ状態を 1/4 の確率でセット</td></tr>
+          <tr><th><literal>#$0F</literal></th><td>まどろみのけん</td><td>標的戦闘員のラリホーカウンターを 1/4 の確率で 4 にセット</td></tr>
+          <tr><th><literal>#$32</literal></th><td>あくまのツメ</td><td>標的戦闘員のもうどく状態を 1/4 の確率でセット</td></tr>
+          <tr><th><literal>#$33</literal></th><td>まじゅうのキバ</td><td>どくがのナイフと同じ</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>連続攻撃武器装備考慮フラグ</term>
+    <listitem>
+      <para>
+        連続攻撃武器装備考慮フラグとは、自陣戦闘員が「はやぶさのけん」または「キラーピアス」を装備している状態でこのコマンドを実行すると、
+        一度のコマンド実行で二回またはそれ以上のダメージが発生することを示すブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>追加ダメージ武器装備考慮フラグ</term>
+    <listitem>
+      <para>
+        追加ダメージ武器装備考慮フラグとは、自陣戦闘員が次に示す武器のいずれかを装備している状態でこのコマンドを実行すると、
+        規定のダメージ発生に加えて、通常攻撃によるダメージの 1/2 に相当する量のダメージが発生することを示すブーリアン値を取る属性だ。
+      </para>
+      <table id="table.dq6.battle.commands.weapons.extra" class="lighttable">
+        <caption>追加ダメージ武器</caption>
+        <thead>
+          <tr><th>ID</th><th>装備武器</th></tr>
+        </thead>
+        <tbody>
+          <tr><th><literal>#$13</literal></th><td>ふぶきのつるぎ</td></tr>
+          <tr><th><literal>#$17</literal></th><td>ほのおのつるぎ</td></tr>
+          <tr><th><literal>#$2D</literal></th><td>ほのおのツメ</td></tr>
+          <tr><th><literal>#$2E</literal></th><td>こおりのやいば</td></tr>
+          <tr><th><literal>#$40</literal></th><td>ラミアスのつるぎ</td></tr>
+          <tr><th><literal>#$41</literal></th><td>ラミアスのつるぎ</td></tr>
+          <tr><th><literal>#$42</literal></th><td>ラミアスのつるぎ</td></tr>
+          <tr><th><literal>#$47</literal></th><td>ほのおのつるぎ</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>きせきのつるぎ装備考慮フラグ</term>
+    <listitem>
+      <para>
+        きせきのつるぎ装備考慮フラグとは、自陣戦闘員が「きせきのつるぎ」を装備している状態でこのコマンドを実行すると、
+        標的に与えたダメージの 1/4 の量の HP をコマンド実行者が回復することを示すブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>対象範囲分類</term>
+    <listitem>
+      <para>
+        対象範囲分類とは、このコマンドの標的が次のいずれに分類されるのかを意味する値を取る属性だ。
+      </para>
+      <table id="table.dq6.battle.commands.scopes" class="lighttable">
+        <caption>対象範囲分類</caption>
+        <thead>
+          <tr><th>値</th><th>対象範囲</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td>単体</td></tr>
+          <tr><th>1</th><td>グループ</td></tr>
+          <tr><th>2</th><td>全体</td></tr>
+          <tr><th>3</th><td>その他</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>集中攻撃許可フラグ</term>
+    <listitem>
+      <para>
+        集中攻撃許可フラグとは、集中攻撃特性のある戦闘員がこのコマンドを実行することを許可するためのブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>パラディン即死考慮フラグ</term>
+    <listitem>
+      <para>
+        パラディン即死考慮フラグとは、職業がパラディンである自陣戦闘員がこのコマンドを実行することで、
+        職業レベルから定まる確率で標的が即死する可能性があることを示すブーリアン値を取る属性だ。
+        即死発生確率はその他の条件がなければ、次のように決定される。
+      </para>
+      <table id="table.dq6.battle.commands.paladin" class="lighttable">
+        <caption>パラディンのコマンド実行による即死発生確率</caption>
+        <thead>
+          <tr><th>レベル</th><th>確率</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td align="right">0</td></tr>
+          <tr><th>1</th><td align="right">1/64</td></tr>
+          <tr><th>2</th><td align="right">1/48</td></tr>
+          <tr><th>3</th><td align="right">1/32</td></tr>
+          <tr><th>4</th><td align="right">1/32</td></tr>
+          <tr><th>5</th><td align="right">1/16</td></tr>
+          <tr><th>6</th><td align="right">1/16</td></tr>
+          <tr><th>7</th><td align="right">1/8</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>アストロン考慮フラグ</term>
+    <listitem>
+      <para>
+        アストロン考慮フラグとは、このコマンドがアストロン状態の戦闘員に対して無意味であることを示すブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>みがわり考慮フラグ</term>
+    <listitem>
+      <para>
+        みがわり考慮フラグとは、みがわりコマンドのかばう相手がこのコマンドの標的になったときに、
+        みがわり処理が成立することを示すブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>マホカンタ・マホターン考慮フラグ</term>
+    <listitem>
+      <para>
+        マホカンタ・マホターン考慮フラグとは、これらの呪文が適用されている戦闘員に対してこのコマンドを実行するのが得策でないことを示すブーリアン値を取る属性だ。
+        こういう属性が存在しなければ、アストロンやマジックバリアも反射するしかなくなってしまう。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>うけながし考慮フラグ</term>
+    <listitem>
+      <para>
+        うけながし考慮フラグとは、このコマンドの標的がうけながしを適用しているときに、
+        うけながし処理が発生することを示すブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>目的分類</term>
+    <listitem>
+      <para>
+        目的分類とは、このコマンドの大まかな存在目的を表現する数を値として取る属性だ。
+        この属性値はコマンド選択に影響するらしい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>まねまね反応分類</term>
+    <listitem>
+      <para>
+        まねまね反応分類とは、このコマンドを「まねまね」されるとどのように処理されるかを表す数を値に取る属性だ。
+        値とその意味との対応を次の表に示す：
+      </para>
+      <table id="table.dq6.battle.commands.copy" class="lighttable">
+        <caption>まねまね反応分類</caption>
+        <thead>
+          <tr><th>値</th><th>まねまね反応</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td>無視する</td></tr>
+          <tr><th>1</th><td>やりかえせない</td></tr>
+          <tr><th>2</th><td>通常攻撃としてやりかえす</td></tr>
+          <tr><th>3</th><td>やりかえす</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>モード</term>
+    <listitem>
+      <para>
+        モードとは、このコマンドが有効なモードを表す値を属性だ。
+        次の表に示すような意味らしいが、戦闘中での利用目的は出力メッセージの調整だ。
+        バーバラ以外の戦闘員がすなのうつわを使用するときにメッセージを変更するためにしか、
+        この属性は有意な使われ方をしていない。
+      </para>
+      <table id="table.dq6.battle.commands.modes" class="lighttable">
+        <caption>モード</caption>
+        <thead>
+          <tr><th>値</th><th>モード</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td>n/a</td></tr>
+          <tr><th>1</th><td>移動モードでしか有効でない</td></tr>
+          <tr><th>2</th><td>戦闘モードでしか有効でない</td></tr>
+          <tr><th>3</th><td>どちらのモードでも有効である</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>不能確認フラグ</term>
+    <listitem>
+      <para>
+        不能確認フラグとは、戦闘員が AI で実行するコマンドを評価する際に、
+        自分の状態が検討中のコマンドを実行するのに障害になるかどうかを調べることを示すブーリアン値を取る属性だ。
+      </para>
+      <para>
+        具体的には、自分の現在の MP の残量、マホトーン状態、おどりふうじ状態を判定するようになる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ダメージ評価 ID</term>
+    <listitem>
+      <para>
+        ダメージ評価 ID とは、このコマンドによる実効ダメージ（回復量や確率の形態を含む）値を算出するサブルーチンテーブルの行番号を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>退場分類</term>
+    <listitem>
+      <para>
+        退場分類とは、このコマンドで標的を死亡させたか無効化させたか等を表す値を取る属性だ。
+        値と意味の対応関係は次の表のとおりだ：
+      </para>
+      <table id="table.dq6.battle.commands.leaving" class="lighttable">
+        <caption>退場分類</caption>
+        <thead>
+          <tr><th>値</th><th>意味</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td>n/a</td></tr>
+          <tr><th>1</th><td>逃亡</td></tr>
+          <tr><th>2</th><td>消滅や行方不明</td></tr>
+          <tr><th>3</th><td>死亡</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>効能評価 ID</term>
+    <listitem>
+      <para>
+        効能評価 ID とは、AI がこのコマンドを実行することによる利点・効能を評価するサブルーチンテーブルの行番号を値に取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>メッセージ表示フラグ</term>
+    <listitem>
+      <para>
+        メッセージ表示フラグとは、自陣側戦闘員のコマンド実行による画面上の演出とメッセージ出力のタイミングを指示するブーリアン値を取る属性だ。
+        この値が 1 だと、演出の次にメッセージ表示となる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>意識回復フラグ</term>
+    <listitem>
+      <para>
+        意識回復フラグとは、このコマンド実行で標的の戦闘員にダメージを与えると、
+        標的のラリホー状態やメダパニ状態が良化する可能性があることを示すブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ダメージ ID</term>
+    <listitem>
+      <para>
+        ダメージ ID とは、このコマンドに関連するダメージオブジェクトを特定する値を取る属性だ。
+        ダメージオブジェクトとは、このコマンド実行によるダメージ量（または回復量）の計算の基本情報と考えてよい。
+        アドレス <varname>$C8FC9B</varname> にダメージオブジェクトの配列がある。
+        この属性値はその配列の添字だ。
+      </para>
+      <para>
+        ダメージオブジェクトは敵陣と自陣それぞれに対してのダメージ量（または回復量）の取り得る範囲を定義する。
+        データ内容については付録に収録した CSV を参照して欲しい。
+        ただし、値 1,023 はマジックナンバーであり、実行時には <literal>#$FFFF</literal> に置き換わる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>仲間許可フラグ</term>
+    <listitem>
+      <para>
+        仲間許可フラグとは、このコマンドで敵陣戦闘員を死亡あるいは無効化すれば、
+        他の条件が許す限り、そのモンスターが戦闘終了後に起き上がって仲間になりたそうにしてもよいことを示すブーリアン値を取る属性だ。
+      </para>
+      <para>
+        データによると、メガンテで倒しても仲間になることはないようだが、
+        メガンテのうでわの効果で倒するのありのように見える。これは本当だろうか。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>説明文 ID</term>
+    <listitem>
+      <para>
+        説明文 ID とは、このコマンドに関連して画面ウィンドウに表示される説明文データの ID を値とする属性だ。
+        アドレス <varname>$C9002E</varname> にメッセージ ID 三つの組からなる配列があり、この属性値とはその添字だ。
+        具体例は <xref linkend="appendix.b"/> に収録の当該 CSV を参照して欲しい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>画面演出 ID</term>
+    <listitem>
+      <para>
+        画面演出 ID とは、このコマンドを自陣側戦闘員が実行するときになされる視聴覚的演出の ID を取る属性だ。
+        言い換えると、アドレス <varname>$C770A0</varname> にある構造体配列の添字だ。
+        例えばメダパニ、メダパニダンス、ほしのかけら、ゆうわくおどり、はしりまわりの属性値は同じだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>戦果逸失フラグ</term>
+    <listitem>
+      <para>
+        戦果逸失フラグとは、このコマンドで敵陣戦闘員を死亡させるか無効化させると、
+        戦闘終了後の獲得経験値およびゴールドを加算しないようになることを示すブーリアン値を取る属性だ。
+        例を挙げると、ニフラム、メガンテ、バシルーラは属性値が 1 となっている。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>特殊演出 ID</term>
+    <listitem>
+      <para>
+        特殊演出 ID とは、このコマンドを敵陣戦闘員が実行するときにキャラクタースプライト自身に適用する視覚効果の ID 値を取る属性だ。
+        文章で説明するのは厳しい。なし、呪文色で点滅、ある色でフェードのような 3 種類がある。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>呪文演出効果 ID</term>
+    <listitem>
+      <para>
+        呪文演出効果 ID とは、敵陣戦闘員がこのコマンドを実行するときの画面演出を指定する値を取る属性だ。
+        呪文コマンドを実行するときの円形の光のようなスプライトを描画させるのに用いる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>実行時効果音 ID</term>
+    <listitem>
+      <para>
+        実行時効果音 ID とは、コマンド実行時に再生する効果音の ID を値を取る属性だ。
+        ただし、コマンドによっては動的に別の効果音に採用する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>実行処理アドレス</term>
+    <listitem>
+      <para>
+        実行処理アドレスとは、このコマンド実行の成否を動的に決定するサブルーチンの開始位置を示すフルアドレスを値に取る属性だ。
+        このコマンドの挙動そのものを表現すると言ってもよい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>戦闘メッセージ ID</term>
+    <listitem>
+      <para>
+        戦闘メッセージ ID とは、このコマンドが実行されるとメッセージ出力ウィンドウに最初に表示されるメッセージの ID を値とする属性だ。
+        例えば呪文コマンドのほとんどは<quote>[BC][B7]は [B2]を となえた！[B1]</quote>を指定する <literal>#$005E</literal> を属性値とする。
+      </para>
+      <para>
+        戦闘モードにおけるテキスト処理については <xref linkend="dq6.text.battle"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>名前文字列 ID</term>
+    <listitem>
+      <para>
+        名前文字列 ID とは、このコマンド名を意味する文字列の ID を値とする属性だ。
+        名前文字列はコマンド入力ウィンドウやメッセージ出力ウィンドウ上のテキスト内に表示される。
+      </para>
+      <para>
+        文字列については <xref linkend="dq6.string"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.battle.commands.C8C65D -->
+
+<section id="dq6.battle.commands.methods">
+<title>戦闘コマンド構造体メソッド</title>
+<para>
+バンク <varname>$C2</varname> の逆アセンブルの便宜を図るため、
+以下に <varname>$C8C65D</varname> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
+ただし、<code>LDA $C8C662,X</code> のように直接値にアクセスする処理も当然のように存在する。
+</para>
+<table id="table.dq6.battle.commands.methods" class="lighttable">
+  <caption>戦闘コマンド構造体の属性にアクセスするサブルーチン</caption>
+  <thead>
+    <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="center"><varname>$C2F0C2</varname></td><td align="center">2</td><td>x</td><td>2 バイト型属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2F0C9</varname></td><td align="center">2</td><td>y</td><td>2 バイト型属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2F0DF</varname></td><td align="center">4</td><td>x</td><td>ビットフィールド型属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2F0E6</varname></td><td align="center">4</td><td>y</td><td>ビットフィールド型属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2F0FC</varname></td><td align="center">4</td><td>x</td><td>ビットフィールド型属性値が設定されているかを見る</td></tr>
+    <tr><td align="center"><varname>$C2F103</varname></td><td align="center">4</td><td>y</td><td>ビットフィールド型属性値が設定されているかを見る</td></tr>
+  </tbody>
+</table>
+<para>
+ここで、レジスター x および y は戦闘員の添字をそれぞれ指定する。
+また、いずれの処理においても出力をレジスター a に格納する。
+出力値としては属性値か、ビットシフト工程を省略した値のいずれかだ。
+</para>
+<para>
+固定引数長とあるのは、各 JSR 命令に続く非プログラムバイト列の長さのことだ。
+値が 2 ならばオブジェクトのベースアドレスからのオフセット値が、
+値が 4 ならばオフセット値とビットマスク値がコード中に埋め込まれていることを示す。
+以下に参考コードと解釈例を示す。
+本節の表と <xref linkend="dq6.combatant.7E2030"/> を照合しながら内容を確かめるといいだろう：
+</para>
+<programlisting><![CDATA[
+C2/741B:    22FCF0C2    JSR $C2F0FC         戦闘コマンド x の属性値が設定されているかを見る
+C2/741F:    5FC6
+C2/7421:    0100                            対象属性は炎・吹雪フラグ
+C2/7423:    F00B        BEQ $7430           if(炎・吹雪フラグ){
+C2/7425:    A90100      LDA #$0001              a = 1
+C2/7428:    223DF0C2    JSR $C2F03D             戦闘員 y の属性を値 a で更新する
+C2/742C:    5620
+C2/742E:    1000                                対象属性は「炎・吹雪コマンドを相手に実行された」フラグ
+                                            }
+C2/7430:    22FCF0C2    JSR $C2F0FC         戦闘コマンド x の属性値が設定されているかを見る
+C2/7434:    5DC6
+C2/7436:    0100                            対象属性は呪文フラグ
+C2/7438:    F00B        BEQ $7445           if(呪文フラグ){
+C2/743A:    A90100      LDA #$0001              a = 1
+C2/743D:    223DF0C2    JSR $C2F03D             戦闘員 y の属性を値 a で更新する
+C2/7441:    5620
+C2/7443:    2000                                対象属性は「呪文コマンドを相手に実行された」フラグ
+                                            }
+C2/7445:    22FCF0C2    JSR $C2F0FC         戦闘コマンド x の属性値が設定されているかを見る
+C2/7449:    5EC6
+C2/744B:    0100                            対象属性はおどりフラグ
+C2/744D:    F00B        BEQ $745A           if(おどりフラグ){
+C2/744F:    A90100      LDA #$0001              a = 1
+C2/7452:    223DF0C2    JSR $C2F03D             戦闘員 y の属性を値 a で更新する
+C2/7456:    5620
+C2/7458:    4000                                対象属性は「おどりコマンドを相手に実行された」フラグ
+                                            }
+C2/745A:    7A          PLY
+C2/745B:    60          RTS
+]]></programlisting>
+<para>
+この処理は戦闘員が相手陣による戦闘コマンド実行を受けて、呪文、踊り、炎・吹雪の対策を講じるようなものだろう。
+前節ではこれらの三つのタイプは重複しないと述べたが、上記のコードでは重複したコマンドが存在したとしても対応できる。
+</para>
+</section> <!-- dq6.battle.commands.methods -->
+
+<section id="dq6.battle.commands.data">
+<title>データ</title>
+<para>
+付録のデータについて、コマンドの名前、メッセージ内容、さらに処理アドレスを見ても実態を特定しづらいオブジェクトがある。
+それについてここで補足しておく。
+</para>
+<para>
+ダメージの応酬や状態の変化しか行わないようなコマンドは、先ほど述べた属性値から簡単にその振る舞いが理解できるが、
+一部の特殊なコマンドは別途処理コードが存在する。
+そのようなものについてはサブルーチン <varname>$C2791C</varname> 以下の実装を解読する必要がある。
+</para>
+<para>
+他にも通常攻撃に加えて状態変化を伴うコマンドがいくつかあることと、
+装備武器に由来する追加ダメージの発生がコマンドとして実現されていること、
+あるいはそれ以外にも注意しないとコマンドの全容が把握できないだろう。
+CSV に載せられないコマンド概要を表にして次に示す：
+</para>
+<table id="table.dq6.battle.commands.special" class="lighttable">
+  <caption>特別な戦闘コマンド</caption>
+  <thead>
+    <tr><th>ID</th><th>コマンドの挙動</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$0000</literal></td><td>（なし）</td></tr>
+    <tr><td><literal>#$0042</literal></td><td>通常攻撃</td></tr>
+    <tr><td><literal>#$004B</literal></td><td>せいれいのうたの終了時に起こる</td></tr>
+    <tr><td><literal>#$004F</literal></td><td>まねまね不発時に起こる</td></tr>
+    <tr><td><literal>#$0057</literal></td><td>メガザルダンス終了時に起こる</td></tr>
+    <tr><td><literal>#$00AF</literal></td><td>攻撃ミス１（混乱による）</td></tr>
+    <tr><td><literal>#$00B0</literal></td><td>攻撃ミス２（混乱による）</td></tr>
+    <tr><td><literal>#$00B1</literal></td><td>混乱による逃げる（失敗）</td></tr>
+    <tr><td><literal>#$00C3</literal></td><td>パルプンテによる HP の全回復</td></tr>
+    <tr><td><literal>#$00C4</literal></td><td>パルプンテによる砕け散る作用</td></tr>
+    <tr><td><literal>#$00C6</literal></td><td>パルプンテによる力がみなぎる作用</td></tr>
+    <tr><td><literal>#$00C7</literal></td><td>ラリホー中</td></tr>
+    <tr><td><literal>#$00C8</literal></td><td>MP 全消費</td></tr>
+    <tr><td><literal>#$00CA</literal></td><td>パルプンテによるドラゴラム作用</td></tr>
+    <tr><td><literal>#$00CB</literal></td><td>パルプンテによる魔神</td></tr>
+    <tr><td><literal>#$00CC</literal></td><td>パルプンテによる時間逆戻り</td></tr>
+    <tr><td><literal>#$00CD</literal></td><td>パルプンテによる自陣全員回復</td></tr>
+    <tr><td><literal>#$00CE</literal></td><td>パルプンテによる冷たい風</td></tr>
+    <tr><td><literal>#$00CF</literal></td><td>（死亡者生き返り）</td></tr>
+    <tr><td><literal>#$00D0</literal></td><td>MP 回復</td></tr>
+    <tr><td><literal>#$00DA</literal></td><td>攻撃ミス３</td></tr>
+    <tr><td><literal>#$00DB</literal></td><td>合体</td></tr>
+    <tr><td><literal>#$00DC</literal></td><td>痛恨の一撃１</td></tr>
+    <tr><td><literal>#$00DD</literal></td><td>痛恨の一撃２</td></tr>
+    <tr><td><literal>#$00DE</literal></td><td>眠り攻撃</td></tr>
+    <tr><td><literal>#$00DF</literal></td><td>毒攻撃</td></tr>
+    <tr><td><literal>#$00E0</literal></td><td>マヒ攻撃</td></tr>
+    <tr><td><literal>#$00E1</literal></td><td>混乱攻撃</td></tr>
+    <tr><td><literal>#$0101</literal></td><td>馬車のドアを閉める</td></tr>
+    <tr><td><literal>#$0102</literal></td><td>声真似して作戦を変える</td></tr>
+    <tr><td><literal>#$0104</literal></td><td>自分の所属グループに仲間を呼ぶ１</td></tr>
+    <tr><td><literal>#$0105</literal></td><td>自分の所属グループに仲間を呼ぶ２（即時コマンド実行型？）</td></tr>
+    <tr><td><literal>#$0106</literal></td><td>自分の所属グループに仲間を呼ぶ３（収容枠まで連続して呼ぶ）</td></tr>
+    <tr><td><literal>#$0107</literal></td><td>しのどれいを呼ぶ</td></tr>
+    <tr><td><literal>#$0108</literal></td><td>ホイミスライムを呼ぶ</td></tr>
+    <tr><td><literal>#$0109</literal></td><td>ぬけがらへいを呼ぶ</td></tr>
+    <tr><td><literal>#$010A</literal></td><td>ダークホーンを呼ぶ</td></tr>
+    <tr><td><literal>#$010B</literal></td><td>トロルを呼ぶ</td></tr>
+    <tr><td><literal>#$010C</literal></td><td>ランプのまじんを呼ぶ</td></tr>
+    <tr><td><literal>#$010D</literal></td><td>ベホマスライムを呼ぶ</td></tr>
+    <tr><td><literal>#$010E</literal></td><td>ヒートギズモを呼ぶ</td></tr>
+    <tr><td><literal>#$010F</literal></td><td>ランプのまおうを呼ぶ</td></tr>
+    <tr><td><literal>#$0110</literal></td><td>しもべのきりさきピエロを呼び付ける</td></tr>
+    <tr><td><literal>#$0111</literal></td><td>助けを呼ぶ１</td></tr>
+    <tr><td><literal>#$0112</literal></td><td>助けを呼ぶ２（即時コマンド実行型？）</td></tr>
+    <tr><td><literal>#$0113</literal></td><td>しもべのデビルアーマーを大声で呼び付ける</td></tr>
+    <tr><td><literal>#$0114</literal></td><td>デスタムーア <literal>#$EF</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$0115</literal></td><td>デスタムーア <literal>#$F1</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$0116</literal></td><td>デスタムーア <literal>#$F3</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$0117</literal></td><td>ダークドレアム <literal>#$F7</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$0118</literal></td><td>ダークドレアム <literal>#$F8</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$0119</literal></td><td>まおうのつかい <literal>#$E1</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$011A</literal></td><td>デスタムーア <literal>#$EE</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$011B</literal></td><td>デスタムーア <literal>#$F0</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$011C</literal></td><td>デスタムーア <literal>#$F2</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$011D</literal></td><td>ダークドレアム <literal>#$F6</literal> に完全変身する</td></tr>
+    <tr><td><literal>#$011E</literal></td><td>ムラサキのひとみ</td></tr>
+    <tr><td><literal>#$0129</literal></td><td>戦闘コマンドに割り当てられていない道具を使う</td></tr>
+    <tr><td><literal>#$015A</literal></td><td>ふぶきのつるぎ装備時の追加ダメージ発生作用</td></tr>
+    <tr><td><literal>#$015B</literal></td><td>ほのおのつるぎ装備時の追加ダメージ発生作用</td></tr>
+    <tr><td><literal>#$015C</literal></td><td>ほのおのツメ装備時の追加ダメージ発生作用</td></tr>
+    <tr><td><literal>#$015D</literal></td><td>こおりのやいば装備時の追加ダメージ発生作用</td></tr>
+    <tr><td><literal>#$015E</literal></td><td>ラミアスのつるぎ装備時の追加ダメージ発生作用</td></tr>
+    <tr><td><literal>#$0198</literal></td><td>（なし）</td></tr>
+  </tbody>
+</table>
+<para>
+併せて、モンスターデータのコマンドリストも参照して欲しい。
+</para>
+</section> <!-- dq6.battle.commands.data -->
+</section> <!-- dq6.battle.commands -->

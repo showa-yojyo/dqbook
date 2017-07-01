@@ -19,16 +19,18 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_shop.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_inn.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_church.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_forge.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_bank.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_rename.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_class.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_vocations.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_item.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_combatant.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_act.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_monster.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_character.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_characters.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_character_traits.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_encounter.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_level.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_combatant.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_battle_commands.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_spell_commands.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_item_commands.xml"/>
 </chapter> <!-- dq6 -->

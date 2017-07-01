@@ -484,27 +484,27 @@ BRK 命令のオペランドが <literal>#$94</literal> であれば、
     <tr><th>arg1</th><th>実際に参照するデータ</th><th>参照する特性</th></tr>
   </thead>
   <tbody>
-    <tr><td align="right"><literal>#$00</literal></td><td><literal>$23B231,X &amp; #$07</literal></td><td>アイテムの種別</td></tr>
+    <tr><td align="right"><literal>#$00</literal></td><td><literal><![CDATA[$23B231,X & #$07]]></literal></td><td>アイテムの種別</td></tr>
     <tr><td align="right"><literal>#$01</literal></td><td><literal>$23B669,X</literal> を含む複数配列</td><td>アイテムを装備できるか</td></tr>
-    <tr><td align="right"><literal>#$02</literal></td><td><literal>$23B159,X &amp; #$03</literal></td><td>アイテムの値段</td></tr>
+    <tr><td align="right"><literal>#$02</literal></td><td><literal><![CDATA[$23B159,X & #$03]]></literal></td><td>アイテムの値段</td></tr>
     <tr><td align="right"><literal>#$03</literal></td><td><literal>$23B4B9,X</literal></td><td>アイテムによるパラメーターの増加分</td></tr>
-    <tr><td align="right"><literal>#$04</literal></td><td><literal>$23B159,X &amp; #$20</literal></td><td>アイテムを使うとなくなるものかどうか</td></tr>
-    <tr><td align="right"><literal>#$05</literal></td><td><literal>$23B159,X &amp; #$10</literal></td><td>アイテムを捨てることができるかどうか</td></tr>
-    <tr><td align="right"><literal>#$06</literal></td><td><literal>$23B159,X &amp; #$08</literal></td><td>アイテムを店屋で売れるかどうか</td></tr>
-    <tr><td align="right"><literal>#$07</literal></td><td><literal>$23B159,X &amp; #$04</literal></td><td>不明または未使用</td></tr>
-    <tr><td align="right"><literal>#$08</literal></td><td><literal>$23B159,X &amp; #$80</literal></td><td>移動中「つかう」コマンドの最初のメッセージを省略する</td></tr>
-    <tr><td align="right"><literal>#$09</literal></td><td><literal>$23B159,X &amp; #$40</literal></td><td>移動中「つかう」コマンドで「だれに」の入力を求める</td></tr>
-    <tr><td align="right"><literal>#$0A</literal></td><td><literal>$23B231,X &amp; #$80</literal></td><td>戦闘中「つかう」コマンドで専用の処理があるかどうか</td></tr>
-    <tr><td align="right"><literal>#$0B</literal></td><td><literal>$23B231,X &amp; #$20</literal></td><td>戦闘中「つかう」の対象が敵側である</td></tr>
-    <tr><td align="right"><literal>#$0C</literal></td><td><literal>$23B231,X &amp; #$08</literal></td><td>アイテムが呪われているかどうか</td></tr>
-    <tr><td align="right"><literal>#$0D</literal></td><td><literal>$23B231,X &amp; #$40</literal></td><td>戦闘中「つかう」の対象を選択する</td></tr>
-    <tr><td align="right"><literal>#$0E</literal></td><td><literal>$23B231,X &amp; #$10</literal></td><td>戦闘中「つかう」の対象が複数である</td></tr>
-    <tr><td align="right"><literal>#$0F</literal></td><td><literal>$23B3E1,X &amp; #$3F</literal></td><td>戦闘中「つかう」ときのメッセージ配列 <literal>$2781D0,X</literal> の添字</td></tr>
-    <tr><td align="right"><literal>#$10</literal></td><td><literal>$23B3E1,X &amp; #$80</literal></td><td>インパスで種別を鑑定するかどうか</td></tr>
-    <tr><td align="right"><literal>#$11</literal></td><td><literal>$23B3E1,X &amp; #$40</literal></td><td>インパスで装備可能な者を鑑定するかどうか</td></tr>
-    <tr><td align="right"><literal>#$12</literal></td><td><literal>$23B309,X &amp; #$80</literal></td><td>インパスで消耗品かどうかを鑑定するかどうか</td></tr>
-    <tr><td align="right"><literal>#$13</literal></td><td><literal>$23B309,X &amp; #$40</literal></td><td>インパスで売却できるかどうかを鑑定するかどうか</td></tr>
-    <tr><td align="right"><literal>#$14</literal></td><td><literal>$23B309,X &amp; #$3F</literal></td><td>インパスで「～のようだ」系の文言を述べるかどうか</td></tr>
+    <tr><td align="right"><literal>#$04</literal></td><td><literal><![CDATA[$23B159,X & #$20]]></literal></td><td>アイテムを使うとなくなるものかどうか</td></tr>
+    <tr><td align="right"><literal>#$05</literal></td><td><literal><![CDATA[$23B159,X & #$10]]></literal></td><td>アイテムを捨てることができるかどうか</td></tr>
+    <tr><td align="right"><literal>#$06</literal></td><td><literal><![CDATA[$23B159,X & #$08]]></literal></td><td>アイテムを店屋で売れるかどうか</td></tr>
+    <tr><td align="right"><literal>#$07</literal></td><td><literal><![CDATA[$23B159,X & #$04]]></literal></td><td>不明または未使用</td></tr>
+    <tr><td align="right"><literal>#$08</literal></td><td><literal><![CDATA[$23B159,X & #$80]]></literal></td><td>移動中「つかう」コマンドの最初のメッセージを省略する</td></tr>
+    <tr><td align="right"><literal>#$09</literal></td><td><literal><![CDATA[$23B159,X & #$40]]></literal></td><td>移動中「つかう」コマンドで「だれに」の入力を求める</td></tr>
+    <tr><td align="right"><literal>#$0A</literal></td><td><literal><![CDATA[$23B231,X & #$80]]></literal></td><td>戦闘中「つかう」コマンドで専用の処理があるかどうか</td></tr>
+    <tr><td align="right"><literal>#$0B</literal></td><td><literal><![CDATA[$23B231,X & #$20]]></literal></td><td>戦闘中「つかう」の対象が敵側である</td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td><td><literal><![CDATA[$23B231,X & #$08]]></literal></td><td>アイテムが呪われているかどうか</td></tr>
+    <tr><td align="right"><literal>#$0D</literal></td><td><literal><![CDATA[$23B231,X & #$40]]></literal></td><td>戦闘中「つかう」の対象を選択する</td></tr>
+    <tr><td align="right"><literal>#$0E</literal></td><td><literal><![CDATA[$23B231,X & #$10]]></literal></td><td>戦闘中「つかう」の対象が複数である</td></tr>
+    <tr><td align="right"><literal>#$0F</literal></td><td><literal><![CDATA[$23B3E1,X & #$3F]]></literal></td><td>戦闘中「つかう」ときのメッセージ配列 <literal>$2781D0,X</literal> の添字</td></tr>
+    <tr><td align="right"><literal>#$10</literal></td><td><literal><![CDATA[$23B3E1,X & #$80]]></literal></td><td>インパスで種別を鑑定するかどうか</td></tr>
+    <tr><td align="right"><literal>#$11</literal></td><td><literal><![CDATA[$23B3E1,X & #$40]]></literal></td><td>インパスで装備可能な者を鑑定するかどうか</td></tr>
+    <tr><td align="right"><literal>#$12</literal></td><td><literal><![CDATA[$23B309,X & #$80]]></literal></td><td>インパスで消耗品かどうかを鑑定するかどうか</td></tr>
+    <tr><td align="right"><literal>#$13</literal></td><td><literal><![CDATA[$23B309,X & #$40]]></literal></td><td>インパスで売却できるかどうかを鑑定するかどうか</td></tr>
+    <tr><td align="right"><literal>#$14</literal></td><td><literal><![CDATA[$23B309,X & #$3F]]></literal></td><td>インパスで「～のようだ」系の文言を述べるかどうか</td></tr>
   </tbody>
 </table>
 <para>

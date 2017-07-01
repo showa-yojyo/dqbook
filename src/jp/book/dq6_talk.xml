@@ -27,7 +27,7 @@
 <para>
 ROM のアドレス <varname>$FF08DA</varname> には次の表で示すような型のオブジェクトが配列されている：
 </para>
-<table id="table.dq6.talk.FF08DA" class="lighttable">
+<table id="table.dq6.FF08DA" class="lighttable">
   <caption>構造体 $FF08DA</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
@@ -67,7 +67,7 @@ ROM のアドレス <varname>$FF08DA</varname> には次の表で示すような
       <para>
         次に示す表は向きの値と意味の対応だ：
       </para>
-      <table id="table.dq6.talk.FF80DA.direction" class="lighttable">
+      <table id="table.dq6.talk.orientations" class="lighttable">
         <caption>向き</caption>
         <thead>
           <tr><th>値</th><th>向き</th></tr>
@@ -158,7 +158,7 @@ ROM のアドレス <varname>$FF08DA</varname> には次の表で示すような
 ROM のアドレス <varname>$FF243C</varname> には次の表で示すような型のオブジェクトが配列されている：
 </para>
 
-<table id="table.dq6.talk.model.FF243C" class="lighttable">
+<table id="table.dq6.FF243C" class="lighttable">
   <caption>構造体 $FF243C</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>

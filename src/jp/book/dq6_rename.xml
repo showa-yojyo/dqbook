@@ -6,868 +6,300 @@
 ]>
 
 <section id="dq6.rename"><?dbhtml filename="dq6_rename.html" ?>
-<title>命名神解析</title>
+<title>命名神</title>
 <indexterm id="term.dq6.rename"><primary>命名神</primary><secondary>DQ6</secondary></indexterm>
 <para>
-	ここでは、命名神の処理について述べる。
-	特に、変な名前をつけようと試みるときの展開に注目したい。
-</para>
-<para>
-	ゲントの村の海底にいる命名神に仕える神官等にはなしかけると、
-	命名神によってパーティーのメンバーの名前を変えることができる。
-	その処理はアドレス <varname>$C3E893</varname> にある。
-	以下、アセンブリコードリストを読み解いていく。
+本節では命名神のデータ構造および処理について述べる。
+まず命名神に関係するデータについて説明する。
+それから命名神の対話的処理の手順について解説する。
 </para>
 
-<section id="dq6.rename.hack">
-<title>解析</title>
-
-<section id="dq6.rename.hack.C3E893">
-<title>「はなす」直後</title>
-<para>
-	神官のしゃべり始めから、
-	名前を変えるキャラクターもしくはふくろを選択するところまでの処理を示す。
-</para>
-<programlisting>
-.routine  命名神処理
-C3/E893:    08          PHP 
-C3/E894:    C230        REP #$30
-C3/E896:    48          PHA 
-C3/E897:    DA          PHX 
-C3/E898:    5A          PHY 
-C3/E899:    8B          PHB 
-C3/E89A:    F47E7E      PEA $7E7E
-C3/E89D:    AB          PLB 
-C3/E89E:    AB          PLB 
-C3/E89F:    0073        BRK #$73            ■わしは 命名神マリナン様に[AD]つかえる神官じゃ。
-C3/E8A1:    19
-C3/E8A2:    22E980C3    JSR $C380E9         ■はい・いいえ
-C3/E8A6:    9003        BCC $E8AB           if(いいえ){
-C3/E8A8:    822C02      BRL $EAD7               goto 終了;
-                                            }
-.label  命名神::だれの？
-C3/E8AB:    0074        BRK #$74            ■うむ では だれの名前を
-C3/E8AD:    19          
-C3/E8AE:    A9A500      LDA #$00A5          a = 00A5h;
-C3/E8B1:    221BF0C3    JSR $C3F01B         ■だれウィンドウ表示＆選択待ち
-C3/E8B5:    9007        BCC $E8BE           if(cancel){
-C3/E8B7:    2228B7C3    JSR $C3B728             ■ウィンドウ消去
-C3/E8BB:    821902      BRL $EAD7               goto 終了;
-                                            }
-C3/E8BE:    CEB038      DEC $38B0           --$7E38B0;
-C3/E8C1:    2228B7C3    JSR $C3B728         ■ウィンドウ消去
-C3/E8C5:    8D3E30      STA $303E
-C3/E8C8:    AA          TAX                 x = $7E303E;
-C3/E8C9:    221C2BC4    JSR $C42B1C         ■(02FF) a = パーティの人数
-C3/E8CD:    02FF
-C3/E8CF:    48          PHA 
-C3/E8D0:    AD3E30      LDA $303E
-C3/E8D3:    C301        CMP $01,S
-C3/E8D5:    9015        BCC $E8EC           if($7E303E &gt;= パーティ人数){
-C3/E8D7:    68          PLA                     // a == パーティの人数
-C3/E8D8:    A90080      LDA #$8000              // ふくろとみなす
-C3/E8DB:    8D4030      STA $3040               $7E3040 = 8000h;
-C3/E8DE:    227AF3C3    JSR $C3F37A             ■名前が怒りにふれているかチェック
-C3/E8E2:    9002        BCC $E8E6               if(carry){
-C3/E8E4:    8029        BRA $E90F                   goto 怒りにふれておる;
-                                                }
-C3/E8E6:    007D        BRK #$7D                ■むう それは……ふくろか？
-C3/E8E8:    19
-C3/E8E9:    829B00      BRL $E987               goto ふくろの新しい名前は？;
-                                            }
-C3/E8EC:    68          PLA                 // パーティの人数
-C3/E8ED:    8A          TXA                 a = x;
-C3/E8EE:    22262CC4    JSR $C42C26         ■キャラ ID と関係あり??
-C3/E8F2:    02FFFE
-C3/E8F5:    8E4030      STX $3040           $7E3040 = x;
-C3/E8F8:    227A5DC4    JSR $C45D7A         ●??
-C3/E8FC:    FEFF
-C3/E8FE:    C90200      CMP #$0002          // この判定がわからん
-C3/E901:    D006        BNE $E909           if(a == 0002h){
-C3/E903:    007C        BRK #$7C                ■むっ 他人の名前を 勝手に[AD]かえようと いうのか？
-C3/E905:    19
-C3/E906:    82C201      BRL $EACB               goto 他にだれか;
-                                            }
-C3/E909:    227AF3C3    JSR $C3F37A         ■名前が怒りにふれているかチェック
-C3/E90D:    9078        BCC $E987           if(carry) goto ふくろの新しい名前は？
-</programlisting>
-</section> <!-- dq6.rename.hack.C3E893 -->
-
-<section id="dq6.rename.hack.C3E90F">
-<title>命名神の怒りに触れている名前の処理</title>
-<para>
-	名前を変えたいキャラクターまたはふくろが、
-	既に命名神の怒りに触れている名前であるときの処理を示す。
-	紙面の都合で神官のセリフをかなり省略しているが、
-	怒りを鎮めるには <literal>5000</literal> ゴールド払えと言っているシーンだ。
-</para>
-<programlisting>
-.label  命名神::怒りにふれておる
-C3/E90F:    008B        BRK #$8B            ■なんと！ その名は 命名神の[AD]怒りに ふれておる！
-C3/E911:    19
-C3/E912:    A90300      LDA #$0003          a = 0003h;
-C3/E915:    223672C3    JSR $C37236         ●??
-C3/E919:    CEB038      DEC $38B0           --$7E3B80;
-C3/E91C:    2262C3C1    JSR $C1C362         ●??
-C3/E920:    008C        BRK #$8C            ■それで よいかな。
-C3/E922:    19
-C3/E923:    22E980C3    JSR $C380E9         ■はい・いいえ
-C3/E927:    900A        BCC $E933           if(いいえ){
-C3/E929:    008D        BRK #$8D                ■では やはり そのままじゃ。
-C3/E92B:    19
-C3/E92C:    220482C3    JSR $C38204             ■$7E3068-$7E33E7 ゼロクリア
-C3/E930:    829801      BRL $EACB               goto 他にだれか;
-                                            }
-C3/E933:    A98813      LDA #$1388
-C3/E936:    8D7A38      STA $387A           $7E387A = 1388h; // 5000d
-C3/E939:    9C7C38      STZ $387C           $7E387C = 0000h;
-C3/E93C:    2259EEC3    JSR $C3EE59         ●大小比較
-C3/E940:    900A        BCC $E94C           if(carry){
-C3/E942:    0090        BRK #$90                ■ん？ ざんねんながら[AD]そんな大金は
-C3/E944:    19
-C3/E945:    220482C3    JSR $C38204             ■$7E3068-$7E33E7 ゼロクリア
-C3/E949:    827F01      BRL $EACB               goto 他にだれか;
-                                            }
-C3/E94C:    A98813      LDA #$1388
-C3/E94F:    8570        STA $70             $70 = 1388h;
-C3/E951:    6472        STZ $72             $72 = 0000h;
-C3/E953:    229528C4    JSR $C42895         ●引き算??
-C3/E957:    70
-C3/E958:    AD4030      LDA $3040
-C3/E95B:    C90080      CMP #$8000
-C3/E95E:    D005        BNE $E965           if($7E3040 == 8000h){
-C3/E960:    A9C809      LDA #$09C8              a = 09C8h;
-C3/E963:    800A        BRA $E96F               goto 支払い;
-                                            }
-C3/E965:    AE3E30      LDX $303E           x = $7E303E;
-C3/E968:    22A14FC4    JSR $C44FA1         ■(02FEFF) a = キャラクタ x の現在の名前の文字列 ID
-C3/E96C:    02FEFF
-.label  命名神::支払い
-C3/E96F:    8D285A      STA $5A28           $7E5A28 = a;
-C3/E972:    227799C5    JSR $C59977         ■[D3]は ５０００ゴールドを[AD]さしだした。
-C3/E976:    8E19
-C3/E978:    A90300      LDA #$0003          a = 0003h;
-C3/E97B:    223672C3    JSR $C37236         ■ウィンドウ表示 or 準備
-C3/E97F:    CEB038      DEC $38B0           --$7E38B0;
-C3/E982:    008F        BRK #$8F            ■よろしい。では [B2]の[AD]新しい名前を 教えてくれ。
-C3/E984:    19
-C3/E985:    801D        BRA $E9A4           goto 名前入力;
-</programlisting>
-</section> <!-- dq6.rename.hack.C3E90F -->
-
-<section id="dq6.rename.hack.C3E987">
-<title>入力＆チェック</title>
-<para>
-	まず例の名前入力用ウィンドウを表示する。
-</para>
-<programlisting>
-.label  命名神::新しい名前は？
-C3/E987:    AD4030      LDA $3040
-C3/E98A:    C90080      CMP #$8000
-C3/E98D:    D005        BNE $E994           if($7E3040 == 8000h){
-C3/E98F:    A9C809      LDA #$09C8              a = 09C8h;
-C3/E992:    800A        BRA $E99E               goto 新しい名前を教えて;
-                                            }
-C3/E994:    AE3E30      LDX $303E           x = $7E303E;
-C3/E997:    22A14FC4    JSR $C44FA1         ■(02FEFF) a = キャラクタ x の現在の名前の文字列 ID
-C3/E99B:    02FEFF
-.label  命名神::新しい名前を教えて
-C3/E99E:    8D285A      STA $5A28           $7E5A28 = a;
-C3/E9A1:    0075        BRK #$75            ■[B2]の名前をかえるのじゃな。[AD]では 新しい名前を
-C3/E9A3:    19
-.label  命名神::名前入力
-C3/E9A4:    22D01BC3    JSR $C31BD0         ●??
-C3/E9A8:    22E2CEC5    JSR $C5CEE2         ●ウィンドウの表示クリア??
-C3/E9AC:    22C3EAC5    JSR $C5EAC3         ●??
-C3/E9B0:    22932EC9    JSR $C92E93         ■$7E3888 ^= 000008h;
-            88387E
-            080000
-C3/E9BA:    22E2CEC5    JSR $C5CEE2         ●ウィンドウの表示クリア??
-</programlisting>
-<para>
-	ここから、プレイヤーが入力した名前をいろいろな方法で調べる処理が続く。
-	まずは、<link linkend="dq6.rename.hack.C3F186">現在の名前と全く同じ名前を入力したかどうかを調べて</link>、
-	もし同じなら「他に誰か～」処理へ移る。
-</para>
-<programlisting>
-C3/E9BE:    2286F1C3    JSR $C3F186         ■現在の名前と比較
-C3/E9C2:    9006        BCC $E9CA           if(さっきと同じ名前){
-C3/E9C4:    007E        BRK #$7E                ■なんじゃ 名前をかえないのか？
-C3/E9C6:    19
-C3/E9C7:    820101      BRL $EACB               goto 他にだれか;
-                                            }
-</programlisting>
-<para>
-	一度改名したキャラクターまたはふくろが、
-	<link linkend="dq6.rename.hack.C3F1DF">元の名前を入力したかどうか</link>を調べる。
-	キャラクターが主人公の場合、チェック用サブルーチンは何もしない。
-	元の名前と同じものが入力されていると判断したとき、神官のセリフがいつもと違う。
-	その後、名前を変更する。
-</para>
-<programlisting>
-C3/E9CA:    22DFF1C3    JSR $C3F1DF         ■オリジナルの名前かどうかチェック
-C3/E9CE:    902B        BCC $E9FB           if(元の名前){
-C3/E9D0:    0080        BRK #$80                ■ほう もとの名前に もどすと[AD]いうのじゃな。
-C3/E9D2:    19
-C3/E9D3:    22E980C3    JSR $C380E9             ■はい・いいえ
-C3/E9D7:    9003        BCC $E9DC               if(いいえ){
-C3/E9D9:    82A100      BRL $EA7D                   goto 他の名前に;
-                                                }
-C3/E9DC:    0081        BRK #$81                ■おお 命名神マリナンよ！[AD][B2]の名を もとの
-C3/E9DE:    19
-C3/E9DF:    48          PHA 
-C3/E9E0:    DA          PHX 
-C3/E9E1:    5A          PHY 
-C3/E9E2:    A9C608      LDA #$08C6              a = 08C6h;
-C3/E9E5:    A20400      LDX #$0004              x = 0004h;
-C3/E9E8:    A00200      LDY #$0002              y = 0002h;
-C3/E9EB:    225BE0C6    JSR $C6E05B             ●??
-C3/E9EF:    7A          PLY 
-C3/E9F0:    FA          PLX 
-C3/E9F1:    68          PLA 
-C3/E9F2:    0082        BRK #$82                ■よし！ おぬしの名は[AD][D8]に もどったぞ！
-C3/E9F4:    19
-C3/E9F5:    A20600      LDX #$0006              x = 0006h;
-C3/E9F8:    82AC00      BRL $EAA7               goto commit のちょい先;
-                                            }
-</programlisting>
-<para>
-	次は<link linkend="dq6.rename.hack.C3F214">「予約されている名前」との照合チェック</link>だ。
-	キャラクターまたはふくろにこの名前をつけることはできない。
-	別の名前をつけるように神官に促されることになる。
-</para>
-<programlisting>
-C3/E9FB:    2214F2C3    JSR $C3F214         ■予約キャラ名かどうかチェック
-C3/E9FF:    9006        BCC $EA07           if(carry){
-C3/EA01:    007F        BRK #$7F                ■[D8]じゃな？ ……むむっ[AD]命名神が その名は イカンと
-C3/EA03:    19
-C3/EA04:    827600      BRL $EA7D               goto 他の名前に？;
-                                            }
-</programlisting>
-<para>
-	次は<link linkend="dq6.rename.hack.C3F2A7">仲間の名前との照合チェック</link>だ。
-</para>
-<programlisting>
-C3/EA07:    22A7F2C3    JSR $C3F2A7         ■仲間と重複チェック
-C3/EA0B:    9006        BCC $EA13           if(carry){
-C3/EA0D:    0083        BRK #$83                ■[D8]じゃな…… おや？[AD]その名前の者が すでに
-C3/EA0F:    19
-C3/EA10:    826A00      BRL $EA7D               goto 他の名前に？;
-                                            }
-</programlisting>
-<para>
-	命名処理のハイライトであるチェック、
-	<link linkend="dq6.rename.hack.C3F2F6">入力した名前と命名神の怒りを買う名前リストとの照合</link>を行う。
-</para>
-<programlisting>
-C3/EA13:    22F6F2C3    JSR $C3F2F6         ■禁断の名前かどうかチェック
-C3/EA17:    9039        BCC $EA52           if(carry){
-C3/EA19:    0084        BRK #$84                ■[D8]じゃと…… おぬし[AD]本気で そのような名前を
-C3/EA1B:    19
-C3/EA1C:    22E980C3    JSR $C380E9             ■はい・いいえ
-C3/EA20:    9002        BCC $EA24               if(いいえ){
-C3/EA22:    8059        BRA $EA7D                   goto 他の名前に？;
-                                                }
-.label  命名神::怒りにふれても
-C3/EA24:    0085        BRK #$85                ■命名神様の 怒りにふれても[AD]わしは しらんぞ！
-C3/EA26:    19
-C3/EA27:    22E980C3    JSR $C380E9             ■はい・いいえ
-C3/EA2B:    9003        BCC $EA30               if(いいえ){
-C3/EA2D:    824D00      BRL $EA7D                   goto 他の名前に？;
-                                                }
-C3/EA30:    0086        BRK #$86                ■……おお 命名神マリナンよ[AD]新たなる名 [D8]に[AD]神の祝福……うわっ！！
-C3/EA32:    19
-C3/EA33:    48          PHA 
-C3/EA34:    DA          PHX 
-C3/EA35:    5A          PHY 
-C3/EA36:    A92A28      LDA #$282A              a = 282Ah;
-C3/EA39:    A20400      LDX #$0004              x = 0004h;
-C3/EA3C:    A00200      LDY #$0002              y = 0002h;
-C3/EA3F:    225BE0C6    JSR $C6E05B             ●??
-C3/EA43:    7A          PLY 
-C3/EA44:    FA          PLX 
-C3/EA45:    68          PLA 
-C3/EA46:    A92A00      LDA #$002A              a = 002Ah;
-C3/EA49:    2239F0C3    JSR $C3F039             ■効果音か
-C3/EA4D:    0087        BRK #$87                ■見よ！ いわんことでは ない！
-C3/EA4F:    19
-C3/EA50:    8052        BRA $EAA4               goto commit;
-                                            }
-</programlisting>
-<para>
-	チェックの最後は、入力した名前が
-	<link linkend="dq6.rename.hack.C3F34A">「同じ文字を <literal>4</literal> 回繰り返すようなもの」であるかどうかを調べる</link>ものだ。
-	下のコードでわかるように、これは命名神の怒りを買う。
-</para>
-<programlisting>
-C3/EA52:    224AF3C3    JSR $C3F34A         ■「ああああ」タイプの名前かチェック
-C3/EA56:    901C        BCC $EA74           if(carry){
-C3/EA58:    0088        BRK #$88                ■[D8]じゃと…… おぬし[AD]名前というものを なめておるのか？
-C3/EA5A:    19
-C3/EA5B:    22E980C3    JSR $C380E9             ■はい・いいえ
-C3/EA5F:    9011        BCC $EA72               if(いいえ){
-C3/EA61:    0089        BRK #$89                    ■では 名をなめては おらぬが
-C3/EA63:    19
-C3/EA64:    22E980C3    JSR $C380E9                 ■はい・いいえ
-C3/EA68:    9006        BCC $EA70                   if(いいえ){
-C3/EA6A:    008A        BRK #$8A                        ■ならば ほかの名にすることじゃ。
-C3/EA6C:    19
-C3/EA6D:    8234FF      BRL $E9A4                       goto 名前入力;
-                                                    }
-C3/EA70:    80B2        BRA $EA24                   goto 怒りにふれても;
-                                                }
-C3/EA72:    80B0        BRA $EA24               goto 怒りにふれても;
-                                            }
-</programlisting>
-<para>
-	すべてのチェックをパスした後、神官がその名前でよいか確認する。
-	「いいえ」と答えれば、名前の入力に戻る。
-	「はい」だと、画面がフラッシュして、
-	神官が「名乗ることが許されたぞ」と言う。
-</para>
-<programlisting>
-C3/EA74:    0076        BRK #$76            ■うむ [B2]の名前を[AD][D8]に かえるのじゃな。
-C3/EA76:    19
-C3/EA77:    22E980C3    JSR $C380E9         ■はい・いいえ
-C3/EA7B:    900E        BCC $EA8B           if(いいえ){
-.label  命名神::他の名前に？
-C3/EA7D:    007B        BRK #$7B                ■他の名前に かえるか？
-C3/EA7F:    19
-C3/EA80:    22E980C3    JSR $C380E9             ■はい・いいえ
-C3/EA84:    9002        BCC $EA88               if(いいえ){
-C3/EA86:    8043        BRA $EACB                   goto 他にだれか;
-                                                }
-C3/EA88:    82FCFE      BRL $E987               goto 新しい名前は？;
-                                            }
-C3/EA8B:    0077        BRK #$77            ■おお 命名神マリナンよ！[AD]新たなる名 [D8]に[AD]神の祝福を！！
-C3/EA8D:    19
-C3/EA8E:    48          PHA 
-C3/EA8F:    DA          PHX 
-C3/EA90:    5A          PHY 
-C3/EA91:    A9C608      LDA #$08C6          a = 08C6h;
-C3/EA94:    A20400      LDX #$0004          x = 0004h;
-C3/EA97:    A00200      LDY #$0002          y = 0002h;
-C3/EA9A:    225BE0C6    JSR $C6E05B         ●??
-C3/EA9E:    7A          PLY 
-C3/EA9F:    FA          PLX 
-C3/EAA0:    7A          PLY 
-C3/EAA1:    0078        BRK #$78            ■よーし！ これで [B2]は
-C3/EAA3:    19
-</programlisting>
-</section> <!-- dq6.rename.hack.C3E987 -->
-
-<section id="dq6.rename.hack.C3EAA4">
-<title>決定</title>
-<para>
-	実際に名前が変更されるのは、神官のセリフの直後だ。
-	以下のコードから呼ばれているサブルーチンを解読することでわかったが、
-</para>
-<itemizedlist>
-	<listitem>
-		<para>
-			各キャラクターの名前の格納位置は、
-			<varname>$7E4025</varname> 構造体のインデックス <literal>16h</literal> - <literal>19h</literal> だ
-			（<literal>1Ah</literal> に <literal>#$AC</literal> をセットすると、ウィンドウ表示処理に不具合が生じる）。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			ふくろの名前の格納位置は、
-			<varname>$7E3E98</varname> から、文字コード <literal>#$AC</literal> が現れる直前までだ。
-		</para>
-	</listitem>
-</itemizedlist>
-<programlisting>
-.label  命名神::commit
-C3/EAA4:    A20600      LDX #$0006          // 入力した名前の文字コード (1 byte) を $70,X に assign 
-                                            for(x = 0006h; x &gt;=0; x -= 2){
-C3/EAA7:    BD6D3B      LDA $3B6D,X
-C3/EAAA:    9570        STA $70,X               $70,X = $7E3BD6,X;
-C3/EAAC:    CA          DEX 
-C3/EAAD:    CA          DEX
-C3/EAAE:    10F7        BPL $EAA7           }
-C3/EAB0:    AD4030      LDA $3040
-C3/EAB3:    C90080      CMP #$8000
-C3/EAB6:    D009        BNE $EAC1           if($7E3040 == 8000h){
-C3/EAB8:    A27000      LDX #$0070              x = 0070h;
-C3/EABB:    226679C4    JSR $C47966             ■$7E3E98,y = $00,x; for y in [0, 8)
-C3/EABF:    800A        BRA $EACB               goto 他にだれか;
-                                            }
-C3/EAC1:    AD3E30      LDA $303E           a = $7E303E;
-C3/EAC4:    224C50C4    JSR $C4504C         ■$7E4025 構造体 [16-19] = $70,X
-C3/EAC8:    02FF70
-.label  命名神::他にだれか
-C3/EACB:    0079        BRK #$79            ■他に だれか 名前を
-C3/EACD:    19
-C3/EACE:    22E980C3    JSR $C380E9         ■はい・いいえ
-C3/EAD2:    B003        BCS $EAD7           if(はい){
-C3/EAD4:    82D4FD      BRL $E8AB               goto だれの？;
-                                            }
-</programlisting>
-</section> <!-- dq6.rename.hack.C3EAA4 -->
-
-<section id="dq6.rename.hack.C3EACB">
-<title>終了間際</title>
-<para>
-	特に変わったところはない。
-</para>
-<programlisting>
-.label  命名神::他にだれか
-C3/EACB:    0079        BRK #$79            ■他に だれか 名前を
-C3/EACD:    19
-C3/EACE:    22E980C3    JSR $C380E9         ■はい・いいえ
-C3/EAD2:    B003        BCS $EAD7           if(はい){
-C3/EAD4:    82D4FD      BRL $E8AB               goto だれの？;
-                                            }
-.label  命名神::終了
-C3/EAD7:    007A        BRK #$7A            ■そうか。名前をかえたくなったら[AD]いつでも 来るがよいぞ。
-C3/EAD9:    19
-C3/EADA:    AB          PLB 
-C3/EADB:    C230        REP #$30
-C3/EADD:    7A          PLY 
-C3/EADE:    FA          PLX 
-C3/EADF:    68          PLA 
-C3/EAE0:    28          PLP 
-C3/EAE1:    6B          RTL
-@end
-</programlisting>
-</section> <!-- dq6.rename.hack.C3EACB -->
-
-<section id="dq6.rename.hack.C3F186">
-<title>サブルーチン <varname>$C3F186</varname> - 現在の名前と入力した名前との比較ルーチン</title>
-<para>
-	見落としてはいけないポイントは、
-	不定文字列データを表現する ID が存在するらしいということだ。
-	<varname>X</varname> レジスタにキャラクター ID をセットしてからすぐにサブルーチン
-	<varname>$C44FA1</varname> を呼ぶと、<varname>A</varname>/<varname>X</varname>/<varname>Y</varname> のどこかにその値が格納される。
-	このサブルーチンが取得する値は、<link linkend="dq6.string.data">文字列 ID</link>
-	の上限より大きい。
-</para>
-<programlisting>
-.routine  現在の名前と入力した名前との比較ルーチン
-C3/F186:    08          PHP 
-C3/F187:    C230        REP #$30
-C3/F189:    48          PHA 
-C3/F18A:    DA          PHX 
-C3/F18B:    5A          PHY 
-C3/F18C:    8B          PHB 
-C3/F18D:    F47E7E      PEA $7E7E
-C3/F190:    AB          PLB 
-C3/F191:    AB          PLB 
-C3/F192:    AD4030      LDA $3040
-C3/F195:    C90080      CMP #$8000
-C3/F198:    D005        BNE $F19F           if($7E3040 == 8000h){
-C3/F19A:    A9C809      LDA #$09C8              a = 09C8h;  // ふくろの名前を表すための値
-C3/F19D:    800A        BRA $F1A9               goto compare;
-                                            }
-C3/F19F:    AE3E30      LDX $303E           x = $7E303E;  // キャラクター ID
-C3/F1A2:    22A14FC4    JSR $C44FA1         ■(02FEFF) a = キャラクタ x の現在の名前の文字列 ID
-            02FEFF
-.label  compare
-C3/F1A9:    2246F1C3    JSR $C3F146         ■文字列 ID から文字列取得して $7E3000 に格納
-C3/F1AD:    AD593B      LDA $3B59
-C3/F1B0:    CD0030      CMP $3000           // 8 バイト長で比較
-C3/F1B3:    D021        BNE $F1D6           if($7E3B59 == $7E3000){
-C3/F1B5:    AD5B3B      LDA $3B5B
-C3/F1B8:    CD0230      CMP $3002
-C3/F1BB:    D019        BNE $F1D6
-C3/F1BD:    AD5D3B      LDA $3B5D
-C3/F1C0:    CD0430      CMP $3004
-C3/F1C3:    D011        BNE $F1D6
-C3/F1C5:    AD5F3B      LDA $3B5F
-C3/F1C8:    CD0630      CMP $3006
-C3/F1CB:    D009        BNE $F1D6
-C3/F1CD:    AB          PLB 
-C3/F1CE:    C230        REP #$30
-C3/F1D0:    7A          PLY 
-C3/F1D1:    FA          PLX 
-C3/F1D2:    68          PLA 
-C3/F1D3:    28          PLP 
-C3/F1D4:    38          SEC                     // 名前は一致する
-C3/F1D5:    6B          RTL                     return true;
-                                            }
-C3/F1D6:    AB          PLB 
-C3/F1D7:    C230        REP #$30
-C3/F1D9:    7A          PLY 
-C3/F1DA:    FA          PLX 
-C3/F1DB:    68          PLA 
-C3/F1DC:    28          PLP 
-C3/F1DD:    18          CLC                 // 名前は一致しない
-C3/F1DE:    6B          RTL                 return false;
-@end
-</programlisting>
-</section> <!-- dq6.rename.hack.C3F186 -->
-
-<section id="dq6.rename.hack.C3F1DF">
-<title>サブルーチン <varname>$C3F1DF</varname> - オリジナルの名前かどうかチェック</title>
-<para>
-	紙面の都合上、逆アセンブル作業は読者への宿題とし、処理の解説の要点だけを述べる。
-</para>
-<itemizedlist>
-	<listitem>
-		<para>
-			<varname>$7E3040</varname> にキャラクター ID が格納された状態でサブルーチンがスタート。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			ID == <literal>0001h</literal> のとき、すなわち主人公のときは、<literal>CLC</literal> 状態で呼び出し元に戻る。
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					ID == <literal>8000h</literal> のとき、すなわちふくろのときは、<varname>A</varname> レジスタに <literal>00BFh</literal> をセット。
-					これは「ふくろ」の文字列 ID だ。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					それ以外のときは、<code>JSL $C92AB5</code> により、
-					<varname>$C8BD12</varname> 構造体の <literal>[00-01]</literal> から文字列 ID を取得。
-					<varname>A</varname> レジスタにセット。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-	<listitem>
-		<para>
-			<code>JSL $C3F146</code> により、文字列 ID から文字列を取得して <varname>$7E3000</varname> に格納。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			<link linkend="dq6.rename.hack.C3F186">サブルーチン <varname>$C3F186</varname></link>
-			における <varname>$C1F1A9</varname> 以降の処理へジャンプして、
-			[<varname>$7E3000</varname>, <varname>$7E3008</varname>) と [<varname>$7E3B59</varname>, <varname>$7E3B62</varname>)
-			が一致するかどうかチェック。
-		</para>
-	</listitem>
-</itemizedlist>
-</section> <!-- dq6.rename.hack.C3F1DF -->
-
-<section id="dq6.rename.hack.C3F214">
-<title>サブルーチン <varname>$C3F214</varname> - 予約キャラ名かどうかチェック</title>
-<para>
-	紙面の都合上、逆アセンブル作業は読者への宿題とし、処理の解説の要点だけを述べる。
-</para>
-<itemizedlist>
-	<listitem>
-		<para>
-			前半は、仲間キャラクターのオリジナル名のいずれかと一致していないかをチェックする。
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<code>For X in (0001h, 0052h)</code> をキャラクター ID とする。
-					それぞれのオリジナルの名前を表す文字列 ID を <varname>$C8BD12</varname><literal>[00-01]</literal> から取得、
-				</para>
-				<para>
-					前項の要領で一致テスト。これをループ。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					一致するものが現れたら、<literal>SEC</literal> 状態にして呼び出し元へ戻る。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-	<listitem>
-		<para>
-			後半は、イベントキャラクターの名前のいずれかと一致していないかをチェックする。
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<code>For X in [0000h, 001Dh)</code> をイベントキャラクター名前 ID とし、
-					<code>JSL $C92AB5</code> により、イベントキャラクター名前 ID 配列 <varname>$C58B2A</varname> から
-					<varname>X</varname> の名前を表す文字列の ID を取得。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					いつもの <literal>8</literal> バイト比較を行い、
-					マッチしたときに限り <literal>SEC</literal> して呼び出し元に戻す。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-</itemizedlist>
-</section> <!-- dq6.rename.hack.C3F214 -->
-
-<section id="dq6.rename.hack.C3F2A7">
-<title>サブルーチン <varname>$C3F2A7</varname> - 仲間の名前と重複しているかチェック</title>
-<para>
-	以下のようになっている。
-	「現在の名前の文字列 ID」を説明すると、
-	通常の文字列 ID の範囲より大きい値になっている。
-	サブルーチン <varname>$C3F146</varname> はこのとき、
-	文字列を <varname>$FB8703</varname> からではなく、
-	<varname>$7E4025</varname> 構造体の名前データを格納してあるアドレスから取得する。
-</para>
-<programlisting>
-.routine  仲間の名前とかぶっていないかチェック
-C3/F2A7:    08          PHP 
-C3/F2A8:    C230        REP #$30
-C3/F2AA:    48          PHA 
-C3/F2AB:    DA          PHX 
-C3/F2AC:    5A          PHY 
-C3/F2AD:    8B          PHB 
-C3/F2AE:    F47E7E      PEA $7E7E
-C3/F2B1:    AB          PLB 
-C3/F2B2:    AB          PLB 
-C3/F2B3:    221C2BC4    JSR $C42B1C         ●x = パーティ人数
-            06FE
-.label again
-C3/F2B9:    CA          DEX                 --x;
-C3/F2BA:    3034        BMI $F2F0           if(x &lt; 0) goto 「ふくろ」と比較;
-C3/F2BC:    22A14FC4    JSR $C44FA1         ■キャラクター x の現在の名前の文字列 ID を参照
-            06FEFF
-C3/F2C3:    2246F1C3    JSR $C3F146         ■文字列 ID から文字列を取得
-C3/F2C7:    AD593B      LDA $3B59
-C3/F2CA:    CD0030      CMP $3000           // 8 バイト長で比較
-C3/F2CD:    D0EA        BNE $F2B9           if($7E3B59 != $7E3000) goto again;
-C3/F2CF:    AD5B3B      LDA $3B5B
-C3/F2D2:    CD0230      CMP $3002
-C3/F2D5:    D0E2        BNE $F2B9
-C3/F2D7:    AD5D3B      LDA $3B5D
-C3/F2DA:    CD0430      CMP $3004
-C3/F2DD:    D0DA        BNE $F2B9
-C3/F2DF:    AD5F3B      LDA $3B5F
-C3/F2E2:    CD0630      CMP $3006
-C3/F2E5:    D0D2        BNE $F2B9
-C3/F2E7:    AB          PLB 
-C3/F2E8:    C230        REP #$30
-C3/F2EA:    7A          PLY 
-C3/F2EB:    FA          PLX 
-C3/F2EC:    68          PLA 
-C3/F2ED:    28          PLP 
-C3/F2EE:    38          SEC                 // 仲間の誰かの名前とかぶる
-C3/F2EF:    6B          RTL                 return true;
-.label  「ふくろ」と比較
-C3/F2F0:    A9C809      LDA #$09C8          // 文字列 ID 09C8h は「ふくろ」
-C3/F2F3:    82B3FE      BRL $F1A9           goto compare;
-</programlisting>
-</section> <!-- dq6.rename.hack.C3F2A7 -->
-
-<section id="dq6.rename.hack.C3F2F6">
-<title>サブルーチン <varname>$C3F2F6</varname> - 禁断の名前かどうかチェック</title>
-<para>
-	サブルーチン <varname>$C3F2F6</varname> を解読すると、
-	アドレス <varname>$C58AC8</varname> に禁断名の ID の配列があることがわかる。
-</para>
-<programlisting>
-.routine  禁断の名前かどうかチェック
-C3/F2F6:    08          PHP 
-C3/F2F7:    C230        REP #$30
-C3/F2F9:    48          PHA 
-C3/F2FA:    DA          PHX 
-C3/F2FB:    5A          PHY 
-C3/F2FC:    8B          PHB 
-C3/F2FD:    F47E7E      PEA $7E7E
-C3/F300:    AB          PLB 
-C3/F301:    AB          PLB 
-C3/F302:    A23000      LDX #$0030          x = 0030h;  // 「ラスト」
-.label again
-C3/F305:    CA          DEX                 --x;
-C3/F306:    3039        BMI $F341           if(x &lt; 0) return false;
-C3/F308:    22B52AC9    JSR $C92AB5         ■a = $C58AC8[x * 0002h]
-            00
-            0200
-            C88AC5      // 禁断名の文字列 ID が格納されている配列
-            0000
-C3/F314:    2246F1C3    JSR $C3F146         ■文字列 ID から文字列取得
-C3/F318:    AD593B      LDA $3B59
-C3/F31B:    CD0030      CMP $3000           // 8 バイト長で比較
-C3/F31E:    D0E5        BNE $F305           if($7E3B59 != $7E3000) goto again;
-C3/F320:    AD5B3B      LDA $3B5B
-C3/F323:    CD0230      CMP $3002
-C3/F326:    D0DD        BNE $F305
-C3/F328:    AD5D3B      LDA $3B5D
-C3/F32B:    CD0430      CMP $3004
-C3/F32E:    D0D5        BNE $F305
-C3/F330:    AD5F3B      LDA $3B5F
-C3/F333:    CD0630      CMP $3006
-C3/F336:    D0CD        BNE $F305
-C3/F338:    AB          PLB 
-C3/F339:    C230        REP #$30
-C3/F33B:    7A          PLY 
-C3/F33C:    FA          PLX 
-C3/F33D:    68          PLA 
-C3/F33E:    28          PLP 
-C3/F33F:    38          SEC                 // 入力は禁断の名前の一つである
-C3/F340:    6B          RTL                 return true;
-C3/F341:    AB          PLB 
-C3/F342:    C230        REP #$30
-C3/F344:    7A          PLY 
-C3/F345:    FA          PLX 
-C3/F346:    68          PLA 
-C3/F347:    28          PLP 
-C3/F348:    18          CLC                 // 入力は問題のない名前である
-C3/F349:    6B          RTL                 return false;
-@end
-</programlisting>
-<para>
-	平仮名と片仮名の両方とも、命名神の怒りに触れるようになっている。
-	<footnote id="ftn.dq6.rename">
-		<para>
-			つまり、小池一夫風に「ん」を「ン」と書けば通る（e.g. ちンこ）。
-			これは、堀井雄二が小池一夫の門下生だという事実と関係があるのか─────ッ
-		</para>
-	</footnote>
-</para>
-</section> <!-- dq6.rename.hack.C3F2F6 -->
-
-<section id="dq6.rename.hack.C3F34A">
-<title>サブルーチン <varname>$C3F34A</varname> - 「ああああ」タイプかどうかチェック</title>
-<para>
-	アドレス <varname>$7E3B59</varname> に選択キャラクターのための名前が格納されている。
-	サブルーチン <varname>$C3F34A</varname> は、この <literal>4</literal> 文字の文字コードを比較するだけだ。
-</para>
-<programlisting>
-.routine 「ああああ」タイプの名前かチェック
-C3/F34A:    08          PHP 
-C3/F34B:    C230        REP #$30
-C3/F34D:    48          PHA 
-C3/F34E:    DA          PHX 
-C3/F34F:    5A          PHY 
-C3/F350:    8B          PHB 
-C3/F351:    F47E7E      PEA $7E7E
-C3/F354:    AB          PLB 
-C3/F355:    AB          PLB 
-C3/F356:    AD593B      LDA $3B59
-C3/F359:    CD5B3B      CMP $3B5B           // 1 文字目と 2 文字目が違うか
-C3/F35C:    D013        BNE $F371           if($7E3B59 != $7E3B5B) return false;
-C3/F35E:    CD5D3B      CMP $3B5D           // 1 文字目と 3 文字目が違うか
-C3/F361:    D00E        BNE $F371           if($7E3B59 != $7E3B5D) return false;
-C3/F363:    CD5F3B      CMP $3B5F           // 1 文字目と 4 文字目が違うか
-C3/F366:    D009        BNE $F371           if($7E3B59 != $7E3B5F) return false;
-C3/F368:    AB          PLB 
-C3/F369:    C230        REP #$30
-C3/F36B:    7A          PLY 
-C3/F36C:    FA          PLX 
-C3/F36D:    68          PLA 
-C3/F36E:    28          PLP 
-C3/F36F:    38          SEC                 // すべて同じ文字
-C3/F370:    6B          RTL                 return true;
-
-C3/F371:    AB          PLB 
-C3/F372:    C230        REP #$30
-C3/F374:    7A          PLY 
-C3/F375:    FA          PLX 
-C3/F376:    68          PLA 
-C3/F377:    28          PLP 
-C3/F378:    18          CLC 
-C3/F379:    6B          RTL                 return false;
-@end
-</programlisting>
-</section> <!-- dq6.rename.hack.C3F34A -->
-</section> <!-- dq6.rename.hack -->
-
-<section id="dq6.rename.data">
+<section id="dq6.rename.structure">
 <title>データ</title>
 <para>
-	データ量が少ないため、ここに直接記載する。
+ここでは命名神の処理で参照するデータを示す。
+</para>
+<section id="dq6.rename.structure.C58AC8">
+<title>配列 <varname>$C58AC8</varname>: 怒りを買う名前</title>
+<para>
+アドレス <varname>$C58AC8</varname> は文字列 ID の値 49 個からなる（ただし末尾の要素はダミー）配列だ。
+対象者の名前をここにある文字列のいずれかに変更するときに限り、命名神の怒りを買う。
+</para>
+<table id="table.dq6.C58AC8" class="lighttable">
+  <caption>配列 $C58AC8</caption>
+  <thead>
+    <tr><th>ID</th><th>文字列</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$095B</literal></td><td>ちんこ</td></tr>
+    <tr><td><literal>#$095C</literal></td><td>きんたま</td></tr>
+    <tr><td><literal>#$095D</literal></td><td>ちんちん</td></tr>
+    <tr><td><literal>#$095E</literal></td><td>あほ</td></tr>
+    <tr><td><literal>#$095F</literal></td><td>ちんぽこ</td></tr>
+    <tr><td><literal>#$0960</literal></td><td>へんたい</td></tr>
+    <tr><td><literal>#$0961</literal></td><td>ちんぼ</td></tr>
+    <tr><td><literal>#$0962</literal></td><td>ちかん</td></tr>
+    <tr><td><literal>#$0963</literal></td><td>おめこ</td></tr>
+    <tr><td><literal>#$0964</literal></td><td>まんこ</td></tr>
+    <tr><td><literal>#$0965</literal></td><td>おまんこ</td></tr>
+    <tr><td><literal>#$0966</literal></td><td>あそこ</td></tr>
+    <tr><td><literal>#$0967</literal></td><td>うんこ</td></tr>
+    <tr><td><literal>#$0968</literal></td><td>でべそ</td></tr>
+    <tr><td><literal>#$0969</literal></td><td>うんち</td></tr>
+    <tr><td><literal>#$096A</literal></td><td>はなたれ</td></tr>
+    <tr><td><literal>#$096B</literal></td><td>おしっこ</td></tr>
+    <tr><td><literal>#$096C</literal></td><td>せっくす</td></tr>
+    <tr><td><literal>#$096D</literal></td><td>ばか</td></tr>
+    <tr><td><literal>#$096E</literal></td><td>おしり</td></tr>
+    <tr><td><literal>#$096F</literal></td><td>まぬけ</td></tr>
+    <tr><td><literal>#$0970</literal></td><td>あなる</td></tr>
+    <tr><td><literal>#$0971</literal></td><td>きちがい</td></tr>
+    <tr><td><literal>#$0972</literal></td><td>チンコ</td></tr>
+    <tr><td><literal>#$0973</literal></td><td>キンタマ</td></tr>
+    <tr><td><literal>#$0974</literal></td><td>チンチン</td></tr>
+    <tr><td><literal>#$0975</literal></td><td>アホ</td></tr>
+    <tr><td><literal>#$0976</literal></td><td>チンポコ</td></tr>
+    <tr><td><literal>#$0977</literal></td><td>ヘンタイ</td></tr>
+    <tr><td><literal>#$0978</literal></td><td>チンボ</td></tr>
+    <tr><td><literal>#$0979</literal></td><td>チカン</td></tr>
+    <tr><td><literal>#$097A</literal></td><td>オメコ</td></tr>
+    <tr><td><literal>#$097B</literal></td><td>マンコ</td></tr>
+    <tr><td><literal>#$097C</literal></td><td>オマンコ</td></tr>
+    <tr><td><literal>#$097D</literal></td><td>アソコ</td></tr>
+    <tr><td><literal>#$097E</literal></td><td>ウンコ</td></tr>
+    <tr><td><literal>#$097F</literal></td><td>デべソ</td></tr>
+    <tr><td><literal>#$0980</literal></td><td>ウンチ</td></tr>
+    <tr><td><literal>#$0981</literal></td><td>ハナタレ</td></tr>
+    <tr><td><literal>#$0982</literal></td><td>オシッコ</td></tr>
+    <tr><td><literal>#$0983</literal></td><td>セックス</td></tr>
+    <tr><td><literal>#$014D</literal></td><td>ばか</td></tr>
+    <tr><td><literal>#$0984</literal></td><td>オシリ</td></tr>
+    <tr><td><literal>#$0985</literal></td><td>マヌケ</td></tr>
+    <tr><td><literal>#$0986</literal></td><td>アナル</td></tr>
+    <tr><td><literal>#$0987</literal></td><td>キチガイ</td></tr>
+    <tr><td><literal>#$0988</literal></td><td>すけべ</td></tr>
+    <tr><td><literal>#$0989</literal></td><td>スケべ</td></tr>
+    <tr><td><literal>#$0378</literal></td><td>ラスト</td></tr>
+  </tbody>
+</table>
+<para>
+文字列については <xref linkend="dq6.string"/> で述べる。
+</para>
+</section> <!-- dq6.rename.structure.C58AC8 -->
+
+<section id="dq6.rename.structure.C58B2A">
+<title>配列 <varname>$C58B2A</varname>: 予約された名前</title>
+<para>
+アドレス <varname>$C58B2A</varname> は文字列 ID の値 29 個からなる配列だ。
+命名神は対象者の名前をここにある文字列のいずれにも変更することはしない。
 </para>
 
-<section id="dq6.rename.data.event">
-<title>イベント用キャラクターの名前 ID 配列</title>
-<para>
-	重要なイベントキャラクターのすべての名前が定義されているわけではない。
-</para>
-<programlisting>
-イベントキャラクタ名 ID 配列 (2 バイト * 1Dh)
-C5/8B2A:    8A09  // 00: ムドー
-C5/8B2C:    7001  // 01: ターニア
-C5/8B2E:    8B09  // 02: ランド
-C5/8B30:    8C09  // 03: ビルデ
-C5/8B32:    8D09  // 04: ルイーダ
-C5/8B34:    8E09  // 05: マーズ
-C5/8B36:    8F09  // 06: トム
-C5/8B38:    9009  // 07: ジーナ
-C5/8B3A:    9109  // 08: イリア
-C5/8B3C:    9209  // 09: ホルス
-C5/8B3E:    9309  // 0A: パノン
-C5/8B40:    9409  // 0B: ミラルゴ
-C5/8B42:    9509  // 0C: チャンプ
-C5/8B44:    9609  // 0D: グラコス
-C5/8B46:    9709  // 0E: ホック
-C5/8B48:    9809  // 0F: サリイ
-C5/8B4A:    9909  // 10: デュラン
-C5/8B4C:    9A09  // 11: ゼニス
-C5/8B4E:    9B09  // 12: フランコ
-C5/8B50:    9C09  // 13: アクバー
-C5/8B52:    9D09  // 14: トンヌラ
-C5/8B54:    9E09  // 15: クリムト
-C5/8B56:    9F09  // 16: マサール
-C5/8B58:    A009  // 17: ムーア
-C5/8B5A:    A109  // 18: ルビス
-C5/8B5C:    A209  // 19: ラミアス
-C5/8B5E:    A309  // 1A: セバス
-C5/8B60:    A409  // 1B: オルゴー
-C5/8B62:    A509  // 1C: エンデ
-</programlisting>
-</section> <!-- dq6.rename.data.event -->
+<table id="table.dq6.C58B2A" class="lighttable">
+  <caption>配列 $C58B2A</caption>
+  <thead>
+    <tr><th>ID</th><th>文字列</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$098A</literal></td><td>ムドー</td></tr>
+    <tr><td><literal>#$0170</literal></td><td>ターニア</td></tr>
+    <tr><td><literal>#$098B</literal></td><td>ランド</td></tr>
+    <tr><td><literal>#$098C</literal></td><td>ビルデ</td></tr>
+    <tr><td><literal>#$098D</literal></td><td>ルイーダ</td></tr>
+    <tr><td><literal>#$098E</literal></td><td>マーズ</td></tr>
+    <tr><td><literal>#$098F</literal></td><td>トム</td></tr>
+    <tr><td><literal>#$0990</literal></td><td>ジーナ</td></tr>
+    <tr><td><literal>#$0991</literal></td><td>イリア</td></tr>
+    <tr><td><literal>#$0992</literal></td><td>ホルス</td></tr>
+    <tr><td><literal>#$0993</literal></td><td>パノン</td></tr>
+    <tr><td><literal>#$0994</literal></td><td>ミラルゴ</td></tr>
+    <tr><td><literal>#$0995</literal></td><td>チャンプ</td></tr>
+    <tr><td><literal>#$0996</literal></td><td>グラコス</td></tr>
+    <tr><td><literal>#$0997</literal></td><td>ホック</td></tr>
+    <tr><td><literal>#$0998</literal></td><td>サリイ</td></tr>
+    <tr><td><literal>#$0999</literal></td><td>デュラン</td></tr>
+    <tr><td><literal>#$099A</literal></td><td>ゼニス</td></tr>
+    <tr><td><literal>#$099B</literal></td><td>フランコ</td></tr>
+    <tr><td><literal>#$099C</literal></td><td>アクバー</td></tr>
+    <tr><td><literal>#$099D</literal></td><td>トンヌラ</td></tr>
+    <tr><td><literal>#$099E</literal></td><td>クリムト</td></tr>
+    <tr><td><literal>#$099F</literal></td><td>マサール</td></tr>
+    <tr><td><literal>#$09A0</literal></td><td>ムーア</td></tr>
+    <tr><td><literal>#$09A1</literal></td><td>ルビス</td></tr>
+    <tr><td><literal>#$09A2</literal></td><td>ラミアス</td></tr>
+    <tr><td><literal>#$09A3</literal></td><td>セバス</td></tr>
+    <tr><td><literal>#$09A4</literal></td><td>オルゴー</td></tr>
+    <tr><td><literal>#$09A5</literal></td><td>エンデ</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.rename.structure.C58B2A -->
+</section> <!-- dq6.rename.structure -->
 
-<section id="dq6.rename.data.C58AC8">
-<title>禁断の名前 ID 配列</title>
+<section id="dq6.rename.behavior">
+<title>処理手順</title>
 <para>
-	ふざけて入力されそうな単語の中から、
-	入力頻度のいかにも高そうなものを精選したリスト、
-	という印象を与える。
+サブルーチン <varname>$C3E893</varname> が命名神の対話的処理を実装するコードだ。
+要点を以下に列挙する：
 </para>
-<programlisting>
-禁断の名前 (2 バイト * 31h)
-C5/8AC8:    5B09  // 00: ちんこ
-C5/8ACA:    5C09  // 01: きんたま
-C5/8ACC:    5D09  // 02: ちんちん
-C5/8ACE:    5E09  // 03: あほ
-C5/8AD0:    5F09  // 04: ちんぽこ
-C5/8AD2:    6009  // 05: へんたい
-C5/8AD4:    6109  // 06: ちんぼ
-C5/8AD6:    6209  // 07: ちかん
-C5/8AD8:    6309  // 08: おめこ
-C5/8ADA:    6409  // 09: まんこ
-C5/8ADC:    6509  // 0A: おまんこ
-C5/8ADE:    6609  // 0B: あそこ
-C5/8AE0:    6709  // 0C: うんこ
-C5/8AE2:    6809  // 0D: でべそ
-C5/8AE4:    6909  // 0E: うんち
-C5/8AE6:    6A09  // 0F: はなたれ
-C5/8AE8:    6B09  // 10: おしっこ
-C5/8AEA:    6C09  // 11: せっくす
-C5/8AEC:    6D09  // 12: ばか
-C5/8AEE:    6E09  // 13: おしり
-C5/8AF0:    6F09  // 14: まぬけ
-C5/8AF2:    7009  // 15: あなる
-C5/8AF4:    7109  // 16: きちがい
-C5/8AF6:    7209  // 17: チンコ
-C5/8AF8:    7309  // 18: キンタマ
-C5/8AFA:    7409  // 19: チンチン
-C5/8AFC:    7509  // 1A: アホ
-C5/8AFE:    7609  // 1B: チンポコ
-C5/8B00:    7709  // 1C: ヘンタイ
-C5/8B02:    7809  // 1D: チンボ
-C5/8B04:    7909  // 1E: チカン
-C5/8B06:    7A09  // 1F: オメコ
-C5/8B08:    7B09  // 20: マンコ
-C5/8B0A:    7C09  // 21: オマンコ
-C5/8B0C:    7D09  // 22: アソコ
-C5/8B0E:    7E09  // 23: ウンコ
-C5/8B10:    7F09  // 24: デべソ
-C5/8B12:    8009  // 25: ウンチ
-C5/8B14:    8109  // 26: ハナタレ
-C5/8B16:    8209  // 27: オシッコ
-C5/8B18:    8309  // 28: セックス
-C5/8B1A:    4D01  // 29: ばか
-C5/8B1C:    8409  // 2A: オシリ
-C5/8B1E:    8509  // 2B: マヌケ
-C5/8B20:    8609  // 2C: アナル
-C5/8B22:    8709  // 2D: キチガイ
-C5/8B24:    8809  // 2E: すけべ
-C5/8B26:    8909  // 2F: スケべ
-C5/8B28:    7803  // 30: ラスト
-</programlisting>
-</section> <!-- dq6.rename.data.C58AC8 -->
-</section> <!-- dq6.rename.data -->
+<itemizedlist>
+  <listitem>
+    <para>
+      名前を変えたい者がいるかどうかを答える。
+      もし「はい」と答えなければ、そのまま終了手順にスキップする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>名前を変更する者を選択する</emphasis>。次の三つの分岐がある：
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          <emphasis>ふくろ</emphasis>。
+          この場合は現在の名前が怒りに触れているかを確認して、
+          触れている場合は、後述する怒り状態の対応手順にスキップする。
+          触れていない場合は、神官の台詞<quote>むう それは……ふくろか？</quote>を表示し、
+          後述の新しい名前を入力する手順にスキップする。
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis>NPC のパーティーメンバー</emphasis>。
+          この場合は<quote>むっ 他人の名前を 勝手に かえようと いうのか？</quote>などと言われて、
+          他に希望者がいるかを答えるところにスキップする。
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis>通常のパーティーメンバー</emphasis>。
+          この場合は現在の名前が怒りに触れているかを確認して、
+          触れている場合は、後述する怒り状態の対応手順にスキップする。
+          触れていない場合は、後述の新しい名前を入力する手順にスキップする。
+        </para>
+      </listitem>
+    </itemizedlist>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>怒り状態の対応手順</emphasis>。
+      現在の名前が怒りに触れている場合にのみ、この処理を実施する。
+    </para>
+    <para>
+      神官が 5,000 ゴールドの支払いを要求するので、承知するかどうかを答える。
+      「はい」と答えなければ、神官の台詞<quote>では やはり そのままじゃ</quote>を表示し、
+      他に希望者がいるかを答えるところにスキップする。
+    </para>
+    <para>
+      「はい」と答えたとしても、所持金が不足していれば
+      神官の台詞<quote>ん？ ざんねんながら そんな大金は～</quote>を表示し、
+      他に希望者がいるかを答えるところにスキップする。
+    </para>
+    <para>
+      5,000 ゴールドの支払いに成功すると、神官が新しい名前を教えてくれと要求する。
+      これを以って新しい名前を入力する手順に進める。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>新しい名前を入力する手順</emphasis>。
+      名前入力ウィンドウを画面に表示して、プレイヤーの入力を受け付ける。
+      なお、この入力ウィンドウはキャンセルを受け付けない。
+    </para>
+    <para>
+      入力した文字列を次のように分類し、それぞれの手順を処理する：
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          <emphasis>現在の名前と同じ場合</emphasis>。
+          この場合には神官は<quote>なんじゃ 名前をかえないのか？</quote>と反応し、
+          他に希望者がいるかを答えるところにスキップする。
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis>オリジナルの名前と同じ場合</emphasis>。
+          この場合は神官が元の名前に戻すというのかと一度確認をする。
+          「はい」以外の回答をすると、他の名前にするか決める手順にスキップする。
+          そうでなければ、名前変更処理を確定する。
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis>予約されている名前と同じ場合</emphasis>。
+          入力文字列が先述の予約名の何かと一致していれば、命名神がイカンということで、
+          他の名前にするか決める手順にスキップする。
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis>仲間キャラクターの名前またはふくろの名前と同じ場合</emphasis>。
+          入力文字列と同じ名前を持つ者が既に仲間にいるのであれば、やはり
+          他の名前にするか決める手順にスキップする。
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis>怒りに触れる名前と同じ場合</emphasis>。
+          入力文字列が先述の怒りに触れる名前の何かと一致していれば、神官が怒り出す。
+          この場合には「はい・いいえ」を答える機会が二度あり、
+          どちらか一方に「いいえ」と答えれば、他の名前にするか決める手順にスキップする。
+          どちらとも「はい」と回答したときのみ特殊な演出が入る。
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis>「ああああ」タイプの名前の場合</emphasis>。
+          入力文字列がこういう感じの名前のときは、やはり神官が不機嫌になる。
+          この場合にも「はい・いいえ」を答える機会が二度あり、
+          どちらにも「いいえ」と答えれば、他の名前にするか決める手順にスキップする。
+          どちらか一方で「はい」と答えれば、神官の警告手順にスキップする。
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          それ以外の場合は、神官が一度だけ確認する。
+          「はい」ならば祝福手順に、「いいえ」ならば他の名前にするか決める手順にそれぞれスキップする。
+        </para>
+      </listitem>
+    </itemizedlist>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>他の名前にするか</emphasis>。
+      神官が<quote>他の名前に かえるか？</quote>と言うので回答する。
+      「はい」ならば新しい名前を入力する手順まで戻り、
+      「いいえ」ならば他に希望者がいるかを答える手順にスキップする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>祝福</emphasis>。神官が儀式を執り行い、画面に演出が入る。
+      その後、新しい名前を名乗ることが許されたと神官が告げ、
+      処理を名前属性値変更手順に進む。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>名前属性値変更</emphasis>。
+      対象がふくろであればふくろの名前を、キャラクターであればキャラクターの名前属性値を指定文字列で更新する。
+      それから次に述べる他に希望者がいるかを答える手順に進む。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>他に希望者がいるかを答える</emphasis>。
+      神官が希望者の有無を問うので答える。
+      回答が「はい」ならば名前を変更する者を選択する手順に戻り、
+      「いいえ」ならば次に述べる終了手順に進む。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      <emphasis>終了手順</emphasis>。
+      名前を変えたくなったらいつでも来るとよい、
+      という神官の台詞を表示して、命名神処理の全てを終了する。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq6.rename.behavior -->
 </section> <!-- dq6.rename -->

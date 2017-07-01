@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE simplesect PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<simplesect id="appendix.b.dq6">
+<title>&dq6_1995;</title>
+<simplelist type="vert" columns="1">
+  <member><ulink url="./data/dq6_C20000_search_classification.txt"><filename>dq6_C20000_search_classification.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C20154_monster.txt"><filename>dq6_C20154_monster.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C22D54_playing.txt"><filename>dq6_C22D54_playing.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C4003D_item.txt"><filename>dq6_C4003D_item.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C41C3E_vocations.txt"><filename>dq6_C41C3E_vocations.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C58B93_shop.txt"><filename>dq6_C58B93_shop.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C58E08_inn.txt"><filename>dq6_C58E08_inn.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C58E9F_church.txt"><filename>dq6_C58E9F_church.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C58F64_encounter_irregular.txt"><filename>dq6_C58F64_encounter_irregular</filename></ulink></member>
+  <member><ulink url="./data/dq6_C6843C_encounter_regular.txt"><filename>dq6_C6843C_encounter_regular.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C83E5C_search_item.txt"><filename>dq6_C83E5C_search_item.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C8477E_search_gold.txt"><filename>dq6_C8477E_search_gold.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C848B6_search_information.txt"><filename>dq6_C848B6_search_information.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C85534_search_trap.txt"><filename>dq6_C85534_search_trap.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C855AB_search_special.txt"><filename>dq6_C855AB_search_special.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C88DF4_encounter_event.txt"><filename>dq6_C88DF4_encounter_event.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C8BD12_character_traits.txt"><filename>dq6_C8BD12_character_traits.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C8C65D_battle_commands.txt"><filename>dq6_C8C65D_battle_commands.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C8F19B_monster.txt"><filename>dq6_C8F19B_monster.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C8FC9B_damage_ranges.txt"><filename>dq6_C8FC9B_damage_ranges.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C9002E_descriptions.txt"><filename>dq6_C9002E_descriptions.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_F6DEBD_text_battle.txt"><filename>dq6_F6DEBD_text_battle.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_F7175B_text_travel.txt"><filename>dq6_F7175B_text_travel.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_FB8703_string.txt"><filename>dq6_FB8703_string.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_FF08DA_talk.txt"><filename>dq6_FF08DA_talk.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_FF243C_talk.txt"><filename>dq6_FF243C_talk.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_FFB6C2_level.txt"><filename>dq6_FFB6C2_level.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_FFC96D_command_positions.txt"><filename>dq6_FFC96D_command_positions.txt</filename></ulink></member>
+</simplelist>
+</simplesect> <!-- appendix.b.dq6 -->

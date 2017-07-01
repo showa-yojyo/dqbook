@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE simplesect PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<simplesect id="appendix.b.dq7">
+<title>&dq7_2000;</title>
+<para>
+放置状態。
+</para>
+<simplelist type="vert" columns="1">
+  <member><ulink url="./data/dq4_act.txt"><filename>dq4_act.txt</filename></ulink></member>
+  <member><ulink url="./data/dq4_imm.txt"><filename>dq4_imm.txt</filename></ulink></member>
+  <member><ulink url="./data/dq4_item.txt"><filename>dq4_item.txt</filename></ulink></member>
+  <member><ulink url="./data/dq4_level.txt"><filename>dq4_level.txt</filename></ulink></member>
+  <member><ulink url="./data/dq4_monster.txt"><filename>dq4_monster.txt</filename></ulink></member>
+</simplelist>
+</simplesect> <!-- appendix.b.dq7 -->
