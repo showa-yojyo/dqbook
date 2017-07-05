@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<section id="dq3.combatant"><?dbhtml filename="dq3_combatant.html" ?>
+<title>戦闘員</title>
+<para>
+本節では、戦闘員構造体各種のメモリレイアウトを表で示し、
+また各メンバーデータの意味とアクセス例とをごく簡単に記す。
+モデルは前作における <xref linkend="dq6.combatant"/> と同じであるので、
+記述の重複がいくらか生じることがあるかもしれない。
+</para>
+
+<section id="dq3.combatant.7E2030">
+<title>構造体 <varname>$7E2030</varname>: 戦闘員</title>
+<para>
+サイズが <literal>#$25</literal> バイトのオブジェクトがアドレス <varname>$7E2030</varname> から 24 個直列している。
+これらのオブジェクトは次の表で示されるメモリレイアウトを型としている。
+本章ではこの型と個々のインスタンスをそれぞれ戦闘員構造体と戦闘員オブジェクトと呼称するものとする。
+</para>
+<table id="table.dq3.7E2030" class="lighttable">
+  <caption>構造体 $7E2030</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>HP</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$FFFF</literal></td><td>MP</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$01FF</literal></td><td>戦闘コマンド 0</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FE</literal></td><td>戦闘コマンド対象戦闘員 0</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$01FF</literal></td><td>戦闘コマンド 1</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FE</literal></td><td>戦闘コマンド対象戦闘員 1</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$01FF</literal></td><td>戦闘コマンド 2</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$00FE</literal></td><td>戦闘コマンド対象戦闘員 2</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td><td>敵アニメーション</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$00FF</literal></td><td>同一モンスター識別子</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$00FF</literal></td><td>グループ</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$00FF</literal></td><td>どうぐつかうコマンドアイテム ID</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$00FF</literal></td><td>どうぐつかうコマンド添字</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$FFFF</literal></td><td>攻撃力</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$FFFF</literal></td><td>守備力</td></tr>
+    <tr><td><literal>#$13</literal></td><td><literal>#$FFFF</literal></td><td>すばやさ</td></tr>
+    <tr><td><literal>#$15</literal></td><td><literal>#$FFFF</literal></td><td>コマンド実行優位</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$00FF</literal></td><td>ラリホーカウンター</td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$00FF</literal></td><td>戦闘コマンド決定用カウンター</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$FFFF</literal></td><td>自分自身</td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$FFFF</literal></td><td>変身相手</td></tr>
+    <tr><td><literal>#$1D</literal></td><td><literal>#$00FF</literal></td><td>戦闘コマンド添字 0</td></tr>
+    <tr><td><literal>#$1E</literal></td><td><literal>#$00FF</literal></td><td>戦闘コマンド添字 1</td></tr>
+    <tr><td><literal>#$1F</literal></td><td><literal>#$00FF</literal></td><td>戦闘コマンド添字 2</td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$0001</literal></td><td>自陣側フラグ</td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$0002</literal></td><td>アクティブフラグ</td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$0004</literal></td><td>死亡状態</td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$0008</literal></td><td>マヒ状態</td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$0010</literal></td><td>メダパニ状態</td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$0020</literal></td><td>メダパニ回復状態</td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$0040</literal></td><td>どく状態</td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$0080</literal></td><td>防御状態</td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$0001</literal></td><td>変身後自陣側フラグ</td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$0002</literal></td><td>マホトーン状態</td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$0004</literal></td><td>マヌーサ状態</td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$0008</literal></td><td>バイキルト状態</td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$0010</literal></td><td>マホカンタ状態</td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$0020</literal></td><td>フバーハ状態</td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$0040</literal></td><td>ドラゴラム状態</td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$0080</literal></td><td>モシャス状態</td></tr>
+    <tr><td><literal>#$22</literal></td><td><literal>#$0001</literal></td><td>素晴らしい状態</td></tr>
+    <tr><td><literal>#$22</literal></td><td><literal>#$0002</literal></td><td>休み状態</td></tr>
+    <tr><td><literal>#$22</literal></td><td><literal>#$0004</literal></td><td>呪文失敗フラグ</td></tr>
+    <tr><td><literal>#$22</literal></td><td><literal>#$0008</literal></td><td>高守備力フラグ</td></tr>
+    <tr><td><literal>#$22</literal></td><td><literal>#$0010</literal></td><td>一度倒したフラグ</td></tr>
+    <tr><td><literal>#$22</literal></td><td><literal>#$0020</literal></td><td>どうぐつかうフラグ</td></tr>
+    <tr><td><literal>#$22</literal></td><td><literal>#$0040</literal></td><td>MP 不足フラグ</td></tr>
+    <tr><td><literal>#$22</literal></td><td><literal>#$0080</literal></td><td>ラリホー回復フラグ</td></tr>
+    <tr><td><literal>#$23</literal></td><td><literal>#$0003</literal></td><td>仲間攻撃特殊処理フラグ</td></tr>
+    <tr><td><literal>#$23</literal></td><td><literal>#$000C</literal></td><td>みかわしカウンター</td></tr>
+    <tr><td><literal>#$23</literal></td><td><literal>#$00F0</literal></td><td>休み分類</td></tr>
+    <tr><td><literal>#$24</literal></td><td><literal>#$001F</literal></td><td>絡んでいるキャラクター</td></tr>
+    <tr><td><literal>#$24</literal></td><td><literal>#$00E0</literal></td><td>（未使用）</td></tr>
+  </tbody>
+</table>
+<para>
+実質的には参照のない属性があるかもしれないが、それも含めて構造体の各属性の意味を以下に記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>HP</term>
+    <term>MP</term>
+    <listitem>
+      <para>
+        それぞれこの戦闘員の現在の HP と MP の値を保持するための属性だ。
+        どちらも敵陣キャラクターが利用する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>戦闘コマンド k (k = 0..2)</term>
+    <listitem>
+      <para>
+        この戦闘員が実行するコマンドの ID を値に取る属性だ。
+        ここでいうコマンド ID とは、コマンドオブジェクトの配列 <varname>$C21860</varname> の添字を意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>戦闘コマンド対象戦闘員 k (k = 0..2)</term>
+    <listitem>
+      <para>
+        戦闘コマンド k を実行する相手を表現する 7 ビット長の数を値に取る属性だ。
+        この数は戦闘員インデックスと対象範囲を示すビットとの論理和で構成されている。
+      </para>
+      <para>
+        ビット <literal>#$40</literal> が立っていると、コマンド k の対象は複数グループに及ぶか、または空となる。
+        このとき、下位ビットで敵陣・自陣・両方等の詳細を表現する。
+        ビット <literal>#$01</literal> が 1 ならば敵陣すべてのグループを、
+        ビット <literal>#$02</literal> が 1 ならば自陣すべてのグループを、
+        そしてビット <literal>#$04</literal> が 1 ならばここから特定の誰かを選ばずにそのままコマンド対象とする。
+      </para>
+      <para>
+        ビット <literal>#$20</literal> が立っていると、コマンド k の対象は一つのグループとなる。
+        このとき、下位ビットがグループ添字を表す。
+      </para>
+      <para>
+        ビット <literal>#$60</literal> がどちらもゼロであれば、この値全体が戦闘員添字を直接表現する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>敵アニメーション</term>
+    <listitem>
+      <para>
+        プログラム上は値が 0 にしかならないはずの属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>同一モンスター識別子</term>
+    <listitem>
+      <para>
+        敵陣側にモンスター ID が同じ戦闘員が複数現れるときに、それらを識別するためのゼロからの連番を取る属性値だ。
+        このような場合にはウィンドウではモンスター名の末尾にアルファベット一文字が付されるが、その配列添字を意味する。
+        これは敵陣戦闘員専用の属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>グループ</term>
+    <listitem>
+      <para>
+        この戦闘員が所属するグループ ID を値に取る属性だ。次の対応関係により定まる。
+      </para>
+      <table id="table.dq3.combatant.groups" class="lighttable">
+        <caption>グループ</caption>
+        <thead>
+          <tr><th>ID</th><th>意味</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td>敵陣グループ 0</td></tr>
+          <tr><th>1</th><td>敵陣グループ 1</td></tr>
+          <tr><th>2</th><td>敵陣グループ 2</td></tr>
+          <tr><th>3</th><td>敵陣グループ 3</td></tr>
+          <tr><th>4</th><td>格闘場で賭けた選手のいるグループ</td></tr>
+          <tr><th>5</th><td>自陣グループ</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>どうぐつかうコマンドアイテム ID</term>
+    <listitem>
+      <para>
+        この戦闘員が所持品のアイテムを使用することによるコマンドを実行するときに、
+        そのアイテム ID を値に取る属性だ。
+        これは自陣側戦闘員専用の属性だ。
+      </para>
+      <para>
+        アイテムについては <xref linkend="dq3.item"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>どうぐつかうコマンド添字</term>
+    <listitem>
+      <para>
+        この戦闘員が所持品のアイテムを使用することによるコマンドを実行するときに、
+        その道具袋におけるアイテム位置を値に取る属性だ。
+        これは自陣側戦闘員専用の属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>攻撃力</term>
+    <term>守備力</term>
+    <term>すばやさ</term>
+    <listitem>
+      <para>
+        それぞれこの戦闘員の攻撃力、守備力、すばやさの現在の表す属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンド実行優位</term>
+    <listitem>
+      <para>
+        この戦闘員が実行する戦闘コマンドのターン内優先度を表す数値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ラリホーカウンター</term>
+    <listitem>
+      <para>
+        この戦闘員が眠っていることを示す値を取る属性だ。
+        値がゼロでない値からゼロに変化すると、この戦闘員は目を覚ます。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>戦闘コマンド決定用カウンター</term>
+    <listitem>
+      <para>
+        これは敵陣キャラクター専用属性であり、コマンドを実行するたびに値が 1 ずつ増えていき、
+        値が 8 に至ると 0 にリセットされるようなカウンターのような属性だ。
+        この値をモンスター固有の戦闘コマンド配列の添字として用い、次回実行コマンドを決定する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>自分自身</term>
+    <listitem>
+      <para>
+        この戦闘員のオリジナルの識別子を表す属性だ。
+        値の型は自陣側フラグ属性値によって異なる。
+        自陣側戦闘員ならば RAM 上の仲間キャラクターオブジェクトのアドレスとして、
+        敵陣側戦闘員ならばモンスター ID として値を取り扱う。
+      </para>
+      <para>
+        この属性は変身系のコマンドでオリジナルを失われないようにする目的がある。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>変身相手</term>
+    <listitem>
+      <para>
+        この戦闘員がモシャスかドラゴラムのコマンドを使用中ならば、
+        その相手キャラクターオブジェクトのアドレスかドラゴラム用モンスターデータ ID をそれぞれ値に取る属性だ。
+      </para>
+      <para>
+        この戦闘員が見かけ上あやしいかげであれば、その正体のモンスター ID を値に取る。
+      </para>
+      <para>
+        この属性はドラゴラム状態属性、モシャス状態属性、変身後自陣側フラグ属性と関係がある。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>戦闘コマンド添字 k (k = 0..2)</term>
+    <listitem>
+      <para>
+        TODO: モンスター構造体とコマンド構造体と併せて説明。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>自陣側フラグ</term>
+    <listitem>
+      <para>
+        この戦闘員が主人公たちのパーティーに所属するものであることを示すブーリアン型属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>アクティブフラグ</term>
+    <listitem>
+      <para>
+        適当な名前が思いつかないのだが、この属性はこの戦闘員が戦闘の場にいることを示すブーリアン値を取る。
+        死亡状態でも構わない。
+      </para>
+      <para>
+        属性の意味としてもっとも適切なのは、あるコマンドが存在して、その対象となり得るかどうかを示すものだということだろう。
+        例えば、ニフラムやバシルーラで退場した戦闘員には、この戦闘中はどうやっても影響を与えることはできない。
+        そういう戦闘員のアクティブフラグ属性値は 0 であるという具合に考えると理解しやすい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>死亡状態</term>
+    <listitem>
+      <para>
+        この戦闘員が死亡しているのかどうかを示すブーリアン値を取る属性だ。
+        敵陣キャラクターが利用する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>マヒ状態</term>
+    <listitem>
+      <para>
+        この戦闘員がマヒしていることを示すブーリアン値を取る属性だ。
+        敵陣キャラクターが利用する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>メダパニ状態</term>
+    <listitem>
+      <para>
+        この戦闘員が混乱していることを示すブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>メダパニ回復状態</term>
+    <listitem>
+      <para>
+        この戦闘員のメダパニ状態属性値が 1 から 0 になると、その時点で値が 1 になるブーリアン型属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>どく状態</term>
+    <listitem>
+      <para>
+        この戦闘員がどくに冒されていることを示すブーリアン値を取る属性だ。
+        敵陣キャラクターが利用する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>防御状態</term>
+    <listitem>
+      <para>
+        この戦闘員がぼうぎょコマンドを実行中であることを示すブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>変身後自陣側フラグ</term>
+    <listitem>
+      <para>
+        適当な名前が思いつかないのだが、この戦闘員が何らかの理由で変身した後に、その変身後キャラクターの出自を示す属性だ。
+        値が 0 ならばモンスターオブジェクトから、値が 1 ならば仲間キャラクターオブジェクトから基本的な属性値を得て戦闘員オブジェクトにセットする。
+        ドラゴラムを適用すると属性値を 0 にするが、モシャスを適用すると 1 としなければならない。
+      </para>
+      <para>
+        あるいは、敵戦闘員を倒した後に得られる経験値やゴールドについては、
+        その戦闘員のフラグ属性値が 0 であることが必要という性質もある。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>マホトーン状態</term>
+    <listitem>
+      <para>
+        この戦闘員がマホトーン等を適用されていることにより、呪文コマンドを封じられている状態にあることを示すブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>マヌーサ状態</term>
+    <listitem>
+      <para>
+        この戦闘員がマヌーサ等を適用されていることにより、直接攻撃系コマンドの成功率が低下する状態にあることを示すブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>バイキルト状態</term>
+    <listitem>
+      <para>
+        この戦闘員がバイキルト等を適用されていることを示すブーリアン値を取る属性だ。
+        すなわち、ダメージ補正処理の途中でダメージ値が倍になる規則が適用されることを意味する。
+      </para>
+      <para>
+        素晴らしい状態でもある場合には、プログラムはこちらのほうを優先する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>マホカンタ状態</term>
+    <listitem>
+      <para>
+        この戦闘員がマホカンタ等を適用されていることを示すブーリアン値を取る属性だ。
+        すなわち、たいていの呪文コマンドを跳ね返すことを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>フバーハ状態</term>
+    <listitem>
+      <para>
+        この戦闘員がフバーハコマンドを使用していることを示すブーリアン値を取る属性だ。
+        すなわち、ダメージ補正処理の途中で炎・吹雪系コマンドのダメージ値が 2/3 になる規則が適用されることを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ドラゴラム状態</term>
+    <term>モシャス状態</term>
+    <listitem>
+      <para>
+        この戦闘員がそれぞれのコマンドを適用していることを示すブーリアン値を取る属性だ。
+        変身相手属性と関係がある。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>素晴らしい状態</term>
+    <listitem>
+      <para>
+        この戦闘員に素晴らしい攻撃力が備わっていることを示すブーリアン値を取る属性だ。
+        すなわち、通常攻撃が会心または痛恨の一撃に置き換わることを意味する。
+      </para>
+      <para>
+        バイキルト状態でもある場合には、プログラムはそちらのほうを優先する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>休み状態</term>
+    <listitem>
+      <para>
+        この戦闘員が休んでいることを示すブーリアン値を取る属性だ。
+        休んでいるとは、様子を見たり、驚いたりして何もしてこない状態のことだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>呪文失敗フラグ</term>
+    <listitem>
+      <para>
+        この戦闘員が実際に何らかの呪文コマンドを実行し、それが失敗したときに 1 となるブーリアン値属性だ。
+        ただし、この属性値を参照する処理が存在しない。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>高守備力フラグ</term>
+    <listitem>
+      <para>
+        この戦闘員の守備力が 1,023 以上であるときに値が 1 となるブーリアン値属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>一度倒したフラグ</term>
+    <listitem>
+      <para>
+        この戦闘員を最初に倒したときに値が 1 となるブーリアン値属性だ。
+        これは敵陣戦闘員専用の属性だ。
+        戦闘終了後に経験値とゴールドを得るには、この属性値が 1 であることが必要だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>どうぐつかうフラグ</term>
+    <listitem>
+      <para>
+        この戦闘員がどうぐメニューから実行コマンドを指定していることを示すブーリアン値を取る属性だ。
+        これは自陣戦闘員専用の属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>MP 不足フラグ</term>
+    <listitem>
+      <para>
+        この戦闘員が実際に何らかの呪文コマンドを実行し、それが MP 不足が原因で失敗したときに値が 1 となるブーリアン値属性だ。 
+        敵側戦闘員の一部は、この属性値が実行コマンドの決定に影響する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ラリホー回復フラグ</term>
+    <listitem>
+      <para>
+        この戦闘員のラリホーカウンター属性値が 1 から 0 になると、その時点で値が 1 になるブーリアン型属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>仲間攻撃特殊処理フラグ</term>
+    <listitem>
+      <para>
+        この戦闘員が仲間戦闘員を攻撃するのかどうかを示すブーリアン型属性だ。
+        自陣側戦闘員専用の属性だ。
+      </para>
+      <para>
+        このフラグが立っていることにより、一部のコマンド処理が特別に扱われる。
+        例えばラリホーやメダパニが適用されている仲間にこうげきコマンドを実行すると、
+        専用メッセージを追加で表示したり、会心の一撃を発生させないようにしたり、
+        一部の武器の装備効果が適用させないようにしたりする。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>みかわしカウンター</term>
+    <listitem>
+      <para>
+        この戦闘員があそびのタップダンスを実行したときに 1 か 2 が値としてセットされる属性だ。
+        この属性値は他戦闘員からの攻撃をかわす確率に影響するものだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>休み分類</term>
+    <listitem>
+      <para>
+        この戦闘員がどのやすみ状態にあるかを示す値を取る属性だ。
+        遊びコマンドによるものがほとんどだ。
+        属性値と適用されているコマンドとの対応は次のとおりだ：
+      </para>
+      <table id="table.dq3.combatant.pause" class="lighttable">
+        <caption></caption>
+        <thead>
+          <tr><th>値</th><th>状態</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><literal>#$00</literal></td><td>n/a</td></tr>
+          <tr><td><literal>#$01</literal></td><td>笑い転げている</td></tr>
+          <tr><td><literal>#$02</literal></td><td>聞き惚れている</td></tr>
+          <tr><td><literal>#$03</literal></td><td>びっくりしている</td></tr>
+          <tr><td><literal>#$04</literal></td><td>うつむいている</td></tr>
+          <tr><td><literal>#$05</literal></td><td>身震いしている</td></tr>
+          <tr><td><literal>#$06</literal></td><td>絡んでいる</td></tr>
+          <tr><td><literal>#$07</literal></td><td>絡まれている</td></tr>
+          <tr><td><literal>#$08</literal></td><td>気分が悪い</td></tr>
+          <tr><td><literal>#$09</literal></td><td>うっとりしている</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>絡んでいるキャラクター</term>
+    <listitem>
+      <para>
+        この戦闘員が絡まれているときに、相手の遊び人戦闘員を値に取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.combatant.7E2030 -->
+
+<section id="dq3.combatant.methods">
+<title>戦闘キャラクター構造体メソッド</title>
+<para>
+以下に <varname>$7E2030</varname> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
+例によって属性値に直接アクセスすることもある。
+</para>
+<table id="table.dq3.combatant.methods" class="lighttable">
+  <caption>戦闘キャラクター構造体の属性にアクセスするサブルーチン</caption>
+  <thead>
+    <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="center"><varname>$C2CA5B</varname></td><td align="center">2</td><td>x</td><td>2 バイト長の属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2CA62</varname></td><td align="center">2</td><td>y</td><td>2 バイト長の属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2CA98</varname></td><td align="center">2</td><td>a, x</td><td>2 バイト長の属性値を更新する</td></tr>
+    <tr><td align="center"><varname>$C2CAA1</varname></td><td align="center">2</td><td>a, y</td><td>2 バイト長の属性値を更新する</td></tr>
+    <tr><td align="center"><varname>$C2CAD9</varname></td><td align="center">4</td><td>x</td><td>ビットフィールド属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2CAE0</varname></td><td align="center">4</td><td>y</td><td>ビットフィールド属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2CB2B</varname></td><td align="center">4</td><td>x</td><td>ビットフィールド属性値をテストする</td></tr>
+    <tr><td align="center"><varname>$C2CB32</varname></td><td align="center">4</td><td>y</td><td>ビットフィールド属性値をテストする</td></tr>
+    <tr><td align="center"><varname>$C2CB70</varname></td><td align="center">4</td><td>a, x</td><td>ビットフィールド属性値を更新する</td></tr>
+    <tr><td align="center"><varname>$C2CB79</varname></td><td align="center">4</td><td>a, y</td><td>ビットフィールド属性値を更新する</td></tr>
+  </tbody>
+</table>
+<para>
+表の凡例は前作の <xref linkend="dq6.combatant.methods"/> を参照。
+</para>
+</section> <!-- dq3.combatant.methods -->
+</section> <!-- dq3.combatant -->
