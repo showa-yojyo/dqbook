@@ -545,13 +545,13 @@
 </section> <!-- dq3.combatant.7E2030 -->
 
 <section id="dq3.combatant.methods">
-<title>戦闘キャラクター構造体メソッド</title>
+<title>戦闘員構造体メソッド</title>
 <para>
 以下に <varname>$7E2030</varname> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
 例によって属性値に直接アクセスすることもある。
 </para>
 <table id="table.dq3.combatant.methods" class="lighttable">
-  <caption>戦闘キャラクター構造体の属性にアクセスするサブルーチン</caption>
+  <caption>戦闘員構造体の属性にアクセスするサブルーチン</caption>
   <thead>
     <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
   </thead>
@@ -562,7 +562,7 @@
     <tr><td align="center"><varname>$C2CAA1</varname></td><td align="center">2</td><td>a, y</td><td>2 バイト長の属性値を更新する</td></tr>
     <tr><td align="center"><varname>$C2CAD9</varname></td><td align="center">4</td><td>x</td><td>ビットフィールド属性値を取得する</td></tr>
     <tr><td align="center"><varname>$C2CAE0</varname></td><td align="center">4</td><td>y</td><td>ビットフィールド属性値を取得する</td></tr>
-    <tr><td align="center"><varname>$C2CB2B</varname></td><td align="center">4</td><td>x</td><td>ビットフィールド属性値をテストする</td></tr>
+    <tr><td align="center"><varname>$C2CB2B</varname></td><td align="center">4</td><td>x</td><td>ビットフィールド属性値を取得する</td></tr>
     <tr><td align="center"><varname>$C2CB32</varname></td><td align="center">4</td><td>y</td><td>ビットフィールド属性値をテストする</td></tr>
     <tr><td align="center"><varname>$C2CB70</varname></td><td align="center">4</td><td>a, x</td><td>ビットフィールド属性値を更新する</td></tr>
     <tr><td align="center"><varname>$C2CB79</varname></td><td align="center">4</td><td>a, y</td><td>ビットフィールド属性値を更新する</td></tr>
