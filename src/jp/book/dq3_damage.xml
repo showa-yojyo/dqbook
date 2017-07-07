@@ -6,209 +6,159 @@
 ]>
 
 <section id="dq3.damage"><?dbhtml filename="dq3_damage.html" ?>
-<title>ダメージ構造体解析</title>
+<title>ダメージ</title>
 <indexterm id="term.dq3.damage"><primary>ダメージ</primary><secondary>DQ3</secondary></indexterm>
 <para>
-	本章ではダメージ構造体の解析を行う。
-	なお、戦闘行動とキャラクターの状態から決定する、
-	ダメージの計算処理過程全てを解析するものではないことを断っておく。
+本節ではダメージ構造体を説明する。
+ここで議論するのはダメージのいわば基本量についてであり、
+コマンドとキャラクターの状態から決定する、ダメージの計算処理過程の全てを網羅するものではないことを断っておく。
 </para>
 <para>
-	ダメージ構造体関連の議論に出てくる「ダメージ」という用語だが、
-	この意味は、通常の意味に加えて、以下の値をも含意する。
-	<itemizedlist>
-		<listitem>
-			<simpara>HP, MP の回復する値</simpara>
-		</listitem>
-		<listitem>
-			<simpara>ちから、すばやさ等のパラメータの上昇値</simpara>
-		</listitem>
-	</itemizedlist>
+また、ダメージ構造体関連の議論に出てくる「ダメージ」という用語だが、
+本書で言うダメージとは、通常の意味に加えて、回復量や永続的な属性値をも含むものとする。
+抽象的に表現すると「キャラクターの属性値であり、数量的に表現されているものに対する変化量」ということになるだろうか。
 </para>
 
-<section id="dq3.damage.hack">
-<title>解析</title>
-<para>
-	とっくの昔に解析済みである (e.g. <xref linkend="dqref.url1"/>) ため、
-	わざわざ解析作業をしなくて済む。
-	しかしここでは気の済むまで見てみよう。
-</para>
-<para>
-	ダメージ構造体はアドレス <varname>$C23B44</varname> から各データが格納されている。
-	ID からダメージ構造体オブジェクトの格納アドレスを得るために、
-	プログラムは構造体オブジェクト格納アドレスの配列 <varname>$C23C3E</varname> を参照する。
-	<literal>X = ID * 2</literal> として、
-	<code>LDA $C23C3E,X</code> の形でアドレスを得る。
-	これは、データアクセス時間を抑えるという意味も兼ねているのだろう。
-</para>
-<para>
-	<!-- link linkend="dq3.act" -->戦闘行動構造体<!-- /link -->の属性として、
-	この構造体の ID を持つフィールドがある。
-</para>
+<section id="dq3.damage.structure">
+<title>構造に関する構成要素</title>
 
-<section id="dq3.damage.hack.C23BB4">
-<title><varname>$C23BB4</varname> ダメージ構造体</title>
+<section id="dq3.damage.structure.C23BB4">
+<title>構造体 <varname>$C23BB4</varname>: ダメージ</title>
 <para>
-	アドレス <varname>$C23BB4</varname> から数十個、ダメージパターンが定義されている。
-	1 パターン当たりが占めるデータ量は 5byte であり、
-	これが <literal>#$32</literal> (50) 個配列されている。
+アドレス <varname>$C23BB4</varname> から 50 個、ダメージパターンが定義されている。
+各要素のサイズは 5 バイトで、メモリレイアウトは次に示すとおりだ：
 </para>
-<para>
-	本構造体のメモリレイアウトは以下のようになっている。
-	各フィールドは 10bit で表現される。
-</para>
-<table id="table.dq3.C23BB4" class="memorylayout">
-	<caption>$C23BB4 ダメージ構造体</caption>
-	<colgroup>
-		<col span="1" width="12%"/>
-		<col span="7" width="11%"/>
-	</colgroup>
-	<thead>
-		<tr><th>Byte:Bit</th>
-			<th>80</th>
-			<th>40</th>
-			<th>20</th>
-			<th>10</th>
-			<th>08</th>
-			<th>04</th>
-			<th>02</th>
-			<th>01</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr><th>00</th>
-			<td colspan="8">（上位バイトから続き）</td>
-		</tr>
-		<tr><th>01</th>
-			<td colspan="6">（上位バイトから続き）</td>
-			<td colspan="2">敵側への最小値</td>
-		</tr>
-		<tr><th>02</th>
-			<td colspan="4">（上位バイトから続き）</td>
-			<td colspan="4">味方側への最小値</td>
-		</tr>
-		<tr><th>03</th>
-			<td colspan="2">（上位バイトから続き）</td>
-			<td colspan="6">敵側への最大値</td>
-		</tr>
-		<tr><th>04</th>
-			<td colspan="8">味方側への最小値</td>
-		</tr>
-	</tbody>
+<table id="table.dq3.C23BB4" class="lighttable">
+  <caption>構造体 $C23BB4</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$03FF</literal></td><td>自陣側実行時の下限値</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$0FFC</literal></td><td>敵陣側実行時の下限値</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$3FF0</literal></td><td>自陣側実行時の上限値</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$FFC0</literal></td><td>敵陣側実行時の上限値</td></tr>
+  </tbody>
 </table>
-
-<glosslist>
-	<glossentry>
-	<glossterm>敵側への最小値</glossterm>
-	<glossdef>
-		<para>
-			味方側キャラクターから敵側キャラクターへ、
-			例えば攻撃することで発生するダメージの<emphasis>最小値</emphasis>である。
-		</para>
-	</glossdef>
-	</glossentry>
-	<glossentry>
-	<glossterm>味方側への最小値</glossterm>
-	<glossdef>
-		<para>
-			敵側キャラクターから味方側キャラクターへ、
-			例えば攻撃されることで発生するダメージの<emphasis>最小値</emphasis>である。
-		</para>
-	</glossdef>
-	</glossentry>
-	<glossentry>
-	<glossterm>敵側への最大値</glossterm>
-	<glossdef>
-		<para>
-			味方側キャラクターから敵側キャラクターへ、
-			例えば攻撃されることで発生するダメージの<emphasis>最大値</emphasis>である。
-		</para>
-	</glossdef>
-	</glossentry>
-	<glossentry>
-	<glossterm>味方側への最小値</glossterm>
-	<glossdef>
-		<para>
-			敵側キャラクターから味方側キャラクターへ、
-			例えば攻撃されることで発生するダメージの<emphasis>最大値</emphasis>である。
-		</para>
-	</glossdef>
-	</glossentry>
-</glosslist>
-
-</section> <!-- dq3.damage.hack.C23BB4 -->
-
-
-<section id="dq3.damage.hack.C90AF7">
-<title><varname>$C90AF7</varname> ダメージ構造体アクセスサブルーチン</title>
 <para>
-	<varname>$C23BB4</varname> 構造体のメモリレイアウトを解析するには、
-	単に <varname>$C90AF7</varname> サブルーチンを読み切るだけで済むのである。
-	以下にコードを抜粋する。
+各属性の意味を以下に記す：
 </para>
+<variablelist>
+  <varlistentry>
+    <term>自陣側実行時の下限値</term>
+    <term>敵陣側実行時の下限値</term>
+    <listitem>
+      <para>
+        それぞれ自陣側戦闘員と敵陣側戦闘員が実行するコマンドから決まるダメージの下限値を表す属性だ。
+        値が 1,023 のときはマジックナンバーとして取り扱う。
+        このときは後述の抽選を適用せず、値を 65,535 とする。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>自陣側実行時の上限値</term>
+    <term>敵陣側実行時の上限値</term>
+    <listitem>
+      <para>
+        それぞれ自陣側戦闘員と敵陣側戦闘員が実行するコマンドから決まるダメージの上限値を表す属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+<para>
+ROM データをダンプして属性値を検討すると、自陣と敵陣とで威力が異なるコマンドはそれほど多くないことがわかる。
+一部の攻撃コマンドしか該当しない。
+そのようなダメージについては、いずれも自陣実行時のほうが敵陣のそれよりも大きい値が設定されている。
+</para>
+</section> <!-- dq3.damage.structure.C23BB4 -->
 
+<section id="dq3.damage.structure.methods">
+<title>構造体の属性へのアクセス</title>
+<para>
+ダメージ構造体のフィールドにアクセスする専用サブルーチンはいくつかあるのだが、
+実際にプログラムから参照されているものは <varname>$C2CCF8</varname> サブルーチンだけであるようだ。
+このサブルーチンは 4 byte のパラメータをとり、
+その意味はいつもと同じようなものなので、説明を省く。
+</para>
+<table id="table.dq3.damage.methods" class="lighttable">
+  <caption>ダメージ構造体の属性にアクセスするサブルーチン</caption>
+  <thead>
+    <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="center"><varname>$C2CCCF</varname></td><td>2</td><td>x</td><td>2 バイト長の属性値を取得する（未使用）</td></tr>
+    <tr><td align="center"><varname>$C2CCD6</varname></td><td>2</td><td>y</td><td>2 バイト長の属性値を取得する（未使用）</td></tr>
+    <tr><td align="center"><varname>$C2CCF1</varname></td><td>4</td><td>x</td><td>ビットフィールド属性値を取得する（未使用）</td></tr>
+    <tr><td align="center"><varname>$C2CCF8</varname></td><td>4</td><td>y</td><td>ビットフィールド属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2CD13</varname></td><td>4</td><td>x</td><td>ビットフィールド属性値をテストする（未使用）</td></tr>
+    <tr><td align="center"><varname>$C2CD1A</varname></td><td>4</td><td>y</td><td>ビットフィールド属性値をテストする（未使用）</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq3.damage.structure.methods -->
+</section> <!-- dq3.damage.structure -->
+
+<section id="dq3.damage.behavior">
+<title>振る舞いに関する構成要素</title>
+
+<section id="dq3.damage.behavior.C90AF7">
+<title>サブルーチン <varname>$C90AF7</varname>: ダメージ決定サブルーチン</title>
+<para>
+コマンドのダメージ（基本量）を決定するのはサブルーチン <varname>$C90AF7</varname> だ。
+コマンド実行者とコマンドを入力とし、ダメージ量を出力とする関数とみなすのが理解しやすい。
+コードの概要を以下に示す。
+</para>
 <programlisting>
- .routine 戦闘行動のダメージ値決定
-C9/0AF7:    08          PHP 
-C9/0AF8:    8B          PHB 
+C9/0AF7:    08          PHP
+C9/0AF8:    8B          PHB
 C9/0AF9:    C230        REP #$30
 C9/0AFB:    F47E7E      PEA $7E7E
-C9/0AFE:    AB          PLB 
-C9/0AFF:    AB          PLB 
-C9/0B00:    DA          PHX 
-C9/0B01:    5A          PHY 
+C9/0AFE:    AB          PLB
+C9/0AFF:    AB          PLB
+C9/0B00:    DA          PHX
+C9/0B01:    5A          PHY
 C9/0B02:    AEEE23      LDX $23EE
 C9/0B05:    ACE423      LDY $23E4
-C9/0B08:    22E0CAC2    JSR $C2CAE0    <co id="dq3.damage.hack.C90AF7.C2CAE0" />
-C9/0B0C:    3C20        // $7E2030 戦闘キャラ構造体
-C9/0B0E:    FF00        // 戦闘行動の主体が味方側ならば 5
+C9/0B08:    22E0CAC2    JSR $C2CAE0    <co id="dq3.damage.C90AF7.C2CAE0" />
+C9/0B0C:    3C20
+C9/0B0E:    FF00
 C9/0B10:    C90500      CMP #$0005
-C9/0B13:    9030        BCC $0B45      if(a &lt; 5) goto 敵方から味方へのダメージ
-.label 味方側キャラクターからモンスター側ダメージ（素）を決定
-C9/0B15:    A9FFFF      LDA #$FFFF
-C9/0B18:    48          PHA 
-C9/0B19:    2225CCC2    JSR $C2CC25    <co id="dq3.damage.hack.C90AF7.C2CC25.1" />
+C9/0B13:    9030        BCC $0B45      if(a &lt; 5) goto 実行者が敵陣戦闘員
+
+C9/0B15:    A9FFFF      LDA #$FFFF     ; 65,535
+C9/0B18:    48          PHA
+C9/0B19:    2225CCC2    JSR $C2CC25    <co id="dq3.damage.C90AF7.C2CC25.1" />
 C9/0B1D:    7218
 C9/0B1F:    FF00
-C9/0B21:    A8          TAY 
-C9/0B22:    22F8CCC2    JSR $C2CCF8    <co id="dq3.damage.hack.C90AF7.C2CCF8.1" />
-C9/0B26:    443B        // $C23B44 ダメージ構造体::最小値（敵への）
+C9/0B21:    A8          TAY
+C9/0B22:    22F8CCC2    JSR $C2CCF8    <co id="dq3.damage.C90AF7.C2CCF8.1" />
+C9/0B26:    443B
 C9/0B28:    FF03
 C9/0B2A:    C9FF03      CMP #$03FF
-C9/0B2D:    F03E        BEQ $0B6D      if(a == 03FFh) goto 終了
+C9/0B2D:    F03E        BEQ $0B6D      if(属性値 == 1023) goto 終了
 C9/0B2F:    AA          TAX
-C9/0B30:    22F8CCC2    JSR $C2CCF8    <co id="dq3.damage.hack.C90AF7.C2CCF8.2" />
-C9/0B34:    463B        // $C23B44 ダメージ構造体::最大値（敵への）
+C9/0B30:    22F8CCC2    JSR $C2CCF8    <co id="dq3.damage.C90AF7.C2CCF8.2" />
+C9/0B34:    463B
 C9/0B36:    F03F
-                                       // a == ダメージ
-C9/0B38:    802E        BRA $0B68      goto 乱数
-.routine アイテム関連 @x ダメージ値決定
-C9/0B3A:    08          PHP 
-C9/0B3B:    8B          PHB 
-C9/0B3C:    C230        REP #$30
-C9/0B3E:    F47E7E      PEA $7E7E
-C9/0B41:    AB          PLB 
-C9/0B42:    AB          PLB 
-C9/0B43:    DA          PHX 
-C9/0B44:    5A          PHY 
-.label 敵側キャラクターから味方キャラクターへのダメージ（素）を決定
-C9/0B45:    A9FFFF      LDA #$FFFF
-C9/0B48:    48          PHA 
-C9/0B49:    2225CCC2    JSR $C2CC25    <co id="dq3.damage.hack.C90AF7.C2CC25.2" />
+C9/0B38:    802E        BRA $0B68      goto 抽選
+
+.label 実行者が敵陣戦闘員
+C9/0B45:    A9FFFF      LDA #$FFFF     ; 65,535
+C9/0B48:    48          PHA
+C9/0B49:    2225CCC2    JSR $C2CC25    <co id="dq3.damage.C90AF7.C2CC25.2" />
 C9/0B4D:    7218
 C9/0B4F:    FF00
 C9/0B51:    A8          TAY
-C9/0B52:    22F8CCC2    JSR $C2CCF8    <co id="dq3.damage.hack.C90AF7.C2CCF8.3" />
+C9/0B52:    22F8CCC2    JSR $C2CCF8    <co id="dq3.damage.C90AF7.C2CCF8.3" />
 C9/0B56:    453B
 C9/0B58:    FC0F
 C9/0B5A:    C9FF03      CMP #$03FF
-C9/0B5D:    F00E        BEQ $0B6D      if(a == 03FFh) goto 終了
+C9/0B5D:    F00E        BEQ $0B6D      if(属性値 == 1023) goto 終了
 C9/0B5F:    AA          TAX
-C9/0B60:    22F8CCC2    JSR $C2CCF8    <co id="dq3.damage.hack.C90AF7.C2CCF8.4" />
+C9/0B60:    22F8CCC2    JSR $C2CCF8    <co id="dq3.damage.C90AF7.C2CCF8.4" />
 C9/0B64:    473B
 C9/0B66:    C0FF
-.label 乱数
-C9/0B68:    20750B      JSR $0B75      <co id="dq3.damage.hack.C90AF7.rand" />
+.label 抽選
+C9/0B68:    20750B      JSR $0B75      <co id="dq3.damage.C90AF7.rand" />
 C9/0B6B:    8301        STA $01,S
 .label 終了
 C9/0B6D:    68          PLA
@@ -221,62 +171,61 @@ C9/0B73:    68          PLA
 C9/0B74:    6B          RTL
 </programlisting>
 <calloutlist>
-  <callout arearefs="dq3.damage.hack.C90AF7.C2CAE0">
+  <callout arearefs="dq3.damage.C90AF7.C2CAE0">
     <para>
+      <xref linkend="dq3.combatant.methods"/> で述べるように、
       サブルーチン <varname>$C2CAE0</varname> の呼び出しは、
       戦闘キャラクター <literal>Y</literal> の各種状態を表す構造体オブジェクトから、
       指定の状態を取得することを意味する。
     </para>
-    <para>
-      呼び出し位置の直後に実引数がコードに埋め込まれている。
-      これらが取得したい値の相対アドレスとビットマスクを指示する。
-      ここで取得するオフセット<literal>#$203C</literal> からの 1 バイトは、
-      戦闘時におけるキャラクターのグループ番号を示す。
-    </para>
   </callout>
-  <callout arearefs="dq3.damage.hack.C90AF7.C2CC25.1 
-                     dq3.damage.hack.C90AF7.C2CC25.2" >
+  <callout arearefs="dq3.damage.C90AF7.C2CC25.1
+                     dq3.damage.C90AF7.C2CC25.2" >
     <para>
       サブルーチン <varname>$C2CC25</varname> を呼び出し、
-      戦闘オブジェクトのメンバーデータを取得する。
+      戦闘コマンドの属性値を取得する。
       ここでは引数として <literal>#$1872</literal> と <literal>#$00FF</literal> を渡して、
-      この戦闘行動 <literal>X</literal> に関連付けられているダメージデータの ID を取得する。
+      この戦闘コマンド <literal>X</literal> に関連付けられているダメージオブジェクトの ID を取得する。
     </para>
   </callout>
-  <callout arearefs="dq3.damage.hack.C90AF7.C2CCF8.1 
-                     dq3.damage.hack.C90AF7.C2CCF8.2
-                     dq3.damage.hack.C90AF7.C2CCF8.3
-                     dq3.damage.hack.C90AF7.C2CCF8.4" >
+  <callout arearefs="dq3.damage.C90AF7.C2CCF8.1
+                     dq3.damage.C90AF7.C2CCF8.2
+                     dq3.damage.C90AF7.C2CCF8.3
+                     dq3.damage.C90AF7.C2CCF8.4" >
     <para>
       サブルーチン <varname>$C2CCF8</varname> を呼び出し、
-      ダメージオブジェクトから指定のメンバーデータを取得する。
-      ここで与えている引数と、取得するメンバーの対応表は前項を参照。
+      ダメージオブジェクトから指定の属性値を取得する。
+      ここで与えている引数と、取得するメンバーの対応は <xref linkend="table.dq3.C23BB4"/> を参照。
+      オフセットについては <literal>#$3BB4</literal> を <literal>#$00</literal> と解釈し、
+      以下同様とする。
     </para>
   </callout>
-  <callout arearefs="dq3.damage.hack.C90AF7.rand">
+  <callout arearefs="dq3.damage.C90AF7.rand">
     <para>
-      サブルーチン <varname>$0B75</varname> を呼び出し、範囲 <literal>[X, A]</literal> にある乱数を取る。
-      この意図は、ダメージ値からなる集合から、ランダムに値を一つ取るということだ。
+      同バンクサブルーチン <varname>$0B75</varname> を呼び出すことで、
+      範囲 <literal>[X, A]</literal> に含まれる値を抽選する。
       この乱数を <literal>A</literal> に入れた状態でサブルーチンを終了する。
     </para>
   </callout>
 </calloutlist>
-
 <para>
-	ダメージ構造体のフィールドにアクセスする専用サブルーチンはいくつかあるのだが、
-	実際にプログラムから参照されているものは <varname>$C2CCF8</varname> サブルーチンだけであるようだ。
-	このサブルーチンは 4byte のパラメータをとり、
-	その意味はいつもと同じようなものなので、説明を省く。
+このサブルーチンは戦闘中に呼び出される。
 </para>
+</section> <!-- dq3.damage.behavior.C90B3A -->
 
-</section> <!-- dq3.damage.hack.C90AF7 -->
-
-</section> <!-- dq3.damage.hack -->
-
-<section id="dq3.damage.data">
-<title>データ</title>
+<section id="dq3.damage.behavior.C90B3A">
+<title>サブルーチン <varname>$C90B3A</varname>: ダメージ決定サブルーチン</title>
 <para>
-	<xref linkend="appendix.b" />
+こちらのサブルーチンもコマンドのダメージ（基本量）を決定する。
+先ほどのものとは、入力が X レジスターであることしか違わない。コマンド ID からだけでダメージ値を決定する。
+実行者は敵陣側に決め打ちとなる。
 </para>
-</section> <!-- dq3.damage.data -->
+<para>
+このサブルーチンは移動モードのじゅもんまたはどうぐコマンドから利用されている。
+だから実行者を敵陣側ではなく自陣側に決め打ったほうが論理的だと思われるのに、そうなっていない。
+しかし、データ上は戦闘時と移動時の両方で実行できるコマンドについては、
+陣営によらずダメージ量が同じなので問題は起こらない。
+</para>
+</section> <!-- dq3.damage.behavior.C90B3A -->
+</section> <!-- dq3.damage.behavior -->
 </section> <!-- dq3.damage -->
