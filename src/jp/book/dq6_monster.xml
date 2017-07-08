@@ -33,27 +33,27 @@
   <tbody>
     <tr><td><literal>#$00</literal></td><td><literal>#$01FF</literal></td><td>コマンド 0</td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$0002</literal></td><td>コマンドグループ制約フラグ 0</td></tr>
-    <tr><td><literal>#$01</literal></td><td><literal>#$000C</literal></td><td>耐性 00</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$00</literal></td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$00F0</literal></td><td>コマンドアニメーション 0</td></tr>
     <tr><td><literal>#$02</literal></td><td><literal>#$01FF</literal></td><td>コマンド 1</td></tr>
     <tr><td><literal>#$03</literal></td><td><literal>#$0002</literal></td><td>コマンドグループ制約フラグ 1</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$000C</literal></td><td>耐性 01</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$01</literal></td></tr>
     <tr><td><literal>#$03</literal></td><td><literal>#$00F0</literal></td><td>コマンドアニメーション 1</td></tr>
     <tr><td><literal>#$04</literal></td><td><literal>#$01FF</literal></td><td>コマンド 2</td></tr>
     <tr><td><literal>#$05</literal></td><td><literal>#$0002</literal></td><td>コマンドグループ制約フラグ 2</td></tr>
-    <tr><td><literal>#$05</literal></td><td><literal>#$000C</literal></td><td>耐性 02</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$02</literal></td></tr>
     <tr><td><literal>#$05</literal></td><td><literal>#$00F0</literal></td><td>コマンドアニメーション 2</td></tr>
     <tr><td><literal>#$06</literal></td><td><literal>#$01FF</literal></td><td>コマンド 3</td></tr>
     <tr><td><literal>#$07</literal></td><td><literal>#$0002</literal></td><td>コマンドグループ制約フラグ 3</td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$000C</literal></td><td>耐性 03</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$03</literal></td></tr>
     <tr><td><literal>#$07</literal></td><td><literal>#$00F0</literal></td><td>コマンドアニメーション 3</td></tr>
     <tr><td><literal>#$08</literal></td><td><literal>#$01FF</literal></td><td>コマンド 4</td></tr>
     <tr><td><literal>#$09</literal></td><td><literal>#$0002</literal></td><td>コマンドグループ制約フラグ 4</td></tr>
-    <tr><td><literal>#$09</literal></td><td><literal>#$000C</literal></td><td>耐性 04</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$04</literal></td></tr>
     <tr><td><literal>#$09</literal></td><td><literal>#$00F0</literal></td><td>コマンドアニメーション 4</td></tr>
     <tr><td><literal>#$0A</literal></td><td><literal>#$01FF</literal></td><td>コマンド 5</td></tr>
     <tr><td><literal>#$0B</literal></td><td><literal>#$0002</literal></td><td>コマンドグループ制約フラグ 5</td></tr>
-    <tr><td><literal>#$0B</literal></td><td><literal>#$000C</literal></td><td>耐性 05</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$05</literal></td></tr>
     <tr><td><literal>#$0B</literal></td><td><literal>#$00F0</literal></td><td>コマンドアニメーション 5</td></tr>
     <tr><td><literal>#$0C</literal></td><td><literal>#$01FF</literal></td><td>すばやさ</td></tr>
     <tr><td><literal>#$0D</literal></td><td><literal>#$00FE</literal></td><td>レベル</td></tr>
@@ -63,36 +63,36 @@
     <tr><td><literal>#$10</literal></td><td><literal>#$03FF</literal></td><td>守備力</td></tr>
     <tr><td><literal>#$11</literal></td><td><literal>#$001C</literal></td><td>みかわし</td></tr>
     <tr><td><literal>#$11</literal></td><td><literal>#$00E0</literal></td><td>仲間確率</td></tr>
-    <tr><td><literal>#$12</literal></td><td><literal>#$0003</literal></td><td>耐性 06</td></tr>
-    <tr><td><literal>#$12</literal></td><td><literal>#$000C</literal></td><td>耐性 07</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$0003</literal></td><td>耐性 <literal>#$06</literal></td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$07</literal></td></tr>
     <tr><td><literal>#$12</literal></td><td><literal>#$FFF0</literal></td><td>ゴールド</td></tr>
     <tr><td><literal>#$14</literal></td><td><literal>#$01FF</literal></td><td>仲間 AI 推奨コマンド 0</td></tr>
-    <tr><td><literal>#$15</literal></td><td><literal>#$0006</literal></td><td>耐性 08</td></tr>
-    <tr><td><literal>#$15</literal></td><td><literal>#$0018</literal></td><td>耐性 09</td></tr>
-    <tr><td><literal>#$15</literal></td><td><literal>#$0060</literal></td><td>耐性 0A</td></tr>
+    <tr><td><literal>#$15</literal></td><td><literal>#$0006</literal></td><td>耐性 <literal>#$08</literal></td></tr>
+    <tr><td><literal>#$15</literal></td><td><literal>#$0018</literal></td><td>耐性 <literal>#$09</literal></td></tr>
+    <tr><td><literal>#$15</literal></td><td><literal>#$0060</literal></td><td>耐性 <literal>#$0A</literal></td></tr>
     <tr><td><literal>#$15</literal></td><td><literal>#$0080</literal></td><td>メタル系</td></tr>
     <tr><td><literal>#$16</literal></td><td><literal>#$01FF</literal></td><td>仲間 AI 推奨コマンド 1</td></tr>
-    <tr><td><literal>#$17</literal></td><td><literal>#$0006</literal></td><td>耐性 0B</td></tr>
-    <tr><td><literal>#$17</literal></td><td><literal>#$0018</literal></td><td>耐性 0C</td></tr>
-    <tr><td><literal>#$17</literal></td><td><literal>#$0060</literal></td><td>耐性 0D</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$0006</literal></td><td>耐性 <literal>#$0B</literal></td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$0018</literal></td><td>耐性 <literal>#$0C</literal></td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$0060</literal></td><td>耐性 <literal>#$0D</literal></td></tr>
     <tr><td><literal>#$17</literal></td><td><literal>#$0080</literal></td><td>ドラゴン系</td></tr>
-    <tr><td><literal>#$18</literal></td><td><literal>#$0003</literal></td><td>耐性 0E</td></tr>
-    <tr><td><literal>#$18</literal></td><td><literal>#$000C</literal></td><td>耐性 0F</td></tr>
-    <tr><td><literal>#$18</literal></td><td><literal>#$0030</literal></td><td>耐性 10</td></tr>
-    <tr><td><literal>#$18</literal></td><td><literal>#$00C0</literal></td><td>耐性 11</td></tr>
-    <tr><td><literal>#$19</literal></td><td><literal>#$0003</literal></td><td>耐性 12</td></tr>
-    <tr><td><literal>#$19</literal></td><td><literal>#$000C</literal></td><td>耐性 13</td></tr>
-    <tr><td><literal>#$19</literal></td><td><literal>#$0030</literal></td><td>耐性 14</td></tr>
-    <tr><td><literal>#$19</literal></td><td><literal>#$00C0</literal></td><td>耐性 15</td></tr>
-    <tr><td><literal>#$1A</literal></td><td><literal>#$0003</literal></td><td>耐性 16</td></tr>
-    <tr><td><literal>#$1A</literal></td><td><literal>#$000C</literal></td><td>耐性 17</td></tr>
-    <tr><td><literal>#$1A</literal></td><td><literal>#$0030</literal></td><td>耐性 18</td></tr>
-    <tr><td><literal>#$1A</literal></td><td><literal>#$00C0</literal></td><td>耐性 19</td></tr>
-    <tr><td><literal>#$1B</literal></td><td><literal>#$0003</literal></td><td>耐性 1A</td></tr>
-    <tr><td><literal>#$1B</literal></td><td><literal>#$000C</literal></td><td>耐性 1B</td></tr>
-    <tr><td><literal>#$1B</literal></td><td><literal>#$0030</literal></td><td>耐性 1C</td></tr>
-    <tr><td><literal>#$1B</literal></td><td><literal>#$00C0</literal></td><td>耐性 1D</td></tr>
-    <tr><td><literal>#$1C</literal></td><td><literal>#$0003</literal></td><td>耐性 1E</td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$0003</literal></td><td>耐性 <literal>#$0E</literal></td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$0F</literal></td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$0030</literal></td><td>耐性 <literal>#$10</literal></td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$00C0</literal></td><td>耐性 <literal>#$11</literal></td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$0003</literal></td><td>耐性 <literal>#$12</literal></td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$13</literal></td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$0030</literal></td><td>耐性 <literal>#$14</literal></td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$00C0</literal></td><td>耐性 <literal>#$15</literal></td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0003</literal></td><td>耐性 <literal>#$16</literal></td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$17</literal></td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0030</literal></td><td>耐性 <literal>#$18</literal></td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$00C0</literal></td><td>耐性 <literal>#$19</literal></td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$0003</literal></td><td>耐性 <literal>#$1A</literal></td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$1B</literal></td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$0030</literal></td><td>耐性 <literal>#$1C</literal></td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$00C0</literal></td><td>耐性 <literal>#$1D</literal></td></tr>
+    <tr><td><literal>#$1C</literal></td><td><literal>#$0003</literal></td><td>耐性 <literal>#$1E</literal></td></tr>
     <tr><td><literal>#$1C</literal></td><td><literal>#$000C</literal></td><td>初期確率</td></tr>
     <tr><td><literal>#$1C</literal></td><td><literal>#$0010</literal></td><td>ゾンビ系</td></tr>
     <tr><td><literal>#$1C</literal></td><td><literal>#$0020</literal></td><td>そら系</td></tr>
@@ -157,7 +157,7 @@
     <listitem>
       <para>
         コマンドアニメーション k とは、このモンスターがコマンド k を実行するときのアニメーションパターンを指示する値を取る属性だ。
-        グループ制約の都合上、k の値は 6 のものまで存在する。
+        グループ制約や選択能力の都合上、k の値は 6 のものまで存在する。
         アニメーションについては別の節で述べる。
       </para>
     </listitem>
@@ -193,7 +193,7 @@
     <term>アイテム確率</term>
     <listitem>
       <para>
-        アイテム確率とは、戦闘終了後にこのモンスターが（他に条件が加わらないときの）宝箱を落とす確率を制御する値の配列の添字を値とする属性だ。
+        アイテム確率とは、戦闘終了後にこのモンスターが（他に条件が加わらないときの）宝箱を落とす確率を決定する値の配列の添字を値とする属性だ。
         その配列とは <varname>$C2B1C3</varname> であり、その要素らが意味するところは次の表のようになる：
       </para>
       <table id="table.dq6.C2B1C3" class="lighttable">
@@ -219,10 +219,10 @@
     <listitem>
       <para>
         コマンド決定戦略とは、このモンスターが自身の実行するコマンドの選択傾向を表す属性だ。
-        取り得る値は 0..7 であり、0..3 と 4..7 で意味合いが異なる。
+        取り得る値は 0..7 であり、0..3 と 4..7 とで意味合いが異なる。
       </para>
       <para>
-        値が 0..3 であれば、配列 <varname>$C24549</varname> で決められた確率表に従う抽選でコマンドを決める。
+        値が 0..3 であれば、配列 <varname>$C24549</varname> で決められた確率表に従う抽選でコマンドを決める。ここで分母は 256 とみなす。
         ただし、同一グループ制約があり先約済みであれば、その項目を選択失敗とする。
       </para>
       <table id="table.dq6.C24549" class="lighttable">
@@ -520,7 +520,7 @@
     <term>パレット</term>
     <listitem>
       <para>
-        スプライトとは、画面上に描画されるモンスターのイメージの色彩データを指示する属性だ。
+        パレットとは、画面上に描画されるモンスターのイメージの色彩データを指示する属性だ。
         詳細は調査中。
       </para>
     </listitem>
