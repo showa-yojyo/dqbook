@@ -31,7 +31,7 @@ INSTALL_DATA = cp -ru
 MKDIR = mkdir -p
 RUN_HHC = ~/bin/runhhc.bat
 
-BOOK_VERSION = 1.15
+BOOK_VERSION = 1.15.1
 
 # You should not normally need to edit anything below here.
 SHELL = /bin/sh
