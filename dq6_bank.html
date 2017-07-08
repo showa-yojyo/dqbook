@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.10. ゴールド銀行</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_forge.html" title="4.9. おしゃれなカジヤ" />
+    <link rel="next" href="dq6_rename.html" title="4.11. 命名神" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_forge.html" title="4.9. おしゃれなカジヤ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_rename.html" title="4.11. 命名神"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_forge.html">4.9. おしゃれなカジヤ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_rename.html">4.11. 命名神</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.bank"></a>4.10. ゴールド銀行</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_bank.html#dq6.bank.structure">4.10.1. データ構造</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq6_bank.html#dq6.bank.behavior">4.10.2. 処理手順</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq6.bank" class="indexterm"></a>
+      <p>
+本節ではゴールド銀行に関係のあるデータ構造および処理手順について述べる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.bank.structure"></a>4.10.1. データ構造</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+いずれのゴールド銀行においても営業内容が同一であるため、ROM には専用データがない。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.bank.behavior"></a>4.10.2. 処理手順</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+はなすオブジェクトがゴールド銀行であるならば、その振る舞いは基本的に次のようになる：
+</p>
+        <pre class="programlisting">
+CA/B6FF:    228366CD    JSR $CD6683         ; ゴールド銀行
+CA/B703:    6B          RTL
+</pre>
+        <p>
+サブルーチン <code class="varname">$CD6683</code> は結局 <code class="varname">$C1F7D1</code> を呼び出すことしかしないので、
+本書では後者のほうをゴールド銀行共通処理と位置付ける。
+このコードは対話的な処理を含むので、比較的長いものとなっている。
+要点を以下に列挙する：
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist" style="list-style-type: disc; ">
+            <li class="listitem">
+              <p>
+      初回訪問時には専用の台詞を表示する。
+      <code class="varname">$7E3D2C</code> の <code class="literal">#$0002</code> をフラグとして用いる。
+      この台詞を表示した直後にフラグを立てる。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      サービス内容は「あずける」または「ひきだす」のどちらか。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      預金額はアドレス <code class="varname">$7E3EA5</code> に 1,000 ゴールド単位で表現されている。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      預金単位で 10,001 以上になるようなゴールドを預けようとすると、銀行員から断られる。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      所持金以上のゴールドを預けようとすると、銀行員から断られる。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      預金ゼロの状態で任意の金額を引き出そうとすると、銀行員から冗談を言うなと起こられる。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      預金額を超えるゴールドを引き出そうとすると、銀行員から断られる。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      引き出すと所持金が 1,000,000 ゴールド以上になるようだと、銀行員から断られる。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      利用状況の如何を問わず、最後に預金残高を台詞の形で知らせる。
+    </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_forge.html" title="4.9. おしゃれなカジヤ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_rename.html" title="4.11. 命名神"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_forge.html">4.9. おしゃれなカジヤ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_rename.html">4.11. 命名神</a></div>
+  </body>
+</html>

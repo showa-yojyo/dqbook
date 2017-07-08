@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.28. オルレラの泉</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_search.html" title="5.27. しらべる" />
+    <link rel="next" href="dq3_gallery.html" title="5.29. バカ画像" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_search.html" title="5.27. しらべる"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_gallery.html" title="5.29. バカ画像"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_search.html">5.27. しらべる</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_gallery.html">5.29. バカ画像</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.pond"></a>5.28. オルレラの泉</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_pond.html#dq3.pond.CCED57">5.28.1. イベント開始サブルーチン</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq3_pond.html#dq3.pond.CBA5D6">5.28.2. オルレラとの初回でのやりとり</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq3_pond.html#dq3.pond.CBA581">5.28.3. オルレラとの二回目以降でのやりとり</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq3.pond" class="indexterm"></a>
+      <div class="caution" style="margin-left: 0.5in; margin-right: 0.5in;">
+        <table border="0" summary="Caution">
+          <tr>
+            <td rowspan="2" align="center" valign="top" width="25">
+              <img alt="[注意]" src="image/docbook/caution.png" />
+            </td>
+            <th align="left">注意</th>
+          </tr>
+          <tr>
+            <td align="left" valign="top">
+              <p>
+この節は現在執筆中。
+</p>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <p>
+フィールド上で、ムオルの村辺りから海を渡り北東の湖の左下ら辺に足を踏み入れると、
+画面が切り替わり、神秘的な雰囲気の泉が現れる。
+そして、泉の中心付近に立ち入ると、先頭キャラクターが武器を泉に落としてしまい、
+直ちに泉の精霊を自称するオルレラなる存在が出現する。
+</p>
+      <p>
+その後、パーティーメンバーとオルレラとの間で、落し物についての質疑応答が始まる。
+これは有名な童話を下敷きにしているのは明白なのだが、
+オリジナルの童話の結論とは異なり、嘘つきに取り返しの付かない損害を受けるわけでもなく、
+また、正直者にありがたい利益があるわけでもない。
+</p>
+      <p>
+このイベントはそもそもファミコン版にはなかった。
+リメイク版でわざわざ新しく導入したイベントであるハズなのに、
+しかし実際プレイしてみると童話よりもつまらない結末になる。
+これはどうしたことだろうか。
+それとも、うまく立ち回れば意外な結果を引き起こせるのだろうか。
+このイベントを処理するコードをおおまかに解析し、ある程度の真実を明らかにするのが本稿の目的だ。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.pond.CCED57"></a>5.28.1. イベント開始サブルーチン</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+オルレラの泉イベントを開始するサブルーチンコードの発見は、トレースログの単純な分析による。
+このサブルーチンの呼び出しタイミングは、
+パーティーがフィールドマップから、この泉のフロアへ進入した時点だとみなして構わない。
+</p>
+        <p>
+サブルーチン <code class="varname">$CCED57</code> の処理コードを以下に示す。
+</p>
+        <pre class="programlisting">
+CC/ED57:    AD5435      LDA $3554
+CC/ED5A:    292000      AND #$0020
+CC/ED5D:    D003        BNE $ED62
+CC/ED5F:    4C69ED      JMP $ED69     <a id="dq3.pond.co.flag"></a><span><img src="image/docbook/callouts/1.png" alt="1" border="0" /></span>
+
+CC/ED62:    2281A5CB    JSR $CBA581   <a id="dq3.pond.co.second"></a><span><img src="image/docbook/callouts/2.png" alt="2" border="0" /></span>
+CC/ED66:    4C6DED      JMP $ED6D
+
+CC/ED69:    22D6A5CB    JSR $CBA5D6   <a id="dq3.pond.co.first"></a><span><img src="image/docbook/callouts/3.png" alt="3" border="0" /></span>
+CC/ED6D:    6B          RTL
+</pre>
+        <div class="calloutlist">
+          <table border="0" summary="Callout list">
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#dq3.pond.co.flag"><span><img src="image/docbook/callouts/1.png" alt="1" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+    変数 <code class="varname">$7E3554</code> の特定のビットの ON/OFF により、呼び出すサブルーチンを選択する。
+    後述の通り、このフラグのセットはサブルーチン <code class="varname">$CBA5D6</code> が行う（<a class="xref" href="dq3_pond.html#dq3.pond.CBA5D6" title="5.28.2. オルレラとの初回でのやりとり">5.28.2 オルレラとの初回でのやりとり</a>）。
+    </p>
+              </td>
+            </tr>
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#dq3.pond.co.second"><span><img src="image/docbook/callouts/2.png" alt="2" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+    オルレラ出現が二度目以降である場合、初回とは異なる会話になる。
+    それを実装するサブルーチンが <code class="varname">$CBA581</code>（<a class="xref" href="dq3_pond.html#dq3.pond.CBA581" title="5.28.3. オルレラとの二回目以降でのやりとり">5.28.3 オルレラとの二回目以降でのやりとり</a>）だ。
+    </p>
+              </td>
+            </tr>
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#dq3.pond.co.first"><span><img src="image/docbook/callouts/3.png" alt="3" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+    オルレラが初めてパーティーの前に姿を現わす場合の処理をするサブルーチン
+    <code class="varname">$CBA5D6</code>（<a class="xref" href="dq3_pond.html#dq3.pond.CBA5D6" title="5.28.2. オルレラとの初回でのやりとり">5.28.2 オルレラとの初回でのやりとり</a>）を呼びだす。
+    </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.pond.CBA5D6"></a>5.28.2. オルレラとの初回でのやりとり</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+サブルーチン <code class="varname">$CBA5D6</code> は、先頭キャラクターが武器を落としてから、
+オルレラが出現して消えていくまでを処理する。
+アセンブルコードを掲載しても面白くないゆえ、ポイントを以下に示すのみとする。
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist" style="list-style-type: disc; ">
+            <li class="listitem">
+              <p>
+    先頭キャラクターが武器を泉に落とすところから、
+    オルレラが泉から姿を現し、名を名乗るシーンまではサブルーチン
+    <code class="varname">$CBA509</code> の呼び出しで実現している。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+    オルレラのイベント一連のサブルーチンで共通した方式なのだが、
+    台詞とナレーションの表示はすべて BRK 命令による。
+    すなわち、メッセージ ID を表す 2 バイトの仮想的な実引数を取るパターンだ。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+    サブルーチン <code class="varname">$CDAC66</code> の呼び出しは、「はい・いいえ」ウィンドウの表示と入力待ち処理を実現する。
+    プレイヤーが「はい」を選択したときに限り、レジスターの Carry ビットが立つ。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+    先頭キャラクターが落とした武器を示すアイテム ID が格納されているのは <code class="varname">$7E362A</code> だ。
+    一連の処理では、この値が「ひのきのぼう」または「まじんのオノ」であるときに、処理が分岐してくる。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+    このサブルーチンから呼びだすサブルーチンの中で、
+    オルレラが何かを行う処理がいくつかある。
+    それを呼び出しの起こるのが早い順番に挙げると、以下のようになる。
+    </p>
+              <div class="variablelist">
+                <dl class="variablelist">
+                  <dt>
+                    <span class="term">
+                      <code class="varname">$CBA509</code>
+                    </span>
+                  </dt>
+                  <dd>
+                    <p>
+          先頭キャラクターが武器を泉に落とすところから、
+          オルレラが泉から姿を現し、名を名乗るシーンまでを処理する。
+          </p>
+                  </dd>
+                  <dt>
+                    <span class="term">
+                      <code class="varname">$CBA66B</code>
+                    </span>
+                  </dt>
+                  <dd>
+                    <p>
+          オルレラが泉に落とした武器そのものを返す処理。最も一般的な場合のもの。
+          </p>
+                  </dd>
+                  <dt>
+                    <span class="term">
+                      <code class="varname">$CBA69F</code>
+                    </span>
+                  </dt>
+                  <dd>
+                    <p>
+          オルレラが「あなたは欲がないようですね」と言い、
+          「ひのきのぼう」を受け渡す処理。
+          </p>
+                  </dd>
+                  <dt>
+                    <span class="term">
+                      <code class="varname">$CBA6D3</code>
+                    </span>
+                  </dt>
+                  <dd>
+                    <p>
+          再び泉に潜り、「まじんのオノ」を提示するところからの処理。
+          ここは少々込み入った処理になる。
+          </p>
+                  </dd>
+                </dl>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.pond.CBA581"></a>5.28.3. オルレラとの二回目以降でのやりとり</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+サブルーチン <code class="varname">$CBA581</code> は、パーティーが再び武器を泉に落としたときの処理を行う。
+今度のオルレラは、すぐには武器を見つけてくれない。
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist" style="list-style-type: disc; ">
+            <li class="listitem">
+              <p>
+    初回同様、最初にサブルーチン <code class="varname">$CBA509</code> の呼び出しでオルレラの出現までの処理を行う。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+    二度目以降はオルレラが「以前にも落としたのでは？」のような質問をするのがポイント。
+    ここで「はい・いいえ」ウィンドウを表示して、プレイヤーの回答を待つ。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+    このサブルーチンから呼びだすサブルーチンの中で、
+    オルレラが何かを行う処理がふたつある。
+    </p>
+              <div class="variablelist">
+                <dl class="variablelist">
+                  <dt>
+                    <span class="term">
+                      <code class="varname">$CBA786</code>
+                    </span>
+                  </dt>
+                  <dd>
+                    <p>
+          オルレラが落としたものを拾ってくると言い水に潜るが、
+          落し物が見つからなかったという展開になる場合の処理。
+          落とした武器がパーティーに戻るまでを制御する。
+          </p>
+                  </dd>
+                  <dt>
+                    <span class="term">
+                      <code class="varname">$CBA6BB</code>
+                    </span>
+                  </dt>
+                  <dd>
+                    <p>
+          オルレラがわざと武器を再び落とされたことを知り、怒る結果になるときの処理。
+          怒りながらも、パーティーが落とした武器をそのまま返す。
+          </p>
+                  </dd>
+                </dl>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_search.html" title="5.27. しらべる"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_gallery.html" title="5.29. バカ画像"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_search.html">5.27. しらべる</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_gallery.html">5.29. バカ画像</a></div>
+  </body>
+</html>

@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.13. アイテム</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_vocations.html" title="4.12. 職業" />
+    <link rel="next" href="dq6_monster.html" title="4.14. モンスター" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_vocations.html" title="4.12. 職業"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_monster.html" title="4.14. モンスター"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_vocations.html">4.12. 職業</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_monster.html">4.14. モンスター</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.item"></a>4.13. アイテム</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_item.html#dq6.item.C4003D">4.13.1. 構造体 <code class="varname">$C4003D</code>: アイテム</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq6_item.html#dq6.item.methods">4.13.2. アイテム構造体メソッド</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq6.item" class="indexterm"></a>
+      <p>
+本節ではアイテム一般のデータ構造について述べる。
+アイテムを表現する構造体をメンバーごとに簡単に解説した後、
+プログラムがそれらの属性をどのように参照や更新するのかについてまとめていく。
+</p>
+      <p>
+アイテムの引き起こす振る舞いについては、移動モードと戦闘モードの両方について考慮する必要がある。
+前者については <a class="xref" href="dq6_item_commands.html" title="4.22. 移動中の道具使用コマンド処理">4.22 移動中の道具使用コマンド処理</a> で述べる。
+後者については戦闘コマンドとして実装されているので <a class="xref" href="dq6_battle_commands.html" title="4.20. 戦闘コマンド">4.20 戦闘コマンド</a> が関連項目となる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.item.C4003D"></a>4.13.1. 構造体 <code class="varname">$C4003D</code>: アイテム</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+次の表に示すようなメモリレイアウトの構造体オブジェクトがアドレス <code class="varname">$C4003D</code> から 256 個配列されている。
+本章ではこの型をアイテム構造体と呼ぶことにする：
+</p>
+        <div class="table">
+          <a id="table.dq6.C4003D"></a>
+          <p class="title">
+            <strong>表 4.49 構造体 $C4003D</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq6.C4003D" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>名前</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td rowspan="2">価格</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>アイテム分類</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>装備作用属性</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>属性値変化量</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>かっこよさ変化量</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0001</code>
+                  </td>
+                  <td>永続フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>処分許可フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0004</code>
+                  </td>
+                  <td>安全フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0008</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0010</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$00</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0020</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$01</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0040</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$02</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0080</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$03</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0001</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$04</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$05</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0004</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$06</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0008</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$07</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0010</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$08</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0020</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$09</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0040</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$0A</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0080</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$0B</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0001</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$0C</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$0D</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0004</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$0E</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0008</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$0F</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0010</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$10</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0020</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$11</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0040</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$12</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0080</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$13</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0001</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$14</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$15</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0004</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$16</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0008</code>
+                  </td>
+                  <td>装備者 <code class="literal">#$17</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0010</code>
+                  </td>
+                  <td>整理フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$1FE0</code>
+                  </td>
+                  <td>戦闘時攻撃アニメーション</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00E0</code>
+                  </td>
+                  <td>消費度</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>つかうコマンドメッセージ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$13</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>鑑定メッセージ <code class="literal">#$00</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$15</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>鑑定メッセージ <code class="literal">#$01</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$17</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td rowspan="2">カジノコイン交換枚数</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$19</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+以下に各属性の概要を記す。
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">名前</span>
+            </dt>
+            <dd>
+              <p>
+        このアイテムの名前を表す文字列の ID を値とする属性だ。
+        この文字列は仲間キャラクターの所持品リストウィンドウや店屋のメニューウィンドウに表示される。
+      </p>
+              <p>
+        文字列については <a class="xref" href="dq6_string.html" title="4.2. 文字列">4.2 文字列</a> で述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">価格</span>
+            </dt>
+            <dd>
+              <p>
+        価格とは、このアイテムを店屋で購入するときに必要となるゴールドの値を表す属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">アイテム分類</span>
+            </dt>
+            <dd>
+              <p>
+        すべてのアイテムオブジェクトをこの属性値で分類することができる。下の表のような意味がある：
+      </p>
+              <div class="table">
+                <a id="table.dq6.item.classification"></a>
+                <p class="title">
+                  <strong>表 4.50 アイテム分類</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq6.item.classification" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>値</th>
+                        <th>分類</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>0</th>
+                        <td>武器</td>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <td>装飾品</td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <td>道具</td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <td>鎧</td>
+                      </tr>
+                      <tr>
+                        <th>4</th>
+                        <td>盾</td>
+                      </tr>
+                      <tr>
+                        <th>5</th>
+                        <td>兜</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+            </dd>
+            <dt>
+              <span class="term">装備作用属性</span>
+            </dt>
+            <dd>
+              <p>
+        装備作用属性とは、このアイテムを装備する仲間キャラクターに対して、
+        どの属性値を増加させるのかを表す値を取る属性だ。
+        値と作用する仲間キャラクター型の属性との対応を次の表に示す：
+      </p>
+              <div class="table">
+                <a id="table.dq6.item.applications"></a>
+                <p class="title">
+                  <strong>表 4.51 装備作用属性</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq6.item.applications" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>値</th>
+                        <th>作用する属性</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>0</td>
+                        <td>なし</td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>攻撃力</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>すばやさ</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>守備力</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+            </dd>
+            <dt>
+              <span class="term">属性値変化量</span>
+            </dt>
+            <dd>
+              <p>
+        属性値変化量とは、このアイテムを装備する仲間キャラクターに対して、
+        装備作用属性の値をどの値だけ増減させるのかを表す値を取る属性だ。
+        例えば、この属性値が 100 で装備作用属性値が 1 ならば、
+        攻撃力を 100 ポイント増加させることを意味する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">かっこよさ変化量</span>
+            </dt>
+            <dd>
+              <p>
+        かっこよさ変化量とは、このアイテムを装備する仲間キャラクターに対して、
+        そのかっこよさ属性値をどの値だけ増減させるのかを表す値を取る属性だ。
+      </p>
+              <p>
+        この属性値に関しては負の値であるものがある。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">永続フラグ</span>
+            </dt>
+            <dd>
+              <p>
+        永続フラグとは、このアイテムを「つかう」ことによって、
+        オブジェクトが消滅せず、道具袋に残るかどうかを意味するブーリアン値を取る属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">処分許可フラグ</span>
+            </dt>
+            <dd>
+              <p>
+        処分許可フラグとは、このアイテムを捨てたり売ったりすることが許されているかどうかを意味するブーリアン値を取る属性だ。
+        宝箱等からこのアイテムを発見したときに効果音が再生されるか否かについても、この属性値で決まる。
+      </p>
+              <p>
+        この属性値が 0 ならば、永続フラグ属性値は 1 でなければならないと思わがちだが、
+        「せかいじゅのしずく」や「ときのすな」のような用例のものはその限りではない。
+        余談になるが、「ときのすな」を一度使うと消滅してしまうのはこれらの属性値から生じる現象ではなく、
+        別に存在する不具合による。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">安全フラグ</span>
+            </dt>
+            <dd>
+              <p>
+        安全フラグとは、このアイテムが装備について安全であるかどうかを意味するブーリアン値を取る属性だ。
+        といっても、プログラムを読み解いた限りでは、この属性値は意味のある使われ方をしていないようだ。
+        本作では呪いの状態の概念が存在しないからだ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">装備者 k (k = <code class="literal">#$00</code>..<code class="literal">#$17</code>)</span>
+            </dt>
+            <dd>
+              <p>
+        <a class="xref" href="dq6_character_traits.html#dq6.character.traits.C8BD12" title="4.16.1. 構造体 $C8BD12: 仲間キャラクター特性">4.16.1 構造体 <code class="varname">$C8BD12</code>: 仲間キャラクター特性</a> の属性「装備グループ」の項を参照して欲しい。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">整理フラグ</span>
+            </dt>
+            <dd>
+              <p>
+        整理フラグとは、移動中の「どうぐせいり」コマンドによって、
+        仲間キャラクターの装備状態にない所持品が「ふくろ」に収納されるかどうかを意味するブーリアン値を取る属性だ。
+        例えば「けんじゃのいし」等の回復用品や「まほうのじゅうたん」等の移動用品に 1 が設定されている。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">戦闘時攻撃アニメーション</span>
+            </dt>
+            <dd>
+              <p>
+        戦闘において、仲間キャラクターがこのアイテムを装備して標準攻撃コマンドを実行するときのアニメーションを指定する属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">消費度</span>
+            </dt>
+            <dd>
+              <p>
+        消費度とは、このアイテムを「インパス」コマンドで鑑定するときの内容を指示する属性値だ。
+        値と鑑定内容の対応は次のようなものだ：
+      </p>
+              <div class="table">
+                <a id="table.dq6.item.consumption"></a>
+                <p class="title">
+                  <strong>表 4.52 消費度</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq6.item.consumption" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>値</th>
+                        <th>鑑定結果</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>0</th>
+                        <td>言及なし</td>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <td>一度きりの使い捨て</td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <td>永続性がある</td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <td>壊れることがある</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+              <p>
+        先の永続性フラグ属性との違いは、「使う」の意味合いの違いから来るようだ。
+        永続性フラグでの「使う」はコマンドとしての「つかう」に対応し、
+        本属性での「使う」はそれに加えて、それ以外の状況での利用をも考慮して意味を表しているようだ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">つかうコマンドメッセージ</span>
+            </dt>
+            <dd>
+              <p>
+        移動中にこのアイテムを「つかう」と（何も起こらないようなときに）表示されるメッセージの ID を値とする属性だ。
+      </p>
+              <p>
+        移動中のメッセージウィンドウに描画されるテキストについては
+        <a class="xref" href="dq6_text.html" title="4.3. テキスト">4.3 テキスト</a> で述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">鑑定メッセージ k (k = <code class="literal">#$00</code>..<code class="literal">#$01</code>)</span>
+            </dt>
+            <dd>
+              <p>
+        このアイテムを「インパス」コマンドで鑑定するときにメッセージウィンドウに描画されるメッセージの ID を値とする属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">カジノコイン交換枚数</span>
+            </dt>
+            <dd>
+              <p>
+        このアイテムをカジノの景品交換所で購入するときに必要となるコインの枚数を表す属性だ。
+      </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.item.methods"></a>4.13.2. アイテム構造体メソッド</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+以下に <code class="varname">$C4003D</code> 構造体の各属性を参照するためのサブルーチンの一覧を示す。
+アイテム ID の他に、他の構造体（仲間キャラクター構造体）をも呼び出し側が指定する必要があるものについては掲載しない。
+</p>
+        <div class="table">
+          <a id="table.dq6.item.methods"></a>
+          <p class="title">
+            <strong>表 4.53 アイテム構造体メソッド</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq6.item.methods" class="lighttable">
+              <thead>
+                <tr>
+                  <th>サブルーチン</th>
+                  <th>固定引数長</th>
+                  <th>入力</th>
+                  <th>出力</th>
+                  <th>機能</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C45EB8</code>
+                  </td>
+                  <td>2</td>
+                  <td>par0</td>
+                  <td>par1</td>
+                  <td>名前文字列を取得</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C45EEC</code>
+                  </td>
+                  <td>2</td>
+                  <td>par0</td>
+                  <td>par1</td>
+                  <td>価格を取得</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C45F3C</code>
+                  </td>
+                  <td>2</td>
+                  <td>par0</td>
+                  <td>par1</td>
+                  <td>下取価格を取得</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C460B7</code>
+                  </td>
+                  <td>2</td>
+                  <td>par0</td>
+                  <td>par1</td>
+                  <td>攻撃力の変化量</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C46104</code>
+                  </td>
+                  <td>2</td>
+                  <td>par0</td>
+                  <td>par1</td>
+                  <td>守備力の変化量</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C46151</code>
+                  </td>
+                  <td>2</td>
+                  <td>par0</td>
+                  <td>par1</td>
+                  <td>すばやさの変化量</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C461CC</code>
+                  </td>
+                  <td>2</td>
+                  <td>par0</td>
+                  <td>par1</td>
+                  <td>かっこよさの変化量</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C461FA</code>
+                  </td>
+                  <td>1</td>
+                  <td>par0</td>
+                  <td>c</td>
+                  <td>処分禁止かどうかを判定</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C4624D</code>
+                  </td>
+                  <td>0</td>
+                  <td>A</td>
+                  <td>A</td>
+                  <td>装備作用属性を取得</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+固定引数長とあるのは、各 JSR 命令に続く非プログラムバイト列の長さのことだ。
+入力列および出力列に現れる par0 および par1 は、固定引数列の 0 および 1 バイト目の値が示す何らかのアドレスまたはレジスターを意味する。
+例えば値が <code class="literal">4A</code> ならばアドレス <code class="literal">$4A</code> を意味し、
+値が <code class="literal">FF</code>, <code class="literal">FE</code>, <code class="literal">FD</code> ならばレジスター A, X, Y をそれぞれ指定していることを意味する。
+小文字の c は carry レジスターを意味する。
+</p>
+        <p>
+例として、アイテムのかっこよさを参照する処理を一つ挙げておく。
+ここでは <code class="varname">$C461CC</code> の入力と出力がそれぞれ A と X レジスターとなる。
+負であるかもしれない値と正の定数との大小比較のコードについてはここでの本題ではないので説明を省く。
+</p>
+        <pre class="programlisting">
+C1/FB27:    AD4230      LDA $3042           ; アイテム ID
+C1/FB2A:    22CC61C4    JSR $C461CC         ; かっこよさの変化量
+C1/FB2E:    FFFE
+C1/FB30:    8A          TXA
+C1/FB31:    3005        BMI $FB38
+C1/FB33:    C91500      CMP #$0015
+C1/FB36:    B003        BCS $FB3B           if(かっこよさ &lt; 0 || かっこよさ &lt; 20){
+C1/FB38:    006719      BRK #$1967              ; message #$1967: [DE]ああ こりゃひどい！ センスの[AD]かけらもないや！ (...)
+                                            }
+</pre>
+        <p>
+なお、この表にないアイテム属性の参照には、<code class="varname">$C92C39</code> 等の汎用の構造体メンバー参照サブルーチンを用いる。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_vocations.html" title="4.12. 職業"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_monster.html" title="4.14. モンスター"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_vocations.html">4.12. 職業</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_monster.html">4.14. モンスター</a></div>
+  </body>
+</html>

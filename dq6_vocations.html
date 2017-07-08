@@ -1,0 +1,1720 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.12. 職業</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_rename.html" title="4.11. 命名神" />
+    <link rel="next" href="dq6_item.html" title="4.13. アイテム" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_rename.html" title="4.11. 命名神"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_item.html" title="4.13. アイテム"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_rename.html">4.11. 命名神</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_item.html">4.13. アイテム</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.vocations"></a>4.12. 職業</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_vocations.html#dq6.vocations.C41C3E">4.12.1. 構造体 <code class="varname">$C41C3E</code>: 職業構造体</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq6_vocations.html#dq6.vocations.privilege">4.12.2. 職業に就いていることによる特典</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege.03">4.12.2.1. ぶとうか</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege.06">4.12.2.2. おどりこ</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege.07">4.12.2.3. とうぞく</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege.08">4.12.2.4. まものつかい</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege.09">4.12.2.5. しょうにん</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege.0A">4.12.2.6. あそびにん</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege.0B">4.12.2.7. バトルマスター</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege.0D">4.12.2.8. パラディン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege.0E">4.12.2.9. けんじゃ</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege.0F">4.12.2.10. レンジャー</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege.10">4.12.2.11. スーパースター</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege.11">4.12.2.12. ゆうしゃ</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege.12">4.12.2.13. ドラゴン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege.13">4.12.2.14. はぐれメタル</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <a id="term.dq6.vocations" class="indexterm"></a>
+      <p>
+この節では職業構造体を中心に説明する。
+いつものように、オブジェクトを CSV 形式でダンプしたテキストファイルを <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> に収録した。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.vocations.C41C3E"></a>4.12.1. 構造体 <code class="varname">$C41C3E</code>: 職業構造体</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+職業構造体とは、サイズが <code class="literal">#$77</code> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
+この型のオブジェクトがアドレス <code class="varname">$C41C3E</code> から 21 個直列している。
+</p>
+        <div class="table">
+          <a id="table.dq6.C41C3E"></a>
+          <p class="title">
+            <strong>表 4.38 構造体 $C41C3E</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq6.C41C3E" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>名前</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>職業経験値構造体オフセット</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td rowspan="2">職業経験値構造体マスク</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>職業経験値構造体シフトビット</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>経験値上限</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>経験値 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>経験値 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>経験値 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>経験値 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$13</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>経験値 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$15</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>経験値 5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$17</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>経験値 6</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$19</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>等級名 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>等級名 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>等級名 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>等級名 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$21</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>等級名 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$23</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>等級名 5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$25</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>等級名 6</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$27</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>等級名 7</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$29</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 00</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$2B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 00 </td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$2C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 01</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$2E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 01</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$2F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 02</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$31</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 02</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$32</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 03</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$34</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 03</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$35</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 04</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$37</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 04</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$38</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 05</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$3A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 05</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$3B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 06</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$3D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 06</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$3E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 07</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 07</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$41</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 08</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$43</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 08</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$44</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 09</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$46</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 09</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$47</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 0A</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$49</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 0A</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$4A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 0B</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$4C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 0B</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$4D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 0C</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$4F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 0C</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$50</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 0D</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$52</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 0D</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$53</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 0E</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$55</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 0E</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$56</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド習得経験値 0F</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$58</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 0F</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$59</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>さいだい HP ボーナス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$5B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>さいだい MP ボーナス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$5D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>ちからボーナス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$5F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>すばやさボーナス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$61</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>かしこさボーナス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$63</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>みのまもりボーナス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$65</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>かっこよさボーナス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$67</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>ちからに対する係数</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$68</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$69</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>すばやさに対する係数</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$6A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$6B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>みのまもりに対する係数</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$6C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$6D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かしこさに対する係数</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$6E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$6F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かっこよさに対する係数</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$70</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$71</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい HP に対する係数</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$72</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$73</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい MP に対する係数</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$74</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$75</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>（不明）</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+上の表で（未使用）等の括弧付きの属性はプログラムからの参照がない。
+付録の CSV ファイルではこのような項目について記載を省略する。
+以下に各属性の概要を記す。
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">名前</span>
+            </dt>
+            <dd>
+              <p>
+        名前とは、この職業の名前を表す文字列の ID を値とする属性だ。
+        職業名は各キャラクターの「つよさ」ウィンドウや転職時の職業選択ウィンドウ等に表示されるものだ。
+      </p>
+              <p>
+        ROM に定義されているデータを確認すると、ヌル職業と無職のときとで値が異なっている。
+        前者と後者の職業名はそれぞれ「なし」と空文字列だ。
+      </p>
+              <p>
+        文字列については <a class="xref" href="dq6_string.html" title="4.2. 文字列">4.2 文字列</a> で述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">職業経験値構造体オフセット, </span>
+              <span class="term">職業経験値構造体マスク, </span>
+              <span class="term">職業経験値構造体シフトビット</span>
+            </dt>
+            <dd>
+              <p>
+        職業経験値構造体オフセットとは、職業経験値オブジェクトにおいて、
+        この職業に関する職業経験値がそのオブジェクトのベースアドレスから数えて何バイト目から開始するのかを意味する値の属性だ。
+      </p>
+              <p>
+        職業経験値構造体マスクとは、さらに職業経験値構造体オフセット属性値で示されるバイト中の何ビット目から
+        当該職業データが格納されているのかを意味する値の属性だ。
+      </p>
+              <p>
+        職業経験値構造体シフトビットとは、さらにそのマスクされたビット列を値として解釈するために必要な右シフト回数を意味する値の属性だ。
+        ただし、この属性はプログラムから利用されていない可能性がある（マスクだけで適当なシフト数が判明するため）。
+      </p>
+              <p>
+        例えば「とうぞく」のこれらの属性値は <code class="literal">(#$0004, #$007F80, #$0007)</code> と読める。
+        これが意味するのは、「とうぞく」の職業経験値が職業経験値オブジェクトの 4 バイト目の最上位ビットから 5 バイト目の最上位ビットの一つ手前までに亘ることだ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">経験値上限</span>
+            </dt>
+            <dd>
+              <p>
+        経験値上限とは、この職業を極めた時点での職業経験値を示す属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">経験値 k (k = 0..6)</span>
+            </dt>
+            <dd>
+              <p>
+        経験値 k とは、この職業の等級（仲間キャラクターの「つよさ」ウィンドウで確認できる星の数）が k + 2 になるのに必要な職業経験値を示す属性だ。
+        最後の経験値 6 属性値と経験値上限属性値は等しい。
+      </p>
+              <p>
+        言い忘れたが、本節で言う職業経験値とは戦闘勝利回数に対応するほうの概念だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">等級名 k (k = 0..7)</span>
+            </dt>
+            <dd>
+              <p>
+        等級名 k とは、この職業の等級 k + 1 の呼び名を指定する文字列 ID を値とする属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">コマンド習得経験値 k (k = <code class="literal">#$00</code>..<code class="literal">#$0F</code>)</span>
+            </dt>
+            <dd>
+              <p>
+        コマンド習得経験値 k とは、習得コマンド k を習得するのに必要な職業経験値を取る属性だ。
+        最小値が 2 となっていることに注意を要する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">習得コマンド k (k = <code class="literal">#$00</code>..<code class="literal">#$0F</code>)</span>
+            </dt>
+            <dd>
+              <p>
+        習得コマンド k とは、職業に就いている者が規定の職業経験値を得ると習得するコマンドを意味する属性だ。
+        ただし、型はコマンド ID ではなく、コマンドウィンドウ内の項目位置を指示するオブジェクト配列の添字という、馴染みのないものになっている。
+        このオブジェクトはアドレス <code class="varname">$FFC96D</code> にある配列の要素であり、
+        構造としてはコマンド ID の値、移動コマンドウィンドウでの項目位置、戦闘コマンドウィンドウでの項目位置の三つ組の配列とみなせる。
+        詳しくは付録のデータを参照して欲しい。
+      </p>
+              <p>
+        この属性値が <code class="literal">#$9A</code> であれば、それも含むそこから先の習得コマンド属性値は全て無効値であることを示している。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">さいだい HP ボーナス, </span>
+              <span class="term">さいだい MP ボーナス, </span>
+              <span class="term">ちからボーナス, </span>
+              <span class="term">すばやさボーナス, </span>
+              <span class="term">かしこさボーナス, </span>
+              <span class="term">みのまもりボーナス, </span>
+              <span class="term">かっこよさボーナス</span>
+            </dt>
+            <dd>
+              <p>
+        各キャラクター属性ボーナスとは、職業レベルが最大のときに、
+        この職業に就いている者の対応属性値がこの属性値分だけ加算されるというものだ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">ちからに対する係数, </span>
+              <span class="term">すばやさに対する係数, </span>
+              <span class="term">みのまもりに対する係数, </span>
+              <span class="term">かしこさに対する係数, </span>
+              <span class="term">かっこよさに対する係数, </span>
+              <span class="term">さいだい HP に対する係数, </span>
+              <span class="term">さいだい MP に対する係数</span>
+            </dt>
+            <dd>
+              <p>
+        各キャラクター属性に対する係数とは、この職業に就いている者のキャラクター属性値を乗算によって変化する処理におけるそれを示す属性だ。
+        係数属性値を 128 で除算した値が実質的な係数と考えたほうがよい。
+        ただし値 255 は厳密に言えばマジックナンバーであり、このときには正確に 2 倍を意味する。
+      </p>
+              <p>
+        良い機会なので、仲間キャラクターの各属性値の補正手順をここで簡単にまとめておく：
+      </p>
+              <div class="orderedlist">
+                <ol class="orderedlist" type="1">
+                  <li class="listitem">
+                    <p>
+            仲間キャラクターの素（無職かつ装備品なしの状態）の属性値を取得する
+          </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+            就いている職業が指定する各キャラクター属性に対する係数（から一意に決まる定数）を乗算する
+          </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+            職業レベルが最大であれば、各キャラクター属性ボーナス属性値を加算する
+          </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+            仲間キャラクターの装備品から決まる属性値変動を適用する
+          </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+            以上の結果、キャラクター属性値がゼロと評価されれば最終的な値を 1 に、
+            属性固有の上限値を超えていたら、その上限値を値とする
+          </p>
+                  </li>
+                </ol>
+              </div>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.vocations.privilege"></a>4.12.2. 職業に就いていることによる特典</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+仲間キャラクターが何かの職業に就いていると、どのような良いことが起こるのかを以下に説明する。
+これらの特典は基本的には戦闘モードにおいて有利に働くことが多いようだ。
+</p>
+        <p>
+以下の各表で列が ID とあるのは、つよさウィンドウで表示さえる星の数から 1 を引いた値と等しい。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.vocations.privilege.03"></a>4.12.2.1. ぶとうか</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+職業がぶとうかである仲間キャラクターは、戦闘中に会心痛恨属性が 1 の戦闘コマンドを実行すると、
+次の表の確率で会心の一撃が発生する：
+</p>
+          <div class="table">
+            <a id="table.dq6.C28827"></a>
+            <p class="title">
+              <strong>表 4.39 ぶとうかが会心の一撃を発生する確率</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C28827" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>確率</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>0</th>
+                    <td align="right">0</td>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td align="right">0</td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td align="right">1/64</td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td align="right">1/48</td>
+                  </tr>
+                  <tr>
+                    <th>4</th>
+                    <td align="right">1/32</td>
+                  </tr>
+                  <tr>
+                    <th>5</th>
+                    <td align="right">1/24</td>
+                  </tr>
+                  <tr>
+                    <th>6</th>
+                    <td align="right">1/16</td>
+                  </tr>
+                  <tr>
+                    <th>7</th>
+                    <td align="right">1/8</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+抽選が外れると、通常の職業キャラクターと同様の抽選を行う。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.vocations.privilege.06"></a>4.12.2.2. おどりこ</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+職業がおどりこであるである仲間キャラクターは、戦闘中にみかわし考慮属性が 1 の戦闘コマンドを受け、
+通常のみかわし判定処理が失敗すると次の表の確率で身をかわす：
+</p>
+          <div class="table">
+            <a id="table.dq6.C2711A"></a>
+            <p class="title">
+              <strong>表 4.40 おどりこが身をかわす確率</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C2711A" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>確率</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>0</th>
+                    <td align="right">0</td>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td align="right">0</td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td align="right">1/64</td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td align="right">1/32</td>
+                  </tr>
+                  <tr>
+                    <th>4</th>
+                    <td align="right">1/16</td>
+                  </tr>
+                  <tr>
+                    <th>5</th>
+                    <td align="right">1/16</td>
+                  </tr>
+                  <tr>
+                    <th>6</th>
+                    <td align="right">1/16</td>
+                  </tr>
+                  <tr>
+                    <th>7</th>
+                    <td align="right">1/8</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.vocations.privilege.07"></a>4.12.2.3. とうぞく</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+職業がとうぞくである仲間キャラクターが戦闘後に馬車外にいると、
+倒した敵陣戦闘員から宝箱を盗んでいたことになることがある。
+モンスターのアイテム確率属性から決まる乱数と職業レベル（ここでは星の数）を比較して、大きければ盗み確定となる。
+</p>
+          <p>
+とうぞくが複数いる場合は、その人数分だけこのような判定が実行される。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.vocations.privilege.08"></a>4.12.2.4. まものつかい</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+職業がまものつかいである仲間キャラクターが戦闘後に馬車外にいると、
+倒した敵陣戦闘員が起き上がって仲間になりたそうにすることがある。
+これには、その敵陣戦闘員のモンスターレベルよりも職業レベル（ここでは星の数） * 8 + 1 のほうが大きい（等しいのはダメ）必要がある。
+</p>
+          <p>
+まものつかいが複数いる場合は、そのうちのもっとも高い職業レベルが採用される。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.vocations.privilege.09"></a>4.12.2.5. しょうにん</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+職業がしょうにんである仲間キャラクターが戦闘後に馬車外にいると、
+戦闘後に敵から得られるゴールドが増える。
+追加分は本来の額面に対する割合で次の表のように与えられている：
+</p>
+          <div class="table">
+            <a id="table.dq6.C2B277"></a>
+            <p class="title">
+              <strong>表 4.41 しょうにんが獲得するゴールドの正規獲得額に対する割合</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C2B277" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>割合</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>0</th>
+                    <td align="right">1/15</td>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td align="right">1/14</td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td align="right">1/13</td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td align="right">1/12</td>
+                  </tr>
+                  <tr>
+                    <th>4</th>
+                    <td align="right">1/11</td>
+                  </tr>
+                  <tr>
+                    <th>5</th>
+                    <td align="right">1/10</td>
+                  </tr>
+                  <tr>
+                    <th>6</th>
+                    <td align="right">1/9</td>
+                  </tr>
+                  <tr>
+                    <th>7</th>
+                    <td align="right">1/4</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+しょうにんが複数いる場合は、その人数分だけこのような判定が実行される。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.vocations.privilege.0A"></a>4.12.2.6. あそびにん</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+職業があそびにんである仲間キャラクターは、命令に関わらず 1/5 の確率で「あそび」コマンドを実行する。
+このとき、実行コマンドの抽選は職業レベルに依存する。
+選択肢はどのキャラクターも最大 8 個あり、ちょうど職業レベルの取り得る範囲と一致するので乱数は自然に取る。
+「あそび」の選択肢は <code class="varname">$C22D54</code> に定義されている。
+このデータは <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> に収録した。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.vocations.privilege.0B"></a>4.12.2.7. バトルマスター</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+職業がバトルマスターである仲間キャラクターは、みかわし考慮属性が 1 の戦闘コマンドを受け、
+通常のみかわし判定処理が失敗すると次の表の確率で相手の攻撃を打ち払う：
+</p>
+          <div class="table">
+            <a id="table.dq6.C270D8"></a>
+            <p class="title">
+              <strong>表 4.42 バトルマスターが敵からの攻撃を打ち払う確率</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C270D8" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>確率</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>0</th>
+                    <td align="right">0</td>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td align="right">1/64</td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td align="right">1/48</td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td align="right">1/32</td>
+                  </tr>
+                  <tr>
+                    <th>4</th>
+                    <td align="right">1/16</td>
+                  </tr>
+                  <tr>
+                    <th>5</th>
+                    <td align="right">1/16</td>
+                  </tr>
+                  <tr>
+                    <th>6</th>
+                    <td align="right">1/16</td>
+                  </tr>
+                  <tr>
+                    <th>7</th>
+                    <td align="right">1/8</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.vocations.privilege.0D"></a>4.12.2.8. パラディン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+職業がパラディンである仲間キャラクターは、パラディン考慮属性が 1 の戦闘コマンドを実行するときに次の表の確率でコマンド対象を即死させる：
+</p>
+          <div class="table">
+            <a id="table.dq6.C272FB"></a>
+            <p class="title">
+              <strong>表 4.43 パラディンが対象を即死させる確率</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C272FB" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>確率</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>0</th>
+                    <td align="right">0</td>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td align="right">1/64</td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td align="right">1/48</td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td align="right">1/32</td>
+                  </tr>
+                  <tr>
+                    <th>4</th>
+                    <td align="right">1/32</td>
+                  </tr>
+                  <tr>
+                    <th>5</th>
+                    <td align="right">1/16</td>
+                  </tr>
+                  <tr>
+                    <th>6</th>
+                    <td align="right">1/16</td>
+                  </tr>
+                  <tr>
+                    <th>7</th>
+                    <td align="right">1/8</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.vocations.privilege.0E"></a>4.12.2.9. けんじゃ</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+職業がけんじゃである仲間キャラクターは、移動モード戦闘モードを問わず、コマンド実行時の必要 MP 消費量が緩和される。
+コマンドが規定する消費量がゼロ以外の定数であるようなものについては、次の表で示す量か 1 のどちらかになる：
+</p>
+          <div class="table">
+            <a id="table.dq6.C2C297"></a>
+            <p class="title">
+              <strong>表 4.44 けんじゃの MP 消費</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C2C297" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>消費量</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>0</th>
+                    <td>規定量と同じ</td>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td>規定量と同じ</td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td>規定量の 7/8</td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td>規定量の 7/8</td>
+                  </tr>
+                  <tr>
+                    <th>4</th>
+                    <td>規定量の 3/4</td>
+                  </tr>
+                  <tr>
+                    <th>5</th>
+                    <td>規定量の 3/4</td>
+                  </tr>
+                  <tr>
+                    <th>6</th>
+                    <td>規定量の 5/8</td>
+                  </tr>
+                  <tr>
+                    <th>7</th>
+                    <td>規定量の 1/2</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.vocations.privilege.0F"></a>4.12.2.10. レンジャー</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+職業がレンジャーである仲間キャラクターがいると、戦闘コマンド「にげる」の成功率が次の表のようになる：
+</p>
+          <div class="table">
+            <a id="table.dq6.C23F6A"></a>
+            <p class="title">
+              <strong>表 4.45 レンジャーによる逃走成功確率</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C23F6A" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>確率</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>0</th>
+                    <td align="right">1/8</td>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td align="right">1/8</td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td align="right">3/8</td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td align="right">3/8</td>
+                  </tr>
+                  <tr>
+                    <th>4</th>
+                    <td align="right">5/8</td>
+                  </tr>
+                  <tr>
+                    <th>5</th>
+                    <td align="right">5/8</td>
+                  </tr>
+                  <tr>
+                    <th>6</th>
+                    <td align="right">5/8</td>
+                  </tr>
+                  <tr>
+                    <th>7</th>
+                    <td align="right">1</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+レンジャーが複数いる場合は、そのうちのもっとも高い職業レベルが採用される。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.vocations.privilege.10"></a>4.12.2.11. スーパースター</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+職業がスーパースターである仲間キャラクターがいると、
+戦闘中に敵陣戦闘員が次の確率で見とれて休み状態になることがある：
+</p>
+          <div class="table">
+            <a id="table.dq6.C258C4"></a>
+            <p class="title">
+              <strong>表 4.46 </strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C258C4" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>確率</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>0</th>
+                    <td align="right">0</td>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td align="right">0</td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td align="right">1/64</td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td align="right">1/64</td>
+                  </tr>
+                  <tr>
+                    <th>4</th>
+                    <td align="right">1/48</td>
+                  </tr>
+                  <tr>
+                    <th>5</th>
+                    <td align="right">1/48</td>
+                  </tr>
+                  <tr>
+                    <th>6</th>
+                    <td align="right">1/32</td>
+                  </tr>
+                  <tr>
+                    <th>7</th>
+                    <td align="right">1/8</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.vocations.privilege.11"></a>4.12.2.12. ゆうしゃ</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+職業がゆうしゃである仲間キャラクターは、戦闘中の各ターン終了時に HP が次の表に示す値だけ自動回復する：
+</p>
+          <div class="table">
+            <a id="table.dq6.C2ACF7"></a>
+            <p class="title">
+              <strong>表 4.47 ゆうしゃの自動回復</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C2ACF7" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>回復量</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>0</th>
+                    <td align="right">0</td>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td align="right">0</td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td align="right">0</td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td align="right">30</td>
+                  </tr>
+                  <tr>
+                    <th>4</th>
+                    <td align="right">40</td>
+                  </tr>
+                  <tr>
+                    <th>5</th>
+                    <td align="right">50</td>
+                  </tr>
+                  <tr>
+                    <th>6</th>
+                    <td align="right">60</td>
+                  </tr>
+                  <tr>
+                    <th>7</th>
+                    <td align="right">80</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.vocations.privilege.12"></a>4.12.2.13. ドラゴン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+職業がドラゴンである仲間キャラクターがいると、戦闘開始時に先制を取りやすくなる。
+ドラゴンでないときの確率の何倍だけ先制を取りやすいかを次の表で示す：
+</p>
+          <div class="table">
+            <a id="table.dq6.C232EA"></a>
+            <p class="title">
+              <strong>表 4.48 ドラゴンの先制しやすさ</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C232EA" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>倍率</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>0</th>
+                    <td align="right">2</td>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td align="right">2</td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td align="right">2</td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td align="right">3</td>
+                  </tr>
+                  <tr>
+                    <th>4</th>
+                    <td align="right">3</td>
+                  </tr>
+                  <tr>
+                    <th>5</th>
+                    <td align="right">3</td>
+                  </tr>
+                  <tr>
+                    <th>6</th>
+                    <td align="right">3</td>
+                  </tr>
+                  <tr>
+                    <th>7</th>
+                    <td align="right">4</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+ドラゴンが複数いる場合は、そのうちのもっとも高い職業レベルが採用される。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.vocations.privilege.13"></a>4.12.2.14. はぐれメタル</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+職業がはぐれメタルである仲間キャラクターは、
+職業レベルが上限に達していると、すべてのコマンド耐性の属性値が 3 であるかのように扱われる。
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_rename.html" title="4.11. 命名神"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_item.html" title="4.13. アイテム"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_rename.html">4.11. 命名神</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_item.html">4.13. アイテム</a></div>
+  </body>
+</html>

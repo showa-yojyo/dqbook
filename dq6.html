@@ -1,0 +1,1210 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>第 4 章 SFC 版ドラクエ 6 (1995)</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="part02.html" title="第 II 部 解析" />
+    <link rel="prev" href="dq5_encounter.html" title="3.14. 敵との遭遇" />
+    <link rel="next" href="dq6_debug.html" title="4.1. デバッグモード" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq5_encounter.html" title="3.14. 敵との遭遇"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="part02.html" title="第 II 部 解析"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_debug.html" title="4.1. デバッグモード"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq5_encounter.html">3.14. 敵との遭遇</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="part02.html">第 II 部 解析</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_debug.html">4.1. デバッグモード</a><hr /></div>
+    <div class="chapter">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title"><a id="dq6"></a>第 4 章 SFC 版ドラクエ 6 (1995)</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_debug.html">4.1. デバッグモード</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.abstract">4.1.1. デバッグモード</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.menu">4.1.2. デバッグメニュー</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.menu.C906BA">4.1.2.1. いんちきルーラ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.menu.C906CF">4.1.2.2. いんちきリレミト</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.menu.C906EB">4.1.2.3. ＨＰ ＭＰ ＭＡＸ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.menu.C9071D">4.1.2.4. レべルアップ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.menu.C907DA">4.1.2.5. おかね</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.menu.C907F3">4.1.2.6. ふくろにいれる</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.menu.C90818">4.1.2.7. ひとじょうたい</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.menu.C90862">4.1.2.8. ゲームじょうたい</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.menu.C908B4">4.1.2.9. せんたくせんとう</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.menu.C9086A">4.1.2.10. タイルせんとう</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.menu.C908BD">4.1.2.11. サウンドテスト</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.menu.C908E9">4.1.2.12. いんちきせってい</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room">4.1.3. デバッグルーム</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.access">4.1.3.1. アクセス方法</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.code">4.1.3.2. 各部屋のコード</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.0286">4.1.3.3. メインルーム</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.0287">4.1.3.4. 井戸の部屋</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.0288">4.1.3.5. カジノデバッグ部屋</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.0289">4.1.3.6. 戦闘デバッグ部屋</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.028A">4.1.3.7. 店屋デバッグ部屋</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.028B">4.1.3.8. フラグチェック部屋（モンスターと男）</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.028C">4.1.3.9. フラグチェック部屋（モンスターと青い服の女）</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.028D">4.1.3.10. フラグチェック部屋（モンスターとターニア）</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.028E">4.1.3.11. フラグチェック部屋（老人）</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.028F">4.1.3.12. フラグチェック部屋（アモス）</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.0290">4.1.3.13. フラグチェック部屋（ミレーユ）</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.0291">4.1.3.14. フラグチェック部屋（人魚）</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.0292">4.1.3.15. フラグチェック部屋（ホルス）</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.0293">4.1.3.16. フラグチェック部屋（ランド）</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_debug.html#dq6.debug.room.0294">4.1.3.17. フラグチェック部屋（王さま）</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_string.html">4.2. 文字列</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_string.html#dq6.string.overview">4.2.1. 概要</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_string.html#dq6.string.data">4.2.2. データ</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_text.html">4.3. テキスト</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_text.html#dq6.text.battle">4.3.1. 戦闘モード</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_text.html#dq6.text.travel">4.3.2. 移動モード</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_text.html#dq6.text.travel.naive">4.3.2.1. 素朴な解析手法</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_text.html#dq6.text.travel.gsd">4.3.2.2. デバッガーを活用する</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_text.html#dq6.text.travel.brk">4.3.2.3. BRK 命令もメッセージ表示を行う</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq6_text.html#dq6.text.data">4.3.3. データ</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_talk.html">4.4. はなす</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_talk.html#dq6.talk.model">4.4.1. モデル</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_talk.html#dq6.talk.model.FF08DA">4.4.1.1. 構造体 <code class="varname">$FF08DA</code>: 「はなす」対象簡易版</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_talk.html#dq6.talk.model.FF243C">4.4.1.2. 構造体 <code class="varname">$FF243C</code>: 「はなす」対象標準版</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_talk.html#dq6.talk.model.data">4.4.1.3. データ</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq6_talk.html#dq6.talk.process">4.4.2. 処理手順</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_search.html">4.5. しらべる</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_search.html#dq6.search.model">4.5.1. モデル</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_search.html#dq6.search.model.C20000">4.5.1.1. 構造体 <code class="varname">$C20000</code>: 「しらべる」対象分類</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_search.html#dq6.search.model.base">4.5.1.2. 「しらべる」対象抽象基底構造体</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_search.html#dq6.search.model.C83E5C">4.5.1.3. 構造体 <code class="varname">$C83E5C</code>: アイテム発見</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_search.html#dq6.search.model.C8477E">4.5.1.4. 構造体 <code class="varname">$C8477E</code>: ゴールド発見</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_search.html#dq6.search.model.C848B6">4.5.1.5. 構造体 <code class="varname">$C848B6</code>: 情報取得</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_search.html#dq6.search.model.C85534">4.5.1.6. 構造体 <code class="varname">$C85534</code>: 罠</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_search.html#dq6.search.model.C855AB">4.5.1.7. 構造体 <code class="varname">$C855AB</code>: 特殊イベント</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq6_search.html#dq6.search.process">4.5.2. 処理手順</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_shop.html">4.6. 店屋</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_shop.html#dq6.shop.structure">4.6.1. データ</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_shop.html#dq6.shop.structure.C58B93">4.6.1.1. 構造体 <code class="varname">$C58B93</code>: 店屋</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_shop.html#dq6.shop.structure.C5FD18">4.6.1.2. 配列 <code class="varname">$C5FD18</code>: 店屋台詞セット</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq6_shop.html#dq6.shop.behavior">4.6.2. 処理手順</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_shop.html#dq6.shop.behavior.quit">4.6.2.1. やめる</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_shop.html#dq6.shop.behavior.buy">4.6.2.2. かいにきた</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_shop.html#dq6.shop.behavior.others">4.6.2.3. ほかにも用は</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_shop.html#dq6.shop.behavior.sell">4.6.2.4. うりにきた</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_inn.html">4.7. 宿屋</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_inn.html#dq6.inn.structure">4.7.1. データ</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_inn.html#dq6.inn.structure.C58E0B">4.7.1.1. 構造体 <code class="varname">$C58E0B</code>: 宿屋</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_inn.html#dq6.inn.structure.C7D0DD">4.7.1.2. 配列 <code class="varname">$C7D0DD</code>: 宿屋台詞セット</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq6_inn.html#dq6.inn.behavior">4.7.2. 処理手順</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_church.html">4.8. 教会</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_church.html#dq6.church.structure">4.8.1. データ</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_church.html#dq6.church.structure.C58E9F">4.8.1.1. 構造体 <code class="varname">$C58E9F</code>: 教会</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_church.html#dq6.church.structure.C3D9F8">4.8.1.2. 配列 <code class="varname">$C3D9F8</code>: 教会台詞セット</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq6_church.html#dq6.church.behavior">4.8.2. 処理手順</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_church.html#dq6.church.behavior.C3D3E3">4.8.2.1. サブルーチン <code class="varname">$C3D3E3</code>: 標準的な教会</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_church.html#dq6.church.behavior.C3D849">4.8.2.2. サブルーチン <code class="varname">$C3D849</code>: アモールの掃除中の教会</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_church.html#dq6.church.behavior.C3D8C3">4.8.2.3. サブルーチン <code class="varname">$C3D8C3</code>: 透明モード中のトルッカの教会</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_church.html#dq6.church.behavior.C3D910">4.8.2.4. サブルーチン <code class="varname">$C3D910</code>: マウントスノーの凍りついた神父</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_forge.html">4.9. おしゃれなカジヤ</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_forge.html#dq6.forge.structure">4.9.1. データ</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_forge.html#dq6.forge.structure.C58ECF">4.9.1.1. 対応 <code class="varname">$C58ECF</code>: 鍛造前後のアイテムの対応</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq6_forge.html#dq6.forge.behavior">4.9.2. 処理手順</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_forge.html#dq6.forge.behavior.C1F9F8">4.9.2.1. サブルーチン <code class="varname">$C1F9F8</code>: おしゃれなカジヤ共通処理</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_bank.html">4.10. ゴールド銀行</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_bank.html#dq6.bank.structure">4.10.1. データ構造</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_bank.html#dq6.bank.behavior">4.10.2. 処理手順</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_rename.html">4.11. 命名神</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_rename.html#dq6.rename.structure">4.11.1. データ</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_rename.html#dq6.rename.structure.C58AC8">4.11.1.1. 配列 <code class="varname">$C58AC8</code>: 怒りを買う名前</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_rename.html#dq6.rename.structure.C58B2A">4.11.1.2. 配列 <code class="varname">$C58B2A</code>: 予約された名前</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq6_rename.html#dq6.rename.behavior">4.11.2. 処理手順</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_vocations.html">4.12. 職業</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.C41C3E">4.12.1. 構造体 <code class="varname">$C41C3E</code>: 職業構造体</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_vocations.html#dq6.vocations.privilege">4.12.2. 職業に就いていることによる特典</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_vocations.html#dq6.vocations.privilege.03">4.12.2.1. ぶとうか</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_vocations.html#dq6.vocations.privilege.06">4.12.2.2. おどりこ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_vocations.html#dq6.vocations.privilege.07">4.12.2.3. とうぞく</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_vocations.html#dq6.vocations.privilege.08">4.12.2.4. まものつかい</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_vocations.html#dq6.vocations.privilege.09">4.12.2.5. しょうにん</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_vocations.html#dq6.vocations.privilege.0A">4.12.2.6. あそびにん</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_vocations.html#dq6.vocations.privilege.0B">4.12.2.7. バトルマスター</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_vocations.html#dq6.vocations.privilege.0D">4.12.2.8. パラディン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_vocations.html#dq6.vocations.privilege.0E">4.12.2.9. けんじゃ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_vocations.html#dq6.vocations.privilege.0F">4.12.2.10. レンジャー</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_vocations.html#dq6.vocations.privilege.10">4.12.2.11. スーパースター</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_vocations.html#dq6.vocations.privilege.11">4.12.2.12. ゆうしゃ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_vocations.html#dq6.vocations.privilege.12">4.12.2.13. ドラゴン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_vocations.html#dq6.vocations.privilege.13">4.12.2.14. はぐれメタル</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_item.html">4.13. アイテム</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_item.html#dq6.item.C4003D">4.13.1. 構造体 <code class="varname">$C4003D</code>: アイテム</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_item.html#dq6.item.methods">4.13.2. アイテム構造体メソッド</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_monster.html">4.14. モンスター</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_monster.html#dq6.monster.C20154">4.14.1. 構造体 <code class="varname">$C20154</code>: モンスター</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_monster.html#dq6.monster.methods">4.14.2. モンスター構造体メソッド</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_characters.html">4.15. 仲間キャラクター構造体</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_characters.html#dq6.characters.7E4025">4.15.1. 構造体 <code class="varname">$7E4025</code>: 基本情報構造体</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_characters.html#dq6.characters.7E4415">4.15.2. 構造体 <code class="varname">$7E4415</code>: 職業経験構造体</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_characters.html#dq6.characters.7E45DD">4.15.3. 構造体 <code class="varname">$7E45DD</code>: 習得コマンド構造体</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_character_traits.html">4.16. 仲間キャラクターの特性データ</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_character_traits.html#dq6.character.traits.C8BD12">4.16.1. 構造体 <code class="varname">$C8BD12</code>: 仲間キャラクター特性</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_character_traits.html#dq6.character.traits.methods">4.16.2. 仲間キャラクター構造体メソッド</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_encounter.html">4.17. 敵との遭遇</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_encounter.html#dq6.encounter.model">4.17.1. モデル</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_encounter.html#dq6.encounter.model.C6843C">4.17.1.1. 構造体 <code class="varname">$C6843C</code>: 通常の戦闘用編成</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_encounter.html#dq6.encounter.model.C58F64">4.17.1.2. 構造体 <code class="varname">$C58F64</code>: レア戦闘用編成</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_encounter.html#dq6.encounter.model.C88DF4">4.17.1.3. 構造体 <code class="varname">$C88DF4</code>: イベント戦専用編成</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq6_encounter.html#dq6.encounter.procedure">4.17.2. 敵陣決定手順</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_level.html">4.18. レベルアップ</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_level.html#dq6.level.FFB6C2">4.18.1. 構造体 <code class="varname">$FFB6C2</code>: レベルアップ</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_level.html#dq6.level.C441C2">4.18.2. サブルーチン <code class="varname">$C441C2</code>: レベルアップ処理</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_level.html#dq6.level.C440D2">4.18.3. サブルーチン <code class="varname">$C440D2</code>: 指定レベルであるための必要経験値を計算する</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_level.html#dq6.level.C444BC">4.18.4. サブルーチン <code class="varname">$C444BC</code>: 仲間キャラクター属性値増量分を計算する</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_level.html#dq6.level.C44509">4.18.5. サブルーチン <code class="varname">$C44509</code>: 習得コマンドを決定する</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_combatant.html">4.19. 戦闘キャラクター構造体</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_combatant.html#dq6.combatant.7E2030">4.19.1. 構造体 <code class="varname">$7E2030</code>: 戦闘キャラクター</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_combatant.html#dq6.combatant.methods">4.19.2. 戦闘キャラクター構造体メソッド</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_battle_commands.html">4.20. 戦闘コマンド</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_battle_commands.html#dq6.battle.commands.C8C65D">4.20.1. 構造体 <code class="varname">$C8C65D</code>: 戦闘コマンド</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_battle_commands.html#dq6.battle.commands.methods">4.20.2. 戦闘コマンド構造体メソッド</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_battle_commands.html#dq6.battle.commands.data">4.20.3. データ</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_spell_commands.html">4.21. 移動中の呪文コマンド処理</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_spell_commands.html#dq6.spell.commands.C3B814">4.21.1. 呪文ハンドラーテーブル</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_spell_commands.html#dq6.spell.commands.desc">4.21.2. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3B9A8">4.21.2.1. ホイミ・べホイミ・ベホマ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BA5B">4.21.2.2. べホマラー・べホマズン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BAD1">4.21.2.3. キアリー</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BB4A">4.21.2.4. ザオラル</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BBF8">4.21.2.5. ザオリク</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BC70">4.21.2.6. ルーラ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BD4A">4.21.2.7. リレミト</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BDA6">4.21.2.8. くちぶえ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BDDE">4.21.2.9. トヘロス</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BE10">4.21.2.10. トラマナ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BE24">4.21.2.11. フローミ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BE7F">4.21.2.12. タカのめ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BEF9">4.21.2.13. とうぞくのはな</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BF55">4.21.2.14. しのびあし</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BF77">4.21.2.15. ねる</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BF95">4.21.2.16. おおごえ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3C066">4.21.2.17. あなほり</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3C344">4.21.2.18. インパス</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3C71B">4.21.2.19. レミラーマ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C7CDAF">4.21.2.20. おもいだす・もっとおもいだす・ふかくおもいだす</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_spell_commands.html#dq6.spell.commands.desc.C3C7A3">4.21.2.21. わすれる</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_item_commands.html">4.22. 移動中の道具使用コマンド処理</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_item_commands.html#dq6.item.commands.C3C8C0">4.22.1. コマンドハンドラーテーブル</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc">4.22.2. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CA5D">4.22.2.1. やくそう</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CAFD">4.22.2.2. どくけしそう</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CB7D">4.22.2.3. せかいじゅのは</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CBFC">4.22.2.4. せかいじゅのしずく</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CCB8">4.22.2.5. まほうのせいすい</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CD3D">4.22.2.6. ちからのたね</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CD9B">4.22.2.7. すばやさのたね</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CDF9">4.22.2.8. かしこさのたね</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CE57">4.22.2.9. まもりのたね</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CEB5">4.22.2.10. いのちのきのみ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CF13">4.22.2.11. ふしぎなきのみ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CF71">4.22.2.12. いのりのゆびわ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D02B">4.22.2.13. せいすい</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D067">4.22.2.14. むらのみんげいひん</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D082">4.22.2.15. ゆめみのしずく</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D098">4.22.2.16. キメラのつばさ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D162">4.22.2.17. かぜのぼうし</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D169">4.22.2.18. おうごんのつるはし</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D17F">4.22.2.19. ラーのカガミ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D195">4.22.2.20. すなのうつわ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1AB">4.22.2.21. まほうのじゅうたん</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1BC">4.22.2.22. マーメイドハープ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1D1">4.22.2.23. せかいちず</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1E6">4.22.2.24. ふしぎなちず</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1FB">4.22.2.25. ふるびたパイプ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D211">4.22.2.26. へいしのふく４つ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D227">4.22.2.27. ろうごくのカギ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D23D">4.22.2.28. しんじつのオーブ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D253">4.22.2.29. りせいのタネその他</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D274">4.22.2.30. デセオのパス</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D2B0">4.22.2.31. てんまのたづな</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D2C1">4.22.2.32. アモールのみず</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D361">4.22.2.33. うつくしそう</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <p>
+本章では SFC 版ドラクエ 6 に関する内容を扱っていく。
+</p>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq5_encounter.html" title="3.14. 敵との遭遇"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="part02.html" title="第 II 部 解析"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_debug.html" title="4.1. デバッグモード"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq5_encounter.html">3.14. 敵との遭遇</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="part02.html">第 II 部 解析</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_debug.html">4.1. デバッグモード</a></div>
+  </body>
+</html>

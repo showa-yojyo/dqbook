@@ -1,0 +1,2693 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.1. デバッグモード</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="next" href="dq6_string.html" title="4.2. 文字列" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_string.html" title="4.2. 文字列"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_string.html">4.2. 文字列</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.debug"></a>4.1. デバッグモード</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_debug.html#dq6.debug.abstract">4.1.1. デバッグモード</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq6_debug.html#dq6.debug.menu">4.1.2. デバッグメニュー</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.menu.C906BA">4.1.2.1. いんちきルーラ</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.menu.C906CF">4.1.2.2. いんちきリレミト</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.menu.C906EB">4.1.2.3. ＨＰ ＭＰ ＭＡＸ</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.menu.C9071D">4.1.2.4. レべルアップ</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.menu.C907DA">4.1.2.5. おかね</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.menu.C907F3">4.1.2.6. ふくろにいれる</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.menu.C90818">4.1.2.7. ひとじょうたい</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.menu.C90862">4.1.2.8. ゲームじょうたい</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.menu.C908B4">4.1.2.9. せんたくせんとう</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.menu.C9086A">4.1.2.10. タイルせんとう</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.menu.C908BD">4.1.2.11. サウンドテスト</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.menu.C908E9">4.1.2.12. いんちきせってい</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_debug.html#dq6.debug.room">4.1.3. デバッグルーム</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.access">4.1.3.1. アクセス方法</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.code">4.1.3.2. 各部屋のコード</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.0286">4.1.3.3. メインルーム</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.0287">4.1.3.4. 井戸の部屋</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.0288">4.1.3.5. カジノデバッグ部屋</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.0289">4.1.3.6. 戦闘デバッグ部屋</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.028A">4.1.3.7. 店屋デバッグ部屋</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.028B">4.1.3.8. フラグチェック部屋（モンスターと男）</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.028C">4.1.3.9. フラグチェック部屋（モンスターと青い服の女）</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.028D">4.1.3.10. フラグチェック部屋（モンスターとターニア）</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.028E">4.1.3.11. フラグチェック部屋（老人）</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.028F">4.1.3.12. フラグチェック部屋（アモス）</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.0290">4.1.3.13. フラグチェック部屋（ミレーユ）</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.0291">4.1.3.14. フラグチェック部屋（人魚）</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.0292">4.1.3.15. フラグチェック部屋（ホルス）</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.0293">4.1.3.16. フラグチェック部屋（ランド）</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_debug.html#dq6.debug.room.0294">4.1.3.17. フラグチェック部屋（王さま）</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <a id="term.dq6.debug" class="indexterm"></a>
+      <p>
+本節ではデバッグ機能について述べていく。
+最初にデバッグ機能が有効である状態、すなわちデバッグモードの定義について説明する。
+それから、デバッグモードが有効であるときに限り有効化が許される機能を制御するためのデバッグメニューを解説し、
+さらに、デバッグ作業に有用なゲーム機能にアクセスしやすくなっているデバッグルーム群について記す。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.debug.abstract"></a>4.1.1. デバッグモード</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+ここではデバッグモードについて定義しておく。
+この用語自体はゲーム中のものではないので、誰が考えてもこういう用語になると思うが、本書で独自に定義することにする。
+</p>
+        <p>
+プログラム中にはアドレス <code class="varname">$C1FFFC</code> を参照して何らかの処理を分岐するようなものがいくつかある。
+バンク <code class="varname">$C1</code> にあるデータは ROM にある以上は読み取り専用なので、このような分岐命令の結果は常に一定となる。
+実際には <code class="varname">$C1FFEC</code> にある値は、製品版 ROM では <code class="literal">#$0000</code> なのだが、
+仮にこの値が別のもの、特に負の値であったならば、既存のプログラムの挙動は次に示すように変化しただろう：
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist" style="list-style-type: disc; ">
+            <li class="listitem">電源を入れた直後のオープニング、タイトル画面でのコントローラー入力が無視される。</li>
+            <li class="listitem">
+      冒険の書を新規作成後、そのファイルで「ぼうけんをする」と、プロローグシーンではなく、
+      デバッグルームから始まる（注：他にも必要条件が存在する）。
+      詳細は <a class="xref" href="dq6_debug.html#dq6.debug.room.0286" title="4.1.3.3. メインルーム">4.1.3.3 メインルーム</a>で述べる。
+    </li>
+            <li class="listitem">
+      モンスターアニメーションと呼ばれるデバッグ機能が有効になる。
+      そこでは戦闘開始直前に、登場する魔物の群れの指定が可能となる。
+      詳細は <a class="xref" href="dq6_debug.html#dq6.debug.room.0288" title="4.1.3.5. カジノデバッグ部屋">4.1.3.5 カジノデバッグ部屋</a>で述べる。
+    </li>
+            <li class="listitem">
+      各種フラグの初期値をデバッグ作業仕様に設定する。
+      詳細は <a class="xref" href="dq6_debug.html#dq6.debug.menu.C908E9" title="4.1.2.12. いんちきせってい">4.1.2.12 いんちきせってい</a>で述べる。
+    </li>
+            <li class="listitem">
+      キャンセル歩行というデバッグ機能を有効にすることが可能になる。
+      詳細は <a class="xref" href="dq6_debug.html#dq6.debug.menu.C908E9" title="4.1.2.12. いんちきせってい">4.1.2.12 いんちきせってい</a>で述べる。
+    </li>
+            <li class="listitem"><code class="varname">$C1FFFE</code> の値が <code class="literal">#$0001</code> のときに限り、
+    移動中に <span class="keycap"><strong>X</strong></span> ボタンを押しても、人の話を覚えなくなる。</li>
+            <li class="listitem">
+      移動中に <span class="keycap"><strong>L</strong></span> ボタンを押すとデバッグウィンドウが出現する。
+      詳細は <a class="xref" href="dq6_debug.html#dq6.debug.menu" title="4.1.2. デバッグメニュー">4.1.2 デバッグメニュー</a>で述べる。
+    </li>
+            <li class="listitem">
+      移動中に <span class="keycap"><strong>R</strong></span> ボタンを押すと、地図の代わりに座標ウィンドウが出現する。
+      詳細は <a class="xref" href="dq6_debug.html#dq6.debug.menu.C908E9" title="4.1.2.12. いんちきせってい">4.1.2.12 いんちきせってい</a>で述べる。
+    </li>
+            <li class="listitem">And more?</li>
+          </ul>
+        </div>
+        <p>
+この定数がプログラム中のどこに影響するかを調べるには、
+コード <code class="code">LDA $C1FFFE</code> をロムイメージから <span class="command"><strong>grep</strong></span> するとよいだろう。
+参考までに、記者が調査した当該定数を参照するサブルーチンのアドレスを以下に示しておく：
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">
+                <code class="varname">$C0250D</code>
+              </span>
+            </dt>
+            <dd>デバッグルームから開始する処理。</dd>
+            <dt>
+              <span class="term">
+                <code class="varname">$C23391</code>
+              </span>
+            </dt>
+            <dd>戦闘モンスターの種類と頭数を指定する処理。</dd>
+            <dt>
+              <span class="term"><code class="varname">$C301B5</code>, </span>
+              <span class="term">
+                <code class="varname">$C302A8</code>
+              </span>
+            </dt>
+            <dd>各種フラグの初期値の操作。
+      <code class="literal">#$FFFF</code> と <code class="literal">#$8000</code> の 2 通りの値の場合を想定。</dd>
+            <dt>
+              <span class="term">
+                <code class="varname">$C466FE</code>
+              </span>
+            </dt>
+            <dd>解読中。パーティーメンバーの何かの設定に影響する？</dd>
+            <dt>
+              <span class="term"><code class="varname">$C6C288</code>, </span>
+              <span class="term"><code class="varname">$C6C2A4</code>, </span>
+              <span class="term"><code class="varname">$C6C471</code>, </span>
+              <span class="term">
+                <code class="varname">$C6C48F</code>
+              </span>
+            </dt>
+            <dd>セレクトボタンを押しながら移動すると、歩行不能な地点をも通行する処理。</dd>
+            <dt>
+              <span class="term">
+                <code class="varname">$C6C8F8</code>
+              </span>
+            </dt>
+            <dd><code class="varname">$C1FFFE</code> の値が 1 ならばおぼえる処理を呼ばない。</dd>
+            <dt>
+              <span class="term">
+                <code class="varname">$C6CBCB</code>
+              </span>
+            </dt>
+            <dd>デバッグメニュー表示処理。</dd>
+            <dt>
+              <span class="term">
+                <code class="varname">$C6CBF7</code>
+              </span>
+            </dt>
+            <dd>座標ウィンドウ表示処理。</dd>
+            <dt>
+              <span class="term">
+                <code class="varname">$C7B737</code>
+              </span>
+            </dt>
+            <dd>ある RAM アドレスに定数 <code class="varname">$C1FFFE</code> を代入する処理。
+      このサブルーチンがどのように利用されるのかは不明。</dd>
+            <dt>
+              <span class="term">
+                <code class="varname">$C9064A</code>
+              </span>
+            </dt>
+            <dd>仲間モンスターフラグが立っているか調べる処理。</dd>
+            <dt>
+              <span class="term">
+                <code class="varname">$CEFFEC</code>
+              </span>
+            </dt>
+            <dd><code class="varname">$C1FFFE</code> が非ゼロならば COP し続ける。未調査。</dd>
+          </dl>
+        </div>
+        <p>
+ここでデバッグモードを次のように定義する。
+デバッグモードとは、定数 <code class="varname">$C1FFFE</code> の値が負の数であるような状況のことだ。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.debug.menu"></a>4.1.2. デバッグメニュー</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+デバッグモードではプレイヤーが移動中にコントローラーの <span class="keycap"><strong>L</strong></span> ボタンを押すと次の図に示すようなメニューウィンドウが出現する。
+このウィンドウのことをデバッグメニューと呼ぶ。
+デバッグメニューの各項目に対応する選択イベントハンドラーのマッピングがアドレス <code class="varname">$C90680</code> に定義されている。
+以下、各イベントハンドラーの振る舞いを簡単に説明する。
+</p>
+        <div class="figure">
+          <a id="fig.dq6.debug.menu"></a>
+          <p class="title">
+            <strong>図 4.1 デバッグメニュー</strong>
+          </p>
+          <div class="figure-contents">
+            <div>
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                <tr>
+                  <td>
+                    <img src="./image/dq6.debug.menu.png" width="240" alt="デバッグメニュー" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.menu.C906BA"></a>4.1.2.1. いんちきルーラ</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+いんちきルーラは、不思議な力が働いたり、天井を頭にぶつけたりすることもなく、
+パーティーを指定する場所へ移動するコマンドだ。
+ルーラを利用できるメンバーがいなくてもよいし、MP がなくてもよい。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.menu.location"></a>
+            <p class="title">
+              <strong>図 4.2 いんちきルーラ</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.menu.location.png" width="240" alt="いんちきルーラ" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+通常版ルーラとは異なり、場所リストとして構造体 <code class="varname">$C8997A</code> のデータをすべて用いたものが
+ウィンドウの複数ページに亘り表示される。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.menu.C906CF"></a>4.1.2.2. いんちきリレミト</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+いんちきリレミトは、パーティーがリレミト可能な場所に現在いるならば、リレミトを唱えたかのように振る舞うコマンドだ。
+リレミトを利用できるメンバーがいなくてもよいし、MP がなくてもよい。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.menu.C906EB"></a>4.1.2.3. ＨＰ ＭＰ ＭＡＸ</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+ＨＰ ＭＰ ＭＡＸは、パーティーの各メンバーについて HP と MP を全回復し、毒、マヒ、死亡状態を回復するコマンドだ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.menu.C9071D"></a>4.1.2.4. レべルアップ</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+レべルアップは、パーティーメンバーを一人指定して、職業レベルとキャラクターレベルの設定を行うコマンドだ。
+ただし挙動に少々くせがある。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.menu.level"></a>
+            <p class="title">
+              <strong>図 4.3 レべルアップ</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.menu.level.png" width="240" alt="レべルアップ" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+「職業レベルアップだけを行ないますか？」で「はい」を選択すると、
+職業と職業経験値を入力することで、当該メンバーの職業状態を変更することになる。
+まずは対象となるメンバーを選択するためのウィンドウが表示される。
+次に職業リストが表示されるが、「？？？」と「やめる」については注意が要る。
+これらを選択するとそれぞれドラゴンとはぐれメタルが選択されたものとみなされる。
+最後に「キーばんめ」という数値入力ウィンドウが表示されるので、
+職業経験値の増加分を入力する。
+</p>
+          <p>
+「職業レベルアップだけを行ないますか？」で「いいえ」を選択すると、
+想像に反してキャラクターのレベル変更と、副作用として職業経歴データの消去が起こる。
+まずは対象となるメンバーを選択するためのウィンドウが表示される。
+次に「キーばんめ」という数値入力ウィンドウが表示されるので、
+設定したいレベルをそのまま入力する。
+具体的な処理の内容は、対象メンバーのレベルをいったん初期化してから、
+指定のレベルに対応する経験値を算出して加算するというものだ。
+</p>
+          <p>
+これらのレベルアップについては、プレイヤーに対する通知処理は発生しない。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.menu.C907DA"></a>4.1.2.5. おかね</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+おかねは金額を直接指定することで、所持金を変更するコマンドだ。
+残念なことに 0 から 99999 までの値しか指定できない。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.menu.C907F3"></a>4.1.2.6. ふくろにいれる</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+ふくろにいれるは、ふくろに収納することが可能な項目すべてに対して、
+収納品目数を 1 だけ増加または減少させるコマンドだ。
+</p>
+          <p>
+このコマンドを選択すると突然「はい・いいえ」を選択させられる。
+「はい」を選べば各品目を 1 個追加するが、
+「いいえ」を選べば各品目を 1 個削除する。
+いずれの品目も収納品目数の限界を超えることがないように処理する。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.menu.C90818"></a>4.1.2.7. ひとじょうたい</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+ひとじょうたいは、パーティーメンバーを一人指定して、健康状態を設定するコマンドだ。
+状態を「しに」「ねむり」「どく」「もうどく」から一つ選べる。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.menu.status"></a>
+            <p class="title">
+              <strong>図 4.4 ひとじょうたい</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.menu.status.png" width="240" alt="ひとじょうたい" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.menu.C90862"></a>4.1.2.8. ゲームじょうたい</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+ゲームじょうたいは次に示す各状態を示すウィンドウを表示するコマンドだ。
+これによってゲーム状態を変更することはない。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.menu.context"></a>
+            <p class="title">
+              <strong>図 4.5 ゲームじょうたい</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.menu.context.png" width="240" alt="ゲームじょうたい" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">ルーラ</span>
+              </dt>
+              <dd>
+        現在ルーラが使用可能な状況か否かを「できる」「できない」で示す。
+        具体的には <code class="varname">$7E3D2B</code> の 1 ビット目をテストする。
+      </dd>
+              <dt>
+                <span class="term">リレミト</span>
+              </dt>
+              <dd>
+        現在リレミトが使用可能な状況か否かを「できる」「できない」で示す。
+        具体的には <code class="varname">$7E3D2B</code> の 2 ビット目と
+        <code class="varname">$7E3E28</code> の 1 ビット目をテストする。
+      </dd>
+              <dt>
+                <span class="term">エンカウント</span>
+              </dt>
+              <dd>
+        移動中に戦闘がランダムに発生するか否かを「できる」「できない」で示す。
+        具体的には <code class="varname">$7E3D2A</code> の 5 ビット目と
+        <code class="varname">$7E3E28</code> の 2 ビット目をテストする。
+      </dd>
+              <dt>
+                <span class="term">ぜんめつふっき</span>
+              </dt>
+              <dd>パーティーが全滅したときに移動される地点の地名を示す。</dd>
+              <dt>
+                <span class="term">リセットふっき</span>
+              </dt>
+              <dd>現在の冒険の書でゲームを再開するとどこから始まるのかを地名で示す。</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.menu.C908B4"></a>4.1.2.9. せんたくせんとう</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+せんたくせんとうは、魔物の群れを指定して戦闘を開始するコマンドだ。
+後述する <a class="xref" href="dq6_debug.html#dq6.debug.room.0289" title="4.1.3.6. 戦闘デバッグ部屋">4.1.3.6 戦闘デバッグ部屋</a> にいるガイコツに話しかけるのと同じ処理を呼び出す。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.menu.C9086A"></a>4.1.2.10. タイルせんとう</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+タイルせんとうは、戦闘地域を指定して戦闘を開始するコマンドだ。
+この数値はすなわち <code class="varname">$C6843C</code> 配列の ID のことだ。
+</p>
+          <p>
+「キーばんめ」という数値入力ウィンドウが表示されるので、ここで数値を入力する。
+現在いる場所が戦闘地域ならば、対応する値が初期値として示される。
+<code class="literal">#$0005</code> 未満の入力値は無効扱いとなり、何も起こらない。
+<code class="literal">#$0075</code> 以上の入力値は <code class="literal">#$0074</code> にクリップされて処理される。
+</p>
+          <p>
+数値の入力が受け付けられると、現在どこにいようが直ちに魔物の群れが現れる。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.menu.C908BD"></a>4.1.2.11. サウンドテスト</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サウンドを指定して音楽や効果音を再生するコマンドだ。
+「キーばんめ」という数値入力ウィンドウが表示されるので、ここで数値を入力する。
+</p>
+          <p>
+数値の入力が受け付けられると、対応する音楽や効果音が再生される。
+なお、現在の BGM が必ずしも停止するとは限らない。
+<code class="literal">#$00FE</code> 以上の入力値は <code class="literal">#$00FD</code> にクリップされて処理される。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.menu.C908E9"></a>4.1.2.12. いんちきせってい</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+以下の項目を列挙するサブウィンドウを表示する。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.menu.cheat"></a>
+            <p class="title">
+              <strong>図 4.6 いんちきせってい</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.menu.cheat.png" width="240" alt="いんちきせってい" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">いんちきあるき</span>
+              </dt>
+              <dd>
+        これを選択すると何やら質問される。
+        「はい」を選択すると、移動時にキャンセル歩行が可能になるというものだ。
+        これは <span class="keycap"><strong>SELECT</strong></span> ボタンを押しながら十字キーを押すと、障害物の有無に関わらず
+        パーティーが通行できるというたいへん素晴らしい機能だ。
+        ただ、擬似的な地面の高低差がある箇所でこれを使いこなすのには若干の慣れが必要だ。
+        「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+        キャンセル歩行の利用が不可になる。
+      </dd>
+              <dt>
+                <span class="term">エンカウント</span>
+              </dt>
+              <dd>
+        これを選択すると何やら質問される。
+        「はい」を選択すると、戦闘地域において移動中にランダムに魔物の群れと遭遇するようになる。
+        「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+        戦闘地域において移動中に魔物の群れと遭遇することがなくなる。
+      </dd>
+              <dt>
+                <span class="term">スタートフロア</span>
+              </dt>
+              <dd>
+        これを選択すると何やら質問される。
+        「はい」を選択すると、冒険開始時時にテストという場所からゲームが始まる。
+        この場所については後で詳しく述べる。
+        「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+        冒険開始時にプロローグ（ムドー城前のたき火のシーン）から始まる。
+      </dd>
+              <dt>
+                <span class="term">ざひょう</span>
+              </dt>
+              <dd>
+                <div class="figure">
+                  <a id="fig.dq6.debug.coords"></a>
+                  <p class="title">
+                    <strong>図 4.7 ざひょう</strong>
+                  </p>
+                  <div class="figure-contents">
+                    <div>
+                      <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                        <tr>
+                          <td>
+                            <img src="./image/dq6.debug.coords.png" width="240" alt="ざひょう" />
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <br class="figure-break" />
+                <p class="simpara">
+        これを選択すると何やら質問される。
+        「はい」を選択すると、移動時に <span class="keycap"><strong>R</strong></span> ボタンを押すことで画面右下に座標ウィンドウが表示されるようになる。
+        「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+        移動時に移動時に <span class="keycap"><strong>R</strong></span> ボタンを押すことで、もし所持していれば地図が表示されるようになる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">なかま</span>
+              </dt>
+              <dd>
+        これを選択すると何やら質問される。
+        「はい」を選択すると、各通常戦闘終了時に仲間になる可能性のある魔物が、
+        抽選処理をスキップして必ず起き上がるようになる。
+        「いいえ」を選択するか、またはウィンドウをキャンセルすると、
+        そのようなことが起こらないようになる。
+      </dd>
+              <dt>
+                <span class="term">サウンドテスト</span>
+              </dt>
+              <dd>
+        これを選択すると、いきなり「はい・いいえ」が表示される。
+        返答に応じて <code class="varname">$7E3D00</code> の 6 ビット目の ON/OFF が切り替わる。
+        このフラグは戦闘中の BGM が再生されるかどうかを制御する。
+        通常戦闘曲、通常ボス戦曲、ラスボス戦曲の再生に影響する。
+      </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.debug.room"></a>4.1.3. デバッグルーム</h3>
+            </div>
+          </div>
+        </div>
+        <a id="term.dq6.debug.room" class="indexterm"></a>
+        <p>
+この節ではデバッグコマンドが「インチキフロア」や「テスト」と呼ぶ部屋群について、
+そこへのアクセス手段および部屋群の概要を述べる。
+</p>
+        <p>
+これらの部屋はおそらくプログラム開発を援助する目的で、ゲーム本編とは独立したものとして設置されたものだろう。
+デバッガーでも開発者でもない我々は製品版プログラムではこれらの部屋に到達することができないことになっている。
+しかし、以下に述べるような非正規な手段を講じることでこれらの部屋にアクセスすることができる。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.access"></a>4.1.3.1. アクセス方法</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+インチキフロア群に訪問する方法は色々と考えられる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">デバッグメニューのいんちきルーラコマンドにある「テスト」のうち最初に現れる項目を選択する。</li>
+              <li class="listitem">PAR 機能を用いて、画面切り替え時に次の部屋の ID を書き換える。</li>
+              <li class="listitem">リセット復帰地点をインチキフロアとする。</li>
+            </ul>
+          </div>
+          <p>
+以下、最後の二つの方法について検討していく。
+</p>
+          <div class="section">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h5 class="title"><a id="dq6.debug.room.access.floor"></a>4.1.3.1.1. ルーム ID を Cheat ツールで上書きする</h5>
+                </div>
+              </div>
+            </div>
+            <p>
+Cheat ツールを利用して、現在移動中のルーム ID を上書きすることで、強引にデバッグルームに入る方法がある。
+何らかの PAR コード改造を利用できる環境であれば、最初に以下のコードを移動モード時に入力する。
+2 バイト型としてセットする。
+</p>
+            <div class="table">
+              <a id="table.dq6.debug.room.access.floor"></a>
+              <p class="title">
+                <strong>表 4.1 ルーム ID を改造</strong>
+              </p>
+              <div class="table-contents">
+                <table id="table.dq6.debug.room.access.floor" class="lighttable">
+                  <thead>
+                    <tr>
+                      <th>アドレス</th>
+                      <th>値</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <code class="varname">$7E5E8E</code>
+                      </td>
+                      <td>
+                        <code class="literal">#$0286</code>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <br class="table-break" />
+            <p>
+そして、今いる部屋から画面を切り替える。
+記者の経験則だが、上向きに歩いて画面を切り替えるのが具合がよいようだ。
+すると真っ暗なところに出る。
+だいだい左上のほうに歩いてみるとそれらしき部屋にたどりつく。
+以降の部屋探索にコードが干渉するため、この時点でコードは無効化すること。
+</p>
+          </div>
+          <div class="section">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h5 class="title"><a id="dq6.debug.room.access.reset"></a>4.1.3.1.2. リセット復帰地点を指定する</h5>
+                </div>
+              </div>
+            </div>
+            <p>
+ここで述べる方法は、アクションリプレイ誌 <a class="xref" href="appendix_a.html#dqref.ActionReplay99" title="アクションリプレイ 1999 Vol.4">[<abbr class="abbrev">ActionReplay99</abbr>]</a> で紹介されていたものだ。
+</p>
+            <p>
+まずタイトル画面から冒険の書メニュー画面に進む。
+ここで以下のコードを 1 バイト 型として入力、ON にする。
+するとデバッグメインルームに出てくる。
+神父のセリフが終わったら、コードを OFF にする。
+</p>
+            <div class="table">
+              <a id="table.dq6.debug.room.access.reset"></a>
+              <p class="title">
+                <strong>表 4.2 $7E3E65 = 78h</strong>
+              </p>
+              <div class="table-contents">
+                <table id="table.dq6.debug.room.access.reset" class="lighttable">
+                  <thead>
+                    <tr>
+                      <th>アドレス</th>
+                      <th>値</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <code class="varname">$7E3E65</code>
+                      </td>
+                      <td>
+                        <code class="literal">#$78</code>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <br class="table-break" />
+            <p>
+ただし、冒険がある程度進んでいないとダーマの神殿のたいまつの間に出てきてしまう。
+この条件の特定については調査中。
+</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.code"></a>4.1.3.2. 各部屋のコード</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+各デバッグルームに対応する PAR コード表を次に示す。
+コードすなわち ID の値が 2 バイト表現であるので、
+<code class="code">$7E5E8E=0286h</code>
+とセットするか、
+<code class="code">$7E5E8E=86h, $7E5E8F=02h</code>
+とセットすればよい。
+</p>
+          <div class="table">
+            <a id="table.dq6.debug.room.code"></a>
+            <p class="title">
+              <strong>表 4.3 PAR コード</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.debug.room.code" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>コード</th>
+                    <th>場所</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0286</code>
+                    </td>
+                    <td>メインルーム</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0287</code>
+                    </td>
+                    <td>井戸の部屋</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0288</code>
+                    </td>
+                    <td>カジノデバッグ部屋</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0289</code>
+                    </td>
+                    <td>戦闘デバッグ部屋</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$028A</code>
+                    </td>
+                    <td>店屋デバッグ部屋</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$028B</code>
+                    </td>
+                    <td>フラグチェック部屋（モンスターと男）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$028C</code>
+                    </td>
+                    <td>フラグチェック部屋（モンスターと青い服の女）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$028D</code>
+                    </td>
+                    <td>フラグチェック部屋（モンスターとターニア）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$028E</code>
+                    </td>
+                    <td>フラグチェック部屋（老人）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$028F</code>
+                    </td>
+                    <td>フラグチェック部屋（アモス）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0290</code>
+                    </td>
+                    <td>フラグチェック部屋（ミレーユ）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0291</code>
+                    </td>
+                    <td>フラグチェック部屋（人魚）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0292</code>
+                    </td>
+                    <td>フラグチェック部屋（ホルス）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0293</code>
+                    </td>
+                    <td>フラグチェック部屋（ランド）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0294</code>
+                    </td>
+                    <td>フラグチェック部屋（王さま）</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.0286"></a>4.1.3.3. メインルーム</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+以降、デバッグルーム各部屋を巡ってみよう。
+</p>
+          <p>
+メインルームではいろいろなことができるだけでなく、他のデバッグルームに対するターミナルでもある。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0286"></a>
+            <p class="title">
+              <strong>図 4.8 ルーム <code class="literal">#$0286</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0286.png" width="240" alt="ルーム #$0286" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+左の商人は乗り物に関する質問をしてくる。セリフは
+「船 手に入れる？」
+「ひょうたん島 手に入れる？」
+「ベッド 手に入れる？」
+「じゅうたん 手に入れる？」だ。
+各質問で「はい」と答えたときに、
+それぞれの乗り物に搭乗可能なフラグが立つ。
+具体的には <code class="varname">$7E3D2E</code> の適切なビットが 1 になる。
+</p>
+          <p>
+画面上部の大臣はゴールドデバッグ担当だ。
+「おかね ほしい？」「いっぱい ほしい？」ときかれる。
+「はい」で「いっぱい あげる。」となり、所持金が 999,999 ゴールドになる。
+「いいえ」だと「すこし あげる」となり、1,000 ゴールドもらえる。
+</p>
+          <p>
+大臣の隣りにいる商人はふくろデバッグ担当だ。
+「あなた もう ふくろ もってる。 わたし もう ふくろ ないね。」といわれる。
+ふくろを持っていない状態でこの商人に話しかけると、
+<code class="varname">$7E3D2D</code> の 7 ビット目が立ち、ふくろが使えるようになる。
+</p>
+          <p>
+神父はいつもの神父と同じはたらきをする。
+ここでセーブすると「テスト」という場所になる。
+試しにリセットして再開すると、ここからスタートとなる。
+</p>
+          <p>
+画面右側の詩人。
+「マップチェックのための 設定を 行ないますか？」
+「シナリオチェックは 出来ませんが よろしいですか？」
+「マップチェックのための フラグを たてました」
+などのセリフがある。
+具体的にどうなるのかは（処理コードが長くて）確認することができなかった。
+</p>
+          <p>
+バーテン。
+非常にマニアックな品揃えの道具の店だ。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0286.b"></a>
+            <p class="title">
+              <strong>図 4.9 ルーム <code class="literal">#$0286</code> の道具屋</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0286.b.png" width="240" alt="ルーム #$0286 の道具屋" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+画面右側の青い服の娘。
+「最強と 呼ばれたい？」ときかれる。
+「はい」と答えるとパーティー全員について経験値を <code class="literal">#$FFFFFF</code> にしてレベルを更新し、
+HP と MP と状態を回復し、
+次にルイーダの酒場にいる者も含む仲間全員に呪文特技を全て習得させ、
+最後に職業経験値を最大にする処理がなされる。
+再現条件が不明だが、この最後の処理でフリーズすることがある。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0286.a"></a>
+            <p class="title">
+              <strong>図 4.10 ルーム <code class="literal">#$0286</code> 画面右の青服の娘</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0286.a.png" width="240" alt="ルーム #$0286 画面右の青服の娘" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+バニー。
+「パーティ先頭者の かっこよさ 10 あげる？」とたずねられる。
+「はい」と答えると、パーティの先頭にいるキャラのかっこよさが 10 上がる。
+かっこよさが限界値に近い場合は限界値になる。
+そのあとも「もう 1 回 あげる？」ときかれる。
+「はい」と答え続ける限り、かっこよさが 10 ずつ上がっていく。
+</p>
+          <p>
+画面左側の青い服の娘。
+「もしも ひとりが さみしいのなら 泣いてもいいのよ この胸で。
+→ そして フラグが うずくのならば 起ててもいいのよ この指で。」
+「はい」と答えるとエンディングのチャモロのシーンから始まる。
+「いいえ」で
+「どうせ その気が おきないのなら 捨てればいいのよ そんなもの。」となる。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0286.c"></a>
+            <p class="title">
+              <strong>図 4.11 ルーム <code class="literal">#$0286</code> 画面左の青服の娘</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0286.c.png" width="240" alt="ルーム #$0286 画面左の青服の娘" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+赤い服の娘。
+「もう どうなってもいい？」
+「合体しちゃってもいい？」「はい」でショウカク、ズイカクの取調べシーンが見られる。
+「いいえ」とすると、質問が変わり「しずくを たらしちゃってもいい？」ときかれる。
+「はい」でゼニスの城浮上シーンが見られる。
+さらに「いいえ」とすると、「せめて まわしちゃってもいい？」ときかれる。
+「はい」でラスボス直前の扉の前に移動させられる。
+なにもしないように返事をすると「いくぢなし……」となる。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0286.d"></a>
+            <p class="title">
+              <strong>図 4.12 ルーム <code class="literal">#$0286</code> 画面左の赤服の娘</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0286.d.png" width="240" alt="ルーム #$0286 画面左の赤服の娘" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+画面下部の男。
+「ここから先は 一般の人は 立ち入り禁止です。
+→ とりわけ デバッガーの方は えんりょして下さいね。」
+ちなみにここから先はフラグチェック部屋だ。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0286.e"></a>
+            <p class="title">
+              <strong>図 4.13 ルーム <code class="literal">#$0286</code> 立入禁止の男</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0286.e.png" width="240" alt="ルーム #$0286 立入禁止の男" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+青服娘とバニーの間のテーブルは実は宝箱になっている。
+ここを調べるたびに「ちいさなメダル」が一枚入手できる。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0286.chest"></a>
+            <p class="title">
+              <strong>図 4.14 ルーム <code class="literal">#$0286</code> 宝箱</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0286.chest.png" width="240" alt="ルーム #$0286 宝箱" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+BGM はカジノのものと同じだ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.0287"></a>4.1.3.4. 井戸の部屋</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+メインルームの 4 つあるツボのうち、
+一番右にあるものに乗っかるとこの部屋に出る。
+一画面におさまるくらいの広さの部屋に、整然と井戸が 10 個配置されている。
+それぞれに <code class="literal">F01</code> から <code class="literal">F10</code> まで名前がついている。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0287"></a>
+            <p class="title">
+              <strong>図 4.15 ルーム <code class="literal">#$0287</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0287.png" width="240" alt="ルーム #$0287" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+各井戸に乗るとフィールドマップに出る。
+しかし実際に使うことができるのは <code class="literal">F01</code>, <code class="literal">F02</code>, <code class="literal">F03</code>, <code class="literal">F04</code> の <code class="literal">4</code> つだけであった。
+<code class="literal">F01</code> は上の世界のライフコッドの近く、
+<code class="literal">F02</code> は下の世界のトルッカの近く、<code class="literal">F03</code> ははざまの世界スタート地点、
+<code class="literal">F04</code> は海底フィールドの海底神殿の前にそれぞれ画面が切り替わる。
+それも通常のフィールドではなく、何かのチェック用に色がついている。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0287.a"></a>
+            <p class="title">
+              <strong>図 4.16 フィールドがカラフル</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0287.a.png" width="240" alt="フィールドがカラフル" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0287.b"></a>
+            <p class="title">
+              <strong>図 4.17 海底がカラフル</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0287.b.png" width="240" alt="海底がカラフル" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+中央のツボに乗ると、メインルームの一番右のツボの上に戻る。
+</p>
+          <p>
+BGM は冒険の書メニューのものと同じだ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.0288"></a>4.1.3.5. カジノデバッグ部屋</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+中途半端な広さのルーム。
+なんか空の背景が映り込んでいる。
+ランドっぽい男が 5 人とネコ 1 匹がいる。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0288.a"></a>
+            <p class="title">
+              <strong>図 4.18 ルーム <code class="literal">#$0288</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0288.a.png" width="240" alt="ルーム #$0288" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p> 
+一番左の男はポーカーチェック用らしく、
+「ノーマルポーカー やらない？」
+「ハイローポーカー やらない？」とたずねられる。
+「はい」と答えるとすぐにポーカーの画面に切り替わる。
+この両者の違いはダブルアップのカード選択方法だ。
+</p>
+          <p>
+左から 2 番目の男はモンスターアニメーションチェック用らしい。
+話しかけた途端に戦闘シーンになる。
+いつものウインドウは出ず、かわりに画面上のほうにモンスター名を
+数値で入力するウインドウが出る。
+上の画像で言うと、十進数表記で我々にはわかりづらいが、222 がモンスター ID
+（<a class="xref" href="dq6_monster.html" title="4.14. モンスター">4.14 モンスター</a>参照）で、
+左側の数字が入力用、右側がそのモンスターのアニメーション総数を表している。
+0 から数えるので、グラコスの場合は 3 個ある。
+背景はこの画像の海底のもので固定されている。
+</p>
+          <p>
+操作方法が独特で、モンスターの変更に <span class="keycap"><strong>L</strong></span> と <span class="keycap"><strong>R</strong></span> ボタンを用いる。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0288.b"></a>
+            <p class="title">
+              <strong>図 4.19 モンスターアニメーション</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="256">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0288.b.png" width="256" alt="モンスターアニメーション" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+中央の男から右端の男までがスロットマシンだ。
+コインの単位は 1 枚だ。
+絵柄パターンは 3 マシンともすべて同じであり、
+どのマシンもその 3 つのドラムの絵柄パターンが同じだ。
+</p>
+          <p>
+ネコにはセリフがない。
+</p>
+          <p>
+BGM はカジノのものと同じだ。
+</p>
+          <p>
+キャンセル歩行を ON にした状態で部屋中央部のプールのようなところに進むと、
+どういうわけかトルッカ近くの海上に瞬間移動する。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.0289"></a>4.1.3.6. 戦闘デバッグ部屋</h4>
+              </div>
+            </div>
+          </div>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0289"></a>
+            <p class="title">
+              <strong>図 4.20 ルーム <code class="literal">#$0289</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0289.png" width="240" alt="ルーム #$0289" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+戦闘デバッグ用のルーム。
+背景がムドー戦の背景と同じものだ。
+</p>
+          <p>
+左端にいる男に話すと、
+「経験値 ほしい？」ときかれる。
+「はい」と答えると経験値が 16,777,215 になる。
+</p>
+          <p>
+占い師に話すと「呪文 おぼえる？」となり、
+「はい」ですべての呪文・特技を使える状態になる。
+</p>
+          <p>
+中央のガイコツに話すといきなり画像のようなウインドウが出る。
+グループ <code class="literal">00</code> から <code class="literal">03</code> の各モンスターと個数をセットすると、
+さらに背景指定ウインドウが出る。
+決定後戦闘シーンに突入する。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0289.a"></a>
+            <p class="title">
+              <strong>図 4.21 モンスター数の入力</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0289.a.png" width="240" alt="モンスター数の入力" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+神父は教会と同じ。冒険の書に記録すると、場所が「テスト」になる。
+リセットして再開するとこの場所からゲーム再開になる。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0289.b"></a>
+            <p class="title">
+              <strong>図 4.22 冒険の書リスト</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0289.b.png" width="240" alt="冒険の書リスト" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+右端の女戦士は宿屋だ。
+宿賃はひとり 2 ゴールドとなっている。
+</p>
+          <p>
+このルームの両側および下側画面切り替え地点に行くと、
+メインルームの上側中央の出入口に移動する。
+</p>
+          <p>
+BGM は洞窟のものと同じだ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.028A"></a>4.1.3.7. 店屋デバッグ部屋</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+部屋の左下から時計回りに
+よろず屋、どうぐの店、防具の店、武器屋、ダーマの神殿、ルイーダの店、
+教会（神父）、命名神につかえる神官、教会（シスター）、ゴールド銀行、おしゃれなカジヤ、宿屋、
+そして最後に何かのデバッグ用の老人がいる。
+</p>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.028A.a"></a>
+            <p class="title">
+              <strong>図 4.23 ルーム <code class="literal">#$028A</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.028A.a.png" width="240" alt="ルーム #$028A" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <div class="figure">
+            <a id="fig.dq6.debug.room.028A.b"></a>
+            <p class="title">
+              <strong>図 4.24 スライムに 転職できるフラグを たてますか？</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.028A.b.png" width="240" alt="スライムに 転職できるフラグを たてますか？" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+それぞれの店の品揃えは次の通り。
+宿屋はひとり 2 ゴールドだ。
+</p>
+          <div class="table">
+            <a id="table.dq6.debug.room.028A"></a>
+            <p class="title">
+              <strong>表 4.4 店屋メニュー</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.debug.room.028A" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>店の種類</th>
+                    <th>アイテム</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th rowspan="4">よろず屋</th>
+                    <td>やくそう</td>
+                  </tr>
+                  <tr>
+                    <td>どくけしそう</td>
+                  </tr>
+                  <tr>
+                    <td>かわのぼうし</td>
+                  </tr>
+                  <tr>
+                    <td>きのぼうし</td>
+                  </tr>
+                  <tr>
+                    <th rowspan="4">どうぐの店</th>
+                    <td>やくそう</td>
+                  </tr>
+                  <tr>
+                    <td>どくけしそう</td>
+                  </tr>
+                  <tr>
+                    <td>せいすい</td>
+                  </tr>
+                  <tr>
+                    <td>まじんのよろい</td>
+                  </tr>
+                  <tr>
+                    <th rowspan="6">防具の店</th>
+                    <td>ぬののふく</td>
+                  </tr>
+                  <tr>
+                    <td>たびびとのふく</td>
+                  </tr>
+                  <tr>
+                    <td>かわのよろい</td>
+                  </tr>
+                  <tr>
+                    <td>うろこのよろい</td>
+                  </tr>
+                  <tr>
+                    <td>くさりかたびら</td>
+                  </tr>
+                  <tr>
+                    <td>せいどうのよろい</td>
+                  </tr>
+                  <tr>
+                    <th rowspan="5">武器屋</th>
+                    <td>ひのきのぼう</td>
+                  </tr>
+                  <tr>
+                    <td>たけのやり</td>
+                  </tr>
+                  <tr>
+                    <td>こんぼう</td>
+                  </tr>
+                  <tr>
+                    <td>ブロンズナイフ</td>
+                  </tr>
+                  <tr>
+                    <td>どうのつるぎ</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+ここで冒険の書に記録したときの場所の名前は、
+神父がライフコッド、シスターがシエーナにそれぞれなる。
+実際リセットして再開すると、それぞれの教会からスタートとなる。
+</p>
+          <p>
+右下の老人に話すと、
+「スライムに 転職できる フラグを たてますか？」きかれる。「いいえ」を選ぶと、
+「ドラゴンに 転職できる フラグを たてますか？」ときかれる。さらに「いいえ」を選ぶと
+「デバッグに 転職できる フラグを たてますか？」となる。
+ここでは「はい」「いいえ」のどちらを選んでも会話が終了する。
+</p>
+          <p>
+このルームの出入口はメインルームの上側左出入口に対応している。
+</p>
+          <p>
+BGM は街のものと同じだ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.028B"></a>4.1.3.8. フラグチェック部屋（モンスターと男）</h4>
+              </div>
+            </div>
+          </div>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.028B"></a>
+            <p class="title">
+              <strong>図 4.25 ルーム <code class="literal">#$028B</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.028B.png" width="240" alt="ルーム #$028B" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+これ以降で紹介するフラグチェック部屋において、特に断りのない限りは
+フラグチェック用キャラのセリフはすべて「はい・いいえ」を尋ねられる。
+プレイヤーが「はい」と答えると、その問いに対応するフラグがその時点での冒険の進行状況によらず、立ったことになる。
+どの部屋においても各人が 1 フラグを担当する。ちなみに BGM は街のものと同じだ。
+</p>
+          <p>
+この部屋で聞くことのできるセリフは次のとおり。
+</p>
+          <div class="table">
+            <a id="table.dq6.debug.room.028B"></a>
+            <p class="title">
+              <strong>表 4.5 フラグチェック部屋（モンスターと男）</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.debug.room.028B" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>セリフ</th>
+                    <th>「はい」と答えると</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>オープニング終了後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>道具袋 もらった</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>精霊のかんむり 手に入れた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>精霊イベント開始</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>村まつり 自由</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>村まつり ナレーション</td>
+                    <td>花火からナレーションへ。</td>
+                  </tr>
+                  <tr>
+                    <td>村まつり終了後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>試練の説明が 終った</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>兵士になった</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ファルシオン つかまえた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>馬車を 手に入れた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>サンディとジョセフの寸劇を見た</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.028C"></a>4.1.3.9. フラグチェック部屋（モンスターと青い服の女）</h4>
+              </div>
+            </div>
+          </div>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.028C"></a>
+            <p class="title">
+              <strong>図 4.26 ルーム <code class="literal">#$028C</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.028C.png" width="240" alt="ルーム #$028C" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+この部屋で聞くことのできるセリフは次のとおり。
+</p>
+          <div class="table">
+            <a id="table.dq6.debug.room.028C"></a>
+            <p class="title">
+              <strong>表 4.6 フラグチェック部屋（モンスターと青い服の女）</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.debug.room.028C" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>セリフ</th>
+                    <th>「はい」と答えると</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>サンディ 入牢後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ドックでミレーユと話した</td>
+                    <td>「はい」でも何も変化なし？</td>
+                  </tr>
+                  <tr>
+                    <td>夢見のしずくを 手に入れた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>実体化後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>定期船に乗る</td>
+                    <td>サンマリーノの船着場入口へ。</td>
+                  </tr>
+                  <tr>
+                    <td>ニセ王子として 追い出された</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>M06の川が 赤く染まった</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>カガミのカギ入手後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>エリザ さらわれた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>誘拐事件解決後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>バーバラに会う</td>
+                    <td>つきかがみのとうの 5 階へ。</td>
+                  </tr>
+                  <tr>
+                    <td>ラーの鏡入手後</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.028D"></a>4.1.3.10. フラグチェック部屋（モンスターとターニア）</h4>
+              </div>
+            </div>
+          </div>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.028D"></a>
+            <p class="title">
+              <strong>図 4.27 ルーム <code class="literal">#$028D</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.028D.png" width="240" alt="ルーム #$028D" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+この部屋で聞くことのできるセリフは次のとおり。
+</p>
+          <div class="table">
+            <a id="table.dq6.debug.room.028D"></a>
+            <p class="title">
+              <strong>表 4.7 フラグチェック部屋（モンスターとターニア）</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.debug.room.028D" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>セリフ</th>
+                    <th>「はい」と答えると</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>王がシェーラに戻った後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>地底魔城に飛ぶ</td>
+                    <td>ちていまじょうの地下 4 階へ。</td>
+                  </tr>
+                  <tr>
+                    <td>ムドーが王に戻った後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>大臣の眠れぬ夜が明けた後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>下の世界 C01 回想イベント終った</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>王の書状を 受けとった</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ゲント船の 進水イベント 終った</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>森と崖のイベント 2回目 終了</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ムドー城へ</td>
+                    <td>ムドーのしろの 1 階へ。</td>
+                  </tr>
+                  <tr>
+                    <td>ムドーを 倒した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>M08での選択 アモスの処遇</td>
+                    <td>アモスを仲間にする？ と追加質問をされる。</td>
+                  </tr>
+                  <tr>
+                    <td>C08 棺桶を受け取った</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.028E"></a>4.1.3.11. フラグチェック部屋（老人）</h4>
+              </div>
+            </div>
+          </div>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.028E"></a>
+            <p class="title">
+              <strong>図 4.28 ルーム <code class="literal">#$028E</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.028E.png" width="240" alt="ルーム #$028E" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+この部屋で聞くことのできるセリフは次のとおり。
+</p>
+          <div class="table">
+            <a id="table.dq6.debug.room.028E"></a>
+            <p class="title">
+              <strong>表 4.8 フラグチェック部屋（老人）</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.debug.room.028E" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>セリフ</th>
+                    <th>「はい」と答えると</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>テリーの 戦闘イベント終った</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>旅人の洞窟 開通した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>砂漠の町に 夜が来た</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ゆーとぴあへ</td>
+                    <td>フィールド上しあわせの国のある島の最南端のマスへ。</td>
+                  </tr>
+                  <tr>
+                    <td>ジャミラス倒して ひょうたん島を 手に入れた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ホルスを 仲間にした</td>
+                    <td>ホルスがパーティに。</td>
+                  </tr>
+                  <tr>
+                    <td>ホルスが 洗礼の洞窟から 逃げ出した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>C04 お祝いが終った</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>魔法の鍵を 受けとった</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>黄金のつるはしを 手に入れた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>勇気のかけら 手に入れた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>空飛ぶベッド 手に入れた</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.028F"></a>4.1.3.12. フラグチェック部屋（アモス）</h4>
+              </div>
+            </div>
+          </div>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.028F"></a>
+            <p class="title">
+              <strong>図 4.29 ルーム <code class="literal">#$028F</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.028F.png" width="240" alt="ルーム #$028F" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+この部屋で聞くことのできるセリフは次のとおり。
+</p>
+          <div class="table">
+            <a id="table.dq6.debug.room.028F"></a>
+            <p class="title">
+              <strong>表 4.9 フラグチェック部屋（アモス）</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.debug.room.028F" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>セリフ</th>
+                    <th>「はい」と答えると</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>フォーン王の たのみを きいた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ミラルゴを たおした</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>イリカ姫 鏡から 助けられた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>水門のカギ 手に入れた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>隠し通路 発見した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ディーネを 仲間にした</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>マーメイドハープを 手に入れた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>グラコス倒して 砂の器 入手した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>マダンテ 入手した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ゴランと 話した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>雪女の怒りが とけた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>合い言葉を 聞いた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>さびたつるぎを 入手した</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.0290"></a>4.1.3.13. フラグチェック部屋（ミレーユ）</h4>
+              </div>
+            </div>
+          </div>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0290"></a>
+            <p class="title">
+              <strong>図 4.30 ルーム <code class="literal">#$0290</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0290.png" width="240" alt="ルーム #$0290" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+この部屋で聞くことのできるセリフは次のとおり。
+</p>
+          <div class="table">
+            <a id="table.dq6.debug.room.0290"></a>
+            <p class="title">
+              <strong>表 4.10 フラグチェック部屋（ミレーユ）</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.debug.room.0290" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>セリフ</th>
+                    <th>「はい」と答えると</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>主人公分身 逃げ出した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ライフコッド 魔物におそわれている</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ザコデーモン 倒した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>下のライフコッド 魔物を 倒した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>伝説のヨロイ 入手した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>変装イベント スタート</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>変装イベント 終了</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>剣を サリイに渡した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ラミアスのつるぎ 入手した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ヘルクラウドへの 道が 開けた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>天空城 復活した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ペガサス合体 終了</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.0291"></a>4.1.3.14. フラグチェック部屋（人魚）</h4>
+              </div>
+            </div>
+          </div>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0291"></a>
+            <p class="title">
+              <strong>図 4.31 ルーム <code class="literal">#$0291</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0291.png" width="240" alt="ルーム #$0291" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+この部屋で聞くことのできるセリフは次のとおり。
+</p>
+          <div class="table">
+            <a id="table.dq6.debug.room.0291"></a>
+            <p class="title">
+              <strong>表 4.11 フラグチェック部屋（人魚）</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.debug.room.0291" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>セリフ</th>
+                    <th>「はい」と答えると</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>青いボタン ついた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>レイドック城 記憶をたどる イベント終了</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ふるびたパイプを 受け取った</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>無気力フィルター解除</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>モルガンの手紙を 読んだ</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>湖のイベント終了</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>兵士の服 入手した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ドグマとゾゾゲルに 敗れた</td>
+                    <td>ろうごくのまちの地下 3 階の牢屋の前へ。</td>
+                  </tr>
+                  <tr>
+                    <td>M20 呪いを受けた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>クリムトを 仲間にした</td>
+                    <td>クリムトがパーティに。</td>
+                  </tr>
+                  <tr>
+                    <td>はざまの城 落下後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>エンディングへ</td>
+                    <td>追加質問</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+最後のフラグキャラだけ追加質問がある。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">「ムーア倒したとこから？」</li>
+              <li class="listitem">「ペガサス飛行から？」</li>
+              <li class="listitem">「下のレイドックから？」</li>
+              <li class="listitem">「スタッフスクロールから？」</li>
+              <li class="listitem">「後日シーンから？」</li>
+              <li class="listitem">「ラストシーンから？」</li>
+            </ul>
+          </div>
+          <p>
+ペガサス飛行を選ぶと海上の特定のマスへ移動させられ、歩行状態なので身動きが取れなくなる。
+てんまのたづなを使うと、いきなりエンディングの動きになる。
+まほうのじゅうたんで直接ゼニスのしろへいくと面白い。
+スタッフスクロールはゼニス城が空へ浮遊するシーンからスタート。
+後日シーンはチャモロのシーン。BGM が街のそれ。
+ラストシーンはレイドック城の王室から。
+</p>
+          <p>
+画面下側にノーメッセージ娘がいる。
+この先に画面切り替えポイントはない。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.0292"></a>4.1.3.15. フラグチェック部屋（ホルス）</h4>
+              </div>
+            </div>
+          </div>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0292"></a>
+            <p class="title">
+              <strong>図 4.32 ルーム <code class="literal">#$0292</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0292.png" width="240" alt="ルーム #$0292" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+このルーム以降のフラグルームからすでに用意されているフラグキャラとの重複が出てくる。
+この部屋で聞くことのできるセリフは次のとおり。
+</p>
+          <div class="table">
+            <a id="table.dq6.debug.room.0292"></a>
+            <p class="title">
+              <strong>表 4.12 フラグチェック部屋（ホルス）</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.debug.room.0292" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>セリフ</th>
+                    <th>「はい」と答えると</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>オープニング終了後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>村まつり終了後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>くじけぬ心 入手後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>M05に 初めて 入った</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>サンディ 入牢後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>実体化後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ニセ王子として 追い出された</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>カガミのカギ入手後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ラーの鏡入手後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>王がシェーラに戻った後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ムドーが王に戻った後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>王の書状を 受けとった</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.0293"></a>4.1.3.16. フラグチェック部屋（ランド）</h4>
+              </div>
+            </div>
+          </div>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0293"></a>
+            <p class="title">
+              <strong>図 4.33 ルーム <code class="literal">#$0293</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0293.png" width="240" alt="ルーム #$0293" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+この部屋で聞くことのできるセリフは次のとおり。
+</p>
+          <div class="table">
+            <a id="table.dq6.debug.room.0293"></a>
+            <p class="title">
+              <strong>表 4.13 フラグチェック部屋（ランド）</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.debug.room.0293" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>セリフ</th>
+                    <th>「はい」と答えると</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>ムドーを 倒した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>旅人の洞窟 開通した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ジャミラス倒して ひょうたん島を 手に入れた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>C04 お祝いが終った</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>空飛ぶベッド 手に入れた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>水門のカギ 手に入れた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>マーメイドハープを 手に入れた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>グラコス倒して 砂の器 入手した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>まほうのじゅうたん 入手後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>さびたつるぎを 入手した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>変装イベント 終了</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ザコデーモン 倒した</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.debug.room.0294"></a>4.1.3.17. フラグチェック部屋（王さま）</h4>
+              </div>
+            </div>
+          </div>
+          <div class="figure">
+            <a id="fig.dq6.debug.room.0294"></a>
+            <p class="title">
+              <strong>図 4.34 ルーム <code class="literal">#$0294</code></strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq6.debug.room.0294.png" width="240" alt="ルーム #$0294" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+この部屋で聞くことのできるセリフは次のとおり。
+</p>
+          <div class="table">
+            <a id="table.dq6.debug.room.0294"></a>
+            <p class="title">
+              <strong>表 4.14 フラグチェック部屋（王さま）</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.debug.room.0294" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>セリフ</th>
+                    <th>「はい」と答えると</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>レイドック城 記憶をたどる イベント終了</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ヘルクラウドへの 道が 開けた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>天空城 復活した</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ペガサス合体 終了</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>無気力フィルター解除</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>M17 クリア後</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>ドグマとゾゾゲルに 敗れた</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>しんじつのオーブ 入手後</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+「余った」王さまが 4 人いる。すべてセリフがない。
+</p>
+          <p>
+このルームの画面下側の出入口に画面切り替えポイントはない。
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_string.html" title="4.2. 文字列"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_string.html">4.2. 文字列</a></div>
+  </body>
+</html>

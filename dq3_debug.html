@@ -1,0 +1,1248 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.1. デバッグモード解析</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="next" href="dq3_text.html" title="5.2. テキスト解析" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_text.html" title="5.2. テキスト解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_text.html">5.2. テキスト解析</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.debug"></a>5.1. デバッグモード解析</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_debug.html#dq3.debug.hack">5.1.1. 解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_debug.html#dq3.debug.hack.C1FFFE">5.1.1.1. <code class="varname">$C1FFFE</code> 参照位置一覧</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_debug.html#dq3.debug.hack.FFFF">5.1.1.2. デバッグモード</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_debug.html#dq3.debug.hack.0001">5.1.1.3. ゲームショーモード</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_debug.html#dq3.debug.crack">5.1.2. 改竄</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq3.debug" class="indexterm"></a>
+      <p>
+	SFC 版ドラクエ 3 のデバッグモードについて解析する。
+	
+	Shingo Endo 氏が SFC 版ドラクエ 6 の解析文書で指摘している
+	「<code class="varname">$C1FFFE</code> の値によるプログラムの処理分岐」が SFC 版ドラクエ 3 においても存在する。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.debug.hack"></a>5.1.1. 解析</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+	最初に <code class="varname">$C1FFFE</code> の参照位置をすべて洗い出し、
+	周囲のコードを解析してデバッグモードにおける処理を特定していく。
+	必要ならば ROM イメージを改竄して、デバッグモード相当のプログラムを実行していくのが本章の狙いである。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.debug.hack.C1FFFE"></a>5.1.1.1. <code class="varname">$C1FFFE</code> 参照位置一覧</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	プログラムが <code class="varname">$C1FFFE</code> の値をみるときは、
+	<code class="code">LDA $C1FFFE</code> の形で参照すると推測できる。
+	そこで、単純に ROM イメージを "<code class="literal">AF FE FF C1</code>" で検索してみると、
+	割と参照位置が多く存在することを知る。
+</p>
+          <p>
+	以下に、
+	参照位置のアドレス、
+	ロードした <code class="varname">$C1FFFE</code> の値を扱う命令コード、
+	コードをおおまかに解読して推測した役割の表を示す。
+</p>
+          <div class="table">
+            <a id="table.dq3.C1FFFE"></a>
+            <p class="title">
+              <strong>表 5.1 $C1FFFE 参照位置一覧</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C1FFFE" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>参照位置</th>
+                    <th>命令</th>
+                    <th>処理</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="varname">$C02795</code>
+                    </td>
+                    <td>
+                      <code class="code">BPL       </code>
+                    </td>
+                    <td>負の値がロードされると、サブルーチン呼び出し元に戻れない（<a class="link" href="dq3_debug.html#dq3.debug.crack" title="5.1.2. 改竄">改竄</a>の項を参照）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C02DB1</code>
+                    </td>
+                    <td>
+                      <code class="code">BPL       </code>
+                    </td>
+                    <td><code class="varname">$7E3500</code> &amp; <code class="literal">0004h</code> ルーラ関係？</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C1C9BD</code>
+                    </td>
+                    <td>
+                      <code class="code">BPL       </code>
+                    </td>
+                    <td>負の値がロードされると、<a class="link" href="dq3_debug.html#dq3.debug.hack.FFFF.sugoroku" title="5.1.1.2.2. すごろくでインチキ">すごろく「？」イベントの操作が可能になる</a></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C315B0</code>
+                    </td>
+                    <td>
+                      <code class="code">BPL       </code>
+                    </td>
+                    <td>負の値がロードされると、へんげのつえで何に化けるかの指定が有効になる</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C31EA0</code>
+                    </td>
+                    <td>
+                      <code class="code">AND #$8000</code>
+                    </td>
+                    <td>負の値がロードされると、「ＲＯＭバージョン」ミニウィンドウ表示が有効になる</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C43C89</code>
+                    </td>
+                    <td>
+                      <code class="code">CMP #$0001</code>
+                    </td>
+                    <td>1 がロードされると、キャラクターのレベルアップが 5 までに制限される</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C46293</code>
+                    </td>
+                    <td>
+                      <code class="code">CMP #$0001</code>
+                    </td>
+                    <td>1 がロードされると、ふくろの処理に関する何かが無効になる？</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C463D4</code>
+                    </td>
+                    <td>
+                      <code class="code">CMP #$0001</code>
+                    </td>
+                    <td>1 がロードされると、冒険の書を保存（消去も）できなくなる</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C46536</code>
+                    </td>
+                    <td>
+                      <code class="code">BPL       </code>
+                    </td>
+                    <td>負の値がロードされると、新しい「ぼうけんのしょ３」が<a class="link" href="dq3_debug.html#dq3.debug.hack.FFFF.log3" title="5.1.1.2.3. 「ぼうけんのしょ３」新規作成で謎のパーティになる">風変わりな設定</a>になる</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C56723</code>
+                    </td>
+                    <td>
+                      <code class="code">BPL       </code>
+                    </td>
+                    <td>負の値がロードされると、<a class="link" href="dq3_debug.html#dq3.debug.hack.FFFF.sugoroku" title="5.1.1.2.2. すごろくでインチキ">すごろくでサイコロの出目操作が有効になる</a></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C6066C</code>
+                    </td>
+                    <td>
+                      <code class="code">BPL       </code>
+                    </td>
+                    <td>負の値がロードされると、「このフロアにあるマップや歩行属性は○○ワード大き過ぎます」テスト有効</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C650FC</code>
+                    </td>
+                    <td>
+                      <code class="code">BPL       </code>
+                    </td>
+                    <td>要呼び出し調査</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C65284</code>
+                    </td>
+                    <td>
+                      <code class="code">BPL       </code>
+                    </td>
+                    <td>要呼び出し調査</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C6FFF3</code>
+                    </td>
+                    <td>
+                      <code class="code">CMP #$0000</code>
+                    </td>
+                    <td>負の値がロードされると、サブルーチン呼び出し元に戻れない（<a class="link" href="dq3_debug.html#dq3.debug.crack" title="5.1.2. 改竄">改竄</a>の項を参照）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C73C2E</code>
+                    </td>
+                    <td>
+                      <code class="code">STA $C18B </code>
+                    </td>
+                    <td>1 がロードされると、まほうのたま使用時点で「すべてをつかさどる者」が出てきてゲームオーバー</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C767E6</code>
+                    </td>
+                    <td>
+                      <code class="code">BMI $67F8 </code>
+                    </td>
+                    <td rowspan="2">負の値がロードされると、L ボタンで<a class="link" href="dq3_debug.html#dq3.debug.hack.FFFF.menu" title="5.1.1.2.1. デバッグメニュー使用可能">デバッグメニューウィンドウを表示できる</a></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C767EF</code>
+                    </td>
+                    <td>
+                      <code class="code">BMI $67F8 </code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C76816</code>
+                    </td>
+                    <td>
+                      <code class="code">BPL       </code>
+                    </td>
+                    <td>負の値がロードされると、R ボタンで座標ウィンドウを表示できる</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C76862</code>
+                    </td>
+                    <td>
+                      <code class="code">BPL       </code>
+                    </td>
+                    <td>負の値がロードされると、<a class="link" href="dq3_debug.html#dq3.debug.hack.FFFF.sugoroku" title="5.1.1.2.2. すごろくでインチキ">すごろくでサイコロの出目を操作できる</a></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C76E8A</code>
+                    </td>
+                    <td>
+                      <code class="code">CMP #$FFFF</code>
+                    </td>
+                    <td rowspan="2"><code class="literal">FFFFh</code> と <code class="literal">8000h</code> との違いで、ある特定のフラグをリセットするかセットするかという処理になる</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C76F27</code>
+                    </td>
+                    <td>
+                      <code class="code">CMP #$8000</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+	以下では、<code class="varname">$C1FFFE</code> に何か負の値が格納されている状態を<a class="link" href="dq3_debug.html#dq3.debug.hack.FFFF" title="5.1.1.2. デバッグモード">デバッグモード</a>、
+	<code class="varname">$C1FFFE</code> に <code class="literal">0001h</code> が格納されている状態を<a class="link" href="dq3_debug.html#dq3.debug.hack.0001" title="5.1.1.3. ゲームショーモード">ゲームショーモード</a>とそれぞれ呼ぶことにする。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.debug.hack.FFFF"></a>5.1.1.2. デバッグモード</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	<code class="varname">$C1FFFE</code> を <code class="literal">FFFFh</code> 等の負の値で書き換えた場合、
+	先に述べたように、デバッグメニューの利用、すごろくの各種インチキ操作を含む、
+	プレイヤーにとってかなりの利益が得られる操作が可能となる。
+	以下の項では、解析で判明したそれらの利用方法を説明する。
+</p>
+          <div class="section">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h5 class="title"><a id="dq3.debug.hack.FFFF.menu"></a>5.1.1.2.1. デバッグメニュー使用可能</h5>
+                </div>
+              </div>
+            </div>
+            <div class="figure">
+              <a id="fig.dq3.debug.menu"></a>
+              <p class="title">
+                <strong>図 5.1 デバッグメニュー</strong>
+              </p>
+              <div class="figure-contents">
+                <div>
+                  <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                    <tr>
+                      <td>
+                        <img src="./image/dq3.debug.menu.png" width="240" alt="デバッグメニュー" />
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <br class="figure-break" />
+            <p>
+	移動モードにおいて、ウィンドウが一枚も出ていない状態でコントローラの L ボタンを押すと、
+	図のような<span class="emphasis"><em>デバッグメニューウィンドウ</em></span>が画面上に出現する。
+	各メニューアイテムを簡単に説明する。
+</p>
+            <div class="glosslist">
+              <dl>
+                <dt>
+                  <span class="glossterm">いんちきルーラ</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.fake.rura"></a>
+                    <p class="title">
+                      <strong>図 5.2 いんちきルーラ</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.fake.rura.png" width="240" alt="いんちきルーラ" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			まず、行き先リストウィンドウ (ID: <code class="literal">0002h</code>) をサブメニューとして表示する。
+			明らかに、通常のルーラよりも行き先候補が多い。
+			サブメニューウィンドウのいずれかの項目を選択すると、
+			そこを目的地とするルーラ処理を行う。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">いんちきリレミト</span>
+                </dt>
+                <dd class="glossdef">
+                  <p>
+			だれの MP を消費することもなしにリレミト処理を行う。
+			パーティ内にリレミトを唱えられるキャラクターがいる必要はない。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">いんちきラナルータ</span>
+                </dt>
+                <dd class="glossdef">
+                  <p>
+			上述「いんちきリレミト」のラナルータ版である。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">おみせ</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.shop"></a>
+                    <p class="title">
+                      <strong>図 5.3 おみせ</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.shop.png" width="240" alt="おみせ" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			図のようなサブメニューを表示する。
+			選択する項目により、店屋の共通処理が始まる。
+		</p>
+                  <p>
+			「ぶきや」「ぼうぐや」「どうぐや」「よろずや」の処理については<a class="link" href="dq3_shop.html" title="5.10. 店屋解析">店屋解析</a>を参照。
+			「しんぷ」「シスター」は<a class="link" href="dq3_church.html" title="5.13. 教会解析">教会解析</a>、
+			「やどや」は<a class="link" href="dq3_inn.html" title="5.12. 宿屋解析">宿屋解析</a>、
+			「ぎんこう」は<a class="link" href="dq3_bank.html" title="5.16. ゴールド銀行解析">ゴールド銀行解析</a>、
+			「なかまとうろくじょ」は<a class="link" href="dq3_entry.html" title="5.15. 仲間登録所解析">仲間登録所解析</a>、
+			「ルイーダのさかば」は<a class="link" href="dq3_pub.html" title="5.14. ルイーダの酒場解析">ルイーダの酒場解析</a>、
+			「ダーマのしんでん」は<a class="link" href="dq3_classchange.html" title="5.17. 転職解析">転職解析</a>、
+			「なまえかえや」は<a class="link" href="dq3_rename.html" title="5.18. 命名神解析">命名神解析</a>、
+			「かくとうじょう」は<a class="link" href="dq3_stadium.html" title="5.20. 格闘場解析">格闘場解析</a>、
+			「よそうや」は<a class="link" href="dq3_tipster.html" title="5.21. 予想屋解析">予想屋解析</a>、
+			「ふっかけみせや」は<a class="link" href="dq3_overcharge.html" title="5.11. ふっかけ店屋解析">ふっかけ店屋解析</a>、
+			「マッチメイク」は<a class="link" href="dq3_matchmake.html" title="5.19. 格闘場マッチメイク解析">格闘場マッチメイク解析</a>、
+			「メダルおじさん」は<a class="link" href="dq3_medal.html" title="5.22. メダルおじさん解析">メダルおじさん解析</a>、
+			「シスターセーブ」は<a class="link" href="dq3_sistersave.html" title="5.9. シスターセーブ解析">シスターセーブ解析</a>、
+			「おうさま」は<a class="link" href="dq3_king.html" title="5.8. 王様解析">王様解析</a>をそれぞれ参照。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">レベルアップ</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.level"></a>
+                    <p class="title">
+                      <strong>図 5.4 レベルアップ</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.level.png" width="240" alt="レベルアップ" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			この項目を選択すると、コマンドウィンドウで「つよさ」を選択したときと同じサブウィンドウ群が出る。
+			さらにこの状態でキャラクターを選択すると、「つよさ」ウィンドウが出る代わりに、
+			数値入力ウィンドウが出現する（上記画像）。
+			ここで 1 から 99 までの値を入力すると、選択したキャラクターのレベルがその値となる。
+			キャラクターのパラメータや、習得呪文もそれらしいものになる。
+			従ってレベルダウンも可能である。
+			0 の入力はキャンセル扱いになり、100 以上の値の入力は 99 が入力されたものとみなされる。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">てんしょく</span>
+                </dt>
+                <dd class="glossdef">
+                  <p>
+			特に処理はない。
+			コードとしてはキャリーフラグをリセットするだけなので、処理は本当に何もない。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">せいかく</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.character"></a>
+                    <p class="title">
+                      <strong>図 5.5 せいかく</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.character.png" width="240" alt="せいかく" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			この項目を選択すると、コマンドウィンドウで「つよさ」を選択したときと同じサブウィンドウ群が出る。
+			さらにこの状態でキャラクターを選択すると、「つよさ」ウィンドウが出る代わりに、
+			<a class="link" href="dq3_character.html#dq3.character.data" title="5.25.2. データ">性格リスト</a>ウィンドウ (ID: <code class="literal">00A7h</code>) が出現する（上記画像）。
+			どれか性格を選択すると、選択キャラクターの素の性格がそれに設定される。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">おかね</span>
+                </dt>
+                <dd class="glossdef">
+                  <p>
+			金額入力ウィンドウが出現する。
+			ここで入力した値が、そのまま現在のパーティの所持金として設定される。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">フラグショップ</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.flag"></a>
+                    <p class="title">
+                      <strong>図 5.6 フラグショップ</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.flag.png" width="240" alt="フラグショップ" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			図のようなサブメニューを表示する。
+			ここで項目を選択すると、その項目が示すゲーム状態になっていることが保証されるらしい。
+			また、項目によっては対話的にオプションを要求
+			（オープニングで王様に会った？等）
+			してくるものもある。
+		</p>
+                  <p>
+			ゲーム中に利用するフラグ全般については、別の章で説明する。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">ひとじょうたい</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.status.party"></a>
+                    <p class="title">
+                      <strong>図 5.7 ひとじょうたい</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.status.party.png" width="240" alt="ひとじょうたい" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			「だれを」ウィンドウが出現して、パーティ内キャラクターのだれか一人を選択することになる。
+			ここでキャラクターを選択すると、ステータスを「しに・まひ・どく」の中から設定することができる。
+			基本的に設定したくない状態だけがある。
+		</p>
+                  <p>
+			「しに」を選択すると、キャラクターの HP がゼロにすることで死なせる。
+			「まひ」「どく」はキャラクター状態ビットを ON にする処理である。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">ゲームじょうたい</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.status.game"></a>
+                    <p class="title">
+                      <strong>図 5.8 ゲームじょうたい</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.status.game.png" width="240" alt="ゲームじょうたい" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			現在いるフロアの情報を表示するウィンドウ (ID: <code class="literal">007Dh</code>) が出現する。
+			例えば「ルーラ」では｢できる」「できない」「あたまをぶつける」のどれかが表示される。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">どうぐふくろ</span>
+                </dt>
+                <dd class="glossdef">
+                  <p>
+			アイテム ID が <code class="literal">0000h</code> から <code class="literal">00E4h</code> までの道具を一個ずつふくろに追加する。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">せんたくせんとう</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.enc.monster"></a>
+                    <p class="title">
+                      <strong>図 5.9 せんたくせんとう</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.enc.monster.png" width="240" alt="せんたくせんとう" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			<a class="link" href="dq3_monster.html" title="5.4. モンスター解析">モンスター</a>せんたくウィンドウ (ID: <code class="literal">00D1h</code>) が出現する。
+			ここでモンスターを示す項目を選択すると、さらに数値入力ウィンドウが出現する。
+			数値を入力すると、再びモンスターせんたくウィンドウがアクティブになる。
+		</p>
+                  <p>
+			モンスターと数値のペアを 4 回入力すると、さらに数値入力ウィンドウが出現する
+			（同じ場所に出てくるため、わかりにくい）。
+			ここで入力するのは、戦闘シーンの背景グラフィックの ID である。
+			ゼロを入力するとランダムに背景が決まり、
+			<code class="literal">004Ah</code> 以上の値を入力すると <code class="literal">0049h</code> を入力した扱いになる。
+		</p>
+                  <p>
+			グラフィック ID を入力すると、戦闘モードに切り替わる。
+			登場するモンスターの群れは、先程指示したモンスターグループとなる。
+			各グループのモンスター頭数が、指定数値を考慮したものになっている。
+			画面背景も、指定のものになっている。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">タイルせんとう</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.enc.tile"></a>
+                    <p class="title">
+                      <strong>図 5.10 タイルせんとう</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.enc.tile.png" width="240" alt="タイルせんとう" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			数値入力ウィンドウが出現する。
+			このウィンドウを出した場所によって、あらかじめゼロでない数値が表示されているかもしれない。
+			ここで <code class="literal">0069h</code> 未満の数値を入力すると、いきなり戦闘モードに切り替わり、
+			登場するモンスターの群れは、先程指定した数値をタイルエンカウント ID とするものに基づく。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">モンスターをみる</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.monster.ani"></a>
+                    <p class="title">
+                      <strong>図 5.11 モンスターをみる</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="248">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.monster.ani.png" width="248" alt="モンスターをみる" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			画面が切り替わり、モンスターのグラフィックを見るモードになる。
+			モンスターを選択すると、アニメーション個数だけリストされたミニウィンドウが出現する。
+			ここで番号を選択すると、そのモンスターに対応するアニメーションが再現される。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">ぜんかいふく</span>
+                </dt>
+                <dd class="glossdef">
+                  <p>
+			パーティ全員の毒・マヒ状態を回復して、
+			HP と MP を完全に回復する。
+			死んでいるキャラクターにもこの回復を適用するが、
+			カンオケグラフィックの更新が次のキャラクター再描画の機会まで発生しない。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">プログラムスタート</span>
+                </dt>
+                <dd class="glossdef">
+                  <p>
+			名前とは裏腹に、このデバッグメニューウィンドウを消去して、
+			再びデバッグメニューウィンドウを表示するという処理になっている。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">サウンド</span>
+                </dt>
+                <dd class="glossdef">
+                  <p>
+			数値入力ウィンドウが出現する。
+			ここで入力した数値を ID とする BGM なり効果音なりが演奏される。
+			ゼロの入力は単に無視される。
+			入力値が <code class="literal">017Fh</code> 以上のときは、<code class="literal">017Eh</code> が入力されたとして扱われる。
+			演奏ストップ機能はないらしい。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">ほこうせってい</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.enable.cancel"></a>
+                    <p class="title">
+                      <strong>図 5.12 ほこうせってい</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.enable.cancel.png" width="240" alt="ほこうせってい" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			図のようなメッセージが出現する。
+			「はい」と答えると、キャンセル歩行ができる (<code class="varname">$7E3500</code> |= <code class="literal">0002h</code>) ようになり、
+			「いいえ」はその逆 (<code class="varname">$7E3500</code> &amp;= ~<code class="literal">0002h</code>) となる。
+		</p>
+                  <p>
+			キャンセル歩行が有効であるとは、SELECT ボタンを押しながら十字キーを押すことで、
+			壁や水場等の通過できない地形を通過することができる状態を指すようだ。
+			船で移動中の場合は、上陸しないでそのまま移動し続けることになる。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">エンカウントせってい</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.enable.enc"></a>
+                    <p class="title">
+                      <strong>図 5.13 エンカウントせってい</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.enable.enc.png" width="240" alt="エンカウントせってい" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			図のようなメッセージが出現する。
+			「いいえ」と答えると、フィールドやダンジョンを歩いていても敵が一切出現しなく (<code class="varname">$7E3500</code> &amp;= ~<code class="literal">0001h</code>) なる。
+			「はい」はその逆 (<code class="varname">$7E3500</code> |= <code class="literal">0001h</code>) である。
+			通常のゲームモードでは「はい」の状態である。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">スタートフロアせってい</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.enable.startfloor"></a>
+                    <p class="title">
+                      <strong>図 5.14 スタートフロアせってい</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.enable.startfloor.png" width="240" alt="スタートフロアせってい" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			図のようなメッセージが出現する。
+			「はい」と答えると、
+			冒険の書を選択してゲームを開始する時点でのフロアが、
+			テストフロア (ID: <code class="literal">0001h</code>) となるフラグ (<code class="varname">$7E3500</code> |= <code class="literal">0004h</code>) が立つ。
+			「いいえ」はその逆となる。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">ざひょうウィンドウ</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.coord"></a>
+                    <p class="title">
+                      <strong>図 5.15 ざひょうウィンドウ</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.coord.png" width="240" alt="ざひょうウィンドウ" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <div class="figure">
+                    <a id="fig.dq3.debug.enable.coord"></a>
+                    <p class="title">
+                      <strong>図 5.16 ざひょうウィンドウ</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.enable.coord.png" width="240" alt="ざひょうウィンドウ" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			図のようなメッセージが出現する。
+			「はい」と答えると、移動モードにおいて R ボタンを押したときに、
+			画面右下に現在の座標を表示するウィンドウ (ID: 007C) が出現するようになる。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">ひとひょうじ</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.enable.people"></a>
+                    <p class="title">
+                      <strong>図 5.17 ひとひょうじ</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.enable.people.png" width="240" alt="ひとひょうじ" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			図のようなメッセージが出現する。
+			「いいえ」と答えると、パーティキャラクターを含む、人のグラフィックが描画されなくなる。
+			通常は「はい」の状態である。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">ＲＯＭバージョン</span>
+                </dt>
+                <dd class="glossdef">
+                  <div class="figure">
+                    <a id="fig.dq3.debug.romver"></a>
+                    <p class="title">
+                      <strong>図 5.18 ＲＯＭバージョン</strong>
+                    </p>
+                    <div class="figure-contents">
+                      <div>
+                        <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                          <tr>
+                            <td>
+                              <img src="./image/dq3.debug.romver.png" width="240" alt="ＲＯＭバージョン" />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br class="figure-break" />
+                  <p>
+			ＲＯＭバージョンの情報を示すウィンドウが画面右上に出現する。
+			デバッグモードでは、このデバッグメニューから表示しなくても、
+			冒険の書メニュー画面や、王様に冒険の書を記録させるときにもこの
+			ＲＯＭバージョンウィンドウが出現する。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">プレゼンよう</span>
+                </dt>
+                <dd class="glossdef">
+                  <p>
+			画面がエンディングの終盤付近（スタッフロール終了後くらい）に切り替わる。
+		</p>
+                </dd>
+                <dt>
+                  <span class="glossterm">へんげのつえ</span>
+                </dt>
+                <dd class="glossdef">
+                  <p>
+			数値入力ウィンドウが出現する。
+			ここで 9 未満の数値を入力すると、
+			次に「へんげのつえ」を使ったときに化けるグラフィック (<code class="varname">$7EC36B</code>) がそれになる。
+			人オブジェクトのグラフィック ID ではなく、「へんげのつえ」処理規定の ID である。
+		</p>
+                </dd>
+              </dl>
+            </div>
+            <p>
+	サブルーチン <code class="varname">$C1CB19</code> がデバッグメニューウィンドウの入力処理を行う。
+	デバッグメニューの項目名文字列 ID と、処理アドレスの対応テーブルが <code class="varname">$C8D4B0</code> に定義されている。
+</p>
+          </div>
+          <div class="section">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h5 class="title"><a id="dq3.debug.hack.FFFF.sugoroku"></a>5.1.1.2.2. すごろくでインチキ</h5>
+                </div>
+              </div>
+            </div>
+            <div class="figure">
+              <a id="fig.dq3.debug.sugoroku.dice"></a>
+              <p class="title">
+                <strong>図 5.19 この後にサイコロを振ること</strong>
+              </p>
+              <div class="figure-contents">
+                <div>
+                  <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                    <tr>
+                      <td>
+                        <img src="./image/dq3.debug.sugoroku.dice.png" width="240" alt="この後にサイコロを振ること" />
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <br class="figure-break" />
+            <div class="figure">
+              <a id="fig.dq3.debug.sugoroku.question"></a>
+              <p class="title">
+                <strong>図 5.20 サイコロ操作の画像と似てしまった</strong>
+              </p>
+              <div class="figure-contents">
+                <div>
+                  <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                    <tr>
+                      <td>
+                        <img src="./image/dq3.debug.sugoroku.question.png" width="240" alt="サイコロ操作の画像と似てしまった" />
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <br class="figure-break" />
+            <p>
+	ウィンドウを出す前に L ボタンを押すと、図のように数値入力ウィンドウが出現する
+	（末尾のＧが実にデバッグモードらしい雰囲気をかもしている）。
+	ここに 1 以上 6 以下の値を入力すると、
+	<span class="emphasis"><em>次からサイコロを振ったときの目が入力値と同じになる</em></span>。
+	ちなみに 0 とキャンセルボタン押しは、この数値入力ウィンドウのキャンセルとなる。
+	7 以上の値を入力すると 6 になる。
+</p>
+            <p>
+	「？」マスに止まった直後、図のように数値入力ウィンドウが出現する。
+	ここに 32 以下の値を入力すると、
+	本来ランダムであるハズの「？」イベントが、
+	<span class="emphasis"><em>入力した値を ID とするイベントが発生する</em></span>。
+	ID 値と発生するイベントの対応については、すごろく解析の章で説明する。
+</p>
+          </div>
+          <div class="section">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h5 class="title"><a id="dq3.debug.hack.FFFF.log3"></a>5.1.1.2.3. 「ぼうけんのしょ３」新規作成で謎のパーティになる</h5>
+                </div>
+              </div>
+            </div>
+            <div class="figure">
+              <a id="fig.dq3.debug.motsuo"></a>
+              <p class="title">
+                <strong>図 5.21 謎のパーティ</strong>
+              </p>
+              <div class="figure-contents">
+                <div>
+                  <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                    <tr>
+                      <td>
+                        <img src="./image/dq3.debug.motsuo.png" width="240" alt="謎のパーティ" />
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <br class="figure-break" />
+            <p>
+	「ぼうけんのしょ３」を新規作成すると、最後のステレオ・モノラル選択直後、
+	<span class="emphasis"><em>性格診断から始まらず</em></span>に、図のフロア（テスト）からゲームが始まる。
+	勇者の性格は「まけずぎらい」である。レベルはすでに 99 である。
+	そして、3 人の仲間「モツオ」「はげまる」「いんちき」とパーティを組んでいる状態である。
+	レベル 99 の戦士、魔法使い、遊び人である。呪文はすべて習得済みであり、
+	なぜか性格が空白になっていたりする。
+</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.debug.hack.0001"></a>5.1.1.3. ゲームショーモード</h4>
+              </div>
+            </div>
+          </div>
+          <div class="figure">
+            <a id="fig.dq3.debug.bomb"></a>
+            <p class="title">
+              <strong>図 5.22 まほうのたま使用直後</strong>
+            </p>
+            <div class="figure-contents">
+              <div>
+                <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="240">
+                  <tr>
+                    <td>
+                      <img src="./image/dq3.debug.bomb.png" width="240" alt="まほうのたま使用直後" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+	おそらく <code class="varname">$C1FFFE</code> が <code class="literal">0001h</code> になっているビルドは、
+	SFC 版ドラクエ 3 の発売以前にゲームショー等でプログラムを動作させるためのものだと思われる。
+	
+	試しに後述の<a class="link" href="dq3_debug.html#dq3.debug.crack" title="5.1.2. 改竄">改竄</a>を施した上で、
+	最初からゲームをプレイしていくと、すぐに以下のことに気付く。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>王様やシスターが冒険の書を記録しなくなる（彼らの台詞は通常通りにもかかわらず）</p>
+              </li>
+              <li class="listitem">
+                <p>パーティのレベルが 5 を上限に、レベルアップしなくなる（経験値は普通に増えていくにもかかわらず）</p>
+              </li>
+              <li class="listitem">
+                <p>
+			いざないの洞くつで「まほうのたま」を設置すると、
+			なぜか「すべてをつかさどる者」の台詞 (ID: 0FAC-0FB1) が出現して、ゲームが終了する
+			（画面暗転後、ENIX のロゴマーク表示）。
+			そして、冒険の書選択画面になる。
+		</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.debug.crack"></a>5.1.2. 改竄</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+	改竄作業は <code class="varname">$C1FFFE</code> の 2byte 値書き換えを含む。
+	この値を少なくとも負の値 (e.g. <code class="literal">FFFFh</code>) にしないと、デバッグモードでのみ有効なコードを処理させることができなくなる。
+	しかし、この値を負の値にすることで特定のサブルーチンが無限ループに陥るようにプログラムされている。
+	よって、そのようなすべてのサブルーチンのコードをも改竄する必要がある。
+</p>
+        <p>
+	まず、<code class="varname">$C1FFFE</code> に相当するメモリを負の値、例えば <code class="literal">FFFFh</code> に書き換える。
+	バイナリエディタを用いるのが単純でよいだろう。
+	ROM イメージファイルを編集モードで開き、
+	ファイルオフセット <code class="literal">1FFFEh</code> バイトにある 2 バイトを
+	<code class="literal">FF FF</code> と上書きするだけである。
+</p>
+        <p>
+	次にプログラムコードの改竄を行う。
+	まずサブルーチン <code class="varname">$C6FFEC</code> に含まれる以下のコードの分岐命令を適当に変更する必要がある。
+	これもバイナリエディタで適当に編集するだけでよい。
+	記者の場合は、<code class="varname">$C6FFFA</code> にある <code class="code">BEQ</code> 命令 (Opcode <code class="code">F0</code>) を
+	<code class="code">BRA</code> 命令 (Opcode <code class="code">80</code>) に改竄して動作を確認した。
+</p>
+        <pre class="programlisting">
+C6/FFEC:    C230        REP #$30
+C6/FFEE:    F47E7E      PEA $7E7E
+C6/FFF1:    AB          PLB 
+C6/FFF2:    AB          PLB 
+C6/FFF3:    AFFEFFC1    LDA $C1FFFE         // リリース版では常に 0
+C6/FFF7:    C90000      CMP #$0000
+C6/FFFA:    F003        BEQ $FFFF           if($C1FFFE != 0000h){
+                                                for(;;){
+C6/FFFC:    EA          NOP                         ;
+C6/FFFD:    80FD        BRA $FFFC               }
+                                            }
+C6/FFFF:    6B          RTL
+</pre>
+        <p>
+	最後の改竄箇所は以下のサブルーチンのどこかの分岐命令である。
+	プログラム改造の定石に従い、<code class="code">BPL</code> 命令を他の命令（例えば <code class="code">BRA</code> 命令）に書き換えるのがよい。
+</p>
+        <pre class="programlisting">
+// ここへは JMP で飛んでくる
+C0/2774:    C230        REP #$30
+C0/2776:    AFE07D7E    LDA $7E7DE0
+C0/277A:    1A          INC A
+C0/277B:    1A          INC A
+C0/277C:    8FE07D7E    STA $7E7DE0
+C0/2780:    C90800      CMP #$0008
+C0/2783:    90D8        BCC $275D
+C0/2785:    AFE47F7E    LDA $7E7FE4
+C0/2789:    F0C7        BEQ $2752
+C0/278B:    E220        SEP #$20
+C0/278D:    A901        LDA #$01
+C0/278F:    8FDE7F7E    STA $7E7FDE         $7E7FDE = 01h
+C0/2793:    C220        REP #$20
+                                            for(;;){
+C0/2795:    AFFEFFC1    LDA $C1FFFE             // リリース版では $C1FFFE == 0
+C0/2799:    1009        BPL $27A4               if($C1FFFE &lt; 0){
+C0/279B:    AFF87F7E    LDA $7E7FF8                 // デバッグ版のみここを通る
+C0/279F:    290010      AND #$1000
+C0/27A2:    D008        BNE $27AC                   if($7E7FF8 &amp; 1000h) break
+                                                }
+C0/27A4:    AFDE7F7E    LDA $7E7FDE
+C0/27A8:    F0A8        BEQ $2752               if($7E7FDE == 0) goto ...
+C0/27AA:    80E9        BRA $2795           }
+                                            for(;;){
+C0/27AC:    AFDE7F7E    LDA $7E7FDE
+C0/27B0:    F0E3        BEQ $2795               if($7E7FDE == 0) goto 最初のループ
+C0/27B2:    80F8        BRA $27AC           }
+</pre>
+        <p>
+	もしお使いの環境の PAR コード改造機能が、
+	RAM に加えて ROM の任意のアドレスの値を書き換えることを許していれば、
+	ROM イメージのバイナリデータを書き換える代わりに、
+	以下のコードを必要に応じて入力するとよい。
+</p>
+        <div class="table">
+          <a id="table.dq3.debug.crack"></a>
+          <p class="title">
+            <strong>表 5.2 デバッグモードのための PAR コード改造</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq3.debug.crack" class="lighttable">
+              <thead>
+                <tr>
+                  <th>Address</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="varname">$C1FFFE</code>
+                  </td>
+                  <td><code class="literal">FFFF</code> (2byte)</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C6FFFA</code>
+                  </td>
+                  <td><code class="literal">80</code> (1byte)</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C02799</code>
+                  </td>
+                  <td><code class="literal">80</code> (1byte)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_text.html" title="5.2. テキスト解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_text.html">5.2. テキスト解析</a></div>
+  </body>
+</html>

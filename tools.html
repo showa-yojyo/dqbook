@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>第 2 章 解析ツール</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="part01.html" title="第 I 部 基本概念" />
+    <link rel="prev" href="dq_hack.html" title="1.1. ドラクエ解析" />
+    <link rel="next" href="tools_emulator.html" title="2.1. ゲーム機エミュレータ" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq_hack.html" title="1.1. ドラクエ解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="part01.html" title="第 I 部 基本概念"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="tools_emulator.html" title="2.1. ゲーム機エミュレータ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq_hack.html">1.1. ドラクエ解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="part01.html">第 I 部 基本概念</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="tools_emulator.html">2.1. ゲーム機エミュレータ</a><hr /></div>
+    <div class="chapter">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title"><a id="tools"></a>第 2 章 解析ツール</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="tools_emulator.html">2.1. ゲーム機エミュレータ</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="tools_emulator.html#tools.emulator.gsd">2.1.1. Snes9X - Geiger's Snes9x Debugger</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="tools_emulator.html#tools.emulator.epsxe">2.1.2. ePSXe</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="tools_emulator.html#tools.emulator.cep">2.1.3. cep</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="tools_emulator.html#tools.emulator.yame">2.1.4. YAME</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="tools_disasm.html">2.2. 逆アセンブラ</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="tools_disasm.html#tools.disasm.dispel">2.2.1. DisPel</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="tools_disasm.html#tools.disasm.dispel.sample">2.2.1.1. サンプル</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="tools_cygwin.html">2.3. Cygwin</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="tools_cygwin.html#tools.cygwin.radix">2.3.1. 基数変換ツールとして利用</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="tools_cygwin.html#tools.cygwin.seq">2.3.2. 連番生成ツールとして利用</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="tools_cygwin.html#tools.cygwin.od">2.3.3. 構造体データ配列をテキストダンプする</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="tools_cygwin.html#tools.cygwin.wrapper">2.3.4. DisPel のラッパースクリプトを書く</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="tools_editor.html">2.4. エディタ</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="tools_editor.html#tools.editor.xyzzy">2.4.1. Xyzzy</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="tools_editor.html#tools.editor.stirling">2.4.2. Stirling</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="tools_python.html">2.5. Python</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="tools_python.html#tools.python.env">2.5.1. 環境構築</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="tools_utility.html">2.6. その他便利なツール</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="tools_utility.html#tools.utility.calc">2.6.1. 電卓</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="tools_utility.html#tools.utility.cdmanip">2.6.2. CD Manipulator</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="tools_utility.html#tools.utility.excel">2.6.3. Microsoft Office Excel</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <p>
+	本章では、記者が解析作業に用いているツールをいくつか紹介していく。
+	解析初心者の読者には、以下の内容が解析ツール選択の参考になれば幸いだ。
+	解析中級者以上の読者には、ここに挙げるツール群と自分との違いを確認するとよいだろう。
+	また、もっとよいツールを知っているというのであれば、
+	是非詳しい情報を記者にお寄せいただきたい。
+</p>
+      <p>
+	記者が改造・解析に使用するツールを専門ツールとユーティリティツールを混ぜて紹介する。
+	重要度の高い順に紹介する。
+</p>
+      <div class="caution" style="margin-left: 0.5in; margin-right: 0.5in;">
+        <table border="0" summary="Caution">
+          <tr>
+            <td rowspan="2" align="center" valign="top" width="25">
+              <img alt="[注意]" src="image/docbook/caution.png" />
+            </td>
+            <th align="left">注意</th>
+          </tr>
+          <tr>
+            <td align="left" valign="top">
+              <p>
+  本章は特に内容が陳腐化し過ぎていて、何としても現代の知識と技術を反映したものに書き直したい。
+  いつ直せるかわからないので、当時と現在において、
+  なおかつ未来においても変わらないであろう、読者に言いたいことをここに要約しておく：
+  </p>
+              <div class="itemizedlist">
+                <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                    <p class="simpara">用途に合ったエミュレーターを利用しよう</p>
+                    <div class="itemizedlist">
+                      <ul class="itemizedlist" style="list-style-type: circle; ">
+                        <li class="listitem">ランタイムデバッガー機能を提供するものが望ましい</li>
+                        <li class="listitem">保存データを圧縮しないものが望ましい</li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="listitem">逆アセンブラーを使いこなそう</li>
+                  <li class="listitem">
+                    <p class="simpara">逆アセンブリコードを上手に取り扱えるようにテキスト処理に慣れよう</p>
+                    <div class="itemizedlist">
+                      <ul class="itemizedlist" style="list-style-type: circle; ">
+                        <li class="listitem">良いテキストエディターを使いこなそう</li>
+                        <li class="listitem">UNIX/Linux 由来のコマンドラインツールを使いこなそう</li>
+                        <li class="listitem">Python 等のスクリプト言語や付属する環境を使いこなそう</li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq_hack.html" title="1.1. ドラクエ解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="part01.html" title="第 I 部 基本概念"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="tools_emulator.html" title="2.1. ゲーム機エミュレータ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq_hack.html">1.1. ドラクエ解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="part01.html">第 I 部 基本概念</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="tools_emulator.html">2.1. ゲーム機エミュレータ</a></div>
+  </body>
+</html>

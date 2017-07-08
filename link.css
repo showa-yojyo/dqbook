@@ -1,0 +1,31 @@
+/* -*- Mode: CSS -*- */
+/** 
+ * Link styles
+ * 
+ * The CSS2 specification is available at
+ * http://www.w3.org/TR/1998/REC-CSS2-19980512
+ */
+
+/* link styles */
+a:link, a:visited
+{
+	text-decoration: none;
+	font-weight: bold;
+	color: deeppink;
+}
+a:link:hover, a:visited:hover
+{
+	text-decoration: none;
+	font-weight: bold;
+	background-color: pink;
+	color: deeppink;
+}
+a.imga:link,
+a.imga:link:hover,
+a.imga:visited:hover,
+a.imga:visited
+{
+	background-color: transparent;
+	text-decoration: none;
+	border: none;
+}

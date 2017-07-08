@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.22. メダルおじさん解析</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_tipster.html" title="5.21. 予想屋解析" />
+    <link rel="next" href="dq3_item.html" title="5.23. アイテム解析" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_tipster.html" title="5.21. 予想屋解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_item.html" title="5.23. アイテム解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_tipster.html">5.21. 予想屋解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_item.html">5.23. アイテム解析</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.medal"></a>5.22. メダルおじさん解析</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_medal.html#dq3.medal.hack">5.22.1. 解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_medal.html#dq3.medal.hack.C3F076">5.22.1.1. メダルおじさん共通処理</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_medal.html#dq3.medal.hack.C3F199">5.22.1.2. 次の褒美を調べるサブルーチン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_medal.html#dq3.medal.hack.C3F1BD">5.22.1.3. 持参したメダル枚数を調べる＆回収するサブルーチン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_medal.html#dq3.medal.hack.C3F21E">5.22.1.4. 褒美 ID に対してアイテム ID を取得するサブルーチン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_medal.html#dq3.medal.hack.C3F239">5.22.1.5. 褒美 ID に対して必要枚数を取得するサブルーチン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_medal.html#dq3.medal.hack.C31350">5.22.1.6. 褒美構造体</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <a id="term.dq3.medal" class="indexterm"></a>
+      <p>
+	メダルおじさんに「はなす」ときの処理を解析する。
+	おじさんはどのようにして、勇者一行がこれまでに渡してきたメダル枚数を記憶しているのか、
+	パーティーメンバーが持っている「ちいさなメダル」をどのような優先順位で受け取るのか、
+	そして、交換する品物をどのように決定しているのかを見ていこう。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.medal.hack"></a>5.22.1. 解析</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+	<a class="link" href="dq3_medal.html#dq3.medal.hack.C3F076" title="5.22.1.1. メダルおじさん共通処理">サブルーチン <code class="varname">$C3F076</code></a> は
+	現在のメダル取得状態に応じたおじさんの台詞を表示したり、
+	パーティーから「ちいさなメダル」を受け取ったり、
+	その代わりに褒美を受け渡したりする処理を行う。
+	このサブルーチンから枝葉の処理を追っていけば、おじさん処理は全て把握できることになる。
+</p>
+        <p>
+	メダルおじさん周りの台詞表示は、すべてサブルーチン <code class="varname">$C1A92E</code> 呼び出しで実現している。
+	このサブルーチンは、呼び出しコード直後に <code class="literal">2</code> バイトの定数を埋め込むことで、
+	その定数を<a class="link" href="dq3_text.html#dq3.text.travel" title="5.2.2. 移動モード">メッセージ ID</a> として解釈する。
+	これにより、逆アセンブルコードの解読を安定的に進めることができる。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.medal.hack.C3F076"></a>5.22.1.1. メダルおじさん共通処理</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	サブルーチン <code class="varname">$C3F076</code> は、メダルおじさんに「はなす」とすぐに始まる処理だ。
+	以下のように実装している。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+			汎用サブルーチン <code class="varname">$C9029E</code> を用いて、メダルおじさんに譲渡済みのメダル枚数を取得する。
+			<code class="varname">$7E3538</code> の <code class="literal">#$3FC0</code> 部分に枚数がセットされている。
+			これを <code class="varname">$2BB2</code> にロードする。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			<code class="code">X = #$000C - 1</code> をセットし、
+			<a class="link" href="dq3_medal.html#dq3.medal.hack.C3F239" title="5.22.1.5. 褒美 ID に対して必要枚数を取得するサブルーチン">サブルーチン <code class="varname">$C3F239</code></a> を呼び出して、
+			その枚数を <code class="varname">$2BBE</code> にセットする。
+			すなわち、最後の褒美 ID に相当する枚数を調べる。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			<a class="link" href="dq3_medal.html#dq3.medal.hack.C3F1BD" title="5.22.1.3. 持参したメダル枚数を調べる＆回収するサブルーチン">サブルーチン <code class="varname">$C3F1BD</code></a> を呼び出して、
+			その枚数、すなわちパーティーが持参したメダルの枚数を <code class="varname">$2BB4</code> にセットする。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			所持枚数と譲渡済枚数の和が <code class="literal">256</code> 以上であれば、<code class="literal">255</code> に丸める。
+			この値を <code class="varname">A</code> レジスタにセットする。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			汎用サブルーチン <code class="varname">$C902E9</code> を用いて、メダルおじさんに譲渡済みのメダル枚数を更新する。
+			<code class="varname">$7E3538</code> の <code class="literal">#$3FC0</code> 部分に <code class="varname">A</code> レジスタの値をセットする。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			まだ与えていない褒美を調べるために<a class="link" href="dq3_medal.html#dq3.medal.hack.C3F199" title="5.22.1.2. 次の褒美を調べるサブルーチン">サブルーチン <code class="varname">$C3F199</code></a> を呼び出し、
+			結果を調べる。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					もし与えていない褒美があれば【あいさつ】へ制御を移す。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					すべての褒美を与えていれば【おめでとう】へ進む。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【おめでとう】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					メッセージ (ID <code class="literal">#$0D6D</code>) 「よくぞ○○枚も集めてくれた」を言わせる。
+					この台詞に出てくる枚数は <code class="varname">$2BB6</code> の値と同じだ。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					制御を【終了】へ移す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【あいさつ】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					メッセージ (ID <code class="literal">#$0D64</code>) 「よくぞ来た」を言わせる。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					譲渡済枚数 <code class="varname">$2BB2</code> の値をテストする。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							<code class="code">$2BB2 == 0</code> ならば
+							</p>
+                            <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: disc; ">
+                                <li class="listitem">
+                                  <p>
+										メッセージ (ID <code class="literal">#$0D65</code>) 「メダルを見つけた者には褒美をとらせよう」を言わせる。
+									</p>
+                                </li>
+                                <li class="listitem">
+                                  <p>
+										<code class="varname">$2BB4</code> をテストする。
+										<code class="code">$2BB4 == 0</code> ならば【終了】へ制御を移す。
+										そうでなければメッセージ (ID <code class="literal">#$0D66</code>) 「なんとメダルを持ってきたか」を言わせた後に、
+										【ステータス】へ制御を移す。
+									</p>
+                                </li>
+                              </ul>
+                            </div>
+                            <p>
+						</p>
+                          </li>
+                          <li class="listitem">
+                            <p>
+							そうでなければ <code class="varname">$2BB4</code> の値をテストする。
+							<code class="code">$2BB4 == 0</code> ならば【枚数告知】へ制御を移す。
+							そうでなければメッセージ (ID <code class="literal">#$0D68</code>) 「ほほうメダルを持ってきたか」を言わせた後に、
+							【ステータス】へ制御を移す。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【ステータス】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					メッセージ (ID <code class="literal">#$0D67</code>) 「これまでに持ってきたメダルは全部で○○枚じゃな」を言わせる。
+					この台詞は <code class="varname">$2BB6</code> に格納した値と同じだ。
+					台詞を表示した直後に、更新された譲渡済枚数と、次回褒美枚数を比較する。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							譲渡済 &lt; 次回褒美枚数 ⇒【次回褒美告知】へ制御を移す。
+						</p>
+                          </li>
+                          <li class="listitem">
+                            <p>
+							そうでなければ【褒美うけわたし】へ制御を進める。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【褒美うけわたし】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>最初が詳細不明</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					メッセージ (ID <code class="literal">#$0D69</code>)「メダルを○○枚集めたので褒美をやろう」を言わせる。
+					この台詞の○○部分には <code class="varname">$2BBA</code> の値と同じものが用いられる。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					メッセージ (ID <code class="literal">#$0D6A</code>)「～は○○を受け取った」を表示する。
+					○○部分には <code class="varname">$2BBC</code> を用いて、褒美のアイテム名が表示される。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<code class="code">X = $2BB8 + 1</code> として、次回褒美 ID の値をチェックする。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							<code class="code">X &gt; #$000C</code> であれば、制御を【おめでとう】に移す。
+						</p>
+                          </li>
+                          <li class="listitem">
+                            <p>
+							そうでなければ、<code class="varname">$2BBC</code>, <code class="varname">$2BBA</code>, <code class="varname">$2BB8</code> をこの順で更新する。
+							それぞれサブルーチン <code class="varname">$C3F21E</code> 呼び出し、サブルーチン <code class="varname">$C3F239</code> 呼び出し、
+							<code class="varname">X</code> レジスタの値を利用する。
+						</p>
+                            <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: disc; ">
+                                <li class="listitem">
+                                  <p>
+									<code class="code">$2BB6 &gt; $2BBA</code> ⇒【褒美うけわたし】先頭へ制御を戻す。
+								</p>
+                                </li>
+                                <li class="listitem">
+                                  <p>
+									そうでなければ【枚数告知】へ進む。
+								</p>
+                                </li>
+                              </ul>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【枚数告知】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					メッセージ (ID <code class="literal">#$0D6B</code>)「現在○○枚のメダルを預かっておる」を言わせる。
+					この台詞では <code class="varname">$2BB6</code> に格納されている値である、更新された譲渡済枚数を知らせる。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【次回褒美告知】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					メッセージ (ID <code class="literal">#$0D6C</code>)「○○枚に なったときは ××を あたえよう」を言わせる。
+					この台詞は <code class="varname">$2BBA</code> と <code class="varname">$2BBC</code> にそれぞれ格納されている、
+					○○に相当する値と××に相当するアイテムのアイテム構造体 ID と同じだ。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【終了】</p>
+                <p>サブルーチン呼び出し元に制御を戻す。</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.medal.hack.C3F199"></a>5.22.1.2. 次の褒美を調べるサブルーチン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	サブルーチン <code class="varname">$C3F199</code> は、メダルおじさんに譲渡済みのメダル枚数を
+	<code class="varname">A</code> レジスタにセットしてから呼び出すものであり、
+	次の褒美に対応するメダル必要累積枚数と、褒美アイテムのアイテム構造体 ID を
+	<code class="varname">$2BBA</code>, <code class="varname">$2BBC</code> にそれぞれセットする。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+			<code class="code">$78 = 譲渡済みメダル枚数 + 1</code> とする。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			<a class="link" href="dq3_medal.html#dq3.medal.hack.C3F239" title="5.22.1.5. 褒美 ID に対して必要枚数を取得するサブルーチン">サブルーチン <code class="varname">$C3F239</code></a>を順次呼び出し、
+			<code class="varname">$78</code> と、褒美構造体各データが定める必要累積枚数と比較していく。
+			構造体各データは、累積枚数フィールドの値の小さい順に配列されている。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					必要累積枚数が <code class="varname">$78</code> 以上になる褒美がない場合、
+					<code class="varname">Carry</code> フラグがセットされた状態で、サブルーチン呼び出し元に制御を戻す。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					必要累積枚数が <code class="varname">$78</code> 以上になる褒美が見つかった場合、同時に
+					<code class="varname">X</code> レジスタに褒美構造体 ID がセットされることになる。
+					これにより、<a class="link" href="dq3_medal.html#dq3.medal.hack.C3F21E" title="5.22.1.4. 褒美 ID に対してアイテム ID を取得するサブルーチン">サブルーチン <code class="varname">$C3F21E</code></a>を呼び出して
+					褒美となるアイテムのアイテム構造体 ID をも取得する。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					次の褒美に対応するメダル必要累積枚数と、褒美アイテムのアイテム構造体 ID を
+					<code class="varname">$2BBA</code>, <code class="varname">$2BBC</code> にそれぞれセットする。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<code class="varname">Carry</code> フラグをリセットしてから、サブルーチン呼び出し元に制御を戻す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.medal.hack.C3F1BD"></a>5.22.1.3. 持参したメダル枚数を調べる＆回収するサブルーチン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	調査中。事実関係と予想を交えて記すと以下のようになる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+			パーティ全員の持ち物とふくろから、この順にちいさなメダルを削除していく。
+		</p>
+                <p>
+			ただしすべてのメダルを回収するのではなく、
+			回収カウンターが <code class="varname">$2BBE</code> 以上になったら、回収処理をストップする。
+			<code class="varname">$2BBE</code> は<a class="link" href="dq3_medal.html#dq3.medal.hack.C3F076" title="5.22.1.1. メダルおじさん共通処理">共通処理サブルーチン</a>でセット済みであり、
+			この値は最後の褒美を得るのに必要なメダル累積枚数だ。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			制御を呼び出し元に戻す前に、回収枚数を <code class="varname">A</code> レジスタにセットする。
+		</p>
+              </li>
+            </ul>
+          </div>
+          <p>
+	検証していないが、例えば初めてメダルおじさんと会うときに、
+	一気にちいさなメダルを <code class="literal">102</code> 枚持参したとする。
+	この解析結果の予想が正しければ、
+	<code class="literal">2</code> 枚は回収されずに、パーティの持ち物リストに残るわけだ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.medal.hack.C3F21E"></a>5.22.1.4. 褒美 ID に対してアイテム ID を取得するサブルーチン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	サブルーチン <code class="varname">$C3F21E</code> は、褒美構造体 <code class="varname">$C31350</code> にアクセスすることにより、
+	褒美 ID に対応する褒美のアイテム ID を取得する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+			サブルーチン呼び出し直後の <code class="varname">X</code> レジスタが褒美 ID を示している。
+			構造体のサイズが <code class="literal">2</code> であるので、<code class="code">$C31350 + X * 2</code> を計算するため、
+			汎用乗算サブルーチン <code class="varname">$C01098</code> を利用する
+			<a href="#ftn.ftn.dq3.medal.C3F21E" class="footnote" id="ftn.dq3.medal.C3F21E"><sup class="footnote">[6]</sup></a>。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			褒美構造体の <code class="literal">1</code> バイト目からの <code class="literal">1</code> バイトが、褒美アイテムの ID だ。
+			この値を <code class="varname">A</code> レジスタにセットして、制御を呼び出し元に戻す。
+		</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.medal.hack.C3F239"></a>5.22.1.5. 褒美 ID に対して必要枚数を取得するサブルーチン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	サブルーチン <code class="varname">$C3F239</code> は、褒美構造体 <code class="varname">$C31350</code> にアクセスすることにより、
+	褒美 ID に対応するちいさなメダルの必要収集枚数を取得する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+			<a class="link" href="dq3_medal.html#dq3.medal.hack.C3F21E" title="5.22.1.4. 褒美 ID に対してアイテム ID を取得するサブルーチン">前述のサブルーチン</a>と同様にして、
+			<code class="code">$C31350 + X * 2</code> を計算する。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			褒美構造体の <code class="literal">0</code> バイト目からの <code class="literal">1</code> バイトが、褒美を得るのに必要なメダルの枚数だ。
+			この値を <code class="varname">A</code> レジスタにセットして、制御を呼び出し元に戻す。
+		</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.medal.hack.C31350"></a>5.22.1.6. 褒美構造体</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	<code class="varname">$C31350</code> に <code class="literal">2</code> バイトサイズの構造体データが <code class="literal">#$0C</code> 個配列されている。
+	これが、メダルおじさんの褒美リストだ。
+	構造体のメモリレイアウトは以下の通り。
+</p>
+          <div class="table">
+            <a id="table.dq3.C31350"></a>
+            <p class="title">
+              <strong>表 5.32 $C31350 褒美構造体</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C31350" class="memorylayout">
+                <colgroup>
+		<col width="12%" />
+		<col span="7" width="11%" />
+	</colgroup>
+                <thead>
+                  <tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+                </thead>
+                <tbody>
+                  <tr><th>00</th>
+			<td colspan="8">必要枚数</td>
+		</tr>
+                  <tr><th>01</th>
+			<td colspan="8">アイテム ID</td>
+		</tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+この配列を人間にとってわかりやすく表現すると、下のようになる。
+</p>
+          <div class="table">
+            <a id="table.dq3.C31350.view"></a>
+            <p class="title">
+              <strong>表 5.33 メダル景品</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C31350.view" class="lighttable">
+                <thead>
+                  <tr>
+			<th>褒美 ID</th>
+			<th>必要枚数</th>
+			<th>アイテム</th>
+		</tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">  5</code>
+                    </td>
+                    <td>とげのむち        </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal"> 10</code>
+                    </td>
+                    <td>ガーターベルト    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal"> 20</code>
+                    </td>
+                    <td>やいばのブーメラン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal"> 30</code>
+                    </td>
+                    <td>ちからのゆびわ    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal"> 35</code>
+                    </td>
+                    <td>インテリめがね    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal"> 50</code>
+                    </td>
+                    <td>しのびのふく      </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal"> 60</code>
+                    </td>
+                    <td>せいぎのそろばん  </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal"> 70</code>
+                    </td>
+                    <td>しっぷうのバンダナ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal"> 80</code>
+                    </td>
+                    <td>ドラゴンクロウ    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="literal"> 90</code>
+                    </td>
+                    <td>ふっかつのつえ    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>
+                      <code class="literal"> 95</code>
+                    </td>
+                    <td>しんぴのビキニ    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0B</code>
+                    </td>
+                    <td>
+                      <code class="literal">100</code>
+                    </td>
+                    <td>ゴールドパス      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+      </div>
+      <div class="footnotes">
+        <br />
+        <hr style="width:100; text-align:left;margin-left: 0" />
+        <div id="ftn.ftn.dq3.medal.C3F21E" class="footnote">
+          <p><a href="#ftn.dq3.medal.C3F21E" class="para"><sup class="para">[6] </sup></a>数値を二倍するだけなのに、乗算サブルーチンを呼びだす方法をとるのは珍しい。
+				<code class="code">ASL</code> 命令を使うだけで間に合いそうなものだが。
+				</p>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_tipster.html" title="5.21. 予想屋解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_item.html" title="5.23. アイテム解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_tipster.html">5.21. 予想屋解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_item.html">5.23. アイテム解析</a></div>
+  </body>
+</html>

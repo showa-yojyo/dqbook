@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>1.1. ドラクエ解析</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="hack.html" title="第 1 章 解析序論" />
+    <link rel="prev" href="hack.html" title="第 1 章 解析序論" />
+    <link rel="next" href="tools.html" title="第 2 章 解析ツール" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="hack.html" title="第 1 章 解析序論"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="hack.html" title="第 1 章 解析序論"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="tools.html" title="第 2 章 解析ツール"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="hack.html">第 1 章 解析序論</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="hack.html">第 1 章 解析序論</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="tools.html">第 2 章 解析ツール</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq.hack"></a>1.1. ドラクエ解析</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq_hack.html#dq.hack.env">1.1.1. 解析環境</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq_hack.html#dq.hack.rom">1.1.2. ロムイメージファイル</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq_hack.html#dq.hack.ref">1.1.3. 参考書籍</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq.hack.env"></a>1.1.1. 解析環境</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+	この項では、記者の解析環境を紹介する。
+	貧弱。
+</p>
+        <div class="table">
+          <a id="table.environment"></a>
+          <p class="title">
+            <strong>表 1.1 記者の解析環境 2007</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.environment" class="lighttable">
+              <thead>
+                <tr>
+			<th>環境</th>
+			<th>内容</th>
+		</tr>
+              </thead>
+              <tbody>
+                <tr>
+			<th>PC</th>
+			<td>SHARP 製 Mebius</td>
+		</tr>
+                <tr>
+			<th>OS</th>
+			<td>Windows XP Home Edition Version 2002 Service Pack 1</td>
+		</tr>
+                <tr>
+			<th>CPU</th>
+			<td>1.53 GHz (!?)</td>
+		</tr>
+                <tr>
+			<th>メモリ</th>
+			<td>768 MB くらい。うち 512 MB は増設による。</td>
+		</tr>
+                <tr>
+			<th>HDD</th>
+			<td>30 GB くらい</td>
+		</tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <div class="caution" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <table border="0" summary="Caution">
+            <tr>
+              <td rowspan="2" align="center" valign="top" width="25">
+                <img alt="[注意]" src="image/docbook/caution.png" />
+              </td>
+              <th align="left">注意</th>
+            </tr>
+            <tr>
+              <td align="left" valign="top">
+                <p>
+    現在は全然異なる。ここに記載されているものは十年前のものだ。
+    読者の参考になるかわからないが、敢えてこの情報は残しておこう。
+  </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq.hack.rom"></a>1.1.2. ロムイメージファイル</h3>
+            </div>
+          </div>
+        </div>
+        <a id="term.dq.hack.rom" class="indexterm"></a>
+        <p>
+	ゲームショップ等で流通している正規のファミコン・スーパーファミコンのカートリッジから、
+	特殊なハードウェアを介して PC 上にデータを吸い出し、それをファイルにしたものをロムイメージファイルと呼ぶ。
+	一般の定義と違うかもしれないが、あまり深く説明したくないのでこの程度の説明で勘弁願いたい。
+</p>
+        <p>
+	ファミコンで動作する正規のドラクエシリーズは、以下の 4 作である。
+	当サイトでは、これらのプログラムを改造・解析する気はないので、入手手段等については論じない。
+	正味の話、記者が所有していないロムイメージファイルもある。
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist" style="list-style-type: disc; ">
+            <li class="listitem">
+              <p>
+			ドラゴンクエスト (1986)
+		</p>
+            </li>
+            <li class="listitem">
+              <p>
+			ドラゴンクエスト II 悪霊の神々 (1987)
+		</p>
+            </li>
+            <li class="listitem">
+              <p>
+			ドラゴンクエスト III そして伝説へ (1988)
+		</p>
+            </li>
+            <li class="listitem">
+              <p>
+			ドラゴンクエスト IV 導かれし者たち (1990)
+		</p>
+            </li>
+          </ul>
+        </div>
+        <p>
+	スーパーファミコンでプレイする正規のドラクエシリーズは、
+	現時点でリメイク作品も含めて以下の 4 作である。
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist" style="list-style-type: disc; ">
+            <li class="listitem">
+              <p>
+			ドラゴンクエスト V 天空の花嫁 (1992)
+		</p>
+            </li>
+            <li class="listitem">
+              <p>
+			ドラゴンクエスト I・II (1993)
+		</p>
+            </li>
+            <li class="listitem">
+              <p>
+			ドラゴンクエスト VI 幻の大地 (1995)
+		</p>
+            </li>
+            <li class="listitem">
+              <p>
+			ドラゴンクエスト III そして伝説へ (1996)
+		</p>
+            </li>
+          </ul>
+        </div>
+        <p>
+	ドラゴンクエスト I・II に関しては、
+	当サイトがロムイメージを調達できないため解析を行わない
+	（読者が所有している場合でも、気を利かせて小サイトに送っていただかなくてよろしい）。
+	その他のシリーズを中心に記事を準備・公表するものとする。
+</p>
+        <p>
+	自分でロムイメージを作成する能力は一般にはないため、既に先人が吸い出したものを拝借するケースが多い。
+	入手経路はネットを通じるものが多い。海外の怪しいサイトに置いてあることが多い。
+	「本物」の解析を目的とするのならば、ハックロムをつかまされないように注意すること。
+	このテのサイトからロムイメージファイルをダウンロードすることによって所有することは法律的には問題があるようだが、
+	すでに正規のカートリッジを正規のルートで購入した過去があるので、
+	自分だけが使用する分には道徳的には問題ない。
+</p>
+        <p>
+	記者の場合は「気付いたらハードディスクにあった」のである。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq.hack.ref"></a>1.1.3. 参考書籍</h3>
+            </div>
+          </div>
+        </div>
+        <a id="term.actionreplay" class="indexterm"></a>
+        <a id="term.gamelab" class="indexterm"></a>
+        <p>
+	小サイトの蔵書から改造・解析の参考になるであろう書籍を、
+	書籍名だけで申し訳ないがここに挙げる。
+	ドラクエデータの調査に役立つと判断したものを購入していた。
+</p>
+        <div class="glosslist">
+          <dl>
+            <dt>
+              <span class="glossterm">アクションリプレイ 1999 Vol.4, 株式会社ブレイン・ストーム</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+				「PAR でドラクエを遊ぶ」と題して、パラメータ最大化等の基本的な改造コードを掲載している。
+			</p>
+              <p>
+				記者は SFC 版ドラクエ 6 のデバッグフロアの侵入方法を読んだとき、少々感動した記憶がある。
+				この雑誌では冒険の書のセーブ地点を書き換える方法が紹介されているのだが、
+				記者が考えたアプローチは、フロア切替時のフロア番号だけを書き換えるというものだった。
+				改造者のセンスの違いを感じた。
+			</p>
+              <p>
+				東京某所の古本屋で購入。半額の 500 円だったと記憶している。
+			</p>
+            </dd>
+            <dt>
+              <span class="glossterm">ゲームラボ 10 月号 (2000) 株式会社三才ブックス</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+				巻頭特集として PS 版ドラクエ 7 の改造コードを各種掲載している。
+				パラメータ最大等の基本的な改造のほか、デバッグモード ON の方法を掲載している。
+			</p>
+              <p>
+				記者はこれだけのためにこの号を購入した。
+				エミュレータでもデバッグモードを再現できて、非常に喜んだ記憶がある。
+			</p>
+            </dd>
+            <dt>
+              <span class="glossterm">ゲームラボ 1 月号 (2002) 株式会社三才ブックス</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+				特集「裏ゲーマー養成講座」第 1 部 ハードの撃ワザ 検証＆実験集のワンコーナーとして、
+				「驚速！ 2 時間 50 分でクリアできる！ ドラクエIV」なる記事が組まれている。
+				PS 版ドラクエ 4 である。
+			</p>
+              <p>
+				プレイチャートや、基本的な改造コードが掲載されている一方、
+				前作のデバッグモードのようなものが、プログラムに残っていないらしいことが触れられている。
+			</p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+	ここで紹介する資料の他にも、すぐれたものがあるかもしれない。
+	もし読者がそういうものをご存知ならば、是非
+	<a class="ulink" href="mailto:showa_yojyo@hotmail.com?subject=dq.hack" target="_top">小サイト</a>
+	に情報を提供していただきたい。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="hack.html" title="第 1 章 解析序論"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="hack.html" title="第 1 章 解析序論"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="tools.html" title="第 2 章 解析ツール"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="hack.html">第 1 章 解析序論</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="hack.html">第 1 章 解析序論</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="tools.html">第 2 章 解析ツール</a></div>
+  </body>
+</html>

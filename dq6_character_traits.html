@@ -1,0 +1,934 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.16. 仲間キャラクターの特性データ</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_characters.html" title="4.15. 仲間キャラクター構造体" />
+    <link rel="next" href="dq6_encounter.html" title="4.17. 敵との遭遇" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_characters.html" title="4.15. 仲間キャラクター構造体"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_encounter.html" title="4.17. 敵との遭遇"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_characters.html">4.15. 仲間キャラクター構造体</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_encounter.html">4.17. 敵との遭遇</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.character.traits"></a>4.16. 仲間キャラクターの特性データ</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_character_traits.html#dq6.character.traits.C8BD12">4.16.1. 構造体 <code class="varname">$C8BD12</code>: 仲間キャラクター特性</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq6_character_traits.html#dq6.character.traits.methods">4.16.2. 仲間キャラクター構造体メソッド</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq6.character.traits" class="indexterm"></a>
+      <p>
+この節では仲間キャラクターそれぞれの特性を表現するデータ構造について述べる。
+ここで言うキャラクター特性とは、仲間キャラクターそれぞれの静的な性質を定義したオブジェクトのことを意味するものであり、
+物理的にはアドレス <code class="varname">$C8BD12</code> に存在する配列の要素型を意味する。
+</p>
+      <p>
+なお、仲間キャラクターそれぞれのレベルアップに関する特徴もモデルによってはキャラクター特性の部分ではあるが、
+本書ではそれについては <a class="xref" href="dq6_level.html" title="4.18. レベルアップ">4.18 レベルアップ</a> で取り扱う。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.character.traits.C8BD12"></a>4.16.1. 構造体 <code class="varname">$C8BD12</code>: 仲間キャラクター特性</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+仲間キャラクター特性構造体とは、サイズが <code class="literal">#$1B</code> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
+この型のオブジェクトがアドレス <code class="varname">$C8BD12</code> から 82 個直列している。
+</p>
+        <p>
+これらのオブジェクトはキャラクターがパーティーに参入した時点の状態、ルイーダの酒場で許可する操作の決定、戦闘時のキャラクターの性質として参照される。
+</p>
+        <div class="table">
+          <a id="table.dq6.C8BD12"></a>
+          <p class="title">
+            <strong>表 4.68 構造体 $C8BD12</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq6.C8BD12" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>名前</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>肩書</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>性別</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0004</code>
+                  </td>
+                  <td>（モンスターフラグ）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0008</code>
+                  </td>
+                  <td>ルイーダに預けるのを禁止するフラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0010</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0060</code>
+                  </td>
+                  <td>命令分類</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0080</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>レベル初期値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>レベルアップ ID</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0001</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>ルイーダで別れるのを許可するフラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$00</code>: メラ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0030</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$01</code>: ギラ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00C0</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$02</code>: イオ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$03</code>: ヒャド</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$04</code>: バギ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0030</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$05</code>: デイン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00C0</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$06</code>: マヌーサ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$07</code>: ラリホー</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$08</code>: ザキ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0030</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$09</code>: ニフラム</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00C0</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$0A</code>: マホトラ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$0B</code>: マホトーン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$0C</code>: メダパニ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0030</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$0D</code>: ルカニ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00C0</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$0E</code>: （未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$0F</code>: 毒</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$10</code>: 休み</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0030</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$11</code>: おどりふうじ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00C0</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$12</code>: 炎</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$13</code>: 吹雪</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$14</code>: 叩き</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0030</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$15</code>: マヒ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00C0</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$16</code>: ぐんたい</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>コマンド選択判断</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>複数回</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0030</code>
+                  </td>
+                  <td>自動回復</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01C0</code>
+                  </td>
+                  <td>みかわし</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$001E</code>
+                  </td>
+                  <td>コマンド決定戦略</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$07E0</code>
+                  </td>
+                  <td>遊び分類</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00F8</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$13</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$14</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$15</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$001F</code>
+                  </td>
+                  <td>装備グループ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$15</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00E0</code>
+                  </td>
+                  <td>装備状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$16</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0FFF</code>
+                  </td>
+                  <td>移動モードスプライト</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$17</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0FF0</code>
+                  </td>
+                  <td>戦闘モードスプライト</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$18</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$3FF0</code>
+                  </td>
+                  <td>戦闘モードパレット</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$19</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0040</code>
+                  </td>
+                  <td>スライム系</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$19</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0080</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>（キャラクター分類）</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+上の表で（未使用）等の括弧付きの属性は、オブジェクトによって値が異なっているかもしれないが、プログラムからの参照がないものだ。
+特に値がどのオブジェクトもゼロであるような属性については、付録の CSV ファイルでの記載を省略する。
+以下に各属性の概要を記す。
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">名前</span>
+            </dt>
+            <dd>
+              <p>
+        名前とは、このキャラクターのオリジナルの名前を表す文字列の ID を値とする属性だ。
+      </p>
+              <p>
+        文字列については <a class="xref" href="dq6_string.html" title="4.2. 文字列">4.2 文字列</a> で述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">肩書</span>
+            </dt>
+            <dd>
+              <p>
+        肩書は、このキャラクターが人間かモンスターかで意味が変わる属性だが、いずれも場合でも文字列 ID を値とする。
+        人間の場合にはその人物の設定を簡単に表現する言葉であり、モンスターの場合にはそのモンスター名だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">性別</span>
+            </dt>
+            <dd>
+              <p>
+        性別もこのキャラクターが人間かモンスターかで意味が変わる属性だ。
+        値と意味については前作に準拠する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">（モンスターフラグ）</span>
+            </dt>
+            <dd>
+              <p>
+        モンスターフラグとは、このキャラクターがモンスターであるかどうかを示す値を取るブーリアン型属性だ。
+        データとしては設定されているが、プログラムから参照されてはいないようだ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">ルイーダに預けるのを禁止するフラグ</span>
+            </dt>
+            <dd>
+              <p>
+        ルイーダに預けるのを禁止するフラグとは、このキャラクターをルイーダが預かり拒否するかどうかを示す値を取るブーリアン型属性だ。
+        主人公自身だけでなく、バーバラをどうしても預けられないのは、この属性値が 1 であることによる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">命令分類</span>
+            </dt>
+            <dd>
+              <p>
+        命令分類は詳細不明の属性だ。
+        全キャラクターについて値が 1 に設定されている。
+        プログラムを見ると、この値が 2 のときには例えば命名神で名前を変えられなかったり、
+        教会のお告げでレベルアップ経験値を教えてもらえなくなる等、
+        前作の NPC の扱いを思い起こさせるようなことを実現させるための属性であったのかもしれない。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">レベル初期値</span>
+            </dt>
+            <dd>
+              <p>
+        レベル初期値とは、このキャラクターを仲間にした時点でのその人物のレベルの値を表現する属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">レベルアップ ID</span>
+            </dt>
+            <dd>
+              <p>
+        レベルアップ ID とは、このキャラクターがレベルを上がるときの状態変化を管理するオブジェクトの ID を値に取る属性だ。
+      </p>
+              <p>
+        レベルアップについては <a class="xref" href="dq6_level.html" title="4.18. レベルアップ">4.18 レベルアップ</a> で述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">ルイーダで別れるのを許可するフラグ</span>
+            </dt>
+            <dd>
+              <p>
+        ルイーダで別れるのを許可するフラグとは、このキャラクターをルイーダの酒場に預けてあるときに別れられるかどうかを示す値を取るブーリアン型属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">耐性 k (k = <code class="literal">#$00</code>..<code class="literal">#$16</code>)</span>
+            </dt>
+            <dd>
+              <p>
+        耐性は、値の範囲の違いがなぜかあることを除けば、モンスター構造体のそれと同じ概念の属性だ。
+        <a class="xref" href="dq6_monster.html#dq6.monster.C20154" title="4.14.1. 構造体 $C20154: モンスター">4.14.1 構造体 <code class="varname">$C20154</code>: モンスター</a> の耐性の記述を参照して欲しい。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">コマンド選択判断, </span>
+              <span class="term">複数回, </span>
+              <span class="term">自動回復, </span>
+              <span class="term">みかわし, </span>
+              <span class="term">コマンド決定戦略</span>
+            </dt>
+            <dd>
+              <p>
+        これらの属性についても、モンスター構造体のそれぞれと同じ概念の属性だ。
+        <a class="xref" href="dq6_monster.html#dq6.monster.C20154" title="4.14.1. 構造体 $C20154: モンスター">4.14.1 構造体 <code class="varname">$C20154</code>: モンスター</a> の耐性の記述を参照して欲しい。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">遊び分類</span>
+            </dt>
+            <dd>
+              <p>
+        遊び分類とは、このキャラクターが「あそぶ」戦闘コマンドを直接的または間接的に発動するときに、
+        どのような遊びが起こり得るかを表現するオブジェクト配列 <code class="varname">$C22D54</code> ID を値とする属性だ。
+      </p>
+              <p>
+        <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> にデータを収録した。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">所持品 k (k = 0..4)</span>
+            </dt>
+            <dd>
+              <p>
+        所持品とは、このキャラクターを仲間にした時点でのその人物の道具袋にあるアイテム ID を表す属性だ。
+      </p>
+              <p>
+        アイテムについては <a class="xref" href="dq6_item.html" title="4.13. アイテム">4.13 アイテム</a> で述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">装備グループ</span>
+            </dt>
+            <dd>
+              <p>
+        装備グループとは、このキャラクターが装備可能であるかどうかを判定するために、
+        対象となるアイテムオブジェクトの装備グループ属性と照合するための値だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">装備状態</span>
+            </dt>
+            <dd>
+              <p>
+        装備状態とは、このキャラクターを仲間にした時点で所持品属性の示すアイテムのうちのどれを本当に装備しているかを表す値を取る属性だ。
+        形式としては、所持品配列の先頭 0 から何番目までの品物までを装備しているかを表現する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">移動モードスプライト</span>
+            </dt>
+            <dd>
+              <p>
+        移動モードスプライトとは、移動モードにおいてこのキャラクターを表現するスプライトセットを特定する ID を表す属性だ。
+        詳細不明。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">戦闘モードスプライト, </span>
+              <span class="term">戦闘モードパレット</span>
+            </dt>
+            <dd>
+              <p>
+        これらの属性は、このキャラクターを戦闘モードにおいて画面上に描画する画像を特定する属性だ。
+        「モシャス」を使えるモンスターの変身後の姿はこの属性で決まる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">スライム系</span>
+            </dt>
+            <dd>
+              <p>
+        スライム系とは、このキャラクターがスライム格闘場に参戦できることや、
+        同控室に出入りできるかどうかを表すブーリアン型属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">（キャラクター分類）</span>
+            </dt>
+            <dd>
+              <p>
+        参照箇所が見当たらないので、詳細不明。
+      </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.character.traits.methods"></a>4.16.2. 仲間キャラクター構造体メソッド</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+<code class="varname">$C8BD12</code> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
+専用サブルーチンと汎用サブルーチンをどちらも用いるが、前者は後者で実装することが可能だ。
+</p>
+        <div class="table">
+          <a id="table.dq6.character.traits.methods"></a>
+          <p class="title">
+            <strong>表 4.69 仲間キャラクター構造体メソッド</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq6.character.traits.methods" class="lighttable">
+              <thead>
+                <tr>
+                  <th>サブルーチン</th>
+                  <th>固定引数長</th>
+                  <th>入力</th>
+                  <th>機能</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C43B76</code>
+                  </td>
+                  <td align="right">3</td>
+                  <td>固定引数で指定</td>
+                  <td>肩書を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C43C0B</code>
+                  </td>
+                  <td align="right">2</td>
+                  <td>固定引数で指定</td>
+                  <td>ルイーダで別れるのを許可するか問い合わせる</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C44FA1</code>
+                  </td>
+                  <td align="right">3</td>
+                  <td>固定引数で指定</td>
+                  <td>名前を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C450A4</code>
+                  </td>
+                  <td align="right">3</td>
+                  <td>固定引数で指定</td>
+                  <td>性別を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C45DAF</code>
+                  </td>
+                  <td align="right">2</td>
+                  <td>固定引数で指定</td>
+                  <td>コマンド選択判断を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C45D7A</code>
+                  </td>
+                  <td align="right">2</td>
+                  <td>固定引数で指定</td>
+                  <td>命令分類を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C45DE4</code>
+                  </td>
+                  <td align="right">2</td>
+                  <td>固定引数で指定</td>
+                  <td>複数回を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C45E19</code>
+                  </td>
+                  <td align="right">2</td>
+                  <td>固定引数で指定</td>
+                  <td>自動回復取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C45E4E</code>
+                  </td>
+                  <td align="right">2</td>
+                  <td>固定引数で指定</td>
+                  <td>みかわしを取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C45E83</code>
+                  </td>
+                  <td align="right">2</td>
+                  <td>固定引数で指定</td>
+                  <td>コマンド決定戦略を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C92AA9</code>
+                  </td>
+                  <td align="right">8</td>
+                  <td>y</td>
+                  <td>2 バイト型属性値を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C92AB5</code>
+                  </td>
+                  <td align="right">8</td>
+                  <td>x</td>
+                  <td>2 バイト型属性値を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C92BD4</code>
+                  </td>
+                  <td align="right">7</td>
+                  <td>x</td>
+                  <td>オブジェクトのアドレスを取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C92C2D</code>
+                  </td>
+                  <td align="right">11</td>
+                  <td>y</td>
+                  <td>ビットフィールド型属性値を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C92C39</code>
+                  </td>
+                  <td align="right">11</td>
+                  <td>x</td>
+                  <td>ビットフィールド型属性値を取得する</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+入力が x または y となっているものは、対応するレジスターの値で仲間キャラクター配列の添字をそれぞれ指定することを意味する。
+また、「固定引数で指定する」とは、固定バイトの値が入力元の種別を指定することを意味する。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_characters.html" title="4.15. 仲間キャラクター構造体"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_encounter.html" title="4.17. 敵との遭遇"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_characters.html">4.15. 仲間キャラクター構造体</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_encounter.html">4.17. 敵との遭遇</a></div>
+  </body>
+</html>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.7. 宿屋</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_shop.html" title="4.6. 店屋" />
+    <link rel="next" href="dq6_church.html" title="4.8. 教会" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_shop.html" title="4.6. 店屋"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_church.html" title="4.8. 教会"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_shop.html">4.6. 店屋</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_church.html">4.8. 教会</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.inn"></a>4.7. 宿屋</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_inn.html#dq6.inn.structure">4.7.1. データ</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_inn.html#dq6.inn.structure.C58E0B">4.7.1.1. 構造体 <code class="varname">$C58E0B</code>: 宿屋</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_inn.html#dq6.inn.structure.C7D0DD">4.7.1.2. 配列 <code class="varname">$C7D0DD</code>: 宿屋台詞セット</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_inn.html#dq6.inn.behavior">4.7.2. 処理手順</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq6.inn" class="indexterm"></a>
+      <p>
+本節では宿屋のデータ構造および処理について述べる。
+まず宿屋のサービスを表現するための構造体について説明する。
+最後に宿屋すべてに共通する処理手順の概要を記述する。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.inn.structure"></a>4.7.1. データ</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+各地の宿屋を表現するデータ構造を説明する。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.inn.structure.C58E0B"></a>4.7.1.1. 構造体 <code class="varname">$C58E0B</code>: 宿屋</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+以下に示すメモリレイアウトのオブジェクトがアドレス <code class="varname">$C58E0B</code> から 37 個配列されている。
+この 4 バイト長のサイズしかないオブジェクトそれぞれが関係する宿屋のサービスを表現している。
+</p>
+          <div class="table">
+            <a id="table.dq6.C58E0B"></a>
+            <p class="title">
+              <strong>表 4.32 構造体 $C58E0B</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C58E0B" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>台詞セット</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FF</code>
+                    </td>
+                    <td>宿代</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+属性それぞれの概要をいかに述べる。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">台詞セット</span>
+              </dt>
+              <dd>
+                <p>
+        台詞セット属性は、宿屋の台詞の集合を指定する ID 値を取る。
+        台詞セットはメッセージ ID を要素とするものであり、配列 <code class="varname">$C7D0DD</code> にそれらの集合オブジェクトのアドレスが格納されている。
+        この属性値は、この配列の方の ID を意味する。
+      </p>
+                <p>
+        データを観察すると、集合オブジェクトは 2 セットしかないことがわかる。
+        それぞれ、標準の宿屋とマウントスノーの宿屋に逗留している旅の剣士のそれに対応する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">宿代</span>
+              </dt>
+              <dd>
+                <p>
+        宿代属性は、その宿屋に一泊するために必要なゴールドを表す数を取る。
+        この値にパーティーの生存者数を乗じた値が支払金額となる。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.inn.structure.C7D0DD"></a>4.7.1.2. 配列 <code class="varname">$C7D0DD</code>: 宿屋台詞セット</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+宿屋の話す台詞集はメッセージ ID の配列の形式で表現されている。
+その台詞セットのアドレスの配列がアドレス <code class="varname">$C7D0DD</code> にある。
+</p>
+          <p>
+以下に台詞セットのデータを直接示す。セミコロンから右側が本書が独自に付したコメントだ：
+読者はメッセージ ID と実際のテキストとの対応を <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> に収録した移動モードテキストデータを参照すれば確認できる。
+</p>
+          <pre class="programlisting">
+C7/D0DD:    E1D0    ; 一般の宿屋のセリフ ID セット
+C7/D0DF:    EDD0    ; マウントスノーの宿屋の剣士のセリフセット
+
+C7/D0E1:    FD18    ; #$00: [DE]ようこそ 旅の宿に。[AF]
+C7/D0E3:    FE18    ; #$01: [DE]ひと晩 [BB]ゴールドですが[AD]お泊まりに なりますか？
+C7/D0E6:    FF18    ; #$02: [DE]さようなら 旅の人。[AD]お気をつけて 旅を[AD]つづけられますように。
+C7/D0E7:    0019    ; #$03: [DE]でも お金が[AD]たりないようですね。[AF][D5]
+C7/D0E9:    0119    ; #$04: [DE]それでは ごゆっくり[AD]おやすみください。
+C7/D0EB:    0219    ; #$05: [DE]おはようございます。[AD]では いってらっしゃいませ。
+
+C7/D0ED:    3D02    ; #$00: この町の ありさまは[AD]いったい どうしたことなのだ。[AF](...)
+C7/D0F0:    3E02    ; #$01: おぬしらも 泊まっていくか？[AD]宿代の [BB]ゴールドは[AD]わしが あずかっておこう。
+C7/D0F2:    4202    ; #$02: そうか ならば[AD]好きに するが いい。
+C7/D0F4:    4102    ; #$03: わしも タダで 泊まって[AD]いるわけでは ない。[AD]金が ないなら ダメだな。
+C7/D0F6:    3F02    ; #$04: よかろう。[AD]ゆっくり 休むが いい。
+C7/D0F8:    4002    ; #$05: [D4][DE][D3]たちは 目がさめた。
+</pre>
+          <p>
+これらの台詞を表示するためのサブルーチンが用意されており、
+宿屋の処理中では汎用のメッセージ表示サブルーチンを呼び出す代わりに、
+サブルーチン <code class="varname">$C7D0BA</code> を用いる。
+呼び出し例を示す：
+</p>
+          <pre class="programlisting">
+C7/CF9C:    A90100      LDA #$0001          ; [DE]ひと晩 [BB]ゴールドですが[AD]お泊まりに なりますか？ or おぬしらも 泊まっていくか？
+C7/CF9F:    20BAD0      JSR $D0BA           ; 台詞表示
+</pre>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.inn.behavior"></a>4.7.2. 処理手順</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+はなすオブジェクトが宿屋である場合は、その振る舞いは基本的に次のようになる：
+</p>
+        <pre class="programlisting">
+CD/FEDE:    A22300      LDX #$0023          ; 宿屋 ID
+CD/FEE1:    2221CFC7    JSR $C7CF21         ; 宿屋処理
+CD/FEE5:    6B          RTL
+</pre>
+        <p>
+サブルーチン <code class="varname">$C7CF21</code> が宿屋共通処理を実装するコードだ。
+このコードは対話的な処理を含むので、比較的長いものとなっている。
+要点を以下に列挙する：
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist" style="list-style-type: disc; ">
+            <li class="listitem">
+              <p>
+      宿屋の台詞表示はここでしか使わないサブルーチンでカプセル化されている。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      宿代計算では死んだ仲間を勘定に入れない。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      宿代が不足しているときの料金不足を告げた後の処理が標準と旅の剣士とで異なる。
+      後者は<span class="quote">「<span class="quote">さようなら 旅の人</span>」</span>に相当する台詞がない。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      モンストルの宿屋 (<code class="literal">#$0009</code>) でのみ特殊なフラグをオンにする処理が入る。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      生存キャラクターのみ HP と MP を全回復する。
+      実装の詳細では +999 ということになる。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      回復の後に宿屋の効果音 (<code class="literal">#$0025</code>) を再生する。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      宿屋を正常利用することで <code class="varname">$7E3D2D</code> の <code class="literal">#$0002</code> ビットがオンになる。
+      このフラグが結局のところ何に参照されるのかは不明だ。
+    </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_shop.html" title="4.6. 店屋"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_church.html" title="4.8. 教会"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_shop.html">4.6. 店屋</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_church.html">4.8. 教会</a></div>
+  </body>
+</html>

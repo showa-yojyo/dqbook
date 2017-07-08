@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.26. はなす</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_character.html" title="5.25. 性格解析" />
+    <link rel="next" href="dq3_search.html" title="5.27. しらべる" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_character.html" title="5.25. 性格解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_search.html" title="5.27. しらべる"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_character.html">5.25. 性格解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_search.html">5.27. しらべる</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.talk"></a>5.26. はなす</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_talk.html#dq3.talk.model">5.26.1. モデル</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_talk.html#dq3.talk.model.C808DA">5.26.1.1. 構造体 <code class="varname">$C808DA</code>: 「はなす」対象</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_talk.html#dq3.talk.model.C893D4">5.26.1.2. 構造体 <code class="varname">$C893D4</code>: 「はなす」対象分類</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_talk.html#dq3.talk.model.data">5.26.1.3. データ</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_talk.html#dq3.talk.process">5.26.2. 処理手順</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_talk.html#dq3.talk.process.example">5.26.2.1. 例：ルイーダ</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <p>
+まずは「はなす」コマンドの対象であるオブジェクトのすべてを表現する ROM データの構造について説明する。
+また、それらの構造それぞれについて、その型のオブジェクトデータを解釈して得られるテキスト CSV ファイルを提示する。
+それから「はなす」コマンドを実行するときのプログラムの手順を、可能な限りコードを引用した上で説明する。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.talk.model"></a>5.26.1. モデル</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+移動モードではプレイヤーの操作するパーティーとは他に、人々や動物、ときには魔物のが画面内をフラフラとしている。
+基本的にはパーティーの先頭者の正面にこれらのオブジェクトが存在すれば、コマンド「はなす」が成功することになっている。
+これらの「はなす対象オブジェクト」のデータとして、いつものように配列の形式で定義されている。
+以下、この「はなす対象オブジェクト」の構造を説明する。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.talk.model.C808DA"></a>5.26.1.1. 構造体 <code class="varname">$C808DA</code>: 「はなす」対象</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+ROM のアドレス <code class="varname">$C808DA</code> には次の表で示すような型のオブジェクトが配列されている：
+</p>
+          <div class="table">
+            <a id="table.dq3.talk.model.C808DA"></a>
+            <p class="title">
+              <strong>表 5.42 構造体 $C808DA</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.talk.model.C808DA" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003F</code>
+                    </td>
+                    <td>（調査中）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$3FC0</code>
+                    </td>
+                    <td>分類</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FF</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FE</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001C</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$07E0</code>
+                    </td>
+                    <td>領域</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00F8</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td rowspan="2">歩行処理サブルーチン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td rowspan="2">はなす処理サブルーチン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+属性の集合を見てわかるように、この構造体の役割は前作の <a class="xref" href="dq6_talk.html#dq6.talk.model.FF243C" title="4.4.1.2. 構造体 $FF243C: 「はなす」対象標準版">4.4.1.2 構造体 <code class="varname">$FF243C</code>: 「はなす」対象標準版</a> と同じだ。
+以下、新たに加わった属性について説明を与える。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">分類</span>
+              </dt>
+              <dd>
+                <p>
+        分類とは、次節で説明する対象オブジェクトの ID を値とする属性だ。
+        前作ではスプライト ID を値とする属性があったのだが、本作ではこれに取って代わった。
+        詳しくは次節で説明する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">領域</span>
+              </dt>
+              <dd>
+                <p>
+        領域とは、この対象オブジェクトが配置空間内のどの領域、言い換えると屋内・屋外に存在するのかを示す値の属性だ。
+        いわゆる屋内・屋外の切り替え時に、この値の更新が発生する。
+      </p>
+                <p>
+        プレイヤーキャラクターが領域 A にいて、「はなす」対象オブジェクトが領域 B にいるとする。
+        このとき、たとえ両者が隣り合う位置にいて、かつプレイヤーが対象オブジェクトのほうを向いていても、
+        コマンド結果は「その方向には～」となるはずだ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.talk.model.C893D4"></a>5.26.1.2. 構造体 <code class="varname">$C893D4</code>: 「はなす」対象分類</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+ROM のアドレス <code class="varname">$C893D4</code> には次の表で示すような型のオブジェクトが配列されている：
+</p>
+          <div class="table">
+            <a id="table.dq3.talk.model.C893D4"></a>
+            <p class="title">
+              <strong>表 5.43 構造体 $C893D4</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.talk.model.C893D4" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FF</code>
+                    </td>
+                    <td>スプライト</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FE</code>
+                    </td>
+                    <td>声色</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>透明時の代理オブジェクトの分類</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td rowspan="2">変身時の反応</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td rowspan="2">透明人間への反応</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+この構造体は、前作の「はなす」系構造体にあったスプライト属性を拡張して、新しく別の構造体に切り出したものとみなせる。
+以下、新たに加わった属性について説明を与える。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">声色</span>
+              </dt>
+              <dd>
+                <p>
+        声色とは、ドラクエの台詞表示に伴うあの独特の音声を指定する値をとる属性だ。
+        実際に設定されている値は次に示すとおり：
+      </p>
+                <div class="table">
+                  <a id="table.dq3.talk.C893D4.tone"></a>
+                  <p class="title">
+                    <strong>表 5.44 声色</strong>
+                  </p>
+                  <div class="table-contents">
+                    <table id="table.dq3.talk.C893D4.tone" class="lighttable">
+                      <thead>
+                        <tr>
+                          <th>値</th>
+                          <th>内容</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <code class="literal">#$00</code>
+                          </td>
+                          <td>（なし）</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$4B</code>
+                          </td>
+                          <td>中音</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$4C</code>
+                          </td>
+                          <td>高音</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$4D</code>
+                          </td>
+                          <td>低音</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <br class="table-break" />
+              </dd>
+              <dt>
+                <span class="term">透明時の代理オブジェクトの分類</span>
+              </dt>
+              <dd>
+                <p>
+        透明代理オブジェクトとは、パーティーがきえさりそうやレムオルの呪文で透明になるときに、
+        この分類オブジェクトの代わりを別の分類オブジェクトが果たすようになるのだが、
+        その別オブジェクトを指定する ID 値をとる属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">変身時の対応</span>
+              </dt>
+              <dd>
+                <p>
+        変身時の対応とは、パーティーがへんげのつえを使って変身している状態で話しかけられたときの、
+        この分類オブジェクトの振る舞いの処理を行うコードの開始アドレスの値をとる属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">透明人間への反応</span>
+              </dt>
+              <dd>
+                <p>
+        透明人間への反応とは、パーティーがきえさりそうやレムオルの呪文で透明になっている状態で話しかけられたときの、
+        この分類オブジェクトの振る舞いの処理を行うコードの開始アドレスの値をとる属性だ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.talk.model.data"></a>5.26.1.3. データ</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+<a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> で前述の二構造体オブジェクトデータを解釈して作成した CSV ファイルを提供する。
+</p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.talk.process"></a>5.26.2. 処理手順</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+サブルーチン <code class="varname">$C6769D</code> が「はなす」処理の主要部だ。
+処理手順の構造は前作の <a class="xref" href="dq6_talk.html#dq6.talk.process" title="4.4.2. 処理手順">4.4.2 処理手順</a> のマイナーチェンジ版であるので、
+以下、変更部分しか説明しない：
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">特に意味はない</span>
+            </dt>
+            <dd>
+              <p>
+        単に carry レジスターをオンにするだけのサブルーチンを呼び出す。
+      </p>
+              <p>
+        前作ではまずパーティーが「はなす」コマンドを実行可能かどうかをテストした。
+        しかし馬車のない今作ではこのテスト工程は論理的に不要だ。
+        ところが、前作で作成したコードはなるべくそのままコピーアンドペーストして流用したい。
+        そこでこのような処置を取ったと推察できる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">各種変数を設定・保存する Part 1</span>
+            </dt>
+            <dd>
+              <p>
+        パーティーメンバーのうち生存状態の者と、
+        処理が「はなす」なのか「しらべる」なのかを区別する値を設定・保存する。
+        後者の値はメッセージ表示時の声色演出に影響する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">パーティー先頭のほぼ正面に「はなす」対象者がいるかどうかテストする</span>
+            </dt>
+            <dd>
+              <p>
+        前作とほぼ同様の座標値比較アルゴリズムを適用する。
+        テストに失敗した場合は「はなす」実施済みマークをテストする工程までジャンプする。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">各種変数を設定・保存する Part 2</span>
+            </dt>
+            <dd>
+              <p>
+        「はなす」処理最中であることを示すフラグ、
+        「はなす」対象者の（話し始める直前の）向きの各値を設定・保存しておく。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">「はなす」対象者の向きを変更するかテストする</span>
+            </dt>
+            <dd>
+              <p>
+        前作と同様だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">移動モードメッセージを出力するかテストする</span>
+            </dt>
+            <dd>
+              <p>
+        前作と同様だが、無効なメッセージ ID として <code class="literal">#$0000</code> を用いる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">「はなす」対象者に関連付けられている処理を実行する</span>
+            </dt>
+            <dd>
+              <p>
+        ここは前作と大きく異なる。新規実装サブルーチンを実行することで対象者の振る舞いを指示している。
+      </p>
+              <div class="variablelist">
+                <dl class="variablelist">
+                  <dt>
+                    <span class="term">本来の振る舞いで初期化</span>
+                  </dt>
+                  <dd>
+                    <p>
+              「はなす」対象オブジェクトの「はなす処理サブルーチン」属性である完全アドレス値を変数 <code class="varname">$001D9A</code> に設定する。
+              この後の各テストにひっかからなければ、このサブルーチンがそのまま実行される。
+            </p>
+                  </dd>
+                  <dt>
+                    <span class="term">透明テスト</span>
+                  </dt>
+                  <dd>
+                    <p>
+              変数 <code class="varname">$7E353B</code> のレムオル状態またはきえさりそう状態に対応するビットを見る。
+              つまり、パーティーが透明であるかどうかを試す。
+              もしどちらかの状態でもなければ、後述の工程「固有処理へジャンプして終了」にジャンプする。
+            </p>
+                    <p>
+              透明であれば、「はなす」対象オブジェクトの「透明状態を考慮するか」フラグをテストする。
+              もし考慮するならば、<code class="code">A = 6</code> として、後述の工程「アドレスをロードする」にジャンプする。
+              考慮しないのであれば、後述の工程「固有処理へジャンプして終了」にジャンプする。
+            </p>
+                  </dd>
+                  <dt>
+                    <span class="term">魔物テスト</span>
+                  </dt>
+                  <dd>
+                    <p>
+              変数 <code class="varname">$7E353B</code> のへんげのつえ状態に対応するビットを見て、
+              パーティーが現在へんげのつえを使用しているかどうかを試す。
+              使用中でないか、または「はなす」対象オブジェクトの「変身状態を考慮するか」フラグが 0 であれば、
+              後述の工程「固有処理へジャンプして終了」にジャンプする。
+            </p>
+                    <p>
+              もし考慮するならば、<code class="code">A = 3</code> として、後述の工程「アドレスをロードする」にジャンプする。
+            </p>
+                  </dd>
+                  <dt>
+                    <span class="term">アドレスをロード</span>
+                  </dt>
+                  <dd>
+                    <p>
+              「はなす」対象オブジェクトに対応する分類オブジェクトを配列 <code class="varname">$C893D4</code> から参照し、
+              <code class="varname">A</code> の値に応じて「変身時の対応」属性値または「透明人間への反応」属性値である完全アドレス値を得る。
+              それから変数 <code class="varname">$001D9A</code> にこの値を上書きする。
+            </p>
+                  </dd>
+                  <dt>
+                    <span class="term">固有処理へジャンプして終了</span>
+                  </dt>
+                  <dd>
+                    <p>
+              変数 <code class="varname">$001D9A</code> に設定されているアドレスにジャンプする。
+            </p>
+                  </dd>
+                </dl>
+              </div>
+            </dd>
+            <dt>
+              <span class="term">「はなす」実施済みマークを更新する</span>
+            </dt>
+            <dd>
+              <p>
+        変数 <code class="varname">$7EC371</code> をインクリメントする。意味は前作と同様だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">メッセージウィンドウを消去する</span>
+            </dt>
+            <dd>
+              <p>
+        ユーザーのコントローラー入力を待ってメッセージウィンドウを消去する。コードは前作と同様だが、
+        今作の「はなす」オブジェクトのウィンドウ消去フラグ属性はどれも 1 なのでこうなる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">「はなす」対象者の向きを復元するかテストする</span>
+            </dt>
+            <dd>
+              <p>
+        前作と同様。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">「はなす」実施済みマークをテストする</span>
+            </dt>
+            <dd>
+              <p>
+        前作と同様。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">終了する</span>
+            </dt>
+            <dd>
+              <p>
+        前作と同様。
+      </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+こうしてみると、主人公パーティーの外見上の違いによる処理の分岐が際立っている。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.talk.process.example"></a>5.26.2.1. 例：ルイーダ</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+ルイーダの処理がどのように指定されているのかを見てみよう。
+本処理の方は <a class="xref" href="dq3_pub.html" title="5.14. ルイーダの酒場解析">5.14 ルイーダの酒場解析</a> で述べるので、ここでは変身時の処理と透明人間の処理を見る。
+配列 <code class="varname">$C893D4</code> をダンプすることで、
+それぞれのコードが <code class="varname">$CDBC2B</code> および <code class="varname">$CDB6C0</code> に定義されていることがわかる。
+</p>
+          <p>
+パーティー変身時の処理は次のようなものだ。
+ここで、サブルーチン <code class="varname">$CDB4CE</code> では変数 <code class="varname">$001D9A</code> に本来のはなす処理アドレス値をリロードして、
+ジャンプするという内容だ。
+</p>
+          <pre class="programlisting">
+CD/BC2B:    22D7B4CD    JSR $CDB4D7
+CD/BC2F:    220EB5CD    JSR $CDB50E         ; へんげのつえで魔物に変身しているかテスト
+CD/BC33:    B003        BCS $BC38           if(魔物でない){
+CD/BC35:    4C42BC      JMP $BC42               goto スライムテスト
+                                            }
+CD/BC38:    008C0F      BRK #$0F8C          ; #$0F8C: なによ あんたたちっ！[AD]ここには 強い人たちが[AD](...)
+CD/BC3B:    22B0B4CD    JSR $CDB4B0
+CD/BC3F:    4C59BC      JMP $BC59           goto 終了
+                                            スライムテスト:
+CD/BC42:    221FB5CD    JSR $CDB51F         ; へんげのつえでスライムに変身しているかテスト
+CD/BC46:    B003        BCS $BC4B           if(スライムでない){
+CD/BC48:    4C55BC      JMP $BC55               goto 通常処理
+                                            }
+CD/BC4B:    008D0F      BRK #$0F8D          ; #$0F8D: あらあら いらっしゃい。[AD]でも ゴメンね。スライムの(...)
+CD/BC4E:    22B0B4CD    JSR $CDB4B0
+CD/BC52:    4C59BC      JMP $BC59           goto 終了
+                                            通常処理:
+CD/BC55:    22CEB4CD    JSR $CDB4CE         ; はなす対象者既定の振る舞い
+                                            終了:
+CD/BC59:    6B          RTL
+</pre>
+          <p>
+パーティーが透明である場合の処理は次のようになる：
+</p>
+          <pre class="programlisting">
+CD/B6C0:    00550F      BRK #$0F55          ; #$0F55: ここは ルイーダの酒場。[AD]冒険者たちが……[AF][AD]……って なんだ。[AD]だれも いないじゃない。
+CD/B6C3:    22B0B4CD    JSR $CDB4B0
+CD/B6C7:    6B          RTL
+</pre>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_character.html" title="5.25. 性格解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_search.html" title="5.27. しらべる"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_character.html">5.25. 性格解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_search.html">5.27. しらべる</a></div>
+  </body>
+</html>

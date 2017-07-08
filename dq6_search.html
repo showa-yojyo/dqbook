@@ -1,0 +1,1662 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.5. しらべる</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_talk.html" title="4.4. はなす" />
+    <link rel="next" href="dq6_shop.html" title="4.6. 店屋" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_talk.html" title="4.4. はなす"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_shop.html" title="4.6. 店屋"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_talk.html">4.4. はなす</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_shop.html">4.6. 店屋</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.search"></a>4.5. しらべる</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_search.html#dq6.search.model">4.5.1. モデル</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_search.html#dq6.search.model.C20000">4.5.1.1. 構造体 <code class="varname">$C20000</code>: 「しらべる」対象分類</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_search.html#dq6.search.model.base">4.5.1.2. 「しらべる」対象抽象基底構造体</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_search.html#dq6.search.model.C83E5C">4.5.1.3. 構造体 <code class="varname">$C83E5C</code>: アイテム発見</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_search.html#dq6.search.model.C8477E">4.5.1.4. 構造体 <code class="varname">$C8477E</code>: ゴールド発見</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_search.html#dq6.search.model.C848B6">4.5.1.5. 構造体 <code class="varname">$C848B6</code>: 情報取得</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_search.html#dq6.search.model.C85534">4.5.1.6. 構造体 <code class="varname">$C85534</code>: 罠</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_search.html#dq6.search.model.C855AB">4.5.1.7. 構造体 <code class="varname">$C855AB</code>: 特殊イベント</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_search.html#dq6.search.process">4.5.2. 処理手順</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+本節では移動コマンド「しらべる」の実装詳細について述べる。
+まずは「しらべる」コマンドの対象であるオブジェクトのすべてを表現する ROM データの構造について説明する。
+また、それらの構造それぞれについて、その型のオブジェクトデータを解釈して得られるテキスト CSV ファイルを提示する。
+それから「しらべる」コマンドを実行するときのプログラムの手順を、可能な限りコードを引用した上で説明する。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.search.model"></a>4.5.1. モデル</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+本節では移動コマンド「しらべる」に直接関係するデータ構造を説明していく。
+移動コマンド「はなす」の構造よりも複雑であり、関与するデータ型間の関係を図式で示したい。
+また、これらのデータ構造には、文章だけではその役割が想像しにくい属性がある。
+読者の必要に応じて <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> に収録したデータを確認しながら読んで欲しい。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.search.model.C20000"></a>4.5.1.1. 構造体 <code class="varname">$C20000</code>: 「しらべる」対象分類</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C20000</code> には以下に示すメモリレイアウトのオブジェクトが 20 個ほど配列されている。
+これらのオブジェクトが表現するのは、宝箱、ツボ、タンス、等々というようなオブジェクトの分類項目だ。
+ゲーム中にバラバラと存在する「しらべる」対象のすべてが、この配列にあるいずれか一つの要素を「共有」している。
+「しらべる」対象のすべてを、この共有オブジェクトにより類別することができる。
+</p>
+          <div class="table">
+            <a id="table.dq6.C20000"></a>
+            <p class="title">
+              <strong>表 4.21 構造体 $C20000</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C20000" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000F</code>
+                    </td>
+                    <td>ヒットテスト座標成分上限</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00F0</code>
+                    </td>
+                    <td>ヒットテスト座標成分右限</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000F</code>
+                    </td>
+                    <td>ヒットテスト座標成分下限</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00F0</code>
+                    </td>
+                    <td>ヒットテスト座標成分左限</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007</code>
+                    </td>
+                    <td>キャラクターが上向きのときの対応座標成分オフセット</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0038</code>
+                    </td>
+                    <td>キャラクターが右向きのときの対応座標成分オフセット</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01C0</code>
+                    </td>
+                    <td>キャラクターが下向きのときの対応座標成分オフセット</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000E</code>
+                    </td>
+                    <td>キャラクターが左向きのときの対応座標成分オフセット</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>キャラクターが上向き禁止</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>キャラクターが右向き禁止</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>キャラクターが下向き禁止</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>キャラクターが左向き禁止</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>初訪問時のメッセージ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>無効な方向からのメッセージ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>罠であるときのメッセージ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>何もないときのメッセージ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>再訪問時のメッセージ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FF</code>
+                    </td>
+                    <td>初訪問時の効果音</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FE</code>
+                    </td>
+                    <td>再訪問時の効果音</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">ヒットテスト座標成分[上右下左]限</span>
+              </dt>
+              <dd>
+                <p>
+        ヒットテスト座標成分各属性は、「しらべる」対象の外見上の外接矩形を定義する数を値としてとるものだ。
+        「しらべる」対象の位置を基準として、これらの値で「ふくらませた」矩形を考えることができる。
+        「しらべる」処理では、この矩形とパーティー先頭との位置関係とに対するヒットテストを行う。
+      </p>
+                <p>
+        実際にデータを検証すると、ムドーの城にある魔物の像や、月鏡の塔の大鏡には大きな矩形が定義されていることがわかる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">キャラクターが[上右下左]向きのときの対応座標成分オフセット</span>
+              </dt>
+              <dd>
+                <p>
+        これらはヒットテストの計算時に適用される値をとる属性だ。
+        パーティー先頭の座標が「しらべる」対象の外接矩形と少々ズレがあってもヒットテストが成功させるための工夫だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">キャラクターが[上右下左]向き禁止</span>
+              </dt>
+              <dd>
+                <p>
+        これらは「しらべる」コマンドが成功するために必要な先頭キャラクターの向きに関する条件を与える属性だ。いずれもブーリアン値をとる。
+        例えばタンスや看板は上向き禁止が指定されている。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">初訪問時のメッセージ</span>
+              </dt>
+              <dd>
+                <p>
+        この属性はメッセージ ID を値とする属性であり、「しらべる」コマンドを実行して最初にウィンドウに出力されるメッセージの ID だ。
+        ゲーム中に初めてこの対象を「しらべる」ときには、必ずこの値が参照される。
+        ただし、値がまともに設定されていないものについては「最初の」メッセージという概念がないものとして了解すること。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">無効な方向からのメッセージ</span>
+              </dt>
+              <dd>
+                <p>
+        この属性はメッセージ ID を値とする属性であり、「しらべる」コマンドを対象が禁止する向きで実行したときに表示されるメッセージの ID だ。
+        「裏からはわからない」のような文言をプレイヤーに示す。
+      </p>
+                <p>
+        無効な方向がないものについては、この値は参照されないはずだ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">罠であるときのメッセージ</span>
+              </dt>
+              <dd>
+                <p>
+        この属性はメッセージ ID を値とする属性であり、対象が罠であるときに表示されるメッセージの ID だ。
+      </p>
+                <p>
+        この作品では宝箱、ツボ、および井戸にしか意味をなさない属性のはずだが、タル、看板、貼り紙等、
+        挙句の果てには足もとについても専用メッセージが用意されている。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">何もないときのメッセージ</span>
+              </dt>
+              <dd>
+                <p>
+        この属性はメッセージ ID を値とする属性であり、対象に異状がないときに表示されるメッセージの ID だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">再訪問時のメッセージ</span>
+              </dt>
+              <dd>
+                <p>
+        この属性はメッセージ ID を値とする属性であり、「しらべる」コマンドを実行して最初にウィンドウに出力されるメッセージの ID だ。
+        ただし、対象の調査済みフラグが存在して、かつそれがオンのときにしかこの値は参照されない。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">初訪問時の効果音</span>
+              </dt>
+              <dd>
+                <p>
+        初訪問時の効果音とは、この対象に「しらべる」コマンドを実行したときに演奏される効果音の ID を値とする属性だ。
+        ゲーム中に初めてこの対象を「しらべる」ときには、必ずこの値が参照される。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">再訪問時の効果音</span>
+              </dt>
+              <dd>
+                <p>
+        再訪問時の効果音とは、この対象に「しらべる」コマンドを実行したときに演奏される効果音の ID を値とする属性だ。
+        ただし、対象の調査済みフラグが存在して、かつそれがオンのときにしかこの値は参照されない。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.search.model.base"></a>4.5.1.2. 「しらべる」対象抽象基底構造体</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+本節はあくまでもあるモデルにおいての議論なので、ここで示すようなデータ構造のでっちあげが認められるだろう。
+プログラム中には次に示すような構造体は存在しないが、次節以降の構造体を説明する便宜上導入しておく。
+つまり、後述する実在の構造体群が、あたかも本節で導入する構造体の派生型であるかのように説明したいのだ。
+よそではこの議論は通用しないので、読者は注意して欲しい。
+</p>
+          <div class="table">
+            <a id="table.dq6.search.model.base"></a>
+            <p class="title">
+              <strong>表 4.22 「しらべる」対象抽象基底構造体</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.search.model.base" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>ロードするかどうか</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003E</code>
+                    </td>
+                    <td>分類</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FF</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FE</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000C</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">ロードするかどうか</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン値の属性。
+        詳細はまだ判明していないが、ある一定のタイミングで対象データを ROM からロードするか否かを示すらしい。
+      </p>
+                <p>
+        対象ほとんどすべてについてこの値はゼロが設定されているのだが、
+        例外として「きたのどうくつ」地下 3 階にある「はぐれのさとり」、ひょうたん島の操舵輪、
+        「もりのみずうみ」の特殊な宝箱等には 1 が設定されている。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">分類</span>
+              </dt>
+              <dd>
+                <p>
+        分類とは、<a class="xref" href="dq6_search.html#dq6.search.model.C20000" title="4.5.1.1. 構造体 $C20000: 「しらべる」対象分類">4.5.1.1 構造体 <code class="varname">$C20000</code>: 「しらべる」対象分類</a> オブジェクト ID を値とする属性だ。
+        この値が「足もと」「宝箱」「ツボ」「タル」等々を表現していると解釈できる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">向き</span>
+              </dt>
+              <dd>
+                <p>
+        便宜上向きと名前を付けてしまったが、この属性は必ずゼロでなければならないはずだ。
+        この属性には意味はないはずだが、プログラム中から確実に参照されている。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">MX</span>
+              </dt>
+              <dd>
+                <p>
+        MX とは、このオブジェクトが存在する空間内のどの X 座標に配置されるかを M 座標系で表現した値をとる属性だ。
+        言い忘れたが、本節で登場する座標成分はすべて M 座標系で表現された値だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">MY</span>
+              </dt>
+              <dd>
+                <p>
+        MX とは、このオブジェクトが存在する空間内のどの Y 座標に配置されるかを M 座標系で表現した値をとる属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">LV</span>
+              </dt>
+              <dd>
+                <p>
+        LV とは、このオブジェクトが存在する空間内のどの「高さ」に配置されるかを示す値をとる属性だ。
+        LV の詳細は <a class="xref" href="dq6_talk.html#dq6.talk.model.FF08DA" title="4.4.1.1. 構造体 $FF08DA: 「はなす」対象簡易版">4.4.1.1 構造体 <code class="varname">$FF08DA</code>: 「はなす」対象簡易版</a> での記述を参照して欲しい。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.search.model.C83E5C"></a>4.5.1.3. 構造体 <code class="varname">$C83E5C</code>: アイテム発見</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C83E5C</code> には以下に示すメモリレイアウトのオブジェクトが多数配列されている。
+これらは「しらべる」対象から何らかのアイテムを一度だけ入手可能であることを表現している。
+</p>
+          <div class="table">
+            <a id="table.dq6.C83E5C"></a>
+            <p class="title">
+              <strong>表 4.23 構造体 $C83E5C: アイテム発見</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C83E5C" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>ロードするかどうか</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003E</code>
+                    </td>
+                    <td>分類</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FF</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FE</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000C</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0FF0</code>
+                    </td>
+                    <td>アイテム</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00F0</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>フラグ ID</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+以下、抽象基底構造体にない属性しか記述しない（後続の構造体も同様）。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">アイテム</span>
+              </dt>
+              <dd>
+                <p>
+        アイテムとは、この対象を「しらべる」ことによって入手できるアイテムの ID を値とする属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">フラグ ID</span>
+              </dt>
+              <dd>
+                <p>
+        フラグ ID とは、この対象が調査済みであるかどうかを管理するフラグの ID を値とする属性だ。
+      </p>
+                <p>
+        簡単に説明すると、アドレス <code class="varname">$7E3D2A</code> からブーリアンフラグが延々と配列されている。
+        <code class="varname">$7E3D2A</code> の最下位ビットをゼロ番目として、何番目のビットかを示す値がフラグ ID だとみなせる。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.search.model.C8477E"></a>4.5.1.4. 構造体 <code class="varname">$C8477E</code>: ゴールド発見</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C8477E</code> には以下に示すメモリレイアウトのオブジェクトが 40 程度配列されている。
+これらは「しらべる」対象からいくらかのゴールドを一度だけ入手可能であることを表現している。
+</p>
+          <div class="table">
+            <a id="table.dq6.C8477E"></a>
+            <p class="title">
+              <strong>表 4.24 構造体 $C8477E: ゴールド発見</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C8477E" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>ロードするかどうか</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003E</code>
+                    </td>
+                    <td>分類</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FF</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FE</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000C</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0030</code>
+                    </td>
+                    <td>指数</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$3FC0</code>
+                    </td>
+                    <td>係数</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$3FC0</code>
+                    </td>
+                    <td>乱数</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>フラグ ID</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">指数</span>
+              </dt>
+              <dd>
+                <p>
+        指数とは、この対象から得られるゴールドを算出するのに用いられる値をとる属性の一つだ。
+        値が十進数表現で数桁におよぶようなものについては、Python コードの記法を用いれば、その数を <code class="code">F * 10 ** E</code> のように捉えて、
+        <code class="code">E</code> と <code class="code">F</code> を保持するというパターンがこの頃のドラクエにはあるようだ。
+        この属性はその表現法における <code class="code">E</code> の値だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">係数</span>
+              </dt>
+              <dd>
+                <p>
+        前項の <code class="code">F</code> を値とする属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">乱数</span>
+              </dt>
+              <dd>
+                <p>
+        乱数とは、上記の 2 属性から定まる金額に対して、さらにボーナス額が加算される場合の、
+        加算値の振れ幅を示す値をとる属性だ。
+      </p>
+                <p>
+        残念ながら、どのゴールド発見オブジェクトについても、属性値はゼロとなっている。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">フラグ ID</span>
+              </dt>
+              <dd>
+                <p>
+        <a class="xref" href="dq6_search.html#dq6.search.model.C83E5C" title="4.5.1.3. 構造体 $C83E5C: アイテム発見">4.5.1.3 構造体 <code class="varname">$C83E5C</code>: アイテム発見</a> 参照。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.search.model.C848B6"></a>4.5.1.5. 構造体 <code class="varname">$C848B6</code>: 情報取得</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C848B6</code> には以下に示すメモリレイアウトのオブジェクトが多数配列されている。
+これらは対象を「しらべる」ことで何らかのテキストメッセージを出力することを表現している。
+もっと強く言うと、中身が空の引き出しやツボといった変哲のないオブジェクトのすべてもここに分類される。
+</p>
+          <div class="table">
+            <a id="table.dq6.C848B6"></a>
+            <p class="title">
+              <strong>表 4.25 構造体 $C848B6: 情報取得</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C848B6" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>ロードするかどうか</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003E</code>
+                    </td>
+                    <td>分類</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FF</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FE</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000C</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>とうぞくのはな</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>レミラーマ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>メッセージ ID</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">とうぞくのはな</span>
+              </dt>
+              <dd>
+                <p>
+        これはブーリアン値の属性であり、移動中のコマンド「とうぞくのはな」実行時のカウンターを増加させるかどうかを示す。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">レミラーマ</span>
+              </dt>
+              <dd>
+                <p>
+        これはブーリアン値の属性であり、移動中のコマンド「レミラーマ」実行時において座標 (MX, MY) を光らせるかどうかを示す。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">メッセージ ID</span>
+              </dt>
+              <dd>
+                <p>
+        「しらべる」コマンドの結果として、この属性値を ID とする移動モードメッセージを出力させる。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.search.model.C85534"></a>4.5.1.6. 構造体 <code class="varname">$C85534</code>: 罠</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$85534</code> には以下に示すメモリレイアウトのオブジェクトが十数個配列されている。
+いずれも宝箱やツボがモンスターであるような対象を表現している。
+</p>
+          <div class="table">
+            <a id="table.dq6.C85534"></a>
+            <p class="title">
+              <strong>表 4.26 構造体 $C85534: 罠</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C85534" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>ロードするかどうか</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003E</code>
+                    </td>
+                    <td>分類</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FF</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FE</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000C</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03F0</code>
+                    </td>
+                    <td>イベント戦 ID</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>フラグ ID</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">イベント戦 ID</span>
+              </dt>
+              <dd>
+                <p>
+        この属性値は配列 <code class="varname">$C88DF4</code> のインデックスであり、
+        具体的には「しらべる」コマンド実行後に発生する戦闘に対するイベント戦の ID だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">フラグ ID</span>
+              </dt>
+              <dd>
+                <p>
+        <a class="xref" href="dq6_search.html#dq6.search.model.C83E5C" title="4.5.1.3. 構造体 $C83E5C: アイテム発見">4.5.1.3 構造体 <code class="varname">$C83E5C</code>: アイテム発見</a> 参照。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.search.model.C855AB"></a>4.5.1.7. 構造体 <code class="varname">$C855AB</code>: 特殊イベント</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C855AB</code> には以下に示すメモリレイアウトのオブジェクトが多数配列されている。
+これらのオブジェクトは、これまで見てきた分類から逸脱した振る舞いを実現するものだ。
+</p>
+          <div class="table">
+            <a id="table.dq6.C855AB"></a>
+            <p class="title">
+              <strong>表 4.27 構造体 $C855AB: 特殊イベント</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C855AB" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>ロードするかどうか</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003E</code>
+                    </td>
+                    <td>分類</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FF</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FE</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000C</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>とうぞくのはな</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>レミラーマ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td rowspan="2">しらべる処理</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>フラグ ID</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">とうぞくのはな, </span>
+                <span class="term">レミラーマ</span>
+              </dt>
+              <dd>
+                <p>
+        いずれも <a class="xref" href="dq6_search.html#dq6.search.model.C848B6" title="4.5.1.5. 構造体 $C848B6: 情報取得">4.5.1.5 構造体 <code class="varname">$C848B6</code>: 情報取得</a> と同じ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">しらべる処理</span>
+              </dt>
+              <dd>
+                <p>
+        この属性は「しらべる」コマンドによって実行されるサブルーチンの開始アドレスを値とする。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">フラグ ID</span>
+              </dt>
+              <dd>
+                <p>
+        <a class="xref" href="dq6_search.html#dq6.search.model.C83E5C" title="4.5.1.3. 構造体 $C83E5C: アイテム発見">4.5.1.3 構造体 <code class="varname">$C83E5C</code>: アイテム発見</a> 参照。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.search.process"></a>4.5.2. 処理手順</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+サブルーチン <code class="varname">$C0D831</code> が「しらべる」処理の主要部だ。
+まずは主要部の手順のうち、例外的な部分を除外した流れを示す：
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">「しらべる」コマンドを実行可能かどうかテストする</span>
+            </dt>
+            <dd>
+              <p>
+        馬車外のメンバーで最低一人は生存状態であることを確認する。
+        テストに成功すれば次の工程へ進むが、失敗すれば後述の全員カンオケの場合へジャンプする。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">各種変数を設定・保存する</span>
+            </dt>
+            <dd>
+              <p>
+        馬車外の生存状態のパーティーメンバーを一人、
+        および「しらべる」処理最中であることを示すフラグを設定・保存しておく。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">乗り物を使用中かどうかテストする</span>
+            </dt>
+            <dd>
+              <p>
+        パーティーが何らかの乗り物を使用中であるかどうかをテストする。
+        これには変数 <code class="varname">$7E85EF</code> の値を参照するだけでよい。
+        値がゼロであれば成功であり、次の工程へ進むが、さもなければ後述の何もない場合の工程にジャンプする。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">「しらべる」対象があるかどうかテストする</span>
+            </dt>
+            <dd>
+              <p>
+        サブルーチンを呼び出すことで、現在の空間内にある「しらべる」対象それぞれに対して、
+        それらの外接矩形領域で、パーティー先頭者の座標にオフセット量を考慮した領域を包含するものを探索する。
+        探索が成功すれば次の工程へ進むが、失敗すれば後述の何もない工程にジャンプする。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">パーティー先頭者と対象との向きがマッチしているかテストする</span>
+            </dt>
+            <dd>
+              <p>
+        サブルーチンを呼び出すことで、パーティー先頭者の向きと「しらべる」対象の規定する向きとがマッチするかテストする。
+        内容は向きに対応するジャンプテーブルがあって、
+        そのそれぞれで対応する「しらべる」対象分類の「キャラクターが向き禁止」属性値を突き合わせるだけで済む。
+        マッチしていれば次の工程へ進むが、失敗すれば後述の無効な方向からしらべた場合の工程にジャンプする。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">対象が調査済みであるかどうかをテストする</span>
+            </dt>
+            <dd>
+              <p>
+        サブルーチンを呼び出すことで、対象に対応する RAM 内フラグが既に立っているかどうかをテストする。
+        立っていなければフラグを立てて次の工程へ進むが、そうでなければ後述の調査済みの場合の工程にジャンプする。
+      </p>
+              <p>
+        対象の型によって処理が分岐する。これによるとアイテム発見、ゴールド発見、および罠についてはそのフラグ ID に基づいてビットを参照したり更新したりする。
+        情報取得または特殊イベントについてはそういったことは行わない。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">初めて対象を「しらべる」場合</span>
+            </dt>
+            <dd>
+              <p>
+        対象の分類の属性値を参照して処理する。
+        まずは初訪問時の効果音が設定されていれば、それを再生する。
+        次に初訪問時のメッセージをウィンドウに出力する。ただし特殊イベントの場合はこの出力がない。
+        最後に、しらべる対象の型によって変わる処理を行い、次の工程に進む。
+      </p>
+              <div class="variablelist">
+                <dl class="variablelist">
+                  <dt>
+                    <span class="term">アイテム発見</span>
+                  </dt>
+                  <dd>
+                    <p>
+              対象の分類がアイテムであれば、パーティーはオブジェクトに設定されたアイテムを入手する。
+              万が一アイテムを表す属性値がゼロである場合は、何もないときのメッセージの出力しかしない。
+            </p>
+                    <p>
+              演出の都合上、アイテムが「ちいさなメダル」、貴重品、それ以外の 3 通りで場合分けする。
+              詳細は割愛する。
+            </p>
+                    <p>
+              パーティーのメンバーを先頭から順に、発見したアイテムを試しに追加してみる。もし成功すれば、
+              メッセージ <code class="literal">#$16AE</code><span class="quote">「<span class="quote">[C1]は[AD][B5]を 手に入れた。</span>」</span> を出力する。
+              メンバー全員について所持品追加が失敗したら、次はふくろが利用可能かどうかをテストする。
+              利用可能であるときに限り、ふくろに発見したアイテムを追加し、
+              メッセージ <code class="literal">#16E7</code><span class="quote">「<span class="quote">[B5]を [C3]に入れた。</span>」</span> を出力する。
+            </p>
+                    <p>
+              なお、ここまでの追加処理を全部失敗した場合は何もしない。
+              調査済みのフラグを立てた後なので、プレイヤーは対象アイテムの入手機会を永遠に失うことになる。
+            </p>
+                  </dd>
+                  <dt>
+                    <span class="term">ゴールド発見</span>
+                  </dt>
+                  <dd>
+                    <p>
+              対象の分類がゴールドであれば、獲得金額を計算してメッセージを出力してからパーティー所持金を加算する。
+            </p>
+                    <p>
+              獲得金額の計算処理では、係数と指数を基に算術演算的に基本金額を算出し、最後に乱数を加算する。
+              この過程でオブジェクトの対応属性値を参照する。
+              乗算には汎用乗算サブルーチン <code class="varname">$C00C9C</code> を利用する。
+            </p>
+                    <p>
+              メッセージは ID <code class="literal">#$16E8</code> のもので固定であり、
+              内容は<span class="quote">「<span class="quote">[C0]は[AD][BB]ゴールドを 手に入れた。</span>」</span> という文言だ。
+            </p>
+                    <p>
+              所持金を加算するには、専用サブルーチン <code class="varname">$C42862</code> を呼び出す。
+            </p>
+                  </dd>
+                  <dt>
+                    <span class="term">情報取得</span>
+                  </dt>
+                  <dd>
+                    <p>
+              対象の分類が情報取得であれば、オブジェクトのメッセージ ID 属性値を基にウィンドウにメッセージを出力する。
+            </p>
+                  </dd>
+                  <dt>
+                    <span class="term">罠</span>
+                  </dt>
+                  <dd>
+                    <p>
+              対象の分類が罠であれば、イベント戦 ID を基に罠であるときのメッセージを完成させる。
+              そのメッセージをウィンドウに出力し、イベント戦 ID を基に戦闘を開始させる。
+              その後にフラグ ID に対応する RAM 内のビットを 1 に更新する。
+            </p>
+                  </dd>
+                  <dt>
+                    <span class="term">特殊イベント</span>
+                  </dt>
+                  <dd>
+                    <p>
+              対象の分類が特殊イベントであれば、属性値のしらべる処理アドレスを
+              <code class="varname">$00</code> にロードしてジャンプする。
+            </p>
+                  </dd>
+                </dl>
+              </div>
+            </dd>
+            <dt>
+              <span class="term">「しらべる」コマンドの後始末前のテスト</span>
+            </dt>
+            <dd>
+              <p>
+        対象の分類が特殊イベントであれば、直ちに当サブルーチン呼び出し元に復帰する。
+        罠であれば、ウィンドウを消去してから当サブルーチン呼び出し元に復帰する。
+        それ以外の場合は、後述する後始末工程に進む。
+      </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+本流の処理中に何らかのテストが失敗したときに処理される工程を以下に示す。
+ここに挙げる工程それぞれにはお互いに関係しない。
+また、いずれの工程の終了後も後述の後始末処理に移るものだ。
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">全員カンオケの場合</span>
+            </dt>
+            <dd>
+              <p>
+        もし馬車外の全員が死亡状態であれば、メッセージ ID <code class="literal">#$177F</code> の文言
+        <span class="quote">「<span class="quote">このままでは 調べられない！</span>」</span> を出力する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">何もない場合</span>
+            </dt>
+            <dd>
+              <p>
+        現在使用中の乗り物に応じてメッセージを 2 通出力する。
+        ただし最初のメッセージは船に乗っている場合は、海底にいるか否かで場合分けがある。
+        海底の場合は<span class="quote">「<span class="quote">[C0]は 海の底を 目をこらして[AD]みつめた。[AF]</span>」</span>だ。
+      </p>
+              <div class="table">
+                <a id="table.dq6.C0D9EE"></a>
+                <p class="title">
+                  <strong>表 4.28 配列 $C0D9EE: 何もないときのメッセージ</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq6.C0D9EE" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>乗り物</th>
+                        <th>メッセージ</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>徒歩</td>
+                        <td>[C0]は 足もとを 調べた！[AF]</td>
+                      </tr>
+                      <tr>
+                        <td>船</td>
+                        <td>[C0]は 水面を 目をこらして[AD]みつめた。[AF]</td>
+                      </tr>
+                      <tr>
+                        <td>ひょうたん島</td>
+                        <td>[C0]は 水面を 目をこらして[AD]みつめた。[AF]</td>
+                      </tr>
+                      <tr>
+                        <td>まほうのじゅうたん</td>
+                        <td>[C0]は じゅうたんから[AD]身をのりだして 地面をながめた。[AF]</td>
+                      </tr>
+                      <tr>
+                        <td>空飛ぶベッド</td>
+                        <td>[C0]は ベッドから[AD]身をのりだして 地面をながめた。[AF]</td>
+                      </tr>
+                      <tr>
+                        <td>船（屋内）</td>
+                        <td>[C0]は 水面を 目をこらして[AD]みつめた。[AF]</td>
+                      </tr>
+                      <tr>
+                        <td>船（不明）</td>
+                        <td>[C0]は 水面を 目をこらして[AD]みつめた。[AF]</td>
+                      </tr>
+                      <tr>
+                        <td>ペガサス</td>
+                        <td>[C0]は 馬車から[AD]身をのりだして 大地をながめた。[AF]</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+              <div class="table">
+                <a id="table.dq6.C0D9FE"></a>
+                <p class="title">
+                  <strong>表 4.29 配列 $C0D9FE: 何もないときのメッセージ</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq6.C0D9FE" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>乗り物</th>
+                        <th>メッセージ</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>徒歩</td>
+                        <td>しかし 何も 見つからなかった。</td>
+                      </tr>
+                      <tr>
+                        <td>船</td>
+                        <td>しかし 何も 見つからなかった。</td>
+                      </tr>
+                      <tr>
+                        <td>ひょうたん島</td>
+                        <td>しかし 何も 見つからなかった。</td>
+                      </tr>
+                      <tr>
+                        <td>まほうのじゅうたん</td>
+                        <td>とくに 何も 見つからなかった。</td>
+                      </tr>
+                      <tr>
+                        <td>空飛ぶベッド</td>
+                        <td>とくに 何も 見つからなかった。</td>
+                      </tr>
+                      <tr>
+                        <td>船（屋内）</td>
+                        <td>しかし 何も 見つからなかった。</td>
+                      </tr>
+                      <tr>
+                        <td>船（不明）</td>
+                        <td>しかし 何も 見つからなかった。</td>
+                      </tr>
+                      <tr>
+                        <td>ペガサス</td>
+                        <td>とくに 何も 見つからなかった。</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+            </dd>
+            <dt>
+              <span class="term">無効な方向からしらべた場合</span>
+            </dt>
+            <dd>
+              <p>
+        対象の分類から決まる無効な方向からのメッセージ ID に基づいた文言をウィンドウに出力する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">調査済みの場合</span>
+            </dt>
+            <dd>
+              <p>
+        対象の分類の属性値を参照して処理する。
+        まずは再訪問時の効果音が設定されていれば、それを再生する。
+        次に再訪問時のメッセージをウィンドウに出力する。
+        最後に何もないときのメッセージをウィンドウに出力する。
+      </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+成功時と失敗時に共通する後処理とは「はなす」処理のそれと同様であり、
+プレイヤーのコントローラー入力を待機して、ウィンドウを消去して画面内のアニメーションを再開するものだ。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_talk.html" title="4.4. はなす"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_shop.html" title="4.6. 店屋"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_talk.html">4.4. はなす</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_shop.html">4.6. 店屋</a></div>
+  </body>
+</html>

@@ -1,0 +1,1206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>第 5 章 SFC 版ドラクエ 3 (1996)</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="part02.html" title="第 II 部 解析" />
+    <link rel="prev" href="dq6_item_commands.html" title="4.22. 移動中の道具使用コマンド処理" />
+    <link rel="next" href="dq3_debug.html" title="5.1. デバッグモード解析" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_item_commands.html" title="4.22. 移動中の道具使用コマンド処理"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="part02.html" title="第 II 部 解析"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_debug.html" title="5.1. デバッグモード解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_item_commands.html">4.22. 移動中の道具使用コマンド処理</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="part02.html">第 II 部 解析</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_debug.html">5.1. デバッグモード解析</a><hr /></div>
+    <div class="chapter">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title"><a id="dq3"></a>第 5 章 SFC 版ドラクエ 3 (1996)</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_debug.html">5.1. デバッグモード解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_debug.html#dq3.debug.hack">5.1.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_debug.html#dq3.debug.hack.C1FFFE">5.1.1.1. <code class="varname">$C1FFFE</code> 参照位置一覧</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_debug.html#dq3.debug.hack.FFFF">5.1.1.2. デバッグモード</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_debug.html#dq3.debug.hack.0001">5.1.1.3. ゲームショーモード</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_debug.html#dq3.debug.crack">5.1.2. 改竄</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_text.html">5.2. テキスト解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_text.html#dq3.text.battle">5.2.1. 戦闘モード</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_text.html#dq3.text.travel">5.2.2. 移動モード</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_text.html#dq3.text.data">5.2.3. データ</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_string.html">5.3. 文字列</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_string.html#dq3.string.overview">5.3.1. 概要</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_string.html#dq3.string.data">5.3.2. データ</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_monster.html">5.4. モンスター解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_monster.html#dq3.monster.hack">5.4.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_monster.html#dq3.monster.hack.C20000">5.4.1.1. <code class="varname">$C20000</code> モンスター構造体</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_caption.html">5.5. 行動説明テキスト構造体</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_caption.html#dq3.caption.hack">5.5.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_caption.html#dq3.caption.hack.C2398E">5.5.1.1. <code class="varname">$C2398E</code> 行動説明テキスト構造体</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_damage.html">5.6. ダメージ構造体解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_damage.html#dq3.damage.hack">5.6.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_damage.html#dq3.damage.hack.C23BB4">5.6.1.1. <code class="varname">$C23BB4</code> ダメージ構造体</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_damage.html#dq3.damage.hack.C90AF7">5.6.1.2. <code class="varname">$C90AF7</code> ダメージ構造体アクセスサブルーチン</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_damage.html#dq3.damage.data">5.6.2. データ</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_window.html">5.7. ウィンドウ解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_window.html#dq3.window.hack">5.7.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_window.html#dq3.window.hack.C31753">5.7.1.1. <code class="varname">$C31753</code> ウィンドウ構造体アクセスサブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_window.html#dq3.window.hack.sr">5.7.1.2. ウィンドウ関連のサブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_window.html#dq3.window.hack.C30000">5.7.1.3. <code class="varname">$C30000</code> ウィンドウ構造体</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_king.html">5.8. 王様解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_king.html#dq3.king.hack">5.8.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_king.html#dq3.king.hack.C3C07E">5.8.1.1. 王様共通処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_king.html#dq3.king.hack.C3C300">5.8.1.2. 冒険の書が使用済かチェックするサブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_king.html#dq3.king.hack.C3C31F">5.8.1.3. 冒険の書の名前文字列 ID を取得するサブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_king.html#dq3.king.hack.C3C332">5.8.1.4. 冒険の書の勇者レベルを取得するサブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_king.html#dq3.king.hack.C3C3E4">5.8.1.5. 次のレベルに必要な経験値を知らせる処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_king.html#dq3.king.hack.lines">5.8.1.6. 王様処理台詞用メッセージ ID 配列群</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_sistersave.html">5.9. シスターセーブ解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_sistersave.html#dq3.sistersave.hack">5.9.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_sistersave.html#dq3.sistersave.hack.C3C251">5.9.1.1. シスターセーブ共通処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_sistersave.html#dq3.sistersave.hack.lines">5.9.1.2. シスターセーブ用台詞のメッセージ ID</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_shop.html">5.10. 店屋解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_shop.html#dq3.shop.hack">5.10.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shop.html#dq3.shop.hack.C3C77C">5.10.1.1. 店屋共通処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shop.html#dq3.shop.hack.C3C7EF">5.10.1.2. 「かいにきた」処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shop.html#dq3.shop.hack.C3CA2A">5.10.1.3. 台詞</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shop.html#dq3.shop.hack.C3CB74">5.10.1.4. 呪い装備中（かいにきた版）</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shop.html#dq3.shop.hack.C3CBBE">5.10.1.5. 呪い装備中（うりにきた版）</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shop.html#dq3.shop.hack.C3CC21">5.10.1.6. 所持金が足りるかテスト</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shop.html#dq3.shop.hack.C3CC37">5.10.1.7. 購入代金を計算する</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shop.html#dq3.shop.hack.C3CC51">5.10.1.8. 買いトランザクション</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shop.html#dq3.shop.hack.C3CCB1">5.10.1.9. 「うりにきた」処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shop.html#dq3.shop.hack.C3CE2A">5.10.1.10. 所持金の増え方を調べる</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shop.html#dq3.shop.hack.C3CE5B">5.10.1.11. 売りトランザクション</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shop.html#dq3.shop.hack.C3CE93">5.10.1.12. パーティまたはふくろにアイテムがあるか調べる</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shop.html#dq3.shop.hack.C3CEC6">5.10.1.13. 店屋構造体アクセスサブルーチン</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_overcharge.html">5.11. ふっかけ店屋解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_overcharge.html#dq3.overcharge.hack">5.11.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_overcharge.html#dq3.overcharge.hack.C3CF9B">5.11.1.1. ふっかけ店屋共通サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_overcharge.html#dq3.overcharge.hack.C3D0E5">5.11.1.2. 半額計算サブルーチン</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_inn.html">5.12. 宿屋解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_inn.html#dq3.inn.hack">5.12.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_inn.html#dq3.inn.hack.C3D0F8">5.12.1.1. 普通の宿屋</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_inn.html#dq3.inn.hack.C3D1D6">5.12.1.2. 旅の宿屋</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_inn.html#dq3.inn.hack.C3D1F1">5.12.1.3. すごろくの宿屋</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_inn.html#dq3.inn.hack.C3D20C">5.12.1.4. 旅・すごろく宿屋共通</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_inn.html#dq3.inn.hack.C3D2DB">5.12.1.5. 宿屋構造体アクセス</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_church.html">5.13. 教会解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_church.html#dq3.church.hack">5.13.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_church.html#dq3.church.hack.C3D466">5.13.1.1. 教会処理神父バージョン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_church.html#dq3.church.hack.C3D481">5.13.1.2. 教会処理シスターバージョン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_church.html#dq3.church.hack.C3D49C">5.13.1.3. 教会処理共通サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_church.html#dq3.church.hack.C3D554">5.13.1.4. 「いきかえらせる」サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_church.html#dq3.church.hack.C3D5DD">5.13.1.5. 「どくのちりょう」サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_church.html#dq3.church.hack.C3D64A">5.13.1.6. 「のろいをとく」サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_church.html#dq3.church.hack.C3D6B7">5.13.1.7. 「寄付をよろしいかな」サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_church.html#dq3.church.hack.C3D700">5.13.1.8. 「いきかえらせる」- 寄付金計算サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_church.html#dq3.church.hack.C3D733">5.13.1.9. 「のろいをとく」- 寄付金計算サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_church.html#dq3.church.hack.C3D74C">5.13.1.10. 「どくのちりょう」- 寄付金計算サブルーチン</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_pub.html">5.14. ルイーダの酒場解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pub.html#dq3.pub.hack">5.14.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_pub.html#dq3.pub.hack.C3D760">5.14.1.1. ルイーダの酒場共通処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_pub.html#dq3.pub.hack.C3D7BB">5.14.1.2. 「なかまをあずける」処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_pub.html#dq3.pub.hack.C3D8C8">5.14.1.3. パーティに生きている人が二人以上いるか調べるサブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_pub.html#dq3.pub.hack.C3D8E8">5.14.1.4. 「なかまをよびだす」処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_pub.html#dq3.pub.hack.C3D983">5.14.1.5. 「めいぼをみる」処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_pub.html#dq3.pub.hack.C3DA75">5.14.1.6. 習得呪文リスト作成サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_pub.html#dq3.pub.hack.C3DA89">5.14.1.7. 移動時呪文リスト作成サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_pub.html#dq3.pub.hack.C3DA97">5.14.1.8. アイテムをふくろに</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pub.html#dq3.pub.data">5.14.2. データ</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_entry.html">5.15. 仲間登録所解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_entry.html#dq3.entry.hack">5.15.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_entry.html#dq3.entry.hack.C3DAEB">5.15.1.1. 登録所共通処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_entry.html#dq3.entry.hack.C3DD13">5.15.1.2. キャラクター削除サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_entry.html#dq3.entry.hack.C3DDBF">5.15.1.3. 入力が仲間の名前と同じかチェック</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_entry.html#dq3.entry.hack.C3DE20">5.15.1.4. パラメータ増加処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_entry.html#dq3.entry.hack.C3DE95">5.15.1.5. 性格決定サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_entry.html#dq3.entry.hack.C3E2D0">5.15.1.6. 登録屋が性格を告げるサブルーチン</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_entry.html#dq3.entry.data">5.15.2. データ</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_entry.html#dq3.entry.data.C30EFD">5.15.2.1. <code class="varname">$C30EFD</code> 構造体 - 登録所・性格条件群</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_entry.html#dq3.entry.data.C30FFC">5.15.2.2. <code class="varname">$C30FFC</code> 構造体 - 登録所・性格群</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_bank.html">5.16. ゴールド銀行解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_bank.html#dq3.bank.hack">5.16.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_bank.html#dq3.bank.hack.C3E2F2">5.16.1.1. ゴールド銀行共通処理</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_bank.html#dq3.bank.hack.C3E39E">5.16.1.2. 「あずける」処理</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_bank.html#dq3.bank.hack.C3E410">5.16.1.3. 「ひきだす」処理</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_classchange.html">5.17. 転職解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_classchange.html#dq3.classchange.hack">5.17.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_classchange.html#dq3.classchange.hack.C3E477">5.17.1.1. 転職共通処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_classchange.html#dq3.classchange.hack.C3E7CC">5.17.1.2. 装備品の交換</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_rename.html">5.18. 命名神解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_rename.html#dq3.rename.hack">5.18.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_rename.html#dq3.rename.hack.C3E8D3">5.18.1.1. 命名神共通処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_rename.html#dq3.rename.hack.C3EB2B">5.18.1.2. 入力がふざけた名前かチェック</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_rename.html#dq3.rename.hack.C3EB3F">5.18.1.3. 入力が予約名かどうかチェック</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_rename.html#dq3.rename.hack.C3EB53">5.18.1.4. 名前テスト共通サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_rename.html#dq3.rename.hack.C3EBAB">5.18.1.5. 入力が一文字しか使っていないか調べるサブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_rename.html#dq3.rename.hack.C3EBCD">5.18.1.6. 選択キャラの現在の名前を先にチェック</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_matchmake.html">5.19. 格闘場マッチメイク解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_matchmake.html#dq3.matchmake.hack">5.19.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_matchmake.html#dq3.matchmake.hack.C3EC84">5.19.1.1. 格闘場マッチメイクサブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_matchmake.html#dq3.matchmake.hack.C3ED82">5.19.1.2. 主人公のレベルを取得するサブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_matchmake.html#dq3.matchmake.hack.C3EDBB">5.19.1.3. オッズ設定サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_matchmake.html#dq3.matchmake.hack.C30DC5">5.19.1.4. マッチメイク構造体</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_stadium.html">5.20. 格闘場解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_stadium.html#dq3.stadium.hack">5.20.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_stadium.html#dq3.stadium.hack.C3EE64">5.20.1.1. 格闘場共通処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_stadium.html#dq3.stadium.hack.C3EF29">5.20.1.2. 賭け金計算サブルーチン</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_tipster.html">5.21. 予想屋解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_tipster.html#dq3.tipster.hack">5.21.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_tipster.html#dq3.tipster.hack.C3EFBE">5.21.1.1. 予想屋共通処理サブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_tipster.html#dq3.tipster.hack.C3F022">5.21.1.2. 予想モンスターの名前を調べるサブルーチン</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_medal.html">5.22. メダルおじさん解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_medal.html#dq3.medal.hack">5.22.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_medal.html#dq3.medal.hack.C3F076">5.22.1.1. メダルおじさん共通処理</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_medal.html#dq3.medal.hack.C3F199">5.22.1.2. 次の褒美を調べるサブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_medal.html#dq3.medal.hack.C3F1BD">5.22.1.3. 持参したメダル枚数を調べる＆回収するサブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_medal.html#dq3.medal.hack.C3F21E">5.22.1.4. 褒美 ID に対してアイテム ID を取得するサブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_medal.html#dq3.medal.hack.C3F239">5.22.1.5. 褒美 ID に対して必要枚数を取得するサブルーチン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_medal.html#dq3.medal.hack.C31350">5.22.1.6. 褒美構造体</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_item.html">5.23. アイテム解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_item.html#dq3.item.hack">5.23.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_item.html#dq3.item.hack.C40043">5.23.1.1. <code class="varname">$C40043</code> アイテム構造体</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_class.html">5.24. 職業構造体解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_class.html#dq3.class.hack">5.24.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_class.html#dq3.class.hack.C4179E">5.24.1.1. <code class="varname">$C4179E</code> 職業構造体</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_class.html#dq3.class.todo">5.24.2. TODO リスト</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_character.html">5.25. 性格解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_character.html#dq3.character.hack">5.25.1. 解析</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_character.html#dq3.character.hack.C424BC">5.25.1.1. <code class="varname">$C424BC</code> 性格構造体</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_character.html#dq3.character.data">5.25.2. データ</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_talk.html">5.26. はなす</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_talk.html#dq3.talk.model">5.26.1. モデル</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_talk.html#dq3.talk.model.C808DA">5.26.1.1. 構造体 <code class="varname">$C808DA</code>: 「はなす」対象</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_talk.html#dq3.talk.model.C893D4">5.26.1.2. 構造体 <code class="varname">$C893D4</code>: 「はなす」対象分類</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_talk.html#dq3.talk.model.data">5.26.1.3. データ</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_talk.html#dq3.talk.process">5.26.2. 処理手順</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_talk.html#dq3.talk.process.example">5.26.2.1. 例：ルイーダ</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_search.html">5.27. しらべる</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_search.html#dq3.search.model">5.27.1. モデル</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_search.html#dq3.search.model.C898E2">5.27.1.1. 構造体 <code class="varname">$C898E2</code>: 「しらべる」対象分類</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_search.html#dq3.search.model.base">5.27.1.2. 「しらべる」対象抽象基底構造体</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_search.html#dq3.search.model.C87067">5.27.1.3. 構造体 <code class="varname">$C87067</code>: アイテム発見</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_search.html#dq3.search.model.C87C99">5.27.1.4. 構造体 <code class="varname">$C87C99</code>: ゴールド発見</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_search.html#dq3.search.model.C87DB1">5.27.1.5. 構造体 <code class="varname">$C87DB1</code>: 情報取得</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_search.html#dq3.search.model.C88185">5.27.1.6. 構造体 <code class="varname">$C88185</code>: 罠</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_search.html#dq3.search.model.C88218">5.27.1.7. 構造体 <code class="varname">$C88218</code>: 特殊イベント</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_search.html#dq3.search.process">5.27.2. 処理手順</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_pond.html">5.28. オルレラの泉</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pond.html#dq3.pond.CCED57">5.28.1. イベント開始サブルーチン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pond.html#dq3.pond.CBA5D6">5.28.2. オルレラとの初回でのやりとり</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pond.html#dq3.pond.CBA581">5.28.3. オルレラとの二回目以降でのやりとり</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_gallery.html">5.29. バカ画像</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_gallery.html#dq3.gallery.ortega">5.29.1. オルテガ</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.ortega.kinghydra">5.29.1.1. Feat. キングヒドラ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.ortega.henchman">5.29.1.2. Feat. カンダタこぶん</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_gallery.html#dq3.gallery.goods">5.29.2. 謎のアイテム</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.goods.squirt">5.29.2.1. みずでっぽう</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.goods.crystal">5.29.2.2. すいしょうだま</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.goods.orgel">5.29.2.3. しのオルゴール</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_gallery.html#dq3.gallery.sentaku">5.29.3. せんたくスライム</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_gallery.html#dq3.gallery.monmedal">5.29.4. ドラクエ 4 のモンスターメダル</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_gallery.html#dq3.gallery.kennel">5.29.5. 犬小屋</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_gallery.html#dq3.gallery.turn.65535">5.29.6. 戦闘ターン数 65535</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_monster_medal_dq4.html">5.30. ドラクエ 4 のモンスターメダル</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_monster_medal_dq4.html#dq3.monmedal.dq4.hack">5.30.1. セーブデータ改造によるメダル採取</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_monster_medal_dq4.html#dq3.monmedal.dq4.ref">5.30.2. 参考サイト</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <p>
+基本的に SFC 版ドラクエ 3 に関する解析について述べた文書である。 
+モンスターメダルの文書のみ GBC 版ドラクエ 3 (2000) に関する記述である。
+</p>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_item_commands.html" title="4.22. 移動中の道具使用コマンド処理"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="part02.html" title="第 II 部 解析"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_debug.html" title="5.1. デバッグモード解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_item_commands.html">4.22. 移動中の道具使用コマンド処理</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="part02.html">第 II 部 解析</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_debug.html">5.1. デバッグモード解析</a></div>
+  </body>
+</html>

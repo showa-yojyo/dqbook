@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>3.4. 仲間キャラクター構造体</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)" />
+    <link rel="prev" href="dq5_accessor.html" title="3.3. 汎用データアクセスサブルーチン（仮）" />
+    <link rel="next" href="dq5_combatants.html" title="3.5. 戦闘キャラクター構造体" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq5_accessor.html" title="3.3. 汎用データアクセスサブルーチン（仮）"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq5_combatants.html" title="3.5. 戦闘キャラクター構造体"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq5_accessor.html">3.3. 汎用データアクセスサブルーチン（仮）</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq5.html">第 3 章 SFC 版ドラクエ 5 (1992)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq5_combatants.html">3.5. 戦闘キャラクター構造体</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq5.characters"></a>3.4. 仲間キャラクター構造体</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq5_characters.html#dq5.characters.7E2040">3.4.1. 構造体 <code class="varname">$7E2040</code>: パーティーメンバー表現</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_characters.html#dq5.characters.7E2332">3.4.2. 構造体 <code class="varname">$7E2332</code>: 預けてあるモンスターメンバー表現</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_characters.html#dq5.characters.7E294A">3.4.3. 構造体 <code class="varname">$7E294A</code>: 預けてある人間メンバー表現</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+この節では仲間のキャラクターを表現するデータ構造体三種について述べる。
+また、本書全体を通じて構造体の名称を、その型のオブジェクトが格納される配列の先頭アドレスにちなみ、
+例えば「<code class="varname">$7E2040</code> 構造体」や「構造体 <code class="varname">$7E2040</code>」のように呼称する。
+</p>
+      <p>
+さて、本プログラムでは何らかの理由で三種類の仲間キャラクターデータの表現形式が定義されている。
+もっとも言及頻度が高いのは <code class="varname">$7E2040</code> 構造体だ。
+これは主人公と、彼が引き連れている馬車内外のパーティーメンバー全員に共通するデータを表現するための構造体だ。
+そして、パーティー人数が多過ぎる状況では、あぶれた仲間はモンスターじいさんまたはルイーダの酒場に待機することになる。
+この待機しているキャラクターたちを表現するのに、別途専用の構造体
+<code class="varname">$7E2332</code> または <code class="varname">$7E294A</code> に変換してデータを保持する。
+妙に複雑な仕組みになっているが、あとで見るようにこれらの構造体のサイズの違いが
+RAM の節約に一役買うというわけだ。
+</p>
+      <p>
+さらに戦闘中にしか用いられることのない構造体もある。
+これについては <a class="xref" href="dq5_combatants.html" title="3.5. 戦闘キャラクター構造体">3.5 戦闘キャラクター構造体</a> で解説する。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.characters.7E2040"></a>3.4.1. 構造体 <code class="varname">$7E2040</code>: パーティーメンバー表現</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+構造体 <code class="varname">$7E2040</code> は、パーティーにいるキャラクターデータを表現する。
+データは移動中だけでなく、戦闘中にも属性のいくつかがアクセスされる。
+</p>
+        <p>
+プログラムはこの構造体をサイズが <code class="literal">#$2A</code> バイトであるとして処理する。
+メモリレイアウトを次の表に示す。
+</p>
+        <div class="table">
+          <a id="table.dq5.7E2040"></a>
+          <p class="title">
+            <strong>表 3.13 構造体 $7E2040: パーティーメンバー</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.7E2040" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="right" rowspan="3">
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$3F</code>
+                  </td>
+                  <td>キャラクター識別値</td>
+                </tr>
+                <tr>                                                          <td><code class="literal">#$40</code></td><td>戦闘コマンド入力抑止フラグ</td></tr>
+                <tr>                                                          <td><code class="literal">#$80</code></td><td>モンスターフラグ</td></tr>
+                <tr>
+                  <td align="right" rowspan="7">
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>同一種モンスター識別値</td>
+                </tr>
+                <tr>                                                          <td><code class="literal">#$04</code></td><td>MP が呪われているフラグ</td></tr>
+                <tr>                                                          <td><code class="literal">#$08</code></td><td>HP が呪われているフラグ</td></tr>
+                <tr>                                                          <td><code class="literal">#$10</code></td><td>もうどく状態フラグ</td></tr>
+                <tr>                                                          <td><code class="literal">#$20</code></td><td>どく状態フラグ</td></tr>
+                <tr>                                                          <td><code class="literal">#$40</code></td><td>マヒ状態フラグ</td></tr>
+                <tr>                                                          <td><code class="literal">#$80</code></td><td>生存フラグ</td></tr>
+                <tr><td align="right"><code class="literal">#$02</code></td>            <td rowspan="2"></td>           <td rowspan="2">HP</td></tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$03</code>
+                  </td>
+                </tr>
+                <tr><td align="right"><code class="literal">#$04</code></td>            <td rowspan="2"></td>           <td rowspan="2">MP</td></tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$05</code>
+                  </td>
+                </tr>
+                <tr><td align="right"><code class="literal">#$06</code></td>            <td></td>                       <td>すばやさ</td></tr>
+                <tr><td align="right"><code class="literal">#$07</code></td>            <td></td>                       <td>ちから</td></tr>
+                <tr><td align="right"><code class="literal">#$08</code></td>            <td></td>                       <td>みのまもり</td></tr>
+                <tr><td align="right"><code class="literal">#$09</code></td>            <td></td>                       <td>かしこさ</td></tr>
+                <tr><td align="right"><code class="literal">#$0A</code></td>            <td></td>                       <td>うんのよさ</td></tr>
+                <tr><td align="right"><code class="literal">#$0B</code></td>            <td rowspan="3"></td>           <td rowspan="3">経験値</td></tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0C</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0D</code>
+                  </td>
+                </tr>
+                <tr><td align="right"><code class="literal">#$0E</code></td>            <td rowspan="2"></td>           <td rowspan="2">MHP</td></tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0F</code>
+                  </td>
+                </tr>
+                <tr><td align="right"><code class="literal">#$10</code></td>            <td rowspan="2"></td>           <td rowspan="2">MMP</td></tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$11</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" rowspan="2">
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$7F</code>
+                  </td>
+                  <td>レベル</td>
+                </tr>
+                <tr>                                                          <td><code class="literal">#$80</code></td><td>いのちのリング装備中フラグ</td></tr>
+                <tr>
+                  <td align="right" rowspan="2">
+                    <code class="literal">#$13</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$7F</code>
+                  </td>
+                  <td>レベル上限値</td>
+                </tr>
+                <tr>                                                          <td><code class="literal">#$80</code></td><td>しあわせのぼうし装備中フラグ</td></tr>
+                <tr><td align="right"><code class="literal">#$14</code></td>            <td><code class="literal">#$FF</code></td><td>装備状態フラグ列</td></tr>
+                <tr><td align="right"><code class="literal">#$15</code></td>            <td><code class="literal">#$0F</code></td><td>装備状態フラグ列</td></tr>
+                <tr><td align="right"><code class="literal">#$16</code></td>            <td></td>                       <td>所持品 <code class="literal">#$00</code></td></tr>
+                <tr><td align="right"><code class="literal">#$17</code></td>            <td></td>                       <td>所持品 <code class="literal">#$01</code></td></tr>
+                <tr><td align="right"><code class="literal">#$18</code></td>            <td></td>                       <td>所持品 <code class="literal">#$02</code></td></tr>
+                <tr><td align="right"><code class="literal">#$19</code></td>            <td></td>                       <td>所持品 <code class="literal">#$03</code></td></tr>
+                <tr><td align="right"><code class="literal">#$1A</code></td>            <td></td>                       <td>所持品 <code class="literal">#$04</code></td></tr>
+                <tr><td align="right"><code class="literal">#$1B</code></td>            <td></td>                       <td>所持品 <code class="literal">#$05</code></td></tr>
+                <tr><td align="right"><code class="literal">#$1C</code></td>            <td></td>                       <td>所持品 <code class="literal">#$06</code></td></tr>
+                <tr><td align="right"><code class="literal">#$1D</code></td>            <td></td>                       <td>所持品 <code class="literal">#$07</code></td></tr>
+                <tr><td align="right"><code class="literal">#$1E</code></td>            <td></td>                       <td>所持品 <code class="literal">#$08</code></td></tr>
+                <tr><td align="right"><code class="literal">#$1F</code></td>            <td></td>                       <td>所持品 <code class="literal">#$09</code></td></tr>
+                <tr><td align="right"><code class="literal">#$20</code></td>            <td></td>                       <td>所持品 <code class="literal">#$0A</code></td></tr>
+                <tr><td align="right"><code class="literal">#$21</code></td>            <td></td>                       <td>所持品 <code class="literal">#$0B</code></td></tr>
+                <tr><td align="right"><code class="literal">#$22</code></td>            <td></td>                       <td>肩書・モンスター</td></tr>
+                <tr>
+                  <td align="right" rowspan="8">
+                    <code class="literal">#$23</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>移動時呪文習得フラグ <code class="literal">#$00</code></td>
+                </tr>
+                <tr>                                                          <td><code class="literal">#$02</code></td><td>移動時呪文習得フラグ <code class="literal">#$01</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$04</code></td><td>移動時呪文習得フラグ <code class="literal">#$02</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$08</code></td><td>移動時呪文習得フラグ <code class="literal">#$03</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$10</code></td><td>移動時呪文習得フラグ <code class="literal">#$04</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$20</code></td><td>移動時呪文習得フラグ <code class="literal">#$05</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$40</code></td><td>移動時呪文習得フラグ <code class="literal">#$06</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$80</code></td><td>移動時呪文習得フラグ <code class="literal">#$07</code></td></tr>
+                <tr>
+                  <td align="right" rowspan="8">
+                    <code class="literal">#$24</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>戦闘時コマンド習得フラグ <code class="literal">#$00</code></td>
+                </tr>
+                <tr>                                                          <td><code class="literal">#$02</code></td><td>戦闘時コマンド習得フラグ <code class="literal">#$01</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$04</code></td><td>戦闘時コマンド習得フラグ <code class="literal">#$02</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$08</code></td><td>戦闘時コマンド習得フラグ <code class="literal">#$03</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$10</code></td><td>戦闘時コマンド習得フラグ <code class="literal">#$04</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$20</code></td><td>戦闘時コマンド習得フラグ <code class="literal">#$05</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$40</code></td><td>戦闘時コマンド習得フラグ <code class="literal">#$06</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$80</code></td><td>戦闘時コマンド習得フラグ <code class="literal">#$07</code></td></tr>
+                <tr>
+                  <td align="right" rowspan="5">
+                    <code class="literal">#$25</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>戦闘時コマンド習得フラグ <code class="literal">#$08</code></td>
+                </tr>
+                <tr>                                                          <td><code class="literal">#$02</code></td><td>戦闘時コマンド習得フラグ <code class="literal">#$09</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$04</code></td><td>戦闘時コマンド習得フラグ <code class="literal">#$0A</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$08</code></td><td>戦闘時コマンド習得フラグ <code class="literal">#$0B</code></td></tr>
+                <tr>                                                          <td><code class="literal">#$F0</code></td><td>直近に指定した戦闘時コマンドのビット配列添字</td></tr>
+                <tr><td align="right"><code class="literal">#$26</code></td>            <td rowspan="3"></td>           <td rowspan="3">次のレベルアップ時の経験値下限</td></tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$27</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$28</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" rowspan="8">
+                    <code class="literal">#$29</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>モンスターじいさんに預けるの禁止フラグ</td>
+                </tr>
+                <tr>                                                          <td><code class="literal">#$02</code></td><td>ルイーダの酒場に預けるの禁止フラグ</td></tr>
+                <tr>                                                          <td><code class="literal">#$04</code></td><td>レベルアップ禁止フラグ</td></tr>
+                <tr>                                                          <td><code class="literal">#$08</code></td><td>貴重品所持禁止フラグ</td></tr>
+                <tr>                                                          <td><code class="literal">#$10</code></td><td>道具所持禁止フラグ</td></tr>
+                <tr>                                                          <td><code class="literal">#$20</code></td><td>呪文禁止フラグ</td></tr>
+                <tr>                                                          <td><code class="literal">#$40</code></td><td>装備禁止フラグ</td></tr>
+                <tr>                                                          <td><code class="literal">#$80</code></td><td>死亡を気絶とするフラグ</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+キャラクター識別値は、モンスターと人間とで別系統の値が割り振られている。
+前者と後者は配列 <code class="varname">$239E41</code> と配列 <code class="varname">$23A1B1</code> のアドレス計算にそれぞれ用いられる添字と覚えておけばよい。
+</p>
+        <p>
+戦闘コマンド入力抑止フラグとは、このフラグが立っているキャラクターに対しては戦闘中に「めいれいさせろ」でコマンド指示をさせないようにするものだ。
+初期状態ではパパスとフローラが該当する。
+</p>
+        <p>
+同一種モンスター識別値は、同種のモンスターが複数仲間にいる場合に、彼らを識別するために必要な情報だ。
+例えばスライムが仲間にいるときに、スラリンなのかスラぼうなのか、それとも別の個体なのかをこの値で決める。
+また、ベビーパンサーおよびキラーパンサーに付けた名前もこの値に表現させる。
+</p>
+        <p>
+いのちのリング装備中フラグとは、そのキャラクターのいのちのリングの装備状態と連動している。
+このフラグが戦闘時のターン終了時の HP 回復処理と、移動時の HP 回復処理を有効化する。
+</p>
+        <p>
+しあわせのぼうし装備中フラグとは、そのキャラクターのしあわせのぼうしの装備状態と連動している。
+このフラグが移動時の MP 回復処理を有効化する。
+</p>
+        <p>
+装備状態フラグ列とは、そのキャラクターのどの所持品が装備中なのかを示すフラグの配列だ。
+このフラグ列と所持品の配列が連動しているので、PAR 改造作業時には注意を要する。
+</p>
+        <p>
+肩書・モンスターとは、そのキャラクターが人間ならば肩書の識別子が、モンスターならばモンスター ID となる値だ。
+肩書の識別子とは文字列配列 <code class="varname">$23C5FA</code> の添字に他ならない。
+</p>
+        <p>
+移動時呪文習得フラグおよび戦闘時コマンド習得フラグとは、そのフラグ位置に対応するコマンドの習得状況を示すビットだ。
+これについては別の節で述べる。
+</p>
+        <p>
+直近に指定した戦闘時コマンドのビット配列添字とは、キャラクターが主人公ならば前回指定した戦闘コマンドを指すための値で、
+主人公以外ならば「めいれいさせろ」モードでそのキャラクターに指示した戦闘コマンドを指すための値だ。
+前回「ホイミ」を指定したとする。このとき、次のターンのコマンド入力時にも「ホイミ」にカーソルが置いてある。
+</p>
+        <p>
+モンスターじいさんに預けるの禁止フラグとは、これが立っているモンスターの仲間キャラクターをモンスターじいさんに預けられないことを意味するものだ。
+具体的には、仮にこのフラグが立っている者を預けようとすると、じいさんから「なにやら事情が ありそうじゃ」のような返事をされて承知しない。
+</p>
+        <p>
+ルイーダの酒場に預けるの禁止フラグとは、これが立っている仲間キャラクターをルイーダに預けられないことを意味するものだ。
+具体的には、このフラグが立っている者を預けようとすると、その仲間が
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist" style="list-style-type: disc; ">
+            <li class="listitem">人間ならば「まだ やらなくては いけないことが あるんじゃないかしら」、</li>
+            <li class="listitem">モンスターならば「うーん モンスターさんは うちでは ちょっとね……」</li>
+          </ul>
+        </div>
+        <p>
+といって、引き取ることを承知しなくなる。
+</p>
+        <p>
+レベルアップ禁止フラグとは、これが立っている仲間キャラクターはレベルが上がらないということを示すものだ。
+特に戦闘終了直後の処理に影響する。
+初期状態ではパパス、ベラが該当する。
+</p>
+        <p>
+貴重品所持禁止フラグとは、これが立っている仲間キャラクターに貴重なアイテムを所持させないことを示すものだ。
+初期状態では子供ビアンカ、パパス、ヘンリー、ベラ、ベビーパンサーが該当する。
+</p>
+        <p>
+道具所持禁止フラグとは、これが立っている仲間キャラクターにアイテムを所持させないことを示すものだ。
+初期状態ではパパス、ベラが該当する。
+</p>
+        <p>
+呪文禁止フラグとは、これが立っている仲間キャラクターに対する移動中の呪文コマンド入力を禁止するものだ。
+このフラグにより、移動コマンドウィンドウで「じゅもん」選択時にこのキャラクターの名前を列挙しなくなる。
+初期状態ではフローラ、パパスが該当する。
+</p>
+        <p>
+装備禁止フラグとは、これが立っている仲間キャラクターに対する移動中の装備変更コマンド入力を禁止するものだ。
+このフラグにより、移動コマンドウィンドウで「そうび」を選択時にこのキャラクターの名前を列挙しなくなる。
+初期状態ではパパス、ベラが該当する。
+</p>
+        <p>
+死亡を気絶とするフラグとは、HP がゼロになったときの扱いを制御するためのものだ。
+簡単に言うと「しんでしまった！」ではなく「きぜつした！」という扱い方をするようになる。
+そして HP が 1 の状態でキャラクターを回復させる。
+初期状態では主人公、子供ビアンカ、フローラ、ベラ、ベビーパンサーが該当する。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.characters.7E2332"></a>3.4.2. 構造体 <code class="varname">$7E2332</code>: 預けてあるモンスターメンバー表現</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+構造体 <code class="varname">$7E2332</code> は、モンスターじいさんに預けてある仲間モンスターのキャラクターデータを表現する。
+モンスターじいさんと交渉したり、戦闘終了後に仲間モンスターをじいさんに送る際にオブジェクト配列が更新される。
+同時に <code class="varname">$7E2040</code> 配列も更新される。
+</p>
+        <p>
+プログラムはこの構造体をサイズが <code class="literal">#$1A</code> バイトであるとして処理する。
+メモリレイアウトを次の表に示す。
+</p>
+        <div class="table">
+          <a id="table.dq5.7E2332"></a>
+          <p class="title">
+            <strong>表 3.14 構造体 $7E2332: 預けてあるモンスターメンバー</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.7E2332" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td rowspan="20"><code class="varname">$7E2040</code> 構造体 <code class="literal">[:#$14]</code> と同じ</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$01</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$02</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$03</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$04</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$05</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$06</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$07</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$08</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$09</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0A</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0B</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0C</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0D</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0E</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0F</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$10</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$11</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$12</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$13</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$14</code>
+                  </td>
+                  <td>装備中の武器</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$15</code>
+                  </td>
+                  <td>装備中の防具</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$16</code>
+                  </td>
+                  <td>装備中の盾</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$17</code>
+                  </td>
+                  <td>装備中の兜</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$18</code>
+                  </td>
+                  <td rowspan="2"><code class="varname">$7E2040</code> 構造体 <code class="literal">[#$23:#$25]</code> と同じ</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$19</code>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+装備していないものについては、そのアイテム ID に代わってダミーの値が格納される。
+</p>
+        <p>
+構造としては <code class="varname">$7E2040</code> 構造体の軽量版とみなせる。
+こうすることで、じいさんに預ける必要があるとはいえ、より多くのモンスターを仲間にしておきやすくなる。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.characters.7E294A"></a>3.4.3. 構造体 <code class="varname">$7E294A</code>: 預けてある人間メンバー表現</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+構造体 <code class="varname">$7E294A</code> は、ルイーダの酒場にいる人間のキャラクターデータを表現する。
+パーティー編成変更の際にキャラクターデータの変換がじいさんのときと同様に行われる。
+</p>
+        <p>
+プログラムはこの構造体をサイズが <code class="literal">#$20</code> バイトであるとして処理する。
+メモリレイアウトを次の表に示す。
+</p>
+        <div class="table">
+          <a id="table.dq5.7E294A"></a>
+          <p class="title">
+            <strong>表 3.15 構造体 $7E294A: 預けてある人間メンバー</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.7E294A" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td rowspan="20"><code class="varname">$7E2040</code> 構造体 <code class="literal">[:#$14]</code> と同じ</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$01</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$02</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$03</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$04</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$05</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$06</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$07</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$08</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$09</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0A</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0B</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0C</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0D</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0E</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0F</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$10</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$11</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$12</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$13</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$14</code>
+                  </td>
+                  <td>装備中の武器</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$15</code>
+                  </td>
+                  <td>装備中の防具</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$16</code>
+                  </td>
+                  <td>装備中の盾</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$17</code>
+                  </td>
+                  <td>装備中の兜</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$18</code>
+                  </td>
+                  <td rowspan="6"><code class="varname">$7E2040</code> 構造体 <code class="literal">[#$22:#$28]</code> と同じ</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$19</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$1A</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$1B</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$1C</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$1D</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$1E</code>
+                  </td>
+                  <td>調査中</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$1F</code>
+                  </td>
+                  <td>調査中</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq5_accessor.html" title="3.3. 汎用データアクセスサブルーチン（仮）"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq5_combatants.html" title="3.5. 戦闘キャラクター構造体"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq5_accessor.html">3.3. 汎用データアクセスサブルーチン（仮）</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq5.html">第 3 章 SFC 版ドラクエ 5 (1992)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq5_combatants.html">3.5. 戦闘キャラクター構造体</a></div>
+  </body>
+</html>

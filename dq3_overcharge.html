@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.11. ふっかけ店屋解析</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_shop.html" title="5.10. 店屋解析" />
+    <link rel="next" href="dq3_inn.html" title="5.12. 宿屋解析" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_shop.html" title="5.10. 店屋解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_inn.html" title="5.12. 宿屋解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_shop.html">5.10. 店屋解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_inn.html">5.12. 宿屋解析</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.overcharge"></a>5.11. ふっかけ店屋解析</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_overcharge.html#dq3.overcharge.hack">5.11.1. 解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_overcharge.html#dq3.overcharge.hack.C3CF9B">5.11.1.1. ふっかけ店屋共通サブルーチン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_overcharge.html#dq3.overcharge.hack.C3D0E5">5.11.1.2. 半額計算サブルーチン</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <a id="term.dq3.overcharge" class="indexterm"></a>
+      <p>
+	アッサラームの町には標準価格で商品を売るつもりのない店がある。
+	対応するデバッグメニューの名前にちなみ、これらの店を「ふっかけ店屋」と呼ぶことにする。
+	この節では、ふっかけ店屋を処理するための共通サブルーチンを解析する。
+	値段を店主自ら値切っていく過程が、コードの形でどのように表現されているかが見所だ。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.overcharge.hack"></a>5.11.1. 解析</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+	各ふっかけ店屋を処理するための<a class="link" href="dq3_overcharge.html#dq3.overcharge.hack.C3CF9B" title="5.11.1.1. ふっかけ店屋共通サブルーチン">共通サブルーチン</a>は <code class="varname">$C3CF9B</code> である。
+	このサブルーチンもまた別のサブルーチンをいくつか呼び出す。
+	そのようなサブルーチンのうち、本流の処理を助ける目的専用のものが二つある。
+	一つは、通常の店屋でも用いられる「店屋構造体からメニューを構成するサブルーチン」であり、
+	もう一つがふっかけ店屋専用の
+	<a class="link" href="dq3_overcharge.html#dq3.overcharge.hack.C3D0E5" title="5.11.1.2. 半額計算サブルーチン">売値の半額を計算するサブルーチン</a> <code class="varname">$C3D0E5</code> である。
+	以下、共通サブルーチンと半額計算サブルーチンの解析を行って得られた事実を述べる。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.overcharge.hack.C3CF9B"></a>5.11.1.1. ふっかけ店屋共通サブルーチン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	各ふっかけ店屋の処理を実装しているサブルーチン <code class="varname">$C3CF9B</code> における制御の流れを記す。
+	台詞を表示するサブルーチンは一律 <code class="varname">$C1A92E</code> を用いるようなので、
+	これを利用して、逆アセンブルコードから処理の意味を読み解く。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+			店屋共通処理でも利用するサブルーチン <code class="varname">$C3CEC6</code> を呼び出し、
+			商品リストデータを初期化する。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			台詞 (ID: <code class="literal">#$0A0B</code>)
+			「おお！ わたしの ともだち！ お待ちしておりました」
+			を店屋に言わせる。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			はい・いいえウィンドウを表示して、プレイヤーの入力を待つ。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					キャンセルボタンで抜けた⇒【そう言わずに】へ制御を進める。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					「はい」⇒【メニュー表示】へ制御を進める。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					それ以外⇒そのまま進む。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【そう言わずに】</p>
+                <p>
+			店屋に台詞 (ID: <code class="literal">#$0A0C</code>) 「まあそういわずに～」を言わせる。
+			次に制御を進める。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>【メニュー表示】</p>
+                <p>
+			店屋の商品リストをウィンドウに表示し、プレイヤーの入力を待つ。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					キャンセルボタンで抜けた⇒
+					店屋に台詞 (ID: <code class="literal">#$0A0D</code>) 
+					「おや？ お気にめしませんでした？」を言わせる。
+					そして、制御を【終了】へ進める。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					それ以外⇒制御を【売値初期化】へ進める。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【売値初期化】</p>
+                <p>
+			この時点で、<code class="varname">A</code> レジスタにプレイヤーが選択した商品のリスト番号がロード済みである。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<code class="code">$33DA = $2BBA,Y</code> (where <code class="code">Y == A * 2</code>) を行う。これは商品のアイテム構造体 ID を示す。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<code class="code">$33E2 = $2BCA,Y</code> (where <code class="code">Y == A * 3</code>) を行う。これは上記アイテムの標準価格を示す。
+					ただし、両辺を <code class="literal">4</code> バイト長の整数とみなすように処理する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<code class="code">$33E2 &lt;&lt;= 4</code> を行う。
+					ここでも両辺を <code class="literal">4</code> バイト長の整数とみなすように処理する。
+					すなわち、標準価格を <code class="literal">16</code> 倍にした金額をセットする。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					ウィンドウに台詞を表示するための用のメモリに <code class="varname">$33E2</code> の値をストアする。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>
+			店屋に台詞 (ID: <code class="literal">#$0A0E</code>) 
+			「おお！ お目が高い！ ○○ゴールドですが～」を言わせる。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			はい・いいえウィンドウを表示して、プレイヤーの入力を待つ。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					キャンセル抜け or いいえ ⇒【半額負ける：一回目】へ制御を進める。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					はい ⇒【お買い上げ】へ制御を進める。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【半額負ける：一回目】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<a class="link" href="dq3_overcharge.html#dq3.overcharge.hack.C3D0E5" title="5.11.1.2. 半額計算サブルーチン">サブルーチン <code class="varname">$D0E5</code></a> を呼び出して売値の半額を計算する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					店屋に台詞 (ID: <code class="literal">#$0A0F</code>)
+					「おお お客さん とても 買いもの上手～」を言わせる。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					はい・いいえウィンドウを表示して、プレイヤーの入力を待つ。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							キャンセル抜け or いいえ ⇒【半額負ける：二回目】へ制御を進める。
+						</p>
+                          </li>
+                          <li class="listitem">
+                            <p>
+							はい ⇒【お買い上げ】へ制御を進める。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【半額負ける：二回目】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<a class="link" href="dq3_overcharge.html#dq3.overcharge.hack.C3D0E5" title="5.11.1.2. 半額計算サブルーチン">サブルーチン <code class="varname">$D0E5</code></a> を呼び出して売値の半額を計算する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					店屋に台詞 (ID: <code class="literal">#$0A14</code>)
+					「おお これいじょう まけると わたし おおぞんします！」を言わせる。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					はい・いいえウィンドウを表示して、プレイヤーの入力を待つ。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							キャンセル抜け or いいえ ⇒【半額負ける：三回目】へ制御を進める。
+						</p>
+                          </li>
+                          <li class="listitem">
+                            <p>
+							はい ⇒【お買い上げ】へ制御を進める。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【半額負ける：三回目】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<a class="link" href="dq3_overcharge.html#dq3.overcharge.hack.C3D0E5" title="5.11.1.2. 半額計算サブルーチン">サブルーチン <code class="varname">$D0E5</code></a> を呼び出して売値の半額を計算する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					店屋に台詞 (ID: <code class="literal">#$0A10</code>)
+					「おお あなた ひどいひと！わたしに 首つれと いいますか？」を言わせる。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					はい・いいえウィンドウを表示して、プレイヤーの入力を待つ。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							キャンセル抜け or いいえ ⇒【諦める】へ制御を進める。
+						</p>
+                          </li>
+                          <li class="listitem">
+                            <p>
+							はい ⇒ 次の【お買い上げ】へ制御を進める。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【お買い上げ】</p>
+                <p>
+			プレイヤーが買うことを決めた直後の処理である。
+			<code class="varname">$33E2</code> に売値がセット済みである。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<code class="code">$70 = $33E2</code> の後、汎用サブルーチン <code class="varname">$C45B66</code> を呼び出して、
+					パーティの所持金を <code class="varname">$70</code> ゴールド分減らすことを試みる。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							所持金不足の場合、
+							店屋に台詞 (ID: <code class="literal">#$0A12</code>)
+							「おお！ でも おカネが たりません！」を言わせる。
+							そして、制御を【終了】へ進める。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					店屋に台詞 (ID: <code class="literal">#$0A13</code>)
+					「おお！ 買ってくれますか？」を言わせる。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					そのアイテムをパーティの持ち物に追加するために、
+					<code class="varname">A</code> レジスタに <code class="varname">$33DA</code> すなわち商品のアイテム構造体 ID をロードして、
+					汎用サブルーチン <code class="varname">$C44824</code> を呼び出す。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					制御を【終了】へ進める。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【諦める】</p>
+                <p>店屋がふっかけることを諦めた状態の処理である。</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					店屋に台詞 (ID: <code class="literal">#$0A11</code>)
+					「そうですか。ざんねんです」を言わせる。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					制御を次の【終了】へ進める。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【終了】</p>
+                <p>このサブルーチンの呼び出し元に制御を戻す。</p>
+              </li>
+            </ul>
+          </div>
+          <p>
+	初め、ふっかけ店屋は商品を標準価格の <code class="literal">16</code> 倍の金額で客に売りつけようとする。
+	客がそれを拒むと、店主は売値を市価の <code class="literal">8</code> 倍、<code class="literal">4</code> 倍、
+	そして <code class="literal">2</code> 倍へと値段を大幅に下げてくる。
+	この値段調整の方法論は理に適っている。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.overcharge.hack.C3D0E5"></a>5.11.1.2. 半額計算サブルーチン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	サブルーチン <code class="varname">$C3D0E5</code> は、
+	<a class="link" href="dq3_overcharge.html#dq3.overcharge.hack.C3CF9B" title="5.11.1.1. ふっかけ店屋共通サブルーチン">共通サブルーチン <code class="varname">$C3CF9B</code></a>
+	から呼び出されるサブルーチンである。
+	短い処理なので、すべてのコードを以下に掲載する。
+</p>
+          <pre class="programlisting">
+C3/D0E5:    4EE433      LSR $33E4      <a id="dq3.overcharge.co.1"></a><span><img src="image/docbook/callouts/1.png" alt="1" border="0" /></span>
+C3/D0E8:    6EE233      ROR $33E2
+C3/D0EB:    ADE333      LDA $33E3      <a id="dq3.overcharge.co.2"></a><span><img src="image/docbook/callouts/2.png" alt="2" border="0" /></span>
+C3/D0EE:    8D82BE      STA $BE82
+C3/D0F1:    ADE233      LDA $33E2
+C3/D0F4:    8D81BE      STA $BE81
+C3/D0F7:    60          RTS
+</pre>
+          <div class="calloutlist">
+            <table border="0" summary="Callout list">
+              <tr>
+                <td width="5%" valign="top" align="left">
+                  <p><a href="#dq3.overcharge.co.1"><span><img src="image/docbook/callouts/1.png" alt="1" border="0" /></span></a> </p>
+                </td>
+                <td valign="top" align="left">
+                  <p>
+      このサブルーチンコードは、<code class="varname">A</code> レジスタが <code class="literal">16</code> ビットモードの状態で呼び出されることを暗黙的に事前条件としている。
+      最初の連続する <code class="code">LSR, ROR</code> 命令実行により、<code class="literal">4</code> バイト長で算術処理
+      <code class="code">$33E2 &gt;&gt;= 1</code> を行う。
+    </p>
+                </td>
+              </tr>
+              <tr>
+                <td width="5%" valign="top" align="left">
+                  <p><a href="#dq3.overcharge.co.2"><span><img src="image/docbook/callouts/2.png" alt="2" border="0" /></span></a> </p>
+                </td>
+                <td valign="top" align="left">
+                  <p>
+      <code class="literal">3</code> バイト長で <code class="code">$BE81 = $33E2</code> を処理する。
+    </p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <p>
+	<code class="varname">$33E2</code> は店屋のふっかける金額であり、
+	<code class="varname">$BE81</code> は台詞をウィンドウに表示するために使うものである。
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_shop.html" title="5.10. 店屋解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_inn.html" title="5.12. 宿屋解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_shop.html">5.10. 店屋解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_inn.html">5.12. 宿屋解析</a></div>
+  </body>
+</html>

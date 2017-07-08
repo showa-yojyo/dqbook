@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.11. 命名神</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_bank.html" title="4.10. ゴールド銀行" />
+    <link rel="next" href="dq6_vocations.html" title="4.12. 職業" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_bank.html" title="4.10. ゴールド銀行"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_vocations.html" title="4.12. 職業"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_bank.html">4.10. ゴールド銀行</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_vocations.html">4.12. 職業</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.rename"></a>4.11. 命名神</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_rename.html#dq6.rename.structure">4.11.1. データ</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_rename.html#dq6.rename.structure.C58AC8">4.11.1.1. 配列 <code class="varname">$C58AC8</code>: 怒りを買う名前</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_rename.html#dq6.rename.structure.C58B2A">4.11.1.2. 配列 <code class="varname">$C58B2A</code>: 予約された名前</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_rename.html#dq6.rename.behavior">4.11.2. 処理手順</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq6.rename" class="indexterm"></a>
+      <p>
+本節では命名神のデータ構造および処理について述べる。
+まず命名神に関係するデータについて説明する。
+それから命名神の対話的処理の手順について解説する。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.rename.structure"></a>4.11.1. データ</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+ここでは命名神の処理で参照するデータを示す。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.rename.structure.C58AC8"></a>4.11.1.1. 配列 <code class="varname">$C58AC8</code>: 怒りを買う名前</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C58AC8</code> は文字列 ID の値 49 個からなる（ただし末尾の要素はダミー）配列だ。
+対象者の名前をここにある文字列のいずれかに変更するときに限り、命名神の怒りを買う。
+</p>
+          <div class="table">
+            <a id="table.dq6.C58AC8"></a>
+            <p class="title">
+              <strong>表 4.36 配列 $C58AC8</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C58AC8" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>文字列</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$095B</code>
+                    </td>
+                    <td>ちんこ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$095C</code>
+                    </td>
+                    <td>きんたま</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$095D</code>
+                    </td>
+                    <td>ちんちん</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$095E</code>
+                    </td>
+                    <td>あほ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$095F</code>
+                    </td>
+                    <td>ちんぽこ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0960</code>
+                    </td>
+                    <td>へんたい</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0961</code>
+                    </td>
+                    <td>ちんぼ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0962</code>
+                    </td>
+                    <td>ちかん</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0963</code>
+                    </td>
+                    <td>おめこ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0964</code>
+                    </td>
+                    <td>まんこ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0965</code>
+                    </td>
+                    <td>おまんこ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0966</code>
+                    </td>
+                    <td>あそこ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0967</code>
+                    </td>
+                    <td>うんこ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0968</code>
+                    </td>
+                    <td>でべそ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0969</code>
+                    </td>
+                    <td>うんち</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$096A</code>
+                    </td>
+                    <td>はなたれ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$096B</code>
+                    </td>
+                    <td>おしっこ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$096C</code>
+                    </td>
+                    <td>せっくす</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$096D</code>
+                    </td>
+                    <td>ばか</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$096E</code>
+                    </td>
+                    <td>おしり</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$096F</code>
+                    </td>
+                    <td>まぬけ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0970</code>
+                    </td>
+                    <td>あなる</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0971</code>
+                    </td>
+                    <td>きちがい</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0972</code>
+                    </td>
+                    <td>チンコ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0973</code>
+                    </td>
+                    <td>キンタマ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0974</code>
+                    </td>
+                    <td>チンチン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0975</code>
+                    </td>
+                    <td>アホ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0976</code>
+                    </td>
+                    <td>チンポコ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0977</code>
+                    </td>
+                    <td>ヘンタイ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0978</code>
+                    </td>
+                    <td>チンボ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0979</code>
+                    </td>
+                    <td>チカン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$097A</code>
+                    </td>
+                    <td>オメコ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$097B</code>
+                    </td>
+                    <td>マンコ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$097C</code>
+                    </td>
+                    <td>オマンコ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$097D</code>
+                    </td>
+                    <td>アソコ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$097E</code>
+                    </td>
+                    <td>ウンコ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$097F</code>
+                    </td>
+                    <td>デべソ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0980</code>
+                    </td>
+                    <td>ウンチ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0981</code>
+                    </td>
+                    <td>ハナタレ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0982</code>
+                    </td>
+                    <td>オシッコ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0983</code>
+                    </td>
+                    <td>セックス</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$014D</code>
+                    </td>
+                    <td>ばか</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0984</code>
+                    </td>
+                    <td>オシリ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0985</code>
+                    </td>
+                    <td>マヌケ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0986</code>
+                    </td>
+                    <td>アナル</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0987</code>
+                    </td>
+                    <td>キチガイ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0988</code>
+                    </td>
+                    <td>すけべ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0989</code>
+                    </td>
+                    <td>スケべ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0378</code>
+                    </td>
+                    <td>ラスト</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+文字列については <a class="xref" href="dq6_string.html" title="4.2. 文字列">4.2 文字列</a> で述べる。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.rename.structure.C58B2A"></a>4.11.1.2. 配列 <code class="varname">$C58B2A</code>: 予約された名前</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C58B2A</code> は文字列 ID の値 29 個からなる配列だ。
+命名神は対象者の名前をここにある文字列のいずれにも変更することはしない。
+</p>
+          <div class="table">
+            <a id="table.dq6.C58B2A"></a>
+            <p class="title">
+              <strong>表 4.37 配列 $C58B2A</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C58B2A" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>文字列</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$098A</code>
+                    </td>
+                    <td>ムドー</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0170</code>
+                    </td>
+                    <td>ターニア</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$098B</code>
+                    </td>
+                    <td>ランド</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$098C</code>
+                    </td>
+                    <td>ビルデ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$098D</code>
+                    </td>
+                    <td>ルイーダ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$098E</code>
+                    </td>
+                    <td>マーズ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$098F</code>
+                    </td>
+                    <td>トム</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0990</code>
+                    </td>
+                    <td>ジーナ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0991</code>
+                    </td>
+                    <td>イリア</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0992</code>
+                    </td>
+                    <td>ホルス</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0993</code>
+                    </td>
+                    <td>パノン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0994</code>
+                    </td>
+                    <td>ミラルゴ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0995</code>
+                    </td>
+                    <td>チャンプ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0996</code>
+                    </td>
+                    <td>グラコス</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0997</code>
+                    </td>
+                    <td>ホック</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0998</code>
+                    </td>
+                    <td>サリイ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0999</code>
+                    </td>
+                    <td>デュラン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$099A</code>
+                    </td>
+                    <td>ゼニス</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$099B</code>
+                    </td>
+                    <td>フランコ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$099C</code>
+                    </td>
+                    <td>アクバー</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$099D</code>
+                    </td>
+                    <td>トンヌラ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$099E</code>
+                    </td>
+                    <td>クリムト</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$099F</code>
+                    </td>
+                    <td>マサール</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09A0</code>
+                    </td>
+                    <td>ムーア</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09A1</code>
+                    </td>
+                    <td>ルビス</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09A2</code>
+                    </td>
+                    <td>ラミアス</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09A3</code>
+                    </td>
+                    <td>セバス</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09A4</code>
+                    </td>
+                    <td>オルゴー</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09A5</code>
+                    </td>
+                    <td>エンデ</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.rename.behavior"></a>4.11.2. 処理手順</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+サブルーチン <code class="varname">$C3E893</code> が命名神の対話的処理を実装するコードだ。
+要点を以下に列挙する：
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist" style="list-style-type: disc; ">
+            <li class="listitem">
+              <p>
+      名前を変えたい者がいるかどうかを答える。
+      もし「はい」と答えなければ、そのまま終了手順にスキップする。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      <span class="emphasis"><em>名前を変更する者を選択する</em></span>。次の三つの分岐がある：
+    </p>
+              <div class="itemizedlist">
+                <ul class="itemizedlist" style="list-style-type: circle; ">
+                  <li class="listitem">
+                    <p>
+          <span class="emphasis"><em>ふくろ</em></span>。
+          この場合は現在の名前が怒りに触れているかを確認して、
+          触れている場合は、後述する怒り状態の対応手順にスキップする。
+          触れていない場合は、神官の台詞<span class="quote">「<span class="quote">むう それは……ふくろか？</span>」</span>を表示し、
+          後述の新しい名前を入力する手順にスキップする。
+        </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+          <span class="emphasis"><em>NPC のパーティーメンバー</em></span>。
+          この場合は<span class="quote">「<span class="quote">むっ 他人の名前を 勝手に かえようと いうのか？</span>」</span>などと言われて、
+          他に希望者がいるかを答えるところにスキップする。
+        </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+          <span class="emphasis"><em>通常のパーティーメンバー</em></span>。
+          この場合は現在の名前が怒りに触れているかを確認して、
+          触れている場合は、後述する怒り状態の対応手順にスキップする。
+          触れていない場合は、後述の新しい名前を入力する手順にスキップする。
+        </p>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="listitem">
+              <p>
+      <span class="emphasis"><em>怒り状態の対応手順</em></span>。
+      現在の名前が怒りに触れている場合にのみ、この処理を実施する。
+    </p>
+              <p>
+      神官が 5,000 ゴールドの支払いを要求するので、承知するかどうかを答える。
+      「はい」と答えなければ、神官の台詞<span class="quote">「<span class="quote">では やはり そのままじゃ</span>」</span>を表示し、
+      他に希望者がいるかを答えるところにスキップする。
+    </p>
+              <p>
+      「はい」と答えたとしても、所持金が不足していれば
+      神官の台詞<span class="quote">「<span class="quote">ん？ ざんねんながら そんな大金は～</span>」</span>を表示し、
+      他に希望者がいるかを答えるところにスキップする。
+    </p>
+              <p>
+      5,000 ゴールドの支払いに成功すると、神官が新しい名前を教えてくれと要求する。
+      これを以って新しい名前を入力する手順に進める。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      <span class="emphasis"><em>新しい名前を入力する手順</em></span>。
+      名前入力ウィンドウを画面に表示して、プレイヤーの入力を受け付ける。
+      なお、この入力ウィンドウはキャンセルを受け付けない。
+    </p>
+              <p>
+      入力した文字列を次のように分類し、それぞれの手順を処理する：
+    </p>
+              <div class="itemizedlist">
+                <ul class="itemizedlist" style="list-style-type: circle; ">
+                  <li class="listitem">
+                    <p>
+          <span class="emphasis"><em>現在の名前と同じ場合</em></span>。
+          この場合には神官は<span class="quote">「<span class="quote">なんじゃ 名前をかえないのか？</span>」</span>と反応し、
+          他に希望者がいるかを答えるところにスキップする。
+        </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+          <span class="emphasis"><em>オリジナルの名前と同じ場合</em></span>。
+          この場合は神官が元の名前に戻すというのかと一度確認をする。
+          「はい」以外の回答をすると、他の名前にするか決める手順にスキップする。
+          そうでなければ、名前変更処理を確定する。
+        </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+          <span class="emphasis"><em>予約されている名前と同じ場合</em></span>。
+          入力文字列が先述の予約名の何かと一致していれば、命名神がイカンということで、
+          他の名前にするか決める手順にスキップする。
+        </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+          <span class="emphasis"><em>仲間キャラクターの名前またはふくろの名前と同じ場合</em></span>。
+          入力文字列と同じ名前を持つ者が既に仲間にいるのであれば、やはり
+          他の名前にするか決める手順にスキップする。
+        </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+          <span class="emphasis"><em>怒りに触れる名前と同じ場合</em></span>。
+          入力文字列が先述の怒りに触れる名前の何かと一致していれば、神官が怒り出す。
+          この場合には「はい・いいえ」を答える機会が二度あり、
+          どちらか一方に「いいえ」と答えれば、他の名前にするか決める手順にスキップする。
+          どちらとも「はい」と回答したときのみ特殊な演出が入る。
+        </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+          <span class="emphasis"><em>「ああああ」タイプの名前の場合</em></span>。
+          入力文字列がこういう感じの名前のときは、やはり神官が不機嫌になる。
+          この場合にも「はい・いいえ」を答える機会が二度あり、
+          どちらにも「いいえ」と答えれば、他の名前にするか決める手順にスキップする。
+          どちらか一方で「はい」と答えれば、神官の警告手順にスキップする。
+        </p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+          それ以外の場合は、神官が一度だけ確認する。
+          「はい」ならば祝福手順に、「いいえ」ならば他の名前にするか決める手順にそれぞれスキップする。
+        </p>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="listitem">
+              <p>
+      <span class="emphasis"><em>他の名前にするか</em></span>。
+      神官が<span class="quote">「<span class="quote">他の名前に かえるか？</span>」</span>と言うので回答する。
+      「はい」ならば新しい名前を入力する手順まで戻り、
+      「いいえ」ならば他に希望者がいるかを答える手順にスキップする。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      <span class="emphasis"><em>祝福</em></span>。神官が儀式を執り行い、画面に演出が入る。
+      その後、新しい名前を名乗ることが許されたと神官が告げ、
+      処理を名前属性値変更手順に進む。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      <span class="emphasis"><em>名前属性値変更</em></span>。
+      対象がふくろであればふくろの名前を、キャラクターであればキャラクターの名前属性値を指定文字列で更新する。
+      それから次に述べる他に希望者がいるかを答える手順に進む。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      <span class="emphasis"><em>他に希望者がいるかを答える</em></span>。
+      神官が希望者の有無を問うので答える。
+      回答が「はい」ならば名前を変更する者を選択する手順に戻り、
+      「いいえ」ならば次に述べる終了手順に進む。
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      <span class="emphasis"><em>終了手順</em></span>。
+      名前を変えたくなったらいつでも来るとよい、
+      という神官の台詞を表示して、命名神処理の全てを終了する。
+    </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_bank.html" title="4.10. ゴールド銀行"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_vocations.html" title="4.12. 職業"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_bank.html">4.10. ゴールド銀行</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_vocations.html">4.12. 職業</a></div>
+  </body>
+</html>

@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>まえがき</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="index.html" title="ドラクエ命" />
+    <link rel="prev" href="index.html" title="ドラクエ命" />
+    <link rel="next" href="part01.html" title="第 I 部 基本概念" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="part01.html" title="第 I 部 基本概念"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="index.html">ドラクエ命</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="index.html">ドラクエ命</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="part01.html">第 I 部 基本概念</a><hr /></div>
+    <div class="preface">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h1 class="title"><a id="preface"></a>まえがき</h1>
+          </div>
+        </div>
+      </div>
+      <p>
+	本書は、記者が暇に任せて調べたドラクエの内部処理や、データ構造について解説している。
+	まだ執筆が終わっているわけではなく、現在進行中で解析作業および執筆をしている。
+	なぜこのような酔狂を行っているのかというと、半分成り行きなところがある。
+</p>
+      <p>
+	そもそも記者はドラクエのゲーム中に登場する名もなき人々の台詞が好きで、
+	すべてのシリーズについて、その一覧を作成したいという野望がある。
+	幸いファミコンで遊べるシリーズ、つまり 1 から 4 までの各作品については、
+	ソニタウンのドラクエビューワ
+	<a href="#ftn.ftn.preface.dqviewer" class="footnote" id="ftn.preface.dqviewer"><sup class="footnote">[1]</sup></a>
+	で、それも本物のフォントを用いて描画された状態で閲覧することができる。
+	まったく便利な世の中になったものだ。
+	本書では、スーファミで遊べるシリーズ、つまり 5, 6, 3 の各作品において、
+	人々の台詞集を ROM イメージから抽出することを試みる。
+	ドラクエ全シリーズの台詞集の「本物」を作成すること。
+	これが本書の第一目標である。
+</p>
+      <p>
+	本書の第二の目標は、ドラクエ史中世以降のドラクエシリーズプログラムの解析手法を構築することにある。
+	特にスーファミとプレステで遊べるシリーズに関して力を入れていくつもりだ。
+</p>
+      <div class="simplesect">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title" style="clear: both"><a id="preface.version"></a>各ドラクエの ROM バージョン</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+	本書の内容のうち、プログラム解析を行っている項目では、
+	ドラクエのシリーズを問わず、すべて初期出荷分、いわば「初版」のロムデータを用いている。
+	このため、初期出荷でないロムに関しては、本書の内容が妥当でない箇所がいくつか存在するであろうことを最初に断っておく。
+</p>
+      </div>
+      <div class="simplesect">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title" style="clear: both"><a id="preface.audience"></a>本書の想定読者</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+	本書の内容は、PC で動作するゲーム機エミュレータでドラクエを遊び、
+	その一歩先の「プレイ」をしたいう者に向けて書かれている。
+	場合によっては、市販のマニアックな刊行物に掲載されているような改造コードを探す手段を提供する。
+</p>
+        <p>
+	既にゲームプログラムの解析技術を有する者にとっては、本書の内容は非常に退屈かもしれない。
+	やっていることはごく初歩的で稚拙だし、グラフィックやサウンドの解析がない。
+	参考文献の品揃えも貧弱に見えるだろう。
+</p>
+      </div>
+      <div class="simplesect">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title" style="clear: both"><a id="preface.guide"></a>本書の構成</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+	本書は、ドラクエのシリーズごとに 1 章を割り当てる構成をとった。
+	読者は興味のある作品だけを「いいとこ取り」で読むことができる。
+	次に各章の内容をまとめておこう。
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">
+                <a class="link" href="dq_hack.html" title="1.1. ドラクエ解析">ドラクエ解析</a>
+              </span>
+            </dt>
+            <dd>
+              <p>
+				記者の解析環境が記してある章である。
+				肝心なことをまだ書いていないので、近々内容を拡充する。
+			</p>
+            </dd>
+            <dt>
+              <span class="term">
+                <a class="link" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)">SFC 版ドラクエ 3</a>
+              </span>
+            </dt>
+            <dd>
+              <p>
+				主に SFC 版ドラクエ 3 をあらゆる方法で解析して得られたデータ、および事実を説明する。
+				おまけとして、バカ画像の陳列や GB 版のモンスターメダルデータに関する情報を提供する。
+			</p>
+            </dd>
+            <dt>
+              <span class="term">
+                <a class="link" href="dq4.html" title="第 7 章 PS 版ドラクエ 4 (2001)">PS 版ドラクエ 4</a>
+              </span>
+            </dt>
+            <dd>
+              <p>
+				PS 版ドラクエ 4 の解析手法を説明する章になる予定。
+				現在は開店休業状態である。
+			</p>
+            </dd>
+            <dt>
+              <span class="term">
+                <a class="link" href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)">SFC 版ドラクエ 5</a>
+              </span>
+            </dt>
+            <dd>
+              <p>
+				SFC 版ドラクエ 5 をあらゆる方法で解析して得られたデータ、および事実を説明する。
+				おまけとして、バカ画像の陳列ページを用意してある。
+			</p>
+            </dd>
+            <dt>
+              <span class="term">
+                <a class="link" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)">SFC 版ドラクエ 6</a>
+              </span>
+            </dt>
+            <dd>
+              <p>
+				SFC 版ドラクエ 6 をあらゆる方法で解析して得られたデータ、および事実を説明する。
+			</p>
+            </dd>
+            <dt>
+              <span class="term">
+                <a class="link" href="dq7.html" title="第 6 章 PS 版ドラクエ 7 (2000)">PS 版ドラクエ 7</a>
+              </span>
+            </dt>
+            <dd>
+              <p>
+				PS 版ドラクエ 7 の解析手法を説明する章になる予定。
+				現在は開店休業状態である。
+			</p>
+            </dd>
+            <dt>
+              <span class="term">
+                <a class="link" href="appendix_a.html" title="付録 A 参考文献">参考文献</a>
+              </span>
+            </dt>
+            <dd>
+              <p>
+				本書を執筆するにあたり、参考にした書物、雑誌、インターネット上にあるリソースの一覧を示す。
+			</p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="simplesect">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title" style="clear: both"><a id="preface.terminology"></a>本書の表記</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+	本書では、各種アセンブリ言語のニーモニックや、変なプレフィックス・サフィックスを伴っての十六進数表記が頻繁に書かれる。
+	これら特別な意味を持つ用語・数値に関しては、地の文書に使われるフォントとは別のもので表記することにした。
+</p>
+        <p>
+	本書での表記法は次の通り。
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">
+                <span class="emphasis">
+                  <em>イタリック体</em>
+                </span>
+              </span>
+            </dt>
+            <dd>
+              <p>
+				本文中で強調したい用語に使う。
+			</p>
+            </dd>
+            <dt>
+              <span class="term">
+                <code class="varname">固定ピッチフォント</code>
+              </span>
+            </dt>
+            <dd>
+              <p>
+				本文中で、何らかの変数名に使う。
+			</p>
+            </dd>
+          </dl>
+        </div>
+        <div class="important" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <table border="0" summary="Important">
+            <tr>
+              <td rowspan="2" align="center" valign="top" width="25">
+                <img alt="[重要]" src="image/docbook/important.png" />
+              </td>
+              <th align="left">重要</th>
+            </tr>
+            <tr>
+              <td align="left" valign="top">
+                <p>
+		重要な事項は、こういうブロックの中に示す。
+	</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="caution" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <table border="0" summary="Caution">
+            <tr>
+              <td rowspan="2" align="center" valign="top" width="25">
+                <img alt="[注意]" src="image/docbook/caution.png" />
+              </td>
+              <th align="left">注意</th>
+            </tr>
+            <tr>
+              <td align="left" valign="top">
+                <p>
+		これは読者に注意を促す内容を含むブロックである。
+	</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <table border="0" summary="Warning">
+            <tr>
+              <td rowspan="2" align="center" valign="top" width="25">
+                <img alt="[警告]" src="image/docbook/warning.png" />
+              </td>
+              <th align="left">警告</th>
+            </tr>
+            <tr>
+              <td align="left" valign="top">
+                <p>
+		さらに最上級の注意を喚起するためのブロックも用意してある。
+		読者がこの警告を無視した場合、
+		ROM イメージ等のデータの破損や、
+		システム破壊といった致命的な事態に陥るかもしれない。
+	</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <p>
+	最後に、本書は現在執筆中であり、そのために、
+	この表記法に対応していないテキストが少なからず残っていることを断っておく。
+</p>
+      </div>
+      <div class="simplesect">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title" style="clear: both"><a id="preface.contact"></a>意見と質問</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+	本書の内容については、最大限の努力をもって検証および確認をしているが、
+	誤りや不正確な点、誤解や混乱を招くような表現、
+	単純な誤植に気付かれることもあるだろう。
+	本書を読んで気付かれた点については、
+	今後の版で修正できるように知らせていただければありがたい。
+	その他解析情報や当時の開発者からのタレコミも歓迎する。
+	記者への連絡先を以下に示す。
+</p>
+        <p>
+	<code class="email">&lt;<a class="email" href="mailto:yojyo@hotmail.com"><a class="ulink" href="mailto:yojyo@hotmail.com" target="_top">yojyo@hotmail.com</a></a>&gt;</code>
+</p>
+      </div>
+      <div class="simplesect">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title" style="clear: both"><a id="preface.acknowledgments"></a>謝辞</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+	SFC ドラクエシリーズの解析は、記者一人の力だけで成し得たものではない。
+	助けになったツールやドキュメントの作成者、執筆者、
+	貴重な情報や助言の提供者の皆様に篤く礼を申し上げる。
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">解析者 G 氏</span>
+            </dt>
+            <dd>
+              <p>
+				あまりにも偉大なアプリ「ドラクエビューア」
+				<a class="xref" href="appendix_a.html#dqref.url2" title="ドラクエ解析サイト『ソニタウン』">[<abbr class="abbrev">URL2</abbr>]</a>
+				で、大フォントテーブルを BMP ファイルに出力する機能を実装された。
+				本書の各シリーズメッセージ解析では、GSD の文字出力処理のステップ実行時に、
+				アキュームレータの値とフォントを照合するときに利用した。
+			</p>
+            </dd>
+            <dt>
+              <span class="term">Shingo Endo 氏</span>
+            </dt>
+            <dd>
+              <p>
+				記者とはまったくネット上での面識がないが、
+				この場で勝手に感謝の意を表したい。
+			</p>
+              <p>
+				dq_analyzer <a class="xref" href="appendix_a.html#dqref.url1" title="Index of /~s-endo/">[<abbr class="abbrev">URL1</abbr>]</a> は、
+				本書のほぼ全ての SFC ドラクエシリーズのセクションの第一情報源となっている。
+				特にメッセージ解析では、ソースコード <code class="filename">dq6decode.c</code>
+				に記述されている文字コード配列のおかげで、
+				メッセージ抽出プログラムの作成で省力できた。
+			</p>
+            </dd>
+            <dt>
+              <span class="term">某地下サイト管理人氏</span>
+            </dt>
+            <dd>
+              <p>
+				65816 解析手法を基本から教えていただいた「恩師」である。
+			</p>
+              <p>
+				SFC 版ドラクエ 3 のメッセージ解析の概要を完全に把握されており、
+				記者は、主要なデータの構造・配置位置をそのサイトで知った。
+				さらに（別シリーズではあるが）メッセージアセンブリコードの解釈の添削までしていただいた。
+			</p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="footnotes">
+        <br />
+        <hr style="width:100; text-align:left;margin-left: 0" />
+        <div id="ftn.ftn.preface.dqviewer" class="footnote">
+          <p><a href="#ftn.preface.dqviewer" class="para"><sup class="para">[1] </sup></a>
+			ドラクエ解析サイト「ソニタウン」
+			<a class="ulink" href="http://www.geocities.jp/sonitown/" target="_top">http://www.geocities.jp/sonitown/</a>
+		</p>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="part01.html" title="第 I 部 基本概念"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="index.html">ドラクエ命</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="index.html">ドラクエ命</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="part01.html">第 I 部 基本概念</a></div>
+  </body>
+</html>

@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>3.11. 仲間キャラクターの特性データ</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)" />
+    <link rel="prev" href="dq5_shop.html" title="3.10. 店屋" />
+    <link rel="next" href="dq5_monster.html" title="3.12. モンスター" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq5_shop.html" title="3.10. 店屋"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq5_monster.html" title="3.12. モンスター"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq5_shop.html">3.10. 店屋</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq5.html">第 3 章 SFC 版ドラクエ 5 (1992)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq5_monster.html">3.12. モンスター</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq5.character.traits"></a>3.11. 仲間キャラクターの特性データ</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq5_character_traits.html#dq5.character.traits.progression">3.11.1. レベルアップ構造体</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_character_traits.html#dq5.character.traits.abilities">3.11.2. 習得能力構造体</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_character_traits.html#dq5.character.traits.initial">3.11.3. 初期状態</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_character_traits.html#dq5.character.traits.specific">3.11.4. 人間またはモンスター固有の属性</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_character_traits.html#dq5.character.traits.name">3.11.5. 名前</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+この節では、<a class="xref" href="dq5_characters.html#dq5.characters.7E2040" title="3.4.1. 構造体 $7E2040: パーティーメンバー表現">3.4.1 構造体 <code class="varname">$7E2040</code>: パーティーメンバー表現</a> で説明した型のオブジェクトを構成するのに必要な型やオブジェクトについて述べる。
+</p>
+      <p>
+まずは仲間キャラクターのレベルアップに関係するデータ構造について述べる。
+一つは、各レベルに到達する必要経験値の計算に用いられる定数と、特定のレベル群における属性値の既定値をカプセル化した型だ。
+もう一つは、各レベルで習得する能力、すなわち移動時および戦闘時コマンドを定義する型だ。
+</p>
+      <p>
+さて、仲間キャラクターがレベルアップを一度もしていない状態というのも当然考慮しなければならない。
+この状態を表現するデータが、人間とモンスターとで別々に定義されている。それぞれについて説明する。
+</p>
+      <p>
+さらに、仲間キャラクターの属性には、人間固有のものとモンスター固有のものとがある。
+それらの属性とそれぞれが取り得る値について述べる。
+</p>
+      <p>
+最後に、仲間キャラクターの名前について簡単に説明する。
+</p>
+      <p>
+なお、この節で採り上げる特性データのうち、規模の大きいものを CSV ファイルとして <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> に収録する。
+一部の変則的なデータ収納方式を採るものについては、ここで示すアドレスと異なるアドレスをファイル名に含めてあるので注意して欲しい。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.character.traits.progression"></a>3.11.1. レベルアップ構造体</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+アドレス <code class="varname">$239E41</code> には次の表が示す、かなりサイズが大きい型のオブジェクトの配列がある。
+本節ではこの型をレベルアップ構造体と呼ぼう：
+</p>
+        <div class="table">
+          <a id="table.dq5.traits.239E41"></a>
+          <p class="title">
+            <strong>表 3.31 構造体 $239E41: レベルアップ構造体</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.traits.239E41" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td></td>
+                  <td>レベル区間数</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td></td>
+                  <td>レベル 2 の必要経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td></td>
+                  <td>レベル区間境界値 0</td>
+                </tr>
+                <tr>
+                  <td colspan="3">...</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td></td>
+                  <td>レベル区間境界値 6</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td rowspan="2">経験値計算用引数 0</td>
+                </tr>
+                <tr>                                            <td><code class="literal">#$F8</code></td></tr>
+                <tr>
+                  <td colspan="3">...</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td rowspan="2">経験値計算用引数 7</td>
+                </tr>
+                <tr>                                            <td><code class="literal">#$F8</code></td></tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td></td>
+                  <td>さいだいＨＰ標準値 0</td>
+                </tr>
+                <tr>
+                  <td colspan="3">...</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$19</code>
+                  </td>
+                  <td></td>
+                  <td>さいだいＨＰ標準値 8</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1A</code>
+                  </td>
+                  <td></td>
+                  <td>さいだいＭＰ標準値 0</td>
+                </tr>
+                <tr>
+                  <td colspan="3">...</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$22</code>
+                  </td>
+                  <td></td>
+                  <td>さいだいＭＰ標準値 8</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$23</code>
+                  </td>
+                  <td></td>
+                  <td>ちから標準値 0</td>
+                </tr>
+                <tr>
+                  <td colspan="3">...</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$2B</code>
+                  </td>
+                  <td></td>
+                  <td>ちから標準値 8</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$2C</code>
+                  </td>
+                  <td></td>
+                  <td>すばやさ標準値 0</td>
+                </tr>
+                <tr>
+                  <td colspan="3">...</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$34</code>
+                  </td>
+                  <td></td>
+                  <td>すばやさ標準値 8</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$35</code>
+                  </td>
+                  <td></td>
+                  <td>みのまもり標準値 0</td>
+                </tr>
+                <tr>
+                  <td colspan="3">...</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$3D</code>
+                  </td>
+                  <td></td>
+                  <td>みのまもり標準値 8</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$3E</code>
+                  </td>
+                  <td></td>
+                  <td>かしこさ標準値 0</td>
+                </tr>
+                <tr>
+                  <td colspan="3">...</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$46</code>
+                  </td>
+                  <td></td>
+                  <td>かしこさ標準値 8</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$47</code>
+                  </td>
+                  <td></td>
+                  <td>うんのよさ標準値 0</td>
+                </tr>
+                <tr>
+                  <td colspan="3">...</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$4F</code>
+                  </td>
+                  <td></td>
+                  <td>うんのよさ標準値 8</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">レベル区間数</span>
+            </dt>
+            <dd>
+              <p>
+        レベル区間数とは、このオブジェクトに定義されているレベル区間の個数のことだ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">レベル 2 の必要経験値</span>
+            </dt>
+            <dd>
+              <p>
+        レベル 2 の必要経験値とは、このオブジェクトに対応するキャラクターが、
+        そのレベルが 2 であるときの経験値の下限値を意味する。
+      </p>
+              <p>
+        対応キャラクターのレベル最小値が 2 でなくても、この属性には意味があるので注意。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">レベル区間境界値 i (i = 0, 1, ..., レベル区間数 - 1)</span>
+            </dt>
+            <dd>
+              <p>
+        レベル区間境界値とは、レベル区間 i の下限値だ。
+        ただし、最初のレベル区間は下限値と上限値をそれぞれ 2 とレベル区間境界値 0 とする。
+        最後のレベル区間は下限と上限をそれぞれレベル区間境界値ラスト、
+        そのキャラクターの最大レベルとする。
+      </p>
+              <p>
+        TODO: 例を示す。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">経験値計算用引数 i (i = 0, 1, ..., レベル区間数 - 1)</span>
+            </dt>
+            <dd>
+              <p>
+        経験値計算用引数とは、対応するキャラクターのレベルがレベル区間
+        i に含まれる値のどれかであるために必要な経験値を計算するサブルーチンに引き渡す実引数のことだ。
+      </p>
+              <p>
+        経験値の計算アルゴリズムについては後述する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">さいだいＨＰ標準値 i (i = 0, 1, ..., レベル区間数)</span>
+            </dt>
+            <dd>
+              <p>
+        さいだいＨＰ標準値 i とは、対応するキャラクターのレベルがレベル区間境界値 i であるときの、
+        そのキャラクターのさいだいＨＰの値を意味する属性だ。
+        ただし、実際にはその半分の値を保持していて、計算部で倍にする。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">さいだいＭＰ標準値 i (i = 0, 1, ..., レベル区間数)</span>
+            </dt>
+            <dd>
+              <p>
+        さいだいＭＰ標準値はさいだいＨＰ標準値と同様の扱いの属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">ちから標準値 i (i = 0, 1, ..., レベル区間数)</span>
+            </dt>
+            <dd>
+              <p>
+        ちから標準値とは、対応するキャラクターのレベルがレベル区間境界値 i であるときの、
+        そのキャラクターのちからの値を意味する属性だ。
+        こちらは実際の値を直接表現している。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">すばやさ標準値 i, </span>
+              <span class="term">みのまもり標準値 i, </span>
+              <span class="term">かしこさ標準値 i, </span>
+              <span class="term">うんのよさ標準値 i</span>
+            </dt>
+            <dd>
+              <p>
+        これらの属性の意味はちから標準値のそれに準じる。
+      </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+TODO: 必要経験値算出アルゴリズムの説明。
+算術計算のコードも効率も素晴らしい傑作なので是非紹介したい。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.character.traits.abilities"></a>3.11.2. 習得能力構造体</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+習得能力構造体と銘打ってしまったが、「レベルに応じて習得する能力」の表現に関するデータが実は複数 ROM 中にある。
+便宜上、それらを統合した概念を習得能力構造体と呼んでしまうことにする。
+一方は習得レベルと対応する習得能力の組の集合であり、他方は習得可能な能力の配列だ。
+</p>
+        <p>
+前者は具体的には次のような不定サイズのデータで表現されている：
+</p>
+        <div class="table">
+          <a id="table.dq5.traits.23B819"></a>
+          <p class="title">
+            <strong>表 3.32 構造体 $23B819: 習得レベル定義</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.traits.23B819" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>意味</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>要素数</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>移動時呪文習得フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td rowspan="2">戦闘時コマンド習得フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">（以下、要素数分だけフラグ組を繰り返す）</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">要素数</span>
+            </dt>
+            <dd>
+              <p>
+        要素数とは、データ内に存在するフラグ組の個数のことだ。
+        ゼロの場合にはフラグ組定義がない、つまり特殊技能のないキャラクターであることを意味する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">移動時呪文習得フラグ</span>
+            </dt>
+            <dd>
+              <p>
+        移動時呪文習得フラグとは、仲間キャラクター構造体 <code class="varname">$7E2040</code> のオフセット
+        <code class="literal">#$23</code> に作用するビットマスクの値だ。
+        このビットがオンになることで、対応する呪文を使用することが許される。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">戦闘時コマンド習得フラグ</span>
+            </dt>
+            <dd>
+              <p>
+        戦闘時コマンド習得フラグとは、仲間キャラクター構造体 <code class="varname">$7E2040</code> のオフセット
+        <code class="literal">#$24..#$25</code> に作用するビットマスクの値だ。
+        このビットがオンになることで、対応する呪文または特技を使用することが許される。
+      </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+習得可能な能力の集合のほうは不定サイズのコマンド ID の配列の形式で定義されている：
+</p>
+        <div class="table">
+          <a id="table.dq5.traits.23BE27"></a>
+          <p class="title">
+            <strong>表 3.33 構造体 $23BE27: 習得能力配列</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.traits.23BE27" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>意味</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>要素数</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>コマンド ID</td>
+                </tr>
+                <tr>
+                  <td colspan="2">（以下、要素数分だけコマンド ID を繰り返す）</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+コマンド ID とは、<a class="xref" href="dq5_battle_commands.html#dq5.battle.commands.general" title="3.9.3. 一般のコマンド">3.9.3 一般のコマンド</a> の意味でのコマンドテーブルの行番号とみなせる。
+この配列と先の構造体との関係は、フラグの桁とコマンド ID のある配列添字とが対応するということだ。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.character.traits.initial"></a>3.11.3. 初期状態</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+仲間キャラクターの初期状態とは、それを仲間にした直後における <code class="varname">$7E2040</code> オブジェクトの「値」を意味する。
+仲間キャラクターが人間であれば、この値は配列 <code class="varname">$23C014</code> に直接定義されている。
+一方、モンスターの場合には次の型からなるオブジェクトの配列 <code class="varname">$23AED1</code> に定義されている値を用いる。
+これは変則的な扱いなのだが、ベビーパンサーとキラーパンサーについては人間方式で初期化を行う。
+</p>
+        <p>
+このプログラムは同じ役割を果たす型を、人間キャラクターとモンスターキャラクターとで別々に定義することがよくあるのだが、
+初期状態においてもその手法を採っている。
+モンスターの仲間では、初期状態における所持品と装備品とを考慮せずに済むので、その分のメモリが節約できるということだろう。
+</p>
+        <p>
+構造体 <code class="varname">$23C014</code> については <a class="xref" href="dq5_characters.html#dq5.characters.7E2040" title="3.4.1. 構造体 $7E2040: パーティーメンバー表現">3.4.1 構造体 <code class="varname">$7E2040</code>: パーティーメンバー表現</a> で述べたものと同型だ。
+</p>
+        <p>
+構造体 <code class="varname">$23AED1</code> は次の表に示すような構成だ：
+</p>
+        <div class="table">
+          <a id="table.dq5.traits.23AED1"></a>
+          <p class="title">
+            <strong>表 3.34 構造体 $23AED1: 仲間モンスター初期状態</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.traits.23AED1" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>            <code class="literal">#$00</code></td>
+                  <td>                       </td>
+                  <td>初期レベル</td>
+                </tr>
+                <tr>
+                  <td>            <code class="literal">#$01</code></td>
+                  <td>                       </td>
+                  <td>最大レベル</td>
+                </tr>
+                <tr>
+                  <td>            <code class="literal">#$02</code></td>
+                  <td>                       </td>
+                  <td>ちから</td>
+                </tr>
+                <tr>
+                  <td>            <code class="literal">#$03</code></td>
+                  <td>                       </td>
+                  <td>みのまもり</td>
+                </tr>
+                <tr>
+                  <td>            <code class="literal">#$04</code></td>
+                  <td>                       </td>
+                  <td>かしこさ</td>
+                </tr>
+                <tr>
+                  <td>            <code class="literal">#$05</code></td>
+                  <td>                       </td>
+                  <td>うんのよさ</td>
+                </tr>
+                <tr>
+                  <td>            <code class="literal">#$06</code></td>
+                  <td>                       </td>
+                  <td>さいだいＨＰ</td>
+                </tr>
+                <tr>
+                  <td>            <code class="literal">#$07</code></td>
+                  <td>                       </td>
+                  <td>さいだいＭＰ</td>
+                </tr>
+                <tr>
+                  <td rowspan="3">
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>装備クラス</td>
+                </tr>
+                <tr>                                            <td><code class="literal">#$30</code></td><td>さいだいＨＰ</td></tr>
+                <tr>                                            <td><code class="literal">#$C0</code></td><td>(unknown)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">初期レベル</span>
+            </dt>
+            <dd>
+              <p>
+        初期レベルとは、このモンスターを仲間にした時点におけるそのレベルの値を意味する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">最大レベル</span>
+            </dt>
+            <dd>
+              <p>
+        最大レベルとは、このモンスターが到達し得るレベルの値の最大値を意味する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">ちから, </span>
+              <span class="term">みのまもり, </span>
+              <span class="term">かしこさ, </span>
+              <span class="term">うんのよさ, </span>
+              <span class="term">さいだいＨＰ, </span>
+              <span class="term">さいだいＭＰ</span>
+            </dt>
+            <dd>
+              <p>
+        これらの属性は、このモンスターを仲間にした時点におけるそれぞれの値を意味する。
+      </p>
+              <p>
+        さいだいＨＰは物理的に二箇所で定義されているが、これはデータ長が 1 バイトに収まらないからそうしている。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">装備クラス</span>
+            </dt>
+            <dd>
+              <p>
+        この属性だけ初期状態と関係がない概念だ。
+        <code class="varname">$7E2040</code> オブジェクトの属性値とはならない。
+      </p>
+              <p>
+        装備クラスとは、このモンスターが何を装備できるのかを決定する数値だ。
+        データサイズが 4 ビットなので 16 種類のクラスがある。
+        この値が <a class="xref" href="dq5_item.html#dq5.item.23B669" title="3.13.9. 配列 $23B669: 装備許可フラグ（モンスター）">3.13.9 配列 <code class="varname">$23B669</code>: 装備許可フラグ（モンスター）</a> で示した順序と対応する。
+      </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.character.traits.specific"></a>3.11.4. 人間またはモンスター固有の属性</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+戦闘中のメダパニ状態における振る舞いを決定するときには、
+プログラムは仲間キャラクターを「おとこ」「おんな」「？？？」の三つに分類する。
+まずキャラクターがモンスターであるかどうかを調べ、それから性別配列 <code class="varname">$23C236</code> を参照する。
+短い配列なので、ここで全データを引用する：
+</p>
+        <pre class="programlisting">
+23/C236:    00 ; 主人公
+23/C237:    00 ; クーパー
+23/C238:    01 ; アニー
+23/C239:    01 ; ビアンカ
+23/C23A:    01 ; ビアンカ
+23/C23B:    00 ; サンチョ
+23/C23C:    00 ; ピピン
+23/C23D:    01 ; フローラ
+23/C23E:    00 ; パパス
+23/C23F:    00 ; ヘンリー
+23/C240:    01 ; ベラ
+</pre>
+        <p>
+人間とモンスターとで異なる属性といえば、移動中の「つよさ」ウィンドウで「せいべつ」欄の真上に表示される部分だ。
+人間の場合は文字列配列 <code class="varname">$23C5F9</code> のインデックスを属性値として取る。
+この配列の具体的な内容については付録の文字列テーブルを参照して欲しい。
+</p>
+        <p>
+一方、仲間がモンスターならば、属性値としてはそのモンスター ID を取る。
+一応断っておくと、モンスター ID とはモンスターデータテーブル <code class="varname">$238000</code> の行番号を意味する。
+仲間モンスター ID からモンスター ID への対応は配列 <code class="varname">$23D72D</code> で定義されている：
+</p>
+        <pre class="programlisting">
+23/D72D:    0E  ; ベビーパンサー
+23/D72E:    59  ; キラーパンサー
+23/D72F:    00  ; スライム
+23/D730:    03  ; ドラキー
+...
+23/D755:    C5  ; ヘルバトラー
+23/D756:    D7  ; ネーレウス
+</pre>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.character.traits.name"></a>3.11.5. 名前</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+通常、仲間キャラクターは名前で呼ぶ。
+仲間キャラクターが人間であれば、主人公とその子供らはプレイヤーが名前を文字列の入力によって設定する。
+それ以外は既定の文字列を参照するだけであり、その配列はアドレス <code class="varname">$23C5CE</code> にある。
+モンスターの仲間キャラクターについては、モンスター ID と仲間順位情報の両方を用いて文字列配列
+<code class="varname">$23C242</code> の対応要素を参照する。
+</p>
+        <p>
+主人公、息子、娘の名前を示す文字列はアドレス <code class="varname">$7E2001</code>, <code class="varname">$7E2009</code>, <code class="varname">$7E2011</code> に格納される。
+ただし、その既定値はアドレス <code class="varname">$23D6ED</code> にある、ある種の初期化データの一部で与えられている。
+</p>
+        <pre class="programlisting">
+23/D6ED:    01 ; 00:
+23/D6EE:    01 ; 01:
+23/D6EF:    01 ; 02:
+23/D6F0:    01 ; 03:
+23/D6F1:    01 ; 04:
+23/D6F2:    01 ; 05:
+23/D6F3:    01 ; 06:
+23/D6F4:    01 ; 07:
+23/D6F5:    01 ; 08:
+23/D6F6:    49 ; 09: ク
+23/D6F7:    78 ; 0A: ー
+23/D6F8:    83 ; 0B: ゜
+23/D6F9:    5B ; 0C: ハ
+23/D6FA:    78 ; 0D: ー
+23/D6FB:    01 ; 0E:
+23/D6FC:    01 ; 0F:
+23/D6FD:    01 ; 10:
+23/D6FE:    42 ; 11: ア
+23/D6FF:    57 ; 12: ニ
+23/D700:    78 ; 13: ー
+23/D701:    01 ; 14:
+23/D702:    01 ; 15:
+23/D703:    01 ; 16:
+23/D704:    01 ; 17:
+23/D705:    01 ; 18:
+</pre>
+        <p>
+文字列配列 <code class="varname">$23C5CE</code> および <code class="varname">$23C242</code> については、
+付録の文字列テーブルを参照して欲しい。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq5_shop.html" title="3.10. 店屋"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq5_monster.html" title="3.12. モンスター"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq5_shop.html">3.10. 店屋</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq5.html">第 3 章 SFC 版ドラクエ 5 (1992)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq5_monster.html">3.12. モンスター</a></div>
+  </body>
+</html>

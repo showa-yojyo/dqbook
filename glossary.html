@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>用語集</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="index.html" title="ドラクエ命" />
+    <link rel="prev" href="appendix_b.html" title="付録 B データ" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="appendix_b.html" title="付録 B データ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="appendix_b.html">付録 B データ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="index.html">ドラクエ命</a> <hr /></div>
+    <div xml:lang="ja" class="glossary" lang="ja">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h1 class="title"><a id="gloss"></a>用語集</h1>
+          </div>
+        </div>
+      </div>
+      <p>
+	本書で用いる用語を以下にまとめておく。
+	一般的に用いられる用語はインターネットからいくらでも調べることができるハズなので、
+	そのようなものについては徹底的に除外した。
+	厳密性よりある種のわかりやすさを優先した結果、微妙に嘘の入った解説がある。
+	そこは読者各位のご賢察を期待する。
+</p>
+      <dl>
+        <dt>
+          <a id="gloss.65816"></a>
+          <span class="glossterm">65816</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			<acronym class="acronym">SFC</acronym> に採用されている <acronym class="acronym">CPU</acronym> のこと。
+			ファミコンの <acronym class="acronym">CPU</acronym> である 6502 のエミュレーション機能を有するという特徴がある。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.bgrep"></a>
+          <span class="glossterm">BGREP</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			<span class="application">Stirling</span> が実装する機能の一つ。
+			バイナリファイルからバイナリデータを検索するコマンドメニューの名前だ。
+			バイナリファイルのテキストダンプは <span class="command"><strong>od</strong></span> 等の CLI ツールで行うのだが、
+			バイナリデータのサーチだけは <span class="application">Stirling</span> だけが頼りだ。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.dispel"></a>
+          <span class="glossterm">DisPel</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			本書が利用する <acronym class="acronym">SFC</acronym> ドラクエロム用の逆アセンブラー。
+			現時点で <a class="ulink" href="https://github.com/pelrun/Dispel" target="_top">https://github.com/pelrun/Dispel</a> よりソースコードを入手できる。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.dos"></a>
+          <span class="glossterm">DOS コンソール</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			<span class="application">Windows XP</span> のヘルプによれば、正式名称は「コマンドプロンプトウィンドウ」らしい。
+			逆アセンブルツールがコンソールアプリである場合、
+			操作性が今一つなこれの世話になる必要はない。
+			最低限 <span class="application">Cygwin</span> (<span class="command"><strong>bash</strong></span>) を利用するのが基本だろう。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.dqutils"></a>
+          <span class="glossterm">dqutils</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			本書記者の <acronym class="acronym">PC</acronym> にある、ドラクエ <acronym class="acronym">ROM</acronym> 内の構造体データ配列をテキスト出力するツールスクリプト群。
+			<span class="application">Cygwin</span> (<span class="command"><strong>bash</strong></span>) で実装してあるが、
+			いずれ Python 版を作成して配布される可能性がある。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.dq.analyzer"></a>
+          <span class="glossterm">dq_analyzer</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			<em class="citetitle">Index of /~s-endo/</em> で配布されている
+			「スーパーファミコン版ドラゴンクエスト データ解析プログラム」。
+			C 言語で記述されたコンソールプログラムだが、本書ではソースコードの方を指すことが多い。
+			<acronym class="acronym">SFC</acronym> ドラクエ各シリーズの各種データをテキスト化してファイルに格納する。
+		</p>
+          <p>
+			ドラクエ解析の始祖ではなかろうか。リスペクト。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.gsd"></a>
+          <span class="glossterm">GSD</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			<span class="application">Snes9x</span> にトレースログ機能を含むデバッグ機能を実装したもの。
+			<acronym class="acronym">SFC</acronym> ドラクエシリーズの解析作業で主に用いるエミュレータだ。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.id"></a>
+          <span class="glossterm">ID</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			辞書の意味でも通じるが、より具体的には、データが格納されている配列のインデックスであることが多い。
+			例えば SFC 版ドラクエ 3 のモンスターデータ「スライム」について、
+			「スライムは ID が 0 である」と表現することがある。
+			これを本書の用途として「スライムのデータがモンスター構造体データ配列のインデックス 0 に格納されている」とすることができる。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.npc"></a>
+          <span class="glossterm">NPC</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			NonPlayable Character の頭文字からなる略語
+			<a href="#ftn.ftn.gloss.npc" class="footnote" id="ftn.gloss.npc"><sup class="footnote">[8]</sup></a>。
+			本書では「プレイヤーが直接操作することができないゲームキャラクター」の意味で用いる。
+			街の人々はここに含まれないものとする。
+			SFC 版ドラクエ 5 のパパスは NPC の例だ。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.par.code"></a>
+          <span class="glossterm">PAR コード</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			略語を展開して表記すると Pro-Action Replay コード。<acronym class="acronym">RAM</acronym> 領域のメモリ解析の産物だ。
+			プログラムの <acronym class="acronym">RAM</acronym> 領域の特定のアドレスの値を動的に書き換えるツールを意味する場合と、
+			そのアドレスと値を対にした概念を意味する場合がある。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.peers.snes9x"></a>
+          <span class="glossterm">Peer's Snes9x Tracer</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			<span class="application">Snes9x</span> にトレースログ機能を実装したもの。
+			後続の <span class="application">GSD</span> も同機能を引き続き搭載しているが、
+			記者の経験上、<span class="application">Peer's</span> のほうが長い出力トレースが得られることが多い。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.rom.image"></a>
+          <span class="glossterm">ROM イメージ</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			スーファミソフトのカートリッジデータを PC で扱えるようにファイル化したもの。
+			単に <acronym class="acronym">ROM</acronym> と言う場合もこの意味で用いていることがある。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.sfc"></a>
+          <span class="glossterm">SFC</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			本書では Super Famicom すなわちスーパーファミコンの頭文字略語として用いる。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.snes"></a>
+          <span class="glossterm">SNES</span>
+        </dt>
+        <dd>
+          <p>→ <a class="glosssee" href="glossary.html#gloss.sfc">SFC</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.snes9x"></a>
+          <span class="glossterm">Snes9x</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			Windows アプリの形で実装したスーファミエミュレータの一つ。
+			これよりも多機能な「子孫」がいるので、解析作業に用いることはもはやないだろう。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.window"></a>
+          <span class="glossterm">ウィンドウ</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			ドラクエでは、「背景色が黒く、白い枠を持つ矩形領域」だ。
+			画面に同時に複数表示される。メニューになっていたり、
+			メッセージを表示したりすることが主な用途だ。
+		</p>
+          <p>
+			解析作業ではウィンドウ構造体データ配列を発見することと、
+			デバッグメニューウィンドウを初期に発見することが肝要だ。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.encount"></a>
+          <span class="glossterm">エンカウント</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			英語の encounter に由来する。これは辞書によれば「偶然出くわす」といった意味合いのようだ。
+			ドラクエでは（主語が逆転するが）「まもののむれが あらわれた！」となること。
+			換言すれば、移動モードから戦闘モードに移行することだ。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.tile.encount">タイルエンカウント</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.offset"></a>
+          <span class="glossterm">オフセット</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			メモリ空間またはロムイメージファイルにおいて、
+			現在注目している位置（アドレス）と、基準となる位置との差を意味する。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.character"></a>
+          <span class="glossterm">キャラクター</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			本書ではゲームにおける登場人物の意味で用いる。
+			文字 (letter) の意味では使用しない。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.state.save"></a>
+          <span class="glossterm">ステートセーブ</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			エミュレータでゲームプログラムを実行する場合、
+			ユーザーが期待すれば、任意の時点でプログラムを中断・再開することができる。
+			これは、その時点でのメモリの内容やレジスタの値といった、
+			「プロセス」の状態をすべて保存して、それを再現することで実現している。
+			この保存をステートセーブと言う。
+		</p>
+          <p>
+			エミュレータは、この「状態」をファイルの形で保存する。
+			このバイナリファイルを差分発見的手法で解析することがある。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.tile.encount"></a>
+          <span class="glossterm">タイルエンカウント</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			初出は SFC 版ドラクエ 3 のデバッグメニューにある「タイルせんとう」である。
+			フィールド上のある区画やダンジョンの各階には、
+			常にその場所固有のモンスターの組み合わせしか出現しない。
+			このようなエンカウントの仕組みをタイルエンカウントと呼ぶ。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.encount">エンカウント</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.damage"></a>
+          <span class="glossterm">ダメージ</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			HP や MP が戦闘行動の結果として増減するとき、その差のこと。
+			本書ではパラメータの回復方向に変化する値に対しても、それをダメージと呼ぶので、
+			読者は注意して欲しい。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.debug.menu"></a>
+          <span class="glossterm">デバッグメニュー</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			ドラクエではデバッグ用途専用のメニューウィンドウを実装するシリーズがある。
+			これが製品版になっても残されているシリーズがあるため、
+			解析マニアはメニューウィンドウを出現させる方法を見つけることに執心することが多い。
+			自力で見つけるととてもうれしいものだ。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.debug.mode"></a>
+          <span class="glossterm">デバッグモード</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			狭義にはデバッグビルドによるプログラムで起動したゲームセッション全体を意味するが、
+			本書では何らかのデバッグ作業専用の機能を出現した状態、もしくはいつでもその機能を使用できる状態を指す。
+		</p>
+          <p>
+			ドラクエでは妙に高機能なデバッグモードが存在することが多い。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.debug.menu">デバッグメニュー</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.dqviewer"></a>
+          <span class="glossterm">ドラクエビューワ</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			<em class="citetitle">ドラクエ解析サイト『ソニタウン』</em> で配布されていた
+			「ドラクエ1～7のマップ,モンスター,メッセージ 表示ソフト」。
+			<span class="application">HSP</span> で記述された Windows <acronym class="acronym">GUI</acronym> プログラムだ。
+			スクリプトも同時配布されていた。
+			ドラクエ各シリーズの各種データを画像化して表示する。
+		</p>
+          <p>
+			サイトのほうは残念ながら閉鎖されている。
+			本書執筆・ドラクエ解析の第一次情報としてとにかくお世話になったツールだ。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.hack.rom"></a>
+          <span class="glossterm">ハックロム</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			オリジナルの状態から 1 バイトでもデータが変更されているロムイメージ。
+			本物と紛い物との差を知るには、差し当たり <span class="application">Snes9x</span> の ROM Information メニューを調べてみること。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.baka.image"></a>
+          <span class="glossterm">バカ画像</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			本来のプログラムでは起こり得ないゲーム状態を何らかの手段により捏造し、そのゲーム画面を画像化したもの。
+			同様に、ゲーム画面を動画として編集したものをバカ動画という。
+			何も知らぬ輩に黙ってそのようなものを見せると、なぜか反感を買うことが多い。注意することだ。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.parameter"></a>
+          <span class="glossterm">パラメータ</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			通常はプログラミング言語の関数における仮引数の意味だが、
+			ドラクエの話をする場合、数値の形で表現されたキャラクターの能力値を指すことが多い。
+			本書でも主に後者の意味で用いる。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.bit"></a>
+          <span class="glossterm">ビット</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			例えばあるキャラクターが呪われていることを表現するために、
+			どこかのアドレスの値の 1 バイト中のあるビットが
+			0 なのか 1 なのかで決めるようなことがある。
+			このデータの持たせ方の欠点は、値へのアクセスが面倒なことにある。
+			解析側からしても、若干面倒なので勘弁願いたい。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.field"></a>
+          <span class="glossterm">フィールド</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			ゲームの文脈で用いられる場合、世界地図に対応するマップ全体を指す。
+		</p>
+          <p>
+			解析の文脈で用いられる用語としては、構造体のメンバーデータと同義。
+			Java 言語での言い回しだ。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.member">メンバー</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.flag"></a>
+          <span class="glossterm">フラグ</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			ゲーム進行の何らかのコンテキストの状態を 0 か 1 で表現・保持するもの。
+			例えば「まほうのたまを手に入れた状態」とか「一度エンディングを見た状態」のようなものだ。
+			ドラクエ (<acronym class="acronym">SFC</acronym>) の場合、ビットで表現することが多い。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.bit">ビット</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.floor"></a>
+          <span class="glossterm">フロア</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			本書では、階段を上り下りしたり、建物の出入口を越えたりすると切り変わる
+			（フローミを意識して欲しい）、いわゆるマップの構成単位を指す。
+			フィールドマップ全体もワンフロアとする。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.pointer.array"></a>
+          <span class="glossterm">ポインタ配列</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			本書ローカル用語。
+			その型がアドレスである配列のこと。
+			2 バイト型と 3 バイト型があり、前者はバンクが別の方式で与えられるのに対して、
+			後者はまんま絶対アドレス値で配列されている。
+			サイズの小さくない構造体データの格納アドレスを示しているので、
+			データ解析の重要な手掛かりとなる。
+			プログラミングの観点からすれば、
+			このようにしてデータアクセスの間接レベルを上げることで、
+			メンテナンスを楽にする意味があるのかもしれない。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.array">配列</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.message"></a>
+          <span class="glossterm">メッセージ</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			本書では、文章の形でウィンドウに表示される、
+			台詞やら対話的プロンプト文やらをひっくるめてメッセージと呼ぶ。
+			SFC 版ドラクエ 5 以降、大きいフォントでテキストが描画される。
+		</p>
+          <p>
+			メッセージデータ抽出は本書の重要な目的のひとつである。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.large.font">大きいフォント</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.memory.layout"></a>
+          <span class="glossterm">メモリレイアウト</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			本書ローカル用語。構造体解析において、各メンバーのメモリ配置がどのようになっているのかを説明する表。
+			C 言語でいうビットフィールドが頻出するような、細切れのデータメンバーが寄せ集まった様子を思い描いて欲しい。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.member">メンバー</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.memory.space"></a>
+          <span class="glossterm">メモリ空間</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			プログラム部分もデータ部分も <acronym class="acronym">RAM</acronym> 領域も全部ひっくるめたメモリ領域全体をメモリ空間と（本書は）呼ぶ。
+			<acronym class="acronym">SFC</acronym> 解析では、<acronym class="acronym">ROM</acronym> イメージがメモリ空間 4 メガのどのパートに格納されるのかが、
+			ゲームによって決まっている。逆アセンブリ作業はそれを調べるところから開始するのだ。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.member"></a>
+          <span class="glossterm">メンバー</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			構造体解析の文脈で用いる場合、構造体のデータメンバーの意味である。
+			主人公のパーティの話題のときは、当然パーティの構成員の意味になる。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.structure">構造体</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.walk.mode"></a>
+          <span class="glossterm">移動モード</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			非戦闘モードの意味。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.battle.mode">戦闘モード</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.crack"></a>
+          <span class="glossterm">改造</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			本書では <acronym class="acronym">ROM</acronym> に書いてあるプログラムコードを編集して、本物の動作をさせないようにすることを改造と呼ぶ。
+			<acronym class="acronym">ROM</acronym> に定義されている静的なデータを編集するのも改造には違いないが、それは面白くないことが多い。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.hack.rom">ハックロム</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.cracking.code"></a>
+          <span class="glossterm">改造コード</span>
+        </dt>
+        <dd>
+          <p>→ <a class="glosssee" href="glossary.html#gloss.par.code">PAR コード</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.common.subroutine"></a>
+          <span class="glossterm">共通処理サブルーチン</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			本書ローカル用語。共通処理を実装するサブルーチンの意味。
+			狭義には店屋の処理くらいしか思いつかないが、
+			広義には算術処理サブルーチンや乱数調整サブルーチンなど多数ある。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.structure"></a>
+          <span class="glossterm">構造体</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			本書では、<acronym class="acronym">SFC</acronym> ドラクエシリーズのモンスターやアイテムといったデータの構造が、
+			C 言語の構造体のようになっていると捉えている。
+			そのため、データ構造の説明に「構造体」「メンバー」といった用語を借用している。
+			「名前 ID はモンスター構造体のメンバーである」のように用いる。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.memory.layout">メモリレイアウト</a>, <a class="glossseealso" href="glossary.html#gloss.member">メンバー</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.people.object"></a>
+          <span class="glossterm">人オブジェクト</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			正式な意味は PS 版ドラクエ 7 のデバッグメニューにある同名項目から推測するしかないのだが、
+			本書では「フロア上にいるキャラクターであり、仲間キャラクターではない者」の意味で用いる。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.character">キャラクター</a>, <a class="glossseealso" href="glossary.html#gloss.floor">フロア</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.battle.mode"></a>
+          <span class="glossterm">戦闘モード</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			ドラクエ全シリーズにおいて、誰かと戦闘しているゲーム状態のことを指す。
+			このモードの解析だけで、データ解析作業全体の 90 パーセントを占める。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.walk.mode">移動モード</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.battle.action"></a>
+          <span class="glossterm">戦闘行動</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			戦闘モードにおいて、各キャラクター・モンスターがとる一回あたりの行動。
+			移動行動という考え方もあるが、行動を表現する構造体が共通であるため、話がややこしい。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.large.font"></a>
+          <span class="glossterm">大きいフォント</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			移動モードにおいて、行動の結果出力されるメッセージ表示に用いられるフォント。
+			大きいフォントと普通のフォントでは、文字コード体系が異なる。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.character.code">文字コード</a>, <a class="glossseealso" href="glossary.html#gloss.message">メッセージ</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.array"></a>
+          <span class="glossterm">配列</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			あらゆるプログラミング言語で存在する概念であるが、
+			解析で配列と言う場合、暗黙の了承の下に C 言語の配列モデルが置かれる。
+			すなわち、同じ長さのバイト列が、メモリ空間内の特定の区間中、
+			途切れることなく整列しているものだ。
+		</p>
+          <p>
+			ドラクエ (<acronym class="acronym">SFC</acronym>) の場合、
+			構造体データの配列を <acronym class="acronym">ROM</acronym> 領域から発見することが重要だ。
+		</p>
+        </dd>
+        <dt>
+          <a id="gloss.character.code"></a>
+          <span class="glossterm">文字コード</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			ドラクエ (<acronym class="acronym">SFC</acronym>) の場合も、文字を表現するために内部的には数値を用いている。
+			ある文字に対応する数値を、その文字のコードと呼ぶ。
+			また、プログラムで使用することができるすべての文字コード体系それ自体を文字コードを呼ぶこともある。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.large.font">大きいフォント</a>, <a class="glossseealso" href="glossary.html#gloss.string">文字列</a></p>
+        </dd>
+        <dt>
+          <a id="gloss.string"></a>
+          <span class="glossterm">文字列</span>
+        </dt>
+        <dd class="glossdef">
+          <p>
+			本書では、ウィンドウに描画するテキストのうち、単語の形をとるものを文字列を呼ぶ。
+			「やくそう」「はなす」「だれに」「アリアハン」等は文字列だが、
+			「それを すてるなんて とんでもない！」等のメッセージウィンドウで見られる文章の形をとるものは
+			（もちろん奇妙だが）本書の立場では文字列ではない。
+		</p>
+          <p>→ <a class="glossseealso" href="glossary.html#gloss.message">メッセージ</a></p>
+        </dd>
+      </dl>
+      <div class="footnotes">
+        <br />
+        <hr style="width:100; text-align:left;margin-left: 0" />
+        <div id="ftn.ftn.gloss.npc" class="footnote">
+          <p><a href="#ftn.gloss.npc" class="para"><sup class="para">[8] </sup></a>文法的には UnPlayable Character ではあるまいか。</p>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="appendix_b.html" title="付録 B データ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="appendix_b.html">付録 B データ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="index.html">ドラクエ命</a> </div>
+  </body>
+</html>

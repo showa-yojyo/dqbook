@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>2.3. Cygwin</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="tools.html" title="第 2 章 解析ツール" />
+    <link rel="prev" href="tools_disasm.html" title="2.2. 逆アセンブラ" />
+    <link rel="next" href="tools_editor.html" title="2.4. エディタ" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="tools_disasm.html" title="2.2. 逆アセンブラ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="tools.html" title="第 2 章 解析ツール"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="tools_editor.html" title="2.4. エディタ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="tools_disasm.html">2.2. 逆アセンブラ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="tools.html">第 2 章 解析ツール</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="tools_editor.html">2.4. エディタ</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="tools.cygwin"></a>2.3. Cygwin</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="tools_cygwin.html#tools.cygwin.radix">2.3.1. 基数変換ツールとして利用</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="tools_cygwin.html#tools.cygwin.seq">2.3.2. 連番生成ツールとして利用</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="tools_cygwin.html#tools.cygwin.od">2.3.3. 構造体データ配列をテキストダンプする</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="tools_cygwin.html#tools.cygwin.wrapper">2.3.4. DisPel のラッパースクリプトを書く</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.cygwin" class="indexterm"></a>
+      <div class="figure">
+        <a id="fig.tools.cygwin"></a>
+        <p class="title">
+          <strong>図 2.6 Cygwin Console Window</strong>
+        </p>
+        <div class="figure-contents">
+          <div>
+            <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="472">
+              <tr>
+                <td>
+                  <img src="./image/tools.cygwin.png" width="472" alt="Cygwin Console Window" />
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <br class="figure-break" />
+      <p>
+	Linux 環境でゲーム機エミュレータが可能な読者は、
+	この節を読むのを飛ばして結構だ（そんなに長いものでもないが）。
+</p>
+      <p>
+	サイズの巨大な逆アセンブルしたテキストファイルをいくつも抱え込むと、
+	どうしても高度なテキスト処理能力が欲しくなる。
+	そして、それは愛用のテキストエディタが処理する以上の能力がなければ意味がない。
+	そこで、知名度も実績も十二分にあるテキスト処理用の GNU ツールを利用することを考えた。
+	Windows 環境で解析作業をするので、<a class="ulink" href="http://cygwin.com/" target="_top">Cygwin</a> をインストールしておく。
+</p>
+      <p>
+	各種ツールを利用するのは Cygwin コンソール上からだけとは限らない。
+	現代的な各種 IDE や高水準なテキストエディタが提供する「外部プログラム呼び出し」機能、
+	すなわち利用者がコマンドラインを指示し、
+	メニュー項目選択時もしくは即時にそれらを起動するという作りになっている。
+	そこから <span class="command"><strong>awk</strong></span>, <span class="command"><strong>sed</strong></span> のような軽いテキスト処理コマンドを呼び出してもよし、
+	逆アセンブリコード処理専用のシェルスクリプトを書いて、それを呼び出すもよし、だ。
+</p>
+      <p>
+	高水準アプリがマクロ言語によるテキスト処理機能を提供する場合もある。
+	しかし、本書ではそういうものを利用するという考えはしない。
+</p>
+      <p>
+	以降、本書で Cygwin コンソールを利用する状況を説明する場合、シェルは Bash とする。
+	プロンプト (PS1) は <code class="prompt">$ </code> で表記する。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="tools.cygwin.radix"></a>2.3.1. 基数変換ツールとして利用</h3>
+            </div>
+          </div>
+        </div>
+        <a id="term.printf" class="indexterm"></a>
+        <p>
+	C/C++ の関数相当の機能を有する <span class="command"><strong>printf</strong></span> コマンドを利用することができる。
+	電卓でまかなえる陳腐な例だが、十進数を十六進数に変換するには以下のようにする。
+</p>
+        <pre class="screen"><code class="prompt">$ </code><strong class="userinput"><code>printf "%X\n" 1000000</code></strong> <a id="tools.cygwin.radix.co.1"></a><span><img src="image/docbook/callouts/1.png" alt="1" border="0" /></span>
+F4240 <a id="tools.cygwin.radix.co.2"></a><span><img src="image/docbook/callouts/2.png" alt="2" border="0" /></span>
+</pre>
+        <div class="calloutlist">
+          <table border="0" summary="Callout list">
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#tools.cygwin.radix.co.1"><span><img src="image/docbook/callouts/1.png" alt="1" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+			<span class="command"><strong>printf</strong></span> に書式文字列と <code class="literal">1000000</code> を渡す。
+		</p>
+              </td>
+            </tr>
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#tools.cygwin.radix.co.2"><span><img src="image/docbook/callouts/2.png" alt="2" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+			文字列 <code class="literal">F4240</code> が標準出力に表示される。
+			これが十進数 <code class="literal">1000000</code> の十六進数表現だ。
+		</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="tools.cygwin.seq"></a>2.3.2. 連番生成ツールとして利用</h3>
+            </div>
+          </div>
+        </div>
+        <a id="term.seq" class="indexterm"></a>
+        <p>
+	しばしば連番をテキストファイルにコメントしておきたい状況になる。
+	そういう場合にはエクセルを起動でも構わぬが、好みで <span class="command"><strong>seq</strong></span> を用いる。
+</p>
+        <pre class="screen"><code class="prompt">$ </code><strong class="userinput"><code>seq 4</code></strong> <a id="tools.cygwin.seq.co.1"></a><span><img src="image/docbook/callouts/1.png" alt="1" border="0" /></span>
+1
+2
+3
+4
+<code class="prompt">$ </code><strong class="userinput"><code>seq 10 3 20</code></strong> <a id="tools.cygwin.seq.co.2"></a><span><img src="image/docbook/callouts/2.png" alt="2" border="0" /></span>
+10
+13
+16
+19
+<code class="prompt">$ </code><strong class="userinput"><code>seq 0x3925 0x3C 0x3BFF | xargs printf "7E%04X\n"</code></strong> <a id="tools.cygwin.seq.co.3"></a><span><img src="image/docbook/callouts/3.png" alt="3" border="0" /></span>
+7E3925
+7E3961
+7E399D
+7E39D9
+… 省略
+7E3BF5
+</pre>
+        <div class="calloutlist">
+          <table border="0" summary="Callout list">
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#tools.cygwin.seq.co.1"><span><img src="image/docbook/callouts/1.png" alt="1" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+			<span class="command"><strong>seq</strong></span> に単一の整数 N を与えると、1 から N まで 1 ずつ増加する連番が得られる。
+		</p>
+              </td>
+            </tr>
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#tools.cygwin.seq.co.2"><span><img src="image/docbook/callouts/2.png" alt="2" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+			<span class="command"><strong>seq</strong></span> に3 つパラメータを渡す場合、それぞれの意味は FIRST, INCREMENT, LAST として処理される。
+		</p>
+              </td>
+            </tr>
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#tools.cygwin.seq.co.3"><span><img src="image/docbook/callouts/3.png" alt="3" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+			SFC 版ドラクエ 3 の通称 3925 構造体のアドレスを書きたくなって <span class="command"><strong>seq</strong></span> を利用したとする。
+			バンクは皆 $7E なので入力には含めず、出力書式に込めることにした。
+			勇者のアドレスが $7E3925 で、ルイーダの酒場にいる順番に <code class="literal">+$3C</code> ずつアドレスが増えていくので、
+			FIRST, INCREMENT パラメータは <code class="literal">0x3925</code>, <code class="literal">0x3C</code> を与えた。
+			LAST には最後の仲間のアドレスを指定するべきだが、それを計算するのが面倒なので、とりあえず値を指定しておく。
+		</p>
+                <p>
+			出力結果を十六進数で表示したいのだが、<span class="command"><strong>seq</strong></span> の書式指定オプションはそれをサポートしない。
+			よって、前項で説明した <span class="command"><strong>printf</strong></span> にパイプラインを作る。
+			仲間の人数がわかっていれば、<span class="command"><strong>head</strong></span> にさらなるパイプラインを作ってもよい。
+		</p>
+                <p>
+			<code class="literal">7E3925, 7E3961, …</code> と望みの結果が得られた。
+		</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="tools.cygwin.od"></a>2.3.3. 構造体データ配列をテキストダンプする</h3>
+            </div>
+          </div>
+        </div>
+        <a id="term.od" class="indexterm"></a>
+        <p>
+	ドラクエのスーファミ ROM イメージから、特定の構造体データ配列をすべてテキストダンプしたいことがある。
+	例えば、SFC 版ドラクエ 3 のモンスター構造体配列（<a class="xref" href="dq3_monster.html#dq3.monster.hack.C20000" title="5.4.1.1. $C20000 モンスター構造体">5.4.1.1 <code class="varname">$C20000</code> モンスター構造体</a>）を見たくなったとしよう。
+	まずは頭を使わずにコンソールから直接コマンドラインを入力してみよう。
+</p>
+        <pre class="screen"><code class="prompt">$ </code><strong class="userinput"><code>od --address-radix=x1 \ <a id="tools.cygwin.od.co.1"></a><span><img src="image/docbook/callouts/1.png" alt="1" border="0" /></span>
+    --skip-bytes=$(( 0x20000 )) \ <a id="tools.cygwin.od.co.2"></a><span><img src="image/docbook/callouts/2.png" alt="2" border="0" /></span>
+    --format=uC \ <a id="tools.cygwin.od.co.3"></a><span><img src="image/docbook/callouts/3.png" alt="3" border="0" /></span>
+    --read-bytes=$(( 0x25 * 0xA0 )) \ <a id="tools.cygwin.od.co.4"></a><span><img src="image/docbook/callouts/4.png" alt="4" border="0" /></span>
+    --output-duplicates \ <a id="tools.cygwin.od.co.5"></a><span><img src="image/docbook/callouts/5.png" alt="5" border="0" /></span>
+    --width=$(( 0x25 )) \ <a id="tools.cygwin.od.co.6"></a><span><img src="image/docbook/callouts/6.png" alt="6" border="0" /></span>
+    dq3.smc | sed -e '$d'</code></strong> <a id="tools.cygwin.od.co.7"></a><span><img src="image/docbook/callouts/7.png" alt="7" border="0" /></span>
+</pre>
+        <div class="calloutlist">
+          <table border="0" summary="Callout list">
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#tools.cygwin.od.co.1"><span><img src="image/docbook/callouts/1.png" alt="1" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+			<span class="command"><strong>od</strong></span> が出力するアドレスを十六進数で表示させるのオプション。
+		</p>
+              </td>
+            </tr>
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#tools.cygwin.od.co.2"><span><img src="image/docbook/callouts/2.png" alt="2" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+			モンスター配列の先頭のアドレスを <code class="option">--skip-bytes</code> オプションに渡す。
+		</p>
+              </td>
+            </tr>
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#tools.cygwin.od.co.3"><span><img src="image/docbook/callouts/3.png" alt="3" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+			ダンプを 1 バイト単位で行い、符合なし整数として解釈させる。
+		</p>
+              </td>
+            </tr>
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#tools.cygwin.od.co.4"><span><img src="image/docbook/callouts/4.png" alt="4" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+			読み込むことになる総バイト数。シェルに計算させた結果を渡す。
+			ここで <code class="literal">0xA0</code> はモンスター総数のつもりだ。
+		</p>
+              </td>
+            </tr>
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#tools.cygwin.od.co.5"><span><img src="image/docbook/callouts/5.png" alt="5" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+			これを指定しないと、同じデータが連続して表れた場合に省略されてしまう。
+		</p>
+              </td>
+            </tr>
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#tools.cygwin.od.co.6"><span><img src="image/docbook/callouts/6.png" alt="6" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+			モンスター構造体のサイズ。C/C++ で言うところの sizeof の値。
+		</p>
+              </td>
+            </tr>
+            <tr>
+              <td width="5%" valign="top" align="left">
+                <p><a href="#tools.cygwin.od.co.7"><span><img src="image/docbook/callouts/7.png" alt="7" border="0" /></span></a> </p>
+              </td>
+              <td valign="top" align="left">
+                <p>
+			ロムイメージファイル名を渡してダンプする。
+			最後の <span class="command"><strong>sed</strong></span> は、出力の最後の行がゴミなので、それを消しているだけだ。
+		</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <p>
+	構造体データ配列のダンプのたびに上記のような長いコマンドラインを入力するのは面倒なので、
+	通常はこれを不変部分と可変部分を分離してスクリプトにしておく。
+	具体的には、ロムイメージファイル、オフセット、sizeof 構造体、そして配列長が可変である。
+	これらはスクリプトの引数として指定できるようにしておけばよい。
+</p>
+        <p>
+	<span class="application">DisPel</span> の <code class="option">-d</code> オプションによるダンプの方が指定は楽なのだが、
+	<span class="command"><strong>od</strong></span> の <code class="option">--size</code> オプションに相当する値の上限がどうやら 255 らしいので、
+	キャラクターのレベルアップ構造体データ等の巨大なデータのダンプができない。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="tools.cygwin.wrapper"></a>2.3.4. DisPel のラッパースクリプトを書く</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+	特定の ROM イメージに対して <span class="application">DisPel</span> をコンソールから起動する作業を続けていると、
+	やがて位置オプションの指定が面倒なことに気付く。例えば SFC 版ドラクエ 3 の場合は
+	<code class="option">-h</code>, <code class="option">-s</code> は必ず指定するし、
+	古いバージョンの <span class="application">DisPel</span> を利用しているのならば、
+	ROM イメージは普通はヘッダを削っておくものだから <code class="option">-n</code> も指定する。
+	指定するたびに違う値になるのは、逆アセンブル範囲を示す部分だけだ。
+	そこで、以下のようにスクリプトを書いておき、<span class="command"><strong>dispel</strong></span> を直接利用するのではなく、
+	これを利用することにすると多少は楽だ。
+</p>
+        <pre class="programlisting">#!/bin/bash
+#
+# script: disdq3
+# example:
+#   disdq3 -b C2
+#   disdq3 -r C20000-C28000
+
+DISPEL=~/bin/dispel.exe
+ROM=~/data/dq3.smc
+
+# このスクリプトに渡されたすべてのコマンドライン引数を
+# DisPel にそのまま引き渡す
+#
+# DisPel のバージョンが v1 未満の場合は -n は不要となるので注意
+$DISPEL -n -h -s -p $* "$(cygpath -d $ROM)"
+</pre>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="tools_disasm.html" title="2.2. 逆アセンブラ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="tools.html" title="第 2 章 解析ツール"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="tools_editor.html" title="2.4. エディタ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="tools_disasm.html">2.2. 逆アセンブラ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="tools.html">第 2 章 解析ツール</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="tools_editor.html">2.4. エディタ</a></div>
+  </body>
+</html>

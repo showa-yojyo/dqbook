@@ -1,0 +1,2146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>3.3. 汎用データアクセスサブルーチン（仮）</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)" />
+    <link rel="prev" href="dq5_brk.html" title="3.2. 詳解 BRK 命令" />
+    <link rel="next" href="dq5_characters.html" title="3.4. 仲間キャラクター構造体" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq5_brk.html" title="3.2. 詳解 BRK 命令"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq5_characters.html" title="3.4. 仲間キャラクター構造体"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq5_brk.html">3.2. 詳解 BRK 命令</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq5.html">第 3 章 SFC 版ドラクエ 5 (1992)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq5_characters.html">3.4. 仲間キャラクター構造体</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq5.accessor"></a>3.3. 汎用データアクセスサブルーチン（仮）</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq5_accessor.html#dq5.accessor.abstract">3.3.1. 概要</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_accessor.html#dq5.accessor.dependencies">3.3.2. 依存関係</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_accessor.html#dq5.accessor.specification">3.3.3. 仕様</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq5_accessor.html#dq5.accessor.specification.functions">3.3.3.1. 機能表</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_accessor.html#dq5.accessor.specification.conditions">3.3.3.2. 全機能に共通する呼び出し事前条件と事後条件</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <p>
+この節ではサブルーチン <code class="varname">$218AFC</code> およびそれに依存する機能群の振る舞いを可能な限り詳細に説明する。
+最初にサブルーチン <code class="varname">$218AFC</code> がどのような機能を有するプログラム構成要素なのかをごく簡単に説明する。
+さらにこのサブルーチンを間接的に利用するプログラム構成要素について言及する。
+これにより、サブルーチン <code class="varname">$218AFC</code> の仕様を把握することの重要性が明らかになるだろう。
+最後に、本サブルーチンの筆者が独自に調査した仕様を簡易な図表にして示す。
+逆アセンブリコードの解読のお供にするなり、逆アセンブラーのポストプロセッサーに取り込むなりして利用していただきたい。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.accessor.abstract"></a>3.3.1. 概要</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+サブルーチン <code class="varname">$218AFC</code> はその機能や役割を文章で表現することが案外難しい。
+このサブルーチンを呼び出す状況次第で、その振る舞いの違いがあまりにも大きいからだ。
+まずは実際にこのサブルーチンが実行することができる機能について例を挙げておく。
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist" style="list-style-type: disc; ">
+            <li class="listitem">
+              <p>仲間一人の属性値を参照または更新</p>
+            </li>
+            <li class="listitem">
+              <p>戦闘時において、戦闘員一人の属性値を参照または更新</p>
+            </li>
+            <li class="listitem">
+              <p>仲間一人の所持品または装備品を参照、検索または変更</p>
+            </li>
+            <li class="listitem">
+              <p>仲間パーティーについて何らかの検索</p>
+            </li>
+            <li class="listitem">
+              <p>仲間パーティーの編成を参照または更新</p>
+            </li>
+            <li class="listitem">
+              <p>モンスター一種の属性値を参照</p>
+            </li>
+            <li class="listitem">
+              <p>預かり所の状態を参照または更新</p>
+            </li>
+            <li class="listitem">
+              <p>モンスターじいさんと仲間一体についての操作</p>
+            </li>
+            <li class="listitem">
+              <p>ルイーダの酒場とある仲間一人についての操作</p>
+            </li>
+            <li class="listitem">
+              <p>メダル王と取引するちいさなメダルについての操作</p>
+            </li>
+            <li class="listitem">
+              <p>カジノのコインについての操作</p>
+            </li>
+          </ul>
+        </div>
+        <p>
+このように用途が多岐に亘るので、汎用データアクセスサブルーチン（仮）と呼ぶことにする。
+用途が多いと必然的に利用箇所も多数あるわけだが、
+このサブルーチンは呼び出し目的が何であっても共通してあるアドレスの値をやりとりする仕組みになっている。
+プログラマーは定型的なコードが繰り返し現れるのをある程度は防ぎたいはずで、
+これを BRK 命令を拡張することで実現したと思われる。
+BRK 命令を介した実行についての詳細とその実例は <a class="xref" href="dq5_brk.html#dq5.brk.spec.80-93" title="3.2.3.4. オペランド #$80, ..., #$93: オブジェクトのフィールドにアクセス">3.2.3.4 オペランド <code class="literal">#$80</code>, ..., <code class="literal">#$93</code>: オブジェクトのフィールドにアクセス</a> で述べる。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.accessor.dependencies"></a>3.3.2. 依存関係</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+サブルーチン <code class="varname">$218AFC</code> の呼び出しに関する依存関係を簡単なアスキーアートで表現する。
+矢印の向きは依存する側から依存される側に向かうものとする。
+</p>
+        <pre class="programlisting">
+$21/8AFC
+  ← $21/8A9D: Long 型サブルーチン。未使用。
+  ← $21/8AC8: Long 型サブルーチン。未使用。
+  ← $21/8AF8: Long 型サブルーチン。
+     ← $00/8F80: BRK ハンドラー。
+</pre>
+        <p>
+JSL 命令で実行されるはずの二つのサブルーチン <code class="varname">$218A9D</code> および <code class="varname">$218AC8</code> については、
+独自の調査の結果で未使用ルーチンであると結論したため、説明を省く。
+</p>
+        <p>
+サブルーチン <code class="varname">$218AF8</code> はバンク内サブルーチンを任意のサブルーチンから呼び出せるようにするだけのラッパーであるので特別な説明を要しない。
+ただし、そのサブルーチンを利用する唯一の呼び出し元である BRK ハンドラー <code class="varname">$008F80</code> は被参照機会がとてつもなく多いため重要だ。
+これの呼び出しコードの意味を直ちに特定することができれば、逆アセンブリコードの解読が飛躍的に効率的になる。
+</p>
+        <p>
+次に反対側の呼び出し依存関係を示す。
+</p>
+        <pre class="programlisting">
+$21/8AFC
+  → $21/907C: この後管理するメモリを初期化する。
+  → $21/8B31: 対象メンバー ($39) を特定する。
+  → $21/8B82: この後操作するベースアドレス ($3A:) オフセット ($3D) サイズ ($3E) 実データ ($46:) をセットする。
+  → $21/8C3A: 目的 ($38) に応じた処理コードへジャンプする。
+</pre>
+        <p>
+最初の三つのサブルーチンはこれ以上の呼び出しを含まない。
+サブルーチン <code class="varname">$21907C</code> は作業用のメモリをゼロで初期化するだけのミニルーチンだ。
+特に <code class="varname">$46</code> から <code class="varname">$49</code> までがゼロになることに注意したい。
+</p>
+        <p>
+サブルーチン <code class="varname">$218B31</code> は主にアクセス対象のデータのベースアドレスを設定するためにある。
+つまり、オブジェクトサイズが N で、先頭から k 番目の仲間または敵についてのデータが欲しい場合には、
+このルーチンはアドレス <code class="varname">$39</code> にベースアドレスに値 <code class="code">N * k</code> を加算した値を格納する。
+</p>
+        <p>
+最後のサブルーチン <code class="varname">$218C3A</code> が難解で、
+固定ジャンプテーブルを参照することで目的 (<code class="varname">$38</code>) 別に定義されたコードを実行するようになっている。
+次節で図表にして示すことでコードの説明に代える。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.accessor.specification"></a>3.3.3. 仕様</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+まずサブルーチン <code class="varname">$218AFC</code> が間接的に参照するジャンプテーブルの各エントリーの振る舞いを図表にする。
+併せて、関連するデータ型をその格納アドレスに代表させて示す。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.accessor.specification.functions"></a>3.3.3.1. 機能表</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+機能 ID とその機能の概要を図表にしたものを次に示す。
+未使用分も含めると機能個数が <code class="literal">#$F6</code> すなわち 246 個もあるので厄介だ。
+図表の読み方は詳細に述べず、読者の感覚に委ねる。
+</p>
+          <div class="table">
+            <a id="table.dq5.accessor.functions"></a>
+            <p class="title">
+              <strong>表 3.9 サブルーチン機能一覧</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq5.accessor.functions" class="lighttable">
+                <thead>
+                  <tr>
+      <th>ID</th>
+      <th>ベース</th>
+      <th>オフセット</th>
+      <th>マスク</th>
+      <th>機能</th>
+      <th>備考</th>
+    </tr>
+                </thead>
+                <tbody>
+                  <tr><td align="right"><code class="literal">#$00</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>仲間::HP を参照する。</td><td>さらに $49 に非ゼロ情報をセット。</td></tr>
+                  <tr><td align="right"><code class="literal">#$01</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>仲間::HP を増加させる。</td><td>結果値は MHP を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$02</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>仲間::HP を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$03</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>仲間::HP をその MHP と同じ値とする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$04</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>仲間::HP をその MHP の半分の値とする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$05</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[0E:10]</code></td>              <td></td>                               <td>仲間::MHP を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$06</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[0E:10]</code></td>              <td></td>                               <td>仲間::MHP を増加させる。</td><td>結果値は 999 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$07</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[04:06]</code></td>              <td></td>                               <td>仲間::MP を参照する。</td><td>さらに $49 に非ゼロ情報をセット。</td></tr>
+                  <tr><td align="right"><code class="literal">#$08</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[04:06]</code></td>              <td></td>                               <td>仲間::MP を増加させる。</td><td>結果値は MMP を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$09</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[04:06]</code></td>              <td></td>                               <td>仲間::MP を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$0A</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[04:06]</code></td>              <td></td>                               <td>仲間::MP と指定値とを比較する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$0B</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[04:06]</code></td>              <td></td>                               <td>仲間::MP をゼロにする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$0C</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[04:06]</code></td>              <td></td>                               <td>仲間::MP をその MMP と同じ値とする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$0D</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[10:12]</code></td>              <td></td>                               <td>仲間::MMP を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$0E</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[10:12]</code></td>              <td></td>                               <td>仲間::MMP を増加させる。</td><td>結果値は 999 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$0F</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>仲間::攻撃力を評価する。</td><td>ちからと装備品から算出する。</td></tr>
+                  <tr><td align="right"><code class="literal">#$10</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>味方ワーク::攻撃力を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$11</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>味方ワーク::攻撃力を増加させる。</td><td>結果値は 511 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$12</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>味方ワーク::攻撃力を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$13</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>仲間::守備力を評価する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$14</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>味方ワーク::守備力を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$15</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>味方ワーク::守備力を増加させる。</td><td>結果値は 511 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$16</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>味方ワーク::守備力を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$17</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[06]</code></td>                 <td></td>                               <td>仲間::すばやさを評価する。</td><td>みのまもりと装備品から算出する。</td></tr>
+                  <tr><td align="right"><code class="literal">#$18</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[06]</code></td>                 <td></td>                               <td>仲間::すばやさを増加させる。</td><td>結果値は 255 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$19</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[04]</code></td>                 <td></td>                               <td>味方ワーク::すばやさを評価する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$1A</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[04]</code></td>                 <td></td>                               <td>味方ワーク::すばやさを増加させる。</td><td>結果値は 255 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$1B</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[04]</code></td>                 <td></td>                               <td>味方ワーク::すばやさを減少させる。</td><td>結果値は 0 を下限とする。未使用。</td></tr>
+                  <tr><td align="right"><code class="literal">#$1C</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[07]</code></td>                 <td></td>                               <td>仲間::ちからを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$1D</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[07]</code></td>                 <td></td>                               <td>仲間::ちからを増加させる。</td><td>結果値は 255 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$1E</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[08]</code></td>                 <td></td>                               <td>仲間::みのまもりを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$1F</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[08]</code></td>                 <td></td>                               <td>仲間::みのまもりを増加させる。</td><td>結果値は 255 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$20</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[09]</code></td>                 <td></td>                               <td>仲間::かしこさを評価する。</td><td>かしこさと装備品から算出する。</td></tr>
+                  <tr><td align="right"><code class="literal">#$21</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[09]</code></td>                 <td></td>                               <td>仲間::かしこさを増加させる。</td><td>結果値は 255 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$22</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[0A]</code></td>                 <td></td>                               <td>仲間::うんのよさを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$23</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[0A]</code></td>                 <td></td>                               <td>仲間::うんのよさを増加させる。</td><td>結果値は 255 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$24</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[0B:0E]</code></td>              <td></td>                               <td>仲間::けいけんちを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$25</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[0B:0E]</code></td>              <td></td>                               <td>仲間::けいけんちを増加させる。</td><td>結果値は 10000000 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$26</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[26:29]</code></td>              <td></td>                               <td>仲間::次のレベル到達時の経験値を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$27</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[12]</code></td>                 <td></td>                               <td>仲間::レベルを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$28</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[13]</code></td>                 <td></td>                               <td>仲間::レベル最大値を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$29</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[12]</code></td>                 <td></td>                               <td>仲間::レベルを 1 だけ増加させる。</td><td>結果値はレベル最大値を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$2A</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>仲間::ID を参照する。</td><td>ビット列である。</td></tr>
+                  <tr><td align="right"><code class="literal">#$2B</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[00]</code></td>                 <td><code class="literal">#$3F</code></td>        <td>指定オブジェクトの名前を得る。</td><td>キャラクターの名前以外にも利用できる。</td></tr>
+                  <tr><td align="right"><code class="literal">#$2C</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[00]</code></td>                 <td><code class="literal">#$3F</code></td>        <td>仲間::性別かモンスターを参照する。</td><td>戦闘時混乱行動にしか影響しない。</td></tr>
+                  <tr><td align="right"><code class="literal">#$2D</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[22]</code></td>                 <td></td>                               <td>仲間::職業かモンスターを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$2E</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>仲間::所持品と装備状態を得る。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$2F</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>仲間の所持品と装備品を数える。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$30</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>対象者とアイテムを指定して、仲間の所持品とする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$31</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>対象者とアイテムを指定して、仲間の所持品から取り除く。</td><td>貴重品を考慮する。</td></tr>
+                  <tr><td align="right"><code class="literal">#$32</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>対象者とアイテムを指定して、仲間の所持品から取り除く。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$33</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>対象者とアイテムを指定して、仲間の所持位置と装備状態を得る。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$34</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>対象者とアイテム位置を指定して、仲間に装備させる。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$35</code></td><td align="right"><code class="varname">*      </code></td><td align="left"><code class="code">*</code></td>                    <td></td>                               <td>*</td><td>一回だけ（みなごろしのけん）</td></tr>
+                  <tr><td align="right"><code class="literal">#$36</code></td><td align="right"><code class="varname">*      </code></td><td align="left"><code class="code">*</code></td>                    <td></td>                               <td>*</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$37</code></td><td align="right"><code class="varname">*      </code></td><td align="left"><code class="code">*</code></td>                    <td></td>                               <td>*</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$38</code></td><td align="right"><code class="varname">*      </code></td><td align="left"><code class="code">*</code></td>                    <td></td>                               <td>*</td><td>一回だけ（てんくうのかぶと）</td></tr>
+                  <tr><td align="right"><code class="literal">#$39</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>対象者を指定して、仲間が武器をいくつ所持しているかを数える。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$3A</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>対象者を指定して、仲間が防具をいくつ所持しているかを数える。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$3B</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>対象者を指定して、仲間が盾をいくつ所持しているかを数える。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$3C</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>対象者を指定して、仲間が兜をいくつ所持しているかを数える。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$3D</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>仲間::主要装備品を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$3E</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[01]</code></td>                 <td>指定</td>                           <td>仲間::状態を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$3F</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[01]</code></td>                 <td>指定</td>                           <td>仲間::状態をセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$40</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[01]</code></td>                 <td>指定</td>                           <td>仲間::状態をリセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$41</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[05]</code></td>                 <td>指定</td>                           <td>味方ワーク::状態を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$42</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[05]</code></td>                 <td>指定</td>                           <td>味方ワーク::状態をセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$43</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[05]</code></td>                 <td>指定</td>                           <td>味方ワーク::状態をリセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$44</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[05]</code></td>                 <td>指定</td>                           <td>味方ワーク::状態カウンターを 1 だけ減少させる。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$45</code></td><td align="right"><code class="varname">$7E201D</code></td><td align="left">n/a</td>                               <td></td>                               <td>指定する状態のパーティーメンバーを数える。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$46</code></td><td align="right"><code class="varname">$7E201D</code></td><td align="left">n/a</td>                               <td></td>                               <td>指定する状態のパーティーメンバーを検索する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$47</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left">n/a</td>                               <td></td>                               <td>パーティーメンバーを加える。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$48</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left">n/a</td>                               <td></td>                               <td>パーティーメンバーを外す。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$49</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[19:1C]</code></td>              <td></td>                               <td>所持金を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$4A</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[19:1C]</code></td>              <td></td>                               <td>所持金を増加させる。</td><td>結果値は 99999 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$4B</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[19:1C]</code></td>              <td></td>                               <td>所持金を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$4C</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[30:33]</code></td>              <td></td>                               <td>ルーラで行ける地点を数える。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$4D</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[30:33]</code></td>              <td></td>                               <td>ルーラで行ける地点があるか調べる。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$4E</code></td><td align="right"><code class="varname">$7E2033</code></td><td align="left"></td>                                  <td><code class="literal">#$7F</code></td>        <td>調査中。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$4F</code></td><td align="right"><code class="varname">$7E2034</code></td><td align="left"></td>                                  <td></td>                               <td>さくせんを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$50</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>敵方ワーク::HP を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$51</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>敵方ワーク::HP を増加させる。</td><td>結果値は MHP を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$52</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>敵方ワーク::HP を減少させる。</td><td>結果値は 0 を下限とする。マジックナンバーを考慮する。</td></tr>
+                  <tr><td align="right"><code class="literal">#$53</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>敵方ワーク::HP をその MHP と同じ値とする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$54</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>敵方ワーク::HP をその MHP の半分の値とする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$55</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[03]</code></td>                 <td></td>                               <td>敵方メンバーの MHP を評価する。</td><td>マジックナンバーやモシャスを考慮。</td></tr>
+                  <tr><td align="right"><code class="literal">#$56</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[04]</code></td>                 <td></td>                               <td>敵方ワーク::MP を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$57</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[04]</code></td>                 <td></td>                               <td>敵方ワーク::MP を増加させる。</td><td>結果値は 254 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$58</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[04]</code></td>                 <td></td>                               <td>敵方ワーク::MP を減少させる。</td><td>結果値は 0 を下限とする。マジックナンバーを考慮する。</td></tr>
+                  <tr><td align="right"><code class="literal">#$59</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[04]</code></td>                 <td></td>                               <td>敵方ワーク::MP と指定値とを比較する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$5A</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[04]</code></td>                 <td></td>                               <td>敵方ワーク::MP をその MMP と同じ値とする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$5B</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[04]</code></td>                 <td></td>                               <td>モンスター::MMP を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$5C</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[05]</code></td>                 <td></td>                               <td>敵方ワーク::すばやさを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$5D</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[05]</code></td>                 <td></td>                               <td>敵方ワーク::すばやさを増加させる。</td><td>結果値は 255 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$5E</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[05]</code></td>                 <td></td>                               <td>敵方ワーク::すばやさを減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$5F</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>モンスター::すばやさを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$60</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[06:08]</code></td>              <td></td>                               <td>敵方ワーク::攻撃力を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$61</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[06:08]</code></td>              <td></td>                               <td>敵方ワーク::攻撃力を増加させる。</td><td>結果値は 2047 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$62</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[06:08]</code></td>              <td></td>                               <td>敵方ワーク::攻撃力を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$63</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[01]</code></td>                 <td><code class="literal">#$80</code></td>        <td>モンスター::攻撃力を参照する。</td><td>攻撃力の 256 の位の値は <code class="code">[08]</code> にある。</td></tr>
+                  <tr><td align="right"><code class="literal">#$64</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[08:0A]</code></td>              <td></td>                               <td>敵方ワーク::守備力を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$65</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[08:0A]</code></td>              <td></td>                               <td>敵方ワーク::守備力を増加させる。</td><td>結果値は 2047 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$66</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[08:0A]</code></td>              <td></td>                               <td>敵方ワーク::守備力を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$67</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[02]</code></td>                 <td></td>                               <td>敵方メンバーの守備力を評価する。</td><td>マジックナンバーを考慮する。</td></tr>
+                  <tr><td align="right"><code class="literal">#$68</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[08]</code></td>                 <td><code class="literal">#$03</code></td>        <td>モンスター::コマンド選択制約を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$69</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[0A]</code></td>                 <td><code class="literal">#$E0</code></td>        <td>モンスター::コマンド選択アルゴリズムを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$6A</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[11]</code></td>                 <td></td>                               <td>モンスター::戦闘コマンドを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$6B</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[0B]</code></td>                 <td><code class="literal">#$C0</code></td>        <td>モンスター::複数回攻撃を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$6C</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[0A]</code></td>                 <td><code class="literal">#$18</code></td>        <td>モンスター::自動回復を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$6D</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[0C]</code></td>                 <td><code class="literal">#$40</code></td>        <td>モンスター::集中攻撃を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$6E</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[08]</code></td>                 <td><code class="literal">#$30</code></td>        <td>モンスター::みかわしを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$6F</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[0C]</code></td>                 <td>指定</td>                           <td>モンスター::状態を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$70</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[0C]</code></td>                 <td><code class="literal">#$80</code></td>        <td>モンスター::初期状態を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$71</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[09]</code></td>                 <td><code class="literal">#$C0</code></td>        <td>モンスター::初期状態適用確率を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$72</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[05:07]</code></td>              <td></td>                               <td>モンスター::経験値を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$73</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[07:09]</code></td>              <td></td>                               <td>モンスター::ゴールドを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$74</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[09]</code></td>                 <td><code class="literal">#$38</code></td>        <td>モンスター::アイテム確率を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$75</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[17]</code></td>                 <td></td>                               <td>モンスター::アイテムを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$76</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[09]</code></td>                 <td><code class="literal">#$07</code></td>        <td>モンスター::仲間確率を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$77</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[18]</code></td>                 <td><code class="literal">#$7F</code></td>        <td>モンスター::仲間モンスターを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$78</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>敵方ワーク::IDを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$79</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[0A]</code></td>                 <td>指定</td>                           <td>敵方ワーク::状態を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$7A</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[0A]</code></td>                 <td>指定</td>                           <td>敵方ワーク::状態を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$7B</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[0A]</code></td>                 <td>指定</td>                           <td>敵方ワーク::状態をリセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$7C</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[0A]</code></td>                 <td>指定</td>                           <td>敵方ワーク::状態カウンターを 1 だけ減少させる。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$7D</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[01]</code></td>                 <td><code class="literal">#$03</code></td>        <td>敵方ワーク::敵グループを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$7E</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[01]</code></td>                 <td><code class="literal">#$BC</code></td>        <td>敵方ワーク::敵位置を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$7F</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>主人公等を初期化する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$80</code></td><td align="right"><code class="varname">$7E2035</code></td><td align="left"></td>                                  <td><code class="literal">#$07</code></td>        <td>ひょうじそくどを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$81</code></td><td align="right"><code class="varname">$7E2034</code></td><td align="left"></td>                                  <td></td>                               <td>さくせんをセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$82</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>移動時呪文と消費 MP を参照する。</td><td>対象アドレスを別途算出。</td></tr>
+                  <tr><td align="right"><code class="literal">#$83</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>移動時呪文特技を参照する。</td><td>対象アドレスを別途算出。</td></tr>
+                  <tr><td align="right"><code class="literal">#$84</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>習得済移動時呪文の個数を得る。</td><td>対象アドレスを別途算出。</td></tr>
+                  <tr><td align="right"><code class="literal">#$85</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>戦闘時呪文と消費 MP を参照する。</td><td>対象アドレスを別途算出。</td></tr>
+                  <tr><td align="right"><code class="literal">#$86</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>戦闘時呪文特技の個数を得る。</td><td>対象アドレスを別途算出。</td></tr>
+                  <tr><td align="right"><code class="literal">#$87</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>習得済戦闘時呪文特技の個数を得る。</td><td>対象アドレスを別途算出。</td></tr>
+                  <tr><td align="right"><code class="literal">#$88</code></td><td align="right"><code class="varname">$7E2035</code></td><td align="left"></td>                                  <td></td>                               <td>ひょうじそくどをセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$89</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[14:16]</code></td>              <td></td>                               <td>対象者とアイテム位置を指定して、仲間の装備を外す。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$8A</code></td><td align="right"><code class="varname">$7E2020</code></td><td align="left"></td>                                  <td></td>                               <td>調査中。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$8B</code></td><td align="right"><code class="varname">$23AED1</code></td><td align="left"><code class="code">[08]</code></td>                 <td><code class="literal">#$0F</code></td>        <td>仲間モンスター::装備クラスを参照する。</td><td>未使用？</td></tr>
+                  <tr><td align="right"><code class="literal">#$8C</code></td><td align="right"><code class="varname">$23AED1</code></td><td align="left"><code class="code">[08]</code></td>                 <td></td>                               <td>これはナンセンス。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$8D</code></td><td align="right"><code class="varname">$23AED1</code></td><td align="left"><code class="code">[01]</code></td>                 <td><code class="literal">#$7F</code></td>        <td>仲間モンスター::レベル最大値を参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$8E</code></td><td align="right"><code class="varname">$7E201D</code></td><td align="left"></td>                                  <td></td>                               <td>アイテムをパーティーの誰かの所持品に追加する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$8F</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[0A]</code></td>                 <td></td>                               <td>調査中。</td><td>なぜか二度連続して呼ぶ。</td></tr>
+                  <tr><td align="right"><code class="literal">#$90</code></td><td align="right"><code class="varname">$7E201C</code></td><td align="left"></td>                                  <td></td>                               <td>アイテムをパーティーの所持品から検索する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$91</code></td><td align="right"><code class="varname">$7E201C</code></td><td align="left"></td>                                  <td><code class="literal">#$C0</code></td>        <td>馬車利用可か調べる。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$92</code></td><td align="right"><code class="varname">$7E201C</code></td><td align="left"></td>                                  <td><code class="literal">#$C0</code></td>        <td>馬車利用可とする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$93</code></td><td align="right"><code class="varname">$7E201C</code></td><td align="left"></td>                                  <td><code class="literal">#$3F</code></td>        <td>調査中。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$94</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[19:1C]</code></td>              <td></td>                               <td>所持金に指定額だけ増加させられるか調べる。</td><td>結果値は 99999 を上限とする。未使用。</td></tr>
+                  <tr><td align="right"><code class="literal">#$95</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[01]</code></td>                 <td>#03</td>                            <td>仲間::状態をリセットする。</td><td>未使用？</td></tr>
+                  <tr><td align="right"><code class="literal">#$96</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[01]</code></td>                 <td>#03</td>                            <td>仲間::状態をセットする。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$97</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[3A:3C]</code></td>              <td></td>                               <td>預かり所::預金額を参照する。</td><td>1000G 単位。</td></tr>
+                  <tr><td align="right"><code class="literal">#$98</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[3A:3C]</code></td>              <td></td>                               <td>預かり所::預金額に指定額だけ増加させられるか調べる。</td><td>1000G を単位として結果値は 1000 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$99</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[3A:3C]</code></td>              <td></td>                               <td>預かり所::預金額を増加させる。</td><td>1000G を単位として結果値は 1000 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$9A</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[3A:3C]</code></td>              <td></td>                               <td>預かり所::預金額を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$9B</code></td><td align="right"><code class="varname">$7E2250</code></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫数を得る（ぶき）。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$9C</code></td><td align="right"><code class="varname">$7E2250</code></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫数を得る（ぼうぐ）。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$9D</code></td><td align="right"><code class="varname">$7E2250</code></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫数を得る（どうぐ）。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$9E</code></td><td align="right"><code class="varname">$7E2250</code></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫を増やせるか調べる。</td><td>結果値は 99 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$9F</code></td><td align="right"><code class="varname">$7E2250</code></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫を 1 だけ増やす。</td><td>結果値は 99 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$A0</code></td><td align="right"><code class="varname">$7E2250</code></td><td align="left"></td>                                  <td></td>                               <td>預かり所::アイテムと在庫数を得る（ぶき）。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$A1</code></td><td align="right"><code class="varname">$7E2250</code></td><td align="left"></td>                                  <td></td>                               <td>預かり所::アイテムと在庫数を得る（ぼうぐ）。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$A2</code></td><td align="right"><code class="varname">$7E2250</code></td><td align="left"></td>                                  <td></td>                               <td>預かり所::アイテムと在庫数を得る（どうぐ）。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$A3</code></td><td align="right"><code class="varname">$7E2250</code></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫を 1 だけ減らす（ぶき）。</td><td>結果値は 0 を下限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$A4</code></td><td align="right"><code class="varname">$7E2250</code></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫を 1 だけ減らす（ぼうぐ）。</td><td>結果値は 0 を下限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$A5</code></td><td align="right"><code class="varname">$7E2250</code></td><td align="left"></td>                                  <td></td>                               <td>預かり所::在庫を 1 だけ減らす（どうぐ）。</td><td>結果値は 0 を下限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$A6</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>じいさんに預けてある仲間モンスターの頭数を数える。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$A7</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>じいさんに預けてある仲間モンスターがいるか調べる。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$A8</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>じいさんに仲間モンスターを送る。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$A9</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"></td>                                  <td></td>                               <td>じいさんから仲間モンスターを引き取る。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$AA</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>同一種モンスター仲間数というデータを更新する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$AB</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[00]</code></td>                 <td><code class="literal">#$3F</code></td>        <td>預けたモンスター::名前を得る。</td><td>文字列の出力先は $00:$10 とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$AC</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[00]</code></td>                 <td><code class="literal">#$7F</code></td>        <td>預けたモンスター::レベルを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$AD</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[01]</code></td>                 <td><code class="literal">#$80</code></td>        <td>預けたモンスター::生存状態を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$AE</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[0B:0E]</code></td>              <td></td>                               <td>預けたモンスター::けいけんちを参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$AF</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>預けたモンスター::HP を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$B0</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[04:06]</code></td>              <td></td>                               <td>預けたモンスター::MP を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$B1</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[0E:10]</code></td>              <td></td>                               <td>預けたモンスター::MHP を参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$B2</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[10:12]</code></td>              <td></td>                               <td>預けたモンスター::MMP を参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$B3</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[06]</code></td>                 <td></td>                               <td>預けたモンスター::すばやさを参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$B4</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[07]</code></td>                 <td></td>                               <td>預けたモンスター::ちからを参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$B5</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[08]</code></td>                 <td></td>                               <td>預けたモンスター::みのまもりを参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$B6</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[09]</code></td>                 <td></td>                               <td>預けたモンスター::かしこさを参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$B7</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[0A]</code></td>                 <td></td>                               <td>預けたモンスター::うんのよさを参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$B8</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>預けたモンスター::モンスターを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$B9</code></td><td align="right"><code class="varname">$7E2332</code></td><td align="left"><code class="code">[14:18]</code></td>              <td></td>                               <td>預けたモンスター::装備品を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$BA</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>ルイーダに預けてある仲間の人数を数える。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$BB</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>ルイーダに預けてある仲間がいるか調べる。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$BC</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>ルイーダに仲間を送る。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$BD</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"></td>                                  <td></td>                               <td>ルイーダから仲間を引き取る。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$BE</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[00]</code></td>                 <td><code class="literal">#$3F</code></td>        <td>預けた人間::名前を得る。</td><td>文字列の出力先は $00:$10 とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$BF</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[12]</code></td>                 <td><code class="literal">#$7F</code></td>        <td>預けた人間::レベルを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$C0</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[01]</code></td>                 <td><code class="literal">#$80</code></td>        <td>預けた人間::生存状態を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$C1</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[0B:0E]</code></td>              <td></td>                               <td>預けた人間::けいけんちを参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$C2</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[02:04]</code></td>              <td></td>                               <td>預けた人間::HP を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$C3</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[04:06]</code></td>              <td></td>                               <td>預けた人間::MP を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$C4</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[0E:10]</code></td>              <td></td>                               <td>預けた人間::MHP を参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$C5</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[10:12]</code></td>              <td></td>                               <td>預けた人間::MMP を参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$C6</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[06]</code></td>                 <td></td>                               <td>預けた人間::すばやさを参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$C7</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[07]</code></td>                 <td></td>                               <td>預けた人間::ちからを参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$C8</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[08]</code></td>                 <td></td>                               <td>預けた人間::みのまもりを参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$C9</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[09]</code></td>                 <td></td>                               <td>預けた人間::かしこさを参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$CA</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[0A]</code></td>                 <td></td>                               <td>預けた人間::うんのよさを参照する。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$CB</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[18]</code></td>                 <td></td>                               <td>預けた人間::肩書を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$CC</code></td><td align="right"><code class="varname">$7E294A</code></td><td align="left"><code class="code">[16:1A]</code></td>              <td></td>                               <td>これはナンセンス。</td><td>未使用</td></tr>
+                  <tr><td align="right"><code class="literal">#$CD</code></td><td align="right"><code class="varname">$7E2250</code></td><td align="left"></td>                                  <td></td>                               <td>指定アイテムの預かり所::在庫を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$CE</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[05:09]</code></td>              <td></td>                               <td>味方ワーク::状態ビット列を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$CF</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[09]</code></td>                 <td></td>                               <td>味方ワーク::状態ビット列を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$D0</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[0A:0E]</code></td>              <td></td>                               <td>敵方ワーク::状態ビット列を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$D1</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[0E:10]</code></td>              <td></td>                               <td>敵方ワーク::状態ビット列を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$D2</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[23:26]</code></td>              <td></td>                               <td>仲間::習得済コマンドをセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$D3</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[3F]</code></td>                 <td></td>                               <td>メダル王::ちいさなメダルを数える。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$D4</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[3F]</code></td>                 <td></td>                               <td>メダル王::ちいさなメダルの枚数を 1 だけ増やす。</td><td>結果値は 255 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$D5</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[3F]</code></td>                 <td></td>                               <td>メダル王::ちいさなメダルの枚数を減らす。</td><td>結果値は 0 を下限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$D6</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[26:29]</code></td>              <td></td>                               <td>仲間::次のレベル到達時の経験値をセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$D7</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[3C:3F]</code></td>              <td></td>                               <td>カジノ::コイン枚数を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$D8</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[3C:3F]</code></td>              <td></td>                               <td>カジノ::コイン枚数を指定分増やせるかどうか調べる。</td><td>結果値は 9999999 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$D9</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[3C:3F]</code></td>              <td></td>                               <td>カジノ::コイン枚数を増加させる。</td><td>結果値は 9999999 を上限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$DA</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[3C:3F]</code></td>              <td></td>                               <td>カジノ::コイン枚数を減少させる。</td><td>結果値は 0 を下限とする。</td></tr>
+                  <tr><td align="right"><code class="literal">#$DB</code></td><td align="right"><code class="varname">$7E201D</code></td><td align="left"></td>                                  <td></td>                               <td>パーティーメンバーを検索する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$DC</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[08]</code></td>                 <td><code class="literal">#$03</code></td>        <td>モンスター::コマンド選択制約を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$DD</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[0A]</code></td>                 <td><code class="literal">#$E0</code></td>        <td>モンスター::コマンド選択アルゴリズムを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$DE</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[11]</code></td>                 <td></td>                               <td>モンスター::戦闘コマンドを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$DF</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[0C]</code></td>                 <td>指定</td>                           <td>モンスター::耐性を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$E0</code></td><td align="right"><code class="varname">$7E201D</code></td><td align="left"></td>                                  <td></td>                               <td>パーティー情報 <code class="code">$7E201F = $7E201E; $7E2028,X = $7E2020,X</code></td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$E1</code></td><td align="right"><code class="varname">$7E201D</code></td><td align="left"></td>                                  <td></td>                               <td>パーティー情報 <code class="code">$7E201E = $7E201F; $7E2020,X = $7E2028,X</code></td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$E2</code></td><td align="right"><code class="varname">$7E201D</code></td><td align="left"></td>                                  <td></td>                               <td>パーティーを馬車外でソートする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$E3</code></td><td align="right"><code class="varname">$7E201D</code></td><td align="left"></td>                                  <td></td>                               <td>パーティーの先頭をセットする。</td><td>パパスが多い。</td></tr>
+                  <tr><td align="right"><code class="literal">#$E4</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[29]</code></td>                 <td></td>                               <td>仲間::キャラクターフラグを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$E5</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[29]</code></td>                 <td></td>                               <td>仲間::キャラクターフラグをセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$E6</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[25]</code></td>                 <td><code class="literal">#$F0</code></td>        <td>仲間::最近使った戦闘コマンドを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$E7</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[25]</code></td>                 <td><code class="literal">#$F0</code></td>        <td>仲間::最近使った戦闘コマンドをセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$E8</code></td><td align="right"><code class="varname">$7E2040</code></td><td align="left"><code class="code">[22]</code></td>                 <td></td>                               <td>仲間::職業・肩書・モンスターをセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$E9</code></td><td align="right"><code class="varname">$7E201D</code></td><td align="left"></td>                                  <td></td>                               <td>指定メンバーがパーティーの何番目か調べる。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$EA</code></td><td align="right"><code class="varname">$7E201D</code></td><td align="left"></td>                                  <td></td>                               <td><code class="varname">$42,X</code> から値 <code class="varname">$4A</code> を除外して <code class="varname">$7E2020,X</code> に <code class="function">remove_copy</code> する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$EB</code></td><td align="right"><code class="varname">$7E201D</code></td><td align="left"></td>                                  <td></td>                               <td>パーティーからメンバーを外す（簡易版）。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$EC</code></td><td align="right"><code class="varname">$7E201D</code></td><td align="left"></td>                                  <td></td>                               <td>パーティーにメンバーを加える（簡易版）。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$ED</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[30:33]</code></td>              <td></td>                               <td>ルーラで行ける地点をセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$EE</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[00]</code></td>                 <td></td>                               <td>敵方ワーク::ID をセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$EF</code></td><td align="right"><code class="varname">$000760</code></td><td align="left"><code class="code">[05]</code></td>                 <td></td>                               <td>調査中。</td><td>なぜか二度連続して呼ぶ。</td></tr>
+                  <tr><td align="right"><code class="literal">#$F0</code></td><td align="right"><code class="varname">$7E2000</code></td><td align="left"><code class="code">[3C:3F]</code></td>              <td></td>                               <td>カジノ::コイン枚数をセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$F1</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[0B]</code></td>                 <td><code class="literal">#$C0</code></td>        <td>モンスター::複数回攻撃を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$F2</code></td><td align="right"><code class="varname">$238000</code></td><td align="left"><code class="code">[08]</code></td>                 <td><code class="literal">#$30</code></td>        <td>モンスター::みかわしを参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$F3</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[0F]</code></td>                 <td><code class="literal">#$0F</code></td>        <td>敵方ワーク::モシャス対象をセットする。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$F4</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[0F]</code></td>                 <td><code class="literal">#$07</code></td>        <td>敵方ワーク::モシャス対象を参照する。</td><td></td></tr>
+                  <tr><td align="right"><code class="literal">#$F5</code></td><td align="right"><code class="varname">$0007C0</code></td><td align="left"><code class="code">[04]</code></td>                 <td></td>                               <td>敵方ワーク::MP をセットする。</td><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+<code class="varname">$0007C0</code>, <code class="varname">$0007C0</code> 各構造体については
+<a class="xref" href="dq5_combatants.html" title="3.5. 戦闘キャラクター構造体">3.5 戦闘キャラクター構造体</a> を、
+<code class="varname">$7E2040</code>, <code class="varname">$7E2332</code>, <code class="varname">$7E294A</code> 各構造体については
+<a class="xref" href="dq5_characters.html" title="3.4. 仲間キャラクター構造体">3.4 仲間キャラクター構造体</a> をそれぞれ参照して欲しい。
+</p>
+          <p>
+フラグ等のアクセス対象がビット単位で構成されるデータの場合は、
+次の表に基づき <code class="varname">$43</code> を用いて指示する。
+</p>
+          <div class="table">
+            <a id="table.dq5.2191F9"></a>
+            <p class="title">
+              <strong>表 3.10 ビット単位データアクセスのための指定表</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq5.2191F9" class="lighttable">
+                <thead>
+                  <tr>
+      <th>ID</th>
+      <th>ベース</th>
+      <th>オフセット</th>
+      <th>マスク</th>
+      <th>属性</th>
+    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>不明</td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FF</code>
+                    </td>
+                    <td>未使用</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="varname">$7E2041</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$80</code>
+                    </td>
+                    <td>生存フラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="varname">$7E2041</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$40</code>
+                    </td>
+                    <td>マヒフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="varname">$7E2041</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$20</code>
+                    </td>
+                    <td>どくフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="varname">$7E2041</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>もうどくフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="varname">$7E2041</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>HP を呪われているフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="varname">$7E2041</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>MP を呪われているフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="varname">$7E2041</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>未使用</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$80</code>
+                    </td>
+                    <td>ラリホーフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$40</code>
+                    </td>
+                    <td>おたけびフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$20</code>
+                    </td>
+                    <td>メダパニフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0B</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>マホトーンフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>マヌーサフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0D</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>フバーハフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0E</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>なめまわしフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0F</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>マホキテフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$80</code>
+                    </td>
+                    <td>バイキルトフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$11</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$40</code>
+                    </td>
+                    <td>マホカンタフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$12</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$20</code>
+                    </td>
+                    <td>モシャスフラグ（仲間にはない）</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$13</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>ドラゴラムフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$14</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>ちからため・きあいためフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$15</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>さそうおどりフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$16</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>ぼうぎょ | ぼうぎょ２</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$17</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>ぼうぎょフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$18</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>ぼうぎょ２フラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$19</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$80</code>
+                    </td>
+                    <td>ぶきみなひかりフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$1A</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$40</code>
+                    </td>
+                    <td>みなぎるフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$1B</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$20</code>
+                    </td>
+                    <td>はやぶさフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$1C</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>すなけむりフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$1D</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>時間停止カウンター</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$1E</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>まぶしいひかりカウンター</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$1F</code>
+                    </td>
+                    <td>
+                      <code class="varname">$000765</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$80</code>
+                    </td>
+                    <td>あしばらいフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$20</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$30</code>
+                    </td>
+                    <td>ラリホーカウンター</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$21</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>ルカニ・スカラフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$22</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>頭を呪われているフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$23</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>調査中</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$24</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>動きを呪われているフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$25</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[04]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$80</code>
+                    </td>
+                    <td>着ているものを脱いでいるフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$26</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[04]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$70</code>
+                    </td>
+                    <td>調査中</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$27</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[04]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$0F</code>
+                    </td>
+                    <td>コマンドカウンター</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$28</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$80</code>
+                    </td>
+                    <td>いなくなったフラグ？</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$29</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$40</code>
+                    </td>
+                    <td>生存フラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$2A</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$20</code>
+                    </td>
+                    <td>マヒフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$2B</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>どくフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$2C</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>経験値ゴールドを無視フラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$2D</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>アストロンフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$2E</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>こおりついてうごけないフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$2F</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>みぶるいフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$30</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$80</code>
+                    </td>
+                    <td>ラリホーフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$31</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$40</code>
+                    </td>
+                    <td>おどろきすくみフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$32</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$20</code>
+                    </td>
+                    <td>メダパニフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$33</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>マホトーンフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$34</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>マヌーサフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$35</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>エサかじりフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$36</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>もうどくフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$37</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>マホキテフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$38</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$80</code>
+                    </td>
+                    <td>バイキルトフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$39</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$40</code>
+                    </td>
+                    <td>マホカンタフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$3A</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$20</code>
+                    </td>
+                    <td>モシャスフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$3B</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>ドラゴラムフラグ（敵にはない）</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$3C</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>ちからためフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$3D</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>おどりやすみフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$3E</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>ぼうぎょ | ぼうぎょ２</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$3F</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>ぼうぎょフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$40</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>ぼうぎょ２フラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$41</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$80</code>
+                    </td>
+                    <td>ぶきみなひかりフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$42</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$40</code>
+                    </td>
+                    <td>みなぎるフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$43</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$20</code>
+                    </td>
+                    <td>はやぶさフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$44</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>調査中</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$45</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>時間停止カウンター</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$46</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>まぶしいひかりカウンター</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$47</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[04]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$80</code>
+                    </td>
+                    <td>馬車ドア閉めフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$48</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[04]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$70</code>
+                    </td>
+                    <td>コマンドカウンター</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$49</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[04]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>ルカニ・スカラフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$4A</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[04]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>頭を呪われているフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$4B</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[04]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>調査中</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$4C</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[04]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>動きを呪われているフラグ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$4D</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[05]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$C0</code>
+                    </td>
+                    <td>アストロンカウンター</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$4E</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[05]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$30</code>
+                    </td>
+                    <td>ラリホーカウンター</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$4F</code>
+                    </td>
+                    <td>
+                      <code class="varname">$0007C0</code>
+                    </td>
+                    <td>
+                      <code class="code">[05]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$0F</code>
+                    </td>
+                    <td>モシャス対象</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$50</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$30</code>
+                    </td>
+                    <td>メラ系に対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$51</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>ギラ系に対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$52</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[00]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>イオ系に対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$53</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$C0</code>
+                    </td>
+                    <td>ヒャド系に対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$54</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$30</code>
+                    </td>
+                    <td>バギ系に対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$55</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>デイン系に対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$56</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[01]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>ザキ系に対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$57</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$C0</code>
+                    </td>
+                    <td>ラリホー系に対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$58</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$30</code>
+                    </td>
+                    <td>マヌーサ系に対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$59</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>ニフラムに対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$5A</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[02]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>ルカニ系に対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$5B</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$C0</code>
+                    </td>
+                    <td>マホトラ系に対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$5C</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$30</code>
+                    </td>
+                    <td>マホトーン系に対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$5D</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>メダパニに対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$5E</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[03]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>メガンテに対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$5F</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[04]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$C0</code>
+                    </td>
+                    <td>未使用</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$60</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[04]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$30</code>
+                    </td>
+                    <td>毒系に対する耐性</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$61</code>
+                    </td>
+                    <td>
+                      <code class="varname">$238000</code>
+                    </td>
+                    <td>
+                      <code class="code">[04]</code>
+                    </td>
+                    <td align="right">
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>休み系に対する耐性</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+実例は <a class="xref" href="dq5_brk.html#dq5.brk.spec.80-93" title="3.2.3.4. オペランド #$80, ..., #$93: オブジェクトのフィールドにアクセス">3.2.3.4 オペランド <code class="literal">#$80</code>, ..., <code class="literal">#$93</code>: オブジェクトのフィールドにアクセス</a> の説明と実例を参照して欲しい。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.accessor.specification.conditions"></a>3.3.3.2. 全機能に共通する呼び出し事前条件と事後条件</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+ここでは全機能共通の規則をまとめる。
+この情報は逆アセンブリコードを目視で検査して <code class="code">BRK #$8?</code> 系の行周囲の意味を推測する際の目安となる。
+</p>
+          <p>
+当サブルーチン呼び出しの事前条件および事後条件を、関係するメモリアドレスを主眼にまとめたものが次の表だ。
+いずれも 8 ビットで扱う。何なら事前条件、事後条件をそれぞれ入力、出力とそれぞれ読み替えてもらっても構わない。
+また、キャラクター ID とある項目は機能によっては指定不要だ。
+</p>
+          <div class="table">
+            <a id="table.dq5.accessor.preconditions"></a>
+            <p class="title">
+              <strong>表 3.11 サブルーチン呼び出しの事前条件</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq5.accessor.preconditions" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>アドレス</th>
+                    <th>条件</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">$38</code>
+                    </td>
+                    <td>機能 ID の値。範囲 <code class="literal">[#$00, #$F6)</code> の数でなければならない。</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$3F</code>
+                    </td>
+                    <td>キャラクター検索フィルターとなるビットマスク。</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$42</code>
+                    </td>
+                    <td>対象となるキャラクターの ID の値。</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$43</code>
+                    </td>
+                    <td rowspan="3">サブルーチン側が必要とする情報。機能によって異なる。</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$44</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$45</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <div class="table">
+            <a id="table.dq5.accessor.postconditions"></a>
+            <p class="title">
+              <strong>表 3.12 サブルーチン呼び出しの事後条件</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq5.accessor.postconditions" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>アドレス</th>
+                    <th>条件</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">$39</code>
+                    </td>
+                    <td>対象となるキャラクターの ID の値。</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$3A</code>
+                    </td>
+                    <td rowspan="3">データアクセスのためのベースアドレスの値。</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$3B</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$3C</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$3D</code>
+                    </td>
+                    <td>上記ベースアドレスに加算したオフセット値。</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$3E</code>
+                    </td>
+                    <td>データアクセス時のデータサイズ。</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$46</code>
+                    </td>
+                    <td rowspan="4">呼び出し側が必要とする情報。機能によって異なる。</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$47</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$48</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$49</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$4A</code>
+                    </td>
+                    <td rowspan="4"><code class="literal">$46</code>, ..., <code class="literal">$49</code> のコピー。</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$4B</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$4C</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">$4D</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq5_brk.html" title="3.2. 詳解 BRK 命令"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq5_characters.html" title="3.4. 仲間キャラクター構造体"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq5_brk.html">3.2. 詳解 BRK 命令</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq5.html">第 3 章 SFC 版ドラクエ 5 (1992)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq5_characters.html">3.4. 仲間キャラクター構造体</a></div>
+  </body>
+</html>

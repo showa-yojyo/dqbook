@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.2. 文字列</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_debug.html" title="4.1. デバッグモード" />
+    <link rel="next" href="dq6_text.html" title="4.3. テキスト" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_debug.html" title="4.1. デバッグモード"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_text.html" title="4.3. テキスト"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_debug.html">4.1. デバッグモード</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_text.html">4.3. テキスト</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.string"></a>4.2. 文字列</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_string.html#dq6.string.overview">4.2.1. 概要</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq6_string.html#dq6.string.data">4.2.2. データ</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq6.string" class="indexterm"></a>
+      <p>
+本節では文字列処理について述べる。
+まず、いくつかの基本的な概念を簡単に説明する。
+次に、プログラムがどのように文字列データにアクセスするかを簡単に述べる。
+最後に、全文字列データを独自コードから UTF-8 に変換したテキストデータを作成する。
+</p>
+      <p>
+なお、本節で言う文字列とは SFC 版ドラクエ 5 でのそれと同じ定義とする。
+<a class="xref" href="dq5_string.html" title="3.7. 文字列">3.7 文字列</a> の冒頭部を参照して欲しい。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.string.overview"></a>4.2.1. 概要</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+文字列の扱いにおける要所を以下に列挙していく。
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">文字コード</span>
+            </dt>
+            <dd>
+              <p>
+      前作同様、文字列を構成する文字コードは、単に 1 バイトの数値として表現されている。
+      この文字コードの配列を文字列と呼んでいるのだった。
+    </p>
+              <p>
+      既に先人 <a class="xref" href="appendix_a.html#dqref.url1" title="Index of /~s-endo/">[<abbr class="abbrev">URL1</abbr>]</a>, <a class="xref" href="appendix_a.html#dqref.url2" title="ドラクエ解析サイト『ソニタウン』">[<abbr class="abbrev">URL2</abbr>]</a>
+      の手によってデータ格納位置および文字コードが判明している。
+    </p>
+            </dd>
+            <dt>
+              <span class="term">文字列のデータ構造</span>
+            </dt>
+            <dd>
+              <p>
+        文字列は前作では Pascal 風の構造を有していたが、今作では C 言語風に改められている。
+        すなわち、表現する文字列に対応する文字コード列に続き、
+        終端を意味させるために空文字 <code class="literal">#$AC</code> が末尾にあるものとする。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">半濁点・濁点処理</span>
+            </dt>
+            <dd>
+              <p>
+        半濁点・濁点処理についてはサブルーチン <code class="varname">$C03221</code> のコードが参考になる。
+        文字コードが <code class="literal">#$C9</code> 以上の文字については、次に述べる事情を考慮するようだ。
+      </p>
+              <p>
+        「パ」とか「バ」のような文字はデータとしては 1 コードで表現されているものの、
+        表示の都合上、これらを 2 コードに分けたデータとして管理することもある。
+        そのために参照する「半濁点・濁点付き仮名文字から半濁点・濁点を抜いた文字に変換する表」や、
+        半濁点・濁点だけを表す文字コードが定義されている。
+      </p>
+              <p>
+        「半濁点・濁点付き仮名文字から半濁点・濁点を抜いた文字に変換する表」は
+        アドレス <code class="varname">$C029A4</code> と <code class="varname">$C0297B</code> にそれぞれ定義されている。
+        これを参照して、例えば「ガ」を「カ」「゛」と分解できる。
+        半濁点・濁点分解処理では、前作とは対照的に、半濁点・濁点コードのほうを上位バイトに配置する規則がある。
+      </p>
+              <p>
+        半濁点・濁点だけを表す文字コードはそれぞれ <code class="literal">#$84</code>, <code class="literal">#$83</code> となっている。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">文字列データの格納アドレス配列</span>
+            </dt>
+            <dd>
+              <p>
+        文字列データはアドレス <code class="varname">$FB8703</code> から延々と配列されている。
+        前作では文字列の意味によって論理的にグループ分けされていて、ID の意味が弱かったのだが、
+        本作では ID を与えるだけで文字列データの特定ができる。
+      </p>
+              <p>
+        先に述べたように、文字列の末端に <code class="literal">#$AC</code> があるという性質を用いれば、
+        この先頭アドレスから ID 個の <code class="literal">#$AC</code> を検索していって、
+        到達したアドレスが与える ID で示される文字列データの格納位置となる。
+        ただし、このようなアルゴリズムでは定数時間アクセスどころか、
+        明らかに ID の大きい文字列データほどアクセスに時間を要するようになってしまう。
+        そこで、実際のプログラムでは 16 の倍数ごとの ID の文字列データの格納アドレスを
+        あらかじめ配列 <code class="varname">$C165E7</code> にキャッシュしておくことで頑張っている。
+        これについて詳細を知りたければ、サブルーチン <code class="varname">$C0315E</code> を確認して欲しい。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">文字列 ID</span>
+            </dt>
+            <dd>
+              <p>
+        文字列 ID としての有効な値の範囲は、定数データの参照という意味では
+        <code class="literal">#$09A7</code> 未満である必要がある。
+        それ以上の値は、仲間キャラクターの名前等を参照するために用いられている。
+        その場合には、ID は <code class="literal">#$09CA</code> 未満である必要がある。
+        このことについても、サブルーチン <code class="varname">$C0315E</code> 以下から確認できる。
+      </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+ここまで出てきた重要（および関連する）機能のアドレスを表にまとめておく。
+後でウィンドウ解析を議論する際に参照して欲しい：
+</p>
+        <div class="table">
+          <a id="table.dq6.string.model"></a>
+          <p class="title">
+            <strong>表 4.15 文字列機能</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq6.string.model" class="lighttable">
+              <thead>
+                <tr>
+                  <th>アドレス</th>
+                  <th>分類</th>
+                  <th>意味</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="varname">$C0297B</code>
+                  </td>
+                  <td>データ</td>
+                  <td>濁点文字コードから濁点を抜いた文字コードへの対応を与える配列</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C029A4</code>
+                  </td>
+                  <td>データ</td>
+                  <td>半濁点文字コードから半濁点を抜いた文字コードへの対応を与える配列</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C029AE</code>
+                  </td>
+                  <td>データ</td>
+                  <td>ある文字コードから「～」や「＋」へ変換するための配列</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C0315E</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>文字列 ID を入力して、データ格納アドレスを <code class="varname">$00:$03,X</code> に出力する</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C03221</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>必要に応じて文字コードを変換する</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C165E7</code>
+                  </td>
+                  <td>データ</td>
+                  <td>文字列データ格納アドレス計算配列</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$FB8703</code>
+                  </td>
+                  <td>データ</td>
+                  <td>文字列データ配列</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.string.data"></a>4.2.2. データ</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+<a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> にアドレス <code class="varname">$FB8703</code> 以降に表現されている全文字列データを UTF-8 に変換したテキストデータを置く。
+前述のとおり、意味のあるダンプは ID が <code class="literal">#$09A7</code> 未満のものに限る。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_debug.html" title="4.1. デバッグモード"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_text.html" title="4.3. テキスト"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_debug.html">4.1. デバッグモード</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_text.html">4.3. テキスト</a></div>
+  </body>
+</html>

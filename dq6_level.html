@@ -1,0 +1,1403 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.18. レベルアップ</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_encounter.html" title="4.17. 敵との遭遇" />
+    <link rel="next" href="dq6_combatant.html" title="4.19. 戦闘キャラクター構造体" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_encounter.html" title="4.17. 敵との遭遇"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_combatant.html" title="4.19. 戦闘キャラクター構造体"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_encounter.html">4.17. 敵との遭遇</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_combatant.html">4.19. 戦闘キャラクター構造体</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.level"></a>4.18. レベルアップ</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_level.html#dq6.level.FFB6C2">4.18.1. 構造体 <code class="varname">$FFB6C2</code>: レベルアップ</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq6_level.html#dq6.level.C441C2">4.18.2. サブルーチン <code class="varname">$C441C2</code>: レベルアップ処理</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq6_level.html#dq6.level.C440D2">4.18.3. サブルーチン <code class="varname">$C440D2</code>: 指定レベルであるための必要経験値を計算する</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq6_level.html#dq6.level.C444BC">4.18.4. サブルーチン <code class="varname">$C444BC</code>: 仲間キャラクター属性値増量分を計算する</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq6_level.html#dq6.level.C44509">4.18.5. サブルーチン <code class="varname">$C44509</code>: 習得コマンドを決定する</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq6.level" class="indexterm"></a>
+      <p>
+本節ではレベルアップについて説明する。
+最初にレベルアップの詳細がレベルアップ構造体と呼ばれる型のオブジェクトで決定されるものであることを示し、
+それからレベルアップに必要となる経験値や、仲間キャラクターの属性値の変動量、習得コマンド決定処理手順を解説する。
+ここで示した型の配列データは CSV として <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> に収録してある。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.level.FFB6C2"></a>4.18.1. 構造体 <code class="varname">$FFB6C2</code>: レベルアップ</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+レベルアップ構造体とは、サイズが <code class="literal">#$B1</code> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
+この型のオブジェクトがアドレス <code class="varname">$FFB6C2</code> から 27 個直列している。
+</p>
+        <div class="table">
+          <a id="table.dq6.FFB6C2"></a>
+          <p class="title">
+            <strong>表 4.76 構造体 $FFB6C2</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq6.FFB6C2" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td rowspan="2">レベル 2 の必要経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>レベル区間上限 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>レベル区間上限 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>レベル区間上限 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>レベル区間上限 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>レベル区間上限 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>レベル区間上限 5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>経験値計算用引数 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>経験値計算用引数 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>経験値計算用引数 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>経験値計算用引数 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>経験値計算用引数 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>経験値計算用引数 5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>経験値計算用引数 6</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい HP 標準値 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい HP 標準値 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$14</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい HP 標準値 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$16</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい HP 標準値 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$18</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい HP 標準値 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい HP 標準値 5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい HP 標準値 6</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい HP 標準値 7</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい MP 標準値 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$22</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい MP 標準値 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$24</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい MP 標準値 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$26</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい MP 標準値 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$28</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい MP 標準値 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$2A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい MP 標準値 5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$2C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい MP 標準値 6</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$2E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>さいだい MP 標準値 7</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$30</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>ちから標準値 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$32</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>ちから標準値 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$34</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>ちから標準値 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$36</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>ちから標準値 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$38</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>ちから標準値 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$3A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>ちから標準値 5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$3C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>ちから標準値 6</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$3E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>ちから標準値 7</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>すばやさ標準値 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$42</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>すばやさ標準値 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$44</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>すばやさ標準値 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$46</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>すばやさ標準値 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$48</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>すばやさ標準値 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$4A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>すばやさ標準値 5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$4C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>すばやさ標準値 6</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$4E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>すばやさ標準値 7</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$50</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かしこさ標準値 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$52</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かしこさ標準値 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$54</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かしこさ標準値 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$56</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かしこさ標準値 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$58</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かしこさ標準値 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$5A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かしこさ標準値 5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$5C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かしこさ標準値 6</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$5E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かしこさ標準値 7</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$60</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>みのまもり標準値 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$62</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>みのまもり標準値 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$64</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>みのまもり標準値 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$66</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>みのまもり標準値 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$68</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>みのまもり標準値 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$6A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>みのまもり標準値 5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$6C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>みのまもり標準値 6</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$6E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>みのまもり標準値 7</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$70</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かっこよさ標準値 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$72</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かっこよさ標準値 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$74</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かっこよさ標準値 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$76</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かっこよさ標準値 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$78</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かっこよさ標準値 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$7A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かっこよさ標準値 5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$7C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かっこよさ標準値 6</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$7E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>かっこよさ標準値 7</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 00</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$81</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 01</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$82</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 02</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$83</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 03</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$84</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 04</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$85</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 05</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$86</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 06</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$87</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 07</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$88</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 08</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$89</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 09</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$8A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 0A</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$8B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 0B</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$8C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 0C</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$8D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 0D</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$8E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 0E</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$8F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 0F</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$90</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 10</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$91</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 11</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$92</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 12</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$93</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 13</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$94</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 14</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$95</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 15</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$96</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 16</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$97</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得コマンド 17</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$98</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 00</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$99</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 01</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$9A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 02</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$9B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 03</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$9C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 04</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$9D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 05</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$9E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 06</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$9F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 07</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$A0</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 08</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$A1</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 09</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$A2</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 0A</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$A3</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 0B</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$A4</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 0C</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$A5</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 0D</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$A6</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 0E</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$A7</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 0F</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$A8</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 10</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$A9</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 11</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$AA</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 12</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$AB</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 13</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$AC</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 14</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$AD</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 15</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$AE</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 16</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$AF</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>習得レベル 17</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$B0</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$007F</code>
+                  </td>
+                  <td>レベル上限</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$B0</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0080</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+以下に各属性の概要を記す。
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">レベル 2 の必要経験値</span>
+            </dt>
+            <dd>
+              <p>
+        レベル 2 の必要経験値とは、このレベルアップ規則が適用される仲間キャラクターのレベルが 2 であるために必要な経験値を指定する属性だ。
+        この属性値は、たとえそのキャラクターの最低レベル（仲間になる時点でのレベル）が 2 よりも大きいとしても意味があることに注意を要する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">レベル区間上限 k</span>
+            </dt>
+            <dd>
+              <p>
+        まずレベル区間とは何かを説明する。
+        初項がレベル 1 で末項がレベル上限値の数列を考える。
+        この数列を最大 7 個の部分区間に分割したものを考え、本節ではそれぞれをレベル区間と呼ぶことにする。
+        このレベル区間は下限値と上限値とで表現することができるが、隣接するレベル区間の下限値と上限値は一致するので、どちらか一方でレベル区間の代表すれば十分だ。
+        この属性は、そのようなレベル区間を上限として値に持つものだ。
+      </p>
+              <p>
+        例えば主人公のレベルアップオブジェクトではレベル区間上限 0 の値は 5 だ。
+        これは「到達レベルが 2 から 5 までのレベルアップにおいては、
+        必要経験値が経験値計算用引数 0 属性値で決定される」ことを意味する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">経験値計算用引数 k</span>
+            </dt>
+            <dd>
+              <p>
+        経験値計算用引数とは、レベルアップに必要な経験値を計算するためのパラメーターだ。詳しくは後で述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">さいだい HP 標準値 k, </span>
+              <span class="term">さいだい MP 標準値 k, </span>
+              <span class="term">ちから標準値 k, </span>
+              <span class="term">すばやさ標準値 k, </span>
+              <span class="term">かしこさ標準値 k, </span>
+              <span class="term">みのまもり標準値 k, </span>
+              <span class="term">かっこよさ標準値 k</span>
+            </dt>
+            <dd>
+              <p>
+        これらの各属性値は、このレベルアップ規則が適用される仲間キャラクターのレベルが 1 のとき、
+        各レベル区間上限属性値のとき、そして上限値のときの対応するキャラクター属性値の標準値を指定する。
+        それ以外のレベルにおける標準値については、そのレベル値を含む区間両端点の定める標準値から線形補間して得る。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">習得コマンド k</span>
+            </dt>
+            <dd>
+              <p>
+        習得コマンド k とは、このレベルアップ規則が適用される仲間キャラクターが規定のレベルに達すると習得するコマンドがあって、そのコマンドを指定する値を取る属性だ。
+        ただし、型はコマンド ID ではなく、コマンドウィンドウ内の項目位置を指示するオブジェクト配列の添字という、馴染みのないものになっている。
+        このオブジェクトはアドレス <code class="varname">$FFC96D</code> にある配列の要素であり、
+        構造としてはコマンド ID の値、移動コマンドウィンドウでの項目位置、戦闘コマンドウィンドウでの項目位置の三つ組の配列とみなせる。
+        詳しくは <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> のデータを参照して欲しい。
+      </p>
+              <p>
+        この属性値が <code class="literal">#$9A</code> であれば、それは空き項目であることを意味する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">習得レベル k</span>
+            </dt>
+            <dd>
+              <p>
+        習得レベル k とは、このレベルアップ規則が適用される仲間キャラクターがこのレベルに上がることにより、
+        もしその時点で未習得ならば、習得コマンド k を習得するということを指定する属性だ。
+      </p>
+              <p>
+        属性値が 99 であるものは、それは空き項目であることを意味する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">レベル上限</span>
+            </dt>
+            <dd>
+              <p>
+        レベル上限とは、このレベルアップ規則が適用される仲間キャラクターが達し得るレベルの上限値を指定する属性だ。
+        主人公などのメインメンバーは 99 に設定されている。
+      </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.level.C441C2"></a>4.18.2. サブルーチン <code class="varname">$C441C2</code>: レベルアップ処理</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+ここでのレベルアップ処理は次のようなものだ。
+</p>
+        <div class="orderedlist">
+          <ol class="orderedlist" type="1">
+            <li class="listitem">
+              <p>
+      対象の仲間キャラクターに対応するレベルアップオブジェクトを取得する
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      レベルアップオブジェクトに基づいて、キャラクターの次のレベルが必要とする総経験値を計算する
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      現在の経験値と比較し、レベルアップでなければ処理を終了する
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      キャラクター属性値それぞれの増加量を計算する
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      習得コマンドを決定する
+    </p>
+            </li>
+            <li class="listitem">
+              <p>
+      職業補正を行う
+    </p>
+            </li>
+          </ol>
+        </div>
+        <p>
+このうちの総経験値を計算する処理、属性値の増加量を計算する処理、習得コマンドを決定する処理は後で述べる。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.level.C440D2"></a>4.18.3. サブルーチン <code class="varname">$C440D2</code>: 指定レベルであるための必要経験値を計算する</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+サブルーチン <code class="varname">$C440D2</code> は次に示す Python 風擬似コードのような処理を実行する：
+</p>
+        <pre class="programlisting">
+level_work = 1
+if next_level == level_work:
+    return 0
+
+level_upper_bound = UPPER_BOUND
+if level_upper_bound &lt; next_level:
+    return 0xFFFFFFFF
+
+exp_total = EXP_FOR_LEVEL_2
+index = 0
+exp_prev = 0
+while True:
+    level_work += 1
+    if next_level == level_work:
+        return exp_total
+
+    while index &lt; len(LEVEL_BOUNDS):
+        if LEVEL_BOUNDS[index] &gt; level_work:
+            break
+        index += 1
+
+    delta = exp_total - exp_prev
+    delta *= EXP_PARAMS[index]
+    delta &gt;&gt;= 5
+    exp_prev = exp_total
+    exp_total += delta
+</pre>
+        <p>
+ここで <code class="varname">EXP_FOR_LEVEL_2</code>, <code class="varname">LEVEL_BOUNDS</code>, <code class="varname">EXP_PARAMS</code>, <code class="varname">UPPER_BOUND</code>
+はぞれぞれレベル 2 の必要経験値、レベル区間列、経験値計算用引数列の各属性に対応し、
+戻り値がレベル <code class="varname">next_level</code> であるために必要な経験値だ。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.level.C444BC"></a>4.18.4. サブルーチン <code class="varname">$C444BC</code>: 仲間キャラクター属性値増量分を計算する</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+どの属性値についてもサブルーチン <code class="varname">$C444BC</code> で増加量を決定する。
+基本的には、新レベルを含むレベル区間の両端における属性値標準値の差分に対して、
+区間下限と新レベルとの差に対するレベル区間の長さとの割合に応じた値を増加量とする。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.level.C44509"></a>4.18.5. サブルーチン <code class="varname">$C44509</code>: 習得コマンドを決定する</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+レベルアップオブジェクトの習得レベル列に対して新レベル値を逐次探索する。
+その添字を習得コマンド列に適用すれば、習得コマンドがコマンド表示ウィンドウ位置の値で得られる。
+具体的に言えば三つ組オブジェクトの配列 <code class="varname">$FFC96D</code> の添字だ。
+ただし値が <code class="literal">#$9A</code> のものは無効値なので、それが現れた時点で処理を打ち切る。
+</p>
+        <p>
+配列 <code class="varname">$FFC96D</code> については <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> のデータを参照して欲しい。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_encounter.html" title="4.17. 敵との遭遇"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_combatant.html" title="4.19. 戦闘キャラクター構造体"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_encounter.html">4.17. 敵との遭遇</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_combatant.html">4.19. 戦闘キャラクター構造体</a></div>
+  </body>
+</html>

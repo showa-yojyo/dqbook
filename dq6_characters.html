@@ -1,0 +1,2282 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.15. 仲間キャラクター構造体</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_monster.html" title="4.14. モンスター" />
+    <link rel="next" href="dq6_character_traits.html" title="4.16. 仲間キャラクターの特性データ" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_monster.html" title="4.14. モンスター"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_character_traits.html" title="4.16. 仲間キャラクターの特性データ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_monster.html">4.14. モンスター</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_character_traits.html">4.16. 仲間キャラクターの特性データ</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.characters"></a>4.15. 仲間キャラクター構造体</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_characters.html#dq6.characters.7E4025">4.15.1. 構造体 <code class="varname">$7E4025</code>: 基本情報構造体</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq6_characters.html#dq6.characters.7E4415">4.15.2. 構造体 <code class="varname">$7E4415</code>: 職業経験構造体</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq6_characters.html#dq6.characters.7E45DD">4.15.3. 構造体 <code class="varname">$7E45DD</code>: 習得コマンド構造体</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+この節では仲間のキャラクターを表現するデータ構造体のうち、RAM 内に存在するものについて述べる。
+すなわち、基本情報構造体、職業経験構造体、習得コマンド構造体を説明する。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.characters.7E4025"></a>4.15.1. 構造体 <code class="varname">$7E4025</code>: 基本情報構造体</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+呼び名を付けるのが難しいのだが、基本情報構造体とは配列 <code class="varname">$7E4025</code> の要素の型だ。
+この構造体はサイズが <code class="literal">#$2A</code> バイトであり、次の表に示すような属性で構成されている：
+</p>
+        <div class="table">
+          <a id="table.dq6.7E4025"></a>
+          <p class="title">
+            <strong>表 4.65 構造体 $7E4025</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq6.7E4025" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>レベル (EOR #$41)</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>経験値 (EOR #$4126)</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>経験値最上位バイト</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0001</code>
+                  </td>
+                  <td>死亡フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>どくフラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0004</code>
+                  </td>
+                  <td>もうどくフラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0008</code>
+                  </td>
+                  <td>マヒフラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0010</code>
+                  </td>
+                  <td>ねむりフラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$3FE0</code>
+                  </td>
+                  <td>ちから</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$7FC0</code>
+                  </td>
+                  <td>すばやさ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FF80</code>
+                  </td>
+                  <td>かしこさ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$001F</code>
+                  </td>
+                  <td>職業 ID</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00E0</code>
+                  </td>
+                  <td>職業レベル</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$03FF</code>
+                  </td>
+                  <td>HP</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FC</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$03FF</code>
+                  </td>
+                  <td>さいだい HP</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FC</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$03FF</code>
+                  </td>
+                  <td>MP</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FC</code>
+                  </td>
+                  <td>最後に使用した移動中のじゅもん（下位 6 ビット）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$03FF</code>
+                  </td>
+                  <td>さいだい MP</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$07FC</code>
+                  </td>
+                  <td>みのまもり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0FF8</code>
+                  </td>
+                  <td>かっこよさ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0010</code>
+                  </td>
+                  <td>ルイーダに預けるの禁止フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00E0</code>
+                  </td>
+                  <td>最後に使用した移動中のじゅもん（上位 3 ビット）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$13</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>最後に使用した戦闘中のじゅもん</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$14</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>最後に使用した戦闘中のとくぎ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$15</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>装備状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$16</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>名前文字列 <code class="literal">#$00</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$17</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>名前文字列 <code class="literal">#$01</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$18</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>名前文字列 <code class="literal">#$02</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$19</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>名前文字列 <code class="literal">#$03</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>名前文字列 <code class="literal">#$04</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>名前文字列 <code class="literal">#$05</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>名前文字列 <code class="literal">#$06</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>名前文字列 <code class="literal">#$07</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 <code class="literal">#$00</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 <code class="literal">#$01</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 <code class="literal">#$02</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$21</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 <code class="literal">#$03</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$22</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 <code class="literal">#$04</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$23</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 <code class="literal">#$05</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$24</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 <code class="literal">#$06</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$25</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 <code class="literal">#$07</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$26</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 <code class="literal">#$08</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$27</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 <code class="literal">#$09</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$28</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 <code class="literal">#$0A</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$29</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>所持品 <code class="literal">#$0B</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+上の表で（未使用）の属性は、プログラムからの参照がない、いわば属性の隙間だ。
+以下に各属性の概要を記す。
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">レベル</span>
+            </dt>
+            <dd>
+              <p>
+        この属性値は仲間キャラクターのレベルの値と定数 <code class="literal">#$41</code> との排他的論理和を表す。
+      </p>
+              <p>
+        キャラクターのレベルについては <a class="xref" href="dq6_level.html" title="4.18. レベルアップ">4.18 レベルアップ</a> で述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">経験値</span>
+            </dt>
+            <dd>
+              <p>
+        仲間キャラクターの経験値は 3 バイト長の値で表現する。
+        ただし、下位 2 バイトの値は定数 <code class="literal">#$4126</code> との排他的論理和の値を保持するようにしている。
+        チートツールのユーザーでいきなりレベルアップをしようと企む者は、この点を留意しなければならない。
+        可能ならばデバッグメニューを駆使したほうがよいだろう。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">死亡フラグ, </span>
+              <span class="term">どくフラグ, </span>
+              <span class="term">もうどくフラグ, </span>
+              <span class="term">マヒフラグ, </span>
+              <span class="term">ねむりフラグ</span>
+            </dt>
+            <dd>
+              <p>
+        それぞれが仲間キャラクターの異常状態を示すブーリアン値属性だ。
+        物によっては同時に 1 とならない属性の組み合わせがある。
+        例えば死亡フラグが 1 ならば、その他の異常状態フラグはいずれも 0 とするようにしている。
+      </p>
+              <p>
+        <a class="xref" href="dq6_combatant.html" title="4.19. 戦闘キャラクター構造体">4.19 戦闘キャラクター構造体</a> で関連属性を述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">ちから, </span>
+              <span class="term">すばやさ, </span>
+              <span class="term">かしこさ, </span>
+              <span class="term">みのまもり, </span>
+              <span class="term">かっこよさ, </span>
+              <span class="term">さいだい HP, </span>
+              <span class="term">さいだい MP</span>
+            </dt>
+            <dd>
+              <p>
+        一般的には、これらの属性値は「つよさ」メニューで確認できる内容の値と異なる。
+        対象キャラクターの職業と装備品にも依存するからだ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">HP, </span>
+              <span class="term">MP</span>
+            </dt>
+            <dd>
+              <p>
+        それぞれ仲間キャラクターの現在の HP と MP の値を示す属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">職業 ID</span>
+            </dt>
+            <dd>
+              <p>
+        キャラクターの現在就いている職業を表す値を取る属性だ。
+        職業については <a class="xref" href="dq6_vocations.html" title="4.12. 職業">4.12 職業</a> で述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">職業レベル</span>
+            </dt>
+            <dd>
+              <p>
+        キャラクターの現在就いている職業の職業レベルを 0..7 で表す値を取る属性だ。
+        「つよさ」ウィンドウで確認できる星の数より 1 小さい。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">最後に使用した移動中のじゅもん, </span>
+              <span class="term">最後に使用した戦闘中のじゅもん, </span>
+              <span class="term">最後に使用した戦闘中のとくぎ</span>
+            </dt>
+            <dd>
+              <p>
+        最後にキャラクターが使用したそれぞれのコマンドを記憶しておくための属性だ。
+        値の型はコマンド ID ではなくコマンド表示位置 ID だ。
+        後述の <a class="xref" href="dq6_characters.html#dq6.characters.7E45DD" title="4.15.3. 構造体 $7E45DD: 習得コマンド構造体">4.15.3 構造体 <code class="varname">$7E45DD</code>: 習得コマンド構造体</a> の対応コマンドのベースアドレスからの「距離」と解釈してもよい。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">ルイーダに預けるの禁止フラグ, </span>
+              <span class="term">装備状態</span>
+            </dt>
+            <dd>
+              <p>
+        それぞれの属性の意味は <a class="xref" href="dq6_character_traits.html#table.dq6.C8BD12" title="表 4.68 構造体 $C8BD12">表 4.68 構造体 $C8BD12</a> の対応するそれぞれの属性と同じだ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">名前文字列 k (k = <code class="literal">#$00</code>..<code class="literal">#$07</code>)</span>
+            </dt>
+            <dd>
+              <p>
+        この 8 バイトでキャラクターの名前を表現する文字コードの列を保持する。
+        文字列については <a class="xref" href="dq6_string.html" title="4.2. 文字列">4.2 文字列</a> で述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">所持品 k (k = <code class="literal">#$00</code>..<code class="literal">#$0B</code>)</span>
+            </dt>
+            <dd>
+              <p>
+        キャラクターの道具袋に入っているアイテムを順番に表す配列だ。
+        アイテムについては <a class="xref" href="dq6_item.html" title="4.13. アイテム">4.13 アイテム</a> で述べる。
+      </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.characters.7E4415"></a>4.15.2. 構造体 <code class="varname">$7E4415</code>: 職業経験構造体</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+職業経験構造体とは、キャラクターが戦闘で得た職業経験値を記録するためのオブジェクトを表現する型だ。
+</p>
+        <p>
+構造体の物理的なレイアウトは次の表のようになっている。
+構造体の属性のそれぞれが、対応する職業の職業経験値を属性値として取る。
+この <code class="literal">#$14</code> バイト長のオブジェクトがアドレス <code class="varname">$7E4415</code> に配列してある。
+</p>
+        <div class="table">
+          <a id="table.dq6.7E4415"></a>
+          <p class="title">
+            <strong>表 4.66 構造体 $7E4415</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq6.7E4415" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>せんし職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>ぶとうか職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>まほうつかい職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>そうりょ職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$007F</code>
+                  </td>
+                  <td>おどりこ職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$7F80</code>
+                  </td>
+                  <td>とうぞく職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$7F80</code>
+                  </td>
+                  <td>まものつかい職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$7F80</code>
+                  </td>
+                  <td>しょうにん職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$7F80</code>
+                  </td>
+                  <td>あそびにん職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$7F80</code>
+                  </td>
+                  <td>バトルマスター職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$7F80</code>
+                  </td>
+                  <td>まほうせんし職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FF80</code>
+                  </td>
+                  <td>パラディン職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FF</code>
+                  </td>
+                  <td>けんじゃ職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FE</code>
+                  </td>
+                  <td>レンジャー職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FE</code>
+                  </td>
+                  <td>スーパースター職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FE</code>
+                  </td>
+                  <td>ゆうしゃ職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$03FE</code>
+                  </td>
+                  <td>ドラゴン職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$07FC</code>
+                  </td>
+                  <td>はぐれメタル職業経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00F8</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+<a class="xref" href="dq6_vocations.html#dq6.vocations.C41C3E" title="4.12.1. 構造体 $C41C3E: 職業構造体">4.12.1 構造体 <code class="varname">$C41C3E</code>: 職業構造体</a> で述べるように、このメモリレイアウトは職業構造体で指定されている。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.characters.7E45DD"></a>4.15.3. 構造体 <code class="varname">$7E45DD</code>: 習得コマンド構造体</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+習得コマンド構造体とは、キャラクターが移動中または戦闘中に実行することができるコマンドを表現するオブジェクト型だ。
+</p>
+        <p>
+構造体の物理的なレイアウトは次の表のようになっている。
+構造体の属性の全てが 1 ビットで表現されていて、意味としてはブーリアン値属性の集合だ。
+いずれも値が 1 ならば対応するコマンドを利用可能であることを意味する。
+この <code class="literal">#$14</code> バイト長のオブジェクトがアドレス <code class="varname">$7E45DD</code> に配列してある。
+</p>
+        <div class="table">
+          <a id="table.dq6.7E45DD"></a>
+          <p class="title">
+            <strong>表 4.67 構造体 $7E45DD</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq6.7E45DD" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>ホイミ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>キアリー</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>べホイミ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>ザオラル</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>べホマ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>ザオリク</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>べホマラー</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>べホマズン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>メラ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>ギラ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>ヒャド</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>バギ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>ザキ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>イオ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>メラミ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>べギラマ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>ヒャダルコ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>バギマ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>ザラキ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>イオラ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>ライデイン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>メラゾーマ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>べギラゴン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>マヒャド</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>バギクロス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>ザラキーマ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>イオナズン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>ギガデイン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>ミナデイン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>キアリク</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>ニフラム</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>マホトーン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>マホトラ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>マホターン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>マホキテ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>マホカンタ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>マジックバリア</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>ルカニ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>ルカナン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>スカラ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>スクルト</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>ラリホー</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>ラリホーマ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>マヌーサ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>メダパニ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>フバーハ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>バイキルト</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>アストロン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>ドラゴラム</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>メガンテ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>メガザル</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>バシルーラ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>パルプンテ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>マダンテ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>ひゃくれつなめ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>ビッグバン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>つめたいいき</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>あまいいき</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>かえんのいき</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>どくのいき</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>やけつくいき</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>あしばらい</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>せいけんづき</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>まわしげり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>きゅうしょづき</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>かまいたち</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>ともえなげ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>みかわしきゃく</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>ばくれつけん</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>みなごろし</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>きあいため</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>はやぶさぎり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>もろばぎり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>まじんぎり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>しっぷうづき</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>ちからため</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>あそび</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>おたけび</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>なめまわし</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>たいあたり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>ぱふぱふ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>ぐんたいよび</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>まねまね</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>うけながし</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>さそうおどり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>マホトラおどり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>ふしぎなおどり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>しのおどり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>メダパニダンス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>おどりふうじ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>へんしん</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>とびひざげり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>しんくうぎり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>ドラゴンぎり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>ゾンビぎり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>がんせきおとし</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>さみだれけん</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>メタルぎり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>みがわり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>グランドクロス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>しんくうは</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>つなみ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>すてみ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>しょうかん</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>におうだち</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>じわれ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>すなけむり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>じひびき</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>いしつぶて</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>だいぼうぎょ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>つきとばし</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>ひばしら</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>もうどくのきり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>おいかぜ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>ぶきみなひかり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>まぶしいひかり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>ハッスルダンス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>いなずま</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>ムーンサルト</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>メガザルダンス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>せいれいのうた</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>かえんぎり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>いてつくはどう</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>いなずまぎり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>めいそう</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>マヒャドぎり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>ジゴスパーク</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>マグマ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>ギガスラッシュ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>こごえるふぶき</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>ひのいき</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>しゃくねつ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>こおりのいき</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>かがやくいき</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>はげしいほのお</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>し</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>ルーラ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>リレミト</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>インパス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>トラマナ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>トヘロス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>フローミ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>レミラーマ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>タカのめ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>ねる</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>とうぞくのはな</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>おおごえ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>しのびあし</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>くちぶえ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>あなほり</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>おもいだす</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>もっとおもいだす</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$13</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>ふかくおもいだす</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$13</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>わすれる</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$13</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FC</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+コマンドの配列規則は配列 <code class="varname">$FFC69D</code> に準じている。
+コマンド入力ウィンドウでのメニュー項目位置と対応していることが重要だ。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_monster.html" title="4.14. モンスター"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_character_traits.html" title="4.16. 仲間キャラクターの特性データ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_monster.html">4.14. モンスター</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_character_traits.html">4.16. 仲間キャラクターの特性データ</a></div>
+  </body>
+</html>

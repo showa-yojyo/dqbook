@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>2.2. 逆アセンブラ</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="tools.html" title="第 2 章 解析ツール" />
+    <link rel="prev" href="tools_emulator.html" title="2.1. ゲーム機エミュレータ" />
+    <link rel="next" href="tools_cygwin.html" title="2.3. Cygwin" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="tools_emulator.html" title="2.1. ゲーム機エミュレータ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="tools.html" title="第 2 章 解析ツール"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="tools_cygwin.html" title="2.3. Cygwin"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="tools_emulator.html">2.1. ゲーム機エミュレータ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="tools.html">第 2 章 解析ツール</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="tools_cygwin.html">2.3. Cygwin</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="tools.disasm"></a>2.2. 逆アセンブラ</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="tools_disasm.html#tools.disasm.dispel">2.2.1. DisPel</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="tools_disasm.html#tools.disasm.dispel.sample">2.2.1.1. サンプル</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+        <table border="0" summary="Note">
+          <tr>
+            <td rowspan="2" align="center" valign="top" width="25">
+              <img alt="[注記]" src="image/docbook/note.png" />
+            </td>
+            <th align="left">注記</th>
+          </tr>
+          <tr>
+            <td align="left" valign="top">
+              <p>
+    本節は特に陳腐化してはいないのだが、補足しておく：
+  </p>
+              <div class="itemizedlist">
+                <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">逆アセンブラーを使いこなそう</li>
+                  <li class="listitem">特にスーパーファミコンの作品については逆アセンブラーを自作しよう</li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <p>
+	ここでは逆アセンブラツールをごく簡単に紹介する。
+	逆アセンブラのプログラミングは CPU の仕様書があれば可能であるため、
+	既に気合いの入ったマニアの手により、いくつかの逆アセンブルツールが開発・配布されている。
+	後発の解析人としては、そのツールを再利用するのがよい。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="tools.disasm.dispel"></a>2.2.1. DisPel</h3>
+            </div>
+          </div>
+        </div>
+        <a id="term.dispel" class="indexterm"></a>
+        <a id="term.disasm" class="indexterm"></a>
+        <div class="caution" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <table border="0" summary="Caution">
+            <tr>
+              <td rowspan="2" align="center" valign="top" width="25">
+                <img alt="[注意]" src="image/docbook/caution.png" />
+              </td>
+              <th align="left">注意</th>
+            </tr>
+            <tr>
+              <td align="left" valign="top">
+                <p>本書のダンプコードおよび本セクションの記述は、
+いずれもバージョン 0.99 の <span class="application">DisPel</span> に準拠している。
+<span class="application">DisPel</span> の最新版のソースコードが下記のサイトから入手可能だが、
+ニーモニックが小文字で出力されるように変更されていたり、
+<code class="option">-n</code> コマンドラインオプションの仕様が変更されていたりするので、
+自分で <span class="application">DisPel</span> をビルドして利用している読者は混乱せぬよう留意されたい。
+</p>
+                <p>
+<a class="ulink" href="https://github.com/pelrun/Dispel" target="_top">pelrun/Dispel - GitHub</a>
+</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="figure">
+          <a id="fig.dq.hack.tool.dispel"></a>
+          <p class="title">
+            <strong>図 2.5 DisPel</strong>
+          </p>
+          <div class="figure-contents">
+            <div>
+              <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="502">
+                <tr>
+                  <td>
+                    <img src="./image/dq.hack.tool.dispel.png" width="502" alt="DisPel" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <p>
+	<a class="glossterm" href="glossary.html#gloss.65816"><em class="glossterm"><a class="glossterm" href="glossary.html#gloss.65816" title="65816">65816</a></em></a>/SMC 逆アセンブラ。
+	<span class="application">DisPel</span> はコンソールアプリである。
+	すなわち、<a class="glossterm" href="glossary.html#gloss.rom.image"><em class="glossterm"><a class="glossterm" href="glossary.html#gloss.rom.image" title="ROM イメージ">ROM イメージファイル</a></em></a>を引数にとり、
+	アセンブリコードをテキスト形式で出力するプログラムである。
+	アセンブリと聞いても何のことやらさっぱりだというのであれば、計算機の基礎知識から勉強するハメになる。
+</p>
+        <p>
+	解析道の先人は、外国のサイトから 65816 に関する文書を検索して、
+	言語仕様を把握してから解析に着手したという――。
+</p>
+        <p>
+	DisPel の特徴は以下のとおり。
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist" style="list-style-type: disc; ">
+            <li class="listitem">
+              <p>
+			アドレス指定による逆アセンブル範囲の指定。バンク丸ごとも可能
+		</p>
+            </li>
+            <li class="listitem">
+              <p>
+			REP/SEP 命令を意識した逆アセンブル
+		</p>
+            </li>
+            <li class="listitem">
+              <p>
+			バンク境界の適切な処理
+		</p>
+            </li>
+            <li class="listitem">
+              <p>
+			自動で HiROM/LoROM を判断する
+		</p>
+            </li>
+            <li class="listitem">
+              <p>
+			「本物」の SNES アドレッシング
+		</p>
+            </li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="tools.disasm.dispel.sample"></a>2.2.1.1. サンプル</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	DisPel を逆アセンブラとして使うことを決めたならば、
+	環境変数 <code class="envar">PATH</code> に含まれている適当なフォルダに実行ファイル <code class="filename">DisPel.exe</code> を移動することになる。
+	ここまではエクスプローラで簡単にできる。
+	しかし、コードの出力をするにはコマンドプロンプトウィンドウを開く必要がある。
+	ただし Windows の <span class="command"><strong>cmd</strong></span> では逆アセンブリ処理以降のことが何もできないので <a class="xref" href="tools_cygwin.html" title="2.3. Cygwin">2.3 Cygwin</a> で説明する環境で作業する。
+	それを開いたら、SFC 版ドラクエ 3 の ROM イメージファイル（ここでは <code class="filename">sfcdq3.smc</code> とする）のあるフォルダに移動して、
+	例えば以下のように入力すると、バンク $C3 の逆アセンブリコードを得ることになる。
+	ちなみに実際はこの領域はプログラムではなく、ウィンドウ関連のデータ定義域なので、以下の出力は無意味だ。
+</p>
+          <pre class="screen"><code class="prompt">$ </code><strong class="userinput"><code>dispel -n -h -s -b C3 -p sfcdq3.smc</code></strong>
+C3/0000:	2184    	AND ($84,X)
+C3/0002:	50C0    	BVC $FFC4
+C3/0004:	200000  	JSR $0000
+C3/0007:	0000    	BRK #$00
+C3/0009:	5562    	EOR $62,X
+C3/000B:	00AA    	BRK #$AA
+C3/000D:	B052    	BCS $0061
+C3/000F:	8020    	BRA $0031
+C3/0011:	0000    	BRK #$00
+C3/0013:	0000    	BRK #$00
+…
+</pre>
+          <p>
+	上記の例では <span class="application">DisPel</span> の自動判定機能に頼らず、明示的にオプションを指示した。
+	SFC 版ドラクエ 3 と SFC 版ドラクエ 6 はメモリマッピングが同じ (HiROM, FastROM) である。
+	ともに <code class="option">-h -s</code> オプションを指定すればよい。
+	SFC 版ドラクエ 5 の場合は LoROM, SlowROM であるため、代わりに <code class="option">-l -i</code> を利用する。
+</p>
+          <p>
+	あるアドレスからの逆アセンブリコードを得たい場合は、
+	オプション <code class="option">-r</code> で SNES アドレス値を指定することに加え、
+	プログラムとしてのその地点における MX レジスタフラグの状態を加味してやらねばらない。
+	M レジスタビットが立っている場合、オプション <code class="option">-a</code> を、
+	X レジスタビットが立っている場合、オプション <code class="option">-x</code> を与える必要がある。
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="tools_emulator.html" title="2.1. ゲーム機エミュレータ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="tools.html" title="第 2 章 解析ツール"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="tools_cygwin.html" title="2.3. Cygwin"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="tools_emulator.html">2.1. ゲーム機エミュレータ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="tools.html">第 2 章 解析ツール</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="tools_cygwin.html">2.3. Cygwin</a></div>
+  </body>
+</html>

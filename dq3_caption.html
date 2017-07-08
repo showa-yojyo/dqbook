@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.5. 行動説明テキスト構造体</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_monster.html" title="5.4. モンスター解析" />
+    <link rel="next" href="dq3_damage.html" title="5.6. ダメージ構造体解析" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_monster.html" title="5.4. モンスター解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_damage.html" title="5.6. ダメージ構造体解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_monster.html">5.4. モンスター解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_damage.html">5.6. ダメージ構造体解析</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.caption"></a>5.5. 行動説明テキスト構造体</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_caption.html#dq3.caption.hack">5.5.1. 解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_caption.html#dq3.caption.hack.C2398E">5.5.1.1. <code class="varname">$C2398E</code> 行動説明テキスト構造体</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <a id="term.dq3.caption.1" class="indexterm"></a>
+      <a id="term.dq3.caption.2" class="indexterm"></a>
+      <p>
+	移動モードで「じゅもん」コマンドを選択し、
+	移動モードで利用可能な呪文を覚えているキャラクターにカーソルを合わせると、
+	そのキャラクターの習得している移動モードで利用可能な呪文リストウィンドウが表示される。
+	そして、それと同時にカーソルが示す呪文を唱えるために必要な <acronym class="acronym">MP</acronym> と、
+	<span class="emphasis"><em>その呪文の効果を簡潔に説明するテキスト</em></span>が小さなウィンドウに表示される。
+	あるいは、戦闘モードでも、または「じゅもん」ではなく「どうぐ」に対してでも、
+	それらを説明するテキストが同様にして表示される。
+	そのようなテキストを指示するデータ構造体を、
+	ここでは<span class="emphasis"><em>行動説明テキスト構造体</em></span>と呼ぶことにする。
+</p>
+      <p>
+	この構造体は行動構造体の導出属性であるゆえ、もはや重要な解析対象ではない。
+	従って、この節は非常に短くなる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.caption.hack"></a>5.5.1. 解析</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+	行動説明テキスト構造体は、行動構造体のフィールドを解析する時に発見したものであるため、
+	解析パターンに関する話は特にない。
+	ちなみに現時点では、本書で行動構造体解析について特に述べていない。
+	これについては先行する研究 <a class="xref" href="appendix_a.html#dqref.url3" title="DQバイナリ改造 @Wiki">[<abbr class="abbrev">URL3</abbr>]</a>
+	を当たるといい。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.caption.hack.C2398E"></a>5.5.1.1. <code class="varname">$C2398E</code> 行動説明テキスト構造体</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	アドレス <code class="varname">$C2398E</code> からすべての行動説明テキスト構造体データが定義されている。
+	ひとつの構造体データが占めるデータサイズは 6byte であり、
+	<code class="literal">#$49</code> (73) 個配列されている。
+</p>
+          <p>
+	行動説明テキスト構造体のメモリレイアウトは以下のようになっている。
+</p>
+          <div class="table">
+            <a id="table.dq3.C2398E"></a>
+            <p class="title">
+              <strong>表 5.12 $C2398E 行動説明テキスト構造体</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C2398E" class="memorylayout">
+                <colgroup>
+		<col width="12%" />
+		<col span="7" width="11%" />
+	</colgroup>
+                <thead>
+                  <tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+                </thead>
+                <tbody>
+                  <tr><th>00</th>
+			<td colspan="8" rowspan="2">1 行目文字列 ID</td>
+		</tr>
+                  <tr><th>01</th>
+		</tr>
+                  <tr><th>02</th>
+			<td colspan="8" rowspan="2">2 行目文字列 ID</td>
+		</tr>
+                  <tr><th>03</th>
+		</tr>
+                  <tr><th>04</th>
+			<td colspan="8" rowspan="2">3 行目文字列 ID</td>
+		</tr>
+                  <tr><th>05</th>
+		</tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <div class="glosslist">
+            <dl>
+              <dt>
+                <span class="glossterm">N 行目文字列 ID</span>
+              </dt>
+              <dd class="glossdef">
+                <p>
+			説明ウィンドウの N 行目に表示する内容を表す<a class="link" href="dq3_string.html" title="5.3. 文字列">文字列 ID</a> である。
+		</p>
+              </dd>
+            </dl>
+          </div>
+          <p>
+	例を挙げると、行動「ルーラ」の説明テキスト構造体データは以下の表のようになっている。
+</p>
+          <div class="table">
+            <a id="table.dq3.C2398E.example"></a>
+            <p class="title">
+              <strong>表 5.13 ルーラ</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C2398E.example" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>Address</th>
+                    <th>文字列 ID</th>
+                    <th>文字列</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="varname">$C23AC0</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0298</code>
+                    </td>
+                    <td>いちどいった</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C23AC2</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0299</code>
+                    </td>
+                    <td>まちや しろに</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C23AC4</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$029A</code>
+                    </td>
+                    <td>とんでゆく</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_monster.html" title="5.4. モンスター解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_damage.html" title="5.6. ダメージ構造体解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_monster.html">5.4. モンスター解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_damage.html">5.6. ダメージ構造体解析</a></div>
+  </body>
+</html>

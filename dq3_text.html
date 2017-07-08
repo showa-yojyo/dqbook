@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.2. テキスト解析</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_debug.html" title="5.1. デバッグモード解析" />
+    <link rel="next" href="dq3_string.html" title="5.3. 文字列" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_debug.html" title="5.1. デバッグモード解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_string.html" title="5.3. 文字列"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_debug.html">5.1. デバッグモード解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_string.html">5.3. 文字列</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.text"></a>5.2. テキスト解析</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_text.html#dq3.text.battle">5.2.1. 戦闘モード</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq3_text.html#dq3.text.travel">5.2.2. 移動モード</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq3_text.html#dq3.text.data">5.2.3. データ</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+本節ではテキスト出力について見ていく。本質的には SFC 版ドラクエ 6 と同じ構造だ。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.text.battle"></a>5.2.1. 戦闘モード</h3>
+            </div>
+          </div>
+        </div>
+        <a id="term.dq3.text.battle" class="indexterm"></a>
+        <p>
+戦闘モードのテキスト処理は、各種定数の違いを除けば前作 <a class="xref" href="dq6_text.html#dq6.text.battle" title="4.3.1. 戦闘モード">4.3.1 戦闘モード</a> と同じ設計だ。
+細部の違いはあるものの、ほとんど同じ実装とみなしてよい。
+したがって、戦闘モードのテキスト処理に関係する機能を次の表に示してこの節を終える：
+</p>
+        <div class="table">
+          <a id="table.dq3.text.battle"></a>
+          <p class="title">
+            <strong>表 5.3 重要な戦闘モードテキスト機能</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq3.text.battle" class="lighttable">
+              <thead>
+                <tr>
+                  <th>アドレス</th>
+                  <th>分類</th>
+                  <th>意味</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="varname">$C152A4</code>
+                  </td>
+                  <td>データ</td>
+                  <td>メッセージ格納アドレス計算配列</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1A867</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>戦闘モードテキスト出力（実引数を ID とする）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1A87A</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>戦闘モードテキスト出力（A レジスター値を ID とする）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1ABC0</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>戦闘モードテキスト出力共通部</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1AC61</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>メッセージ ID を入力して、データ格納アドレスを <code class="varname">$A0:$A3</code> に出力する</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1ACCE</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>必要に応じて文字コードを変換する</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1AD4A</code>
+                  </td>
+                  <td>データ</td>
+                  <td>濁点文字コードから濁点を抜いた文字コードへの対応を与える配列</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1AD73</code>
+                  </td>
+                  <td>データ</td>
+                  <td>半濁点文字コードから半濁点を抜いた文字コードへの対応を与える配列</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1AD7D</code>
+                  </td>
+                  <td>データ</td>
+                  <td>ある文字コードから「～」や「＋」へ変換するための配列</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$FC9C22</code>
+                  </td>
+                  <td>データ</td>
+                  <td>メッセージデータ</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.text.travel"></a>5.2.2. 移動モード</h3>
+            </div>
+          </div>
+        </div>
+        <a id="term.dq3.text.travel" class="indexterm"></a>
+        <p>
+移動モードのテキスト処理は、各種定数の違いを除けば前作 <a class="xref" href="dq3_text.html#dq3.text.travel" title="5.2.2. 移動モード">5.2.2 移動モード</a> と同じ設計だ。
+細部の違いはあるものの、ほとんど同じ実装とみなしてよい。
+また、BRK 命令が移動モードにおけるテキスト出力を実行することも同じだ。
+したがって、移動モードのテキスト処理に関係する機能を次の表に示してこの節を終える：
+</p>
+        <div class="table">
+          <a id="table.dq3.text.travel"></a>
+          <p class="title">
+            <strong>表 5.4 重要な移動モードテキスト機能</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq3.text.travel" class="lighttable">
+              <thead>
+                <tr>
+                  <th>アドレス</th>
+                  <th>分類</th>
+                  <th>意味</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="varname">$C0FFA8</code>
+                  </td>
+                  <td>BRK ハンドラー</td>
+                  <td><code class="varname">$C1A944</code> または <code class="varname">$C1A92E</code> を実行する</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C10CD5</code>
+                  </td>
+                  <td>データ</td>
+                  <td>小から大への文字コード変換対応</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1A8EA</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1A900</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>(type 1) 移動モードテキスト出力（A レジスターを ID とする）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1A917</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>(type 1) 移動モードテキスト出力（A レジスターを ID とする）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1A92E</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1A944</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1A95A</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>(type 1) 移動モードテキスト出力（A レジスターを ID とする）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1A971</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>(type 1) 移動モードテキスト出力（A レジスターを ID とする）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1A988</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1A9D3</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>(type 1) 移動モードテキスト出力（実引数を ID とする）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1AA21</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>(type 2) 移動モードテキスト出力（A レジスターを ID とする）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1AA6B</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>(type 1) 移動モードテキスト出力（A レジスターを ID とする）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1AAB2</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>(type 1) 移動モードテキスト出力（A レジスターを ID とする）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1AF1D</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>(type 1) 移動モードテキスト出力共通部</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1AF44</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>(type 2) 移動モードテキスト出力共通部</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1AFB9</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>メッセージ ID に対応するデータ格納アドレスと復号用マスクビットを得る</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1B01C</code>
+                  </td>
+                  <td>データ</td>
+                  <td>マスクビット配列</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1B024</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>データ格納アドレスと復号用マスクビットを基にハフマン符号を復号、取得する</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C1B078</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td>小フォント文字コードを対応する大フォント文字コードに変換する</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C15331</code>
+                  </td>
+                  <td>データ</td>
+                  <td>メッセージ格納アドレス計算配列</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C159D3</code>
+                  </td>
+                  <td>データ</td>
+                  <td>ハフマン木ノード (OFF)</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C161A7</code>
+                  </td>
+                  <td>データ</td>
+                  <td>ハフマン木ノード (ON)</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C737B1</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td><code class="varname">$C1A971</code> または <code class="varname">$C1A95A</code> を実行する</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C737BE</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td><code class="varname">$C1A8EA</code> または <code class="varname">$C1A8D4</code> を実行する</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$C737CB</code>
+                  </td>
+                  <td>サブルーチン</td>
+                  <td><code class="varname">$C1A917</code> または <code class="varname">$C1A900</code> を実行する</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="varname">$FCC258</code>
+                  </td>
+                  <td>データ</td>
+                  <td>メッセージデータ</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.text.data"></a>5.2.3. データ</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+抽出した戦闘モードおよび移動モードにおける全テキストデータそれぞれを UTF-8 テキストファイルとして <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> で提供する。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_debug.html" title="5.1. デバッグモード解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_string.html" title="5.3. 文字列"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_debug.html">5.1. デバッグモード解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_string.html">5.3. 文字列</a></div>
+  </body>
+</html>

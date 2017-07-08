@@ -1,0 +1,1397 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.14. ルイーダの酒場解析</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_church.html" title="5.13. 教会解析" />
+    <link rel="next" href="dq3_entry.html" title="5.15. 仲間登録所解析" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_church.html" title="5.13. 教会解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_entry.html" title="5.15. 仲間登録所解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_church.html">5.13. 教会解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_entry.html">5.15. 仲間登録所解析</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.pub"></a>5.14. ルイーダの酒場解析</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_pub.html#dq3.pub.hack">5.14.1. 解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pub.html#dq3.pub.hack.C3D760">5.14.1.1. ルイーダの酒場共通処理サブルーチン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pub.html#dq3.pub.hack.C3D7BB">5.14.1.2. 「なかまをあずける」処理サブルーチン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pub.html#dq3.pub.hack.C3D8C8">5.14.1.3. パーティに生きている人が二人以上いるか調べるサブルーチン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pub.html#dq3.pub.hack.C3D8E8">5.14.1.4. 「なかまをよびだす」処理サブルーチン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pub.html#dq3.pub.hack.C3D983">5.14.1.5. 「めいぼをみる」処理サブルーチン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pub.html#dq3.pub.hack.C3DA75">5.14.1.6. 習得呪文リスト作成サブルーチン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pub.html#dq3.pub.hack.C3DA89">5.14.1.7. 移動時呪文リスト作成サブルーチン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pub.html#dq3.pub.hack.C3DA97">5.14.1.8. アイテムをふくろに</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_pub.html#dq3.pub.data">5.14.2. データ</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq3.pub" class="indexterm"></a>
+      <p>
+本節ではルイーダの酒場での定型処理を解析する。
+つまり、パーティーにいる仲間キャラクターを酒場から呼び出したり、
+逆に預けたり、どんなキャラクターが酒場にいるのかを調べたりする処理を見る。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.pub.hack"></a>5.14.1. 解析</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+ゲーム開始時直後の状態や、バラモスを征伐してきてアリアハン王に報告する前などの、特定のイベント中でなければ、
+酒場の女主人ルイーダに「はなす」とすぐに<a class="link" href="dq3_pub.html#dq3.pub.hack.C3D760" title="5.14.1.1. ルイーダの酒場共通処理サブルーチン">サブルーチン <code class="varname">$C3D760</code></a> が呼ばれる。
+ここから処理を辿ることにする。
+このサブルーチンと、その補助サブルーチン内の台詞表示は
+サブルーチンとして <code class="varname">$C1A92E</code> を、
+ナレーション系のメッセージ表示にはサブルーチン <code class="varname">$C1A8D4</code> がそれぞれ用いられているようなので、
+それを手掛かりに逆アセンブルコードを読み解いていくのが基本だ。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.pub.hack.C3D760"></a>5.14.1.1. ルイーダの酒場共通処理サブルーチン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3D760</code> が、ルイーダの酒場での通常処理を実装している。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+			台詞「ここはルイーダの店～」(ID: <code class="literal">#$0AC5</code>) を表示する。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>【メニュー表示】</p>
+                <p>
+			「なかまをよびだす・なかまをあずける・めいぼをみる」ウィンドウを表示し、
+			プレイヤーの入力を待つ。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					キャンセルボタン抜け⇒【またいらしてね】へ制御をスキップする。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					なかまをあずける⇒【なかまをあずける】へ制御をスキップする。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					なかまをよびだす⇒【なかまをよびだす】へ制御をスキップする。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					めいぼをみる⇒【めいぼをみる】へ制御をスキップする。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【またいらしてね】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					台詞「じゃまたいらしてね」(ID: <code class="literal">#$0ADA</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					サブルーチン呼び出し元に制御を戻す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【なかまをあずける】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<a class="link" href="dq3_pub.html#dq3.pub.hack.C3D7BB" title="5.14.1.2. 「なかまをあずける」処理サブルーチン">「なかまをあずける」処理サブルーチン</a>を呼び出す。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					【ほかにご用は】へ制御をスキップする。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【なかまをよびだす】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<a class="link" href="dq3_pub.html#dq3.pub.hack.C3D8E8" title="5.14.1.4. 「なかまをよびだす」処理サブルーチン">「なかまをよびだす」処理サブルーチン</a>を呼び出す。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					【ほかにご用は】へ制御をスキップする。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【めいぼをみる】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<a class="link" href="dq3_pub.html#dq3.pub.hack.C3D983" title="5.14.1.5. 「めいぼをみる」処理サブルーチン">「めいぼをみる」処理サブルーチン</a>を呼び出す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【ほかにご用は】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					台詞「ほかに ご用は？」(ID: <code class="literal">#$0AD9</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					【メニュー表示】へ制御をスキップする。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <p>
+メニューウィンドウを表示して、プレイヤーの選択項目に従って処理を振り分けるというのが、
+このサブルーチンの役割のようだ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.pub.hack.C3D7BB"></a>5.14.1.2. 「なかまをあずける」処理サブルーチン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$D7BB</code> は「なかまをあずける」を選択したら呼び出すサブルーチンだ。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+			キャラクター人数カウントサブルーチン <code class="varname">$C4297C</code> 呼び出しにより、
+			パーティの人数を取得 (<code class="varname">A</code>) する。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<code class="code">A == 1</code> のとき、台詞「あずけるって…… だれを？」(ID: <code class="literal">#$0AC6</code>) を表示する。
+					そのあと、サブルーチン呼び出し元に制御を戻す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【だれを】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					台詞「だれを おあずかりすれば いいの？」(ID: <code class="literal">#$0AC8</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					だれをウィンドウを表示して、プレイヤーの入力を待つ
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							キャンセル抜け⇒【キャンセル 1】へ制御をスキップする。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					選択したキャラクター (<code class="varname">A</code>) の登録インデックスを得る (<code class="varname">X</code>) ため、
+					サブルーチン <code class="varname">$C42F5E</code> を呼び出す。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					選択したキャラクター (<code class="varname">A</code>) が主人公か否かをテストするべく、
+					サブルーチン <code class="varname">$C42DA1</code> を呼び出す。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							主人公ではなかったら【テスト後】へ制御をスキップする。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					サブルーチン <code class="varname">$CC8C5A</code> を呼び出して、バラモスを倒していることと、
+					ゾーマを倒していること
+					(<code class="code">($3546 &amp; 0004h) &amp;&amp; ($3545 &amp; 0004h)</code>)
+					をテストする。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							両方のビットがセットされていれば【テスト後】へ制御をスキップする。
+						</p>
+                          </li>
+                          <li class="listitem">
+                            <p>
+							どちらかのビットがゼロであれば、
+							台詞「○○○○さんがいなくなったら旅の指揮を執る人が～」(ID: <code class="literal">#$0AC9</code>) を表示する。
+							そのあと、サブルーチン呼び出し元に制御を戻す。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【キャンセル 1】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					台詞「あら おやめになるのね」(ID: <code class="literal">#$0AD8</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					サブルーチン呼び出し元に制御を戻す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【死人だけ】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					台詞「死んでるひと ばかりで旅には 出られなくてよ」(ID: <code class="literal">#$0AC7</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					サブルーチン呼び出し元に制御を戻す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【テスト後】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					生死判定サブルーチン <code class="varname">$C43F87</code> を呼び出し、
+					キャラクター (<code class="varname">A</code>) の生死を表現するデータを取得 (<code class="varname">A</code>) する。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							キャラクターが死んでいれば (<code class="code">A &amp; #$0010</code>)
+							【死んでいるキャラクターを預けようとする】へ制御をスキップする。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<a class="link" href="dq3_pub.html#dq3.pub.hack.C3D8C8" title="5.14.1.3. パーティに生きている人が二人以上いるか調べるサブルーチン">サブルーチン <code class="varname">$D8C8</code></a> を呼び出し、
+					パーティに生きている人が二人以上いるかをテストする。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							テストが失敗した場合は【死人だけ】に制御を移す。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					台詞「○○○○さんをお預かりすればいいのね？」(ID: <code class="literal">#$0ACD</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							キャンセル抜けまたは「いいえ」と答えた場合は【キャンセル 1】に制御を移す。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					台詞「じゃあ○○○○さん。しばらくお休みだわよ」(ID: <code class="literal">#$0ACE</code>) を表示する。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【装備品を袋に】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					台詞「装備しているもの以外はそのふくろに～」(ID: <code class="literal">#$0ACF</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					フラグテストサブルーチン <code class="varname">$C909AE</code> を呼び出し、
+					<span class="emphasis"><em><code class="varname">$7E353E</code> の最下位ビットから <code class="literal">#$000F</code> ビット目に位置するビット</em></span> をテストする。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							ビットがゼロの場合、
+						</p>
+                            <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: disc; ">
+                                <li class="listitem">
+                                  <p>
+									台詞「こうしておかないと大切なものを～」(ID: <code class="literal">#$0AD0</code>) を表示する。
+								</p>
+                                </li>
+                                <li class="listitem">
+                                  <p>
+									フラグセットサブルーチン <code class="varname">$C908F0</code> を呼び出し、同ビットをセットする。
+								</p>
+                                </li>
+                              </ul>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<a class="link" href="dq3_pub.html#dq3.pub.hack.C3DA97" title="5.14.1.8. アイテムをふくろに">サブルーチン <code class="varname">$C3DA97</code></a> を呼び出し、アイテム移動を行う。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					サブルーチン <code class="varname">$C42A6D</code> を呼び出し、
+					キャラクターのデータ格納アドレス配列 (<code class="varname">$36E8,X</code>) を更新する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					TODO <code class="varname">$C3BD64</code>
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					キャラクター人数カウントサブルーチン <code class="varname">$C4297C</code> 呼び出しにより、
+					パーティの人数を取得 (<code class="varname">A</code>) する。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							<code class="code">A &lt; 2</code> ならば、
+							サブルーチン呼び出し元に制御を戻す。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					台詞「ほかにも誰かお預かりしましょうか」(ID: <code class="literal">#$0AD1</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							キャンセル抜けまたは「いいえ」と答えた場合は
+							サブルーチン呼び出し元に制御を戻す。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					【だれを】へ制御を移す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【死んでいるキャラクターを預けようとする】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					台詞「まあ！ ○○○○さんをそんな姿のまま～」(ID: <code class="literal">#$0ACA</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							キャンセル抜けまたは「いいえ」と答えた場合は
+							【ルイーダに諭される】へ制御を移す。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					台詞「それならしかたないわね」(ID: <code class="literal">#$0ACB</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					【装備品を袋に】へ制御を移す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【ルイーダに諭される】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					台詞「だったら助けてあげたほうが～」(ID: <code class="literal">#$0ACC</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					サブルーチン呼び出し元に制御を戻す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.pub.hack.C3D8C8"></a>5.14.1.3. パーティに生きている人が二人以上いるか調べるサブルーチン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	サブルーチン <code class="varname">$D8C8</code> は（生きている）メンバーを預ける直前のパーティにおいて、
+	生きているメンバーが二人以上いるか否かを調べて、<code class="varname">Carry</code> ビットを更新する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+			キャラクター人数カウントサブルーチン <code class="varname">$C4297C</code> 呼び出しにより、
+			パーティの人数を取得 (<code class="varname">X</code>) する。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			<code class="code">Y = 0</code> とし、これを「生きているメンバーの人数カウンター」とする。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>【for-each <code class="varname">X</code> in <code class="varname">X</code> - 1 .. 0】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					死に状態テストサブルーチン <code class="varname">$C43F87</code> 呼び出しにより、
+					パーティキャラクター (<code class="varname">X</code>) が死んでいるかどうかのビットを含む値を取得 (<code class="varname">A</code>) する。
+					生きているときに限り、<code class="varname">Y</code> をインクリメントする。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>
+			<code class="varname">Carry</code> ビットを条件 <code class="code">Y &gt;= 2</code> でセットする。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			サブルーチン呼び出し元に制御を戻す。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>【事後条件】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					パーティで生きているメンバー人数が <code class="literal">2</code> 以上のときに限り <code class="varname">Carry</code> ビットがセット。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.pub.hack.C3D8E8"></a>5.14.1.4. 「なかまをよびだす」処理サブルーチン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	サブルーチン <code class="varname">$D8E8</code> は「なかまをよびだす」を選択したら呼び出すサブルーチンだ。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+			キャラクター人数カウントサブルーチン <code class="varname">$C4297C</code> 呼び出しにより、
+			パーティの人数を取得 (<code class="varname">A</code>) する。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<code class="code">A == 4</code> のとき【既に 4 人パーティ】に制御を戻す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>
+			キャラクター人数カウントサブルーチン <code class="varname">$C4297C</code> 呼び出しにより、
+			酒場にいる仲間の人数を取得 (<code class="varname">A</code>) する。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<code class="code">A == 0</code> のとき【酒場に誰もいない】に制御を戻す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【誰を呼ぶ】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					台詞「だれをお呼びしましょうか？」(ID: <code class="literal">#$0AD4</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					「だれを」ウィンドウを表示して、プレイヤーの入力を待つ。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							キャンセル抜け⇒【キャンセル】へ制御をスキップする。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>
+			選択したキャラクター (<code class="varname">A</code>) の登録インデックスを得る (<code class="varname">X</code>) ため、
+			サブルーチン <code class="varname">$C42F5E</code> を呼び出す。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			<code class="code">$BE77 = X</code> とする（次の台詞が含む名前を表示するため）。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			台詞「○○○○さんを 仲間にくわえるのね」(ID: <code class="literal">#$0AD5</code>) を表示する。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			メッセージ「○○○○が 仲間に くわわった」(ID: <code class="literal">#$0ADB</code>) を表示する。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			サブルーチン <code class="varname">$C42A6D</code> を呼び出し、
+			キャラクターのデータ格納アドレス配列 (<code class="varname">$36E8,X</code>) を更新する。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			TODO <code class="varname">$C3BD64</code>
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			キャラクター人数カウントサブルーチン <code class="varname">$C4297C</code> 呼び出しにより、
+			パーティの人数を取得 (<code class="varname">A</code>) する。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<code class="code">A == 4</code> のとき【終了】へ制御をスキップする。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>
+			キャラクター人数カウントサブルーチン <code class="varname">$C4297C</code> 呼び出しにより、
+			酒場にいる仲間の人数を取得 (<code class="varname">A</code>) する。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<code class="code">A == 0</code> のとき【終了】へ制御をスキップする。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>
+			台詞「他にも誰か～」(ID: <code class="literal">#$0AD6</code>) を表示する。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					キャンセル抜け⇒【終了】へ制御を移す。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					「はい」⇒【誰を呼ぶ】へ制御を移す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【終了】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					サブルーチン呼び出し元に制御を戻す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【既に 4 人パーティ】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					台詞「そんなにぞろぞろお仲間がいるのに？」(ID: <code class="literal">#$0AD2</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					サブルーチン呼び出し元に制御を戻す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【酒場に誰もいない】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					台詞「でもお店にはあなたの仲間にできるような人は～」(ID: <code class="literal">#$0AD3</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					サブルーチン呼び出し元に制御を戻す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.pub.hack.C3D983"></a>5.14.1.5. 「めいぼをみる」処理サブルーチン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	サブルーチン <code class="varname">$D983</code> は「めいぼをみる」を選択したら呼び出すサブルーチンだ。
+	ウィンドウの表示が主な処理だ。
+	処理の概略は以下のようになっている。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+			キャラクター人数カウントサブルーチン <code class="varname">$C4297C</code> 呼び出しにより、
+			酒場にいる仲間の人数を取得 (<code class="varname">A</code>) する。
+		</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<code class="code">A == 0</code> のとき【酒場に誰もいない】に制御を戻す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【だれを】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					「だれを」ウィンドウと、その中のカーソルが指すキャラクターの「つよさ」ウィンドウを、
+					画面左側と右側にそれぞれ表示する。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							キャラクターを選択⇒【呪文リスト開始】
+						</p>
+                          </li>
+                          <li class="listitem">
+                            <p>
+							キャンセル抜け⇒【終了】
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【酒場に誰もいない】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					台詞「お仲間はひとりもおあずかりしてなくてよ」(ID: <code class="literal">#$0AD7</code>) を表示する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					サブルーチン呼び出し元に制御を戻す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【呪文リスト開始】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					キャラクター ID を憶えておく。<code class="code">$33B8 = $33D6 = A</code>
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<code class="code">X = 5</code> としてから<a class="link" href="dq3_pub.html#dq3.pub.hack.C3DA75" title="5.14.1.6. 習得呪文リスト作成サブルーチン">サブルーチン <code class="varname">$DA75</code></a> を呼び出し、
+					対象キャラクターの魔法使い系統の習得呪文リストを作成する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<code class="code">$3398 = (魔法使い系統の戦闘時用習得呪文個数 | 魔法使い系統の移動時用習得呪文個数)</code>
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<code class="code">X = 6</code> としてから<a class="link" href="dq3_pub.html#dq3.pub.hack.C3DA75" title="5.14.1.6. 習得呪文リスト作成サブルーチン">サブルーチン <code class="varname">$DA75</code></a> を呼び出し、
+					対象キャラクターの僧侶系統の習得呪文リストを作成する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<code class="code">$339A = (僧侶系統の戦闘時用習得呪文個数 | 僧侶系統の移動時用習得呪文個数)</code>
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<code class="code">X = 7</code> としてから<a class="link" href="dq3_pub.html#dq3.pub.hack.C3DA89" title="5.14.1.7. 移動時呪文リスト作成サブルーチン">サブルーチン <code class="varname">$DA89</code></a> を呼び出し、
+					対象キャラクターの魔法使い・僧侶系統<span class="emphasis"><em>以外の</em></span>習得呪文リストを作成する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<code class="code">$339C = (その他戦闘時用習得呪文個数 | その他移動時用習得呪文個数)</code>
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					職業 ID 取得サブルーチン <code class="varname">$C46951</code> を呼び出し、キャラクターの職業 (<code class="varname">A</code>) を得る。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							<code class="code">A != 8</code> ⇒【呪文リスト魔法使い】へスキップ。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<code class="code">X = 3</code> としてから<a class="link" href="dq3_pub.html#dq3.pub.hack.C3DA75" title="5.14.1.6. 習得呪文リスト作成サブルーチン">サブルーチン <code class="varname">$DA75</code></a> を呼び出し、
+					対象キャラクターの勇者系統の習得呪文リストを作成する。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<code class="code">$3396 = (勇者系統の戦闘時用習得呪文個数 | 勇者系統の移動時用習得呪文個数)</code>
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【呪文リスト勇者】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					勇者呪文習得個数 (<code class="varname">$3396</code>) がゼロならば、【呪文リスト魔法使い】へスキップする。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					勇者呪文リストを表示して、プレイヤーの入力を待つ。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							キャンセル抜け⇒【だれを】へ戻る。
+						</p>
+                          </li>
+                          <li class="listitem">
+                            <p>
+							キャンセル抜けでない⇒【終了】へスキップする。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【呪文リスト魔法使い】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					魔法使い呪文習得個数 (<code class="varname">$3398</code>) がゼロならば、【呪文リスト僧侶】へスキップする。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					魔法使い呪文リストを表示して、プレイヤーの入力を待つ。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							キャンセル抜け⇒【だれを】へ戻る。
+						</p>
+                          </li>
+                          <li class="listitem">
+                            <p>
+							キャンセル抜けでない⇒
+						</p>
+                            <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: disc; ">
+                                <li class="listitem">
+                                  <p>
+									僧侶呪文習得個数 (<code class="varname">$339A</code>) がゼロでなければ、
+									効果音 (ID: <code class="literal">#$003D</code>) を鳴らす。
+								</p>
+                                </li>
+                                <li class="listitem">
+                                  <p>
+									その他呪文習得個数 (<code class="varname">$339C</code>) がゼロでなければ、
+									【呪文リストその他】へスキップする。
+								</p>
+                                </li>
+                              </ul>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					次へ。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【呪文リスト僧侶】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					僧侶呪文習得個数 (<code class="varname">$339A</code>) がゼロならば、【呪文リストその他】へスキップする。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					僧侶呪文リストを表示して、プレイヤーの入力を待つ。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							キャンセル抜け⇒
+						</p>
+                            <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: disc; ">
+                                <li class="listitem">
+                                  <p>
+									魔法使い習得呪文個数がゼロでなければ、【呪文リスト魔法使い】へ戻る。
+								</p>
+                                </li>
+                                <li class="listitem">
+                                  <p>
+									それ以外は【だれを】へ戻る。
+								</p>
+                                </li>
+                              </ul>
+                            </div>
+                          </li>
+                          <li class="listitem">
+                            <p>
+							キャンセル抜けでない⇒
+						</p>
+                            <div class="itemizedlist">
+                              <ul class="itemizedlist" style="list-style-type: disc; ">
+                                <li class="listitem">
+                                  <p>
+									その他呪文習得個数 (<code class="varname">$339C</code>) がゼロでなければ、効果音 (ID: <code class="literal">#$003D</code>) を鳴らす。
+								</p>
+                                </li>
+                              </ul>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					次へ。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【呪文リストその他】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					その他呪文習得個数 (<code class="varname">$339C</code>) がゼロならば、【終了】へスキップする。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					盗賊・商人・遊び人習得移動時呪文リストを表示して、プレイヤーの入力を待つ。
+				</p>
+                      <div class="itemizedlist">
+                        <ul class="itemizedlist" style="list-style-type: square; ">
+                          <li class="listitem">
+                            <p>
+							キャンセル抜けでなければ、【終了】へスキップする。
+						</p>
+                          </li>
+                          <li class="listitem">
+                            <p>
+							僧侶習得呪文個数がゼロでなければ、【呪文リスト僧侶】へ戻る。
+						</p>
+                          </li>
+                          <li class="listitem">
+                            <p>
+							魔法使い習得呪文個数がゼロでなければ、【呪文リスト魔法使い】へ戻る。
+						</p>
+                          </li>
+                          <li class="listitem">
+                            <p>
+							それ以外は【だれを】へ戻る。
+						</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>【終了】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					サブルーチン <code class="varname">$C32413</code> を呼び出すことで、
+					プレイヤーの最近の入力 (<code class="varname">$33B6</code>) をチェックする。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					サブルーチン呼び出し元に制御を戻す。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.pub.hack.C3DA75"></a>5.14.1.6. 習得呪文リスト作成サブルーチン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	サブルーチン <code class="varname">$DA75</code> は、キャラクターと職業系統を指定して、
+	その習得呪文リストを作成する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>【事前条件】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<code class="code">A == キャラクター ID</code>
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<code class="code">X == 職業 ID</code>
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>
+			<a class="link" href="dq3_pub.html#dq3.pub.hack.C3DA89" title="5.14.1.7. 移動時呪文リスト作成サブルーチン">移動時呪文リスト作成サブルーチン</a>を呼び出す。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			習得呪文リスト作成サブルーチン <code class="varname">$C45796</code> を呼び出す。
+			これは、キャラクターの習得呪文ビットを見て、
+			<code class="varname">$C415B7</code> 構造体から呪文名をある配列にセットする、
+			というような働きをする。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			前者の呪文個数と、後者の呪文個数を <code class="code">ORA</code> する
+		</p>
+              </li>
+              <li class="listitem">
+                <p>【事後条件】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<code class="code">A == 戦闘用習得呪文の個数 | 移動用習得呪文の個数</code>
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.pub.hack.C3DA89"></a>5.14.1.7. 移動時呪文リスト作成サブルーチン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	サブルーチン <code class="varname">$DA89</code> は、キャラクターと職業系統を指定して、
+	その移動時における習得呪文リストを作成する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>【事前条件】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<code class="code">A == キャラクター ID</code>
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					<code class="code">X == 職業 ID</code>
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>
+			習得呪文リスト作成サブルーチン <code class="varname">$C456BC</code> を呼び出す。
+			これは、キャラクターの習得呪文ビットを見て、
+			<code class="varname">$C41480</code> 構造体から呪文名をある配列にセットする、
+			というような働きをする。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>【事後条件】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					<code class="code">Y == 習得呪文の個数</code>
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.pub.hack.C3DA97"></a>5.14.1.8. アイテムをふくろに</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	サブルーチン <code class="varname">$C3DA97</code> は、キャラクターの装備品でない所持品をふくろに入れる処理だ。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+			サブルーチン <code class="varname">$C446A4</code> 呼び出しにより、
+			パーティキャラクター (<code class="varname">$78</code>) のすべての所持品個数を取得 (<code class="varname">$7A</code>) する。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>
+			サブルーチン <code class="varname">$C446D6</code> 呼び出しにより、
+			パーティキャラクター (<code class="varname">$78</code>) のすべての所持品個数を取得 (<code class="varname">X</code>) する。
+		</p>
+              </li>
+              <li class="listitem">
+                <p>【for-each <code class="varname">Y</code> in <code class="varname">$7A</code> .. <code class="varname">X</code>】</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+					サブルーチン <code class="varname">$C4487F</code> 呼び出しにより、
+					パーティキャラクター (<code class="varname">$78</code>) の <code class="varname">Y</code> 番目のアイテムを所持品から削除し、
+					そのアイテムのアイテム構造体 ID を <code class="varname">A</code> にロードする。
+				</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+					サブルーチン <code class="varname">$C45399</code> 呼び出しにより、
+					ふくろの中にあるアイテム (<code class="varname">A</code>) を一個増やす。
+				</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>
+			サブルーチン呼び出し元に制御を戻す。
+		</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.pub.data"></a>5.14.2. データ</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+	移動時呪文のリスト処理に関係する <code class="varname">$C41480</code> 構造体と、
+	戦闘時呪文のリスト処理に関係する <code class="varname">$C415B7</code> 構造体を表にしたいが、
+	構造体の解析を含め、現在調査中。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_church.html" title="5.13. 教会解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_entry.html" title="5.15. 仲間登録所解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_church.html">5.13. 教会解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_entry.html">5.15. 仲間登録所解析</a></div>
+  </body>
+</html>

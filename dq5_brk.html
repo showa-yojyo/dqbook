@@ -1,0 +1,1974 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>3.2. 詳解 BRK 命令</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)" />
+    <link rel="prev" href="dq5_gallery.html" title="3.1. バカ画像" />
+    <link rel="next" href="dq5_accessor.html" title="3.3. 汎用データアクセスサブルーチン（仮）" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq5_gallery.html" title="3.1. バカ画像"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq5_accessor.html" title="3.3. 汎用データアクセスサブルーチン（仮）"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq5_gallery.html">3.1. バカ画像</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq5.html">第 3 章 SFC 版ドラクエ 5 (1992)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq5_accessor.html">3.3. 汎用データアクセスサブルーチン（仮）</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq5.brk"></a>3.2. 詳解 BRK 命令</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq5_brk.html#dq5.brk.bytesize">3.2.1. オペランドのバイトサイズ表</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_brk.html#dq5.brk.handler">3.2.2. BRK 命令ハンドラー概要</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_brk.html#dq5.brk.spec">3.2.3. 命令実行の詳細</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq5_brk.html#dq5.brk.spec.02-03">3.2.3.1. オペランド <code class="literal">#$02</code>, <code class="literal">#$03</code>: レジスター各種の保存または復帰</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_brk.html#dq5.brk.spec.0B-0D">3.2.3.2. オペランド <code class="literal">#$0B</code>, ..., <code class="literal">#$0D</code>: フラグ制御</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_brk.html#dq5.brk.spec.0E-19">3.2.3.3. オペランド <code class="literal">#$0E</code>, ..., <code class="literal">#$19</code>: 音響制御</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_brk.html#dq5.brk.spec.80-93">3.2.3.4. オペランド <code class="literal">#$80</code>, ..., <code class="literal">#$93</code>: オブジェクトのフィールドにアクセス</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_brk.html#dq5.brk.spec.94">3.2.3.5. オペランド <code class="literal">#$94</code>: アイテムの特性を参照</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_brk.html#dq5.brk.spec.95-96">3.2.3.6. オペランド <code class="literal">#$95</code>, <code class="literal">#$96</code>: ウィンドウ処理</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_brk.html#dq5.brk.spec.97-9D">3.2.3.7. オペランド <code class="literal">#$97</code>, ..., <code class="literal">#$9D</code>: 移動時メッセージ処理</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_brk.html#dq5.brk.spec.9E-A0">3.2.3.8. オペランド <code class="literal">#$9E</code>, ..., <code class="literal">#$A0</code>: 戦闘時メッセージ処理</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_brk.html#dq5.brk.spec.A1-A3">3.2.3.9. オペランド <code class="literal">#$A1</code>, ..., <code class="literal">#$A3</code>: 戦闘時メッセージ処理 </a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_brk.html#dq5.brk.spec.A4-A6">3.2.3.10. オペランド <code class="literal">#$A4</code>, ..., <code class="literal">#$A6</code>: 戦闘時メッセージ処理</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_brk.html#dq5.brk.spec.A7-A9">3.2.3.11. オペランド <code class="literal">#$A7</code>, ..., <code class="literal">#$A9</code>: 戦闘時メッセージ処理</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <p>
+汎用の 65816 逆アセンブラーで ROM イメージを逆アセンブルしてコードを解析すると、
+各 BRK 命令は 1 バイトのオペランドを伴うコードとして出力される。
+ところがこれをそのまま SFC 版ドラクエ 5 に適用することは具合が悪いのだ。
+このプログラムは BRK 命令を独自の規則でカスタマイズしており、
+65816 CPU が規定するオペランドの値によって、さらに余分なオペランドを取るというものだ。
+よって、ゲームプログラムの解析者が最初に行うべきことは、
+この BRK 命令の普通のオペランドと付加オペランドのバイト数との間の対応を知り、
+それに基づいたカスタマイズ版 65816 逆アセンブラーを実装することだと思われる。
+さもなければ、解析作業者は BRK 命令を含むテキストを手作業で修正することになるし、
+そもそもどのように修正すればよいのか判断できないはずだ。
+現に記者は SFC 版ドラクエ 5 特化版逆アセンブラーを実装するハメになった。
+</p>
+      <p>
+本節では SFC 版ドラクエ 5 のコードにおける BRK 命令の詳細について見ていく。
+各 BRK オペランドに対応する付加オペランドのバイト数の表、
+BRK 命令のハンドラーコードの振る舞いの要約、
+そして各 BRK 呼び出しの意味をオペランド別に解説していくつもりだ。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.brk.bytesize"></a>3.2.1. オペランドのバイトサイズ表</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+BRK 命令の正規のオペランドと、実際にオペランドを構成するバイト長との対応表を次に示す。
+この情報がなければ、専用逆アセンブラーを実装することはできない。
+ここで列「オペランド」は BRK 命令の正規のオペランドの値を、
+列「サイズ」は正規のオペランドを含んだ、実際にオペランドを構成するバイトのサイズを、
+列「命令の意味」はその BRK 命令のプログラム上の意味をそれぞれ示す。
+</p>
+        <div class="table">
+          <a id="table.dq5.brk.bytesize"></a>
+          <p class="title">
+            <strong>表 3.4 BRK オペランドのバイトサイズ表</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.brk.bytesize" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オペランド</th>
+                  <th>サイズ</th>
+                  <th>命令の意味</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td align="right">1</td>
+                  <td>単に RTI する</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td align="right">1</td>
+                  <td>調査中または不明</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td align="right" rowspan="2">1</td>
+                  <td rowspan="2">レジスター各種状態を保存または復帰</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$03</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td align="right">3</td>
+                  <td>調査中または不明</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td align="right">4</td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td align="right">1</td>
+                  <td>調査中または不明</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td align="right">2</td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td align="right">1</td>
+                  <td>調査中または不明</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td align="right">2</td>
+                  <td>調査中または不明</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td align="right">3</td>
+                  <td>構造体オブジェクトのフィールドにアクセス（未使用）</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td align="right" rowspan="3">3</td>
+                  <td rowspan="3">フラグ制御</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0C</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0D</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td align="right">1</td>
+                  <td>調査中または不明</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td align="right" rowspan="11">2</td>
+                  <td rowspan="11">音響制御</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$10</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$11</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$12</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$13</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$14</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$15</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$16</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$17</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$18</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$19</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$1A</code>
+                  </td>
+                  <td align="right">1</td>
+                  <td>調査中または不明</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td align="right">1</td>
+                  <td rowspan="20">構造体オブジェクトのフィールドにアクセス</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$81</code>
+                  </td>
+                  <td align="right">2</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$82</code>
+                  </td>
+                  <td align="right">1</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$83</code>
+                  </td>
+                  <td align="right">2</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$84</code>
+                  </td>
+                  <td align="right">1</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$85</code>
+                  </td>
+                  <td align="right">2</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$86</code>
+                  </td>
+                  <td align="right">1</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$87</code>
+                  </td>
+                  <td align="right">2</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$88</code>
+                  </td>
+                  <td align="right">2</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$89</code>
+                  </td>
+                  <td align="right">3</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$8A</code>
+                  </td>
+                  <td align="right">2</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$8B</code>
+                  </td>
+                  <td align="right">3</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$8C</code>
+                  </td>
+                  <td align="right">2</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$8D</code>
+                  </td>
+                  <td align="right">3</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$8E</code>
+                  </td>
+                  <td align="right">2</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$8F</code>
+                  </td>
+                  <td align="right">3</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$90</code>
+                  </td>
+                  <td align="right">3</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$91</code>
+                  </td>
+                  <td align="right">4</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$92</code>
+                  </td>
+                  <td align="right">4</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$93</code>
+                  </td>
+                  <td align="right">5</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$94</code>
+                  </td>
+                  <td align="right">2</td>
+                  <td>アイテムの特性を参照</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$95</code>
+                  </td>
+                  <td align="right">2</td>
+                  <td rowspan="2">ウィンドウ処理？</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$96</code>
+                  </td>
+                  <td align="right">2</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$97</code>
+                  </td>
+                  <td align="right" rowspan="7">2</td>
+                  <td>ID が <code class="code">[#$0000, #$0100)</code> にある移動中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$98</code>
+                  </td>
+                  <td>ID が <code class="code">[#$0100, #$0200)</code> にある移動中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$99</code>
+                  </td>
+                  <td>ID が <code class="code">[#$0200, #$0300)</code> にある移動中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$9A</code>
+                  </td>
+                  <td>ID が <code class="code">[#$0300, #$0400)</code> にある移動中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$9B</code>
+                  </td>
+                  <td>ID が <code class="code">[#$0400, #$0500)</code> にある移動中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$9C</code>
+                  </td>
+                  <td>ID が <code class="code">[#$0500, #$0600)</code> にある移動中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$9D</code>
+                  </td>
+                  <td>ID が <code class="code">[#$0600, #$0700)</code> にある移動中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$9E</code>
+                  </td>
+                  <td align="right" rowspan="3">2</td>
+                  <td>ID が <code class="code">[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$9F</code>
+                  </td>
+                  <td>ID が <code class="code">[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$A0</code>
+                  </td>
+                  <td>ID が <code class="code">[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$A1</code>
+                  </td>
+                  <td align="right" rowspan="3">2</td>
+                  <td>ID が <code class="code">[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$A2</code>
+                  </td>
+                  <td>ID が <code class="code">[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$A3</code>
+                  </td>
+                  <td>ID が <code class="code">[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$A4</code>
+                  </td>
+                  <td align="right" rowspan="3">2</td>
+                  <td>ID が <code class="code">[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$A5</code>
+                  </td>
+                  <td>ID が <code class="code">[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$A6</code>
+                  </td>
+                  <td>ID が <code class="code">[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$A7</code>
+                  </td>
+                  <td align="right" rowspan="3">2</td>
+                  <td>ID が <code class="code">[#$0000, #$0100)</code> にある戦闘中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$A8</code>
+                  </td>
+                  <td>ID が <code class="code">[#$0100, #$0200)</code> にある戦闘中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$A9</code>
+                  </td>
+                  <td>ID が <code class="code">[#$0200, #$0300)</code> にある戦闘中メッセージを出力</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$AA</code>
+                  </td>
+                  <td align="right">1</td>
+                  <td>調査中または不明</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$AB</code>
+                  </td>
+                  <td align="right">2</td>
+                  <td>調査中または不明</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$AC</code>
+                  </td>
+                  <td align="right">2</td>
+                  <td>調査中または不明</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$AD</code>
+                  </td>
+                  <td align="right">1</td>
+                  <td>単に RTI する</td>
+                </tr>
+                <tr>
+                  <td align="right">
+                    <code class="literal">#$FF</code>
+                  </td>
+                  <td align="right">1</td>
+                  <td>単に RTI する</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.brk.handler"></a>3.2.2. BRK 命令ハンドラー概要</h3>
+            </div>
+          </div>
+        </div>
+        <p>TODO: BRK 命令ハンドラー <code class="varname">$008F80</code> の要約。</p>
+        <p>
+ここから BRK 命令が「余分なオペランド」を有するものについては、
+それらの 1 番目、2 番目……を <code class="varname">arg1</code>, <code class="varname">arg2</code> のように呼ぶ。
+また、A レジスターの上位バイトと下位バイトを AH, AL とそれぞれ呼ぶ（インデックスレジスターについても同様）。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.brk.spec"></a>3.2.3. 命令実行の詳細</h3>
+            </div>
+          </div>
+        </div>
+        <p>本節では各正規オペランドについて、命令実行の意味なり挙動なりを解説する。</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.brk.spec.02-03"></a>3.2.3.1. オペランド <code class="literal">#$02</code>, <code class="literal">#$03</code>: レジスター各種の保存または復帰</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+これらの命令実行の意図はゲームの内容とは関係がないので、興味のない読者は本節を飛ばして結構だ。
+</p>
+          <p>
+<code class="code">BRK #$02</code> と <code class="code">BRK #$03</code> は常に対で用いる。
+これは BRK 命令の全オペランドに対して共通するコードを流用することで、
+プログラマーがレジスター各種をスタックに保存するコードや、
+スタックからレジスターに復帰するコードを書くのを省力化することができ、
+さらにこれらの処理を表現するのに必要な ROM を数バイト節約できる。
+前者の命令実行が状態を保存し、後者はその状態に復帰するものだ。
+実際の例を借りて説明したい。
+</p>
+          <pre class="programlisting">
+BRK #$02
+JSR $8062
+BRK #$03
+RTL
+</pre>
+          <p>
+このように両 BRK 命令をサンドイッチのように用いる必要がある。
+今はたまたま <code class="code">JSR $8062</code> しかないが、
+一般には具の部分に任意のコードがあってよい。
+もっともサンドイッチの外に飛び出すような激しい分岐命令やジャンプ命令はないようにする。
+そして上記コードは次の非実在コードと論理的に同値である（実際の実装のほうがやや丁寧に処理しているが）。
+</p>
+          <pre class="programlisting">
+PHP
+REP #$30
+PHA
+PHX
+PHY
+PHD
+JSR $8062
+PLB
+PLD
+PLY
+PLX
+PLA
+PLP
+...                 ; nv--dizc 各ビットを現在のそれで上書きする
+RTL
+</pre>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.brk.spec.0B-0D"></a>3.2.3.2. オペランド <code class="literal">#$0B</code>, ..., <code class="literal">#$0D</code>: フラグ制御</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+オペランドが <code class="literal">#$0B</code> から <code class="literal">#$0D</code> の間の値である BRK 命令の実行は、
+アドレス <code class="varname">$7E2190</code> からビット単位で直列配置されたフラグを管理する。
+どの命令も「余分なオペランド」を二個取る。
+<code class="varname">arg1</code> はビットマスクを、
+<code class="varname">arg2</code> は対象フラグを含むバイトのアドレスの
+<code class="varname">$7E2190</code> からのオフセット値をそれぞれ表現する。
+ビット演算は BRK 命令の本来のオペランドによって固定されている。それを次の表に示す。
+</p>
+          <div class="table">
+            <a id="table.dq5.brk.0B-0D"></a>
+            <p class="title">
+              <strong>表 3.5 BRK #$0B-0D によるフラグ制御</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq5.brk.0B-0D" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オペランド</th>
+                    <th>フラグ制御</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0B</code>
+                    </td>
+                    <td>フラグの ON/OFF をテストする</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>フラグを ON にする</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0D</code>
+                    </td>
+                    <td>フラグを OFF にする</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+BRK 命令によるフラグ制御の実例を以下にいくつか挙げる。
+フラグのテストは zero レジスターの状態で判定するので、たいてい BEQ または BNE 命令を伴う。
+このコードから <code class="varname">$7E21B3</code> のビット <code class="literal">#$08</code> が主人公の妻を表すフラグであることが判明する。
+</p>
+          <pre class="programlisting">
+02/F6D0:    009C        BRK #$9C            ; #$0556: [1003]ルドマン「わっはっは。[1000]やあ ゆかい ゆかい！
+02/F6D2:    56
+02/F6D3:    009C        BRK #$9C            ; #$056B: [1003]ルドマン「魔界の王を たおし[1000]世界に 平和を とりもどして[1000]くれるとはな。
+02/F6D5:    6B
+02/F6D6:    000B        BRK #$0B            ; test_bits $7E21B3 #$08: 妻がビアンカか
+02/F6D8:    0823
+02/F6DA:    D005        BNE $F6E1
+02/F6DC:    009C        BRK #$9C            ; #$056D: [1003]ルドマン「さすが [1012]！[1000]わしが フローラのムコと[1000]認めただけのことは あるわい。
+02/F6DE:    6D
+02/F6DF:    8003        BRA $F6E4
+02/F6E1:    009C        BRK #$9C            ; #$056C: [1003]ルドマン「さすが [1012]と[1000]その子供たちじゃ。
+02/F6E3:    6C
+</pre>
+          <p>
+フラグを立てる処理を引用する。
+物理的にはアドレス <code class="varname">$7E21D2</code> にある 1 バイト値のビット <code class="literal">#$10</code> を 1 にする。
+</p>
+          <pre class="programlisting">
+06/B8D8:    009B        BRK #$9B            ; #$04FD: [1003]コリンズ「大切に つかえよ。
+06/B8DA:    FD
+06/B8DB:    000C        BRK #$0C            ; set_bits $7E21D2 #$10: コリンズからかぜのぼうしを入手した
+06/B8DD:    1042
+06/B8DF:    60          RTS
+</pre>
+          <p>
+最後にフラグを立っていない状態にする処理も挙げておく。
+これはビットマスク <code class="varname">arg1</code> をそのまま AND することで実現することに注意を要する。
+後続のシリーズのような対象となるビットの EOR ではない。
+</p>
+          <pre class="programlisting">
+12/F185:    000D        BRK #$0D            ; mask_bits $7E21D4 #$7F: てんくうのかぶとを入手した
+12/F187:    7F44
+12/F189:    0097        BRK #$97            ; #$0013: [1006]
+12/F18B:    13
+12/F18C:    009B        BRK #$9B            ; #$0450: [1006][1016]は ふと 気が ついた。[1002][1006]なんと 持ち物が いっぱいだった！[...]
+12/F18E:    50
+</pre>
+          <p>
+上のコードはテルパドールでてんくうのかぶとを息子にかぶせるイベントの例外的な処理だ。
+この場合は諸般の事情で先に当該フラグを立ててしまったので、このようなキャンセルを実装している。
+言い忘れたが <code class="code">BRK #$97</code> と <code class="code">BRK #$9B</code> についてはこの後 <a class="xref" href="dq5_brk.html#dq5.brk.spec.97-9D" title="3.2.3.7. オペランド #$97, ..., #$9D: 移動時メッセージ処理">3.2.3.7 オペランド <code class="literal">#$97</code>, ..., <code class="literal">#$9D</code>: 移動時メッセージ処理</a> で述べる。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.brk.spec.0E-19"></a>3.2.3.3. オペランド <code class="literal">#$0E</code>, ..., <code class="literal">#$19</code>: 音響制御</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+オペランドが <code class="literal">#$0E</code> から <code class="literal">#$19</code> の間の値である BRK 命令の実行は、
+それぞれが何らかの音響制御を担当する。<code class="varname">$24FF83</code> 系処理。
+音響制御 BRK 命令は「余分なオペランド」を一個または二個有しており、基本的には
+<code class="varname">arg1</code> がサウンド ID だと思ってよい。
+この値と実際に鳴る音楽または効果音との対応表を次に示す。
+</p>
+          <div class="table">
+            <a id="table.dq5.brk.0E-19"></a>
+            <p class="title">
+              <strong>表 3.6 BRK #$0E-19 による arg1 と楽曲・効果音との対応表</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq5.brk.0E-19" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>arg1</th>
+                    <th>楽曲または効果音</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>無音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>王宮のトランペット</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>地平の彼方へ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>空飛ぶじゅうたん</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>大海原へ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>街角のメロディ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>街は生きている</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>カジノ都市</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>淋しい村</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>洞窟に魔の影が</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>死の塔</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0B</code>
+                    </td>
+                    <td>高貴なるレクイエム</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>聖</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0D</code>
+                    </td>
+                    <td>天空城</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0E</code>
+                    </td>
+                    <td>暗黒の世界</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0F</code>
+                    </td>
+                    <td>結婚ワルツ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>間奏曲</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$11</code>
+                    </td>
+                    <td>愛の旋律</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$12</code>
+                    </td>
+                    <td>哀愁物語</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$13</code>
+                    </td>
+                    <td>さびれた村</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$14</code>
+                    </td>
+                    <td>はめつの予感</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$15</code>
+                    </td>
+                    <td>序曲のマーチ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$16</code>
+                    </td>
+                    <td>不死身の敵に挑む</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$17</code>
+                    </td>
+                    <td>戦火を交えて</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$18</code>
+                    </td>
+                    <td>大魔王</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$19</code>
+                    </td>
+                    <td>スライムレースファンファーレ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$1A</code>
+                    </td>
+                    <td>スライム・レース</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$1B</code>
+                    </td>
+                    <td>スライムレースはずれ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$1C</code>
+                    </td>
+                    <td>仲間</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$1D</code>
+                    </td>
+                    <td>宿屋</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$1E</code>
+                    </td>
+                    <td>教会：治療</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$1F</code>
+                    </td>
+                    <td>勝利</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$20</code>
+                    </td>
+                    <td>教会：おいのり</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$21</code>
+                    </td>
+                    <td>レベル・アップ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$22</code>
+                    </td>
+                    <td>重要品入手</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$23</code>
+                    </td>
+                    <td>呪いのモチーフ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$24</code>
+                    </td>
+                    <td>何か見つけた</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$25</code>
+                    </td>
+                    <td>カジノ大当たり</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$26</code>
+                    </td>
+                    <td>カジノ中当たり</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$27</code>
+                    </td>
+                    <td>カジノ小当たり</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$28</code>
+                    </td>
+                    <td>？</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$29</code>
+                    </td>
+                    <td>はるかぜのフルート</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$2A</code>
+                    </td>
+                    <td>はるかぜのフルート（長尺）</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$2B</code>
+                    </td>
+                    <td>ようせいのホルン</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$2C</code>
+                    </td>
+                    <td>ようせいのホルン（長尺）</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$2D</code>
+                    </td>
+                    <td>悪のモチーフ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$2E</code>
+                    </td>
+                    <td>階段等を発見する音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$2F</code>
+                    </td>
+                    <td>バロンのつのぶえ（？）</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$30</code>
+                    </td>
+                    <td>ゴールドオーブ落下</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$31</code>
+                    </td>
+                    <td>マグマのつえ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$32</code>
+                    </td>
+                    <td>台詞音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$33</code>
+                    </td>
+                    <td>ピッ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$34</code>
+                    </td>
+                    <td>バリア音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$35</code>
+                    </td>
+                    <td>宝箱を開く音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$36</code>
+                    </td>
+                    <td>回復音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$37</code>
+                    </td>
+                    <td>逃走音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$38</code>
+                    </td>
+                    <td>派手な打撃音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$39</code>
+                    </td>
+                    <td>ボーッ</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$3A</code>
+                    </td>
+                    <td>マホカンタ音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$3B</code>
+                    </td>
+                    <td>短い効果音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$3C</code>
+                    </td>
+                    <td>？</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$3D</code>
+                    </td>
+                    <td>チャージ音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$3E</code>
+                    </td>
+                    <td>地下室に妖精の村への階段が出現する音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$3F</code>
+                    </td>
+                    <td>稲妻</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$40</code>
+                    </td>
+                    <td>？</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$41</code>
+                    </td>
+                    <td>？</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$42</code>
+                    </td>
+                    <td>赤ん坊</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$43</code>
+                    </td>
+                    <td>波の音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$44</code>
+                    </td>
+                    <td>ワープ音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$45</code>
+                    </td>
+                    <td>てんくうのベル音</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$46</code>
+                    </td>
+                    <td>ほうきで掃くような音</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+実例をいくつか次に挙げる。
+<code class="code">BRK #$0F</code> でサウンド <code class="literal">#$23</code> すなわち呪いの効果音を演奏させる。
+<code class="code">BRK #$98</code> については <a class="xref" href="dq5_brk.html#dq5.brk.spec.97-9D" title="3.2.3.7. オペランド #$97, ..., #$9D: 移動時メッセージ処理">3.2.3.7 オペランド <code class="literal">#$97</code>, ..., <code class="literal">#$9D</code>: 移動時メッセージ処理</a> で述べる。
+</p>
+          <pre class="programlisting">
+25/8211:    000F        BRK #$0F            ; sound #$23: 呪いのモチーフ
+25/8213:    23
+25/8214:    0098        BRK #$98            ; #$01D0: [1006]まことに ざんねんですが[1000]ぼうけんのしょ[1004]は[1000]消えてしまいました。
+25/8216:    D0
+</pre>
+          <p>
+<code class="code">BRK #$12</code> はてんくうのベル専用の命令のようだ。連続実行することで雰囲気を出す。
+</p>
+          <pre class="programlisting">
+00/CA33:    0012        BRK #$12            ; sound #$44: てんくうのベル音
+00/CA35:    44
+00/CA36:    0012        BRK #$12            ; sound #$44: てんくうのベル音
+00/CA38:    44
+</pre>
+          <p>
+これはゲーム序盤のパパス同伴戦闘終了時のやりとりだ。
+<code class="code">BRK #$16</code> でサウンド <code class="literal">#$36</code> すなわち HP 回復の効果音を演奏させる。
+</p>
+          <pre class="programlisting">
+06/CF32:    0098        BRK #$98            ; message #$01E3: [1003]パパス「大丈夫か？ [1012]。
+06/CF34:    E3
+06/CF35:    0098        BRK #$98            ; message #$01E6: [1006]パパスは ホイミを となえた！[1000][1012]の キズが かいふくした！
+06/CF37:    E6
+06/CF38:    0016        BRK #$16            ; sound #$36 #$00: 回復音
+06/CF3A:    3600
+06/CF3C:    0098        BRK #$98            ; message #$01E5: [1003]パパス「では いくとしよう！
+06/CF3E:    E5
+</pre>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.brk.spec.80-93"></a>3.2.3.4. オペランド <code class="literal">#$80</code>, ..., <code class="literal">#$93</code>: オブジェクトのフィールドにアクセス</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+BRK 命令のオペランドが <code class="literal">#$80</code> から <code class="literal">#$93</code> の間の値であれば、
+これはサブルーチン <code class="varname">$218AFC</code> のラッパーとして振る舞う。
+詳しくは <a class="xref" href="dq5_accessor.html" title="3.3. 汎用データアクセスサブルーチン（仮）">3.3 汎用データアクセスサブルーチン（仮）</a> で議論するが、あるオブジェクトの特定の性質へアクセスするというものだ。
+オペランドの値と「余分なオペランド」の値によって構造体のフィールドとアクセス方法が一意に決まり、
+対象となるオブジェクトの指定は別途指定する。
+</p>
+          <p>
+BRK 命令実行時のオペランド、「余分なオペランド」、レジスターの値によって、
+どのオブジェクトのどのフィールドをどのように処理するのかが一意に決定する。
+これを詳細に述べるために、静的なデータ構造を順を追って説明したい。
+</p>
+          <p>
+まず BRK 命令に関係するオペランド、「余分なオペランド」、レジスターの状況を表にまとめる。
+この表は、各正規オペランドに対して、BRK 命令実行がサブルーチン <code class="varname">$218AFC</code> 呼び出しのために必要な
+<code class="varname">$38</code> 等の値をどの要素からコピーするのかを示している。
+</p>
+          <div class="table">
+            <a id="table.dq5.brk.80-93"></a>
+            <p class="title">
+              <strong>表 3.7 BRK #$88-93 によるサブルーチン $218AFC 呼び出しのための変数設定表</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq5.brk.80-93" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オペランド</th>
+                    <th>$38</th>
+                    <th>$3F</th>
+                    <th>$42</th>
+                    <th>$43</th>
+                    <th>$44</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$80</code>
+                    </td>
+                    <td>XL</td>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>AL</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$81</code>
+                    </td>
+                    <td>XL</td>
+                    <td>arg1</td>
+                    <td>AL</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$82</code>
+                    </td>
+                    <td>XL</td>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>AL</td>
+                    <td>AH</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$83</code>
+                    </td>
+                    <td>XL</td>
+                    <td>arg1</td>
+                    <td>AL</td>
+                    <td>AH</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$84</code>
+                    </td>
+                    <td>XL</td>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$85</code>
+                    </td>
+                    <td>XL</td>
+                    <td>arg1</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$86</code>
+                    </td>
+                    <td>AL</td>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$87</code>
+                    </td>
+                    <td>AL</td>
+                    <td>arg1</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$88</code>
+                    </td>
+                    <td>arg1</td>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$89</code>
+                    </td>
+                    <td>arg2</td>
+                    <td>arg1</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$8A</code>
+                    </td>
+                    <td>arg1</td>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>AL</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$8B</code>
+                    </td>
+                    <td>arg2</td>
+                    <td>arg1</td>
+                    <td>AL</td>
+                    <td>n/a</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$8C</code>
+                    </td>
+                    <td>arg1</td>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>AL</td>
+                    <td>AH</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$8D</code>
+                    </td>
+                    <td>arg2</td>
+                    <td>arg1</td>
+                    <td>AL</td>
+                    <td>AH</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$8E</code>
+                    </td>
+                    <td>arg1</td>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>AL</td>
+                    <td>XL</td>
+                    <td>XH</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$8F</code>
+                    </td>
+                    <td>arg2</td>
+                    <td>arg1</td>
+                    <td>AL</td>
+                    <td>XL</td>
+                    <td>XH</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$90</code>
+                    </td>
+                    <td>arg1</td>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>AL</td>
+                    <td>arg2</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$91</code>
+                    </td>
+                    <td>arg2</td>
+                    <td>arg1</td>
+                    <td>AL</td>
+                    <td>arg3</td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$92</code>
+                    </td>
+                    <td>arg1</td>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>AL</td>
+                    <td>arg2</td>
+                    <td>arg3</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$93</code>
+                    </td>
+                    <td>arg2</td>
+                    <td>arg1</td>
+                    <td>AL</td>
+                    <td>arg3</td>
+                    <td>arg4</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+<code class="varname">$38</code> 等については <a class="xref" href="dq5_accessor.html#dq5.accessor.specification.conditions" title="3.3.3.2. 全機能に共通する呼び出し事前条件と事後条件">3.3.3.2 全機能に共通する呼び出し事前条件と事後条件</a> を参照。
+また、一連のシステムについては <a class="xref" href="dq5_accessor.html" title="3.3. 汎用データアクセスサブルーチン（仮）">3.3 汎用データアクセスサブルーチン（仮）</a> を参照して欲しい。
+</p>
+          <p>
+例えば <code class="varname">$38</code> が <code class="literal">#$0B</code> ならば、
+その BRK 命令は「指定の仲間キャラクターの MP をゼロにセットする」処理を実行する。
+次の実例は、戦闘中にパルプンテを唱えた際のある事象のコードだ。
+簡単に言うと、反復処理で <code class="code">BRK #$89</code> を実行することにより、戦闘中の仲間キャラクターの MP をゼロにするコードだ。
+なお <code class="code">BRK #$A5</code> はメッセージ表示処理であり、これについては <a class="xref" href="dq5_brk.html#dq5.brk.spec.A4-A6" title="3.2.3.10. オペランド #$A4, ..., #$A6: 戦闘時メッセージ処理">3.2.3.10 オペランド <code class="literal">#$A4</code>, ..., <code class="literal">#$A6</code>: 戦闘時メッセージ処理</a> で述べる。
+</p>
+          <pre class="programlisting">
+20/ECBE:    2026EF      JSR $EF26
+20/ECC1:    ADF310      LDA $10F3
+20/ECC4:    8542        STA $42
+20/ECC6:    85F5        STA $F5
+20/ECC8:    2033EF      JSR $EF33           ; 味方メンバーのある状態を確認
+20/ECCB:    F00A        BEQ $ECD7
+20/ECCD:    0089        BRK #$89            ; 仲間キャラクターの MP をゼロにセット
+20/ECCF:    800B                            ; arg1, arg2 = #$80, #$0B
+20/ECD1:    00A5        BRK #$A5            ; #$0117: [F7]の ＭＰが なくなった！[F2]
+20/ECD3:    17
+20/ECD4:    20D69D      JSR $9DD6
+20/ECD7:    EEF310      INC $10F3
+20/ECDA:    ADF310      LDA $10F3
+20/ECDD:    CDF410      CMP $10F4
+20/ECE0:    90DF        BCC $ECC1
+20/ECE2:    60          RTS
+</pre>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.brk.spec.94"></a>3.2.3.5. オペランド <code class="literal">#$94</code>: アイテムの特性を参照</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+BRK 命令のオペランドが <code class="literal">#$94</code> であれば、
+この命令実行は指定したアイテムに関する何らかの性質を参照することを意味する。
+正規のオペランドとは別に 1 バイトの「余分なオペランド」を呼び出し元から取り、どの特性を参照するのかを決定する。
+次に余分なオペランドの値 <code class="varname">arg1</code> と、対応する命令実行が参照する特性との対応表を示す
+（実際に参照するデータの列についてはアイテムのデータ構造については <a class="xref" href="dq5_item.html" title="3.13. アイテム">3.13 アイテム</a> を参照）。
+</p>
+          <div class="table">
+            <a id="table.dq5.brk.94"></a>
+            <p class="title">
+              <strong>表 3.8 BRK #$94</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq5.brk.94" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>arg1</th>
+                    <th>実際に参照するデータ</th>
+                    <th>参照する特性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B231,X &amp; #$07</code>
+                    </td>
+                    <td>アイテムの種別</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td><code class="literal">$23B669,X</code> を含む複数配列</td>
+                    <td>アイテムを装備できるか</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B159,X &amp; #$03</code>
+                    </td>
+                    <td>アイテムの値段</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B4B9,X</code>
+                    </td>
+                    <td>アイテムによるパラメーターの増加分</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B159,X &amp; #$20</code>
+                    </td>
+                    <td>アイテムを使うとなくなるものかどうか</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B159,X &amp; #$10</code>
+                    </td>
+                    <td>アイテムを捨てることができるかどうか</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B159,X &amp; #$08</code>
+                    </td>
+                    <td>アイテムを店屋で売れるかどうか</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B159,X &amp; #$04</code>
+                    </td>
+                    <td>不明または未使用</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B159,X &amp; #$80</code>
+                    </td>
+                    <td>移動中「つかう」コマンドの最初のメッセージを省略する</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B159,X &amp; #$40</code>
+                    </td>
+                    <td>移動中「つかう」コマンドで「だれに」の入力を求める</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B231,X &amp; #$80</code>
+                    </td>
+                    <td>戦闘中「つかう」コマンドで専用の処理があるかどうか</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0B</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B231,X &amp; #$20</code>
+                    </td>
+                    <td>戦闘中「つかう」の対象が敵側である</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B231,X &amp; #$08</code>
+                    </td>
+                    <td>アイテムが呪われているかどうか</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0D</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B231,X &amp; #$40</code>
+                    </td>
+                    <td>戦闘中「つかう」の対象を選択する</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0E</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B231,X &amp; #$10</code>
+                    </td>
+                    <td>戦闘中「つかう」の対象が複数である</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$0F</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B3E1,X &amp; #$3F</code>
+                    </td>
+                    <td>戦闘中「つかう」ときのメッセージ配列 <code class="literal">$2781D0,X</code> の添字</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B3E1,X &amp; #$80</code>
+                    </td>
+                    <td>インパスで種別を鑑定するかどうか</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$11</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B3E1,X &amp; #$40</code>
+                    </td>
+                    <td>インパスで装備可能な者を鑑定するかどうか</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$12</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B309,X &amp; #$80</code>
+                    </td>
+                    <td>インパスで消耗品かどうかを鑑定するかどうか</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$13</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B309,X &amp; #$40</code>
+                    </td>
+                    <td>インパスで売却できるかどうかを鑑定するかどうか</td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <code class="literal">#$14</code>
+                    </td>
+                    <td>
+                      <code class="literal">$23B309,X &amp; #$3F</code>
+                    </td>
+                    <td>インパスで「～のようだ」系の文言を述べるかどうか</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+実例として、ある <code class="code">BRK #$94</code> の呼び出しを次に示す。
+「余分なオペランド」として <code class="literal">#$06</code> を指定することによって、
+アイテムが店屋で売れるかどうかを示すビットの値を carry ビットに得る。
+なお <code class="code">BRK #$9B</code> については <a class="xref" href="dq5_brk.html#dq5.brk.spec.97-9D" title="3.2.3.7. オペランド #$97, ..., #$9D: 移動時メッセージ処理">3.2.3.7 オペランド <code class="literal">#$97</code>, ..., <code class="literal">#$9D</code>: 移動時メッセージ処理</a> で述べる。
+</p>
+          <pre class="programlisting">
+11/8463:    0094        BRK #$94            ; #$06: アイテム::鑑定::売却可フラグ
+11/8465:    06
+11/8466:    9005        BCC $846D
+11/8468:    009B        BRK #$9B            ; message #$0460: [1006]店屋に 売ろうとしても これには[1000]ねだんは つけられないだろう。
+11/846A:    60
+11/846B:    800A        BRA $8477
+11/846D:    AD530B      LDA $0B53           ; アイテム ID
+11/8470:    225BDF06    JSR $06DF5B         ; アイテムの売値を計算
+11/8474:    009B        BRK #$9B            ; message #$045F: [1006]もし 店屋に 売れば[1000][1004]ゴールドに なるだろう。
+11/8476:    5F
+</pre>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.brk.spec.95-96"></a>3.2.3.6. オペランド <code class="literal">#$95</code>, <code class="literal">#$96</code>: ウィンドウ処理</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+BRK 命令のオペランドの値が <code class="literal">#$95</code> または <code class="literal">#$96</code> のいずれかであれば、
+この命令はウィンドウ処理を実行する。大抵の場合は何らかのウィンドウ（群）を画面上に新たに描画する。
+値 <code class="varname">arg1</code> が表すのは基本的にはウィンドウ ID であり、
+例外的に値 <code class="literal">#$FF</code> の場合には、メッセージウィンドウの終了を指示する命令を実行するようだ。
+</p>
+          <p>
+ウィンドウ処理全般については <a class="xref" href="dq5_window.html" title="3.8. ウィンドウ">3.8 ウィンドウ</a> を参照。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.brk.spec.97-9D"></a>3.2.3.7. オペランド <code class="literal">#$97</code>, ..., <code class="literal">#$9D</code>: 移動時メッセージ処理</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+BRK 命令のオペランドが <code class="literal">#$97</code> から <code class="literal">#$9D</code> までのいずれかの値であれば、
+この命令はサブルーチン <code class="varname">$248157</code> による移動時のメッセージ表示処理を実行する。
+画面下のウィンドウ内にテキストを描画したりする。
+この命令はさらに 1 バイトの値を呼び出し元から参照し、これを表示するメッセージの ID の値の下位 1 のバイトとして扱う。
+上位の 1 バイトは BRK 命令のオペランドによって決まる。
+<code class="literal">#$97</code> ならば上位バイトは <code class="literal">#$00</code> となり、
+<code class="literal">#$98</code> ならば <code class="literal">#$01</code> となり、以下同様となる。
+</p>
+          <p>
+実例として、ある <code class="code">BRK #$97</code> の呼び出しを次に示す。
+参考までにメッセージテキストを逆アセンブリコードの右側にコメントしておく。
+</p>
+          <pre class="programlisting">
+06/CE0D:    0097        BRK #$97            ; message #$00B6: よくぞもどられた！[1000][1011]どの。
+06/CE0F:    B6
+06/CE10:    0097        BRK #$97            ; message #$00B7: おお 神よ！[1000]この者[1005]に 尊き ご加護の[1000]あらんことを！ アーメン！
+06/CE12:    B7
+</pre>
+          <p>
+移動中メッセージ処理については <a class="xref" href="dq5_text.html#dq5.text.travel" title="3.6.2. 移動モードテキスト解析">3.6.2 移動モードテキスト解析</a> を参照。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.brk.spec.9E-A0"></a>3.2.3.8. オペランド <code class="literal">#$9E</code>, ..., <code class="literal">#$A0</code>: 戦闘時メッセージ処理</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+BRK 命令のオペランドが <code class="literal">#$9E</code> から <code class="literal">#$A7</code> までのいずれかの値であれば、
+この命令はサブルーチン <code class="varname">$2485E0</code> による戦闘時のメッセージ表示処理を実行する。
+移動時メッセージ表示の BRK 命令実行と同様に、余分なオペランドを 1 バイト取り、
+同様の規則でメッセージ ID の 2 バイト値を決定する。
+</p>
+          <p>
+実例として、ある <code class="code">BRK #$9E</code> の呼び出しを次に示す。
+</p>
+          <pre class="programlisting">
+25/89F5:    009E        BRK #$9E            ; message #$0000: 
+25/89F7:    00
+25/89F8:    009E        BRK #$9E            ; message #$00B6: しかし [EE][FA]は[FF]これいじょう ものを もてない。
+25/89FA:    B6
+25/89FB:    009E        BRK #$9E            ; message #$00B7: もちものを すてますか？
+25/89FD:    B7
+</pre>
+          <p>
+戦闘中メッセージ処理については <a class="xref" href="dq5_text.html#dq5.text.battle" title="3.6.1. 戦闘モードテキスト解析">3.6.1 戦闘モードテキスト解析</a> を参照。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.brk.spec.A1-A3"></a>3.2.3.9. オペランド <code class="literal">#$A1</code>, ..., <code class="literal">#$A3</code>: 戦闘時メッセージ処理 </h4>
+              </div>
+            </div>
+          </div>
+          <p>
+こちらも戦闘時メッセージ処理だが、サブルーチン <code class="varname">$2485D4</code> を用いる。
+実例として、ある <code class="code">BRK #$A1</code> の呼び出しを次に示す。
+</p>
+          <pre class="programlisting">
+26/8452:    9005        BCC $8459
+26/8454:    00A1        BRK #$A1            ; message #$0008: [F7]は こちらが みがまえるまえに[FF]おそいかかってきた！
+26/8456:    08
+26/8457:    8003        BRA $845C
+26/8459:    00A1        BRK #$A1            ; message #$0009: [F7]は[FF]いきなり おそいかかってきた！
+26/845B:    09
+</pre>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.brk.spec.A4-A6"></a>3.2.3.10. オペランド <code class="literal">#$A4</code>, ..., <code class="literal">#$A6</code>: 戦闘時メッセージ処理</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+こちらも戦闘時メッセージ処理だが、サブルーチン <code class="varname">$2485D8</code> を用いる。
+実例として、ある <code class="code">BRK #$A4</code> の呼び出しを次に示す。
+</p>
+          <pre class="programlisting">
+20/F4D4:    ADF610      LDA $10F6
+20/F4D7:    3005        BMI $F4DE
+20/F4D9:    00A4        BRK #$A4            ; message #$0078: ひかりのかべが じゅもんを はねかえした！
+20/F4DB:    78
+20/F4DC:    8003        BRA $F4E1
+20/F4DE:    00A4        BRK #$A4            ; message #$0077: じゅもんは ひかりのかべに はじかれた！
+20/F4E0:    77
+</pre>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.brk.spec.A7-A9"></a>3.2.3.11. オペランド <code class="literal">#$A7</code>, ..., <code class="literal">#$A9</code>: 戦闘時メッセージ処理</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+こちらも戦闘時メッセージ処理だが、サブルーチン <code class="varname">$2485DC</code> を用いる。
+実例として、ある <code class="code">BRK #$A7</code> と <code class="code">BRK #$A8</code> の呼び出しを次に示す。
+</p>
+          <pre class="programlisting">
+20/F59E:    CD1310      CMP $1013
+20/F5A1:    F005        BEQ $F5A8
+20/F5A3:    00A7        BRK #$A7            ; message #$00A1: [F7]を やっつけた！
+20/F5A5:    A1
+20/F5A6:    8003        BRA $F5AB
+20/F5A8:    00A8        BRK #$A8            ; message #$0135: [F7]は まけてしまった！
+20/F5AA:    35
+</pre>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq5_gallery.html" title="3.1. バカ画像"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq5_accessor.html" title="3.3. 汎用データアクセスサブルーチン（仮）"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq5_gallery.html">3.1. バカ画像</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq5.html">第 3 章 SFC 版ドラクエ 5 (1992)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq5_accessor.html">3.3. 汎用データアクセスサブルーチン（仮）</a></div>
+  </body>
+</html>

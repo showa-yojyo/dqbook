@@ -1,0 +1,1535 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>第 II 部 解析</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="index.html" title="ドラクエ命" />
+    <link rel="prev" href="tools_utility.html" title="2.6. その他便利なツール" />
+    <link rel="next" href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="tools_utility.html" title="2.6. その他便利なツール"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="tools_utility.html">2.6. その他便利なツール</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="index.html">ドラクエ命</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq5.html">第 3 章 SFC 版ドラクエ 5 (1992)</a><hr /></div>
+    <div class="part">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h1 class="title"><a id="part02"></a>第 II 部 解析</h1>
+          </div>
+        </div>
+      </div>
+      <div class="partintro">
+        <div></div>
+        <p>
+  このパートではドラクエ各シリーズの解析を行っていく。
+</p>
+        <div class="toc">
+          <p>
+            <strong>目次</strong>
+          </p>
+          <dl class="toc">
+            <dt>
+              <span class="chapter">
+                <a href="dq5.html">3. SFC 版ドラクエ 5 (1992)</a>
+              </span>
+            </dt>
+            <dd>
+              <dl>
+                <dt>
+                  <span class="section">
+                    <a href="dq5_gallery.html">3.1. バカ画像</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_gallery.html#dq5.gallery.monsters">3.1.1. 謎のモンスター</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_gallery.html#dq5.gallery.items">3.1.2. 謎のアイテム</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_gallery.html#dq5.gallery.windows">3.1.3. 謎のウィンドウ</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_gallery.html#dq5.gallery.refusal">3.1.4. 受取拒否</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_gallery.html#dq5.gallery.chance">3.1.5. 謎のパルプンテイベント</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq5_brk.html">3.2. 詳解 BRK 命令</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_brk.html#dq5.brk.bytesize">3.2.1. オペランドのバイトサイズ表</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_brk.html#dq5.brk.handler">3.2.2. BRK 命令ハンドラー概要</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_brk.html#dq5.brk.spec">3.2.3. 命令実行の詳細</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq5_accessor.html">3.3. 汎用データアクセスサブルーチン（仮）</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_accessor.html#dq5.accessor.abstract">3.3.1. 概要</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_accessor.html#dq5.accessor.dependencies">3.3.2. 依存関係</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_accessor.html#dq5.accessor.specification">3.3.3. 仕様</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq5_characters.html">3.4. 仲間キャラクター構造体</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_characters.html#dq5.characters.7E2040">3.4.1. 構造体 <code class="varname">$7E2040</code>: パーティーメンバー表現</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_characters.html#dq5.characters.7E2332">3.4.2. 構造体 <code class="varname">$7E2332</code>: 預けてあるモンスターメンバー表現</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_characters.html#dq5.characters.7E294A">3.4.3. 構造体 <code class="varname">$7E294A</code>: 預けてある人間メンバー表現</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq5_combatants.html">3.5. 戦闘キャラクター構造体</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_combatants.html#dq5.combatants.000760">3.5.1. 構造体 <code class="varname">$000760</code>: 仲間キャラクター</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_combatants.html#dq5.combatants.0007C0">3.5.2. 構造体 <code class="varname">$0007C0</code>: 敵キャラクター</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq5_text.html">3.6. テキスト解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_text.html#dq5.text.battle">3.6.1. 戦闘モードテキスト解析</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_text.html#dq5.text.travel">3.6.2. 移動モードテキスト解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq5_string.html">3.7. 文字列</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_string.html#dq5.string.overview">3.7.1. 概要</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_string.html#dq5.string.access">3.7.2. 文字列へのアクセス方法</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_string.html#dq5.string.data">3.7.3. データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq5_window.html">3.8. ウィンドウ</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_window.html#dq5.window.data">3.8.1. ウィンドウ定義表</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq5_battle_commands.html">3.9. 戦闘コマンド</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_battle_commands.html#dq5.battle.commands.classification">3.9.1. 戦闘コマンドを分類する</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_battle_commands.html#dq5.battle.commands.guard">3.9.2. 防御系のコマンド</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_battle_commands.html#dq5.battle.commands.general">3.9.3. 一般のコマンド</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_battle_commands.html#dq5.battle.commands.equip">3.9.4. 装備を変更するコマンド</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_battle_commands.html#dq5.battle.commands.use">3.9.5. 道具を使用するコマンド</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_battle_commands.html#dq5.battle.commands.data">3.9.6. データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq5_shop.html">3.10. 店屋</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_shop.html#dq5.shop.keepers">3.10.1. 店屋処理解析</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_shop.html#dq5.shop.data">3.10.2. 店屋データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq5_character_traits.html">3.11. 仲間キャラクターの特性データ</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_character_traits.html#dq5.character.traits.progression">3.11.1. レベルアップ構造体</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_character_traits.html#dq5.character.traits.abilities">3.11.2. 習得能力構造体</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_character_traits.html#dq5.character.traits.initial">3.11.3. 初期状態</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_character_traits.html#dq5.character.traits.specific">3.11.4. 人間またはモンスター固有の属性</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_character_traits.html#dq5.character.traits.name">3.11.5. 名前</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq5_monster.html">3.12. モンスター</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_monster.html#dq5.monster.model">3.12.1. モデル</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_monster.html#dq5.monster.data">3.12.2. データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq5_item.html">3.13. アイテム</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_item.html#dq5.item.model">3.13.1. モデル</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_item.html#dq5.item.23B081">3.13.2. 配列 <code class="varname">$23B081</code>: 価格</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_item.html#dq5.item.23B159">3.13.3. 配列 <code class="varname">$23B159</code>: 移動モードにおける属性など</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_item.html#dq5.item.23B231">3.13.4. 配列 <code class="varname">$23B231</code>: 戦闘モードにおける属性など</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_item.html#dq5.item.23B309">3.13.5. 配列 <code class="varname">$23B309</code>: 鑑定属性群</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_item.html#dq5.item.23B3E1">3.13.6. 配列 <code class="varname">$23B3E1</code>: 鑑定属性群</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_item.html#dq5.item.23B4B9">3.13.7. 配列 <code class="varname">$23B4B9</code>: 変化量</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_item.html#dq5.item.23B591">3.13.8. 配列 <code class="varname">$23B591</code>: 装備許可フラグ（人間）</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_item.html#dq5.item.23B669">3.13.9. 配列 <code class="varname">$23B669</code>: 装備許可フラグ（モンスター）</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_item.html#dq5.item.data">3.13.10. データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq5_encounter.html">3.14. 敵との遭遇</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_encounter.html#dq5.encounter.model">3.14.1. モデル</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_encounter.html#dq5.encounter.procedure">3.14.2. 敵陣決定手順</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq5_encounter.html#dq5.encounter.data">3.14.3. データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+              </dl>
+            </dd>
+            <dt>
+              <span class="chapter">
+                <a href="dq6.html">4. SFC 版ドラクエ 6 (1995)</a>
+              </span>
+            </dt>
+            <dd>
+              <dl>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_debug.html">4.1. デバッグモード</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_debug.html#dq6.debug.abstract">4.1.1. デバッグモード</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_debug.html#dq6.debug.menu">4.1.2. デバッグメニュー</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_debug.html#dq6.debug.room">4.1.3. デバッグルーム</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_string.html">4.2. 文字列</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_string.html#dq6.string.overview">4.2.1. 概要</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_string.html#dq6.string.data">4.2.2. データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_text.html">4.3. テキスト</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_text.html#dq6.text.battle">4.3.1. 戦闘モード</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_text.html#dq6.text.travel">4.3.2. 移動モード</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_text.html#dq6.text.data">4.3.3. データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_talk.html">4.4. はなす</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_talk.html#dq6.talk.model">4.4.1. モデル</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_talk.html#dq6.talk.process">4.4.2. 処理手順</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_search.html">4.5. しらべる</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_search.html#dq6.search.model">4.5.1. モデル</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_search.html#dq6.search.process">4.5.2. 処理手順</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_shop.html">4.6. 店屋</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_shop.html#dq6.shop.structure">4.6.1. データ</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_shop.html#dq6.shop.behavior">4.6.2. 処理手順</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_inn.html">4.7. 宿屋</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_inn.html#dq6.inn.structure">4.7.1. データ</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_inn.html#dq6.inn.behavior">4.7.2. 処理手順</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_church.html">4.8. 教会</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_church.html#dq6.church.structure">4.8.1. データ</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_church.html#dq6.church.behavior">4.8.2. 処理手順</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_forge.html">4.9. おしゃれなカジヤ</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_forge.html#dq6.forge.structure">4.9.1. データ</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_forge.html#dq6.forge.behavior">4.9.2. 処理手順</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_bank.html">4.10. ゴールド銀行</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_bank.html#dq6.bank.structure">4.10.1. データ構造</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_bank.html#dq6.bank.behavior">4.10.2. 処理手順</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_rename.html">4.11. 命名神</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_rename.html#dq6.rename.structure">4.11.1. データ</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_rename.html#dq6.rename.behavior">4.11.2. 処理手順</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_vocations.html">4.12. 職業</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_vocations.html#dq6.vocations.C41C3E">4.12.1. 構造体 <code class="varname">$C41C3E</code>: 職業構造体</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_vocations.html#dq6.vocations.privilege">4.12.2. 職業に就いていることによる特典</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_item.html">4.13. アイテム</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_item.html#dq6.item.C4003D">4.13.1. 構造体 <code class="varname">$C4003D</code>: アイテム</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_item.html#dq6.item.methods">4.13.2. アイテム構造体メソッド</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_monster.html">4.14. モンスター</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_monster.html#dq6.monster.C20154">4.14.1. 構造体 <code class="varname">$C20154</code>: モンスター</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_monster.html#dq6.monster.methods">4.14.2. モンスター構造体メソッド</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_characters.html">4.15. 仲間キャラクター構造体</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_characters.html#dq6.characters.7E4025">4.15.1. 構造体 <code class="varname">$7E4025</code>: 基本情報構造体</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_characters.html#dq6.characters.7E4415">4.15.2. 構造体 <code class="varname">$7E4415</code>: 職業経験構造体</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_characters.html#dq6.characters.7E45DD">4.15.3. 構造体 <code class="varname">$7E45DD</code>: 習得コマンド構造体</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_character_traits.html">4.16. 仲間キャラクターの特性データ</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_character_traits.html#dq6.character.traits.C8BD12">4.16.1. 構造体 <code class="varname">$C8BD12</code>: 仲間キャラクター特性</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_character_traits.html#dq6.character.traits.methods">4.16.2. 仲間キャラクター構造体メソッド</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_encounter.html">4.17. 敵との遭遇</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_encounter.html#dq6.encounter.model">4.17.1. モデル</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_encounter.html#dq6.encounter.procedure">4.17.2. 敵陣決定手順</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_level.html">4.18. レベルアップ</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_level.html#dq6.level.FFB6C2">4.18.1. 構造体 <code class="varname">$FFB6C2</code>: レベルアップ</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_level.html#dq6.level.C441C2">4.18.2. サブルーチン <code class="varname">$C441C2</code>: レベルアップ処理</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_level.html#dq6.level.C440D2">4.18.3. サブルーチン <code class="varname">$C440D2</code>: 指定レベルであるための必要経験値を計算する</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_level.html#dq6.level.C444BC">4.18.4. サブルーチン <code class="varname">$C444BC</code>: 仲間キャラクター属性値増量分を計算する</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_level.html#dq6.level.C44509">4.18.5. サブルーチン <code class="varname">$C44509</code>: 習得コマンドを決定する</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_combatant.html">4.19. 戦闘キャラクター構造体</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_combatant.html#dq6.combatant.7E2030">4.19.1. 構造体 <code class="varname">$7E2030</code>: 戦闘キャラクター</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_combatant.html#dq6.combatant.methods">4.19.2. 戦闘キャラクター構造体メソッド</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_battle_commands.html">4.20. 戦闘コマンド</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_battle_commands.html#dq6.battle.commands.C8C65D">4.20.1. 構造体 <code class="varname">$C8C65D</code>: 戦闘コマンド</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_battle_commands.html#dq6.battle.commands.methods">4.20.2. 戦闘コマンド構造体メソッド</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_battle_commands.html#dq6.battle.commands.data">4.20.3. データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_spell_commands.html">4.21. 移動中の呪文コマンド処理</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_spell_commands.html#dq6.spell.commands.C3B814">4.21.1. 呪文ハンドラーテーブル</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_spell_commands.html#dq6.spell.commands.desc">4.21.2. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq6_item_commands.html">4.22. 移動中の道具使用コマンド処理</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_item_commands.html#dq6.item.commands.C3C8C0">4.22.1. コマンドハンドラーテーブル</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq6_item_commands.html#dq6.item.commands.desc">4.22.2. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+              </dl>
+            </dd>
+            <dt>
+              <span class="chapter">
+                <a href="dq3.html">5. SFC 版ドラクエ 3 (1996)</a>
+              </span>
+            </dt>
+            <dd>
+              <dl>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_debug.html">5.1. デバッグモード解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_debug.html#dq3.debug.hack">5.1.1. 解析</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_debug.html#dq3.debug.crack">5.1.2. 改竄</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_text.html">5.2. テキスト解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_text.html#dq3.text.battle">5.2.1. 戦闘モード</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_text.html#dq3.text.travel">5.2.2. 移動モード</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_text.html#dq3.text.data">5.2.3. データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_string.html">5.3. 文字列</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_string.html#dq3.string.overview">5.3.1. 概要</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_string.html#dq3.string.data">5.3.2. データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_monster.html">5.4. モンスター解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_monster.html#dq3.monster.hack">5.4.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_caption.html">5.5. 行動説明テキスト構造体</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_caption.html#dq3.caption.hack">5.5.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_damage.html">5.6. ダメージ構造体解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_damage.html#dq3.damage.hack">5.6.1. 解析</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_damage.html#dq3.damage.data">5.6.2. データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_window.html">5.7. ウィンドウ解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_window.html#dq3.window.hack">5.7.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_king.html">5.8. 王様解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_king.html#dq3.king.hack">5.8.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_sistersave.html">5.9. シスターセーブ解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_sistersave.html#dq3.sistersave.hack">5.9.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_shop.html">5.10. 店屋解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_shop.html#dq3.shop.hack">5.10.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_overcharge.html">5.11. ふっかけ店屋解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_overcharge.html#dq3.overcharge.hack">5.11.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_inn.html">5.12. 宿屋解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_inn.html#dq3.inn.hack">5.12.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_church.html">5.13. 教会解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_church.html#dq3.church.hack">5.13.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_pub.html">5.14. ルイーダの酒場解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_pub.html#dq3.pub.hack">5.14.1. 解析</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_pub.html#dq3.pub.data">5.14.2. データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_entry.html">5.15. 仲間登録所解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_entry.html#dq3.entry.hack">5.15.1. 解析</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_entry.html#dq3.entry.data">5.15.2. データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_bank.html">5.16. ゴールド銀行解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_bank.html#dq3.bank.hack">5.16.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_classchange.html">5.17. 転職解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_classchange.html#dq3.classchange.hack">5.17.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_rename.html">5.18. 命名神解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_rename.html#dq3.rename.hack">5.18.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_matchmake.html">5.19. 格闘場マッチメイク解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_matchmake.html#dq3.matchmake.hack">5.19.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_stadium.html">5.20. 格闘場解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_stadium.html#dq3.stadium.hack">5.20.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_tipster.html">5.21. 予想屋解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_tipster.html#dq3.tipster.hack">5.21.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_medal.html">5.22. メダルおじさん解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_medal.html#dq3.medal.hack">5.22.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_item.html">5.23. アイテム解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_item.html#dq3.item.hack">5.23.1. 解析</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_class.html">5.24. 職業構造体解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_class.html#dq3.class.hack">5.24.1. 解析</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_class.html#dq3.class.todo">5.24.2. TODO リスト</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_character.html">5.25. 性格解析</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_character.html#dq3.character.hack">5.25.1. 解析</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_character.html#dq3.character.data">5.25.2. データ</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_talk.html">5.26. はなす</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_talk.html#dq3.talk.model">5.26.1. モデル</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_talk.html#dq3.talk.process">5.26.2. 処理手順</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_search.html">5.27. しらべる</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_search.html#dq3.search.model">5.27.1. モデル</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_search.html#dq3.search.process">5.27.2. 処理手順</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_pond.html">5.28. オルレラの泉</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_pond.html#dq3.pond.CCED57">5.28.1. イベント開始サブルーチン</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_pond.html#dq3.pond.CBA5D6">5.28.2. オルレラとの初回でのやりとり</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_pond.html#dq3.pond.CBA581">5.28.3. オルレラとの二回目以降でのやりとり</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_gallery.html">5.29. バカ画像</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_gallery.html#dq3.gallery.ortega">5.29.1. オルテガ</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_gallery.html#dq3.gallery.goods">5.29.2. 謎のアイテム</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_gallery.html#dq3.gallery.sentaku">5.29.3. せんたくスライム</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_gallery.html#dq3.gallery.monmedal">5.29.4. ドラクエ 4 のモンスターメダル</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_gallery.html#dq3.gallery.kennel">5.29.5. 犬小屋</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_gallery.html#dq3.gallery.turn.65535">5.29.6. 戦闘ターン数 65535</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq3_monster_medal_dq4.html">5.30. ドラクエ 4 のモンスターメダル</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_monster_medal_dq4.html#dq3.monmedal.dq4.hack">5.30.1. セーブデータ改造によるメダル採取</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq3_monster_medal_dq4.html#dq3.monmedal.dq4.ref">5.30.2. 参考サイト</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+              </dl>
+            </dd>
+            <dt>
+              <span class="chapter">
+                <a href="dq7.html">6. PS 版ドラクエ 7 (2000)</a>
+              </span>
+            </dt>
+            <dd>
+              <dl>
+                <dt>
+                  <span class="section">
+                    <a href="dq7_dbg.html">6.1. デバッグモード</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq7_dbg.html#dq7.dbg.start">6.1.1. デバッグモード開始方法</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq7_dbg.html#dq7.dbg.menu">6.1.2. デバッグモードメニュー</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq7_ch2.html">6.2. キーファ</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq7_ch2.html#dq7.chara.kiefer.spell">6.2.1. 呪文</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq7_ch2.html#dq7.chara.kiefer.talk">6.2.2. 戦闘中のセリフデータ</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq7_ch2.html#dq7.chara.kiefer.equip">6.2.3. 強力な装備</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq7_ch2.html#dq7.chara.kiefer.param">6.2.4. レベルパラメータ対応表</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+                <dt>
+                  <span class="section">
+                    <a href="dq7_boss01.html">6.3. あのボスは倒せるか</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq7_boss01.html#dq7.immortal.abstract">6.3.1. 概要</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq7_boss01.html#dq7.immortal.battle">6.3.2. ボス戦</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq7_boss01.html#dq7.immortal.conclusion">6.3.3. 結論</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+              </dl>
+            </dd>
+            <dt>
+              <span class="chapter">
+                <a href="dq4.html">7. PS 版ドラクエ 4 (2001)</a>
+              </span>
+            </dt>
+            <dd>
+              <dl>
+                <dt>
+                  <span class="section">
+                    <a href="dq4_gallery.html">7.1. バカ画像</a>
+                  </span>
+                </dt>
+                <dd>
+                  <dl>
+                    <dt>
+                      <span class="section">
+                        <a href="dq4_gallery.html#dq4.gallery.brey">7.1.1. 悩殺ブライ</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq4_gallery.html#dq4.gallery.armorshop">7.1.2. 謎の防具屋</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq4_gallery.html#dq4.gallery.rosa">7.1.3. ロザリー無限増殖</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq4_gallery.html#dq4.gallery.cheat-king">7.1.4. うらわざ改造王</a>
+                      </span>
+                    </dt>
+                    <dt>
+                      <span class="section">
+                        <a href="dq4_gallery.html#dq4.gallery.npc">7.1.5. NPC を人質にすると</a>
+                      </span>
+                    </dt>
+                  </dl>
+                </dd>
+              </dl>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="tools_utility.html" title="2.6. その他便利なツール"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="tools_utility.html">2.6. その他便利なツール</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="index.html">ドラクエ命</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq5.html">第 3 章 SFC 版ドラクエ 5 (1992)</a></div>
+  </body>
+</html>

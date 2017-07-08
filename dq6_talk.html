@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.4. はなす</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_text.html" title="4.3. テキスト" />
+    <link rel="next" href="dq6_search.html" title="4.5. しらべる" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_text.html" title="4.3. テキスト"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_search.html" title="4.5. しらべる"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_text.html">4.3. テキスト</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_search.html">4.5. しらべる</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.talk"></a>4.4. はなす</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_talk.html#dq6.talk.model">4.4.1. モデル</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_talk.html#dq6.talk.model.FF08DA">4.4.1.1. 構造体 <code class="varname">$FF08DA</code>: 「はなす」対象簡易版</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_talk.html#dq6.talk.model.FF243C">4.4.1.2. 構造体 <code class="varname">$FF243C</code>: 「はなす」対象標準版</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_talk.html#dq6.talk.model.data">4.4.1.3. データ</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_talk.html#dq6.talk.process">4.4.2. 処理手順</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+本節では移動コマンド「はなす」の実装詳細について述べる。
+まずは「はなす」コマンドの対象であるオブジェクトのすべてを表現する ROM データの構造について説明する。
+また、それらの構造それぞれについて、その型のオブジェクトデータを解釈して得られるテキスト CSV ファイルを提示する。
+それから「はなす」コマンドを実行するときのプログラムの手順を、可能な限りコードを引用した上で説明する。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.talk.model"></a>4.4.1. モデル</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+移動モードではプレイヤーの操作するパーティーとは他に、人々や動物、ときには魔物のが画面内をフラフラとしている。
+基本的にはパーティーの先頭の正面にこれらのオブジェクトが存在すれば、コマンド「はなす」が成功することになっている。
+これらの「はなす対象オブジェクト」のデータとして、いつものように配列の形式で定義されている。
+以下、この「はなす対象オブジェクト」の構造を説明する。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.talk.model.FF08DA"></a>4.4.1.1. 構造体 <code class="varname">$FF08DA</code>: 「はなす」対象簡易版</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+ROM のアドレス <code class="varname">$FF08DA</code> には次の表で示すような型のオブジェクトが配列されている：
+</p>
+          <div class="table">
+            <a id="table.dq6.FF08DA"></a>
+            <p class="title">
+              <strong>表 4.18 構造体 $FF08DA</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.FF08DA" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003F</code>
+                    </td>
+                    <td>（調査中）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$3FC0</code>
+                    </td>
+                    <td>スプライト ID</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FF</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FE</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001C</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>描画</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td rowspan="2">歩行処理サブルーチン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td rowspan="2">メッセージ ID</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">スプライト ID</span>
+              </dt>
+              <dd>
+                <p>
+        スプライト ID とは、「はなす」対象オブジェクトの図像的表現であるスプライトを管理するための ID の値をとる属性だ。
+        スプライト ID と内容との対応については別項で述べたい。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">向き</span>
+              </dt>
+              <dd>
+                <p>
+        向きとは、「はなす」対象オブジェクトのスプライトの「向き」を示す 0 から 4 の値をとる属性だ。
+        これは初期値であり、このオブジェクトが配置される空間にプレイヤーが入場した瞬間にしか保証されない。
+      </p>
+                <p>
+        次に示す表は向きの値と意味の対応だ：
+      </p>
+                <div class="table">
+                  <a id="table.dq6.talk.orientations"></a>
+                  <p class="title">
+                    <strong>表 4.19 向き</strong>
+                  </p>
+                  <div class="table-contents">
+                    <table id="table.dq6.talk.orientations" class="lighttable">
+                      <thead>
+                        <tr>
+                          <th>値</th>
+                          <th>向き</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>0</td>
+                          <td>上</td>
+                        </tr>
+                        <tr>
+                          <td>1</td>
+                          <td>右</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>下</td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>左</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <br class="table-break" />
+              </dd>
+              <dt>
+                <span class="term">MX</span>
+              </dt>
+              <dd>
+                <p>
+        MX とは、「はなす」対象オブジェクトのスプライトを配置する空間の M 座標系における位置の X 座標成分のための属性だ。
+      </p>
+                <p>
+        座標系については別の節で説明したいが、本作の移動モードでは座標系は M と W の二つがある。
+        スプライトの関係するオブジェクトについては、前者で管理されている。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">MY</span>
+              </dt>
+              <dd>
+                <p>
+        MY とは、「はなす」対象オブジェクトのスプライトを配置する空間の M 座標系における位置の Y 座標成分のための属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">LV</span>
+              </dt>
+              <dd>
+                <p>
+        LV とは、「はなす」対象オブジェクトのスプライト配置に関する情報のための属性であり、
+        同一空間内の対象オブジェクト群を仮想的な標高で分類するために用いられる。
+      </p>
+                <p>
+        これはわかりづらいので例を出す。
+        ロンガデセオのホックは最初は家屋の屋上にいる。こういう状況を表現するための値が LV だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">描画</span>
+              </dt>
+              <dd>
+                <p>
+        描画とは、「はなす」対象オブジェクトを実際に描画するかどうかを示すブーリアン値の属性だろう。詳細不明。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">歩行処理サブルーチン</span>
+              </dt>
+              <dd>
+                <p>
+        歩行処理サブルーチンとは、「はなす」コマンドが実行されていない状態において、
+        オブジェクトがたまに移動したり、あるいは静止したままだったりする様子を与えるコードのアドレス値の属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">メッセージ ID</span>
+              </dt>
+              <dd>
+                <p>
+        メッセージ ID とは、このオブジェクトに対して「はなす」コマンドが実行されるときに、
+        画面メッセージウィンドウに出力されるメッセージの ID の値の属性だ。
+      </p>
+                <p>
+        移動モードのテキストについては <a class="xref" href="dq6_text.html" title="4.3. テキスト">4.3 テキスト</a> を参照して欲しい。
+      </p>
+              </dd>
+            </dl>
+          </div>
+          <p>
+この型は面白くない。「はなす」コマンド実行によって引き起こされる結果が常に同じだからだ。
+それどころか、実際のデータを観察してみると、メッセージの指定すらなく、
+単に画面内にいることしか目的としないようなオブジェクトさえ存在する。
+一般には、「はなす」コマンドの対象として意味がある振る舞いを提供するのは、次節で示す型だ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.talk.model.FF243C"></a>4.4.1.2. 構造体 <code class="varname">$FF243C</code>: 「はなす」対象標準版</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+ROM のアドレス <code class="varname">$FF243C</code> には次の表で示すような型のオブジェクトが配列されている：
+</p>
+          <div class="table">
+            <a id="table.dq6.FF243C"></a>
+            <p class="title">
+              <strong>表 4.20 構造体 $FF243C</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.FF243C" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003F</code>
+                    </td>
+                    <td>（調査中）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$3FC0</code>
+                    </td>
+                    <td>スプライト ID</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FF</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FE</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001C</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>描画</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>ウィンドウ消去</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td rowspan="2">歩行処理サブルーチン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td rowspan="2">はなす処理サブルーチン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+属性のほとんどが前節と共通している。以下、こちらの構造体に固有の属性を述べる。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">ウィンドウ消去</span>
+              </dt>
+              <dd>
+                <p>
+        ウィンドウ消去とは、ブーリアン値の属性であり、
+        「はなす」コマンドの出力メッセージウィンドウを処理後に消去するかどうかを示すためのものだ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">はなす処理サブルーチン</span>
+              </dt>
+              <dd>
+                <p>
+        はなす処理サブルーチンとは、対象オブジェクトの会話内容の出力を主として実行するための処理コードの開始アドレスを指定する属性だ。
+      </p>
+                <p>
+        単に台詞を表示するだけでなく、店屋処理に制御を委譲したり、フラグを参照や更新をしたり、あるいはゲーム上のイベントを引き起こしたりする等、
+        柔軟な振る舞いを実現するのにこの属性は重要だ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.talk.model.data"></a>4.4.1.3. データ</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+<a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> で前述の二構造体オブジェクトデータを解釈して作成した CSV ファイルを提供する。
+</p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.talk.process"></a>4.4.2. 処理手順</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+サブルーチン <code class="varname">$C0C9B9</code> が「はなす」処理の主要部だ。
+処理手順の構造は直線的なもので、次のように進む：
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">パーティーが「はなす」コマンドを実行可能かどうかテストする</span>
+            </dt>
+            <dd>
+              <p>
+        馬車外のメンバーで最低一人は生存状態であることを確認する。
+      </p>
+              <p>
+        テストに成功すれば次の工程へ進むが、
+        もし馬車外の全員が死亡状態であれば、メッセージ ID <code class="literal">#$17D7</code> の文言
+        <span class="quote">「<span class="quote">このままでは 話せない！</span>」</span> を出力する。
+        ユーザーがコントローラーのボタンを押すまでウィンドウを表示し続けるが、
+        ボタンを押すとウィンドウを消去して、それからこの処理全体を終了する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">各種変数を設定・保存する</span>
+            </dt>
+            <dd>
+              <p>
+        馬車外の生存状態のパーティーメンバー、
+        「はなす」処理最中であることを示すフラグ、
+        「はなす」対象者の（話し始める直前の）向きの各値を設定・保存しておく。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">パーティー先頭のほぼ正面に「はなす」対象者がいるかどうかテストする</span>
+            </dt>
+            <dd>
+              <p>
+        パーティー先頭の向き（上右下左）によって座標比較アルゴリズムを分岐する。
+        対象者がいなければ、後述の「はなす」実施マークをテストする工程にジャンプする。
+      </p>
+              <p>
+        右向きのときの処理を説明する。
+        先頭の座標 (MX, MY) に対して座標が (MX + 1, MY), (MX + 1, MY - 1), (MX + 1, MY + 1) の位置にいる「はなす」オブジェクトを現在空間内から検索する。
+        このとき前述の LV 値も一致している必要がある。
+      </p>
+              <p>
+        これら四方向それぞれの処理は対称的なのかと思いきや、そうではない。
+        実は左向きや下向きの処理は、上向きや右向きの処理より若干複雑なものになっている。
+        余談だが、初代ドラクエにはサブコマンドに「きた」「ひがし」「みなみ」「にし」があった。
+        本コードを観察すると、ユーザーが向きを指示するだけで相当の処理コードを手抜きできることを実感できる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">「はなす」対象者の向きを変更するかテストする</span>
+            </dt>
+            <dd>
+              <p>
+        対象者がパーティー先頭に対して向かい合わせる必要があるかどうかを、はなすオブジェクト属性の値で決める。
+        必要があれば、実際に対象者のスプライトを適当な向きのものに更新する。
+      </p>
+              <p>
+        プログラムではキャラクターの向きは 0 から 7 までの数で表現している（スプライトの構造に由来する）。
+        0, 1, 2, 3, 4, 5, 6, 7 はそれぞれ上上右右下下左左を意味する。
+        ここではこれらの値から 4, 4, 6, 6, 0, 0, 2, 2 に変換するだけでよいらしく、
+        先頭の向き値に 4 を加えて 6 で論理積を取るだけで済ませている。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">移動モードメッセージを出力するかテストする</span>
+            </dt>
+            <dd>
+              <p>
+        「はなす」対象者がメッセージ ID を持っているかどうかを確認する。
+        もし持っていれば、そのメッセージをメッセージウィンドウに出力する。
+      </p>
+              <p>
+        メッセージ ID を持っているということは、この「はなす」オブジェクトが
+        先述の簡易版構造体 <code class="varname">$FF08DA</code> 配列から得られたものであることを意味し、
+        作業用変数の値が <code class="literal">#$168F</code> でないことと同値だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">「はなす」対象者に関連付けられている処理を実行する</span>
+            </dt>
+            <dd>
+              <p>
+        対象の「はなす」オブジェクトが構造体 <code class="varname">$FF243C</code> 配列から得られたものであれば、
+        固有のアドレスが得られるが、そうでない場合には既定の空処理コードアドレスが得られる。
+        その完全アドレスをアドレス <code class="varname">$0006B0</code> にロードしてジャンプする。
+        この処理が「はなす」オブジェクトそれぞれに固有の振る舞いを表現している。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">「はなす」実施済みマークを更新する</span>
+            </dt>
+            <dd>
+              <p>
+        変数 <code class="varname">$7E5E8C</code> をインクリメントする。
+        後ほど本処理および便利コマンド処理がこの値を参照する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">「はなす」オブジェクトのメッセージウィンドウ消去フラグ属性をテストする</span>
+            </dt>
+            <dd>
+              <p>
+        先述の属性の値が 1 であれば、ユーザーのコントローラー入力を待たずにウィンドウを消去する。
+        そうでなければ、コントローラー入力があるまでウィンドウを消去しない。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">「はなす」対象者の向きを復元するかテストする</span>
+            </dt>
+            <dd>
+              <p>
+        もし会話が終わった後に「はなす」対象者の向きを元に戻す必要があれば、そのようにする。
+        このために先ほど退避させておいた変数を参照する。
+      </p>
+              <p>
+        テストの結果にかかわらず、終了する工程までジャンプする。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">「はなす」実施済みマークをテストする</span>
+            </dt>
+            <dd>
+              <p>
+        変数 <code class="varname">$7E5E8C</code> の値を見る。ゼロでなければ終了する。
+        ゼロならば、メッセージ ID <code class="literal">#$1777</code> の文言
+        <span class="quote">「<span class="quote">[D4]その方向には 誰もいない。</span>」</span>を出力し、
+        ユーザーのボタン押しを待ってウィンドウを消去する
+      </p>
+              <p>
+        余談だが、便利コマンドから本処理を実行する場合には、
+        あらかじめ <code class="varname">$7E5E8C</code> の値を水増ししておくことでこのメッセージ出力を抑止させるようになっている。
+        そして復帰後に値が増えていなければ「しらべる」本処理へ進む。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">終了する</span>
+            </dt>
+            <dd>
+              <p>
+        「はなす」処理最中であることを示すフラグをオフにして、本処理を終了する。
+      </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+オブジェクトの細かい属性値や、オブジェクトの位置や向きが影響するとはいえ、
+「はなす」コマンドの本処理は、基本的に一本道の処理だと言える。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_text.html" title="4.3. テキスト"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_search.html" title="4.5. しらべる"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_text.html">4.3. テキスト</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_search.html">4.5. しらべる</a></div>
+  </body>
+</html>

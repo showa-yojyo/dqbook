@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.6. ダメージ構造体解析</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_caption.html" title="5.5. 行動説明テキスト構造体" />
+    <link rel="next" href="dq3_window.html" title="5.7. ウィンドウ解析" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_caption.html" title="5.5. 行動説明テキスト構造体"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_window.html" title="5.7. ウィンドウ解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_caption.html">5.5. 行動説明テキスト構造体</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_window.html">5.7. ウィンドウ解析</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.damage"></a>5.6. ダメージ構造体解析</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_damage.html#dq3.damage.hack">5.6.1. 解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_damage.html#dq3.damage.hack.C23BB4">5.6.1.1. <code class="varname">$C23BB4</code> ダメージ構造体</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_damage.html#dq3.damage.hack.C90AF7">5.6.1.2. <code class="varname">$C90AF7</code> ダメージ構造体アクセスサブルーチン</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_damage.html#dq3.damage.data">5.6.2. データ</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq3.damage" class="indexterm"></a>
+      <p>
+	本章ではダメージ構造体の解析を行う。
+	なお、戦闘行動とキャラクターの状態から決定する、
+	ダメージの計算処理過程全てを解析するものではないことを断っておく。
+</p>
+      <p>
+	ダメージ構造体関連の議論に出てくる「ダメージ」という用語だが、
+	この意味は、通常の意味に加えて、以下の値をも含意する。
+	</p>
+      <div class="itemizedlist">
+        <ul class="itemizedlist" style="list-style-type: disc; ">
+          <li class="listitem">HP, MP の回復する値</li>
+          <li class="listitem">ちから、すばやさ等のパラメータの上昇値</li>
+        </ul>
+      </div>
+      <p>
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.damage.hack"></a>5.6.1. 解析</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+	とっくの昔に解析済みである (e.g. <a class="xref" href="appendix_a.html#dqref.url1" title="Index of /~s-endo/">[<abbr class="abbrev">URL1</abbr>]</a>) ため、
+	わざわざ解析作業をしなくて済む。
+	しかしここでは気の済むまで見てみよう。
+</p>
+        <p>
+	ダメージ構造体はアドレス <code class="varname">$C23B44</code> から各データが格納されている。
+	ID からダメージ構造体オブジェクトの格納アドレスを得るために、
+	プログラムは構造体オブジェクト格納アドレスの配列 <code class="varname">$C23C3E</code> を参照する。
+	<code class="literal">X = ID * 2</code> として、
+	<code class="code">LDA $C23C3E,X</code> の形でアドレスを得る。
+	これは、データアクセス時間を抑えるという意味も兼ねているのだろう。
+</p>
+        <p>
+	戦闘行動構造体の属性として、
+	この構造体の ID を持つフィールドがある。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.damage.hack.C23BB4"></a>5.6.1.1. <code class="varname">$C23BB4</code> ダメージ構造体</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	アドレス <code class="varname">$C23BB4</code> から数十個、ダメージパターンが定義されている。
+	1 パターン当たりが占めるデータ量は 5byte であり、
+	これが <code class="literal">#$32</code> (50) 個配列されている。
+</p>
+          <p>
+	本構造体のメモリレイアウトは以下のようになっている。
+	各フィールドは 10bit で表現される。
+</p>
+          <div class="table">
+            <a id="table.dq3.C23BB4"></a>
+            <p class="title">
+              <strong>表 5.14 $C23BB4 ダメージ構造体</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C23BB4" class="memorylayout">
+                <colgroup>
+		<col width="12%" />
+		<col span="7" width="11%" />
+	</colgroup>
+                <thead>
+                  <tr><th>Byte:Bit</th>
+			<th>80</th>
+			<th>40</th>
+			<th>20</th>
+			<th>10</th>
+			<th>08</th>
+			<th>04</th>
+			<th>02</th>
+			<th>01</th>
+		</tr>
+                </thead>
+                <tbody>
+                  <tr><th>00</th>
+			<td colspan="8">（上位バイトから続き）</td>
+		</tr>
+                  <tr><th>01</th>
+			<td colspan="6">（上位バイトから続き）</td>
+			<td colspan="2">敵側への最小値</td>
+		</tr>
+                  <tr><th>02</th>
+			<td colspan="4">（上位バイトから続き）</td>
+			<td colspan="4">味方側への最小値</td>
+		</tr>
+                  <tr><th>03</th>
+			<td colspan="2">（上位バイトから続き）</td>
+			<td colspan="6">敵側への最大値</td>
+		</tr>
+                  <tr><th>04</th>
+			<td colspan="8">味方側への最小値</td>
+		</tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <div class="glosslist">
+            <dl>
+              <dt>
+                <span class="glossterm">敵側への最小値</span>
+              </dt>
+              <dd class="glossdef">
+                <p>
+			味方側キャラクターから敵側キャラクターへ、
+			例えば攻撃することで発生するダメージの<span class="emphasis"><em>最小値</em></span>である。
+		</p>
+              </dd>
+              <dt>
+                <span class="glossterm">味方側への最小値</span>
+              </dt>
+              <dd class="glossdef">
+                <p>
+			敵側キャラクターから味方側キャラクターへ、
+			例えば攻撃されることで発生するダメージの<span class="emphasis"><em>最小値</em></span>である。
+		</p>
+              </dd>
+              <dt>
+                <span class="glossterm">敵側への最大値</span>
+              </dt>
+              <dd class="glossdef">
+                <p>
+			味方側キャラクターから敵側キャラクターへ、
+			例えば攻撃されることで発生するダメージの<span class="emphasis"><em>最大値</em></span>である。
+		</p>
+              </dd>
+              <dt>
+                <span class="glossterm">味方側への最小値</span>
+              </dt>
+              <dd class="glossdef">
+                <p>
+			敵側キャラクターから味方側キャラクターへ、
+			例えば攻撃されることで発生するダメージの<span class="emphasis"><em>最大値</em></span>である。
+		</p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.damage.hack.C90AF7"></a>5.6.1.2. <code class="varname">$C90AF7</code> ダメージ構造体アクセスサブルーチン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+	<code class="varname">$C23BB4</code> 構造体のメモリレイアウトを解析するには、
+	単に <code class="varname">$C90AF7</code> サブルーチンを読み切るだけで済むのである。
+	以下にコードを抜粋する。
+</p>
+          <pre class="programlisting">
+ .routine 戦闘行動のダメージ値決定
+C9/0AF7:    08          PHP 
+C9/0AF8:    8B          PHB 
+C9/0AF9:    C230        REP #$30
+C9/0AFB:    F47E7E      PEA $7E7E
+C9/0AFE:    AB          PLB 
+C9/0AFF:    AB          PLB 
+C9/0B00:    DA          PHX 
+C9/0B01:    5A          PHY 
+C9/0B02:    AEEE23      LDX $23EE
+C9/0B05:    ACE423      LDY $23E4
+C9/0B08:    22E0CAC2    JSR $C2CAE0    <a id="dq3.damage.hack.C90AF7.C2CAE0"></a><span><img src="image/docbook/callouts/1.png" alt="1" border="0" /></span>
+C9/0B0C:    3C20        // $7E2030 戦闘キャラ構造体
+C9/0B0E:    FF00        // 戦闘行動の主体が味方側ならば 5
+C9/0B10:    C90500      CMP #$0005
+C9/0B13:    9030        BCC $0B45      if(a &lt; 5) goto 敵方から味方へのダメージ
+.label 味方側キャラクターからモンスター側ダメージ（素）を決定
+C9/0B15:    A9FFFF      LDA #$FFFF
+C9/0B18:    48          PHA 
+C9/0B19:    2225CCC2    JSR $C2CC25    <a id="dq3.damage.hack.C90AF7.C2CC25.1"></a><span><img src="image/docbook/callouts/2.png" alt="2" border="0" /></span>
+C9/0B1D:    7218
+C9/0B1F:    FF00
+C9/0B21:    A8          TAY 
+C9/0B22:    22F8CCC2    JSR $C2CCF8    <a id="dq3.damage.hack.C90AF7.C2CCF8.1"></a><span><img src="image/docbook/callouts/3.png" alt="3" border="0" /></span>
+C9/0B26:    443B        // $C23B44 ダメージ構造体::最小値（敵への）
+C9/0B28:    FF03
+C9/0B2A:    C9FF03      CMP #$03FF
+C9/0B2D:    F03E        BEQ $0B6D      if(a == 03FFh) goto 終了
+C9/0B2F:    AA          TAX
+C9/0B30:    22F8CCC2    JSR $C2CCF8    <a id="dq3.damage.hack.C90AF7.C2CCF8.2"></a><span><img src="image/docbook/callouts/4.png" alt="4" border="0" /></span>
+C9/0B34:    463B        // $C23B44 ダメージ構造体::最大値（敵への）
+C9/0B36:    F03F
+                                       // a == ダメージ
+C9/0B38:    802E        BRA $0B68      goto 乱数
+.routine アイテム関連 @x ダメージ値決定
+C9/0B3A:    08          PHP 
+C9/0B3B:    8B          PHB 
+C9/0B3C:    C230        REP #$30
+C9/0B3E:    F47E7E      PEA $7E7E
+C9/0B41:    AB          PLB 
+C9/0B42:    AB          PLB 
+C9/0B43:    DA          PHX 
+C9/0B44:    5A          PHY 
+.label 敵側キャラクターから味方キャラクターへのダメージ（素）を決定
+C9/0B45:    A9FFFF      LDA #$FFFF
+C9/0B48:    48          PHA 
+C9/0B49:    2225CCC2    JSR $C2CC25    <a id="dq3.damage.hack.C90AF7.C2CC25.2"></a><span><img src="image/docbook/callouts/5.png" alt="5" border="0" /></span>
+C9/0B4D:    7218
+C9/0B4F:    FF00
+C9/0B51:    A8          TAY
+C9/0B52:    22F8CCC2    JSR $C2CCF8    <a id="dq3.damage.hack.C90AF7.C2CCF8.3"></a><span><img src="image/docbook/callouts/6.png" alt="6" border="0" /></span>
+C9/0B56:    453B
+C9/0B58:    FC0F
+C9/0B5A:    C9FF03      CMP #$03FF
+C9/0B5D:    F00E        BEQ $0B6D      if(a == 03FFh) goto 終了
+C9/0B5F:    AA          TAX
+C9/0B60:    22F8CCC2    JSR $C2CCF8    <a id="dq3.damage.hack.C90AF7.C2CCF8.4"></a><span><img src="image/docbook/callouts/7.png" alt="7" border="0" /></span>
+C9/0B64:    473B
+C9/0B66:    C0FF
+.label 乱数
+C9/0B68:    20750B      JSR $0B75      <a id="dq3.damage.hack.C90AF7.rand"></a><span><img src="image/docbook/callouts/8.png" alt="8" border="0" /></span>
+C9/0B6B:    8301        STA $01,S
+.label 終了
+C9/0B6D:    68          PLA
+C9/0B6E:    7A          PLY
+C9/0B6F:    FA          PLX
+C9/0B70:    AB          PLB
+C9/0B71:    28          PLP
+C9/0B72:    48          PHA
+C9/0B73:    68          PLA
+C9/0B74:    6B          RTL
+</pre>
+          <div class="calloutlist">
+            <table border="0" summary="Callout list">
+              <tr>
+                <td width="5%" valign="top" align="left">
+                  <p><a href="#dq3.damage.hack.C90AF7.C2CAE0"><span><img src="image/docbook/callouts/1.png" alt="1" border="0" /></span></a> </p>
+                </td>
+                <td valign="top" align="left">
+                  <p>
+      サブルーチン <code class="varname">$C2CAE0</code> の呼び出しは、
+      戦闘キャラクター <code class="literal">Y</code> の各種状態を表す構造体オブジェクトから、
+      指定の状態を取得することを意味する。
+    </p>
+                  <p>
+      呼び出し位置の直後に実引数がコードに埋め込まれている。
+      これらが取得したい値の相対アドレスとビットマスクを指示する。
+      ここで取得するオフセット<code class="literal">#$203C</code> からの 1 バイトは、
+      戦闘時におけるキャラクターのグループ番号を示す。
+    </p>
+                </td>
+              </tr>
+              <tr>
+                <td width="5%" valign="top" align="left">
+                  <p><a href="#dq3.damage.hack.C90AF7.C2CC25.1"><span><img src="image/docbook/callouts/2.png" alt="2" border="0" /></span></a> <a href="#dq3.damage.hack.C90AF7.C2CC25.2"><span><img src="image/docbook/callouts/5.png" alt="5" border="0" /></span></a> </p>
+                </td>
+                <td valign="top" align="left">
+                  <p>
+      サブルーチン <code class="varname">$C2CC25</code> を呼び出し、
+      戦闘オブジェクトのメンバーデータを取得する。
+      ここでは引数として <code class="literal">#$1872</code> と <code class="literal">#$00FF</code> を渡して、
+      この戦闘行動 <code class="literal">X</code> に関連付けられているダメージデータの ID を取得する。
+    </p>
+                </td>
+              </tr>
+              <tr>
+                <td width="5%" valign="top" align="left">
+                  <p><a href="#dq3.damage.hack.C90AF7.C2CCF8.1"><span><img src="image/docbook/callouts/3.png" alt="3" border="0" /></span></a> <a href="#dq3.damage.hack.C90AF7.C2CCF8.2"><span><img src="image/docbook/callouts/4.png" alt="4" border="0" /></span></a> <a href="#dq3.damage.hack.C90AF7.C2CCF8.3"><span><img src="image/docbook/callouts/6.png" alt="6" border="0" /></span></a> <a href="#dq3.damage.hack.C90AF7.C2CCF8.4"><span><img src="image/docbook/callouts/7.png" alt="7" border="0" /></span></a> </p>
+                </td>
+                <td valign="top" align="left">
+                  <p>
+      サブルーチン <code class="varname">$C2CCF8</code> を呼び出し、
+      ダメージオブジェクトから指定のメンバーデータを取得する。
+      ここで与えている引数と、取得するメンバーの対応表は前項を参照。
+    </p>
+                </td>
+              </tr>
+              <tr>
+                <td width="5%" valign="top" align="left">
+                  <p><a href="#dq3.damage.hack.C90AF7.rand"><span><img src="image/docbook/callouts/8.png" alt="8" border="0" /></span></a> </p>
+                </td>
+                <td valign="top" align="left">
+                  <p>
+      サブルーチン <code class="varname">$0B75</code> を呼び出し、範囲 <code class="literal">[X, A]</code> にある乱数を取る。
+      この意図は、ダメージ値からなる集合から、ランダムに値を一つ取るということだ。
+      この乱数を <code class="literal">A</code> に入れた状態でサブルーチンを終了する。
+    </p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <p>
+	ダメージ構造体のフィールドにアクセスする専用サブルーチンはいくつかあるのだが、
+	実際にプログラムから参照されているものは <code class="varname">$C2CCF8</code> サブルーチンだけであるようだ。
+	このサブルーチンは 4byte のパラメータをとり、
+	その意味はいつもと同じようなものなので、説明を省く。
+</p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.damage.data"></a>5.6.2. データ</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+	<a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a>
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_caption.html" title="5.5. 行動説明テキスト構造体"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_window.html" title="5.7. ウィンドウ解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_caption.html">5.5. 行動説明テキスト構造体</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_window.html">5.7. ウィンドウ解析</a></div>
+  </body>
+</html>

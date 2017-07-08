@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>第 1 章 解析序論</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="part01.html" title="第 I 部 基本概念" />
+    <link rel="prev" href="part01.html" title="第 I 部 基本概念" />
+    <link rel="next" href="dq_hack.html" title="1.1. ドラクエ解析" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="part01.html" title="第 I 部 基本概念"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="part01.html" title="第 I 部 基本概念"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq_hack.html" title="1.1. ドラクエ解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="part01.html">第 I 部 基本概念</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="part01.html">第 I 部 基本概念</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq_hack.html">1.1. ドラクエ解析</a><hr /></div>
+    <div class="chapter">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title"><a id="hack"></a>第 1 章 解析序論</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq_hack.html">1.1. ドラクエ解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq_hack.html#dq.hack.env">1.1.1. 解析環境</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq_hack.html#dq.hack.rom">1.1.2. ロムイメージファイル</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq_hack.html#dq.hack.ref">1.1.3. 参考書籍</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <p>
+	「ドラクエ命」は、数年前に記者が Windows PC で家庭用ゲーム機のゲームをプレイできるという驚愕の事実を知ったことから始まる。
+	記者は当時学生で、しかもろくに計算機の知識も教養もないものだから、エミュレーターの意義に素直に感動してしまった。
+	しかもエミュレーターはゲーム機のゲームを本物に再現するだけでなく、画像をキャプチャできたり、描画フレームレートを上げたりと、
+	ゲーム機以上の機能を提供する。記者はエミュレーターに魂を売ることを決めた。
+</p>
+      <p>
+	記者はドラクエが大好きで、これ以外のゲームはほとんどプレイしていない。
+	「各シリーズの全データが見たいっ……！」というありきたりな理由で、
+	ゲームデータの全貌を解明するべく、まずは PAR コードによる改造から試みることにした。
+	以前からマニア誌の立ち読みで、PAR 改造というものの存在は知っていたが、
+	エミュレーターが PAR 改造をサポートしていることで、ようやく試すことができたのである。
+</p>
+      <div class="figure">
+        <a id="fig.dq.hack.intro.par"></a>
+        <p class="title">
+          <strong>図 1.1 Snes9X PAR Entry</strong>
+        </p>
+        <div class="figure-contents">
+          <div>
+            <table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="426">
+              <tr>
+                <td>
+                  <img src="./image/dq.hack.intro.par.png" width="426" alt="Snes9X PAR Entry" />
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <br class="figure-break" />
+      <p>
+	PAR 改造は解析の知識がなくても、割と簡単にできる。
+	対象となるゲーム自身の知識が必要なだけだ。
+	記者の場合、SFC 版ドラクエ 3 で言えば、アイテム、モンスター、呪文、セリフ表を作成することに成功した。
+	といっても、せいぜい ID と名前の対応くらいがわかるだけで、ゲームデータの構造はわかるはずもなかった。
+	この暗黒の時代が 2, 3 年続いた。
+</p>
+      <p>
+	そうこうしているうちに、ドラクエビューワを知ることができた。度肝を抜かれる。
+	数値的なデータはともかく、なんと画像データの抽出に成功しているではないか！
+	「そうか、ロムイメージファイルからデータを探す方法があるのか」と気付き、
+	PAR 改造からロムイメージファイルのデータの解読に方法をシフトしていく。
+	……が、駄目ッ…！
+	バイナリエディタでロムイメージを眺めるだけでは、どこに何のデータがあるのか
+	全然わからない……！
+</p>
+      <p>
+	しかも思いも寄らぬことから記者のネット環境が崩壊してしまう。
+	これにより、隔週でのネットカフェ・漫画喫茶の巡業を余儀なくされる。
+</p>
+      <p>
+	ある日メールをチェックしていたら、
+	やはりドラクエの解析をやっているという方からのメールが届いていた。
+	毎回メールには相当に突っ込んだ意見が書いてある。
+	秘密サイトをオープンするということで、お願いして見せていただく。
+	そこには想像を絶する解析の世界が拡がっており、
+	記者は初めてスーファミの逆アセンブリ技術の存在を知ることになる。
+	逆アセンブリにより、ドラクエのプログラムが眺めることができる―――ッ！
+</p>
+      <p>
+	現在、この逆アセンブリをいろいろな意味でギリギリの線で行いつつ、
+	過去の文書を書き直しているところである。
+</p>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="part01.html" title="第 I 部 基本概念"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="part01.html" title="第 I 部 基本概念"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq_hack.html" title="1.1. ドラクエ解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="part01.html">第 I 部 基本概念</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="part01.html">第 I 部 基本概念</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq_hack.html">1.1. ドラクエ解析</a></div>
+  </body>
+</html>
