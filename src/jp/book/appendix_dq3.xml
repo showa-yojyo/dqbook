@@ -8,7 +8,7 @@
 <title>&dq3_1996;</title>
 <simplelist type="vert" columns="1">
   <member><ulink url="./data/dq3_C20000_monster.txt"><filename>dq3_C20000_monster.txt</filename></ulink></member>
-  <member><ulink url="./data/dq3_C21860_action.txt"><filename>dq3_C21860_action.txt</filename></ulink></member>
+  <member><ulink url="./data/dq3_C21860_commands.txt"><filename>dq3_C21860_commands.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C2398E_caption.txt"><filename>dq3_C2398E_caption.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C23BB4_damage.txt"><filename>dq3_C23BB4_damage.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C30000_window.txt"><filename>dq3_C30000_window.txt</filename></ulink></member>
