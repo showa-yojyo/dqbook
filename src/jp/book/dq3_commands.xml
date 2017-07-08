@@ -5,11 +5,500 @@
   %replacement;
 ]>
 
-<section id="dq3.act"><?dbhtml filename="dq3_act.html" ?>
-<title>戦闘行動解析</title>
-<indexterm id="term.dq3.act"><primary>行動</primary><secondary>DQ3</secondary></indexterm>
+<section id="dq3.commands"><?dbhtml filename="dq3_commands.html" ?>
+<title>コマンド</title>
+<indexterm id="term.dq3.commands"><primary>コマンド</primary><secondary>DQ3</secondary></indexterm>
 <para>
-	準備中。
+TBW
 </para>
 
-</section> <!-- dq3.act -->
+<section id="dq3.commands.structure">
+<title>構造に関する構成要素</title>
+
+<section id="dq3.commands.structure.C21860">
+<title>構造体 <varname>$C21860</varname>: コマンド</title>
+<para>
+TBW
+</para>
+<table id="table.dq3.C21860" class="lighttable">
+  <caption>構造体 $C21860</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>名前</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00FF</literal></td><td>対象決定判断 0</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF</literal></td><td>対象決定判断 1</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td><td>対象決定判断 2</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>効果音</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">処理アドレス（戦闘）</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$FFFF</literal></td><td>メッセージ</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$00FF</literal></td><td>記述</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$FFFF</literal></td><td>演出処理アドレス 0</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$FFFF</literal></td><td>演出処理アドレス 1</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$FFFF</literal></td><td>演出処理アドレス 2</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$00FF</literal></td><td>ダメージ</td></tr>
+    <tr><td><literal>#$13</literal></td><td><literal>#$00FF</literal></td><td>打撃ダメージ算出</td></tr>
+    <tr><td><literal>#$14</literal></td><td><literal>#$00FF</literal></td><td>処理アドレス（移動）</td></tr>
+    <tr><td><literal>#$15</literal></td><td><literal>#$0003</literal></td><td>対象範囲</td></tr>
+    <tr><td><literal>#$15</literal></td><td><literal>#$00FC</literal></td><td>MP</td></tr>
+    <tr><td><literal>#$16</literal></td><td><literal>#$0007</literal></td><td>対象分類</td></tr>
+    <tr><td><literal>#$16</literal></td><td><literal>#$00F8</literal></td><td>耐性分類</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$000F</literal></td><td>（調査中）</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$00F0</literal></td><td>成功率係数 0</td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$000F</literal></td><td>成功率係数 1</td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$0030</literal></td><td>戦闘終了時述語</td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$0040</literal></td><td>マホトーン状態を考慮</td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$0080</literal></td><td>マホカンタ状態を考慮</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$0001</literal></td><td>フバーハ状態を考慮</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$0002</literal></td><td>マヌーサ状態を考慮</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$0004</literal></td><td>覚醒考慮</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$0008</literal></td><td>呪い装備考慮</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$0010</literal></td><td>みかわし考慮</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$0020</literal></td><td>バイキルト考慮</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$0040</literal></td><td>会心の一撃考慮</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$0080</literal></td><td>集中攻撃考慮</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0001</literal></td><td>空振り時対象再抽選考慮</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0002</literal></td><td>コマンド選択能力考慮</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0004</literal></td><td>アストロン考慮</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0008</literal></td><td>攻撃ミス抽選有効</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0010</literal></td><td>キラー考慮</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0020</literal></td><td>どくばりダメージ固定化</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0040</literal></td><td>どくばり即死考慮</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0080</literal></td><td>はやぶさのけん考慮</td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$0001</literal></td><td>経験値取得</td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$0002</literal></td><td>メッセージ抑制</td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$0004</literal></td><td>演出タイミング</td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$0008</literal></td><td>演出を敵陣全体に作用させる</td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$0010</literal></td><td>うんのよさ考慮</td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$0020</literal></td><td>コマンド対象確定考慮（自陣側）</td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$00C0</literal></td><td>対象生存条件</td></tr>
+    <tr><td><literal>#$1C</literal></td><td><literal>#$0001</literal></td><td>コマンド対象確定考慮（敵陣側）</td></tr>
+    <tr><td><literal>#$1C</literal></td><td><literal>#$0002</literal></td><td>格闘場使用許可</td></tr>
+    <tr><td><literal>#$1C</literal></td><td><literal>#$0004</literal></td><td>ゴールド取得</td></tr>
+    <tr><td><literal>#$1C</literal></td><td><literal>#$0008</literal></td><td>倒した標的を記憶する</td></tr>
+    <tr><td><literal>#$1C</literal></td><td><literal>#$0010</literal></td><td>混乱時通常攻撃化</td></tr>
+    <tr><td><literal>#$1C</literal></td><td><literal>#$00E0</literal></td><td>（未使用）</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味を以下に記す：
+</para>
+<variablelist>
+  <varlistentry>
+    <term>名前</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>対象決定判断 k (k = 0..2)</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>効果音</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>処理アドレス（戦闘）</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>メッセージ</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>記述</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>演出処理アドレス k (k = 0..2)</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ダメージ</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>打撃ダメージ算出</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>処理アドレス（移動）</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>対象範囲</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>MP</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>対象分類</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>耐性分類</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>（調査中）</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>成功率係数 0</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>成功率係数 1</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>戦闘終了時述語</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>マホトーン状態を考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>マホカンタ状態を考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>フバーハ状態を考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>マヌーサ状態を考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>覚醒考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>呪い装備考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>みかわし考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>バイキルト考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>会心の一撃考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>集中攻撃考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>空振り時対象再抽選考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンド選択能力考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>アストロン考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>攻撃ミス抽選有効</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>キラー考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>どくばりダメージ固定化</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>どくばり即死考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>はやぶさのけん考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>経験値取得</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>メッセージ抑制</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>演出タイミング</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>演出を敵陣全体に作用させる</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>うんのよさ考慮</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンド対象確定考慮（自陣側）</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>対象生存条件</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンド対象確定考慮（敵陣側）</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>格闘場使用許可</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ゴールド取得</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>倒した標的を記憶する</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>混乱時通常攻撃化</term>
+    <listitem>
+      <para>
+        TBW
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.commands.structure.C21860 -->
+
+<section id="dq3.commands.structure.methods">
+<title>構造体の属性へのアクセス</title>
+<para>
+TBW
+</para>
+<table id="table.dq3.commands.methods" class="lighttable">
+  <caption>コマンド構造体の属性にアクセスするサブルーチン</caption>
+  <thead>
+    <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="center"><varname>$C2CC03</varname></td><td>2</td><td>x</td><td>2 バイト長の属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2CC0A</varname></td><td>2</td><td>y</td><td>2 バイト長の属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2CC25</varname></td><td>4</td><td>x</td><td>ビットフィールド属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2CC2C</varname></td><td>4</td><td>y</td><td>ビットフィールド属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2CC47</varname></td><td>4</td><td>x</td><td>ビットフィールド属性値をテストする</td></tr>
+    <tr><td align="center"><varname>$C2CC4E</varname></td><td>4</td><td>y</td><td>ビットフィールド属性値をテストする</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq3.commands.structure.methods -->
+</section> <!-- dq3.commands.structure -->
+
+<section id="dq3.commands.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+TBW
+</para>
+</section> <!-- dq3.commands.behavior -->
+</section> <!-- dq3.commands -->
