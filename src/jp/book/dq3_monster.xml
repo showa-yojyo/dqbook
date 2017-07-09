@@ -413,6 +413,32 @@
         これらはまさにこの属性値が 0..3 とそれぞれ設定されている。
         これらのモンスターを一頭ずつ登場させて、同じ攻撃呪文を試すて受けるダメージを比較するという用途だろう。
       </para>
+      <para>
+        耐性の k とコマンド系統との対応関係を表にすると下記のようになる。
+        注意を要するのは、コマンド属性の系統分類とは一対一対応でないという点だ。
+      </para>
+      <table id="table.dq3.monster.immunity" class="lighttable">
+        <caption>モンスター耐性表</caption>
+        <thead>
+          <tr><th>k</th><th>系統</th></tr>
+        </thead>
+        <tbody>
+          <tr><th><literal>#$00</literal></th><td>メラ・ギラ・イオ</td></tr>
+          <tr><th><literal>#$01</literal></th><td>ヒャド</td></tr>
+          <tr><th><literal>#$02</literal></th><td>バギ</td></tr>
+          <tr><th><literal>#$03</literal></th><td>デイン</td></tr>
+          <tr><th><literal>#$04</literal></th><td>ザキ</td></tr>
+          <tr><th><literal>#$05</literal></th><td>メガンテ</td></tr>
+          <tr><th><literal>#$06</literal></th><td>ラリホー</td></tr>
+          <tr><th><literal>#$07</literal></th><td>マホトーン</td></tr>
+          <tr><th><literal>#$08</literal></th><td>ルカニ</td></tr>
+          <tr><th><literal>#$09</literal></th><td>マヌーサ</td></tr>
+          <tr><th><literal>#$0A</literal></th><td>マホトラ</td></tr>
+          <tr><th><literal>#$0B</literal></th><td>メダパニ</td></tr>
+          <tr><th><literal>#$0C</literal></th><td>ボミオス・バシルーラ</td></tr>
+          <tr><th><literal>#$0D</literal></th><td>ニフラム・せいすい</td></tr>
+        </tbody>
+      </table>
     </listitem>
   </varlistentry>
   <varlistentry>
