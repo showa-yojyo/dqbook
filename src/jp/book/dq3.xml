@@ -21,6 +21,7 @@
 
 <!-- RAM -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_combatant.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_characters.xml"/>
 
 <!-- BANK $C2 -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_monster.xml"/>
