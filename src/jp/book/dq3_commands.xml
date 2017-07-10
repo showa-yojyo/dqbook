@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+X3<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
   <!ENTITY % replacement SYSTEM "replacement.xml">
@@ -9,7 +9,9 @@
 <title>コマンド</title>
 <indexterm id="term.dq3.commands"><primary>コマンド</primary><secondary>DQ3</secondary></indexterm>
 <para>
-TBW
+この節では戦闘モードにおける戦闘員および、移動モードにおける仲間キャラクターの何らかの実行単位を表現する概念、すなわちコマンドについて述べる。
+本章では、コマンドとは、仲間キャラクターに対しては、戦闘モードならば「こうげき」「じゅもん」「ぼうぎょ」「どうぐ/つかう」を、
+移動モードならば「じゅもん」「どうぐ/つかう」に共通する概念をカプセル化したオブジェクト型であると定義している。
 </para>
 
 <section id="dq3.commands.structure">
@@ -18,7 +20,9 @@ TBW
 <section id="dq3.commands.structure.C21860">
 <title>構造体 <varname>$C21860</varname>: コマンド</title>
 <para>
-TBW
+冒頭で述べたコマンドをカプセル化したオブジェクト型とは、次の表が示すようなものだ。
+この型のオブジェクトがアドレス <varname>$C21860</varname> で配列をなしていて、
+プログラムのコマンドを必要とする処理は、この中から必要に応じて対応オブジェクトの所望の属性を参照するという設計になっている。
 </para>
 <table id="table.dq3.C21860" class="lighttable">
   <caption>構造体 $C21860</caption>
@@ -43,8 +47,8 @@ TBW
     <tr><td><literal>#$14</literal></td><td><literal>#$00FF</literal></td><td>処理アドレス（移動）</td></tr>
     <tr><td><literal>#$15</literal></td><td><literal>#$0003</literal></td><td>対象範囲</td></tr>
     <tr><td><literal>#$15</literal></td><td><literal>#$00FC</literal></td><td>MP</td></tr>
-    <tr><td><literal>#$16</literal></td><td><literal>#$0007</literal></td><td>対象分類</td></tr>
-    <tr><td><literal>#$16</literal></td><td><literal>#$00F8</literal></td><td>耐性分類</td></tr>
+    <tr><td><literal>#$16</literal></td><td><literal>#$0007</literal></td><td>対象陣営</td></tr>
+    <tr><td><literal>#$16</literal></td><td><literal>#$00F8</literal></td><td>系統分類</td></tr>
     <tr><td><literal>#$17</literal></td><td><literal>#$000F</literal></td><td>（調査中）</td></tr>
     <tr><td><literal>#$17</literal></td><td><literal>#$00F0</literal></td><td>成功率係数 0</td></tr>
     <tr><td><literal>#$18</literal></td><td><literal>#$000F</literal></td><td>成功率係数 1</td></tr>
@@ -54,18 +58,18 @@ TBW
     <tr><td><literal>#$19</literal></td><td><literal>#$0001</literal></td><td>フバーハ状態を考慮</td></tr>
     <tr><td><literal>#$19</literal></td><td><literal>#$0002</literal></td><td>マヌーサ状態を考慮</td></tr>
     <tr><td><literal>#$19</literal></td><td><literal>#$0004</literal></td><td>覚醒考慮</td></tr>
-    <tr><td><literal>#$19</literal></td><td><literal>#$0008</literal></td><td>呪い装備考慮</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$0008</literal></td><td>ダメージ転嫁装備考慮</td></tr>
     <tr><td><literal>#$19</literal></td><td><literal>#$0010</literal></td><td>みかわし考慮</td></tr>
     <tr><td><literal>#$19</literal></td><td><literal>#$0020</literal></td><td>バイキルト考慮</td></tr>
     <tr><td><literal>#$19</literal></td><td><literal>#$0040</literal></td><td>会心の一撃考慮</td></tr>
     <tr><td><literal>#$19</literal></td><td><literal>#$0080</literal></td><td>集中攻撃考慮</td></tr>
     <tr><td><literal>#$1A</literal></td><td><literal>#$0001</literal></td><td>空振り時対象再抽選考慮</td></tr>
-    <tr><td><literal>#$1A</literal></td><td><literal>#$0002</literal></td><td>コマンド選択能力考慮</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0002</literal></td><td>コマンド選択判断考慮</td></tr>
     <tr><td><literal>#$1A</literal></td><td><literal>#$0004</literal></td><td>アストロン考慮</td></tr>
-    <tr><td><literal>#$1A</literal></td><td><literal>#$0008</literal></td><td>攻撃ミス抽選有効</td></tr>
-    <tr><td><literal>#$1A</literal></td><td><literal>#$0010</literal></td><td>キラー考慮</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0008</literal></td><td>攻撃ミス装備考慮</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0010</literal></td><td>キラー装備考慮</td></tr>
     <tr><td><literal>#$1A</literal></td><td><literal>#$0020</literal></td><td>どくばりダメージ固定化</td></tr>
-    <tr><td><literal>#$1A</literal></td><td><literal>#$0040</literal></td><td>どくばり即死考慮</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0040</literal></td><td>即死装備考慮</td></tr>
     <tr><td><literal>#$1A</literal></td><td><literal>#$0080</literal></td><td>はやぶさのけん考慮</td></tr>
     <tr><td><literal>#$1B</literal></td><td><literal>#$0001</literal></td><td>経験値取得</td></tr>
     <tr><td><literal>#$1B</literal></td><td><literal>#$0002</literal></td><td>メッセージ抑制</td></tr>
@@ -90,7 +94,8 @@ TBW
     <term>名前</term>
     <listitem>
       <para>
-        TBW
+        このコマンドの名前を意味する文字列（<xref linkend="dq3.string"/>）の ID を値とする属性だ。
+        名前はコマンド入力ウィンドウやメッセージ出力ウィンドウ上のテキスト内に表示される。
       </para>
     </listitem>
   </varlistentry>
@@ -98,7 +103,16 @@ TBW
     <term>対象決定判断 k (k = 0..2)</term>
     <listitem>
       <para>
-        TBW
+        対象決定判断とは、戦闘員がこのコマンドを自分のレパートリーの中から選択するかどうかを決定するサブルーチンを要素とするジャンプテーブルの行番号を値とする属性だ。
+        ここで k の値は戦闘員のコマンド選択判断属性から決まるものなのだが、
+        単純化して説明すると k の値が高いほど選択判断の質が高くなる。
+        詳しくは <xref linkend="dq3.monster"/> で述べる。
+      </para>
+      <para>
+        例えばラリホーのコマンドは決定判断ロジックは 3 通りある。
+        最も愚直なものは、相手陣の生存キャラクターの有無しか確認しない。
+        中間のものは、それに加えてラリホー状態の者の有無を考慮に入れる。
+        最も高級な判断は、さらに自身のマホトーン状態まで考慮に入れて、実行可否を決定する。
       </para>
     </listitem>
   </varlistentry>
@@ -106,7 +120,13 @@ TBW
     <term>効果音</term>
     <listitem>
       <para>
-        TBW
+        コマンド実行時に再生する効果音の ID を値を取る属性だ。
+        配列 <varname>$C23CA2</varname> の添字になる。
+      </para>
+      <para>
+        データを見ればわかるように、属性値として取りうる値は 0..3 しかない。
+        無効値、攻撃時の効果音、呪文効果音、逃走時の効果音をそれぞれ意味する。
+        なお、配列要素は自陣側と敵陣側とで値が異なる。
       </para>
     </listitem>
   </varlistentry>
@@ -114,7 +134,9 @@ TBW
     <term>処理アドレス（戦闘）</term>
     <listitem>
       <para>
-        TBW
+        戦闘モードにおけるこのコマンドの挙動を表現するコードの完全アドレスを意味する属性だ。
+        ただし、各コマンド処理に共通する部分は戦闘処理パイプラインの一部で実現されているので、
+        単純な呪文コマンドなどについてはこのアドレスを見るだけでは詳細はわからないことが普通だ。
       </para>
     </listitem>
   </varlistentry>
@@ -122,7 +144,8 @@ TBW
     <term>メッセージ</term>
     <listitem>
       <para>
-        TBW
+        このコマンドが戦闘モードで実行されるとメッセージ出力ウィンドウに最初に表示されるメッセージ（<xref linkend="dq3.text.battle"/>）の ID を表す属性だ。
+        例えば呪文コマンド全般は<quote>[BC][B7]は [B2]を となえた！[B1]</quote>を指定する <literal>#$0051</literal> を属性値とする。
       </para>
     </listitem>
   </varlistentry>
@@ -130,7 +153,8 @@ TBW
     <term>記述</term>
     <listitem>
       <para>
-        TBW
+        このコマンドが呪文コマンドであるとき、選択ウィンドウに隣接するミニウィンドウに表示される記述データの ID を値とする属性だ。
+        アドレス <varname>$C2398E</varname> にメッセージ ID 三つの組からなる配列があり、この属性値とはその配列添字だ。
       </para>
     </listitem>
   </varlistentry>
@@ -138,15 +162,21 @@ TBW
     <term>演出処理アドレス k (k = 0..2)</term>
     <listitem>
       <para>
-        TBW
+        バンクが $C4 のアドレス型属性で、コマンド実行時の視聴覚的演出処理コードを表す。
       </para>
+      <simplelist type="vert" columns="1">
+        <member>添字 k = 0 のものは、実行時直後の効果を表す。</member>
+        <member>添字 k = 1 のものは、理由は不明だが値 <literal>#$8D71</literal> でなければならない。</member>
+        <member>添字 k = 2 のものは、このコマンドで敵陣戦闘員が無力化されたときの効果を表す。</member>
+      </simplelist>
     </listitem>
   </varlistentry>
   <varlistentry>
     <term>ダメージ</term>
     <listitem>
       <para>
-        TBW
+        このコマンドに関連するダメージオブジェクト（<xref linkend="dq3.damage"/>）を特定する値を取る属性だ。
+        ダメージオブジェクトとは、このコマンド実行によるダメージ量（または回復量）の計算の基本情報と考えてよい。
       </para>
     </listitem>
   </varlistentry>
@@ -154,15 +184,29 @@ TBW
     <term>打撃ダメージ算出</term>
     <listitem>
       <para>
-        TBW
+        このコマンドによって相手にダメージを与えようとしたが、実行直前に対象戦闘員が既に無力化してしまったとする。
+        そのとき、自動的に別の生きている戦闘員に攻撃を振り返る処理が実施されると仮定する。
+        この属性は、このときの新しい打撃ダメージを計算する手法を指示する値を表す。
+        コードの観点からは、ジャンプテーブル <varname>$C2BE5E</varname> の行番号だ。
       </para>
+      <table id="table.dq3.commands.evaluation" class="lighttable">
+        <caption>打撃ダメージ算出</caption>
+        <thead>
+          <tr><th>ID</th><th>計算方法</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td>無条件に 0 とする。</td></tr>
+          <tr><th>1</th><td>(攻撃力 - 守備力 / 2) が 2 未満ならばそのまま、あるいはこの値の 1/2 とする。</td></tr>
+        </tbody>
+      </table>
     </listitem>
   </varlistentry>
   <varlistentry>
     <term>処理アドレス（移動）</term>
     <listitem>
       <para>
-        TBW
+        移動モードにおけるこのコマンドの挙動を表現するコードのアドレスを意味する属性だ。
+        値は配列 <varname>$C30B31</varname> の添字を意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -170,55 +214,125 @@ TBW
     <term>対象範囲</term>
     <listitem>
       <para>
-        TBW
+        このコマンドの標的が次のいずれに分類されるのかを意味する値を取る属性だ。
       </para>
+      <table id="table.dq3.commands.scopes" class="lighttable">
+        <caption>対象範囲分類</caption>
+        <thead>
+          <tr><th>値</th><th>対象範囲</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td>なし</td></tr>
+          <tr><th>1</th><td>単体</td></tr>
+          <tr><th>2</th><td>グループ</td></tr>
+          <tr><th>3</th><td>全体</td></tr>
+        </tbody>
+      </table>
     </listitem>
   </varlistentry>
   <varlistentry>
     <term>MP</term>
     <listitem>
       <para>
-        TBW
+        このコマンドを実行するキャラクターが必要とする MP の量を意味する数値型の属性だ。
+        実行する際にこの数だけの MP がなければならないし、実行するとこの数だけ戦闘員の MP が減少する。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>対象分類</term>
+    <term>対象陣営</term>
     <listitem>
       <para>
-        TBW
+        このコマンドの対象をどの陣営から選択され得るかを示す数を値として取る属性だ。
+        厳密に言えば、対象者ウィンドウの（最初の）表示を決めるのに用いる値だ。
+      </para>
+      <table id="table.dq3.commands.targets" class="lighttable">
+        <caption>対象陣営分類</caption>
+        <thead>
+          <tr><th>値</th><th>対象陣営</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td>なし</td></tr>
+          <tr><th>1</th><td>コマンド実行者自身</td></tr>
+          <tr><th>2</th><td>コマンド実行者所属グループ</td></tr>
+          <tr><th>3</th><td>コマンド実行者の反対側の陣営</td></tr>
+          <tr><th>4</th><td>その場にいる全員</td></tr>
+        </tbody>
+      </table>
+      <para>
+        この値と対象範囲属性を組み合わせることで、コマンドの用途が大づかみでわかる。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>耐性分類</term>
+    <term>系統分類</term>
     <listitem>
       <para>
-        TBW
+        系統分類とは、このコマンドの系統的性質を表現する数を値に取る属性だ。
+        モンスター（<xref linkend="dq3.monster"/>）の耐性属性や装備品の規定する耐性と関係がある。
+        値と系統には次のような対応関係があるようだ。
       </para>
+      <table id="table.dq3.commands.families" class="lighttable">
+        <caption>系統分類</caption>
+        <thead>
+          <tr><th>値</th><th>系統</th></tr>
+        </thead>
+        <tbody>
+          <tr><th><literal>#$00</literal></th><td>それ以外</td></tr>
+          <tr><th><literal>#$01</literal></th><td>メラ・ギラ・イオ</td></tr>
+          <tr><th><literal>#$02</literal></th><td>ヒャド</td></tr>
+          <tr><th><literal>#$03</literal></th><td>バギ</td></tr>
+          <tr><th><literal>#$04</literal></th><td>デイン</td></tr>
+          <tr><th><literal>#$05</literal></th><td>ザキ</td></tr>
+          <tr><th><literal>#$06</literal></th><td>メガンテ</td></tr>
+          <tr><th><literal>#$07</literal></th><td>ニフラム</td></tr>
+          <tr><th><literal>#$08</literal></th><td>マホトラ</td></tr>
+          <tr><th><literal>#$09</literal></th><td>ボミオス・バシルーラ</td></tr>
+          <tr><th><literal>#$0A</literal></th><td>ラリホー</td></tr>
+          <tr><th><literal>#$0B</literal></th><td>マホトーン</td></tr>
+          <tr><th><literal>#$0C</literal></th><td>マヌーサ</td></tr>
+          <tr><th><literal>#$0D</literal></th><td>ルカニ</td></tr>
+          <tr><th><literal>#$0E</literal></th><td>メダパニ</td></tr>
+          <tr><th><literal>#$0F</literal></th><td>炎</td></tr>
+          <tr><th><literal>#$10</literal></th><td>吹雪</td></tr>
+          <tr><th><literal>#$11</literal></th><td>ザラキ</td></tr>
+          <tr><th><literal>#$12</literal></th><td>ザオラル</td></tr>
+          <tr><th><literal>#$13</literal></th><td>ドラゴラム</td></tr>
+          <tr><th><literal>#$14</literal></th><td>せいすい</td></tr>
+          <tr><th><literal>#$15</literal></th><td>眠り攻撃</td></tr>
+          <tr><th><literal>#$16</literal></th><td>毒攻撃</td></tr>
+          <tr><th><literal>#$17</literal></th><td>マヒ攻撃</td></tr>
+        </tbody>
+      </table>
     </listitem>
   </varlistentry>
   <varlistentry>
     <term>（調査中）</term>
     <listitem>
       <para>
-        TBW
+        何に参照されているかが不明。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>成功率係数 0</term>
+    <term>成功率係数 k (k = 0..1)</term>
     <listitem>
       <para>
-        TBW
+        コマンドの成功する確率を制御する値を表す属性だ。
+        最も単純な場合には、いずれも単純に属性値 / 8 がそのまま成功確率を表すと考えてよろしい。
+        実際にはコマンド対象者の装備品が確率決定のパラメーターに含まれ、抽選計算は複雑になる。
       </para>
-    </listitem>
-  </varlistentry>
-  <varlistentry>
-    <term>成功率係数 1</term>
-    <listitem>
       <para>
-        TBW
+        添字 k = 0 のものは、戦闘モードで自陣戦闘員同士の実行ではないもの、および、
+        移動モードにおける実行において参照される。
+        この場合、さらにコマンドのうんのよさ考慮属性値（後述する）が 1 ならば、
+        対象者のうんのよさ属性値も確率決定のためのパラメーターになる。
+      </para>
+      <para>
+        添字 k = 1 のものは、戦闘モードで自陣戦闘員同士の実行において参照される。
+        データを見ると、ニフラム、バシルーラ、せいすいが絶対に効かないことがわかる。
+        ザオラルと「ふっかつのつえ」が 1/2 で成功し、
+        他のほとんど全てのコマンドは確実に成功するようだ。
       </para>
     </listitem>
   </varlistentry>
@@ -226,15 +340,33 @@ TBW
     <term>戦闘終了時述語</term>
     <listitem>
       <para>
-        TBW
+        このコマンドで敵陣戦闘員を無力化すると、その戦闘終了時のメッセージが何になるのかを表す属性だ。
+        一般には戦闘時には相異なる複数のコマンドを実行するが、それらの最も大きい属性値が採用される。
       </para>
+      <para>
+        属性値と戦闘終了メッセージとの対応は次のとおりだ。
+      </para>
+      <table id="table.dq3.C2A707" class="lighttable">
+        <caption>戦闘終了時述語</caption>
+        <thead>
+          <tr><th>ID</th><th>メッセージ</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td>[BC]モンスターは いなかった！[C2][AC]</td></tr>
+          <tr><th>1</th><td>[BC][B7]は にげだした！[AC]</td></tr>
+          <tr><th>2</th><td>[BC][B7]は さっていった。[AC]</td></tr>
+          <tr><th>3</th><td>[BC][B7]を やっつけた！[AC]</td></tr>
+        </tbody>
+      </table>
     </listitem>
   </varlistentry>
   <varlistentry>
     <term>マホトーン状態を考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 ならばマホトーン状態の戦闘員がこのコマンドを実行すると、
+        <quote>しかし じゅもんは ふうじこめられている！</quote>のようなメッセージが表示されて、
+        実行は失敗することを意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -242,7 +374,11 @@ TBW
     <term>マホカンタ状態を考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 ならばマホカンタ状態の戦闘員に対してこのコマンドを実行すると、
+        光の壁が実行者にそれを跳ね返すことを意味する。
+      </para>
+      <para>
+        プログラム側で「メガンテ」を特別扱いしている。実行時の度にランダムで 0 または 1 として処理する。
       </para>
     </listitem>
   </varlistentry>
@@ -250,7 +386,8 @@ TBW
     <term>フバーハ状態を考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 ならばフバーハ状態の戦闘員に対してこのコマンドを実行すると、
+        基本ダメージ量を規定の 2/3 に減少させることを意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -258,7 +395,8 @@ TBW
     <term>マヌーサ状態を考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 ならばマヌーサ状態の戦闘員がこのコマンドを実行すると、
+        半分の確率で攻撃を失敗することを意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -266,15 +404,23 @@ TBW
     <term>覚醒考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドを自陣側戦闘員がラリホー状態またはメダパニ状態の自陣側戦闘に対して実行すると、
+        それらの状態異常を回復させることがあることを意味する。
+      </para>
+      <para>
+        ちなみに回復する確率はどちらも 7/8 となっている。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>呪い装備考慮</term>
+    <term>ダメージ転嫁装備考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドをある種のアイテムを装備している自陣側戦闘員が実行すると、
+        その装備品から定まる特殊なダメージ処理が発生することを意味する。
+      </para>
+      <para>
+        該当する装備品は「もろはのつるぎ」「やいばのよろい」「なげきのたて」となっている。
       </para>
     </listitem>
   </varlistentry>
@@ -282,7 +428,11 @@ TBW
     <term>みかわし考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドは標的戦闘員によってかわされる可能性があることを意味する。
+      </para>
+      <para>
+        基本的には自陣側戦闘員は 1/64 の確率で身をかわす。
+        敵陣の場合は <xref linkend="dq3.monster.C20000"/> のみかわし属性の項目で説明する。
       </para>
     </listitem>
   </varlistentry>
@@ -290,7 +440,7 @@ TBW
     <term>バイキルト考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドはダメージ計算処理中に基本ダメージ値を倍になることを意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -298,7 +448,7 @@ TBW
     <term>会心の一撃考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドは会心または痛恨の一撃に変化する可能性があることを意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -306,7 +456,7 @@ TBW
     <term>集中攻撃考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、集中攻撃タイプの敵側戦闘員がこのコマンドを利用することが可能であるかどうかを意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -314,15 +464,17 @@ TBW
     <term>空振り時対象再抽選考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、このコマンドの標的が実行直前までに無力化されていた場合に、
+        改めて別の標的を決定するかどうかを意味する。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>コマンド選択能力考慮</term>
+    <term>コマンド選択判断考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドを敵陣戦闘員が実行しようとするときに、
+        （その戦闘員の選択判断属性値が 0 でなければ）コマンドの対象を確定しようとする傾向を意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -330,23 +482,27 @@ TBW
     <term>アストロン考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、アストロン状態の戦闘員はこの値が 1 であるコマンドを受け付けないことを意味する。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>攻撃ミス抽選有効</term>
+    <term>攻撃ミス装備考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドをある種のアイテムを装備している戦闘員が実行すると、
+        攻撃を失敗する可能性があることを意味する。
+        ここで、ある種のアイテムとは「はかいのつるぎ」「じごくのよろい」「まじんのオノ」を指す。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>キラー考慮</term>
+    <term>キラー装備考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドをある種のアイテムを装備している戦闘員が、
+        ある種の属性値がある戦闘員に実行すると、与えるダメージがランダムに増量することを意味する。
+        ここで、ある種のアイテムとは「ドラゴンキラー」「ゾンビキラー」を指す。
       </para>
     </listitem>
   </varlistentry>
@@ -354,15 +510,20 @@ TBW
     <term>どくばりダメージ固定化</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドを「どくばり」を装備している戦闘員が実行すると、
+        会心の一撃が発生しないことを意味する。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>どくばり即死考慮</term>
+    <term>即死装備考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドを「どくばり」または「アサシンダガー」を装備している戦闘員が実行すると、
+        実行相手の急所を直撃して即死する可能性があることを意味する。
+      </para>
+      <para>
+        通常は 1/16 の確率で即死する。
       </para>
     </listitem>
   </varlistentry>
@@ -370,7 +531,8 @@ TBW
     <term>はやぶさのけん考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドを「はやぶさのけん」を装備している戦闘員が実行すると、
+        一回のコマンド実行で 2 度のダメージが発生することを意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -378,7 +540,8 @@ TBW
     <term>経験値取得</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドを実行することで敵陣戦闘員を無力化すると、
+        戦闘終了後にその戦闘員から経験値が得られることを意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -386,7 +549,8 @@ TBW
     <term>メッセージ抑制</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドを実行するとメッセージ属性値の定めるメッセージが適切なタイミングで表示されなくなることを意味する。
+        この属性値はすべてのオブジェクトで 0 が設定されているので、実質使用されていない。
       </para>
     </listitem>
   </varlistentry>
@@ -394,7 +558,8 @@ TBW
     <term>演出タイミング</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値によって視聴覚的演出の発生タイミングが変化するものと思われる。
+        この属性値はすべてのオブジェクトで 0 が設定されているので、実質使用されていない。
       </para>
     </listitem>
   </varlistentry>
@@ -402,7 +567,7 @@ TBW
     <term>演出を敵陣全体に作用させる</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドの視覚的演出が対象を無視して敵陣全体に発生することを意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -410,15 +575,25 @@ TBW
     <term>うんのよさ考慮</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドの効力は対象者のうんのよさ属性値が影響することを意味する。
+        ただし、戦闘中において自陣側から自陣側へのコマンド実行の際にはこの属性値は関係しない。
+      </para>
+      <para>
+        成功率係数属性についても併せて参照して欲しい。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
     <term>コマンド対象確定考慮（自陣側）</term>
+    <term>コマンド対象確定考慮（敵陣側）</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、あるコマンドを戦闘員が実行しようとしたが、
+        そのコマンドがコマンド選択判断考慮が不要であったり、空振りのときの対象の再選択が不要であったりする場合に、
+        確定考慮属性値が 1 ならば、それでもなおコマンド対象の確定をする。
+      </para>
+      <para>
+        データを見ると一グループ直接攻撃コマンドにのみ 1 が設定されている。
       </para>
     </listitem>
   </varlistentry>
@@ -426,23 +601,27 @@ TBW
     <term>対象生存条件</term>
     <listitem>
       <para>
-        TBW
+        このコマンドが成立する対象の条件を意味する属性だ。値と意味の対応は次のようになっている：
       </para>
-    </listitem>
-  </varlistentry>
-  <varlistentry>
-    <term>コマンド対象確定考慮（敵陣側）</term>
-    <listitem>
-      <para>
-        TBW
-      </para>
+      <table id="table.dq3.commands.dead.or.alive" class="lighttable">
+        <caption></caption>
+        <thead>
+          <tr><th>値</th><th>条件</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>生きている必要がある</td></tr>
+          <tr><td>1</td><td>死んでいる必要がある</td></tr>
+          <tr><td>2</td><td>生死を問わない</td></tr>
+        </tbody>
+      </table>
     </listitem>
   </varlistentry>
   <varlistentry>
     <term>格闘場使用許可</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であれば格闘場においても通常の戦闘と同様に戦闘員は実行することが許される。
+        この値が 0 のものは、普通の攻撃に置き換わるものとする。
       </para>
     </listitem>
   </varlistentry>
@@ -450,7 +629,8 @@ TBW
     <term>ゴールド取得</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドを実行することで敵陣戦闘員を無力化すると、
+        戦闘終了後にその戦闘員からゴールドが得られることを意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -458,7 +638,9 @@ TBW
     <term>倒した標的を記憶する</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドを実行することで敵陣戦闘員を無力化すると、
+        最近倒したモンスターを保持するための変数 <varname>$7E23A9</varname> に戦闘員のモンスター ID を更新することを意味する。
+        戦闘終了後に宝箱を落としたモンスターがいた場合には、この変数がそれを表している。
       </para>
     </listitem>
   </varlistentry>
@@ -466,7 +648,7 @@ TBW
     <term>混乱時通常攻撃化</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性値で、この値が 1 であるコマンドを戦闘員が実行すると普通の攻撃に置き換わることを意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -476,7 +658,8 @@ TBW
 <section id="dq3.commands.structure.methods">
 <title>構造体の属性へのアクセス</title>
 <para>
-TBW
+主に戦闘コードからコマンドオブジェクトの各属性を参照するために、次に列挙するサブルーチンが実装されている。
+これを先に把握してからコードの逆アセンブルや解読作業に着手できれば理想的であった。
 </para>
 <table id="table.dq3.commands.methods" class="lighttable">
   <caption>コマンド構造体の属性にアクセスするサブルーチン</caption>
@@ -492,6 +675,11 @@ TBW
     <tr><td align="center"><varname>$C2CC4E</varname></td><td>4</td><td>y</td><td>ビットフィールド属性値をテストする</td></tr>
   </tbody>
 </table>
+<para>
+各レジスターがコマンド ID を指示し、サブルーチン呼び出し命令直後の何バイトかが実引数のようなものだ。
+<varname>1860</varname> などはコマンドオブジェクトのバイトオフセット（この場合は 0 に相当する）などを意味し、
+ビットフィールドアクセス呼び出しの場合にある続く 2 バイトは属性値が厳密に位置するビット列を抽出するためのマスクを意味する。
+</para>
 </section> <!-- dq3.commands.structure.methods -->
 </section> <!-- dq3.commands.structure -->
 
