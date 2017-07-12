@@ -12,11 +12,11 @@
   <member><ulink url="./data/dq3_C2398E_caption.txt"><filename>dq3_C2398E_caption.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C23BB4_damage.txt"><filename>dq3_C23BB4_damage.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C30000_window.txt"><filename>dq3_C30000_window.txt</filename></ulink></member>
-  <member><ulink url="./data/dq3_C30900_shop.txt"><filename>dq3_C30900_shop.txt</filename></ulink></member>
-  <member><ulink url="./data/dq3_C30A98_inn.txt"><filename>dq3_C30A98_inn.txt</filename></ulink></member>
+  <member><ulink url="./data/dq3_C30900_shops.txt"><filename>dq3_C30900_shops.txt</filename></ulink></member>
+  <member><ulink url="./data/dq3_C30A98_inns.txt"><filename>dq3_C30A98_inns.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C30DC5_matchmake.txt"><filename>dq3_C30DC5_matchmake.txt</filename></ulink></member>
-  <member><ulink url="./data/dq3_C30EFD_character_condition.txt"><filename>dq3_C30EFD_character_condition.txt</filename></ulink></member>
-  <member><ulink url="./data/dq3_C30FFC_character_initial.txt"><filename>dq3_C30FFC_character_initial.txt</filename></ulink></member>
+  <member><ulink url="./data/dq3_C30EFD_personality_criteria.txt"><filename>dq3_C30EFD_personality_criteria.txt</filename></ulink></member>
+  <member><ulink url="./data/dq3_C30FFC_personality_sets.txt"><filename>dq3_C30FFC_personality_sets.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C31308_horoscope.txt"><filename>dq3_C31308_horoscope.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C31350_medal.txt"><filename>dq3_C31350_medal.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C40043_items.txt"><filename>dq3_C40043_items.txt</filename></ulink></member>
