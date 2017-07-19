@@ -136,7 +136,7 @@
 		<para>
 			「ぶきや」「ぼうぐや」「どうぐや」「よろずや」の処理については<link linkend="dq3.shop">店屋解析</link>を参照。
 			「しんぷ」「シスター」は<link linkend="dq3.church">教会解析</link>、
-			「やどや」は<link linkend="dq3.inn">宿屋解析</link>、
+			「やどや」は<link linkend="dq3.inns">宿屋解析</link>、
 			「ぎんこう」は<link linkend="dq3.bank">ゴールド銀行解析</link>、
 			「なかまとうろくじょ」は<link linkend="dq3.entry">仲間登録所解析</link>、
 			「ルイーダのさかば」は<link linkend="dq3.pub">ルイーダの酒場解析</link>、
