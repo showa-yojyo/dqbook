@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.horoscope"><?dbhtml filename="dq3_horoscope.html" ?>
+<title>星座</title>
+<para>
+本節では星座について述べる。
+</para>
+
+<section id="dq3.horoscope.structure">
+<title>構造に関する構成要素</title>
+
+<section id="dq3.horoscope.structure.C31308">
+<title>構造体 <varname>$C31308</varname>: 星座</title>
+<para>
+アドレス <varname>$C31308</varname> に 12 個配列されている 6 バイト長のオブジェクトが星座情報を表現する。
+</para>
+<table id="table.dq3.C31308" class="lighttable">
+  <caption>構造体 $C31308</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>名前</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00FF</literal></td><td>月 0</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF</literal></td><td>日 0</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td><td>月 1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>日 1</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味を説明する。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>名前</term>
+    <listitem>
+      <para>
+        星座名を表す文字列（<xref linkend="dq3.string"/>で述べる）オブジェクトの ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>月 k (k = 0..1)</term>
+    <term>日 k (k = 0..1)</term>
+    <listitem>
+      <para>
+        この星座が対応する日付範囲の下端と上端を k = 0 と 1 とがそれぞれ表す。
+        この二つの日付がなす区間は右閉半開区間だ。
+        例えば、星座 0 の上端と星座 1 の下端はともに 4 月 20 日となっている。
+        この日付は星座 1 ではなく星座 0 に対応する。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+
+<para>
+星座構造体に関係するサブルーチンを表にまとめておく：
+</para>
+<table id="table.dq3.horoscope.structure.subroutines" class="lighttable">
+  <caption></caption>
+  <thead>
+    <tr><th>サブルーチン</th><th>入力</th><th>出力</th><th>機能</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="center">$C932A3</td><td>a</td><td>x</td><td>日付に対応する星座 ID を取得する。</td></tr>
+    <tr><td align="center">$C93311</td><td>x</td><td>a</td><td>星座名を表す文字列 ID を取得する。</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq3.horoscope.structure.C31308 -->
+</section> <!-- dq3.horoscope.structure -->
+
+<section id="dq3.horoscope.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+特になし。
+</para>
+</section> <!-- dq3.horoscope.behavior -->
+</section> <!-- dq3.horoscope -->

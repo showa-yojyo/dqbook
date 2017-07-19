@@ -45,6 +45,7 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_matchmake.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_stadium.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_tipster.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_horoscope.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_medal.xml"/>
 
 <!-- BANK $C4 -->
