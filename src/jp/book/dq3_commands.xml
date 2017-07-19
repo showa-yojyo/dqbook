@@ -1,4 +1,4 @@
-X3<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
   <!ENTITY % replacement SYSTEM "replacement.xml">
@@ -155,6 +155,9 @@ X3<?xml version="1.0" encoding="UTF-8"?>
       <para>
         このコマンドが呪文コマンドであるとき、選択ウィンドウに隣接するミニウィンドウに表示される記述データの ID を値とする属性だ。
         アドレス <varname>$C2398E</varname> にメッセージ ID 三つの組からなる配列があり、この属性値とはその配列添字だ。
+      </para>
+      <para>
+        記述オブジェクトについては <xref linkend="dq3.descriptions"/> で述べる。
       </para>
     </listitem>
   </varlistentry>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.descriptions"><?dbhtml filename="dq3_descriptions.html" ?>
+<title>コマンドに関する記述</title>
+<para>
+戦闘モードや移動モードで「じゅもん」コマンドを選択し、
+移動モードで利用可能な呪文を覚えているキャラクターにカーソルを合わせると、
+そのキャラクターの習得している移動モードで利用可能な呪文リストウィンドウが表示される。
+そして、それと同時にカーソルが示す呪文の効果を簡潔に説明するテキストが小さなウィンドウに表示される。
+本節では、この記述テキストを表現する要素について述べる。
+</para>
+
+<section id="dq3.descriptions.structure">
+<title>構造に関する構成要素</title>
+
+<section id="dq3.descriptions.structure.C2398E">
+<title>構造体 <varname>$C2398E</varname>: コマンドに関する記述</title>
+<para>
+アドレス <varname>$C2398E</varname> から次のメモリレイアウトで構成される 6 バイト長オブジェクトが 73 個配列されている。
+コマンド一つに対してこのオブジェクト 0 または 1 個が対応する。
+</para>
+<table id="table.dq3.C2398E" class="lighttable">
+  <caption>構造体 $C2398E</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>コマンド記述 0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$FFFF</literal></td><td>コマンド記述 1</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$FFFF</literal></td><td>コマンド記述 2</td></tr>
+  </tbody>
+</table>
+<para>
+以下、各属性を簡単に説明する。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>コマンド記述 k (k = 0..2)</term>
+    <listitem>
+      <para>
+        コマンド記述 k とは、文字列（<xref linkend="dq3.string"/>で述べる）オブジェクトの ID を値とする属性だ。
+        これらの属性値は記述表示用小ウィンドウの各行に出力する文字列を指示する。
+      </para>
+      <para>
+        例を挙げると、コマンド「ルーラ」の記述属性の値は <literal>#$33</literal> だ。
+        記述テキスト <literal>#$33</literal> の値はデータをダンプすると <literal>(#$0298, #$0299, #$029A)</literal> であることがわかる。
+        これらの文字列 ID の指示内容は「いちどいった」「まちや しろに」「とんでゆく」だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+
+<para>
+各属性にアクセスするための専用サブルーチンを次の表にまとめておく：
+</para>
+
+<table id="table.dq3.descriptions.structure.methods" class="lighttable">
+  <caption></caption>
+  <thead>
+    <tr><th>サブルーチン</th><th>入力</th><th>機能</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="center"><varname>$C2B70B</varname></td><td>x</td><td>コマンド x の記述 1 行目 (k = 0) の文字列を得る。</td></tr>
+    <tr><td align="center"><varname>$C2B72E</varname></td><td>x</td><td>コマンド x の記述 2 行目 (k = 1) の文字列を得る。</td></tr>
+    <tr><td align="center"><varname>$C2B751</varname></td><td>x</td><td>コマンド x の記述 3 行目 (k = 2) の文字列を得る。</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq3.descriptions.structure.C2398E -->
+</section> <!-- dq3.descriptions.structure -->
+
+<section id="dq3.descriptions.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+特になし。
+</para>
+</section> <!-- dq3.descriptions.behavior -->
+</section> <!-- dq3.descriptions -->

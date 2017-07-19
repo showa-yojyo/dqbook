@@ -26,7 +26,7 @@
 <!-- BANK $C2 -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_monster.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_commands.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_caption.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_descriptions.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_damage.xml"/>
 
 <!-- BANK $C3 -->
