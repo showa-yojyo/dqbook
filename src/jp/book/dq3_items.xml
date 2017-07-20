@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.items"><?dbhtml filename="dq3_items.html" ?>
+<title>アイテム</title>
+<para>
+本節ではアイテムについて述べる。
+</para>
+
+<section id="dq3.items.structure">
+<title>構造に関する構成要素</title>
+<para>
+アイテムを表現するオブジェクト型について説明する。
+</para>
+
+<section id="dq3.items.structure.C40043">
+<title>構造体 <varname>$C40043</varname>: アイテム</title>
+<para>
+アドレス <varname>$C40043</varname> に全アイテムのデータが定義されている。
+オブジェクトのサイズは <literal>#$13</literal> バイトであり、これが 229 個配列されている。
+次の表はオブジェクトのメモリレイアウトだ。
+</para>
+
+<table id="table.dq3.C40043" class="lighttable">
+  <caption>構造体 $C40043</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00FFFF</literal></td><td>名前</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0000FF</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0000FF</literal></td><td>作用属性</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0000FF</literal></td><td>属性値変化量</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$000001</literal></td><td>装備フラグ 0: ゆうしゃ</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$000002</literal></td><td>装備フラグ 1: せんし</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$000004</literal></td><td>装備フラグ 2: まほうつかい</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$000008</literal></td><td>装備フラグ 3: そうりょ</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$000010</literal></td><td>装備フラグ 4: ぶとうか</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$000020</literal></td><td>装備フラグ 5: けんじゃ</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$000040</literal></td><td>装備フラグ 6: しょうにん</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$000080</literal></td><td>装備フラグ 7: あそびにん</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$000001</literal></td><td>装備フラグ 8: とうぞく</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$000002</literal></td><td>永続フラグ</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$000004</literal></td><td>処分許可フラグ</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$000008</literal></td><td>希少性</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$000010</literal></td><td>呪い</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$000060</literal></td><td>性別</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$000080</literal></td><td>整理許可フラグ</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$0001FF</literal></td><td>コマンド</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$00007E</literal></td><td>演出</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$000080</literal></td><td>必需品</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$FFFFFF</literal></td><td>価格</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$000001</literal></td><td>使用フラグ 0: ゆうしゃ</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$000002</literal></td><td>使用フラグ 1: せんし</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$000004</literal></td><td>使用フラグ 2: まほうつかい</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$000008</literal></td><td>使用フラグ 3: そうりょ</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$000010</literal></td><td>使用フラグ 4: ぶとうか</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$000020</literal></td><td>使用フラグ 5: けんじゃ</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$000040</literal></td><td>使用フラグ 6: しょうにん</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$000080</literal></td><td>使用フラグ 7: あそびにん</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$000001</literal></td><td>使用フラグ 8: とうぞく</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$0000FF</literal></td><td>移動中つかう処理</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$0000FF</literal></td><td>鑑定処理</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$000001</literal></td><td>（不明）</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$0000FE</literal></td><td>アイコン</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$0000FF</literal></td><td>性格</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味を次に述べる。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>名前</term>
+    <listitem>
+      <para>
+        アイテムの名前を表す文字列の ID を値とする属性だ。
+        文字列については <xref linkend="dq3.string"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>分類</term>
+    <listitem>
+      <para>
+        アイテムの分類を表す値をとる属性だ。値と意味との対応は次のようになっている。
+      </para>
+      <table id="table.dq3.items.structure.classifications" class="lighttable">
+        <caption>アイテムの分類</caption>
+        <thead>
+          <tr><th>値</th><th>意味</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>ぶき          </td></tr>
+          <tr><td>1</td><td>よろい        </td></tr>
+          <tr><td>2</td><td>たて          </td></tr>
+          <tr><td>3</td><td>かぶと        </td></tr>
+          <tr><td>4</td><td>そうしょくひん</td></tr>
+          <tr><td>5</td><td>どうぐ        </td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>作用属性</term>
+    <listitem>
+      <para>
+        仲間キャラクターがこのアイテムを装備可能であるとする。
+        そのときに、そのキャラクターのどの属性に作用するのかを示す値を取る属性だ。
+        値と意味との対応は次のようになっている。
+      </para>
+      <table id="table.dq3.items.structure.attributes" class="lighttable">
+        <caption>作用属性</caption>
+        <thead>
+          <tr><th>値</th><th>対象属性</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>（なし）      </td></tr>
+          <tr><td>1</td><td>こうげきりょく</td></tr>
+          <tr><td>2</td><td>すばやさ      </td></tr>
+          <tr><td>3</td><td>しゅびりょく  </td></tr>
+          <tr><td>4</td><td>かしこさ      </td></tr>
+          <tr><td>5</td><td>うんのよさ    </td></tr>
+          <tr><td>6</td><td>たいりょく    </td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>属性値変化量</term>
+    <listitem>
+      <para>
+        仲間キャラクターがこのアイテムを装備可能であるとする。
+        そのときに、そのキャラクターの作用属性値（上述）がどれだけ上昇するのかを示す値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>装備フラグ k (k=0..8)</term>
+    <listitem>
+      <para>
+        一つのフラグが一つの職業に対応し、その職業である仲間キャラクターがこのアイテムを装備可能であるか否かを示す値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>永続フラグ</term>
+    <listitem>
+      <para>
+        永続フラグとは、このアイテムを無制限に「つかう」ことが可能かどうかを示す値を取る属性だ。
+        例えば「やくそう」の属性値は 0 であるが「けんじゃのいし」では 1 だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>処分許可フラグ</term>
+    <listitem>
+      <para>
+        処分許可フラグとは、このアイテムを「すてる」こと等で処分することが認められているかどうかを示す値を取る属性だ。
+        値が 1 ならば捨てたり売ったりすることができる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>希少性</term>
+    <listitem>
+      <para>
+        希少性とは、このアイテムがいわゆるレアアイテムであるかどうかを示す値を取る属性だ。
+        値が 1 ならばレアであり、店屋でこのアイテムを売ろうとすると、店員から念を押されることになる。
+      </para>
+      <para>
+        プログラムの中では処分許可フラグのほうを優先して参照する場合が多い。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>呪い</term>
+    <listitem>
+      <para>
+        仲間キャラクターがこのアイテムを装備可能であるとする。
+        もしこの道具を装備した場合、呪われるか否かを示す値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>性別</term>
+    <listitem>
+      <para>
+        仲間キャラクターがこのアイテムを装備可能であるとする。
+        このアイテムを装備するのには、装備したい人物の条件に性別が関係するか否かを示す値を取る属性だ。
+        値 0, 1, 2 が男専用、女専用、無条件をそれぞれ意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>整理許可フラグ</term>
+    <listitem>
+      <para>
+        整理許可フラグとは、移動モードにおける「どうぐせいり」コマンドの処理に対して、
+        このアイテムを仲間キャラクターの道具袋からパーティー全体の道具袋に収納するかどうかを示す値を取る属性だ。
+        値が 1 ならばふくろに移すが、0 ならばそのままキャラクターの道具袋に残す。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンド</term>
+    <listitem>
+      <para>
+        戦闘中にこのアイテムを「つかう」ことで起こる戦闘コマンドの ID を値とする属性だ。
+        コマンドについては <xref linkend="dq3.commands"/> で述べる。
+        特に効果のない道具の属性値は <literal>#$6B</literal> であることを憶えておくとよい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>演出</term>
+    <listitem>
+      <para>
+        このアイテムが武器であるとき、装備キャラクターが敵を直接攻撃すると画面上に描画される演出を指定するための値を取る属性だ。
+        具体的に言うと配列 <varname>$FEE82C</varname> の添字に相当する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>必需品</term>
+    <listitem>
+      <para>
+        必需品とは、移動中に「どうぐ」コマンドでアイテムを選択している途中に、
+        画面上に小さく表示するウィンドウのテキストを「ひつようなときにつかおう」にするかどうかを示す値である。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>価格</term>
+    <listitem>
+      <para>
+        このアイテムを店屋で買うときに必要なゴールドを値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>使用フラグ k (k=0..8)</term>
+    <listitem>
+      <para>
+        一つのフラグが一つの職業に対応し、その職業である仲間キャラクターがこのアイテムを戦闘中に「つかう」ことが可能であるか否かを示す値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>移動中つかう処理</term>
+    <listitem>
+      <para>
+        移動時に「つかう」コマンドを実行することで処理されるサブルーチンを特定する値を取る属性だ。
+        この属性値はジャンプテーブル <varname>$C30B31</varname> の行番号だ。
+      </para>
+      <para>
+        例えば「すごろくけん」の属性値は <literal>#$0058</literal> であり、
+        ジャンプテーブルをダンプして調べると <varname>$$C91D16</varname> がハンドラーであることがすぐにわかる。
+        そのサブルーチンの内容とは次のようなものだ。
+      </para>
+<programlisting><![CDATA[
+C9/1D16:    22D4A8C1    JSR $C1A8D4    ; text #$0D9A: [C0]は [B5]を[AD]にぎりしめた！[AF]
+C9/1D1A:    9A0D
+C9/1D1C:    22D4A8C1    JSR $C1A8D4    ; text #$0D9C: なんだか 胸が わくわくする。
+C9/1D20:    9C0D
+C9/1D22:    22F740C3    JSR $C340F7
+C9/1D26:    18          CLC
+C9/1D27:    6B          RTL
+]]></programlisting>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>鑑定処理</term>
+    <listitem>
+      <para>
+        パーティーに職業が商人である仲間キャラクターがいる場合、「みる」「みせる」コマンドの処理をするサブルーチンを特定する値を取る属性だ。
+        この属性値はジャンプテーブル <varname>$C30C66</varname> の行番号だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>（不明）</term>
+    <listitem>
+      <para>
+        ブーリアン型属性だが、プログラムからの参照が見当たらない。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>アイコン</term>
+    <listitem>
+      <para>
+        移動中に「しらべる」コマンドでこのアイテムを発見したときなどに画面上にポップアップ描画するアイコンスプライトを特定する値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>性格</term>
+    <listitem>
+      <para>
+        このアイテムが装備可能品であれば、仲間キャラクターがこれを「そうび」したときに、
+        このアイテムが本であれば、仲間キャラクターがこれを「つかう」ときに変化する性格の ID を値とする属性だ。
+      </para>
+      <para>
+        ただし「エッチなほん」に関しては、
+        サブルーチン <varname>$C45319</varname> でキャラクターの性別による性格振り分け処理を行う。
+      </para>
+      <para>
+        TODO: 性格の節を参照する。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.items.structure.C40043 -->
+</section> <!-- dq3.items.structure -->
+
+<section id="dq3.items.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+「つかう」および「みる」各コマンドを説明する。
+「つかう」については戦闘モードと移動モードの振る舞いの違いについても述べたい。
+</para>
+
+</section> <!-- dq3.items.behavior -->
+</section> <!-- dq3.items -->

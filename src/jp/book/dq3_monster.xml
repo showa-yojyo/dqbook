@@ -201,7 +201,7 @@
         アイテムとは、このモンスターを倒すことで戦闘終了時に得られることがあるアイテムの ID を値に取る属性だ。
       </para>
       <para>
-        アイテム全般については <xref linkend="dq3.item"/> で述べる。
+        アイテム全般については <xref linkend="dq3.items"/> で述べる。
       </para>
     </listitem>
   </varlistentry>
