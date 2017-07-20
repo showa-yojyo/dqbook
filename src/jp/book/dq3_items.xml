@@ -145,6 +145,9 @@
       <para>
         一つのフラグが一つの職業に対応し、その職業である仲間キャラクターがこのアイテムを装備可能であるか否かを示す値を取る属性だ。
       </para>
+      <para>
+        職業については <xref linkend="dq3.vocations"/> で述べる。
+      </para>
     </listitem>
   </varlistentry>
   <varlistentry>

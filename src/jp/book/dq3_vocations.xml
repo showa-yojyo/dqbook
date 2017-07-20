@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.vocations"><?dbhtml filename="dq3_vocations.html" ?>
+<title>職業</title>
+<indexterm id="term.dq3.vocations.1"><primary>職業</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.vocations.2"><primary>レベル</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3.vocations.3"><primary>キャラクター</primary><secondary>DQ3</secondary></indexterm>
+<para>
+本節では職業について述べる。
+</para>
+
+<section id="dq3.vocations.structure">
+<title>構造に関する構成要素</title>
+<para>
+職業を表現するオブジェクト型について述べる。
+</para>
+
+<section id="dq3.vocations.structure.C4179E">
+<title>構造体 <varname>$C4179E</varname>: 職業</title>
+<para>
+アドレス <varname>$C4179E</varname> に下の表に示すような巨大なオブジェクトが 9 個配列されている。
+これらがそれぞれの職業の性質を表現する。
+</para>
+
+<table id="table.dq3.C4179E" class="lighttable">
+  <caption>構造体 $C4179E</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$0000</literal></td><td><literal>#$00FFFF</literal></td><td>名前</td></tr>
+    <tr><td><literal>#$0002</literal></td><td><literal>#$0000FF</literal></td><td>スプライト男</td></tr>
+    <tr><td><literal>#$0003</literal></td><td><literal>#$0000FF</literal></td><td>スプライト女</td></tr>
+    <tr><td><literal>#$0004</literal></td><td><literal>#$0000FF</literal></td><td>スプライト水着</td></tr>
+    <tr><td><literal>#$0005</literal></td><td><literal>#$0000FF</literal></td><td>頭文字コード</td></tr>
+    <tr><td><literal>#$0006</literal></td><td><literal>#$0000FF</literal></td><td>初期性格条件 0</td></tr>
+    <tr><td><literal>#$0007</literal></td><td><literal>#$0000FF</literal></td><td>初期性格条件 1</td></tr>
+    <tr><td><literal>#$0008</literal></td><td><literal>#$0000FF</literal></td><td>初期性格条件 2</td></tr>
+    <tr><td><literal>#$0009</literal></td><td><literal>#$0000FF</literal></td><td>初期性格条件 3</td></tr>
+    <tr><td><literal>#$000A</literal></td><td><literal>#$0000FF</literal></td><td>初期性格条件 4</td></tr>
+    <tr><td><literal>#$000B</literal></td><td><literal>#$FFFFFF</literal></td><td>習得呪文配列</td></tr>
+    <tr><td><literal>#$000E</literal></td><td><literal>#$0000FF</literal></td><td>習得呪文個数</td></tr>
+    <tr><td><literal>#$000F</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$00</literal></td></tr>
+    <tr><td><literal>#$0012</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$01</literal></td></tr>
+    <tr><td><literal>#$0015</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$02</literal></td></tr>
+    <tr><td><literal>#$0018</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$03</literal></td></tr>
+    <tr><td><literal>#$001B</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$04</literal></td></tr>
+    <tr><td><literal>#$001E</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$05</literal></td></tr>
+    <tr><td><literal>#$0021</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$06</literal></td></tr>
+    <tr><td><literal>#$0024</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$07</literal></td></tr>
+    <tr><td><literal>#$0027</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$08</literal></td></tr>
+    <tr><td><literal>#$002A</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$09</literal></td></tr>
+    <tr><td><literal>#$002D</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$0A</literal></td></tr>
+    <tr><td><literal>#$0030</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$0B</literal></td></tr>
+    <tr><td><literal>#$0033</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$0C</literal></td></tr>
+    <tr><td><literal>#$0036</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$0D</literal></td></tr>
+    <tr><td><literal>#$0039</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$0E</literal></td></tr>
+    <tr><td><literal>#$003C</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$0F</literal></td></tr>
+    <tr><td><literal>#$003F</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$10</literal></td></tr>
+    <tr><td><literal>#$0042</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$11</literal></td></tr>
+    <tr><td><literal>#$0045</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$12</literal></td></tr>
+    <tr><td><literal>#$0048</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$13</literal></td></tr>
+    <tr><td><literal>#$004B</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$14</literal></td></tr>
+    <tr><td><literal>#$004E</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$15</literal></td></tr>
+    <tr><td><literal>#$0051</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$16</literal></td></tr>
+    <tr><td><literal>#$0054</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$17</literal></td></tr>
+    <tr><td><literal>#$0057</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$18</literal></td></tr>
+    <tr><td><literal>#$005A</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$19</literal></td></tr>
+    <tr><td><literal>#$005D</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$1A</literal></td></tr>
+    <tr><td><literal>#$0060</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$1B</literal></td></tr>
+    <tr><td><literal>#$0063</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$1C</literal></td></tr>
+    <tr><td><literal>#$0066</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$1D</literal></td></tr>
+    <tr><td><literal>#$0069</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$1E</literal></td></tr>
+    <tr><td><literal>#$006C</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$1F</literal></td></tr>
+    <tr><td><literal>#$006F</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$20</literal></td></tr>
+    <tr><td><literal>#$0072</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$21</literal></td></tr>
+    <tr><td><literal>#$0075</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$22</literal></td></tr>
+    <tr><td><literal>#$0078</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$23</literal></td></tr>
+    <tr><td><literal>#$007B</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$24</literal></td></tr>
+    <tr><td><literal>#$007E</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$25</literal></td></tr>
+    <tr><td><literal>#$0081</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$26</literal></td></tr>
+    <tr><td><literal>#$0084</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$27</literal></td></tr>
+    <tr><td><literal>#$0087</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$28</literal></td></tr>
+    <tr><td><literal>#$008A</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$29</literal></td></tr>
+    <tr><td><literal>#$008D</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$2A</literal></td></tr>
+    <tr><td><literal>#$0090</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$2B</literal></td></tr>
+    <tr><td><literal>#$0093</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$2C</literal></td></tr>
+    <tr><td><literal>#$0096</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$2D</literal></td></tr>
+    <tr><td><literal>#$0099</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$2E</literal></td></tr>
+    <tr><td><literal>#$009C</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$2F</literal></td></tr>
+    <tr><td><literal>#$009F</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$30</literal></td></tr>
+    <tr><td><literal>#$00A2</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$31</literal></td></tr>
+    <tr><td><literal>#$00A5</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$32</literal></td></tr>
+    <tr><td><literal>#$00A8</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$33</literal></td></tr>
+    <tr><td><literal>#$00AB</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$34</literal></td></tr>
+    <tr><td><literal>#$00AE</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$35</literal></td></tr>
+    <tr><td><literal>#$00B1</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$36</literal></td></tr>
+    <tr><td><literal>#$00B4</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$37</literal></td></tr>
+    <tr><td><literal>#$00B7</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$38</literal></td></tr>
+    <tr><td><literal>#$00BA</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$39</literal></td></tr>
+    <tr><td><literal>#$00BD</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$3A</literal></td></tr>
+    <tr><td><literal>#$00C0</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$3B</literal></td></tr>
+    <tr><td><literal>#$00C3</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$3C</literal></td></tr>
+    <tr><td><literal>#$00C6</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$3D</literal></td></tr>
+    <tr><td><literal>#$00C9</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$3E</literal></td></tr>
+    <tr><td><literal>#$00CC</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$3F</literal></td></tr>
+    <tr><td><literal>#$00CF</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$40</literal></td></tr>
+    <tr><td><literal>#$00D2</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$41</literal></td></tr>
+    <tr><td><literal>#$00D5</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$42</literal></td></tr>
+    <tr><td><literal>#$00D8</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$43</literal></td></tr>
+    <tr><td><literal>#$00DB</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$44</literal></td></tr>
+    <tr><td><literal>#$00DE</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$45</literal></td></tr>
+    <tr><td><literal>#$00E1</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$46</literal></td></tr>
+    <tr><td><literal>#$00E4</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$47</literal></td></tr>
+    <tr><td><literal>#$00E7</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$48</literal></td></tr>
+    <tr><td><literal>#$00EA</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$49</literal></td></tr>
+    <tr><td><literal>#$00ED</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$4A</literal></td></tr>
+    <tr><td><literal>#$00F0</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$4B</literal></td></tr>
+    <tr><td><literal>#$00F3</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$4C</literal></td></tr>
+    <tr><td><literal>#$00F6</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$4D</literal></td></tr>
+    <tr><td><literal>#$00F9</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$4E</literal></td></tr>
+    <tr><td><literal>#$00FC</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$4F</literal></td></tr>
+    <tr><td><literal>#$00FF</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$50</literal></td></tr>
+    <tr><td><literal>#$0102</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$51</literal></td></tr>
+    <tr><td><literal>#$0105</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$52</literal></td></tr>
+    <tr><td><literal>#$0108</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$53</literal></td></tr>
+    <tr><td><literal>#$010B</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$54</literal></td></tr>
+    <tr><td><literal>#$010E</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$55</literal></td></tr>
+    <tr><td><literal>#$0111</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$56</literal></td></tr>
+    <tr><td><literal>#$0114</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$57</literal></td></tr>
+    <tr><td><literal>#$0117</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$58</literal></td></tr>
+    <tr><td><literal>#$011A</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$59</literal></td></tr>
+    <tr><td><literal>#$011D</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$5A</literal></td></tr>
+    <tr><td><literal>#$0120</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$5B</literal></td></tr>
+    <tr><td><literal>#$0123</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$5C</literal></td></tr>
+    <tr><td><literal>#$0126</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$5D</literal></td></tr>
+    <tr><td><literal>#$0129</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$5E</literal></td></tr>
+    <tr><td><literal>#$012C</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$5F</literal></td></tr>
+    <tr><td><literal>#$012F</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$60</literal></td></tr>
+    <tr><td><literal>#$0132</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値 <literal>#$61</literal></td></tr>
+    <tr><td><literal>#$0135</literal></td><td><literal>#$0000FF</literal></td><td>ちから初期値男</td></tr>
+    <tr><td><literal>#$0136</literal></td><td><literal>#$0000FF</literal></td><td>ちから初期値女</td></tr>
+    <tr><td><literal>#$0137</literal></td><td><literal>#$0000FF</literal></td><td>ちからレベル 0</td></tr>
+    <tr><td><literal>#$0138</literal></td><td><literal>#$0000FF</literal></td><td>ちから増分 0</td></tr>
+    <tr><td><literal>#$0139</literal></td><td><literal>#$0000FF</literal></td><td>ちからレベル 1</td></tr>
+    <tr><td><literal>#$013A</literal></td><td><literal>#$0000FF</literal></td><td>ちから増分 1</td></tr>
+    <tr><td><literal>#$013B</literal></td><td><literal>#$0000FF</literal></td><td>ちからレベル 2</td></tr>
+    <tr><td><literal>#$013C</literal></td><td><literal>#$0000FF</literal></td><td>ちから増分 2</td></tr>
+    <tr><td><literal>#$013D</literal></td><td><literal>#$0000FF</literal></td><td>ちからレベル 3</td></tr>
+    <tr><td><literal>#$013E</literal></td><td><literal>#$0000FF</literal></td><td>ちから増分 3</td></tr>
+    <tr><td><literal>#$013F</literal></td><td><literal>#$0000FF</literal></td><td>ちからレベル 4</td></tr>
+    <tr><td><literal>#$0140</literal></td><td><literal>#$0000FF</literal></td><td>ちから増分 4</td></tr>
+    <tr><td><literal>#$0141</literal></td><td><literal>#$0000FF</literal></td><td>すばやさ初期値男</td></tr>
+    <tr><td><literal>#$0142</literal></td><td><literal>#$0000FF</literal></td><td>すばやさ初期値女</td></tr>
+    <tr><td><literal>#$0143</literal></td><td><literal>#$0000FF</literal></td><td>すばやさレベル 0</td></tr>
+    <tr><td><literal>#$0144</literal></td><td><literal>#$0000FF</literal></td><td>すばやさ増分 0</td></tr>
+    <tr><td><literal>#$0145</literal></td><td><literal>#$0000FF</literal></td><td>すばやさレベル 1</td></tr>
+    <tr><td><literal>#$0146</literal></td><td><literal>#$0000FF</literal></td><td>すばやさ増分 1</td></tr>
+    <tr><td><literal>#$0147</literal></td><td><literal>#$0000FF</literal></td><td>すばやさレベル 2</td></tr>
+    <tr><td><literal>#$0148</literal></td><td><literal>#$0000FF</literal></td><td>すばやさ増分 2</td></tr>
+    <tr><td><literal>#$0149</literal></td><td><literal>#$0000FF</literal></td><td>すばやさレベル 3</td></tr>
+    <tr><td><literal>#$014A</literal></td><td><literal>#$0000FF</literal></td><td>すばやさ増分 3</td></tr>
+    <tr><td><literal>#$014B</literal></td><td><literal>#$0000FF</literal></td><td>すばやさレベル 4</td></tr>
+    <tr><td><literal>#$014C</literal></td><td><literal>#$0000FF</literal></td><td>すばやさ増分 4</td></tr>
+    <tr><td><literal>#$014D</literal></td><td><literal>#$0000FF</literal></td><td>たいりょく初期値男</td></tr>
+    <tr><td><literal>#$014E</literal></td><td><literal>#$0000FF</literal></td><td>たいりょく初期値女</td></tr>
+    <tr><td><literal>#$014F</literal></td><td><literal>#$0000FF</literal></td><td>たいりょくレベル 0</td></tr>
+    <tr><td><literal>#$0150</literal></td><td><literal>#$0000FF</literal></td><td>たいりょく増分 0</td></tr>
+    <tr><td><literal>#$0151</literal></td><td><literal>#$0000FF</literal></td><td>たいりょくレベル 1</td></tr>
+    <tr><td><literal>#$0152</literal></td><td><literal>#$0000FF</literal></td><td>たいりょく増分 1</td></tr>
+    <tr><td><literal>#$0153</literal></td><td><literal>#$0000FF</literal></td><td>たいりょくレベル 2</td></tr>
+    <tr><td><literal>#$0154</literal></td><td><literal>#$0000FF</literal></td><td>たいりょく増分 2</td></tr>
+    <tr><td><literal>#$0155</literal></td><td><literal>#$0000FF</literal></td><td>たいりょくレベル 3</td></tr>
+    <tr><td><literal>#$0156</literal></td><td><literal>#$0000FF</literal></td><td>たいりょく増分 3</td></tr>
+    <tr><td><literal>#$0157</literal></td><td><literal>#$0000FF</literal></td><td>たいりょくレベル 4</td></tr>
+    <tr><td><literal>#$0158</literal></td><td><literal>#$0000FF</literal></td><td>たいりょく増分 4</td></tr>
+    <tr><td><literal>#$0159</literal></td><td><literal>#$0000FF</literal></td><td>たいりょくレベル 5</td></tr>
+    <tr><td><literal>#$015A</literal></td><td><literal>#$0000FF</literal></td><td>たいりょく増分 5</td></tr>
+    <tr><td><literal>#$015B</literal></td><td><literal>#$0000FF</literal></td><td>かしこさ初期値男</td></tr>
+    <tr><td><literal>#$015C</literal></td><td><literal>#$0000FF</literal></td><td>かしこさ初期値女</td></tr>
+    <tr><td><literal>#$015D</literal></td><td><literal>#$0000FF</literal></td><td>かしこさレベル 0</td></tr>
+    <tr><td><literal>#$015E</literal></td><td><literal>#$0000FF</literal></td><td>かしこさ増分 0</td></tr>
+    <tr><td><literal>#$015F</literal></td><td><literal>#$0000FF</literal></td><td>かしこさレベル 1</td></tr>
+    <tr><td><literal>#$0160</literal></td><td><literal>#$0000FF</literal></td><td>かしこさ増分 1</td></tr>
+    <tr><td><literal>#$0161</literal></td><td><literal>#$0000FF</literal></td><td>かしこさレベル 2</td></tr>
+    <tr><td><literal>#$0162</literal></td><td><literal>#$0000FF</literal></td><td>かしこさ増分 2</td></tr>
+    <tr><td><literal>#$0163</literal></td><td><literal>#$0000FF</literal></td><td>かしこさレベル 3</td></tr>
+    <tr><td><literal>#$0164</literal></td><td><literal>#$0000FF</literal></td><td>かしこさ増分 3</td></tr>
+    <tr><td><literal>#$0165</literal></td><td><literal>#$0000FF</literal></td><td>かしこさレベル 4</td></tr>
+    <tr><td><literal>#$0166</literal></td><td><literal>#$0000FF</literal></td><td>かしこさ増分 4</td></tr>
+    <tr><td><literal>#$0167</literal></td><td><literal>#$0000FF</literal></td><td>うんのよさ初期値男</td></tr>
+    <tr><td><literal>#$0168</literal></td><td><literal>#$0000FF</literal></td><td>うんのよさ初期値女</td></tr>
+    <tr><td><literal>#$0169</literal></td><td><literal>#$0000FF</literal></td><td>うんのよさレベル 0</td></tr>
+    <tr><td><literal>#$016A</literal></td><td><literal>#$0000FF</literal></td><td>うんのよさ増分 0</td></tr>
+    <tr><td><literal>#$016B</literal></td><td><literal>#$0000FF</literal></td><td>うんのよさレベル 1</td></tr>
+    <tr><td><literal>#$016C</literal></td><td><literal>#$0000FF</literal></td><td>うんのよさ増分 1</td></tr>
+    <tr><td><literal>#$016D</literal></td><td><literal>#$0000FF</literal></td><td>うんのよさレベル 2</td></tr>
+    <tr><td><literal>#$016E</literal></td><td><literal>#$0000FF</literal></td><td>うんのよさ増分 2</td></tr>
+    <tr><td><literal>#$016F</literal></td><td><literal>#$0000FF</literal></td><td>うんのよさレベル 3</td></tr>
+    <tr><td><literal>#$0170</literal></td><td><literal>#$0000FF</literal></td><td>うんのよさ増分 3</td></tr>
+    <tr><td><literal>#$0171</literal></td><td><literal>#$0000FF</literal></td><td>うんのよさレベル 4</td></tr>
+    <tr><td><literal>#$0172</literal></td><td><literal>#$0000FF</literal></td><td>うんのよさ増分 4</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味を次に述べる。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>名前</term>
+    <listitem>
+      <para>
+        職業の名前を表す文字列 の ID を値に取る属性だ。
+        文字列については <xref linkend="dq3.string"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>スプライト男</term>
+    <term>スプライト女</term>
+    <term>スプライト水着</term>
+    <listitem>
+      <para>
+        「はなす」対象分類オブジェクトの ID を値に取る属性だ。
+        この職業のキャラクターを移動中の画面上に表現するときに用いられるスプライトに関する情報は、
+        そのオブジェクトから参照する。
+      </para>
+      <para>
+        「はなす」対象分類オブジェクトについては <xref linkend="dq3.talk.model.C893D4"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>頭文字コード</term>
+    <listitem>
+      <para>
+        移動中や戦闘中のパーティー編成ウィンドウにおいて、各キャラクターのレベルの左に現れる平仮名一文字のコード値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>初期性格条件 k (k = 0..4)</term>
+    <listitem>
+      <para>
+        この職業のキャラクターを仲間登録所で新規に作成する際に用いるオブジェクトの ID を値とする属性だ。
+        詳細は <xref linkend="dq3.registration"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>習得呪文配列</term>
+    <listitem>
+      <para>
+        この職業のキャラクターが、レベルアップ時に習得する可能性のあるレベルと、
+        習得呪文のペアを定義する配列のアドレスである。
+        厳密には、コマンド ID を直接保持するわけではなく、
+        仲間キャラクターオブジェクトの一部である「習得済み呪文フラグ」の位置を指示する配列
+        <varname>$C456AC</varname> の添字を保持する。
+      </para>
+      <para>
+        仲間キャラクターオブジェクトについては <xref linkend="dq3.characters"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>習得呪文個数</term>
+    <listitem>
+      <para>
+        上述した習得呪文配列属性の配列長を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>経験値 k (k = <literal>#$00</literal>..<literal>#$61</literal>)</term>
+    <listitem>
+      <para>
+        この職業のキャラクターのレベルが k + 2 であるために必要な経験値を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ちから初期値男</term>
+    <term>ちから初期値女</term>
+    <listitem>
+      <para>
+        この職業のキャラクターを仲間登録所で新規に作成する際、男女それぞれのちから属性値の初期値（の最小値）を表す属性だ。
+        実際にはここにある乱数が加算される。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ちからレベル k (k = 0..4)</term>
+    <term>ちから増分 k (k = 0..4)</term>
+    <listitem>
+      <para>
+        この職業のキャラクターのレベルが上がるときに再設定されるちから属性値の基準値を計算するための属性だ。
+        この職業のキャラクターのレベルがちからレベル k 以上ちからレベル k + 1 未満であるとき、
+        その評価値を次の式で求める：
+      </para>
+<programlisting><![CDATA[
+基準値 = (初期値
+        + 増分[0]     * (レベル[0]     - 2)
+        + 増分[1]     * (レベル[1]     - レベル[0])
+        + ...
+        + 増分[k - 1] * (レベル[k - 1] - レベル[k - 2])
+        + 増分[k]     * (キャラレベル  - レベル[k]))
+        / 16
+]]></programlisting>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>すばやさ初期値男</term>
+    <term>すばやさ初期値女</term>
+    <term>すばやさレベル k (k = 0..4)</term>
+    <term>すばやさ増分 k (k = 0..4)</term>
+    <listitem>
+      <para>
+        ちからでの各属性についての説明をすばやさに置き換えて読んで欲しい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>たいりょく初期値男</term>
+    <term>たいりょく初期値女</term>
+    <term>たいりょくレベル k (k = 0..4)</term>
+    <term>たいりょく増分 k (k = 0..4)</term>
+    <listitem>
+      <para>
+        ちからでの各属性についての説明をたいりょくに置き換えて読んで欲しい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>かしこさ初期値男</term>
+    <term>かしこさ初期値女</term>
+    <term>かしこさレベル k (k = 0..4)</term>
+    <term>かしこさ増分 k (k = 0..4)</term>
+    <listitem>
+      <para>
+        ちからでの各属性についての説明をかしこさに置き換えて読んで欲しい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>うんのよさ初期値男</term>
+    <term>うんのよさ初期値女</term>
+    <term>うんのよさレベル k (k = 0..4)</term>
+    <term>うんのよさ増分 k (k = 0..4)</term>
+    <listitem>
+      <para>
+        ちからでの各属性についての説明をうんのよさに置き換えて読んで欲しい。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.vocations.structure.C4179E -->
+</section> <!-- dq3.vocations.structure -->
+
+<section id="dq3.vocations.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+職業オブジェクトが参照される処理のうち主要なものは、
+仲間キャラクター初期化処理、同レベルアップ処理、同転職処理だろう。
+本節ではそのうちで最も職業オブジェクトの属性値を参照するレベルアップ処理について記す。
+残りについてはそれぞれ別の節で述べる。
+TODO: それぞれを参照する。
+</para>
+
+</section> <!-- dq3.vocations.behavior -->
+</section> <!-- dq3.vocations -->
