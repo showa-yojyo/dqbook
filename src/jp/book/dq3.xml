@@ -38,7 +38,7 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_inns.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_church.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_pub.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_entry.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_registration.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_bank.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_classchange.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_rename.xml"/>

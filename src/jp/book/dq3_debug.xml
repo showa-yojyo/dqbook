@@ -134,21 +134,21 @@
 			選択する項目により、店屋の共通処理が始まる。
 		</para>
 		<para>
-			「ぶきや」「ぼうぐや」「どうぐや」「よろずや」の処理については<link linkend="dq3.shop">店屋解析</link>を参照。
-			「しんぷ」「シスター」は<link linkend="dq3.church">教会解析</link>、
-			「やどや」は<link linkend="dq3.inns">宿屋解析</link>、
-			「ぎんこう」は<link linkend="dq3.bank">ゴールド銀行解析</link>、
-			「なかまとうろくじょ」は<link linkend="dq3.entry">仲間登録所解析</link>、
-			「ルイーダのさかば」は<link linkend="dq3.pub">ルイーダの酒場解析</link>、
-			「ダーマのしんでん」は<link linkend="dq3.classchange">転職解析</link>、
-			「なまえかえや」は<link linkend="dq3.rename">命名神解析</link>、
-			「かくとうじょう」は<link linkend="dq3.stadium">格闘場解析</link>、
-			「よそうや」は<link linkend="dq3.tipster">予想屋解析</link>、
-			「ふっかけみせや」は<link linkend="dq3.overcharge">ふっかけ店屋解析</link>、
-			「マッチメイク」は<link linkend="dq3.matchmake">格闘場マッチメイク解析</link>、
-			「メダルおじさん」は<link linkend="dq3.medal">メダルおじさん解析</link>、
-			「シスターセーブ」は<link linkend="dq3.sistersave">シスターセーブ解析</link>、
-			「おうさま」は<link linkend="dq3.king">王様解析</link>をそれぞれ参照。
+			「ぶきや」「ぼうぐや」「どうぐや」「よろずや」の処理については <xref linkend="dq3.shop"/> を、
+			「しんぷ」「シスター」は <xref linkend="dq3.church"/>、
+			「やどや」は <xref linkend="dq3.inns"/>、
+			「ぎんこう」は <xref linkend="dq3.bank"/>、
+			「なかまとうろくじょ」は <xref linkend="dq3.registration"/>、
+			「ルイーダのさかば」は <xref linkend="dq3.pub"/>、
+			「ダーマのしんでん」は <xref linkend="dq3.classchange"/>、
+			「なまえかえや」は <xref linkend="dq3.rename"/>、
+			「かくとうじょう」は <xref linkend="dq3.stadium"/>、
+			「よそうや」は <xref linkend="dq3.tipster"/>、
+			「ふっかけみせや」は <xref linkend="dq3.overcharge"/>、
+			「マッチメイク」は <xref linkend="dq3.matchmake"/>、
+			「メダルおじさん」は <xref linkend="dq3.medal"/>、
+			「シスターセーブ」は <xref linkend="dq3.sistersave"/>、
+			「おうさま」は <xref linkend="dq3.king"/>をそれぞれ参照。
 		</para>
 	</glossdef>
 	</glossentry>
@@ -260,7 +260,7 @@
 	<glossdef>
 		<figure id="fig.dq3.debug.enc.monster"><title>せんたくせんとう</title><graphic width="240px" fileref="./image/dq3.debug.enc.monster.png"/></figure>
 		<para>
-			<link linkend="dq3.monster">モンスター</link>せんたくウィンドウ (ID: <literal>00D1h</literal>) が出現する。
+			モンスターせんたくウィンドウ (ID: <literal>00D1h</literal>) が出現する。
 			ここでモンスターを示す項目を選択すると、さらに数値入力ウィンドウが出現する。
 			数値を入力すると、再びモンスターせんたくウィンドウがアクティブになる。
 		</para>

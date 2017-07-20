@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.registration"><?dbhtml filename="dq3_registration.html" ?>
+<title>冒険者たちの登録所</title>
+<para>
+本節ではルイーダの酒場二階に併設されている冒険者たちの登録所について述べる。
+</para>
+
+<section id="dq3.registration.structure">
+<title>構造に関する構成要素</title>
+<para>
+キャラクター作成処理のためにしか参照されないオブジェクト型が二つ存在する。
+それぞれ初期性格条件と初期性格確率分布と呼ぶことにしよう。
+</para>
+
+<section id="dq3.registration.structure.C30EFD">
+<title>構造体 <varname>$C30EFD</varname>: 初期性格条件</title>
+<para>
+アドレス <varname>$C30EFD</varname> には以下の表が示すようなオブジェクト型の要素が配列されている。
+</para>
+
+<table id="table.dq3.C30EFD" class="lighttable">
+  <caption>構造体 $C30EFD</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$007F</literal></td><td>閾値 0</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0080</literal></td><td>第二位考慮 0</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00FF</literal></td><td>キャラクター属性 0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00FF</literal></td><td>初期性格確率分布 0</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$007F</literal></td><td>閾値 1</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0080</literal></td><td>第二位考慮 1</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td><td>キャラクター属性 1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>初期性格確率分布 1</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$007F</literal></td><td>閾値 2</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$0080</literal></td><td>第二位考慮 2</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td><td>キャラクター属性 2</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td><td>初期性格確率分布 2</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$007F</literal></td><td>閾値 3</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$0080</literal></td><td>第二位考慮 3</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td><td>キャラクター属性 3</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$00FF</literal></td><td>初期性格確率分布 3</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$007F</literal></td><td>閾値 4</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$0080</literal></td><td>第二位考慮 4</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$00FF</literal></td><td>キャラクター属性 4</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$00FF</literal></td><td>初期性格確率分布 4</td></tr>
+  </tbody>
+</table>
+<para>
+以下に各属性を説明する。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>閾値 k (k = 0..3)</term>
+    <term>第二位考慮 k (k = 0..3)</term>
+    <listitem>
+      <para>
+        閾値 k とはスカラー値属性であり、型は下で説明するキャラクター属性 k によって「ちから」「すばやさ」等に決まる。
+        第二位考慮 k とはブーリアン型属性だ。
+      </para>
+      <para>
+        第二位考慮 k 属性値が 1 のとき、後述する初期性格決定処理において、
+        第一位増分キャラクター属性値と閾値 k との比較を無視し、
+        代わりに第二位増分キャラクター属性値と閾値 k とを比較することを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>キャラクター属性 k (k = 0..3)</term>
+    <listitem>
+      <para>
+        ちから、すばやさ、たいりょく、かしこさ、うんのよさのいずれなのかを表す値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>初期性格確率分布 k (k = 0..3)</term>
+    <listitem>
+      <para>
+        後述する初期性格確率分布オブジェクトの ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.registration.structure.C30EFD -->
+
+<section id="dq3.registration.structure.C30FFC">
+<title>構造体 <varname>C30FFC</varname>: 初期性格確率分布</title>
+<para>
+アドレス <varname>$C30FFC</varname> には以下の表が示すようなオブジェクト型の要素が配列されている。
+</para>
+
+<table id="table.dq3.C30FFC" class="lighttable">
+  <caption>構造体 $C30FFC</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000F</literal></td><td>頻度 0</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00F0</literal></td><td>頻度 1</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$000F</literal></td><td>頻度 2</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00F0</literal></td><td>頻度 3</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$000F</literal></td><td>頻度 4</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00F0</literal></td><td>頻度 5</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000F</literal></td><td>頻度 6</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00F0</literal></td><td>頻度 7</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td><td>性格 0</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>性格 1</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td><td>性格 2</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td><td>性格 3</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td><td>性格 4</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$00FF</literal></td><td>性格 5</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td><td>性格 6</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$00FF</literal></td><td>性格 7</td></tr>
+  </tbody>
+</table>
+<para>
+以下に各属性を説明する。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>頻度 k (k = 0..7)</term>
+    <term>性格 k (k = 0..7)</term>
+    <listitem>
+      <para>
+        これらの属性は対になっているのでまとめて説明する。
+        初期性格が性格 k 属性値となる確率が頻度 k 属性値で決まるということを表している。
+      </para>
+      <para>
+        頻度属性値の和を取ると 256 になるので、実際の確率は頻度 k 属性値を 256 で割った値となる。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.registration.structure.C300FC -->
+</section> <!-- dq3.registration.structure -->
+
+<section id="dq3.registration.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+本節では登録所の処理を述べることになる。
+TODO: 旧版の記述を編集してここに入れる。
+</para>
+
+</section> <!-- dq3.registration.behavior -->
+</section> <!-- dq3.registration -->
