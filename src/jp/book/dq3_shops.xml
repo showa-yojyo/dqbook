@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.shops"><?dbhtml filename="dq3_shops.html" ?>
+<title>店屋</title>
+<para>
+本節では武器と防具の店、道具屋、そしてよろず屋について述べる。
+</para>
+
+<section id="dq3.shops.structure">
+<title>構造に関する構成要素</title>
+<para>
+店屋を表現するオブジェクト型および店員台詞集について記す。
+</para>
+
+<section id="dq3.shops.structure.C30900">
+<title>構造体 <varname>$C30900</varname>: 店屋</title>
+<para>
+アドレス <varname>$C30900</varname> には次の表で示すような型のオブジェクトが配列されている。
+ここにあるオブジェクトそれぞれが対応する店屋のサービスを表現する。
+</para>
+<table id="table.dq3.C30900" class="lighttable">
+  <caption>構造体 $C30900</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$007F</literal></td><td>店屋分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0080</literal></td><td>まとめ買い許可</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00FF</literal></td><td>商品 0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00FF</literal></td><td>商品 1</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF</literal></td><td>商品 2</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td><td>商品 3</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>商品 4</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td><td>商品 5</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td><td>商品 6</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td><td>商品 7</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味を次に記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>店屋分類</term>
+    <listitem>
+      <para>
+        店屋の分類とは、基本的には店員の台詞回しを決めるものだと考えてよい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>まとめ買い許可</term>
+    <listitem>
+      <para>
+        この店屋で同一アイテムを複数個一括して買うことが可能かどうかを示すブーリアン値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>商品 k (k = 0..7)</term>
+    <listitem>
+      <para>
+        この店屋の商品のアイテム ID を値に取る属性だ。
+        アイテムについては <xref linkend="dq3.items"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.shops.structure.C30900 -->
+</section> <!-- dq3.shops.structure -->
+
+<section id="dq3.shops.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+店屋の処理を細かく分解すると、パーティーの所持金の変更、仲間キャラクターの持ち物状態の変更、
+仲間キャラクターの状態テスト等、総合的な機能を有したサブルーチンの合成物の様相を呈している。
+TODO: 旧版を整理してここに入れる。
+</para>
+
+</section> <!-- dq3.shops.behavior -->
+</section> <!-- dq3.shops -->

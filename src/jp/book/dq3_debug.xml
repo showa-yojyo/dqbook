@@ -134,7 +134,7 @@
 			選択する項目により、店屋の共通処理が始まる。
 		</para>
 		<para>
-			「ぶきや」「ぼうぐや」「どうぐや」「よろずや」の処理については <xref linkend="dq3.shop"/> を、
+			「ぶきや」「ぼうぐや」「どうぐや」「よろずや」の処理については <xref linkend="dq3.shops"/> を、
 			「しんぷ」「シスター」は <xref linkend="dq3.church"/>、
 			「やどや」は <xref linkend="dq3.inns"/>、
 			「ぎんこう」は <xref linkend="dq3.bank"/>、
