@@ -51,7 +51,7 @@
 <!-- BANK $C4 -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_items.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_vocations.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_character.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_personalities.xml"/>
 
 <!-- BANK $C8 -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_talk.xml"/>

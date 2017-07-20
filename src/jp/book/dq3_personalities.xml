@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.personalities"><?dbhtml filename="dq3_personalities.html" ?>
+<title>性格</title>
+<para>
+本節では性格について述べる。
+</para>
+
+<section id="dq3.personalities.structure">
+<title>構造に関する構成要素</title>
+<para>
+性格を表現するオブジェクト型のうち、主要なものを述べる。
+性格に関係するその他のオブジェクト型については他の節で述べることにする。
+</para>
+
+<section id="dq3.personalities.structure.C424BC">
+<title>構造体 <varname>$C424BC</varname>: 性格</title>
+<para>
+アドレス <varname>$C424BC</varname> には以下の表が示すような型のオブジェクトが 47 個配列されている。
+この配列要素それぞれが仲間キャラクターの性格の一つ一つを表現する。
+</para>
+
+<table id="table.dq3.C424BC" class="lighttable">
+  <caption>構造体 $C424BC</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>名前</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00FF</literal></td><td>ちから係数</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF</literal></td><td>すばやさ係数</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td><td>たいりょく係数</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>かしこさ係数</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td><td>うんのよさ係数</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$0003</literal></td><td>性別</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$001C</literal></td><td>登録所評価</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$0020</literal></td><td>性格変化 0: 男</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$0040</literal></td><td>性格変化 1: 女</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$0780</literal></td><td>ダーマ評価 0: せんし</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$0078</literal></td><td>ダーマ評価 1: ぶとうか</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$0780</literal></td><td>ダーマ評価 2: そうりょ</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$0078</literal></td><td>ダーマ評価 3: まほうつかい</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$0780</literal></td><td>ダーマ評価 4: けんじゃ</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$0078</literal></td><td>ダーマ評価 5: しょうにん</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$0780</literal></td><td>ダーマ評価 6: あそびにん</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$0078</literal></td><td>ダーマ評価 7: とうぞく</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$0080</literal></td><td>（未使用）</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味を次に述べる。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>名前</term>
+    <listitem>
+      <para>
+        性格の名前を表す文字列の ID を値とする属性だ。
+        文字列については <xref linkend="dq3.string"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ちから係数</term>
+    <term>すばやさ係数</term>
+    <term>たいりょく係数</term>
+    <term>かしこさ係数</term>
+    <term>うんのよさ係数</term>
+    <listitem>
+      <para>
+        仲間キャラクターのレベルが上がるときにおいて、キャラクター属性値それぞれの増加量を決定する際に参照される属性だ。
+        詳しくはレベルアップ処理の節で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>性別</term>
+    <listitem>
+      <para>
+        冒険者たちの登録所で新規キャラクターを登録する際に、その初期性格を決定するために参照する属性だ。
+        値 0, 1, 2 がそれぞれこの性格が無条件、男限定、女限定であることを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>登録所評価</term>
+    <listitem>
+      <para>
+        冒険者たちの登録所で新規キャラクターを登録する際に、
+        係員が性格を評価する台詞のメッセージ ID 配列 <varname>$C3E2EA</varname> の添字を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>性格変化 k (k = 0..1)</term>
+    <listitem>
+      <para>
+        すごろくの「？」マスでランダムに発生する性格変更イベントが参照する属性だ。
+        男キャラクターならば性格変化 0 の値が 1 の性格にしか変更されないし、
+        女キャラクターならば性格変化 1 の値が 1 の性格にしか変更されない。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ダーマ評価 k (k = 0..7)</term>
+    <listitem>
+      <para>
+        ダーマの神殿の神官が転職するキャラクターの性格次第で一言付け加えることがある。
+        この属性はその台詞の有無および内容を決定する値を取るものだ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.personalities.structure.C424BC -->
+</section> <!-- dq3.personalities.structure -->
+
+<section id="dq3.personalities.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+性格オブジェクトは何か他のオブジェクトと併せて参照されるという性質のものなので、
+本節ではその振る舞いを詳しく述べることはしない。それぞれの処理を説明する節を参照して欲しい。
+</para>
+
+</section> <!-- dq3.personalities.behavior -->
+</section> <!-- dq3.personalities -->
