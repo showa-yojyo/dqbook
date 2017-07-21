@@ -40,7 +40,7 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_pub.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_registration.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_bank.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_classchange.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_dharma.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_rename.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_matchmake.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_stadium.xml"/>
