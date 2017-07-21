@@ -72,6 +72,60 @@
   </varlistentry>
 </variablelist>
 </section> <!-- dq3.shops.structure.C30900 -->
+
+<section id="dq3.shops.structure.C3CA2A">
+<title>店屋台詞集</title>
+<para>
+アドレス <varname>$C3CA2A</varname> から各種店屋の台詞 ID が定義されている。
+例えば「ようこそ」を表示するために店屋の種類 X ごとに 5 タイプの台詞が用意されている。
+Opcode <literal>#$BF</literal> の LDA 命令で以下のアドレスから ID 値をロードして、
+汎用台詞表示サブルーチン <varname>$C1A95A</varname> を呼び出すことで店員の台詞を表示している。
+</para>
+<para>
+台詞配列を表にしてまとめておくと次のようになる。店屋が「武器と防具の店」の台詞例を付しておく。
+</para>
+<table id="table.dq3.C3CA2A" class="lighttable">
+  <caption>店屋台詞集</caption>
+  <thead>
+    <tr><th>配列</th><th>台詞例</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><varname>$C3CA2A,X</varname></td><td>[D6]ここは 武器と防具の店だ。[AD]どんな用だい？[AC]</td></tr>
+    <tr><td><varname>$C3CA34,X</varname></td><td>[D6]なにを 買うかね？[AF][AC]</td></tr>
+    <tr><td><varname>$C3CA3E,X</varname></td><td>[D6]おっと ざんねんだが[AD]お金が たりないようだ。[AF][AC]</td></tr>
+    <tr><td><varname>$C3CA48,X</varname></td><td>[D6][B5]だね。[AD]どうも ありがとう。[AF][AC]</td></tr>
+    <tr><td><varname>$C3CA52,X</varname></td><td>[D6][B5] [BB]個だね。[AD]どうも ありがとう。[AF][AC]</td></tr>
+    <tr><td><varname>$C3CA5C,X</varname></td><td>[D6]これは 戦いのときに[AD]どうぐとして 使っても[AD]効力が あるよ。[AF][AC]</td></tr>
+    <tr><td><varname>$C3CA66,X</varname></td><td>[D6]だれが 持つかね？[AF][AC]</td></tr>
+    <tr><td><varname>$C3CA70,X</varname></td><td>[D6]おや？ わるいが [C0]は[AD]それ以上 持てないみたいだ。[AD]持ちものを 整理するかい？[AC]</td></tr>
+    <tr><td><varname>$C3CA7A,X</varname></td><td>[D6]よし！ 整理したぜ。[AF][AC]</td></tr>
+    <tr><td><varname>$C3CA84,X</varname></td><td>[D6]おや？ しかし [C0]の[AD]持ちものは 大事なものばかりで[AD]勝手に 整理できないぞ。[AF][AC]</td></tr>
+    <tr><td><varname>$C3CA8E,X</varname></td><td>[D6]ほかの人が 持つかね？[AC]</td></tr>
+    <tr><td><varname>$C3CA98,X</varname></td><td>[D6]じゃあ その [C3]に[AD]いれておくぜ！[AF][AC]</td></tr>
+    <tr><td><varname>$C3CAA2,X</varname></td><td>[D6][C0]は これを[AD]そうびできないが[AD]それでも いいかね？[AC]</td></tr>
+    <tr><td><varname>$C3CAAC,X</varname></td><td>[D6]ここで そうび していくかい？[AC]</td></tr>
+    <tr><td><varname>$C3CAB6,X</varname></td><td>[D6]ほらよっ [C0]さん！[AF][AC]</td></tr>
+    <tr><td><varname>$C3CAC0,X</varname></td><td>[D6]じゃあ [C0]の[AD]ひつぎの中に いれておくよ。[AF][AC]</td></tr>
+    <tr><td><varname>$C3CACA,X</varname></td><td>[AC]</td></tr>
+    <tr><td><varname>$C3CAD4,X</varname></td><td>[D6]持ちきれなかったぶんは[AD]その[C3]に いれておくよ。[AF][AC]</td></tr>
+    <tr><td><varname>$C3CADE,X</varname></td><td>[D6]ほかにも 買うかね？[AF][AC]</td></tr>
+    <tr><td><varname>$C3CAE8,X</varname></td><td>[D6]だれが 売ってくれるんだい？[AF][AC]</td></tr>
+    <tr><td><varname>$C3CAF2,X</varname></td><td>[D6]おや？ でも [C0]は[AD]なんにも 持ってないぜ。[AF][AC]</td></tr>
+    <tr><td><varname>$C3CAFC,X</varname></td><td>[D6]おや？ その [C3]には[AD]なんにも はいってないぜ。[AF][AC]</td></tr>
+    <tr><td><varname>$C3CB06,X</varname></td><td>[D6]わるいが それは うちでは[AD]買いとれないなあ。[AF][AC]</td></tr>
+    <tr><td><varname>$C3CB10,X</varname></td><td>[D6]しかし それを 売っちまうと[AD]２度と 手に入らないかも[AD]しれないぜ。 いいのかい？[AC]</td></tr>
+    <tr><td><varname>$C3CB1A,X</varname></td><td>[D6][B5]だね。[AD][BB]ゴールドで[AD]引きとろう。いいかい？[AC]</td></tr>
+    <tr><td><varname>$C3CB24,X</varname></td><td>[D6]よし！ たしかに買いとったぜ。[AF][AC]</td></tr>
+    <tr><td><varname>$C3CB2E,X</varname></td><td>[D6]それは ざんねんだな。[AF][AC]</td></tr>
+    <tr><td><varname>$C3CB38,X</varname></td><td>[D6]おっと！ 買いとりたいが[AD]それ以上 お金を[AD]持てないみたいだぜっ。[AF][AD]売るまえに うちで[AD]なにか 買っていきなよ。[AF][AC]</td></tr>
+    <tr><td><varname>$C3CB42,X</varname></td><td>[D6]ほかにも 売ってくれるかい？[AF][AC]</td></tr>
+    <tr><td><varname>$C3CB4C,X</varname></td><td>[D6]ほかにも 用は あるかね？[AC]</td></tr>
+    <tr><td><varname>$C3CB56,X</varname></td><td>[D6]また 来てくれよなっ！[AC]</td></tr>
+    <tr><td><varname>$C3CB60,X</varname></td><td>[D6]わっ びっくりした！ その[AD][B5]は 呪いで[AD]はずれないようだぜ。[AF][AD]しょうがないなあ… とりあえず[AD]受けとっておくれよ。[AC]</td></tr>
+    <tr><td><varname>$C3CB6A,X</varname></td><td>[D6]うわっと！ こいつは おどろいた！[AD]買いとりたいのは やまやまだが[AD]呪いで はずれないようだぜ。[AF][AC]</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq3.shops.structure.C3CA2A -->
 </section> <!-- dq3.shops.structure -->
 
 <section id="dq3.shops.behavior">
@@ -79,8 +133,264 @@
 <para>
 店屋の処理を細かく分解すると、パーティーの所持金の変更、仲間キャラクターの持ち物状態の変更、
 仲間キャラクターの状態テスト等、総合的な機能を有したサブルーチンの合成物の様相を呈している。
-TODO: 旧版を整理してここに入れる。
 </para>
 
+<section id="dq3.shops.behavior.C3C77C">
+<title>店屋共通処理サブルーチン</title>
+<para>
+店屋共通処理サブルーチンは <varname>$C3C77C</varname> に定義されている。
+武器と防具の店、道具屋、よろず屋の処理を一手に引き受ける。
+ポイントは次のとおりだ。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      最初に与えられた店屋 ID から店屋オブジェクトを読み込み、適宜メモリーにセットする。
+      ちなみに店屋 ID は <varname>$7E3538</varname> の <literal>#$003F</literal> 部分に保存される。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      店員の挨拶を表示した後、サービス選択メニューを表示する。
+      ここで「やめる」を選択すると、お別れの挨拶をして店屋処理全体が終了する。
+      それ以外については、各サービスの処理を終えた後、店員が他の用事の有無を尋ね、再度選択メニューを表示する。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.shops.behavior.C3C77C -->
+
+<section id="dq3.shops.behavior.C3C7EF">
+<title>サブルーチン <varname>$C3C7EF</varname>: かいにきた</title>
+<para>
+サブルーチン <varname>$C3C7EF</varname> は店屋サービスの「かいにきた」を選択した場合の処理だ。
+この処理は特に複雑なので、重要なポイントに絞って解説する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      まとめ買い可能な店かどうかで、メニューウィンドウの仕様が若干異なる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      購入品が戦闘中に使うことで効果があるかどうかで店員の台詞が加わるかどうかの判定は、
+      対象アイテムオブジェクトの戦闘モードコマンド属性値の判定による。
+      この属性については <xref link="dq3.items.structure"/> で解説する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      受取人の所持品が満杯のときには店員が整理するオプションが与えられる。
+      ここで、整理後も道具袋が満杯のままであれば、そのときには専用の台詞が表示される。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      受取人の装備品を更新する際に、現在の装備品が呪われている状況かどうかを判定する。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.shops.behavior.C3C7EF -->
+
+<section id="dq3.shops.behavior.C3CB74">
+<title>サブルーチン <varname>$C3CB74</varname>: 購入時呪い処理</title>
+<para>
+サブルーチン <varname>$C3CB74</varname> は、
+装備するための品物を買い、同時に装備させてもらおうとしたが、今装備しているものが呪われているときの処理だ。
+ポイントは次のとおりだ。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      購入したアイテムと同じアイテム分類である対象キャラクターの装備アイテムを参照する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      装備アイテムがある場合に限り、そのアイテムの呪い属性値を判定する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      呪い属性値が 1 のときに限り、効果音 <literal>#$002A</literal> を再生する。
+      さらに店員の台詞集の中から、この状況用のそれをメッセージウィンドウに表示する。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.shops.behavior.C3CB74 -->
+
+<section id="dq3.shops.behavior.C3CBBE">
+<title>サブルーチン <varname>$C3CBBE</varname>: 売却時呪い処理</title>
+<para>
+サブルーチン <varname>$C3CBBE</varname> は持ち物を売ろうとするときに呼び出される。
+ポイントは次のとおりだ。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      売却対象アイテムがふくろにある場合には以下の処理を行わない。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      売却対象アイテムの分類を参照し、所有キャラクターの装備品からその分類値と一致するものを検索する。
+      装備していない場合には以下の処理を行わない。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      対象アイテムの呪い属性値を判定する。呪い属性値が 1 でない場合には以下の処理を行わない。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      効果音 <literal>#$002A</literal> を再生する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      店員の台詞集の中から、この状況用のそれをメッセージウィンドウに表示する。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.shops.behavior.C3CBBE -->
+
+<section id="dq3.shops.behavior.C3CC21">
+<title>サブルーチン <varname>$C3CC21</varname>: 所持金が十分あるか判定する</title>
+<para>
+サブルーチン <varname>$C3CC21</varname> は、店屋で品物を買うことが決まった直後の処理であり、
+所持金が足りるかを調べる。
+</para>
+<para>
+後述のサブルーチン <varname>$C3CC37</varname> で計上した金額がパーティーの所持金以下であることを判定する過程で、
+既にパーティーの所持金が減額されてしまっている。
+それを汎用所持金加算サブルーチン <varname>$C45B1A</varname> を呼び出すことで埋め合わせるというものだ。
+</para>
+</section> <!-- dq3.shops.behavior.C3CC21 -->
+
+<section id="dq3.shops.behavior.C3CC37">
+<title>サブルーチン <varname>$C3CC37</varname>: 購入代金を計算する</title>
+<para>
+サブルーチン <varname>$C3CC37</varname> は購入代金を計算して、パーティーの所持金から引いてみるというものだ。
+乗算には汎用乗算サブルーチンを用いる。
+</para>
+<para>
+「パーティーの所持金から引いてみる」と書いたが、成功した場合だけ所持金が減るようになっている。
+それゆえ、呼び出し元の状況次第で再度ゴールドを埋め合わせる必要が生じることもある。
+</para>
+</section> <!-- dq3.shops.behavior.C3CC37 -->
+
+<section id="dq3.shops.behavior.C3CC51">
+<title>サブルーチン <varname>$C3CC51</varname>: 購入取引成立処理</title>
+<para>
+サブルーチン <varname>$C3CC51</varname> は「かいにきた」一回分のトランザクションだ。
+要点を以下に列挙する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      購入品が「おうじゃのけん」である場合には特別な処理をする。
+      すなわち、おうじゃのけん入手フラグをセットし、現在の店屋 ID を <literal>#$0023</literal> に上書きして対応する店屋オブジェクトを読み込む。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      購入代金を計算する。<xref linkend="dq3.shops.behavior.C3CC37"/> で述べた処理を利用する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      受け取り対象がキャラクターの場合、対象者の道具袋に購入品を購入数分だけ反復して追加していく。
+      道具袋が満杯になったら、余りをパーティー共有のふくろに回す。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      受け取り対象がふくろの場合にも、購入品を購入数分だけ反復して追加していく。
+      こちらの場合はストックが溢れても構わないものとする。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.shops.behavior.C3CC51 -->
+
+<section id="dq3.shops.behavior.C3CCB1">
+<title>サブルーチン <varname>$C3CCB1</varname>: うりにきた</title>
+<para>
+サブルーチン <varname>$C3CCB1</varname> は「うりにきた」を選択した場合の処理だ。
+この処理は特に複雑なので、重要なポイントに絞って解説する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      売却品のアイテムオブジェクトの属性を参照することで、
+      それが処分禁止か貴重品かそれ以外かを同時に判定する。
+      アイテムが処分禁止ならば、それが「オリハルコン」であり、
+      なおかつ店屋分類が 8 であれば通常品扱いをするという特殊処理が入る。
+      アイテムが貴重品ならば、店員が確認の台詞を言うようになる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      所持金と買取額の和が 1,000,000 以上になる場合には、この取引は成立しない。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      アイテム売却後、店員が他にも売り物はあるかを尋ねる条件がある。
+      その条件とは「パーティーの誰かの道具袋または共有のふくろにアイテムが存在する」かつ
+      「パーティーの所持金が 999,999 ゴールド未満である」だ。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.shops.behavior.C3CCB1 -->
+
+<section id="dq3.shops.behavior.C3CE2A">
+<title>サブルーチン <varname>$C3CE2A</varname>: 所持金の増え方を調べる</title>
+<para>
+サブルーチン <varname>$C3CE2A</varname> は、パーティの所持金に指定金額を加算すると、
+それがいくらになるのかを調べる処理だ。
+加算結果が <literal>1,000,000</literal> ゴールド以上になるかどうかをも調べる。
+</para>
+</section> <!-- dq3.shops.behavior.C3CE2A -->
+
+<section id="dq3.shops.behavior.C3CE5B">
+<title>サブルーチン <varname>$C3CE5B</varname>: 売却取引成立処理</title>
+<para>
+サブルーチン <varname>$C3CE5B</varname> は「うりにきた」一回分のトランザクションだ。
+要点を以下に列挙する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      先に対象アイテムの売却額をパーティーの所持金に加算する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      所有者がキャラクターならばその者の道具袋から、パーティー共有のふくろならば、ふくろから対象アイテムを一つ取り除く。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.shops.behavior.C3CE5B -->
+
+<section id="dq3.shops.behavior.C3CE93">
+<title>サブルーチン <varname>$C3CE93</varname>: 仲間の誰かまたはふくろにアイテムがあるか調べる</title>
+<para>
+サブルーチン <varname>$C3CE93</varname> は、パーティーが何らかのアイテムを一つでも所有しているかどうかを判定するためにある。
+処理の概略は以下のようになっている。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      先にパーティーキャラクターの所持品を勘定する。後列の者から検索対象となる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      この時点でアイテムが何もなければ、ふくろを先頭から調べる。有効アイテムを発見すれば検索を終了する。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.shops.behavior.C3CE93 -->
 </section> <!-- dq3.shops.behavior -->
 </section> <!-- dq3.shops -->
