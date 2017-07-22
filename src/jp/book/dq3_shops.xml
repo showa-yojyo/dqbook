@@ -136,7 +136,7 @@ Opcode <literal>#$BF</literal> の LDA 命令で以下のアドレスから ID �
 </para>
 
 <section id="dq3.shops.behavior.C3C77C">
-<title>店屋共通処理サブルーチン</title>
+<title>サブルーチン <varname>$C3C77C</varname>: 店屋</title>
 <para>
 店屋共通処理サブルーチンは <varname>$C3C77C</varname> に定義されている。
 武器と防具の店、道具屋、よろず屋の処理を一手に引き受ける。
