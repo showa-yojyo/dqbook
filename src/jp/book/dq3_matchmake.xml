@@ -6,664 +6,176 @@
 ]>
 
 <section id="dq3.matchmake"><?dbhtml filename="dq3_matchmake.html" ?>
-<title>格闘場マッチメイク解析</title>
-<indexterm id="term.dq3.matchmake.1"><primary>格闘場</primary><secondary>DQ3</secondary></indexterm>
-<indexterm id="term.dq3.matchmake.2"><primary>格闘場マッチメイク</primary><secondary>DQ3</secondary></indexterm>
+<title>格闘場</title>
 <para>
-	本節では、格闘場のマッチメイク処理の解析を行う。
-	リメイク版では、オリジナル版のように多様なマッチメイクが実現することはない。
-	格闘場に出てくるモンスターたちの組み合わせには、すでに何個かのパターンが決まっており、
-	そこから無作為に選択されるというのが、一般的なプレイヤーの認識だろう。
-	以下では、出場選手モンスターとオッズがどのように決まるのかを見ていこう。
+本節では格闘場について述べる。
 </para>
 
-<section id="dq3.matchmake.hack">
-<title>解析</title>
+<section id="dq3.matchmake.structure">
+<title>構造に関する構成要素</title>
 <para>
-	格闘場のあるフロアに場面が切り替わる直前に、マッチメイク処理を行っているようだ。
-	すなわちフロア進入時と観戦終了後に、ここで紹介するサブルーチンの呼び出しが発生する。
+格闘場に関する各種データ構造について述べる。
 </para>
 
-<section id="dq3.matchmake.hack.C3EC84">
-<title>格闘場マッチメイクサブルーチン</title>
+<section id="dq3.matchmake.structure.C30DC5">
+<title>構造体 <varname>$C30DC5</varname>: マッチメイク</title>
 <para>
-	マッチメイクを担当するサブルーチンは <varname>$C3EC84</varname> で定義されている。
-	逆アセンブルコードから読み下したアウトラインを説明する。
+アドレス <varname>$C30DC5</varname> には下に示すような構造のオブジェクトが配列されている。
+このそれぞれが格闘場での一試合を表現している。
 </para>
-<itemizedlist>
-	<listitem>
-		<para>
-			<link linkend="dq3.matchmake.hack.C3ED82">主人公のレベルを取得するサブルーチン</link>を呼び出し、
-			取得した主人公のレベル <varname>A</varname> を <varname>$337A</varname> にセットする。
-		</para>
-	</listitem>
-	<listitem>
-		<para>【乱数取得のための幅を設定】</para>
-		<para>値 <varname>range</varname> を以下のように決める。</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<code>A &lt; #$000B</code> ⇒ <code>range = $C3ED78</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<code>A &lt; #$0010</code> ⇒ <code>range = $C3ED7A</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<code>A &lt; #$0016</code> ⇒ <code>range = $C3ED7C</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<code>A &lt; #$001E</code> ⇒ <code>range = $C3ED7E</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>A</varname> がそれ以外の値ならば <code>range = $C3ED80</code>
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-	<listitem>
-		<para>
-			乱数生成サブルーチン <varname>$C0133E</varname> の呼び出しにより、
-			<varname>A</varname> レジスタに <literal>0</literal> から
-			<varname>range</varname> までのランダムに決まった値をセットする。
-			この値がマッチメイク ID となる。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			<code>$3370 = マッチメイク ID</code>
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			<code>$78 = マッチメイク ID のデータが格納されているアドレス</code> となるように、
-			構造体データアドレス取得サブルーチン <varname>$C9050D</varname> を呼び出す。
-		</para>
-	</listitem>
-
-	<listitem>
-		<para>【各選手のオッズを初期化】</para>
-		<para>
-			<link linkend="dq3.matchmake.hack.C3EDBB">オッズ設定サブルーチン</link>を
-			<varname>X</varname> レジスタの値を変えつつ <literal>4</literal> 回呼び出すことで、
-			以下のアドレスに値をセットする。
-			見栄えの都合上、アドレスの順序でセット内容を記すが、実際の処理順序は選手の登場順序と一致する。
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<varname>$337C</varname>: マッチメイク構造体データにある選手<code>[0]</code> のオッズ整数部
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$337E</varname>: マッチメイク構造体データにある選手<code>[1]</code> のオッズ整数部
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$3380</varname>: マッチメイク構造体データにある選手<code>[2]</code> のオッズ整数部
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$3382</varname>: マッチメイク構造体データにある選手<code>[3]</code> のオッズ整数部
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$3384</varname>: マッチメイク構造体データにある選手<code>[0]</code> のオッズ小数点以下
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$3386</varname>: マッチメイク構造体データにある選手<code>[1]</code> のオッズ小数点以下
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$3388</varname>: マッチメイク構造体データにある選手<code>[2]</code> のオッズ小数点以下
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$338A</varname>: マッチメイク構造体データにある選手<code>[3]</code> のオッズ小数点以下
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-	<listitem>
-		<para>【各選手のモンスター ID を初期化】</para>
-		<para>
-			単純作業で以下の各アドレスに値をセットする。
-			ここでも見栄えの都合上、アドレスの順序でセット内容を記す。
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<varname>$2000</varname>: マッチメイク構造体データにある選手<code>[0]</code> のモンスター ID
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$2002</varname>: マッチメイク構造体データにある選手<code>[1]</code> のモンスター ID
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$2004</varname>: マッチメイク構造体データにある選手<code>[2]</code> のモンスター ID
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$2006</varname>: マッチメイク構造体データにある選手<code>[3]</code> のモンスター ID
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$2008</varname>: 選手<code>[0]</code> のモンスター ID が <literal>0</literal> でなければ 1 とし、
-					<literal>0</literal> ならば <literal>0</literal> とする。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$200A</varname>: 選手<code>[1]</code> のモンスター ID が <literal>0</literal> でなければ 1 とし、
-					<literal>0</literal> ならば <literal>0</literal> とする。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$200C</varname>: 選手<code>[2]</code> のモンスター ID が <literal>0</literal> でなければ 1 とし、
-					<literal>0</literal> ならば <literal>0</literal> とする。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$200E</varname>: 選手<code>[3]</code> のモンスター ID が <literal>0</literal> でなければ 1 とし、
-					<literal>0</literal> ならば <literal>0</literal> とする。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>$3372</varname>: 参戦選手数。すなわち <code>$2008 + $200A + $200C + $200E</code> と同じ値
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-
-	<listitem>
-		<para>
-			【予想屋の予想を初期化】
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<code>A = $3372 - 1</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>A</varname> が正の値であれば、<literal>0</literal> から <varname>A</varname> までの乱数を取得するべく、
-					乱数取得サブルーチン <varname>$C0133E</varname> を呼び出す。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<code>$3378 = 乱数 * 2</code>
-				</para>
-				<para>
-					例えば、選手が <literal>4</literal> 匹いるとき、
-					<varname>$3378</varname> のとり得る値は <literal>0, 2, 4, 6</literal> のいずれかである。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-</itemizedlist>
-
-<para>
-まず最初に主人公キャラクターのレベルを参照している。
-レベルにより、五段階で選択肢の個数が変化するというわけだ。
-配列 <varname>$C3ED78</varname> の内容は次のようになっている。
-</para>
-<programlisting>
-C3/ED78:    0A00    <co id="dq3.matchmake.co.1" />
-C3/ED7A:    1300    <co id="dq3.matchmake.co.2" />
-C3/ED7C:    1800    <co id="dq3.matchmake.co.3" />
-C3/ED7E:    2100    <co id="dq3.matchmake.co.4" />
-C3/ED80:    2600    <co id="dq3.matchmake.co.5" />
-</programlisting>
-<calloutlist>
-<callout arearefs="dq3.matchmake.co.1"><para>主人公のレベルが <literal>11</literal> 未満の場合、<literal>10</literal> 通りの組み合わせだけが観戦できる。</para></callout>
-<callout arearefs="dq3.matchmake.co.2"><para>主人公のレベルが <literal>16</literal> 未満の場合、<literal>19</literal> 通りの組み合わせだけが観戦できる。</para></callout>
-<callout arearefs="dq3.matchmake.co.3"><para>主人公のレベルが <literal>22</literal> 未満の場合、<literal>24</literal> 通りの組み合わせだけが観戦できる。</para></callout>
-<callout arearefs="dq3.matchmake.co.4"><para>主人公のレベルが <literal>30</literal> 未満の場合、<literal>33</literal> 通りの組み合わせだけが観戦できる。</para></callout>
-<callout arearefs="dq3.matchmake.co.5"><para>主人公のレベルがそれより大きければ、<literal>38</literal> 通りの組み合わせが観戦できる。
-この個数は、後述するマッチメイク配列 <varname>$C30DC5</varname> の要素数と一致する。
-</para></callout>
-</calloutlist>
-<para>
-その後は、乱数処理でマッチメイクデータを制限範囲内から一つ取り、
-胴元と予想屋の処理と台詞に必要なパラメータを然るべきアドレスにセットするという処理となる。
-<link linkend="dq3.stadium.hack.C3EE64">格闘場の胴元共通処理サブルーチン</link>と
-<link linkend="dq3.tipster.hack.C3EFBE">予想屋の共通処理サブルーチン</link>の実装は、
-当サブルーチンの処理結果に依存するということだ。
-</para>
-</section> <!-- dq3.matchmake.hack.C3EC84 -->
-
-<section id="dq3.matchmake.hack.C3ED82">
-<title>主人公のレベルを取得するサブルーチン</title>
-<para>
-	サブルーチン <varname>$ED82</varname> は主人公のレベルを <varname>A</varname> レジスタにロードする。
-</para>
-<itemizedlist>
-	<listitem>
-		<para>
-			キャラクター人数取得サブルーチン <varname>$C4297C</varname> 呼び出しにより、
-			<literal>X = パーティ内の人数 - 1</literal> とする。
-		</para>
-	</listitem>
-	<listitem>
-		<para>【主人公チェック】</para>
-		<para>
-			キャラクター <varname>X</varname> が主人公であるかを調べるべく、
-			主人公判定サブルーチン <varname>$C42DA1</varname> を呼び出す
-			（キャラクターデータのあるビット列が <literal>1</literal> と等しいか否かをテストするサブルーチンである）。
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					キャラクター <varname>X</varname> が主人公であれば
-					【パーティの中に主人公を見つけた】
-					に制御を移す。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					キャラクター <varname>X</varname> が主人公でなければ、
-					前のキャラクターに関して 【主人公チェック】を行う。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					パーティ内に調べたいキャラクターがいなくなったら、
-					【酒場チェック】に制御を移す。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-	<listitem>
-		<para>
-			【パーティの中に主人公を見つけた】
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					キャラクターレベル取得サブルーチン <varname>$C42FEB</varname> を呼び出す。
-					これで <varname>A</varname> レジスタの値はパーティキャラ <varname>X</varname> のレベルとなっている。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					呼び出し元に制御を戻す。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-	<listitem>
-		<para>
-			キャラクター人数取得サブルーチン <varname>$C4297C</varname> 呼び出しにより、
-			<code>X = パーティ内の人数 - 1</code> とする。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			【酒場内のキャラクターをチェック】
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					キャラクター人数取得サブルーチン <varname>$C4297C</varname> 呼び出しにより、
-					<code>X = 酒場内の人数 - 1</code> とする。
-				</para>
-			</listitem>
-			<listitem>
-				<para>【酒場にいるキャラの主人公チェック】</para>
-				<para>
-					パーティ内のチェックと同様に、キャラクター <varname>X</varname> を調べるべく、
-					主人公判定サブルーチン <varname>$C42DA1</varname> を呼び出す。
-				</para>
-				<itemizedlist>
-					<listitem>
-						<para>
-							キャラクター <varname>X</varname> が主人公であれば
-							【酒場に主人公を見つけた】
-							に制御を移す。
-						</para>
-					</listitem>
-					<listitem>
-						<para>
-							キャラクター <varname>X</varname> が主人公でなければ、
-							前のキャラクターに関して 【酒場にいるキャラの主人公チェック】を行う。
-						</para>
-					</listitem>
-					<listitem>
-						<para>
-							パーティ内に調べたいキャラクターがいなくなったら、
-							そのまま (<code>X == #$FFFF</code>) 【酒場に主人公を見つけた】へ進む。
-						</para>
-					</listitem>
-				</itemizedlist>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-
-	<listitem>
-		<para>
-			【酒場に主人公を見つけた】
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					キャラクターレベル取得サブルーチン <varname>$C42FEB</varname> を呼び出す。
-					これで <varname>A</varname> レジスタの値は酒場にいるキャラ <varname>X</varname> のレベルとなっている。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					呼び出し元に制御を戻す。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-</itemizedlist>
-</section> <!-- dq3.matchmake.hack.C3ED82 -->
-
-<section id="dq3.matchmake.hack.C3EDBB">
-<title>オッズ設定サブルーチン</title>
-<para>
-	サブルーチン <varname>$EDBB</varname> は、格闘場に出場する選手一匹のオッズを決定する。
-</para>
-<itemizedlist>
-	<listitem>
-		<para>
-			【事前条件】
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<code>A == マッチメイク構造体にあるオッズデータ</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<code>X == 選手の順番 * 2 (== 0, 2, 4, 6)</code>
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-
-	<listitem>
-		<para>【初期化】</para>
-		<para>
-			<code>$337C,X = A, $3384,X = 0</code>
-		</para>
-	</listitem>
-	<listitem>
-		<para>【乱数】</para>
-		<para>
-			マッチメイク構造体データの与える初期値 <varname>A</varname> により、
-			さらに <varname>A</varname> を変更する。
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<varname>A</varname> が <literal>#$0006</literal> 未満 ⇒ <code>A = #$0006</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>A</varname> が <literal>#$000B</literal> 未満 ⇒ <code>A = #$000E</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>A</varname> が <literal>#$001F</literal> 未満 ⇒ <code>A = #$0028</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>A</varname> が <literal>#$0065</literal> 未満 ⇒ <code>A = #$0064</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<varname>A</varname> が <literal>#$0065</literal> 以上 ⇒ <code>A = #$00C8</code>
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-	<listitem>
-		<para>
-			乱数取得サブルーチン <varname>$C0133E</varname> で乱数を取得する。
-			この乱数は <literal>0</literal> 以上 <varname>A</varname> 以下の値である。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			<code>A = 乱数 - (A >> 1)</code> とする。
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<code>A &gt;= 0</code> ⇒ 【プラス】へ制御を移す。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					それ以外 ⇒ 次に進む。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-
-	<listitem>
-		<para>
-			【マイナス】
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<code>A = -A + 1</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<code>$70 = A / 10; A %= 10</code> とする（汎用除算サブルーチン <varname>$C0121C</varname> 利用）
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<code>A = 10 - A</code> をテストする。
-				</para>
-				<itemizedlist>
-					<listitem>
-						<para>
-							<code>A == 0</code> ⇒ 【減算】へスキップ。
-						</para>
-					</listitem>
-				</itemizedlist>
-			</listitem>
-			<listitem>
-				<para>
-					<code>$3384,X = A</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<code>$337C,X = #$FFFF if $337C,X == 0</code>
-				</para>
-			</listitem>
-
-			<listitem>
-				<para>【減算】</para>
-				<para>
-					<code>A = $337C,X - $70</code> に対して、
-				</para>
-				<itemizedlist>
-					<listitem>
-						<para>
-							<code>A &gt; 0</code> ⇒ <code>$337C,X = A</code>
-						</para>
-					</listitem>
-					<listitem>
-						<para>
-							<code>A &lt;= 0</code> ⇒ <code>$3384,X = 0 $337C,X = 1</code>
-						</para>
-					</listitem>
-				</itemizedlist>
-			</listitem>
-			<listitem>
-				<para>
-					【終了】へ進む。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-
-	<listitem>
-		<para>
-			【プラス】
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<code>$70 = A / 10; A %= 10</code> とする（汎用除算サブルーチン <varname>$C0121C</varname> 利用）
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<code>$3384,X = A</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<code>$337C,X += $70</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					【終了】へ進む。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-	<listitem>
-		<para>【終了】</para>
-		<para>制御を呼び出し元に戻す。</para>
-	</listitem>
-
-	<listitem>
-		<para>
-			【事後条件】
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<code>$337C,X &gt;= 1</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<code>0 &lt;= $3384,X &amp;&amp; $3384,X &lt; 10</code>
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-</itemizedlist>
-<para>
-	オッズが各選手の持つある定数を元に生成する乱数から決まることが読み取れる。
-	モンスターたちの持つオッズ用定数にそれを乗じて、実オッズが <literal>1.0</literal>
-	を下回らないようにスケーリングする数値計算が、本サブルーチンの主要な処理だ。
-</para>
-<para>
-	オッズは小数点を持つ値なので、整数部分と小数点以下の部分両方を扱っている。
-	<varname>$337C,X</varname> が整数部で、<varname>$3384,X</varname> が小数部だ。
-	さらに言えば、小数部は一桁しかない。
-</para>
-</section> <!-- dq3.matchmake.hack.C3EDBB -->
-
-<section id="dq3.matchmake.hack.C30DC5">
-<title>マッチメイク構造体</title>
-<para>
-	配列 <varname>$C30DC5</varname> が全マッチメイク <literal>38</literal> パターンを定義する。
-	マッチメイク一つ当たり、<literal>8</literal> バイトサイズの構造体として表現する。
-	その構造体のメモリレイアウトは以下のように解釈できる。
-</para>
-<table id="table.dq3.C30DC5" class="memorylayout">
-	<caption>マッチメイク構造体</caption>
-	<colgroup>
-		<col span="1" width="12%"/>
-		<col span="7" width="11%"/>
-	</colgroup>
-	<thead>
-		<tr><th>Byte:Bit</th>
-			<th>80</th>
-			<th>40</th>
-			<th>20</th>
-			<th>10</th>
-			<th>08</th>
-			<th>04</th>
-			<th>02</th>
-			<th>01</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr><th>00</th>
-			<td colspan="8">モンスター ID<code>[0]</code></td>
-		</tr>
-		<tr><th>01</th>
-			<td colspan="8">オッズ<code>[0]</code></td>
-		</tr>
-		<tr><th>02</th>
-			<td colspan="8">モンスター ID<code>[1]</code></td>
-		</tr>
-		<tr><th>03</th>
-			<td colspan="8">オッズ<code>[1]</code></td>
-		</tr>
-		<tr><th>04</th>
-			<td colspan="8">モンスター ID<code>[2]</code></td>
-		</tr>
-		<tr><th>05</th>
-			<td colspan="8">オッズ<code>[2]</code></td>
-		</tr>
-		<tr><th>06</th>
-			<td colspan="8">モンスター ID<code>[3]</code></td>
-		</tr>
-		<tr><th>07</th>
-			<td colspan="8">オッズ<code>[3]</code></td>
-		</tr>
-	</tbody>
+<table id="table.dq3.C30DC5" class="lighttable">
+  <caption>構造体 $C30DC5</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00FF</literal></td><td>モンスター 0</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00FF</literal></td><td>オッズ 0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00FF</literal></td><td>モンスター 1</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF</literal></td><td>オッズ 1</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td><td>モンスター 2</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>オッズ 2</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td><td>モンスター 3</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td><td>オッズ 3</td></tr>
+  </tbody>
 </table>
-
+<para>
+以下、このオブジェクト型の各属性の意味を記す。
+</para>
 <variablelist>
-<varlistentry>
-	<term>モンスター ID</term>
-	<listitem><para>リングに出場する選手のモンスター ID を示す。</para></listitem>
-</varlistentry>
-<varlistentry>
-	<term>オッズ</term>
-	<listitem><para>オッズを算定するために用いる定数。前項参照。</para></listitem>
-</varlistentry>
+  <varlistentry>
+    <term>モンスター k (k = 0..3)</term>
+    <listitem>
+      <para>
+        この試合に出場するモンスターを表すモンスター ID を値に取る属性だ。
+        モンスターについては <xref linkend="dq3.monster"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>オッズ k (k = 0..3)</term>
+    <listitem>
+      <para>
+        モンスター k のオッズの基になる表す数を値に取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
 </variablelist>
+</section> <!-- dq3.matchmake.structure.C30DC5 -->
+</section> <!-- dq3.matchmake.structure -->
 
+<section id="dq3.matchmake.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+格闘場に関するさまざまな振る舞いについて述べる。
+</para>
 
-</section> <!-- dq3.matchmake.hack.C30DC5 -->
-</section> <!-- dq3.matchmake.hack -->
+<section id="dq3.matchmake.behavior.C3EC84">
+<title>サブルーチン <varname>$C3EC84</varname>: マッチメイク処理</title>
+<para>
+マッチメイクを担当するサブルーチンは <varname>$C3EC84</varname> で定義されている。
+これは画面が格闘場内に切り替わったときに呼び出される。
+以下、処理の要点を列挙する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      マッチメイクオブジェクトを主人公のレベルに依存する乱数で決定する。
+      レベルと候補 ID との対応は次のようになっている。
+    </para>
+    <table id="table.dq3.C3ED78" class="lighttable">
+      <caption>配列 $C3ED78</caption>
+      <thead>
+        <tr><th>レベル</th><th>試合 ID</th></tr>
+      </thead>
+      <tbody>
+        <tr><td align="right"> 1..10</td><td><literal>#$00</literal>..<literal>#$0A</literal></td></tr>
+        <tr><td align="right">11..15</td><td><literal>#$00</literal>..<literal>#$13</literal></td></tr>
+        <tr><td align="right">16..21</td><td><literal>#$00</literal>..<literal>#$18</literal></td></tr>
+        <tr><td align="right">22..29</td><td><literal>#$00</literal>..<literal>#$21</literal></td></tr>
+        <tr><td align="right">30..99</td><td><literal>#$00</literal>..<literal>#$26</literal></td></tr>
+      </tbody>
+    </table>
+  </listitem>
+  <listitem>
+    <para>
+      後述する予想屋の予想内容をこの時点で決めておく。出場選手数と乱数によって決まる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      マッチメイクオブジェクトのオッズ属性値により、
+      次の表で示す中間生成値を求め、それと 10 との商 Q や余り R を用いて最終的なオッズの整数部と小数部をそれぞれ決定する。
+    </para>
+    <table id="table.dq3.C3EDBB" class="lighttable">
+      <caption>格闘場オッズの計算方法</caption>
+      <thead>
+        <tr><th>属性値</th><th>中間生成値</th></tr>
+      </thead>
+      <tbody>
+        <tr><td align="right">1..5</td><td><code>randint(0, 6) - 3</code></td></tr>
+        <tr><td align="right">6..10</td><td><code>randint(0, 14) - 7</code></td></tr>
+        <tr><td align="right">11..30</td><td><code>randint(0, 40) - 20</code></td></tr>
+        <tr><td align="right">31..100</td><td><code>randint(0, 100) -  50</code></td></tr>
+        <tr><td align="right">101..255</td><td><code>randint(0, 200) - 100</code></td></tr>
+      </tbody>
+    </table>
+    <para>
+      例えば中間生成値が非負ならば、整数部は属性値と Q との和、小数部は R として決定する。
+      中間生成値が負であったり、剰余が 0 であったり、属性値と商との和がゼロ以下になるような場合についても適宜対処している。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.matchmake.behavior.C3EC84 -->
+
+<section id="dq3.matchmake.behavior.C3EE64">
+<title>サブルーチン <varname>$C3EE64</varname>: 格闘場処理</title>
+<para>
+サブルーチン <varname>$C3EE64</varname> は格闘場チケット屋の窓口処理を行う。
+以下、処理の要点を列挙する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      冒頭で賭け金を計算する。主人公のレベルと 10 の積とする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      出場選手ウィンドウ表示時にキャンセルすると、「なんだ やめるのか」の後に支払い済みの賭け金が払い戻されることが確認できるようになっている。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      賭けが成立すると、<varname>$7E2011</varname> の格闘場モードフラグを意味するビットをセットする。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.matchmake.behavior.C3EE64 -->
+
+<section id="dq3.matchmake.behavior.C3EFBE">
+<title>サブルーチン <varname>$C3EFBE</varname>: 予想屋処理</title>
+<para>
+サブルーチン <varname>$C3EFBE</varname> は格闘場内にある予想屋の台詞処理だ。
+以下、処理の要点を列挙する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      予想代は一律 5 ゴールドだ。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      予想を聞かないと答えたときと、予想を聞くが所持金が 5 ゴールド未満のときの処理は同じだ。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      予想内容は上述のマッチメイク処理で決定済みである。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.matchmake.behavior.C3EFBE -->
+</section> <!-- dq3.matchmake.behavior -->
 </section> <!-- dq3.matchmake -->
