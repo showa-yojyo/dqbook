@@ -145,8 +145,7 @@
 			「かくとうじょう」「よそうや」「マッチメイク」は <xref linkend="dq3.matchmake"/>、
 			「ふっかけみせや」は <xref linkend="dq3.overcharge"/>、
 			「メダルおじさん」は <xref linkend="dq3.medal"/>、
-			「シスターセーブ」は <xref linkend="dq3.sistersave"/>、
-			「おうさま」は <xref linkend="dq3.king"/>をそれぞれ参照。
+			「シスターセーブ」「おうさま」は <xref linkend="dq3.kings"/> をそれぞれ参照。
 		</para>
 	</glossdef>
 	</glossentry>

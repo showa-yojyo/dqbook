@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.kings"><?dbhtml filename="dq3_kings.html" ?>
+<title>王様</title>
+<para>
+本節では冒険の書の保存を行う人物について述べる。
+各国の元首やその大臣がこれを実行することが多い。
+</para>
+
+<section id="dq3.kings.structure">
+<title>構造に関する構成要素</title>
+<para>
+冒険の書の保存を行う人物に関係するデータ構造について述べる。
+冒険の書オブジェクトについては別の節で述べる。
+</para>
+
+<section id="dq3.kings.structure.C3C1D9">
+<title>配列 <varname>$C3C1D9</varname>: 王様台詞集</title>
+<para>
+アドレス <varname>$C3C1D9</varname> は 5 個のメッセージ ID からなる組を要素とする配列の先頭だ。
+この組は各人の台詞回しであり、配列要素それぞれが状況に対応している。
+</para>
+<para>
+アドレス <varname>$C3C1D9</varname> から各人の台詞 ID が定義されている。
+例えば「休むがよい」を表示するために各人の言い回しに合う 5 タイプの台詞が用意されている。
+汎用台詞表示サブルーチン <varname>$C1A95A</varname> を呼び出すことで店員の台詞を表示している。
+</para>
+<para>
+台詞配列を表にしてまとめておくと次のようになる。ロマリア王の台詞例（組添字 0 に相当）を付しておく。
+</para>
+<table id="table.dq3.C3C1D9" class="lighttable">
+  <caption>王様台詞集</caption>
+  <thead>
+    <tr><th>配列</th><th>台詞例</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><varname>$C3C1D9</varname></td><td>[CD][D6]王「[C0]が つぎのレベルに[AD]なるには あと[BB]の[AD]けいけんが 必要じゃ。[AF][AC]</td></tr>
+    <tr><td><varname>$C3C1E3</varname></td><td>[CD][D6]王「そなたらの 旅の せいかを[AD]この 冒険の書に[AD]きろくしても よいかな？[AC]</td></tr>
+    <tr><td><varname>$C3C1ED</varname></td><td>[CD][D6]王「そうか… では[AD]書きとめないでおこう。[AF][AC]</td></tr>
+    <tr><td><varname>$C3C1F7</varname></td><td>[CD][D6]王「では なん番の 冒険の書に[AD]書きとめるかの？[AC]</td></tr>
+    <tr><td><varname>$C3C201</varname></td><td>[CD][D6]王「すると [B2] ＬＶ[BB]の[AD]きろくは 消えてしまうが[AD]それでも いいかな？[AC]</td></tr>
+    <tr><td><varname>$C3C20B</varname></td><td>[CD][D6]王「しかと きろくしたぞよ。[AD]どうじゃ？ また すぐに[AD]旅立つ つもりか？[AC]</td></tr>
+    <tr><td><varname>$C3C215</varname></td><td>[CD][D6]王「また すぐに[AD]旅立つ つもりかの？[AC]</td></tr>
+    <tr><td><varname>$C3C21F</varname></td><td>[CD][D6]王「なんと！ きろくせずに[AD]休むというのか。[AF](...)</td></tr>
+    <tr><td><varname>$C3C229</varname></td><td>[CD][D6]王「おや やめるのかね。[AD]では また いつでも 来るがよい。[AD][CB]よ！[AC]</td></tr>
+    <tr><td><varname>$C3C233</varname></td><td>[CD][D6]王「では しばし 休むがよい！[AD]また 会おう！ [CB]よ！[AC]</td></tr>
+    <tr><td><varname>$C3C23D</varname></td><td>[CD][D6]王「[C0]は[AD]もう じゅうぶんに 強い！[AF][AC]</td></tr>
+    <tr><td><varname>$C3C247</varname></td><td>[CD][D6]王「[C0]は わしにも わからぬ[AD]けいけんを つんだようじゃな。[AF](...)</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq3.kings.structure.C3C1D9 -->
+
+<section id="dq3.kings.structure.C3C2F6">
+<title>配列 <varname>$C3C2F6</varname>: ルイーダの酒場の尼台詞集</title>
+<para>
+アドレス <varname>$C3C2F6</varname> はルイーダの酒場にいる尼の台詞メッセージ ID の配列だ。
+台詞配列を表にしてまとめておくと次のようになる。
+</para>
+<table id="table.dq3.C3C2F6" class="lighttable">
+  <caption>ルイーダの酒場の尼台詞集</caption>
+  <thead>
+    <tr><th>アドレス</th><th>台詞</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><varname>$C3C2F6</varname></td><td>[D6][D1]あなたの旅の せいかを[AD]冒険の書に きろくなさいますか？[AC]</td></tr>
+    <tr><td><varname>$C3C2F8</varname></td><td>[D6][D1]あなたの旅に[AD]神のごかごが ありますように。[AC]</td></tr>
+    <tr><td><varname>$C3C2FA</varname></td><td>[D6][D1]では なん番の 冒険の書に[AD]書きとめますか？[AC]</td></tr>
+    <tr><td><varname>$C3C2FC</varname></td><td>[D6][D1]たしかに きろくしました。[AF][AC]</td></tr>
+    <tr><td><varname>$C3C2FE</varname></td><td>[D6][D1]おやめに なるのですね。[AF][AC]</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq3.kings.structure.C3C2F6 -->
+</section> <!-- dq3.kings.structure -->
+
+<section id="dq3.kings.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+冒険の書の保存を行う人物に関係する振る舞いについて述べる。
+</para>
+
+<section id="dq3.kings.behavior.C3C07E">
+<title>サブルーチン <varname>$C3C07E</varname>: 王様</title>
+<para>
+サブルーチン <varname>$C3C07E</varname> は各国王様の共通処理コードだ。
+以下、このサブルーチンの要点を挙げていく。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      最初に行うのは、パーティーメンバー全員に対する次のレベルに必要な経験値を告げることだ。この処理はサブルーチン <varname>$C3C3E4</varname> に実装されている。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      次に冒険の書に記録するかを尋ねる。冒険の書リストの現在の冒険の書にカーソルが合わせてある。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      現在の冒険の書と異なる項目を選択すると、王様が警告する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      保存処理はサブルーチン <varname>$C4624E</varname> に実装されている。冒険の書関連は別の節で述べる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      保存処理が終了したあとにおなじみの効果音を再生する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      冒険の書に保存せずにゲームを終了しようとすると、王様が警告する。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.kings.behavior.C3C07E -->
+
+<section id="dq3.kings.behavior.C3C251">
+<title>サブルーチン <varname>$C3C251</varname>: ルイーダの酒場の尼</title>
+<para>
+サブルーチン <varname>$C3C251</varname> はルイーダの酒場にいる尼の共通処理コードだ。
+以下、このサブルーチンの要点を挙げていく。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      冒険の書に記録するか尋ねてくる。
+      王様処理とは異なり、このとき現在の冒険の書と異なる項目を選択しても、上書きすることになることを警告しない。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      王様処理と同様に、保存処理が終了したあとに効果音を再生する。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.kings.behavior.C3C251 -->
+</section> <!-- dq3.kings.behavior -->
+</section> <!-- dq3.kings -->

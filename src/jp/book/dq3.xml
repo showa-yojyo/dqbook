@@ -31,8 +31,7 @@
 
 <!-- BANK $C3 -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_window.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_king.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_sistersave.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_kings.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_shops.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_overcharge.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_inns.xml"/>
