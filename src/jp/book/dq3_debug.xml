@@ -135,7 +135,7 @@
 		</para>
 		<para>
 			「ぶきや」「ぼうぐや」「どうぐや」「よろずや」の処理については <xref linkend="dq3.shops"/> を、
-			「しんぷ」「シスター」は <xref linkend="dq3.church"/>、
+			「しんぷ」「シスター」は <xref linkend="dq3.chapels"/>、
 			「やどや」は <xref linkend="dq3.inns"/>、
 			「ぎんこう」は <xref linkend="dq3.bank"/>、
 			「なかまとうろくじょ」は <xref linkend="dq3.registration"/>、

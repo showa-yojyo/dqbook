@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.chapels"><?dbhtml filename="dq3_chapels.html" ?>
+<title>教会</title>
+<para>
+本節では教会について述べる。
+</para>
+
+<section id="dq3.chapels.structure">
+<title>構造に関する構成要素</title>
+<para>
+教会を構成する構造に関する要素について述べる。
+</para>
+
+<section id="dq3.chapels.structure.C3D50C">
+<title>配列 <varname>$C3D50C</varname>: 神父台詞集</title>
+<para>
+アドレス <varname>$C3D50C</varname> は 2 個のメッセージ ID 対を要素とする配列の先頭だ。
+基本的には、このメッセージペアは神父と尼の台詞回しにそれぞれ対応する。
+</para>
+<para>
+台詞配列を表にしてまとめておくと次のようになる。神父の台詞例（組添字 0 に相当）を付しておく。
+</para>
+<table id="table.dq3.C3D50C" class="lighttable">
+  <caption></caption>
+  <thead>
+    <tr><th>配列</th><th>台詞例</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><varname>$C3D50C</varname></td><td>[D6]たのもしき 神のしもべよ[AD]わが教会に どんな ご用じゃな？</td></tr>
+    <tr><td><varname>$C3D510</varname></td><td>[D6]どなたを この世へ[AD]呼びもどすのじゃな？[AF]</td></tr>
+    <tr><td><varname>$C3D514</varname></td><td>[D6]ごじょうだんを。[C0]どのは[AD]生きていらっしゃる！</td></tr>
+    <tr><td><varname>$C3D518</varname></td><td>[D6]おお わが主よ！[AD]全知全能の神よ！[AF][AD](...)</td></tr>
+    <tr><td><varname>$C3D51C</varname></td><td>[C0]は よみがえった！[AF][AC]</td></tr>
+    <tr><td><varname>$C3D520</varname></td><td>[D6]どなたの毒を とるのじゃな？[AF]</td></tr>
+    <tr><td><varname>$C3D524</varname></td><td>[D6][C0]どのは 毒に[AD]おかされては いませんぞ。[AF]</td></tr>
+    <tr><td><varname>$C3D528</varname></td><td>[D6]おお神よ おちからを！[AD][C0]より 毒のけがれを[AD]消し去りたまえっ！[AF]</td></tr>
+    <tr><td><varname>$C3D52C</varname></td><td>[D6]さすれば わが教会に[AD][BB]ゴールドの ご寄付を。[AD]よろしいですかな？</td></tr>
+    <tr><td><varname>$C3D530</varname></td><td>[D6]なんと 寄付をするには お金が[AD]たりないでは ありませんか！[AD](...)</td></tr>
+    <tr><td><varname>$C3D534</varname></td><td>[D6]教会への寄付は[AD]神への かんしゃのきもち。[AD](...)</td></tr>
+    <tr><td><varname>$C3D538</varname></td><td>[D6]なんと やめると申されるか。[AF]</td></tr>
+    <tr><td><varname>$C3D53C</varname></td><td>[D6]ほかに ご用は おありかな？</td></tr>
+    <tr><td><varname>$C3D540</varname></td><td>[D6]では お気をつけて。[AD]神の ご加護の あらんことを。</td></tr>
+    <tr><td><varname>$C3D544</varname></td><td>[D6]どなたの呪いを とくのじゃな？[AF]</td></tr>
+    <tr><td><varname>$C3D548</varname></td><td>[D6][C0]どのは[AD]呪われては いませんぞ。[AF]</td></tr>
+    <tr><td><varname>$C3D54C</varname></td><td>[D6]おお神よ おちからを！[AD]いまわしき 呪いを[AD](...)</td></tr>
+    <tr><td><varname>$C3D550</varname></td><td>[D6]こんな 夜ふけに わが教会に[AD]なんの ご用じゃな？</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq3.chapels.structure.C3D50C -->
+</section> <!-- dq3.chapels.structure -->
+
+<section id="dq3.chapels.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+教会を構成する振る舞いに関する要素について述べる。
+</para>
+
+<section id="dq3.chapels.behavior.C3D49C">
+<title>サブルーチン <varname>$C3D49C</varname>: 教会処理</title>
+<para>
+サブルーチン <varname>$C3D49C</varname> が神父と尼共通のおつとめ処理の実装だ。
+以下に処理の要点を挙げる。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      冒頭の挨拶は教会に訪問するのが昼か夜かで異なる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      教会のサービスは「いきかえらせる」「どくのちりょう」「のろいをとく」固定だ。
+      それぞれ専用サブルーチンで処理する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      何かのサービスを受けた後ならば、もう一度サービスメニューが表示される。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.chapels.behavior.C3D49C -->
+
+<section id="dq3.chapels.behavior.C3D554">
+<title>サブルーチン <varname>$C3D554</varname>: いきかえらせる</title>
+<para>
+サブルーチン <varname>$C3D554</varname> は教会メニュー項目「いきかえらせる」の実装である。
+以下に処理の要点を挙げる。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      指定キャラクターが死んでいるかどうかは、仲間キャラクターオブジェクトの死亡フラグで判定する。
+      このような状態フラグについては <xref linkend="dq3.characters"/> で述べる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      寄付金は対象者のレベルだけで決まる。
+      その値を <literal>level</literal> とすると、Python コード風に言えば
+      <code><![CDATA[(((level ** 2) // 10) + 1) * 10]]></code> ゴールドとなる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      寄付金の支払い前後の処理は、
+      他のサービス処理と共有されていることもあり、専用サブルーチンでカプセル化されている。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      実は対象者の回復、神父または尼の台詞、効果音再生の順に処理される。
+      これは他のサービスでも同様だ。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.chapels.behavior.C3D554 -->
+
+<section id="dq3.chapels.behavior.C3D5DD">
+<title>サブルーチン <varname>$C3D5DD</varname>: どくのちりょう</title>
+<para>
+サブルーチン <varname>$C3D5DD</varname> は教会メニュー項目「どくのちりょう」の実装である。
+以下に処理の要点を挙げる。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      指定キャラクターが毒状態かどうかを、仲間キャラクターオブジェクトの状態フラグで判定する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      寄付金は対象者のレベルだけで決まる。
+      その値を <literal>level</literal> とすると、Python コード風に言えば
+      <code><![CDATA[(level >> 2) + 4]]></code> ゴールドとなる。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.chapels.behavior.C3D5DD -->
+
+<section id="dq3.chapels.behavior.C3D64A">
+<title>サブルーチン <varname>$C3D64A</varname>: のろいをとく</title>
+<para>
+サブルーチン <varname>$C3D64A</varname>は教会メニュー項目「のろいをとく」の実装である。
+以下に処理の要点を挙げる。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      指定キャラクターが呪い状態かどうかを、仲間キャラクターオブジェクトの状態フラグで判定する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      寄付金は対象者のレベルだけで決まる。レベルを 30 倍した値が必要なゴールドだ。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      呪いの解除はサブルーチン <varname>$C44168</varname> 呼び出しで実行する。
+      この処理は注意を要する。
+      実行内容は対象者の装備品を先頭から順に反復して、アイテムオブジェクトの呪い属性をテストする。
+      もし呪い装備品を発見したら、それを所持品から削除し、
+      <emphasis>その他に呪い装備品がないときに限り</emphasis>対象者の呪い状態をリセットするというものだ。
+      そのためかどうかは不明だが、呪い装備品の個数を問わず、施術後に呪いの状態変化についての語りがない。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.chapels.behavior.C3D64A -->
+</section> <!-- dq3.chapels.behavior -->
+</section> <!-- dq3.chapels -->

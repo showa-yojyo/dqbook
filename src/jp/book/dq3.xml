@@ -35,7 +35,7 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_shops.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_overcharge.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_inns.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_church.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_chapels.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_pub.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_registration.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_bank.xml"/>
