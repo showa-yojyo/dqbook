@@ -26,7 +26,6 @@
 この組は各人の台詞回しであり、配列要素それぞれが状況に対応している。
 </para>
 <para>
-アドレス <varname>$C3C1D9</varname> から各人の台詞 ID が定義されている。
 例えば「休むがよい」を表示するために各人の言い回しに合う 5 タイプの台詞が用意されている。
 汎用台詞表示サブルーチン <varname>$C1A95A</varname> を呼び出すことで店員の台詞を表示している。
 </para>
@@ -39,17 +38,17 @@
     <tr><th>配列</th><th>台詞例</th></tr>
   </thead>
   <tbody>
-    <tr><td><varname>$C3C1D9</varname></td><td>[CD][D6]王「[C0]が つぎのレベルに[AD]なるには あと[BB]の[AD]けいけんが 必要じゃ。[AF][AC]</td></tr>
-    <tr><td><varname>$C3C1E3</varname></td><td>[CD][D6]王「そなたらの 旅の せいかを[AD]この 冒険の書に[AD]きろくしても よいかな？[AC]</td></tr>
-    <tr><td><varname>$C3C1ED</varname></td><td>[CD][D6]王「そうか… では[AD]書きとめないでおこう。[AF][AC]</td></tr>
-    <tr><td><varname>$C3C1F7</varname></td><td>[CD][D6]王「では なん番の 冒険の書に[AD]書きとめるかの？[AC]</td></tr>
-    <tr><td><varname>$C3C201</varname></td><td>[CD][D6]王「すると [B2] ＬＶ[BB]の[AD]きろくは 消えてしまうが[AD]それでも いいかな？[AC]</td></tr>
-    <tr><td><varname>$C3C20B</varname></td><td>[CD][D6]王「しかと きろくしたぞよ。[AD]どうじゃ？ また すぐに[AD]旅立つ つもりか？[AC]</td></tr>
-    <tr><td><varname>$C3C215</varname></td><td>[CD][D6]王「また すぐに[AD]旅立つ つもりかの？[AC]</td></tr>
+    <tr><td><varname>$C3C1D9</varname></td><td>[CD][D6]王「[C0]が つぎのレベルに[AD]なるには あと[BB]の[AD]けいけんが 必要じゃ。[AF]</td></tr>
+    <tr><td><varname>$C3C1E3</varname></td><td>[CD][D6]王「そなたらの 旅の せいかを[AD]この 冒険の書に[AD]きろくしても よいかな？</td></tr>
+    <tr><td><varname>$C3C1ED</varname></td><td>[CD][D6]王「そうか… では[AD]書きとめないでおこう。[AF]</td></tr>
+    <tr><td><varname>$C3C1F7</varname></td><td>[CD][D6]王「では なん番の 冒険の書に[AD]書きとめるかの？</td></tr>
+    <tr><td><varname>$C3C201</varname></td><td>[CD][D6]王「すると [B2] ＬＶ[BB]の[AD]きろくは 消えてしまうが[AD]それでも いいかな？</td></tr>
+    <tr><td><varname>$C3C20B</varname></td><td>[CD][D6]王「しかと きろくしたぞよ。[AD]どうじゃ？ また すぐに[AD]旅立つ つもりか？</td></tr>
+    <tr><td><varname>$C3C215</varname></td><td>[CD][D6]王「また すぐに[AD]旅立つ つもりかの？</td></tr>
     <tr><td><varname>$C3C21F</varname></td><td>[CD][D6]王「なんと！ きろくせずに[AD]休むというのか。[AF](...)</td></tr>
-    <tr><td><varname>$C3C229</varname></td><td>[CD][D6]王「おや やめるのかね。[AD]では また いつでも 来るがよい。[AD][CB]よ！[AC]</td></tr>
-    <tr><td><varname>$C3C233</varname></td><td>[CD][D6]王「では しばし 休むがよい！[AD]また 会おう！ [CB]よ！[AC]</td></tr>
-    <tr><td><varname>$C3C23D</varname></td><td>[CD][D6]王「[C0]は[AD]もう じゅうぶんに 強い！[AF][AC]</td></tr>
+    <tr><td><varname>$C3C229</varname></td><td>[CD][D6]王「おや やめるのかね。[AD]では また いつでも 来るがよい。[AD][CB]よ！</td></tr>
+    <tr><td><varname>$C3C233</varname></td><td>[CD][D6]王「では しばし 休むがよい！[AD]また 会おう！ [CB]よ！</td></tr>
+    <tr><td><varname>$C3C23D</varname></td><td>[CD][D6]王「[C0]は[AD]もう じゅうぶんに 強い！[AF]</td></tr>
     <tr><td><varname>$C3C247</varname></td><td>[CD][D6]王「[C0]は わしにも わからぬ[AD]けいけんを つんだようじゃな。[AF](...)</td></tr>
   </tbody>
 </table>
@@ -67,11 +66,11 @@
     <tr><th>アドレス</th><th>台詞</th></tr>
   </thead>
   <tbody>
-    <tr><td><varname>$C3C2F6</varname></td><td>[D6][D1]あなたの旅の せいかを[AD]冒険の書に きろくなさいますか？[AC]</td></tr>
-    <tr><td><varname>$C3C2F8</varname></td><td>[D6][D1]あなたの旅に[AD]神のごかごが ありますように。[AC]</td></tr>
-    <tr><td><varname>$C3C2FA</varname></td><td>[D6][D1]では なん番の 冒険の書に[AD]書きとめますか？[AC]</td></tr>
-    <tr><td><varname>$C3C2FC</varname></td><td>[D6][D1]たしかに きろくしました。[AF][AC]</td></tr>
-    <tr><td><varname>$C3C2FE</varname></td><td>[D6][D1]おやめに なるのですね。[AF][AC]</td></tr>
+    <tr><td><varname>$C3C2F6</varname></td><td>[D6][D1]あなたの旅の せいかを[AD]冒険の書に きろくなさいますか？</td></tr>
+    <tr><td><varname>$C3C2F8</varname></td><td>[D6][D1]あなたの旅に[AD]神のごかごが ありますように。</td></tr>
+    <tr><td><varname>$C3C2FA</varname></td><td>[D6][D1]では なん番の 冒険の書に[AD]書きとめますか？</td></tr>
+    <tr><td><varname>$C3C2FC</varname></td><td>[D6][D1]たしかに きろくしました。[AF]</td></tr>
+    <tr><td><varname>$C3C2FE</varname></td><td>[D6][D1]おやめに なるのですね。[AF]</td></tr>
   </tbody>
 </table>
 </section> <!-- dq3.kings.structure.C3C2F6 -->
