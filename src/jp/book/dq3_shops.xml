@@ -174,7 +174,7 @@
     <para>
       購入品が戦闘中に使うことで効果があるかどうかで店員の台詞が加わるかどうかの判定は、
       対象アイテムオブジェクトの戦闘モードコマンド属性値の判定による。
-      この属性については <xref link="dq3.items.structure"/> で解説する。
+      この属性については <xref linkend="dq3.items.structure"/> で解説する。
     </para>
   </listitem>
   <listitem>
