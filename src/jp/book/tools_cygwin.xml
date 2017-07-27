@@ -131,7 +131,7 @@ F4240 <co id="tools.cygwin.radix.co.2"/>
 
 <para>
 	ドラクエのスーファミ ROM イメージから、特定の構造体データ配列をすべてテキストダンプしたいことがある。
-	例えば、&dq3_1996; のモンスター構造体配列（<xref linkend="dq3.monster.hack.C20000"/>）を見たくなったとしよう。
+	例えば、&dq3_1996; のモンスター構造体配列（<xref linkend="dq3.monster.C20000"/>）を見たくなったとしよう。
 	まずは頭を使わずにコンソールから直接コマンドラインを入力してみよう。
 </para>
 <screen><prompt>$ </prompt><userinput>od --address-radix=x1 \ <co id="tools.cygwin.od.co.1"/>
