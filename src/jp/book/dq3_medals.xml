@@ -79,11 +79,11 @@
   <listitem>
     <para>
       最終景品の枚数を確認する。
-      <xref linkend="dq3.medals.behavior.C3F239" xrefstyle="select: %n"/> 参照。
+      <xref linkend="dq3.medals.behavior.C3F239" xrefstyle="select: labelnumber"/> 参照。
     </para>
     <para>
       パーティーの所持品とふくろからメダルを適宜回収する。
-      <xref linkend="dq3.medals.behavior.C3F1BD" xrefstyle="select: %n"/> 参照。
+      <xref linkend="dq3.medals.behavior.C3F1BD" xrefstyle="select: labelnumber"/> 参照。
     </para>
   </listitem>
   <listitem>
@@ -94,7 +94,7 @@
   <listitem>
     <para>
       次回報酬を参照する。
-      <xref linkend="dq3.medals.behavior.C3F199" xrefstyle="select: %n"/> 参照。
+      <xref linkend="dq3.medals.behavior.C3F199" xrefstyle="select: labelnumber"/> 参照。
       もし全ての報酬が果たされていれば、おじさんの台詞だけで本処理を終了する。
     </para>
   </listitem>
@@ -133,8 +133,8 @@
           受け取りメッセージの表示後、
           次の報酬 ID が上限に達していない限り、
           報酬と必要枚数を参照して枚数を判定する処理（
-          <xref linkend="dq3.medals.behavior.C3F21E" xrefstyle="select: %n"/> および
-          <xref linkend="dq3.medals.behavior.C3F239" xrefstyle="select: %n"/> 参照）
+          <xref linkend="dq3.medals.behavior.C3F21E" xrefstyle="select: labelnumber"/> および
+          <xref linkend="dq3.medals.behavior.C3F239" xrefstyle="select: labelnumber"/> 参照）
           を実行する。
         </para>
         <para>
@@ -161,7 +161,7 @@
 <para>
 サブルーチン <varname>$C3F199</varname> は、メダルおじさんに譲渡済みのメダル枚数を基に、
 次の褒美に対応するメダル必要累積枚数と、報酬のアイテム ID を検索するコードだ。
-内容はループで <xref linkend="dq3.medals.behavior.C3F239" xrefstyle="select: %n"/> で述べる処理の出力を判定するというものだ。
+内容はループで <xref linkend="dq3.medals.behavior.C3F239" xrefstyle="select: labelnumber"/> で述べる処理の出力を判定するというものだ。
 </para>
 </section> <!-- dq3.medals.behavior.C3F199 -->
 
