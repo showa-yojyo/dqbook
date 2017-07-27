@@ -43,7 +43,7 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_rename.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_matchmake.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_horoscope.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_medal.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_medals.xml"/>
 
 <!-- BANK $C4 -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_items.xml"/>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.medals"><?dbhtml filename="dq3_medals.html" ?>
+<title>メダルおじさん</title>
+<para>
+本節ではメダルおじさんについて述べる。
+</para>
+
+<section id="dq3.medals.structure">
+<title>構造に関する構成要素</title>
+<para>
+メダルおじさんに関わるデータおよびその構造について述べる。
+</para>
+<section id="dq3.medals.structure.C31350">
+<title>構造体 <varname>$C31350</varname>: メダルおじさんの景品</title>
+<para>
+アドレス <varname>$C31350</varname> には次のオブジェクト型要素が 12 個配列されている。
+これはメダルおじさんにちいさなメダルを献上した際の報酬を表現している。
+</para>
+<table id="table.dq3.C31350" class="lighttable">
+  <caption>構造体 $C31350</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00FF</literal></td><td>必要枚数</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00FF</literal></td><td>景品</td></tr>
+  </tbody>
+</table>
+<para>
+属性の意味を以下に記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>必要枚数</term>
+    <listitem>
+      <para>
+        メダルおじさんが報酬をよこすのに必要となるちいさなメダルの枚数を値に取る属性だ。
+        配列 <varname>$C31350</varname> の要素群はこの属性値をキーとして昇順にソートされている。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>景品</term>
+    <listitem>
+      <para>
+        景品を表すアイテム ID を値に取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.medals.structure.C31350 -->
+</section> <!-- dq3.medals.structure -->
+
+<section id="dq3.medals.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+メダルおじさんの振る舞いについて述べる。
+</para>
+
+<section id="dq3.medals.behavior.C3F076">
+<title>サブルーチン <varname>$C3F076</varname>: メダルおじさんメイン</title>
+<para>
+サブルーチン <varname>$C3F076</varname> は、メダルおじさんに「はなす」とすぐに始まる処理だ。
+以下に要点を挙げる。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      最初にメダルおじさんに譲渡済のメダル枚数を参照する。
+      アドレス <varname>$7E3538</varname> の <literal>#$03FC</literal> 部分がその値だ。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      最終景品の枚数を確認する。
+      <xref linkend="dq3.medals.behavior.C3F239" xrefstyle="select: %n"/> 参照。
+    </para>
+    <para>
+      パーティーの所持品とふくろからメダルを適宜回収する。
+      <xref linkend="dq3.medals.behavior.C3F1BD" xrefstyle="select: %n"/> 参照。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      回収したばかりの枚数分と献上済みメダル枚数の和をアドレス <varname>$7E3538</varname> の <literal>#$03FC</literal> 部分に上書きする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      次回報酬を参照する。
+      <xref linkend="dq3.medals.behavior.C3F199" xrefstyle="select: %n"/> 参照。
+      もし全ての報酬が果たされていれば、おじさんの台詞だけで本処理を終了する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      ここで初めておじさんの台詞が入る。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      献上済み枚数がゼロの場合は初回説明処理のようなものをする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      おじさんが現在の献上済み枚数を教える。
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          今回回収枚数がゼロの場合は、現在献上済み枚数告知まで処理をスキップする。
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          今回回収枚数＋献上済み枚数が次回報酬に必要な枚数未満ならば、
+          次回の報酬を予告するところまで処理をスキップする。
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          今回回収枚数＋献上済み枚数が次回報酬に必要な枚数以上ならば、
+          報酬アイテムをパーティーの所持品に追加する。
+        </para>
+        <para>
+          受け取りメッセージの表示後、
+          次の報酬 ID が上限に達していない限り、
+          報酬と必要枚数を参照して枚数を判定する処理（
+          <xref linkend="dq3.medals.behavior.C3F21E" xrefstyle="select: %n"/> および
+          <xref linkend="dq3.medals.behavior.C3F239" xrefstyle="select: %n"/> 参照）
+          を実行する。
+        </para>
+        <para>
+          さらにパーティー所持品追加処理を実行する。
+          これを累計枚数が次回報酬枚数未満になるまでループする。
+          ループ中に全ての報酬が果たされれば、おじさんの台詞で本処理を終了する。
+        </para>
+      </listitem>
+    </itemizedlist>
+  </listitem>
+  <listitem>
+    <para>
+      おじさんが現在の献上済み枚数を教える。
+    </para>
+    <para>
+      おじさんが次回の報酬を予告する。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.medals.behavior.C3F076 -->
+
+<section id="dq3.medals.behavior.C3F199">
+<title>サブルーチン <varname>$C3F199</varname>: 次の景品を調べる</title>
+<para>
+サブルーチン <varname>$C3F199</varname> は、メダルおじさんに譲渡済みのメダル枚数を基に、
+次の褒美に対応するメダル必要累積枚数と、報酬のアイテム ID を検索するコードだ。
+内容はループで <xref linkend="dq3.medals.behavior.C3F239" xrefstyle="select: %n"/> で述べる処理の出力を判定するというものだ。
+</para>
+</section> <!-- dq3.medals.behavior.C3F199 -->
+
+<section id="dq3.medals.behavior.C3F1BD">
+<title>サブルーチン <varname>$C3F1BD</varname>: 持参したメダルを回収する</title>
+<para>
+サブルーチン <varname>$C3F1BD</varname> は、持参したメダル枚数を献上枚数が 100 を超えない分だけ回収する処理だ。
+以下に要点を挙げる。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      パーティー各キャラクターの所持品からちいさなメダルを一枚ずつ回収しながら回収枚数をカウントし続ける。
+      このとき、カウンターと献上済み枚数の和が最終枚数 (100) 以上となれば、
+      その時点でこの回収枚数を呼び出し元に返す。
+      そうでなければ、カウンターの増加とキャラクター所持品の更新を行い反復処理を続行する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      次にふくろ内のちいさなメダル枚数を参照する。
+      先程と同様に、ちいさなメダルを一枚ずつ回収しながら回収枚数をカウントし続ける。
+      このとき、カウンターと献上済み枚数の和が最終枚数以上となれば、
+      その時点でこの回収枚数を呼び出し元に返す。
+      そうでなければ、カウンターの増加とふくろのちいさなメダル枚数更新を行い反復処理を続行する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      最終的なカウンターの値が、メダルおじさんの手許にあるメダル枚数を表す。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.medals.behavior.C3F1BD -->
+
+<section id="dq3.medals.behavior.C3F21E">
+<title>サブルーチン <varname>$C3F21E</varname>: 報酬 ID に対してアイテムを取得する</title>
+<para>
+サブルーチン <varname>$C3F21E</varname> は、報酬 ID を入力として、
+対応するメダルおじさん報酬オブジェクトのアイテム属性値を参照するだけの小さなコードだ。
+</para>
+</section> <!-- dq3.medals.behavior.C3F21E -->
+
+<section id="dq3.medals.behavior.C3F239">
+<title>サブルーチン <varname>$C3F239</varname>: 報酬 ID に対して必要枚数を取得する</title>
+<para>
+サブルーチン <varname>$C3F239</varname> は、報酬 ID を入力として、
+対応するメダルおじさん報酬オブジェクトの必要枚数属性値を参照するだけの小さなコードだ。
+</para>
+</section> <!-- dq3.medals.behavior.C3F239 -->
+</section> <!-- dq3.medals.behavior -->
+</section> <!-- dq3.medals -->
