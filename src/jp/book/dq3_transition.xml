@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.transition"><?dbhtml filename="dq3_transition.html" ?>
+<title>画面遷移</title>
+<para>
+本節では画面遷移について述べる。
+画面遷移とは、移動モードでパーティーが別の場所に移動したり、
+イベント発生によって自動的にシーンが転換したりするときの画面の移り変わりのことだ。
+移動モードから戦闘モードに、あるいはその逆になったりすることは本節の画面遷移の定義には当てはまらない。
+</para>
+
+<section id="dq3.transition.structure">
+<title>構造に関する構成要素</title>
+<para>
+画面遷移に関係するデータ構造について述べる。
+本節では多くの構造体を列挙しなければならないので、それらの関係について概略を示したい。
+</para>
+
+<section id="dq3.transition.structure.abstract">
+<title>共通属性の意味について</title>
+<para>
+以降の各画面遷移構造体に共通して登場する属性について先に説明しておく。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>場所</term>
+    <listitem>
+      <para>
+        画面遷移オブジェクトが存在する場所の ID を値とする属性だ。
+        場所については別の節で説明する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>MX</term>
+    <term>MY</term>
+    <listitem>
+      <para>
+        それぞれ画面遷移オブジェクトが位置する座標 X 成分と Y 成分を値とする属性だ。
+        座標系は M 系で表されている。これはキャラクターのサイズを単位系とする座標系だ。
+      </para>
+      <para>
+        型によっては X 座標属性や Y 座標属性が二つある。
+        この場合はその座標成分の組がなす区間すべてが画面遷移の発生判定に有効であることを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ML</term>
+    <listitem>
+      <para>
+        画面遷移オブジェクトが位置する L 座標を値とする属性だ。
+        これはいわゆるレイヤーに相当する概念だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>屋根区域</term>
+    <listitem>
+      <para>
+        画面遷移オブジェクトが属する屋根区域を値とする属性だ。
+        屋根区域とは、値がデバッグ機能の座標ウィンドウのいちばん下に二進数で表示される値のことだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>目的地</term>
+    <listitem>
+      <para>
+        階段、水平線、垂直線の各型については、
+        この画面遷移が発生すると移動する先の同型オブジェクト ID を値とする属性だ。
+        例えば、階段オブジェクト A の目的地属性値が指す階段オブジェクトを B とすると、
+        B の目的地属性値は A を指すという性質がある。
+      </para>
+      <para>
+        矩形型とランシール型については
+        <xref linkend="dq3.transition.structure.C86A9A"/> で述べるオブジェクトの ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>効果音考慮</term>
+    <listitem>
+      <para>
+        ブーリアン型属性値であり、値が 1 ならば画面遷移時に足音が鳴る。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>演出</term>
+    <listitem>
+      <para>
+        演出とは、画面遷移時に引き起こす視聴覚効果を指示する値を取る属性だ。
+      </para>
+      <table id="table.dq3.transition.effects" class="lighttable">
+        <caption>画面遷移演出</caption>
+        <thead>
+          <tr><th>ID</th><th>演出</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>1</th><td>足音</td></tr>
+          <tr><th>2</th><td>落下 A</td></tr>
+          <tr><th>3</th><td>旅の扉</td></tr>
+          <tr><th>4</th><td>天界</td></tr>
+          <tr><th>5</th><td>落下 B</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.transition.structure.abstract -->
+
+<section id="dq3.transition.structure.C84CA2">
+<title>構造体 <varname>$C84CA2</varname>: 階段</title>
+<para>
+アドレス <varname>$C84CA2</varname> には次のオブジェクト型要素が多数配列されている。
+この型は階段による画面遷移を表現するものであり、移動モードにおいて階段の絵を描画させるものだ（例外もあるが）。
+</para>
+<table id="table.dq3.C84CA2" class="lighttable">
+  <caption>構造体 $C84CA2</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0003FF</literal></td><td>場所</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$0007FC</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$000FF8</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000030</literal></td><td>ML</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0003C0</literal></td><td>屋根区域</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$003FFC</literal></td><td>目的地</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$000040</literal></td><td>効果音考慮</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味については <xref linkend="dq3.transition.structure.abstract" xrefstyle="select: %n"/> を参照。
+</para>
+</section> <!-- dq3.transition.structure.C84CA2 -->
+
+<section id="dq3.transition.structure.C856AA">
+<title>構造体 <varname>$C856AA</varname>: 水平線</title>
+<para>
+アドレス <varname>$C856AA</varname> には次のオブジェクト型要素が多数配列されている。
+この型は主にパーティーが建造物の出入口（扉があることが多い）を通過することによる画面遷移を表現する。
+</para>
+<table id="table.dq3.C856AA" class="lighttable">
+  <caption>構造体 $C856AA</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0003FF</literal></td><td>場所</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$0007FC</literal></td><td>MX0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$000FF8</literal></td><td>MX1</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$001FF0</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$000060</literal></td><td>ML</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$000780</literal></td><td>屋根区域</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$007FF8</literal></td><td>目的地</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$000080</literal></td><td>効果音考慮</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味については <xref linkend="dq3.transition.structure.abstract" xrefstyle="select: %n"/> を参照。
+</para>
+</section> <!-- dq3.transition.structure.C856AA -->
+
+<section id="dq3.transition.structure.C85A62">
+<title>構造体 <varname>$C85A62</varname>: 垂直線</title>
+<para>
+アドレス <varname>$C85A62</varname> には次のオブジェクト型要素がわずか 2 個だけ配列されている。
+カザーブの村にある教会と墓場との間にある画面遷移を表現する。
+</para>
+<table id="table.dq3.C85A62" class="lighttable">
+  <caption>構造体 $C85A62</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0003FF</literal></td><td>場所</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$0007FC</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$000FF8</literal></td><td>MY0</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$001FF0</literal></td><td>MY1</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$000060</literal></td><td>ML</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$000780</literal></td><td>屋根区域</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$007FF8</literal></td><td>目的地</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$000080</literal></td><td>効果音考慮</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味については <xref linkend="dq3.transition.structure.abstract" xrefstyle="select: %n"/> を参照。
+</para>
+</section> <!-- dq3.transition.structure.C85A62 -->
+
+<section id="dq3.transition.structure.C85A70">
+<title>構造体 <varname>$C85A70</varname>: 矩形</title>
+<para>
+アドレス <varname>$C85A70</varname> には次のオブジェクト型要素が多数配列されている。
+パーティーがこの範囲内に足を踏み入れると画面が遷移するというような矩形を表現するものだ。
+</para>
+<table id="table.dq3.C85A70" class="lighttable">
+  <caption>構造体 $C85A70</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00000F</literal></td><td>演出</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$001FF0</literal></td><td>MX0</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$003FE0</literal></td><td>MY0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$007FC0</literal></td><td>MX1</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF80</literal></td><td>MY1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$000003</literal></td><td>ML</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$003FFC</literal></td><td>目的地</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$000040</literal></td><td>効果音考慮</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq3.transition.structure.C85A70 -->
+
+<section id="dq3.transition.structure.C86A84">
+<title>構造体 <varname>$C86A84</varname>: ランシール</title>
+<para>
+アドレス <varname>$C86A84</varname> にあるオブジェクトはランシールの村を訪問する際の画面遷移を表現する。
+どの方向から村に入るかによって、パーティーの初期位置を決めることができる。
+</para>
+<table id="table.dq3.C86A84" class="lighttable">
+  <caption>構造体 $C86A84</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00000F</literal></td><td>演出</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$001FF0</literal></td><td>MX0</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$003FE0</literal></td><td>MY0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$007FC0</literal></td><td>MX1</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF80</literal></td><td>MY1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$000003</literal></td><td>ML</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$003FFC</literal></td><td>目的地上向き</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$03FFC0</literal></td><td>目的地右向き</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$003FFC</literal></td><td>目的地下向き</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$03FFC0</literal></td><td>目的地左向き</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$000004</literal></td><td>効果音考慮</td></tr>
+  </tbody>
+</table>
+<para>
+この型に固有の各属性の意味を以下に記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>目的地上向き</term>
+    <term>目的地右向き</term>
+    <term>目的地下向き</term>
+    <term>目的地左向き</term>
+    <listitem>
+      <para>
+        それぞれ、パーティーキャラクターが対応する向きにランシールの村に入るときの、
+        目的地点 (<xref linkend="dq3.transition.structure.C86A9A" xrefstyle="select: %n"/>) の ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.transition.structure.C86A84 -->
+
+<section id="dq3.transition.structure.C86A90">
+<title>構造体 <varname>$C86A90</varname>: 幽霊船</title>
+<para>
+アドレス <varname>$C86A90</varname> にあるオブジェクトは幽霊船の出口における画面遷移を表現する。
+</para>
+<table id="table.dq3.C86A90" class="lighttable">
+  <caption>構造体 $C86A90</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00000F</literal></td><td>演出</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$001FF0</literal></td><td>MX0</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$003FE0</literal></td><td>MY0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$007FC0</literal></td><td>MX1</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF80</literal></td><td>MY1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$000003</literal></td><td>ML</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FFFFFF</literal></td><td>処理</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$000001</literal></td><td>効果音考慮</td></tr>
+  </tbody>
+</table>
+<para>
+この型に固有の各属性の意味を以下に記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>処理</term>
+    <listitem>
+      <para>
+        幽霊船の出口にパーティーが移動すると実行されるコードのアドレスを値とする属性だ。
+        これによって、パーティーの船に戻ることになる。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.transition.structure.C86A90 -->
+
+<section id="dq3.transition.structure.C86A9A">
+<title>構造体 <varname>$C86A9A</varname>: 目的地点</title>
+<para>
+アドレス <varname>$C86A9A</varname> には次のオブジェクト型要素が多数配列されている。
+この型は矩形型とランシール型から参照される画面遷移先座標を表現する。
+</para>
+<table id="table.dq3.C86A9A" class="lighttable">
+  <caption>構造体 $C86A9A</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0003FF</literal></td><td>場所</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$0007FC</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$000FF8</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000030</literal></td><td>ML</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0003C0</literal></td><td>屋根区域</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00000C</literal></td><td>向き</td></tr>
+  </tbody>
+</table>
+<para>
+この型固有の各属性の意味を以下に記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>向き</term>
+    <listitem>
+      <para>
+        画面遷移直後のパーティーキャラクターの向きを表す値を取る属性だ。
+        「はなす」「しらべる」と同様だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.transition.structure.C86A9A -->
+</section> <!-- dq3.transition.structure -->
+
+<section id="dq3.transition.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+TBW
+</para>
+
+</section> <!-- dq3.transition.behavior -->
+</section> <!-- dq3.transition -->
