@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.encounter"><?dbhtml filename="dq3_encounter.html" ?>
+<title>敵との遭遇</title>
+<para>
+本節では移動モードから戦闘モードに移行する際のデータアクセスについて述べる。
+</para>
+
+<section id="dq3.encounter.structure">
+<title>構造に関する構成要素</title>
+<para>
+遭遇する敵がどのような編成になるかを決定するためのオブジェクト型をいくつか述べる。
+このような型はイベント戦と通常戦とに分類されており、後者の構造がやや複雑になっている。
+</para>
+
+<section id="dq3.encounter.structure.C8AC66">
+<title>構造体 <varname>$C8AC66</varname>: イベント戦</title>
+<para>
+アドレス <varname>$C8AC66</varname> には次に示す型のオブジェクトが 30 程度配列されている。
+この型はイベント戦一つの戦闘セッション自身の属性および敵陣の構成を表現するものだ。
+</para>
+<table id="table.dq3.C8AC66" class="lighttable">
+  <caption>構造体 $C8AC66</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>名前</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$007F</literal></td><td>背景セット</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$FF80</literal></td><td>サウンド</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0001</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0002</literal></td><td>画面更新</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0004</literal></td><td>（不明）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0008</literal></td><td>逃走禁止/ルーラ禁止</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0010</literal></td><td>（不明）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0020</literal></td><td>ボス戦</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$3FC0</literal></td><td>モンスター 0 </td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$01C0</literal></td><td>モンスター頭数 0</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$01FE</literal></td><td>モンスター 1</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$000E</literal></td><td>モンスター頭数 1</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$0FF0</literal></td><td>モンスター 2</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$0070</literal></td><td>モンスター頭数 2</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$7F80</literal></td><td>モンスター 3</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$0380</literal></td><td>モンスター頭数 3</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味を次に記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>名前</term>
+    <listitem>
+      <para>
+        名前とは文字列 ID を値とする属性であり、
+        罠である「しらべる」オブジェクトがイベント戦を引き起こす際に、
+        メッセージウィンドウに記される文言の一部として表示される性質がある。
+        そうでない場合の名前は表に出てくることはない。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>背景セット</term>
+    <listitem>
+      <para>
+        戦闘モードの背景を指示するオブジェクトの ID を値とする属性だ。
+        戦闘背景については別の節で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>サウンド</term>
+    <listitem>
+      <para>
+        戦闘中に BGM として再生されるサウンドの ID を値とする属性だ。
+        サウンドについては別の節で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>画面更新</term>
+    <listitem>
+      <para>
+        この属性値については詳細が不明だ。
+        ただ、いずれのデータにおいても 1 でなければならないはずだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>逃走禁止/ルーラ禁止</term>
+    <listitem>
+      <para>
+        ブーリアン型属性であり、
+        値が 1 であれば、この戦闘において自陣側による「にげる」または「ルーラ」の実行が失敗することを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ボス戦</term>
+    <listitem>
+      <para>
+        ブーリアン型属性であり、値が 1 であればこの戦闘がボス戦であることを意味する。
+        ボス戦では振る舞いが制限される戦闘コマンドが存在する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>モンスター k (k = 0..3)</term>
+    <listitem>
+      <para>
+        モンスター ID を値とする属性であり、敵陣グループ k を構成するモンスターを指定する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>モンスター頭数 k (k = 0..3)</term>
+    <listitem>
+      <para>
+        敵陣グループ k を構成する戦闘員数を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.encounter.structure.C8AC66 -->
+
+<section id="dq3.encounter.structure.C8ADD1">
+<title>構造体 <varname>$C8ADD1</varname>: 通常戦</title>
+<para>
+アドレス <varname>$C8ADD1</varname> には次に示す型のオブジェクトが 100 程度配列されている。
+この型は通常戦の戦闘セッション自身の属性および敵陣の構成を表現するものだ。
+</para>
+<table id="table.dq3.C8ADD1" class="lighttable">
+  <caption>構造体 $C8ADD1</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00FF</literal></td><td>遭遇係数</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0007</literal></td><td>確率分布</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0038</literal></td><td>先制発生</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0040</literal></td><td>頭数調整 0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0080</literal></td><td>頭数調整 1</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0001</literal></td><td>頭数調整 2</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0002</literal></td><td>頭数調整 3</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0004</literal></td><td>頭数調整 4</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0008</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td><td>モンスター <literal>#$00</literal></td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>モンスター <literal>#$01</literal></td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td><td>モンスター <literal>#$02</literal></td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td><td>モンスター <literal>#$03</literal></td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td><td>モンスター <literal>#$04</literal></td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$00FF</literal></td><td>モンスター <literal>#$05</literal></td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td><td>モンスター <literal>#$06</literal></td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$00FF</literal></td><td>モンスター <literal>#$07</literal></td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$00FF</literal></td><td>モンスター <literal>#$08</literal></td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$00FF</literal></td><td>モンスター <literal>#$09</literal></td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$00FF</literal></td><td>モンスター <literal>#$0A</literal></td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$00FF</literal></td><td>モンスター <literal>#$0B</literal></td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$00FF</literal></td><td>モンスター <literal>#$0C</literal></td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$00FF</literal></td><td>モンスター <literal>#$0D</literal></td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$00FF</literal></td><td>レベル</td></tr>
+    <tr><td><literal>#$13</literal></td><td><literal>#$00FF</literal></td><td>頭数上限</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味を次に記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>遭遇係数</term>
+    <listitem>
+      <para>
+        遭遇係数とは、配列 <varname>$C6902F</varname> の添字を値とする属性だ。
+        この値から決まる係数と、パーティーの現在位置に依存する数の積によって、
+        遭遇カウンター <varname>$7EF796</varname> から差し引く値（の初期値）が定まる。
+      </para>
+      <para>
+        敵遭遇決定のアルゴリズムについては後述する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>確率分布</term>
+    <listitem>
+      <para>
+        確率分布とは、このオブジェクトが参照する確率分布オブジェクトの ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>先制発生</term>
+    <listitem>
+      <para>
+        先制発生とは、ある配列ペアの添字を値とする属性だ。
+        それら配列の要素は、この戦闘開始時点で自陣か敵陣のどちらか一方が先制を取れるかどうかを抽選するのに用いられる。
+      </para>
+      <para>
+        自陣が先制を取れるかどうかの抽選は配列 <varname>$C68175</varname> に依存する。
+        この配列要素を x とすると、x / 256 の確率で先制が確定する。
+      </para>
+      <para>
+        敵陣が奇襲するかどうかの抽選は、自陣が先制を取らない条件の下で配列 <varname>$C68185</varname> に依存する。
+        この配列要素を y とすると、y / 256 の確率で奇襲が確定する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>頭数調整 k (k = 0..4)</term>
+    <listitem>
+      <para>
+        頭数調整とはブーリアン型属性で、
+        この遭遇オブジェクトにより敵陣が複数グループから編成される場合に参照される属性だ。
+        詳細は後述する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>モンスター k (k = <literal>#$00</literal>..<literal>#$0D</literal>)</term>
+    <listitem>
+      <para>
+        モンスター ID を値とする属性だ。
+        後述の確率変数オブジェクトの頻度属性の説明を参照して欲しい。
+      </para>
+      <para>
+        なお、k = <literal>#$0A</literal> のモンスターは夜専用となる。
+        また、k = <literal>#$0C</literal>..<literal>#$0D</literal> の属性値はダミーだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>レベル</term>
+    <listitem>
+      <para>
+        この戦闘自体のレベルを表す数を取る属性だ。
+        戦闘地域を移動中に「せいすい」や「トヘロス」が有効であり、
+        パーティーの特定のキャラクターのレベルがこの値プラス 5 以上であれば、
+        遭遇カウンターから差し引く値がゼロになる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>頭数上限</term>
+    <listitem>
+      <para>
+        この属性値は、敵陣の戦闘員数の総和の上限を指定するものだ。
+        敵陣構成処理の仕上げの部分では、この値を超えないように各グループの頭数を調整する。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.encounter.structure.C8ADD1 -->
+
+<section id="dq3.encounter.structure.C8B6D8">
+<title>構造体 <varname>$C8B6D8</varname>: 通常戦確率分布</title>
+<para>
+アドレス <varname>$C8B6D8</varname> には次に示す型のオブジェクトが 4 個配列されている。
+これは、通常戦オブジェクトのどのモンスターが採用されやすいかを表現する離散型確率分布だ。
+</para>
+<table id="table.dq3.C8B6D8" class="lighttable">
+  <caption>構造体 $C8B6D8</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00FF</literal></td><td>頻度 <literal>#$00</literal></td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00FF</literal></td><td>頻度 <literal>#$01</literal></td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00FF</literal></td><td>頻度 <literal>#$02</literal></td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF</literal></td><td>頻度 <literal>#$03</literal></td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td><td>頻度 <literal>#$04</literal></td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>頻度 <literal>#$05</literal></td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td><td>頻度 <literal>#$06</literal></td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td><td>頻度 <literal>#$07</literal></td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td><td>頻度 <literal>#$08</literal></td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$00FF</literal></td><td>頻度 <literal>#$09</literal></td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td><td>頻度 <literal>#$0A</literal></td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$00FF</literal></td><td>頻度 <literal>#$0B</literal></td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$00FF</literal></td><td>頻度 <literal>#$0C</literal></td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$00FF</literal></td><td>頻度 <literal>#$0D</literal></td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$00FF</literal></td><td>単数グループ用頭数決定 0</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$00FF</literal></td><td>単数グループ用頭数決定 1</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$00FF</literal></td><td>単数グループ用頭数決定 2</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$00FF</literal></td><td>単数グループ用頭数決定 3</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$00FF</literal></td><td>単数グループ用頭数決定 4</td></tr>
+    <tr><td><literal>#$13</literal></td><td><literal>#$00FF</literal></td><td>複数グループ用追加グループ確率 0</td></tr>
+    <tr><td><literal>#$14</literal></td><td><literal>#$00FF</literal></td><td>複数グループ用追加グループ確率 1</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味を次に記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>頻度 k (k = <literal>#$00</literal>..<literal>#$0D</literal>)</term>
+    <listitem>
+      <para>
+        この属性値を 256 で割れば、各確率変数 k に対応する確率となる。
+        要するに <literal>#$00</literal> から <literal>#$0D</literal> までの値の出現確率を制御するためのものだ。
+      </para>
+      <para>
+        値が <literal>#$00</literal>..<literal>#$04</literal> に抽選されると、敵陣を複数グループで構成する。
+        その際、採用するモンスターは通常戦オブジェクトのモンスター <literal>#$00</literal>..<literal>#$04</literal>
+        および <literal>#$0A</literal> 属性値から抽選する。
+      </para>
+      <para>
+        値が <literal>#$05</literal> に抽選されると、
+        敵陣を単体グループ 1 と複数体グループ 1 で構成する。
+        その際、採用するモンスターは前者のグループには通常戦モンスター <literal>#$05</literal> 属性値を、
+        後者のグループには通常戦モンスター <literal>#$00</literal>..<literal>#$04</literal> 属性値から抽選してそれぞれ割り当てる。
+      </para>
+      <para>
+        値が <literal>#$06</literal>..<literal>#$0A</literal> に抽選されると、
+        敵陣を単数グループで構成する。
+        その際、採用するモンスターは対応する通常戦モンスター k 属性値を割り当てる。
+      </para>
+      <para>
+        値が <literal>#$0B</literal> に抽選されると、
+        敵陣をただ一体で構成し、そのモンスターは通常戦モンスター <literal>#$0B</literal> 属性値を割り当てる。
+      </para>
+      <para>
+        値が <literal>#$0C</literal>..<literal>#$0D</literal> に抽選されると、
+        通常戦オブジェクトからではなく、後述するレア戦闘オブジェクトから敵陣を構成する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>単数グループ用頭数決定 k (k = 0..4)</term>
+    <listitem>
+      <para>
+        上述の確率変数が <literal>#$06</literal>..<literal>#$0A</literal> のときに、
+        唯一のグループを構成するモンスターの頭数範囲を指定する属性だ。
+        この値は配列 <varname>$C8B72C</varname> の添字であり、その配列要素が頭数範囲の両端点を表現している。
+      </para>
+      <table id="table.dq3.C8B72C" class="lighttable">
+        <caption>配列 $C8B72C</caption>
+        <thead>
+          <tr><th>ID</th><th>頭数</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><literal>#$00</literal></td><td align="center">0</td></tr>
+          <tr><td><literal>#$01</literal></td><td align="center">8..8</td></tr>
+          <tr><td><literal>#$02</literal></td><td align="center">4..5</td></tr>
+          <tr><td><literal>#$03</literal></td><td align="center">2..3</td></tr>
+          <tr><td><literal>#$04</literal></td><td align="center">3..7</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>複数グループ用追加グループ確率 k (k = 0..1)</term>
+    <listitem>
+      <para>
+        上述の確率変数が <literal>#$00</literal>..<literal>#$04</literal> のときに、
+        敵陣にグループ k + 2 が存在するかどうかを与える確率（を 256 倍した値）だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.encounter.structure.C8B6D8 -->
+
+<section id="dq3.encounter.structure.C8B736">
+<title>構造体 <varname>$C8B736</varname>: 通常戦レア</title>
+<para>
+アドレス <varname>$C8B736</varname> には次の表に示される構造体オブジェクトが配列されている。
+これらは通常戦のうち、敵陣の構成を固定化して定義されているものを表現している。
+</para>
+<table id="table.dq3.C8B736" class="lighttable">
+  <caption>構造体 $C8B736</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000F</literal></td><td>頭数範囲 0</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00F0</literal></td><td>頭数範囲 1</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$000F</literal></td><td>頭数範囲 2</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00FF</literal></td><td>モンスター 0</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF</literal></td><td>モンスター 1</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td><td>モンスター 2</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味を次に記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>頭数範囲 k (k = 0..2)</term>
+    <listitem>
+      <para>
+        敵陣グループ k を構成するモンスターの頭数範囲を指定する属性だ。
+        この値は配列 <varname>$C8B7E5</varname> の添字であり、その配列要素が頭数範囲の両端点を表現している。
+      </para>
+      <table id="table.dq3.C8B7E5" class="lighttable">
+        <caption>配列 $C8B7E5</caption>
+        <thead>
+          <tr><th>ID</th><th>範囲</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><literal>#$00</literal></td><td align="center">0</td></tr>
+          <tr><td><literal>#$01</literal></td><td align="center">8</td></tr>
+          <tr><td><literal>#$02</literal></td><td align="center">4..7</td></tr>
+          <tr><td><literal>#$03</literal></td><td align="center">1..3</td></tr>
+          <tr><td><literal>#$04</literal></td><td align="center">1..8</td></tr>
+          <tr><td><literal>#$05</literal></td><td align="center">1</td></tr>
+          <tr><td><literal>#$06</literal></td><td align="center">2</td></tr>
+          <tr><td><literal>#$07</literal></td><td align="center">3</td></tr>
+          <tr><td><literal>#$08</literal></td><td align="center">0..2</td></tr>
+          <tr><td><literal>#$09</literal></td><td align="center">5</td></tr>
+          <tr><td><literal>#$0A</literal></td><td align="center">4</td></tr>
+          <tr><td><literal>#$0B</literal></td><td align="center">6</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>モンスター k (k = 0..2)</term>
+    <listitem>
+      <para>
+        敵陣グループ k を構成するモンスターのモンスター ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.encounter.structure.C8B736 -->
+</section> <!-- dq3.encounter.structure -->
+
+<section id="dq3.encounter.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+戦闘地域移動中の戦闘発生および敵陣構成のそれぞれの仕組みについて述べる。
+</para>
+
+</section> <!-- dq3.encounter.behavior -->
+</section> <!-- dq3.encounter -->

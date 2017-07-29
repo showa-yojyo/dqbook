@@ -54,6 +54,7 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_talk.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_transition.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_search.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_encounter.xml"/>
 
 <!-- BANK $CB -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_pond.xml"/>
