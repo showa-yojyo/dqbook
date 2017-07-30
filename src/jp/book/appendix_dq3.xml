@@ -7,7 +7,7 @@
 <simplesect id="appendix.b.dq3">
 <title>&dq3_1996;</title>
 <simplelist type="vert" columns="1">
-  <member><ulink url="./data/dq3_C20000_monster.txt"><filename>dq3_C20000_monster.txt</filename></ulink></member>
+  <member><ulink url="./data/dq3_C20000_monsters.txt"><filename>dq3_C20000_monsters.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C21860_commands.txt"><filename>dq3_C21860_commands.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C2398E_descriptions.txt"><filename>dq3_C2398E_descriptions.txt</filename></ulink></member>
   <member><ulink url="./data/dq3_C23BB4_damage.txt"><filename>dq3_C23BB4_damage.txt</filename></ulink></member>
