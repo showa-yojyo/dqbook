@@ -173,7 +173,7 @@ C9/0B74:    6B          RTL
 <calloutlist>
   <callout arearefs="dq3.damage.C90AF7.C2CAE0">
     <para>
-      <xref linkend="dq3.combatant.methods"/> で述べるように、
+      <xref linkend="dq3.combatants.methods"/> で述べるように、
       サブルーチン <varname>$C2CAE0</varname> の呼び出しは、
       戦闘キャラクター <literal>Y</literal> の各種状態を表す構造体オブジェクトから、
       指定の状態を取得することを意味する。

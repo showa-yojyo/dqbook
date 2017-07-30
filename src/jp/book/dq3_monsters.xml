@@ -5,9 +5,9 @@
   %replacement;
 ]>
 
-<section id="dq3.monster"><?dbhtml filename="dq3_monster.html" ?>
+<section id="dq3.monsters"><?dbhtml filename="dq3_monsters.html" ?>
 <title>モンスター</title>
-<indexterm id="term.dq3.monster"><primary>モンスター</primary><secondary>dq3</secondary></indexterm>
+<indexterm id="term.dq3.monsters"><primary>モンスター</primary><secondary>dq3</secondary></indexterm>
 <para>
 この節ではモンスターデータについて述べる。
 ここで言うモンスターデータとは、モンスターそれぞれの静的な性質を定義したオブジェクトのことを意味するものであり、
@@ -15,7 +15,7 @@
 戦闘員としてのモンスターデータについては <xref linkend="dq3.combatant"/> で述べる。
 </para>
 
-<section id="dq3.monster.C20000">
+<section id="dq3.monsters.C20000">
 <title>構造体 <varname>$C20000</varname>: モンスター</title>
 <para>
 モンスター構造体とは、サイズが <literal>#$25</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
@@ -417,7 +417,7 @@
         耐性の k とコマンド系統との対応関係を表にすると下記のようになる。
         注意を要するのは、コマンド属性の系統分類とは一対一対応でないという点だ。
       </para>
-      <table id="table.dq3.monster.immunity" class="lighttable">
+      <table id="table.dq3.monsters.immunity" class="lighttable">
         <caption>モンスター耐性表</caption>
         <thead>
           <tr><th>k</th><th>系統</th></tr>
@@ -465,15 +465,15 @@
     </listitem>
   </varlistentry>
 </variablelist>
-</section> <!-- dq3.monster.C20000 -->
+</section> <!-- dq3.monsters.C20000 -->
 
-<section id="dq3.monster.methods">
+<section id="dq3.monsters.methods">
 <title>モンスター構造体メソッド</title>
 <para>
 逆アセンブルの便宜を図るため、以下に <varname>$C20000</varname> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
 表の凡例は前作 <xref linkend="dq6.monster.methods"/> と同じにつき、記載を繰り返さない。
 </para>
-<table id="table.dq3.monster.methods" class="lighttable">
+<table id="table.dq3.monsters.methods" class="lighttable">
   <caption>モンスター構造体の属性にアクセスするサブルーチン</caption>
   <thead>
     <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
@@ -487,5 +487,5 @@
     <tr><td align="center"><varname>$C2CCB4</varname></td><td>4</td><td align="center">y</td><td>ビットフィールド属性値をテストする</td></tr>
   </tbody>
 </table>
-</section> <!-- dq3.monster.methods -->
-</section> <!-- dq3.monster -->
+</section> <!-- dq3.monsters.methods -->
+</section> <!-- dq3.monsters -->

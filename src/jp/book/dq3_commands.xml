@@ -435,7 +435,7 @@
       </para>
       <para>
         基本的には自陣側戦闘員は 1/64 の確率で身をかわす。
-        敵陣の場合は <xref linkend="dq3.monster.C20000"/> のみかわし属性の項目で説明する。
+        敵陣の場合は <xref linkend="dq3.monsters.C20000"/> のみかわし属性の項目で説明する。
       </para>
     </listitem>
   </varlistentry>

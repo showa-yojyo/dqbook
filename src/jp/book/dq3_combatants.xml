@@ -4,7 +4,7 @@
   <!ENTITY % replacement SYSTEM "replacement.xml">
   %replacement;
 ]>
-<section id="dq3.combatant"><?dbhtml filename="dq3_combatant.html" ?>
+<section id="dq3.combatants"><?dbhtml filename="dq3_combatants.html" ?>
 <title>戦闘員</title>
 <para>
 本節では、戦闘員構造体各種のメモリレイアウトを表で示し、
@@ -13,7 +13,7 @@
 記述の重複がいくらか生じることがあるかもしれない。
 </para>
 
-<section id="dq3.combatant.7E2030">
+<section id="dq3.combatants.7E2030">
 <title>構造体 <varname>$7E2030</varname>: 戦闘員</title>
 <para>
 サイズが <literal>#$25</literal> バイトのオブジェクトがアドレス <varname>$7E2030</varname> から 24 個直列している。
@@ -151,7 +151,7 @@
       <para>
         この戦闘員が所属するグループ ID を値に取る属性だ。次の対応関係により定まる。
       </para>
-      <table id="table.dq3.combatant.groups" class="lighttable">
+      <table id="table.dq3.combatants.groups" class="lighttable">
         <caption>グループ</caption>
         <thead>
           <tr><th>ID</th><th>意味</th></tr>
@@ -513,7 +513,7 @@
         遊びコマンドによるものがほとんどだ。
         属性値と適用されているコマンドとの対応は次のとおりだ：
       </para>
-      <table id="table.dq3.combatant.pause" class="lighttable">
+      <table id="table.dq3.combatants.pause" class="lighttable">
         <caption></caption>
         <thead>
           <tr><th>値</th><th>状態</th></tr>
@@ -542,15 +542,15 @@
     </listitem>
   </varlistentry>
 </variablelist>
-</section> <!-- dq3.combatant.7E2030 -->
+</section> <!-- dq3.combatants.7E2030 -->
 
-<section id="dq3.combatant.methods">
+<section id="dq3.combatants.methods">
 <title>戦闘員構造体メソッド</title>
 <para>
 以下に <varname>$7E2030</varname> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
 例によって属性値に直接アクセスすることもある。
 </para>
-<table id="table.dq3.combatant.methods" class="lighttable">
+<table id="table.dq3.combatants.methods" class="lighttable">
   <caption>戦闘員構造体の属性にアクセスするサブルーチン</caption>
   <thead>
     <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
@@ -571,5 +571,5 @@
 <para>
 表の凡例は前作の <xref linkend="dq6.combatant.methods"/> を参照。
 </para>
-</section> <!-- dq3.combatant.methods -->
-</section> <!-- dq3.combatant -->
+</section> <!-- dq3.combatants.methods -->
+</section> <!-- dq3.combatants -->
