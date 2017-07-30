@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.windows"><?dbhtml filename="dq3_windows.html" ?>
+<title>ウィンドウ</title>
+<para>
+本節ではウィンドウについて述べる。
+</para>
+
+<section id="dq3.windows.structure">
+<title>構造に関する構成要素</title>
+<para>
+ウィンドウを表現するのに関わる構造的な構成要素について述べる。
+</para>
+
+<section id="dq3.windows.structure.C30000">
+<title>構造体 <varname>$C30000</varname>: ウィンドウ</title>
+<para>
+アドレス <varname>$C30000</varname> に次の表が示す型のオブジェクトが 190 個程度配列されている。
+これらのオブジェクトが画面上に描画されるウィンドウの仕様を表現している。
+</para>
+<table id="table.dq3.C30000" class="lighttable">
+  <caption>構造体 $C30000</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$001F</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$03E0</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$007C</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$0F80</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0030</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00C0</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000F</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0030</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0040</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0080</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0001</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$001E</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0020</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0040</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0080</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$0007</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00F8</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$FFFF</literal></td><td>（解読中）</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$00FF</literal></td><td>（解読中）</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq3.windows.structure.C30000 -->
+</section> <!-- dq3.windows.structure -->
+
+<section id="dq3.windows.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+ウィンドウの振る舞いについて述べる。
+</para>
+
+</section> <!-- dq3.windows.behavior -->
+</section> <!-- dq3.windows -->
