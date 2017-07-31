@@ -62,7 +62,7 @@ TBW
     <tr><td><literal>#$20</literal></td><td><literal>#$0030</literal></td><td>仲間分類</td></tr>
     <tr><td><literal>#$20</literal></td><td><literal>#$00C0</literal></td><td>（未使用）</td></tr>
     <tr><td><literal>#$21</literal></td><td><literal>#$00FF</literal></td><td>職業</td></tr>
-    <tr><td><literal>#$22</literal></td><td><literal>#$00FF</literal></td><td>戦闘時どうぐカーソル位置</td></tr>
+    <tr><td><literal>#$22</literal></td><td><literal>#$00FF</literal></td><td>移動時じゅもんカーソル位置</td></tr>
     <tr><td><literal>#$23</literal></td><td><literal>#$00FF</literal></td><td>戦闘時じゅもんカーソル位置</td></tr>
     <tr><td><literal>#$24</literal></td><td><literal>#$0001</literal></td><td>習得フラグ <literal>#$00</literal>: ホイミ</td></tr>
     <tr><td><literal>#$24</literal></td><td><literal>#$0002</literal></td><td>習得フラグ <literal>#$01</literal>: キアリー</td></tr>
@@ -376,14 +376,7 @@ TBW
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>戦闘時どうぐカーソル位置</term>
-    <listitem>
-      <para>
-        TBW
-      </para>
-    </listitem>
-  </varlistentry>
-  <varlistentry>
+    <term>移動時どうぐカーソル位置</term>
     <term>戦闘時じゅもんカーソル位置</term>
     <listitem>
       <para>
