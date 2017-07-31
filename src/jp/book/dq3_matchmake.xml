@@ -48,7 +48,7 @@
     <listitem>
       <para>
         この試合に出場するモンスターを表すモンスター ID を値に取る属性だ。
-        モンスターについては <xref linkend="dq3.monster"/> で述べる。
+        モンスターについては <xref linkend="dq3.monsters"/> で述べる。
       </para>
     </listitem>
   </varlistentry>
