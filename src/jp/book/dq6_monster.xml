@@ -148,7 +148,7 @@
       <para>
         耐性とは、このモンスターの戦闘コマンドに対する耐久度を示す指標を値とする属性だ。
         取り得る値は 0..3 であり、数値が高いほど耐久度が高い（ただし耐久度の意味はコマンドの耐性分類による）。
-        数値と耐性の対応関係については <xref linkend="table.dq6.battle.commands.classifications"/> のとおり。
+        数値と耐性の対応関係については <xref linkend="table.dq6.battle.commands.families"/> のとおり。
       </para>
     </listitem>
   </varlistentry>
