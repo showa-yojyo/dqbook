@@ -313,7 +313,7 @@ C9/1D27:    6B          RTL
         サブルーチン <varname>$C45319</varname> でキャラクターの性別による性格振り分け処理を行う。
       </para>
       <para>
-        TODO: 性格の節を参照する。
+        性格については <xref linkend="dq3.personalities"/> で述べる。
       </para>
     </listitem>
   </varlistentry>

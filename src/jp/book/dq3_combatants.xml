@@ -98,7 +98,7 @@
     <listitem>
       <para>
         この戦闘員が実行するコマンドの ID を値に取る属性だ。
-        ここでいうコマンド ID とは、コマンドオブジェクトの配列 <varname>$C21860</varname> の添字を意味する。
+        コマンドについては <xref linkend="dq3.commands.structure.C21860"/> で述べる。
       </para>
     </listitem>
   </varlistentry>
@@ -258,7 +258,9 @@
     <term>戦闘コマンド添字 k (k = 0..2)</term>
     <listitem>
       <para>
-        TODO: モンスター構造体とコマンド構造体と併せて説明。
+        先述の戦闘コマンド k 属性値がモンスター構造体のコマンド j (j = 0..7) から来ているのであれば、
+        この属性値は j となる。
+        詳細は <xref linkend="dq3.monsters.C20000"/> のコマンド属性を参照。
       </para>
     </listitem>
   </varlistentry>

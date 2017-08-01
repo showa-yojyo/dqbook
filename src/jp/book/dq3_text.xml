@@ -6,7 +6,7 @@
 ]>
 
 <section id="dq3.text"><?dbhtml filename="dq3_text.html" ?>
-<title>テキスト解析</title>
+<title>テキスト</title>
 <para>
 本節ではテキスト出力について見ていく。本質的には &dq6_1995; と同じ構造だ。
 </para>
