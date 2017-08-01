@@ -5,7 +5,7 @@
   %replacement;
 ]>
 
-<section id="tools.emulator"><?dbhtml filename="tools_emulator.html" ?>
+<section id="tools.emulators"><?dbhtml filename="tools_emulators.html" ?>
 <title>ゲーム機エミュレータ</title>
 <para>
 	本節では Windows アプリとして動作するゲーム機エミュレータのうち、
@@ -15,7 +15,7 @@
 	その場合は、失望感を抱いたまま次のページに行っていただく。
 </para>
 
-<section id="tools.emulator.gsd">
+<section id="tools.emulators.gsd">
 <title>Snes9X - Geiger's Snes9x Debugger</title>
 <indexterm id="term.gsd"><primary>GSD</primary></indexterm>
 <indexterm id="term.snes9x"><primary>Snes9X</primary></indexterm>
@@ -24,7 +24,7 @@
 
 <figure id="fig.dq.hack.tool.gsd">
 	<title>GSD Breakpoints ダイアログ</title>
-	<graphic width="186px" fileref="./image/dq.hack.tool.gsd.png"/>
+	<graphic width="186px" fileref="./image/tools.emulators.gsd.png"/>
 </figure>
 <para>
 	スーファミのエミュレータ。すなわち、スーファミのロムイメージファイルを読み込んで、
@@ -40,7 +40,7 @@
 <para>
 	元祖 <application>Snes9x</application> の機能に加え、次のような機能を提供する。
 	このほかにも、記者が説明できないような専門的な機能
-	<footnote id="ftn.tools.emulator.gsd">
+	<footnote id="ftn.tools.emulators.gsd">
 		<para>
 			<ulink url="http://www.geocities.jp/to_546/intro/intro.html">http://www.geocities.jp/to_546/intro/intro.html</ulink>
 			に各コマンドのリストが掲載されている。
@@ -105,16 +105,16 @@
 	情報源として極めて価値が高い。
 	そこが公開サイトになれば、本節は不要となる。
 </para>
-</section> <!-- tools.emulator.gsd -->
+</section> <!-- tools.emulators.gsd -->
 
-<section id="tools.emulator.epsxe">
+<section id="tools.emulators.epsxe">
 <title>ePSXe</title>
 <indexterm id="term.epsxe"><primary>ePSXe</primary></indexterm>
-<indexterm id="term.emulator.playstation"><primary>エミュレータ</primary><secondary>PS</secondary></indexterm>
+<indexterm id="term.emulators.playstation"><primary>エミュレータ</primary><secondary>PS</secondary></indexterm>
 
-<figure id="fig.tools.emulator.epsxe">
+<figure id="fig.tools.emulators.epsxe">
 	<title>ePSXe</title>
-	<graphic width="483px" fileref="./image/tools.emulator.epsxe.png"/>
+	<graphic width="483px" fileref="./image/tools.emulators.epsxe.png"/>
 </figure>
 <para>
 	プレステのエミュレータである。最近使っていないので迂闊に説明できない。
@@ -128,15 +128,15 @@
 	ヘルプドキュメントを一通り読んでから動作させることを強くお勧めする。
 	かなり力を入れて制作されたエミュレータであることが窺える。
 </para>
-</section> <!-- tools.emulator.epsxe -->
+</section> <!-- tools.emulators.epsxe -->
 
-<section id="tools.emulator.cep">
+<section id="tools.emulators.cep">
 <title>cep</title>
 <indexterm id="term.cep"><primary>Cep</primary></indexterm>
 
-<figure id="fig.tools.emulator.cep">
+<figure id="fig.tools.emulators.cep">
 	<title>Cep</title>
-	<graphic width="431px" fileref="./image/tools.emulator.cep.png"/>
+	<graphic width="431px" fileref="./image/tools.emulators.cep.png"/>
 </figure>
 <para>
 	Windows アプリ、特にプレステエミュレータ用のチートツールである。
@@ -149,18 +149,18 @@
 	記者は &dq7_2000; のデバッグモードを有効にする目的で本ツールを用いている
 	（<xref linkend="dq7.dbg"/>参照）。
 </para>
-</section> <!-- tools.emulator.cep -->
+</section> <!-- tools.emulators.cep -->
 
-<section id="tools.emulator.yame">
+<section id="tools.emulators.yame">
 <title>YAME</title>
 <indexterm id="term.yame"><primary>YAME</primary></indexterm>
-<indexterm id="term.emulator.gameboy"><primary>エミュレータ</primary><secondary>GB</secondary></indexterm>
-<indexterm id="term.emulator.famicom"><primary>エミュレータ</primary><secondary>FC</secondary></indexterm>
-<indexterm id="term.emulator.nes"><primary>エミュレータ</primary><secondary>NES</secondary></indexterm>
+<indexterm id="term.emulators.gameboy"><primary>エミュレータ</primary><secondary>GB</secondary></indexterm>
+<indexterm id="term.emulators.famicom"><primary>エミュレータ</primary><secondary>FC</secondary></indexterm>
+<indexterm id="term.emulators.nes"><primary>エミュレータ</primary><secondary>NES</secondary></indexterm>
 
-<figure id="fig.tools.emulator.yame">
+<figure id="fig.tools.emulators.yame">
 	<title>YAME030 設定ダイアログ</title>
-	<graphic width="399px" fileref="./image/tools.emulator.yame.png"/>
+	<graphic width="399px" fileref="./image/tools.emulators.yame.png"/>
 </figure>
 <para>
 	<application>YAME</application> はゲームボーイ・ファミコンおよび PC エンジンのエミュレータである。
@@ -174,6 +174,5 @@
 	従って、ここに入手先を記すことができない。
 	申し訳ない。
 </para>
-</section> <!-- tools.emulator.yame -->
-
-</section> <!-- tools.emulator -->
+</section> <!-- tools.emulators.yame -->
+</section> <!-- tools.emulators -->

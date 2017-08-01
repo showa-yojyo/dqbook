@@ -41,14 +41,14 @@
 
 <figure id="fig.dq.hack.tool.cdmanip">
 	<title>CD Manipulator</title>
-	<graphic width="445px" fileref="./image/dq.hack.tool.cdmanip.png"/>
+	<graphic width="445px" fileref="./image/tools.utility.cdmanip.png"/>
 </figure>
 <para>
 	CD-ROM のイメージ作成およびライティングソフトである。フリーソフト。
 	入手先は <ulink url="http://www.storeroom.info/cdm/">http://www.storeroom.info/cdm/</ulink> と思われる。
 </para>
 <para>
-	&dq7_2000; や &dq4_2001; を <link linkend="tools.emulator.epsxe">ePSXe</link> でプレイする際に、
+	&dq7_2000; や &dq4_2001; を <link linkend="tools.emulators.epsxe">ePSXe</link> でプレイする際に、
 	直接 CD-ROM からデータをロードするのは煩わしい。
 	あらかじめイメージファイルを作成しておき、それからプレイするのが具合がよいようだ。
 	ゲーム CD をドライブに挿し込んでおき、CD &gt; イメージ作成 メニューを選択。

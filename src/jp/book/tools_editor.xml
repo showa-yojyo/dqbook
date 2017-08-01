@@ -5,7 +5,7 @@
   %replacement;
 ]>
 
-<section id="tools.editor"><?dbhtml filename="tools_editor.html" ?>
+<section id="tools.editors"><?dbhtml filename="tools_editors.html" ?>
 <title>エディタ</title>
 <para>
 エディタとは通常はテキストに対するそれを指す。
@@ -68,13 +68,13 @@
   </varlistentry>
 </variablelist>
 
-<section id="tools.editor.xyzzy">
+<section id="tools.editors.xyzzy">
 <title>Xyzzy</title>
-<indexterm id="term.editor"><primary>テキストエディタ</primary><secondary>Xyzzy</secondary></indexterm>
+<indexterm id="term.editors"><primary>テキストエディタ</primary><secondary>Xyzzy</secondary></indexterm>
 
 <figure id="fig.dq.hack.tool.xyzzy">
   <title>Xyzzy</title>
-  <graphic width="578px" fileref="./image/dq.hack.tool.xyzzy.png"/>
+  <graphic width="578px" fileref="./image/tools.editors.xyzzy.png"/>
 </figure>
 
 <para>
@@ -83,9 +83,9 @@
 <ulink url="http://www.jsdlab.co.jp/~kamei/">やる気のない謎のぺぇじ</ulink>
 で入手可能であったが、現在は <ulink url="http://xyzzy-022.github.io/">xyzzy-022.github.io</ulink> で入手するのがよい。
 </para>
-</section> <!-- tools.editor.xyzzy -->
+</section> <!-- tools.editors.xyzzy -->
 
-<section id="tools.editor.stirling">
+<section id="tools.editors.stirling">
 <title>Stirling</title>
 <indexterm id="term.stirling"><primary>Stirling</primary></indexterm>
 <indexterm id="term.hexeditor"><primary>バイナリエディタ</primary><secondary>Stirling</secondary></indexterm>
@@ -117,5 +117,5 @@ Stirling はフリーのバイナリエディタである。README には
     逆アセンブラーを自作する過程で自ずと出来上がる機能を流用して、ダンプツールや BGREP を実装するのが当然の手段になる。
   </para>
 </note>
-</section> <!-- tools.editor.stirling -->
-</section> <!-- tools.editor -->
+</section> <!-- tools.editors.stirling -->
+</section> <!-- tools.editors -->

@@ -43,7 +43,7 @@
 
 <figure id="fig.dq.hack.tool.dispel">
 	<title>DisPel</title>
-	<graphic width="502px" fileref="./image/dq.hack.tool.dispel.png"/>
+	<graphic width="502px" fileref="./image/tools.disasm.dispel.png"/>
 </figure>
 <para>
 	<glossterm linkend="gloss.65816">65816</glossterm>/SMC 逆アセンブラ。
