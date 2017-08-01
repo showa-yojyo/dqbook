@@ -3,21 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>5.16. ゴールド銀行解析</title>
+    <title>5.18. ゴールド銀行</title>
     <link rel="stylesheet" type="text/css" href="dqbook.css" />
     <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
     <link rel="home" href="index.html" title="ドラクエ命" />
     <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
-    <link rel="prev" href="dq3_entry.html" title="5.15. 仲間登録所解析" />
-    <link rel="next" href="dq3_classchange.html" title="5.17. 転職解析" />
+    <link rel="prev" href="dq3_registration.html" title="5.17. 冒険者たちの登録所" />
+    <link rel="next" href="dq3_dharma.html" title="5.19. 転職" />
   </head>
   <body>
-    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_entry.html" title="5.15. 仲間登録所解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_classchange.html" title="5.17. 転職解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_entry.html">5.15. 仲間登録所解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_classchange.html">5.17. 転職解析</a><hr /></div>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_registration.html" title="5.17. 冒険者たちの登録所"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_dharma.html" title="5.19. 転職"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_registration.html">5.17. 冒険者たちの登録所</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_dharma.html">5.19. 転職</a><hr /></div>
     <div class="section">
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a id="dq3.bank"></a>5.16. ゴールド銀行解析</h2>
+            <h2 class="title" style="clear: both"><a id="dq3.bank"></a>5.18. ゴールド銀行</h2>
           </div>
         </div>
       </div>
@@ -25,169 +25,149 @@
         <dl class="toc">
           <dt>
             <span class="section">
-              <a href="dq3_bank.html#dq3.bank.hack">5.16.1. 解析</a>
+              <a href="dq3_bank.html#dq3.bank.structure">5.18.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq3_bank.html#dq3.bank.behavior">5.18.2. 振る舞いに関する構成要素</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_bank.html#dq3.bank.hack.C3E2F2">5.16.1.1. ゴールド銀行共通処理</a>
+                  <a href="dq3_bank.html#dq3.bank.behavior.C3E2F2">5.18.2.1. サブルーチン <code class="varname">$C3E2F2</code>: ゴールド銀行メイン</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq3_bank.html#dq3.bank.hack.C3E39E">5.16.1.2. 「あずける」処理</a>
+                  <a href="dq3_bank.html#dq3.bank.behavior.C3E39E">5.18.2.2. サブルーチン <code class="varname">$C3E39E</code>: あずける</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq3_bank.html#dq3.bank.hack.C3E410">5.16.1.3. 「ひきだす」処理</a>
+                  <a href="dq3_bank.html#dq3.bank.behavior.C3E410">5.18.2.3. サブルーチン <code class="varname">$C3E410</code>: ひきだす</a>
                 </span>
               </dt>
             </dl>
           </dd>
         </dl>
       </div>
-      <a id="term.dq3.bank" class="indexterm"></a>
       <p>
-	ゴールド銀行の窓口業務処理について解析した結果を述べる。
-	アリアハンのルイーダの酒場入口近くにあるカウンターが銀行の窓口だが、
-	以下で述べるのは、窓口のオッサンの（人オブジェクトとしての）処理ではなく、
-	あくまでも銀行としての振る舞いである。
-</p>
-      <p>
-	銀行解析の目的は、普通にプレイしている分にはまずお目にかからない例外的な状況における処理を探すことだ。
-	パーティーにカウンターストップ上限の <code class="literal">99,9999</code> ゴールドに近い額を持たせて、
-	その上で預金を引き出そうとしたときに銀行が何を言うのかを見た読者は多いだろう。
-	しかし、その逆、つまり銀行に預けられる金額の上限値を通常のプレイで確認した者は少ないと思う。
-	預金上限の金額はいくらで、その上限値を超える金額を預けようとすると何が起こるのか、
-	といったようなことを、逆アセンブリ解析を通じて知るのもいいだろう。
+本節ではゴールド銀行について述べる。
 </p>
       <div class="section">
         <div class="titlepage">
           <div>
             <div>
-              <h3 class="title"><a id="dq3.bank.hack"></a>5.16.1. 解析</h3>
+              <h3 class="title"><a id="dq3.bank.structure"></a>5.18.1. 構造に関する構成要素</h3>
             </div>
           </div>
         </div>
         <p>
-	<a class="link" href="dq3_bank.html#dq3.bank.hack.C3E2F2" title="5.16.1.1. ゴールド銀行共通処理">銀行処理の基点</a>はサブルーチン <code class="varname">$C3E2F2</code> である。
-	ここから台詞表示を含む窓口処理の実装がなされている。
-	そのサブルーチンのヘルパーサブルーチンとして、
-	<a class="link" href="dq3_bank.html#dq3.bank.hack.C3E39E" title="5.16.1.2. 「あずける」処理">「あずける」処理</a>を実装する <code class="code">JSR</code> 型サブルーチン <code class="varname">$C3E39E</code> と、
-	<a class="link" href="dq3_bank.html#dq3.bank.hack.C3E410" title="5.16.1.3. 「ひきだす」処理">「ひきだす」処理</a>を実装する <code class="code">JSR</code> 型サブルーチン <code class="varname">$C3E410</code> を利用する。
+ゴールド銀行については、大規模なデータが存在しない。
 </p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.bank.behavior"></a>5.18.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
         <p>
-	銀行処理周りの台詞表示はすべてサブルーチン <code class="varname">$C1A92E</code> 呼び出しで実現している。
-	このサブルーチンは、呼び出しコード直後に 2 バイトの定数を埋め込むことで、
-	その定数を<a class="link" href="dq3_text.html#dq3.text.travel" title="5.2.2. 移動モード">メッセージ ID</a> として解釈する。
-</p>
-        <p>
-	以下の記述では、銀行の預金単位が <code class="literal">1000</code> ゴールド単位であることをいちいち断らない。
-	例えば <code class="literal">9999</code> という金額は、ゲーム的には <code class="literal">99,990,000</code> ゴールドのことである。
+ゴールド銀行の振る舞いに関する構成要素、つまり窓口処理について述べる。
 </p>
         <div class="section">
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq3.bank.hack.C3E2F2"></a>5.16.1.1. ゴールド銀行共通処理</h4>
+                <h4 class="title"><a id="dq3.bank.behavior.C3E2F2"></a>5.18.2.1. サブルーチン <code class="varname">$C3E2F2</code>: ゴールド銀行メイン</h4>
               </div>
             </div>
           </div>
           <p>
-	サブルーチン <code class="varname">$C3E2F2</code> は、基本的に銀行の窓口に「はなす」とすぐに開始される処理である。
-	以下のように実装されている。
+サブルーチン <code class="varname">$C3E2F2</code> は、銀行の窓口に「はなす」とすぐに開始される処理である。
+以下に要点を挙げる。
 </p>
           <div class="itemizedlist">
             <ul class="itemizedlist" style="list-style-type: disc; ">
               <li class="listitem">
                 <p>
-			最初のあいさつ
-		</p>
+      挨拶で、係員がサービスの説明を初回しかしないように、フラグ<code class="varname">$7E353C</code> &amp; <code class="literal">#$02</code> を用いる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      初回でない場合には、預金残高を伝える。預金残高がゼロか否かで台詞を変える。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      サービスは「あずける」と「ひきだす」がある。どちらも後述するサブルーチンそれぞれが処理する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      取引を終えた後、係員が預金残高を伝えて終了する。残高がゼロか否かで台詞を変える。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+これらの台詞のテキストを見れば、メモリ内に管理されている預金が本当に千単位であることが推察できる。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.bank.behavior.C3E39E"></a>5.18.2.2. サブルーチン <code class="varname">$C3E39E</code>: あずける</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+「あずける」を選択したときの処理はサブルーチン <code class="varname">$C3E39E</code> に定義されている。
+以下に要点を挙げる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      サブルーチン <code class="varname">$C45BBA</code> で残高金額をチェックする。
+      このとき、メモリ内預金額が 10,000 以上の値になっていると、
+      係員はさらなる預金を断る。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      サブルーチン <code class="varname">$C45BEB</code> で預金をする。これは増加分だけを指定する。
+      この結果、初めて預金額更新が成功したかどうかがわかるので、それに応じて振る舞いが変わる。
+    </p>
                 <div class="itemizedlist">
                   <ul class="itemizedlist" style="list-style-type: circle; ">
                     <li class="listitem">
                       <p>
-					初めて話し掛けたときには、特別な台詞 (<code class="literal">#$0AFF</code>) を聞くことになる。
-					銀行に話しかけたことがあることを示すフラグビットは <code class="code">$7E353C &amp; #$02</code> である。
-					このフラグのテストは汎用サブルーチン <code class="varname">$C909AE</code> で行い、
-					セットは汎用サブルーチン <code class="varname">$C908F0</code> で行う。
-				</p>
+          入力金額が金庫の限界を超えることがわかったときには、
+          まず<code class="code">9,999 - メモリ内預金額</code> を計算する。
+          それから係員が入金可能金額の上限としてこの結果を伝えて、処理を金額入力まで戻す。
+        </p>
                     </li>
                     <li class="listitem">
                       <p>
-					二度目以降は、銀行のあいさつはメッセージ ID <code class="literal">#$0B00</code> のものとする。
-				</p>
+          入力金額がパーティーの所持金を越えるときには、
+          係員が「失礼ですが～」と断り、処理を金額入力まで戻す。
+        </p>
                     </li>
                   </ul>
                 </div>
               </li>
               <li class="listitem">
                 <p>
-			預金残高をパーティに告げて、用を尋ねる。
-		</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					銀行への預金残高を、汎用サブルーチン <code class="varname">$C45BBA</code> 呼び出しで行う。引数は <code class="literal">#$FF</code> である。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					預金残高がゼロか否かで、用件を尋ねる台詞のメッセージ ID が異なる。
-					預金がある場合は <code class="literal">#$0B01</code> で、ゼロの場合は <code class="literal">#$0B02</code> を用いる。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>
-			「あずける」「ひきだす」メニューウィンドウを表示し、入力を待つ。
-		</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					キャンセルボタンを押したとき、最後のあいさつ処理へ移る。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					「あずける」選択時は、サブルーチン <a class="link" href="dq3_bank.html#dq3.bank.hack.C3E39E" title="5.16.1.2. 「あずける」処理"><code class="varname">$C3E39E</code></a> を呼び出す。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					「ひきだす」選択時は、サブルーチン <a class="link" href="dq3_bank.html#dq3.bank.hack.C3E410" title="5.16.1.3. 「ひきだす」処理"><code class="varname">$C3E410</code></a> を呼び出す。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>
-			用事（キャンセルを含む）が済んだ後は、
-			パーティの口座残高を告げ、あいさつをして窓口処理を終了する。
-		</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					銀行への預金残高を、汎用サブルーチン <code class="varname">$C45BBA</code> 呼び出しで行う。引数は <code class="literal">#$FF</code> である。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					預金残高がゼロか否かで、用件を尋ねる台詞のメッセージ ID が異なる。
-					預金がある場合は <code class="literal">#$0B0E</code> で、ゼロの場合は <code class="literal">#$0B0B</code> を用いる。
-				</p>
-                    </li>
-                  </ul>
-                </div>
+      預金が成功すれば、この手続きを終了する。
+    </p>
               </li>
             </ul>
           </div>
@@ -196,147 +176,43 @@
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq3.bank.hack.C3E39E"></a>5.16.1.2. 「あずける」処理</h4>
+                <h4 class="title"><a id="dq3.bank.behavior.C3E410"></a>5.18.2.3. サブルーチン <code class="varname">$C3E410</code>: ひきだす</h4>
               </div>
             </div>
           </div>
           <p>
-	「あずける」を選択したときの処理はサブルーチン <code class="varname">$C3E39E</code> に定義されている。
-	それは以下のようになっている。
+「ひきだす」を選択したときの処理はサブルーチン <code class="varname">$C3E410</code> に定義されている。
+以下に要点を挙げる。
 </p>
           <div class="itemizedlist">
             <ul class="itemizedlist" style="list-style-type: disc; ">
               <li class="listitem">
                 <p>
-			汎用サブルーチン <code class="varname">$C45BBA</code> で残高金額をチェックし、
-			<code class="literal">10000</code> 以上の値がセットされているときには、
-			メッセージ ID <code class="literal">#$0B03</code> の台詞を表示して当処理を終了し、共通処理に戻る。
-		</p>
+      汎用サブルーチン <code class="varname">$C45BBA</code> で残高金額を得る。
+      値がゼロの場合は係員が台詞を言って手続きを打ち切る。
+    </p>
               </li>
               <li class="listitem">
                 <p>
-			そうでないときは、いくらお預かりしましょうかの台詞を表示した後に、
-			金額入力ウィンドウを表示し、数値入力モードに入る。
-		</p>
+      入力金額がゼロでない場合、
+      入力金額、パーティーの所持金、預金残高をサブルーチン <code class="varname">$C45C5A</code> で比較する。
+      所持金総額がその上限を超えないような場合、
+      係員が引き出し額を確認して取引成立となる。
+    </p>
                 <div class="itemizedlist">
                   <ul class="itemizedlist" style="list-style-type: circle; ">
                     <li class="listitem">
                       <p>
-					入力をキャンセル、もしくは入力金額がゼロの場合、台詞
-					「おやめになるのですね」を表示して、当処理を終了する。
-				</p>
+          入力金額が預金残高以下ではあるが、
+          引き出したい金額をパーティの所持金に加算すると所持可能金額上限を超えるときには、
+          係員が多過ぎると言って、引き出し手続きを最初まで戻す。
+        </p>
                     </li>
                     <li class="listitem">
                       <p>
-					それ以外の場合、まずは入力金額、パーティの所持金、預金残高を汎用ルーチン <code class="varname">$C45BEB</code> で比較する。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							入力金額がパーティの所持金以下かつ銀行の金庫に余裕がある場合、
-							「責任をもってお預かりします」台詞を表示し、
-							「あずける」処理を終了する。
-						</p>
-                          </li>
-                          <li class="listitem">
-                            <p>
-							入力金額が、銀行の金庫の限界を超えるような値である場合、
-							<code class="literal">(9999 + carry - 預金残高)</code> を計算した後に、
-							「申しわけありませんが～」の台詞で、入金可能金額の上限を告げる。
-							そのあと、制御を「いくらお預かり～」まで戻す。
-						</p>
-                          </li>
-                          <li class="listitem">
-                            <p>
-							それ以外の場合、すなわち入力金額がパーティの所持金を越える場合は、
-							「失礼ですが～」台詞を表示し、制御を「いくらお預かり～」まで戻す。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="section">
-          <div class="titlepage">
-            <div>
-              <div>
-                <h4 class="title"><a id="dq3.bank.hack.C3E410"></a>5.16.1.3. 「ひきだす」処理</h4>
-              </div>
-            </div>
-          </div>
-          <p>
-	「ひきだす」を選択したときの処理はサブルーチン <code class="varname">$C3E410</code> に定義されている。
-	それは以下のようになっている。
-</p>
-          <div class="itemizedlist">
-            <ul class="itemizedlist" style="list-style-type: disc; ">
-              <li class="listitem">
-                <p>
-			汎用サブルーチン <code class="varname">$C45BBA</code> で残高金額をチェックし、
-			<code class="literal">0</code> がセットされている場合は、
-			「お客さまのお金は 1 ゴールドもお預かりしていません」の台詞
-			(ID = <code class="literal">#$0B08</code>) を表示して当処理を終了、共通処理に戻る。
-		</p>
-              </li>
-              <li class="listitem">
-                <p>
-			残高が <code class="literal">0</code> でない場合は、<code class="varname">$7EBE81</code> に残高金額をセットする。そして
-			「現在～ゴールドをお預かりしていますが、いくらお引き出ししますか」の台詞
-			(ID = <code class="literal">#$0B09</code>) を表示する。
-		</p>
-              </li>
-              <li class="listitem">
-                <p>
-			金額入力ウィンドウを表示し、入力待ちとなる。
-		</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					入力モードがキャンセル終了もしくは、入力金額がゼロである場合、
-					「おやめになるのですね」の台詞 (ID = <code class="literal">#$0B0D</code>) を表示して、
-					当処理を終了、共通処理に制御を戻す。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					入力金額がゼロでない場合、
-					入力金額、パーティの所持金、預金残高を汎用ルーチン <code class="varname">$C45C5A</code> で比較する。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							入力金額が預金残高以下かつ、パーティの現在の所持金に加えても、
-							所持金総額がその上限を超えない場合、引き出し処理は成功となる。
-							「はいどうぞ」の台詞 (ID = <code class="literal">#$0B0C</code>) を表示して、当処理を抜ける。
-						</p>
-                          </li>
-                          <li class="listitem">
-                            <p>
-							入力金額が預金残高以下ではあるが、
-							引き出したい金額をパーティの所持金に加算すると所持可能金額上限を超える場合、
-							引き出し処理は失敗となる。
-							「そんなにたくさん～」の台詞 (ID = <code class="literal">#$0B0B</code>) を表示して、
-							当処理の最初に制御を戻す。
-						</p>
-                          </li>
-                          <li class="listitem">
-                            <p>
-							それ以外の場合、
-							すなわち入力金額が預金残高を越える値である場合は、引き出し処理は失敗となる。
-							「そんなにお預かりしておりませんが」の台詞 (ID = <code class="literal">#$0B0A</code>) を表示し、
-							当処理の最初に制御を戻す。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
+          すなわち入力金額が預金残高を越える値であるときには、
+          係員が預かっていないと言って、引き出し手続きを最初まで戻す。
+        </p>
                     </li>
                   </ul>
                 </div>
@@ -346,6 +222,6 @@
         </div>
       </div>
     </div>
-    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_entry.html" title="5.15. 仲間登録所解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_classchange.html" title="5.17. 転職解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_entry.html">5.15. 仲間登録所解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_classchange.html">5.17. 転職解析</a></div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_registration.html" title="5.17. 冒険者たちの登録所"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_dharma.html" title="5.19. 転職"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_registration.html">5.17. 冒険者たちの登録所</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_dharma.html">5.19. 転職</a></div>
   </body>
 </html>

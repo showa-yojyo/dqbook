@@ -919,18 +919,19 @@ C3/BE6D:    C416
               <li class="listitem">おおごえフラグ <code class="code">$7E3D2B &amp; #$0040</code> をセットする。</li>
               <li class="listitem">
                 <p class="simpara">最近訪問した店と同じ品揃えの旅の店屋、
-      ある旅の宿屋、または旅の神父がそれぞれ確率 1/3 で現れる。</p>
+      ある旅の宿屋、または旅の神父がそれぞれ確率 1/3 で現れる。
+      </p>
                 <div class="itemizedlist">
                   <ul class="itemizedlist" style="list-style-type: circle; ">
                     <li class="listitem">店屋の場合には <code class="varname">$7E3B77</code> に格納済みの店屋 ID を参照する。
           店の種別に合わせて出力メッセージ用に誰が現れるのかを決め、
-          <a class="xref" href="dq6_shop.html#dq6.shop.behavior" title="4.6.2. 処理手順">4.6.2 処理手順</a> で述べる処理を実行する。</li>
+          <a class="xref" href="dq6_shops.html#dq6.shops.behavior" title="4.6.2. 処理手順">4.6.2 処理手順</a> で述べる処理を実行する。</li>
                     <li class="listitem">宿屋の場合には ID <code class="literal">#$0024</code> の宿屋が現れる。
-          それから <a class="xref" href="dq6_inn.html#dq6.inn.behavior" title="4.7.2. 処理手順">4.7.2 処理手順</a> で述べるサブルーチンを実行する。
+          それから <a class="xref" href="dq6_inns.html#dq6.inns.behavior" title="4.7.2. 処理手順">4.7.2 処理手順</a> で述べるサブルーチンを実行する。
           宿賃は一人 100 ゴールドだ。</li>
                     <li class="listitem">教会の場合には ID <code class="literal">#$0006</code> の教会が現れる。
           つまり「おいのりをする」がない教会だ。
-          それから <a class="xref" href="dq6_church.html#dq6.church.behavior.C3D3E3" title="4.8.2.1. サブルーチン $C3D3E3: 標準的な教会">4.8.2.1 サブルーチン <code class="varname">$C3D3E3</code>: 標準的な教会</a> で述べるサブルーチンを実行する。
+          それから <a class="xref" href="dq6_chapels.html#dq6.chapels.behavior.C3D3E3" title="4.8.2.1. サブルーチン $C3D3E3: 標準的な教会">4.8.2.1 サブルーチン <code class="varname">$C3D3E3</code>: 標準的な教会</a> で述べるサブルーチンを実行する。
           </li>
                   </ul>
                 </div>
@@ -1050,8 +1051,8 @@ C3/BE6D:    C416
       モンスターの ID がゼロならば、アイテム抽選を行わないものとする。
     </p>
                 <p class="simpara">
-      このモンスターの宝箱を落とす確率を<a class="link" href="dq6_monster.html#dq6.monster.C20154" title="4.14.1. 構造体 $C20154: モンスター">モンスターデータ</a>の対応属性に基いて決定する。
-      確率表は <a class="xref" href="dq6_monster.html#table.dq6.C2B1C3" title="表 4.55 アイテム確率">表 4.55 アイテム確率</a> のものを参照する。
+      このモンスターの宝箱を落とす確率をモンスターデータの対応属性（<a class="xref" href="dq6_monsters.html#dq6.monsters.C20154" title="4.14.1. 構造体 $C20154: モンスター">4.14.1</a> 参照）に基いて決定する。
+      確率表は <a class="xref" href="dq6_monsters.html#table.dq6.C2B1C3" title="表 4.55 アイテム確率">表 4.55 アイテム確率</a> のものを参照する。
       それから当選確率がこの値であるような抽選をする。
     </p>
                 <p class="simpara">

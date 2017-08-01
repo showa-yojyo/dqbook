@@ -1,0 +1,1669 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.14. モンスター</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_items.html" title="4.13. アイテム" />
+    <link rel="next" href="dq6_characters.html" title="4.15. 仲間キャラクター構造体" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_items.html" title="4.13. アイテム"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_characters.html" title="4.15. 仲間キャラクター構造体"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_items.html">4.13. アイテム</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_characters.html">4.15. 仲間キャラクター構造体</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.monsters"></a>4.14. モンスター</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_monsters.html#dq6.monsters.C20154">4.14.1. 構造体 <code class="varname">$C20154</code>: モンスター</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq6_monsters.html#dq6.monsters.methods">4.14.2. モンスター構造体メソッド</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq6.monsters" class="indexterm"></a>
+      <p>
+この節ではモンスターデータについて述べる。
+ここで言うモンスターデータとは、モンスターそれぞれの静的な性質を定義したオブジェクトのことを意味するものであり、
+物理的にはアドレス <code class="varname">$C20154</code> に存在する配列を構成する要素の型のことだ。
+戦闘員としてのモンスターデータについては <a class="xref" href="dq6_combatants.html" title="4.19. 戦闘キャラクター構造体">4.19 戦闘キャラクター構造体</a> で述べる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.monsters.C20154"></a>4.14.1. 構造体 <code class="varname">$C20154</code>: モンスター</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+モンスター構造体とは、サイズが <code class="literal">#$2A</code> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
+この型のオブジェクトがアドレス <code class="varname">$C20154</code> から 256 個直列している。
+</p>
+        <p>
+これらのモンスターオブジェクトは戦闘員オブジェクトの初期化や属性値の再設定の目的で参照されることになる。
+あるいは、戦闘員としてのモンスターの状態に依存しないような属性、例えば使えるコマンドの集合、耐性、経験値といった量が格納されている。
+</p>
+        <div class="table">
+          <a id="table.dq6.C20154"></a>
+          <p class="title">
+            <strong>表 4.54 構造体 $C20154</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq6.C20154" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FF</code>
+                  </td>
+                  <td>コマンド 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>コマンドグループ制約フラグ 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$00</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00F0</code>
+                  </td>
+                  <td>コマンドアニメーション 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FF</code>
+                  </td>
+                  <td>コマンド 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>コマンドグループ制約フラグ 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$01</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00F0</code>
+                  </td>
+                  <td>コマンドアニメーション 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FF</code>
+                  </td>
+                  <td>コマンド 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>コマンドグループ制約フラグ 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$02</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00F0</code>
+                  </td>
+                  <td>コマンドアニメーション 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FF</code>
+                  </td>
+                  <td>コマンド 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>コマンドグループ制約フラグ 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$03</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00F0</code>
+                  </td>
+                  <td>コマンドアニメーション 3</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FF</code>
+                  </td>
+                  <td>コマンド 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>コマンドグループ制約フラグ 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$04</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00F0</code>
+                  </td>
+                  <td>コマンドアニメーション 4</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FF</code>
+                  </td>
+                  <td>コマンド 5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>コマンドグループ制約フラグ 5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$05</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00F0</code>
+                  </td>
+                  <td>コマンドアニメーション 5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FF</code>
+                  </td>
+                  <td>すばやさ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FE</code>
+                  </td>
+                  <td>レベル</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$03FF</code>
+                  </td>
+                  <td>攻撃力</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$001C</code>
+                  </td>
+                  <td>アイテム確率</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00E0</code>
+                  </td>
+                  <td>コマンド決定戦略</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$03FF</code>
+                  </td>
+                  <td>守備力</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$001C</code>
+                  </td>
+                  <td>みかわし</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00E0</code>
+                  </td>
+                  <td>仲間確率</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$06</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$07</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$12</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFF0</code>
+                  </td>
+                  <td>ゴールド</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$14</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FF</code>
+                  </td>
+                  <td>仲間 AI 推奨コマンド 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$15</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0006</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$08</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$15</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0018</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$09</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$15</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0060</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$0A</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$15</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0080</code>
+                  </td>
+                  <td>メタル系</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$16</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FF</code>
+                  </td>
+                  <td>仲間 AI 推奨コマンド 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$17</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0006</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$0B</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$17</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0018</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$0C</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$17</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0060</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$0D</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$17</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0080</code>
+                  </td>
+                  <td>ドラゴン系</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$18</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$0E</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$18</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$0F</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$18</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0030</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$10</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$18</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00C0</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$11</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$19</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$12</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$19</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$13</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$19</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0030</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$14</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$19</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00C0</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$15</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$16</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$17</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0030</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$18</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00C0</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$19</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$1A</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$1B</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0030</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$1C</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00C0</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$1D</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>耐性 <code class="literal">#$1E</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>初期確率</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0010</code>
+                  </td>
+                  <td>ゾンビ系</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0020</code>
+                  </td>
+                  <td>そら系</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0040</code>
+                  </td>
+                  <td>（スライム系）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0080</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>コマンド選択判断</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>複数回</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0030</code>
+                  </td>
+                  <td>自動回復</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00C0</code>
+                  </td>
+                  <td>集中攻撃</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>スプライト</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>MP</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>アイテム</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$21</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$03FF</code>
+                  </td>
+                  <td>パレット</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$22</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0004</code>
+                  </td>
+                  <td>初期状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$22</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0078</code>
+                  </td>
+                  <td>コマンドアニメーション 6</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$22</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FF80</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$24</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>HP</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$26</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>経験値</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$28</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>名前文字列 ID</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+（未使用）等の括弧付きの属性は、オブジェクトによって値が異なっているかもしれないが、プログラムからの参照がないものだ。
+付録の CSV ファイルではこれらの属性は優先して省略する。
+以下に各属性の概要を記す。
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">コマンド k (k = 0..5)</span>
+            </dt>
+            <dd>
+              <p>
+        コマンドとは、このモンスターが戦闘中にとり得る<a class="link" href="dq6_battle_commands.html" title="4.20. 戦闘コマンド">戦闘コマンド</a> の ID を値とする属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">コマンドグループ制約フラグ k (k = 0..5)</span>
+            </dt>
+            <dd>
+              <p>
+        コマンドグループ制約フラグとはブーリアン型の属性で、次のような性質がある。
+        同一ターン内において、このモンスターが所属するグループ内の他のモンスターが既にコマンド k を実行して（それが成功した？）場合には、
+        このモンスターはコマンド k を実行することを禁止することを示す。
+      </p>
+              <p>
+        例を挙げると、デススタッフのコマンド 1 は「こごえるふぶき」だ。
+        デススタッフの群れが無遠慮に吹雪を吐いてくるのは、このコマンドに対応するグループ制約フラグの値が 0 であることから来ている。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">耐性 k (k = <code class="literal">#$00</code>..<code class="literal">#$1E</code>)</span>
+            </dt>
+            <dd>
+              <p>
+        耐性とは、このモンスターの戦闘コマンドに対する耐久度を示す指標を値とする属性だ。
+        取り得る値は 0..3 であり、数値が高いほど耐久度が高い（ただし耐久度の意味はコマンドの耐性分類による）。
+        数値と耐性の対応関係については <a class="xref" href="dq6_battle_commands.html#table.dq6.battle.commands.families" title="表 4.85 系統分類">表 4.85 系統分類</a> のとおり。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">コマンドアニメーション k (k = 0..6)</span>
+            </dt>
+            <dd>
+              <p>
+        コマンドアニメーション k とは、このモンスターがコマンド k を実行するときのアニメーションパターンを指示する値を取る属性だ。
+        グループ制約や選択能力の都合上、k の値は 6 のものまで存在する。
+        アニメーションについては別の節で述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">すばやさ</span>
+            </dt>
+            <dd>
+              <p>
+        すばやさとは、このモンスターのすばやさを値に取る属性だ。
+        この戦闘員オブジェクトの対応属性に割り当てられる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">レベル</span>
+            </dt>
+            <dd>
+              <p>
+        レベルとは、このモンスターのレベルを値に取る属性だ。
+        このモンスターが戦闘終了後に立ち上がる必要条件の他に、ある種のコマンドの効果を決定するためにも参照される。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">攻撃力</span>
+            </dt>
+            <dd>
+              <p>
+        攻撃力とは、このモンスターの攻撃力を値に取る属性だ。
+        この属性値は戦闘員オブジェクトの対応属性に割り当てられる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">アイテム確率</span>
+            </dt>
+            <dd>
+              <p>
+        アイテム確率とは、戦闘終了後にこのモンスターが（他に条件が加わらないときの）宝箱を落とす確率を決定する値の配列の添字を値とする属性だ。
+        その配列とは <code class="varname">$C2B1C3</code> であり、その要素らが意味するところは次の表のようになる：
+      </p>
+              <div class="table">
+                <a id="table.dq6.C2B1C3"></a>
+                <p class="title">
+                  <strong>表 4.55 アイテム確率</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq6.C2B1C3" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>確率</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>0</th>
+                        <td align="right">1/1</td>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <td align="right">1/8</td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <td align="right">1/16</td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <td align="right">1/32</td>
+                      </tr>
+                      <tr>
+                        <th>4</th>
+                        <td align="right">1/64</td>
+                      </tr>
+                      <tr>
+                        <th>5</th>
+                        <td align="right">1/128</td>
+                      </tr>
+                      <tr>
+                        <th>6</th>
+                        <td align="right">1/256</td>
+                      </tr>
+                      <tr>
+                        <th>7</th>
+                        <td align="right">1/4096</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+            </dd>
+            <dt>
+              <span class="term">コマンド決定戦略</span>
+            </dt>
+            <dd>
+              <p>
+        コマンド決定戦略とは、このモンスターが自身の実行するコマンドの選択傾向を表す属性だ。
+        取り得る値は 0..7 であり、0..3 と 4..7 とで意味合いが異なる。
+      </p>
+              <p>
+        値が 0..3 であれば、配列 <code class="varname">$C24549</code> で決められた確率表に従う抽選でコマンドを決める。ここで分母は 256 とみなす。
+        ただし、同一グループ制約があり先約済みであれば、その項目を選択失敗とする。
+      </p>
+              <div class="table">
+                <a id="table.dq6.C24549"></a>
+                <p class="title">
+                  <strong>表 4.56 コマンド選択確率</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq6.C24549" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>コマンド 0</th>
+                        <th>コマンド 1</th>
+                        <th>コマンド 2</th>
+                        <th>コマンド 3</th>
+                        <th>コマンド 4</th>
+                        <th>コマンド 5</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><th>0</th><td align="right">43</td> <td align="right">42</td><td align="right">43</td><td align="right">43</td><td align="right">42</td><td align="right">43</td></tr>
+                      <tr><th>1</th><td align="right">68</td> <td align="right">58</td><td align="right">48</td><td align="right">38</td><td align="right">27</td><td align="right">17</td></tr>
+                      <tr><th>2</th><td align="right">200</td><td align="right">40</td><td align="right">8</td> <td align="right">4</td> <td align="right">3</td> <td align="right">1</td></tr>
+                      <tr><th>3</th><td align="right">70</td> <td align="right">70</td><td align="right">70</td><td align="right">16</td><td align="right">15</td><td align="right">15</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+              <p>
+        値が 4..7 であれば、モンスターの所属グループ上のローテーションでコマンドを決める。
+        このときは配列 <code class="varname">$C24549</code> の値をマスクとして用いる
+        （ビットに対応する項目しか抽選しないようにする）。
+      </p>
+              <div class="table">
+                <a id="table.dq6.C24561"></a>
+                <p class="title">
+                  <strong>表 4.57 コマンド選択確率</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq6.C24561" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>コマンド 0</th>
+                        <th>コマンド 1</th>
+                        <th>コマンド 2</th>
+                        <th>コマンド 3</th>
+                        <th>コマンド 4</th>
+                        <th>コマンド 5</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>4</th>
+                        <td align="center">
+                          <code class="literal">#$01</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$02</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$04</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$08</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$10</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$20</code>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>5</th>
+                        <td align="center">
+                          <code class="literal">#$03</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$0C</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$30</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$03</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$0C</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$30</code>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>6</th>
+                        <td align="center">
+                          <code class="literal">#$01</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$3E</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$01</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$3E</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$01</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$3E</code>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>7</th>
+                        <td align="center">
+                          <code class="literal">#$01</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$02</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$04</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$08</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$10</code>
+                        </td>
+                        <td align="center">
+                          <code class="literal">#$20</code>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+            </dd>
+            <dt>
+              <span class="term">守備力</span>
+            </dt>
+            <dd>
+              <p>
+        守備力とは、このモンスターの攻撃力を値に取る属性だ。
+        この属性値は戦闘員オブジェクトの対応属性に割り当てられる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">みかわし</span>
+            </dt>
+            <dd>
+              <p>
+        みかわしとは、このモンスターが戦闘相手から直接攻撃系統のコマンド、
+        厳密に言えばみかわし属性値が 1 のコマンドを実行されたときに、
+        それを身のこなしで避ける度合いを表現する値を取る属性だ。
+      </p>
+              <p>
+        この属性値は、みかわしの発生する確率を決定する配列 <code class="varname">$C27001</code> の添字に他ならない。
+        この値と 0 以上 <code class="literal">#$C0</code> 以下の範囲にある乱数との大小比較でみかわし発生を決める。
+      </p>
+              <div class="table">
+                <a id="table.dq6.C27001"></a>
+                <p class="title">
+                  <strong>表 4.58 みかわし確率</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq6.C27001" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>値</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>0</th>
+                        <td>
+                          <code class="literal">#$00</code>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <td>
+                          <code class="literal">#$03</code>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <td>
+                          <code class="literal">#$0C</code>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <td>
+                          <code class="literal">#$30</code>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+            </dd>
+            <dt>
+              <span class="term">仲間確率</span>
+            </dt>
+            <dd>
+              <p>
+        仲間確率とは、戦闘終了後にこのモンスターが（他に条件が加わらないときの）立ち上がる確率を制御する値の配列の添字を値とする属性だ。
+        その配列とは <code class="varname">$C2B502</code> であり、その要素らが意味するところは次の表のようになる。
+      </p>
+              <div class="table">
+                <a id="table.dq6.C2B502"></a>
+                <p class="title">
+                  <strong>表 4.59 仲間確率</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq6.C2B502" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>1 頭目確率</th>
+                        <th>2 頭目確率</th>
+                        <th>3 頭目確率</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>0</th>
+                        <td align="right">0</td>
+                        <td align="right">0</td>
+                        <td align="right">0</td>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <td align="right">1/256</td>
+                        <td align="right">0</td>
+                        <td align="right">0</td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <td align="right">1/256</td>
+                        <td align="right">1/1024</td>
+                        <td align="right">1/1024</td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <td align="right">1/64</td>
+                        <td align="right">1/1024</td>
+                        <td align="right">1/1024</td>
+                      </tr>
+                      <tr>
+                        <th>4</th>
+                        <td align="right">1/32</td>
+                        <td align="right">1/256</td>
+                        <td align="right">1/256</td>
+                      </tr>
+                      <tr>
+                        <th>5</th>
+                        <td align="right">1/16</td>
+                        <td align="right">1/256</td>
+                        <td align="right">1/256</td>
+                      </tr>
+                      <tr>
+                        <th>6</th>
+                        <td align="right">1/4</td>
+                        <td align="right">1/128</td>
+                        <td align="right">1/256</td>
+                      </tr>
+                      <tr>
+                        <th>7</th>
+                        <td align="right">1/2</td>
+                        <td align="right">1/16</td>
+                        <td align="right">1/128</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+              <p>
+         前作同様、既に同種のモンスターを仲間にしているときには確率が低くなる。
+       </p>
+            </dd>
+            <dt>
+              <span class="term">ゴールド</span>
+            </dt>
+            <dd>
+              <p>
+        ゴールドとは、このモンスターを倒すことで得られるゴールドの金額を値として取る属性だ。
+        とどめを刺すときのコマンドの戦果逸失フラグ属性が 0 であるときに、獲得総額に加算される。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">仲間 AI 推奨コマンド k (k = 0..1)</span>
+            </dt>
+            <dd>
+              <p>
+        仲間 AI 推奨コマンドとは、このモンスターに対する最適コマンドを検討する処理において、
+        その評価値を倍増するようなものの ID を保持する属性だ。
+      </p>
+              <p>
+        モンスターデータを見ると、この属性は不規則的な存在であるようだ。
+        AI のコマンド決定処理が込み入っているので、
+        こういうものがなければメタル系モンスターに「メタルぎり」を選択しないものと思われる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">メタル系</span>
+            </dt>
+            <dd>
+              <p>
+        メタル系とは、このモンスターがメタルのような性質があることを示すブーリアン型属性だ。
+        具体的に言えば、「メタルぎり」のコマンドによるダメージの値が標準値に比べて 2.5 倍になったり、
+        「せいすい」によるダメージが発生しなくなったりする。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">ドラゴン系</span>
+            </dt>
+            <dd>
+              <p>
+        ドラゴン系とは、このモンスターがドラゴンのような性質があることを示すブーリアン型属性だ。
+        「ドラゴンぎり」コマンドや「ドラゴンキラー」装備時の攻撃によるダメージを標準値の 1.5 倍とする。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">初期確率</span>
+            </dt>
+            <dd>
+              <p>
+        初期確率とは、このモンスターの戦闘員オブジェクトに対して後述の初期状態をセットする確率を指定するための属性だ。
+        直接的にはこの属性値は配列 <code class="varname">$C236A1</code> の添字にほかならない。
+        属性値と確率の対応を次の表に示す：
+      </p>
+              <div class="table">
+                <a id="table.dq6.C236A1"></a>
+                <p class="title">
+                  <strong>表 4.60 初期確率</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq6.C236A1" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>確率</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>0</th>
+                        <td align="right">0</td>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <td align="right">1/2</td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <td align="right">3/4</td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <td align="right">1</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+              <p>
+        例を挙げると「しれんその３」が最初からマホカンタ状態なのは、この属性値の作用による。
+        後述の初期状態属性も参照して欲しい。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">ゾンビ系</span>
+            </dt>
+            <dd>
+              <p>
+        ゾンビ系とは、このモンスターがゾンビのような性質があることを示すブーリアン型属性だ。
+        「ゾンビぎり」コマンドや「ゾンビキラー」装備時の攻撃によるダメージを標準値の 1.5 倍とし、
+        「グランドクロス」コマンドのダメージを標準値の約 1.3 倍（コード上は 333/256 を表現）とする。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">そら系</span>
+            </dt>
+            <dd>
+              <p>
+        そら系とは、このモンスターが空中にいるような性質を表すブーリアン型属性だ。
+        「とびひざげり」コマンドでの攻撃によるダメージを標準値の 1.5 倍とする。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">（スライム系）</span>
+            </dt>
+            <dd>
+              <p>
+        スライム系とは、このモンスターがスライム系であることを示すブーリアン型属性だ。
+        といっても、値が設定されてはいるのだが、戦闘処理でこの属性値を参照するものが存在しない。
+        ちなみに、スライム格闘場の試合参加条件や控室入場条件は別の構造体の属性値による。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">コマンド選択判断</span>
+            </dt>
+            <dd>
+              <p>
+        コマンド選択判断とは、このモンスター戦闘員が自分のレパートリーにあるコマンドを実行するかどうかを決定する方式を表現する属性だ。
+        この属性値は戦闘コマンドオブジェクトの対象決定判断属性 0..2 に対応している。
+        例えばモンスター「ギズモ」はこの属性値が 0 なので、「メラ」のコマンドを採用するかどうかを決めるのに、
+        自分の MP の具合も相手のマホカンタ状態も考慮しない。
+      </p>
+              <p>
+        <a class="xref" href="dq6_battle_commands.html#dq6.battle.commands.C8C65D" title="4.20.1. 構造体 $C8C65D: 戦闘コマンド">4.20.1 構造体 <code class="varname">$C8C65D</code>: 戦闘コマンド</a> の対象決定判断属性の説明も参照して欲しい。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">複数回</span>
+            </dt>
+            <dd>
+              <p>
+        複数回とは、このモンスター戦闘員が自分のコマンド実行手番のときに、何回連続でコマンドを実行するかを表す属性だ。
+        値が 0 ならば単にコマンドを実行する。
+        値が 1 ならば、5 割の確率で連続してコマンドを実行する。一般的には相異なるコマンドを実行する。
+        値が 2 ならば、確実に連続実行する。
+        それ以外の値のときも、値が 2 であるかのように連続実行するようだ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">自動回復</span>
+            </dt>
+            <dd>
+              <p>
+        自動回復とは、このモンスター戦闘員がターン終了時に回復する HP の量を指定する属性だ。
+        配列 <code class="varname">$C2C47F</code> に回復量の範囲が表現されている。次の表のように解釈できる：
+      </p>
+              <div class="table">
+                <a id="table.dq6.C2C47F"></a>
+                <p class="title">
+                  <strong>表 4.61 自動回復</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq6.C2C47F" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>回復量</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>0</th>
+                        <td align="center">0</td>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <td align="center">16..24</td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <td align="center">44..56</td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <td align="center">90..110</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+            </dd>
+            <dt>
+              <span class="term">集中攻撃</span>
+            </dt>
+            <dd>
+              <p>
+        集中攻撃とは、このモンスター戦闘員がコマンド実行の標的を誰に優先するかを表す属性だ。
+        値としてはアドレス <code class="varname">$C25D69</code> にあるジャンプテーブルの添字と 1 だけものだ。
+        属性値と集中攻撃方式の対応は次の表のようなものだ：
+      </p>
+              <div class="table">
+                <a id="table.dq6.C25D69"></a>
+                <p class="title">
+                  <strong>表 4.62 </strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq6.C25D69" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>標的</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>0</th>
+                        <td>集中攻撃ではない</td>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <td>自分が一度決定した相手側戦闘員</td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <td>生存者のうち HP の最も低い相手側戦闘員</td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <td>生存者のうち最も後ろにいる相手側戦闘員</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+            </dd>
+            <dt>
+              <span class="term">スプライト</span>
+            </dt>
+            <dd>
+              <p>
+        スプライトとは、画面上に描画されるモンスターの画像の形状データを指示する属性だ。
+        詳細は調査中。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">MP</span>
+            </dt>
+            <dd>
+              <p>
+        MP とは、このモンスターの最大 MP を値に取る属性だ。
+        ただし、属性値が 255 であるときは戦闘員オブジェクトの MP 属性値を 65,535 で初期化する。
+        この値はマジックナンバーであり、どんなコマンドを実行しても MP が減少しないことを意味する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">アイテム</span>
+            </dt>
+            <dd>
+              <p>
+        アイテムとは、このモンスターを倒すことで戦闘終了時に得られることがあるアイテムの ID を値に取る属性だ。
+      </p>
+              <p>
+        アイテムについては <a class="xref" href="dq6_items.html" title="4.13. アイテム">4.13 アイテム</a> および
+        <a class="xref" href="dq6_item_commands.html" title="4.22. 移動中の道具使用コマンド処理">4.22 移動中の道具使用コマンド処理</a> で述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">パレット</span>
+            </dt>
+            <dd>
+              <p>
+        パレットとは、画面上に描画されるモンスターのイメージの色彩データを指示する属性だ。
+        詳細は調査中。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">初期状態</span>
+            </dt>
+            <dd>
+              <p>
+        初期状態とは、戦闘開始時に設定する、このモンスターの戦闘員オブジェクトの状態属性を指し示すための属性だ。
+        ただし、前述の初期確率属性に関係した判定処理が成功したときにしか、この設定は発生しない。
+        属性値と状態との対応を次の表に示す：
+      </p>
+              <div class="table">
+                <a id="table.dq6.monsters.initial"></a>
+                <p class="title">
+                  <strong>表 4.63 初期状態</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq6.monsters.initial" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>状態</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>0</th>
+                        <td>ラリホー</td>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <td>マホカンタ</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+            </dd>
+            <dt>
+              <span class="term">HP</span>
+            </dt>
+            <dd>
+              <p>
+        HP とは、このモンスターの最大 HP を値に取る属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">経験値</span>
+            </dt>
+            <dd>
+              <p>
+        経験値とは、このモンスターを倒すことで得られる経験値を表す属性だ。
+        とどめを刺すときのコマンドの戦果逸失フラグ属性が 0 であるときに、獲得総経験値に加算される。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">名前文字列 ID</span>
+            </dt>
+            <dd>
+              <p>
+        名前文字列 ID とは、このモンスターの名前を意味する文字列の ID を値とする属性だ。
+        名前文字列はコマンド入力ウィンドウやメッセージ出力ウィンドウ上のテキスト内に表示される。
+      </p>
+              <p>
+        文字列については <a class="xref" href="dq6_string.html" title="4.2. 文字列">4.2 文字列</a> で述べる。
+      </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.monsters.methods"></a>4.14.2. モンスター構造体メソッド</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+逆アセンブルの便宜を図るため、以下に <code class="varname">$C20154</code> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
+</p>
+        <div class="table">
+          <a id="table.dq6.monsters.methods"></a>
+          <p class="title">
+            <strong>表 4.64 モンスター構造体メソッド</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq6.monsters.methods" class="lighttable">
+              <thead>
+                <tr>
+                  <th>サブルーチン</th>
+                  <th>固定引数長</th>
+                  <th>入力</th>
+                  <th>機能</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C2F119</code>
+                  </td>
+                  <td>2</td>
+                  <td>x</td>
+                  <td>2 バイト型属性値を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C2F120</code>
+                  </td>
+                  <td>2</td>
+                  <td>y</td>
+                  <td>2 バイト型属性値を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C2F136</code>
+                  </td>
+                  <td>4</td>
+                  <td>x</td>
+                  <td>ビットフィールド型属性値を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C2F13D</code>
+                  </td>
+                  <td>4</td>
+                  <td>y</td>
+                  <td>ビットフィールド型属性値を取得する</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+ここで、レジスター x および y はモンスター配列の添字をそれぞれ指定する。
+また、いずれの処理においても出力をレジスター a に格納する。
+出力値としては属性値か、ビットシフト工程を省略した値のいずれかだ。
+</p>
+        <p>
+固定引数長とあるのは、各 JSR 命令に続く非プログラムバイト列の長さのことだ。
+値が 2 ならばオブジェクトのベースアドレスからのオフセット値が、
+値が 4 ならばオフセット値とビットマスク値がコード中に埋め込まれていることを示す。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_items.html" title="4.13. アイテム"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_characters.html" title="4.15. 仲間キャラクター構造体"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_items.html">4.13. アイテム</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_characters.html">4.15. 仲間キャラクター構造体</a></div>
+  </body>
+</html>

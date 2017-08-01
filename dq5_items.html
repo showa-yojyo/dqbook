@@ -1,0 +1,1027 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>3.13. アイテム</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)" />
+    <link rel="prev" href="dq5_monsters.html" title="3.12. モンスター" />
+    <link rel="next" href="dq5_encounter.html" title="3.14. 敵との遭遇" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq5_monsters.html" title="3.12. モンスター"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq5_encounter.html" title="3.14. 敵との遭遇"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq5_monsters.html">3.12. モンスター</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq5.html">第 3 章 SFC 版ドラクエ 5 (1992)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq5_encounter.html">3.14. 敵との遭遇</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq5.items"></a>3.13. アイテム</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq5_items.html#dq5.items.model">3.13.1. モデル</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_items.html#dq5.items.23B081">3.13.2. 配列 <code class="varname">$23B081</code>: 価格</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_items.html#dq5.items.23B159">3.13.3. 配列 <code class="varname">$23B159</code>: 移動モードにおける属性など</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_items.html#dq5.items.23B231">3.13.4. 配列 <code class="varname">$23B231</code>: 戦闘モードにおける属性など</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_items.html#dq5.items.23B309">3.13.5. 配列 <code class="varname">$23B309</code>: 鑑定属性群</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_items.html#dq5.items.23B3E1">3.13.6. 配列 <code class="varname">$23B3E1</code>: 鑑定属性群</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_items.html#dq5.items.23B4B9">3.13.7. 配列 <code class="varname">$23B4B9</code>: 変化量</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_items.html#dq5.items.23B591">3.13.8. 配列 <code class="varname">$23B591</code>: 装備許可フラグ（人間）</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_items.html#dq5.items.23B669">3.13.9. 配列 <code class="varname">$23B669</code>: 装備許可フラグ（モンスター）</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq5_items.html#dq5.items.data">3.13.10. データ</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq5.items" class="indexterm"></a>
+      <p>
+本節では「どうぐ」アイテムについての詳細を説明していく。
+まず、アイテムを構成する各属性をプログラムではどのように表現しているのかについて簡単に述べる。
+それから、アイテムの属性それぞれの物理的な定義位置と、性質を述べる。
+最後に、ゲーム中に現れるアイテム全てのデータを抽出して CSV ファイルを作成する。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.items.model"></a>3.13.1. モデル</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+SFC 版ドラクエ 5 ではアイテムデータの物理的な表現方法に特徴がある。
+後続のシリーズでの実装では、アイテムだけでなく、キャラクターにせよコマンドにせよ、
+ゲーム構成要素の定数的な属性の全てを一つの構造体にカプセル化して定義し、
+そのオブジェクトをメモリ上で連続的に配列することで定義するというのが標準的な表現手法だ。
+ところが本プログラムでは、アイテムオブジェクトを属性ごとに分割して、それぞれを別々の場所で配列するという手法を採っている。
+</p>
+        <p>
+本書では、アイテムを次のようにモデル化し、議論を進める：
+</p>
+        <div class="table">
+          <a id="table.dq5.items.model"></a>
+          <p class="title">
+            <strong>表 3.44 アイテムモデル</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.items.model" class="lighttable">
+              <thead>
+                <tr>
+                  <th>属性</th>
+                  <th>定義開始位置</th>
+                  <th>意味</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>ID</td>
+                  <td>n/a</td>
+                  <td>アイテムに関連付けられている 1 バイトサイズの一意的な値</td>
+                </tr>
+                <tr>
+                  <td>名前</td>
+                  <td>
+                    <code class="varname">$23CE0E</code>
+                  </td>
+                  <td><a class="xref" href="dq5_string.html#dq5.string.access" title="3.7.2. 文字列へのアクセス方法">3.7.2 文字列へのアクセス方法</a>参照</td>
+                </tr>
+                <tr>
+                  <td>値段</td>
+                  <td><code class="varname">$23B081</code> および <code class="varname">$23B159</code></td>
+                  <td>（本節で後述する）</td>
+                </tr>
+                <tr>
+                  <td>売却禁止</td>
+                  <td rowspan="5">
+                    <code class="varname">$23B159</code>
+                  </td>
+                  <td rowspan="5">（本節で後述する）</td>
+                </tr>
+                <tr>
+                  <td>廃棄禁止</td>
+                </tr>
+                <tr>
+                  <td>消耗品</td>
+                </tr>
+                <tr>
+                  <td>移動時対象者指定</td>
+                </tr>
+                <tr>
+                  <td>移動時定型文省略</td>
+                </tr>
+                <tr>
+                  <td>分類</td>
+                  <td rowspan="6">
+                    <code class="varname">$23B231</code>
+                  </td>
+                  <td rowspan="6">（本節で後述する）</td>
+                </tr>
+                <tr>
+                  <td>呪い</td>
+                </tr>
+                <tr>
+                  <td>戦闘時複数対象</td>
+                </tr>
+                <tr>
+                  <td>戦闘時対敵用途</td>
+                </tr>
+                <tr>
+                  <td>戦闘時対象選択</td>
+                </tr>
+                <tr>
+                  <td>移動時利用</td>
+                </tr>
+                <tr>
+                  <td>特別効果鑑定</td>
+                  <td rowspan="3">
+                    <code class="varname">$23B309</code>
+                  </td>
+                  <td rowspan="3">（本節で後述する）</td>
+                </tr>
+                <tr>
+                  <td>売値鑑定</td>
+                </tr>
+                <tr>
+                  <td>消耗性鑑定</td>
+                </tr>
+                <tr>
+                  <td>戦闘時メッセージ</td>
+                  <td rowspan="3">
+                    <code class="varname">$23B3E1</code>
+                  </td>
+                  <td rowspan="3">（本節で後述する）</td>
+                </tr>
+                <tr>
+                  <td>装備可能者鑑定</td>
+                </tr>
+                <tr>
+                  <td>分類鑑定</td>
+                </tr>
+                <tr>
+                  <td>変化量</td>
+                  <td>
+                    <code class="varname">$23B4B9</code>
+                  </td>
+                  <td>（本節で後述する）</td>
+                </tr>
+                <tr>
+                  <td>装備許可フラグ列</td>
+                  <td><code class="varname">$23B591</code> および <code class="varname">$23B669</code></td>
+                  <td>（本節で後述する）</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+オブジェクト指向的な発想では、アイテムには上に挙げた属性だけではなく、振る舞いという特徴もある。
+ただし、振る舞いについては本節では扱わずに、戦闘コマンドと移動コマンドという枠組で議論をしたい。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.items.23B081"></a>3.13.2. 配列 <code class="varname">$23B081</code>: 価格</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+本節ではアイテムの属性それぞれの物理的な定義位置と性質を述べていく。
+</p>
+        <p>
+アドレス <code class="varname">$23B081</code> から始まる 1 バイトデータの配列は、アイテムの価格情報を表現する。
+これはアイテムの価格そのものが配列されているのではなく、
+価格を 10 の N 乗で割ったものが配列されている。
+その N を格納する配列がアドレス <code class="varname">$23B159</code> から始まっている。
+言い換えると、SFC 版ドラクエ 5 では、各アイテムの価格を次のような形で物理的に格納している：
+</p>
+        <pre class="programlisting">
+P * Q, (where 0 &amp;lt;= P and P &amp;lt; 256; 0 &amp;lt;= Q and Q &amp;lt; 65536)
+</pre>
+        <p>
+このデータ表現を採用することで、消費する ROM が 135 バイトほど節約できる。
+上記計算コードのメモリ量が 135 を下回っていれば、全体としても節約できたと言える。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.items.23B159"></a>3.13.3. 配列 <code class="varname">$23B159</code>: 移動モードにおける属性など</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+アドレス <code class="varname">$23B159</code> には次の表で示す 1 バイト長構造体の配列がある。
+主に移動中でのアイテムの振る舞いや性質に関係する属性を集めたようだ。
+</p>
+        <div class="table">
+          <a id="table.dq5.23B159"></a>
+          <p class="title">
+            <strong>表 3.45 $23B159 構造体</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.23B159" class="lighttable">
+              <thead>
+                <tr>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$03</code>
+                  </td>
+                  <td>値段オーダー</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>売却禁止</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>廃棄禁止</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>消耗品</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>移動時対象者指定</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>移動時定型文省略</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <div class="glosslist">
+          <dl>
+            <dt>
+              <span class="glossterm">値段オーダー</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+        値段オーダーとは、前項で述べたアイテム価格表現における 10 のべき乗項だ。
+        ただし、実際のデータとしては、10 のべき乗の数値を格納する配列 <code class="varname">$21A47B</code> の添字として実現している。
+        C 言語風に表せば、次の配列のような定数配列が存在して、その添字そのものだということだ。
+      </p>
+              <pre class="programlisting">
+Q[4] = {1, 10, 100, 1000};
+</pre>
+            </dd>
+            <dt>
+              <span class="glossterm">売却禁止</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+      売却禁止とは、どの店においてもこのアイテムを売却処分することをプレイヤーに禁じるためのフラグ型属性だ。
+      この値が 1 であれば、売却を許さない。
+    </p>
+            </dd>
+            <dt>
+              <span class="glossterm">廃棄禁止</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+      廃棄禁止とは、このアイテムを「すてる」ことを許さないことを意味するフラグ型属性だ。
+      この値が 1 であれば、廃棄処分が許さないことを意味する。
+      また、特定のキャラクターに渡せないアイテムであることをも意味する。
+      例えば「ラーのかがみ」をヘンリーに「わたす」ことは、このフラグのせいで実現できない。
+    </p>
+            </dd>
+            <dt>
+              <span class="glossterm">消耗品</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+        消耗品とは、このアイテムを「つかう」と消滅するというフラグ型性質だ。
+        例えば「せかいじゅのは」を死んでいる仲間に対して「つかう」と、
+        生き返った後に「せかいじゅのは」がなくなる。
+      </p>
+              <p>
+        この値が 1 であれば、「つかう」により対象アイテムを消費する。
+      </p>
+            </dd>
+            <dt>
+              <span class="glossterm">移動時対象者指定</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+        仲間用とは、このアイテムに対応する移動中のコマンドが、所持者以外の仲間一人を対象とすることを示すフラグ型属性だ。
+        言い換えると、「だれに」ウィンドウの表示を必要とするかどうかを意味する。
+        例えば「やくそう」「どくけしそう」はこのビットが 1 である。
+        それに対し、「ちからのたね」「せかいじゅのしずく」「キメラのつばさ」など、
+        仲間一人を特定しないで「つかう」アイテムは 0 である。
+      </p>
+            </dd>
+            <dt>
+              <span class="glossterm">移動時定型文省略</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+        専用メッセージ表示とは、移動中にこのアイテムを「つかう」と表示するメッセージを、
+        定型文の表示を省略して、アイテム固有のものにするかことを示すというフラグ型属性だ。
+      </p>
+              <p>
+        例えば、移動中に「ひのきのぼう」をつかうと、
+        最初に表示されるメッセージは
+        「○○○○は ひのきのぼうを つかった！」となる。
+        これが一般的なメッセージであるが、アイテムによっては例えば
+        「○○○○は においぶくろを あけた！」のように、
+        独自の文言を表示する。
+      </p>
+              <p>
+        この値が 1 であれば、移動中にアイテムを「つかう」と、
+        メッセージ ID <code class="literal">#$01A2</code> のメッセージを表示せずに、
+        アイテムに対応するどうぐコマンドハンドラーによる固有のメッセージ出力に頼る。
+      </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.items.23B231"></a>3.13.4. 配列 <code class="varname">$23B231</code>: 戦闘モードにおける属性など</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+アドレス <code class="varname">$23B231</code> には次の表で示す 1 バイト長構造体の配列がある。
+主に戦闘中でのアイテムの振る舞いや性質に関係する属性を集めたようだ。
+</p>
+        <div class="table">
+          <a id="table.dq5.23B231"></a>
+          <p class="title">
+            <strong>表 3.46 $23B159 構造体</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.23B231" class="lighttable">
+              <thead>
+                <tr>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>分類</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>呪い</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>戦闘時複数対象</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>戦闘時対敵用途</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>戦闘時対象選択</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>移動時利用</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <div class="glosslist">
+          <dl>
+            <dt>
+              <span class="glossterm">分類</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+        分類とは、武器類や盾類等のアイテムの分類を管理するための数値だ。
+        プログラムは 3 ビットの値でアイテム分類を取り扱う。
+        以下のように分類されている。
+      </p>
+              <div class="table">
+                <a id="table.dq5.23B231.kind"></a>
+                <p class="title">
+                  <strong>表 3.47 アイテム分類</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq5.23B231.kind" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>値</th>
+                        <th>分類</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>0</td>
+                        <td>武器類</td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>鎧類</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>盾類</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>兜類</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>非装備品類</td>
+                      </tr>
+                      <tr>
+                        <td>5</td>
+                        <td>「ほしふるうでわ」</td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td>「ビアンカのリボン」</td>
+                      </tr>
+                      <tr>
+                        <td>7</td>
+                        <td>装備可能道具類</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+            </dd>
+            <dt>
+              <span class="glossterm">呪い</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+        呪いとは、これを装備すると呪いの効果音が鳴ることを示すフラグ型属性だ。
+        この属性の値が 1 であれば、「そうび」直後に呪いの効果音が鳴る。
+      </p>
+            </dd>
+            <dt>
+              <span class="glossterm">戦闘時複数対象</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+        戦闘時複数対象とは、戦闘中に使用する対象が味方全員、敵グループ、あるいは敵全体に作用することを示すフラグ型属性だ。
+        言い換えると、効果がキャラクター単体ではないようなアイテムである。
+        この属性の値が 1 であれば、このアイテムの対象が複数あるものとする。
+      </p>
+            </dd>
+            <dt>
+              <span class="glossterm">戦闘時対敵用途</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+        戦闘時対敵用途とは、戦闘中に使用する対象が敵側であることを示すフラグ型属性だ。
+        この属性の値が 1 であれば、アイテムを戦闘中に使用すると、敵側に効果がある振る舞いを引き起こすものとする。
+      </p>
+            </dd>
+            <dt>
+              <span class="glossterm">戦闘時対象選択</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+        戦闘時対象選択とは、戦闘中にこのアイテムを選択するか「つかう」と、
+        プレイヤーにその対象を指定させることを示すフラグ型属性だ。
+      </p>
+              <p>
+        この属性の値が 1 であるアイテムを戦闘中に選択するか「つかう」と、
+        前述の戦闘時対敵用属性も考慮した上で、
+        「だれに」ウィンドウまたはモンスターグループ選択ウィンドウを表示するものとする。
+      </p>
+            </dd>
+            <dt>
+              <span class="glossterm">移動時利用</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+        戦闘時利用とは、戦闘時に「つかう」と対応する戦闘コマンドが発動するようなフラグ型属性だ。
+        この属性の値が 1 であるアイテムを戦闘中に使用すると、「特別な効果がある」のだ。
+        また、移動中に「つかう」と「しかし 今は 何も おこらなかった……！」と表示される。
+      </p>
+              <p>
+        <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> に関連戦闘コマンド一覧を掲載する。
+      </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.items.23B309"></a>3.13.5. 配列 <code class="varname">$23B309</code>: 鑑定属性群</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+アドレス <code class="varname">$23B309</code> には次の表で示す 1 バイト長構造体の配列がある。
+「インパス」の呪文コマンドをアイテムに対して適用した際に表示するメッセージを制御するフラグ群だ。
+</p>
+        <div class="table">
+          <a id="table.dq5.23B309"></a>
+          <p class="title">
+            <strong>表 3.48 $23B309 構造体</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.23B309" class="lighttable">
+              <thead>
+                <tr>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$3F</code>
+                  </td>
+                  <td>特別効果鑑定</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>売値鑑定</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>消耗性鑑定</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <div class="glosslist">
+          <dl>
+            <dt>
+              <span class="glossterm">特別効果鑑定</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+        特別効果鑑定とは、インパス鑑定中に、何らかの特別効果があることを示すメッセージを特定するための ID 型属性だ。
+        メッセージ出力処理がテーブル参照とプログラム的処理のハイブリッドになっているので、まとめにくい。
+        どの没アイテムについてもゼロがセットされている。
+        この値が <code class="literal">#$38</code> 未満ならば、
+        メッセージ ID <code class="literal">#$048F</code> からのオフセット値として用いられる。
+        この値がそれ以外の値であれば、メッセージ表示をプログラムで指定する。
+        該当アイテムは「てんくうのよろい」「ふうじんのたて」「てんくうのたて」だけだ。
+      </p>
+            </dd>
+            <dt>
+              <span class="glossterm">売値鑑定</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+        売値鑑定とは、インパス鑑定中に、売値を鑑定するかどうかを示すフラグ型のアイテム属性だ。
+        この属性の値が 1 であるアイテムを鑑定すると、売却時に得られるゴールドがわかる。
+      </p>
+            </dd>
+            <dt>
+              <span class="glossterm">消耗性鑑定</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+        消耗性鑑定とは、インパス鑑定中に、このアイテムの消耗品属性が 0 であるときに、
+        「何回つかってもなくならないらしい」メッセージを表示することを示すフラグ型のアイテム属性だ。
+        この属性の値が 1 であるアイテムを鑑定すると、この文言が示される。
+      </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+インパス自身の挙動については、移動時の呪文コマンドの節で述べたい。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.items.23B3E1"></a>3.13.6. 配列 <code class="varname">$23B3E1</code>: 鑑定属性群</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+アドレス <code class="varname">$23B309</code> には次の表で示す 1 バイト長構造体の配列がある。
+前項の続きに加え、戦闘時のメッセージ出力に関するものもある。
+</p>
+        <div class="table">
+          <a id="table.dq5.23B3E1"></a>
+          <p class="title">
+            <strong>表 3.49 $23B3E1 構造体</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.23B3E1" class="lighttable">
+              <thead>
+                <tr>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$3F</code>
+                  </td>
+                  <td>戦闘時メッセージ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>装備可能者鑑定</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>分類鑑定</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <div class="glosslist">
+          <dl>
+            <dt>
+              <span class="glossterm">戦闘時表示メッセージ</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+        戦闘時表示メッセージとは、戦闘時に「つかう」と専用メッセージを表示することを示す ID 型のアイテム属性だ。
+        この属性値が <code class="literal">#$06</code> ならば、動的にメッセージを変更することがあるが、
+        それ以外は戦闘メッセージ ID が格納されている配列 <code class="varname">$2781D0</code> のインデックスを表現している。
+      </p>
+              <p>
+        配列 <code class="varname">$2781D0</code> は戦闘メッセージ ID の対を要素とする。
+        一例を挙げる。例えば「ほのおのリング」の当属性値は <code class="literal">#$1F</code> だ。
+        これが指す配列要素は
+      </p>
+              <pre class="programlisting">
+27/820E:    CE EB
+</pre>
+              <p>
+        となっている。それぞれのメッセージ ID に対応するテキストは
+        <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> にある戦闘メッセージ CSV ファイルで確認できるようにしてある。
+      </p>
+            </dd>
+            <dt>
+              <span class="glossterm">装備可能者鑑定</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+      装備可能者鑑定とは、フラグ型のアイテム属性であり、
+      インパスによる鑑定中に「これを装備できるのは……」メッセージを表示することを示すものだ。
+      この属性の値が 1 のときにこの表示処理が入る。
+    </p>
+            </dd>
+            <dt>
+              <span class="glossterm">分類鑑定</span>
+            </dt>
+            <dd class="glossdef">
+              <p>
+      分類鑑定とは、インパスによる鑑定中に前述したアイテム分類を鑑定するかどうかを示すフラグ型のフラグ型のアイテム属性だ。
+      この属性の値が 1 のときにこの表示処理が入る。
+    </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.items.23B4B9"></a>3.13.7. 配列 <code class="varname">$23B4B9</code>: 変化量</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+アドレス <code class="varname">$23B4B9</code> には、使用対象キャラクターの何らかの属性値に対する変化量そのものの配列がある。
+変化量とは、例えばアイテムが武器であれば攻撃力の上昇値、
+身に着けるものならば守備力の上昇値、というような値のことだ。
+</p>
+        <p>
+値は 1 バイト長だ。
+変化量が特殊なものか、または変化をまったく引き起こさないアイテムの属性値はゼロになっている。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.items.23B591"></a>3.13.8. 配列 <code class="varname">$23B591</code>: 装備許可フラグ（人間）</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+アドレス <code class="varname">$23B591</code> にある 8 ビット列の配列は、
+各ビットがそのアイテムをビット位置に対応するキャラクターが装備できるかどうかを示すフラグである。
+値が 1 ならば装備を認める。
+</p>
+        <div class="table">
+          <a id="table.dq5.23B591"></a>
+          <p class="title">
+            <strong>表 3.50 $23B591 構造体</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.23B591" class="lighttable">
+              <thead>
+                <tr>
+                  <th>桁</th>
+                  <th>装備を認めるキャラクター</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$80</code>
+                  </td>
+                  <td>主人公</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$40</code>
+                  </td>
+                  <td>ビアンカ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>ヘンリー</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$10</code>
+                  </td>
+                  <td>フローラ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>サンチョ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>ピピン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>クーパー</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$01</code>
+                  </td>
+                  <td>アニー</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+ビアンカは子供大人共通とする。パパスとベラはいずれにも該当していない。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.items.23B669"></a>3.13.9. 配列 <code class="varname">$23B669</code>: 装備許可フラグ（モンスター）</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+アドレス <code class="varname">$23B639</code> にある 16 ビット列の配列は、
+各ビットがそのアイテムをビット位置に対応するキャラクターが装備できるかどうかを示すフラグである。
+値が 1 ならば装備を認める。
+</p>
+        <div class="table">
+          <a id="table.dq5.23B669"></a>
+          <p class="title">
+            <strong>表 3.51 $23B669 構造体</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq5.23B669" class="lighttable">
+              <thead>
+                <tr>
+                  <th>桁</th>
+                  <th>装備を認めるキャラクターのモンスター名</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$8000</code>
+                  </td>
+                  <td>ベビーパンサー キラーパンサー</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$4000</code>
+                  </td>
+                  <td>スライム ホイミスライム はぐれメタル ベホマスライム キングスライム スライムベホマズン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$2000</code>
+                  </td>
+                  <td>ドラキー ダンスニードル ばくだんベビー</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1000</code>
+                  </td>
+                  <td>ドラゴンキッズ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0800</code>
+                  </td>
+                  <td>ブラウニー オークキング エリミネーター</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0400</code>
+                  </td>
+                  <td>スライムナイト ソルジャーブル アンクルホーン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0200</code>
+                  </td>
+                  <td>まほうつかい ネーレウス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0100</code>
+                  </td>
+                  <td>パペットマン ゴーレム</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0080</code>
+                  </td>
+                  <td>クックルー キメラ ホークブリザード</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0040</code>
+                  </td>
+                  <td>くさったしたい ばくだんいわ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0020</code>
+                  </td>
+                  <td>イエティ ビックアイ ミニデーモン アームライオン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0010</code>
+                  </td>
+                  <td>おどるほうせき メガザルロック</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0008</code>
+                  </td>
+                  <td>ケンタラウス</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0004</code>
+                  </td>
+                  <td>ドラゴンマッド グレイトドラゴン</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>キラーマシン ヘルバトラー</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0001</code>
+                  </td>
+                  <td>メッサーラ シュプリンガー ライオネック</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.items.data"></a>3.13.10. データ</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+本節で説明したアイテム属性を単独の CSV ファイルに統合して <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> に収録する。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq5_monsters.html" title="3.12. モンスター"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq5_encounter.html" title="3.14. 敵との遭遇"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq5_monsters.html">3.12. モンスター</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq5.html">第 3 章 SFC 版ドラクエ 5 (1992)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq5_encounter.html">3.14. 敵との遭遇</a></div>
+  </body>
+</html>

@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.14. 宿屋</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_overcharge.html" title="5.13. ふっかけ店屋" />
+    <link rel="next" href="dq3_chapels.html" title="5.15. 教会" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_overcharge.html" title="5.13. ふっかけ店屋"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_chapels.html" title="5.15. 教会"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_overcharge.html">5.13. ふっかけ店屋</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_chapels.html">5.15. 教会</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.inns"></a>5.14. 宿屋</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_inns.html#dq3.inns.structure">5.14.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_inns.html#dq3.inns.structure.C30A98">5.14.1.1. 構造体 <code class="varname">$C30A98</code>: 宿屋</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_inns.html#dq3.inns.structure.C3D2C3">5.14.1.2. 配列 <code class="varname">$C3D2C3</code>: 最初の挨拶</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_inns.html#dq3.inns.structure.C3D2C7">5.14.1.3. 配列 <code class="varname">$C3D2C7</code>: 宿泊費の案内</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_inns.html#dq3.inns.structure.C3D2CB">5.14.1.4. 配列 <code class="varname">$C3D2CB</code>: 宿泊しないときの台詞</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_inns.html#dq3.inns.structure.C3D2CF">5.14.1.5. 配列 <code class="varname">$C3D2CF</code>: 所持金不足のときの台詞</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_inns.html#dq3.inns.structure.C3D2D3">5.14.1.6. 配列 <code class="varname">$C3D2D3</code>: 宿泊するときの台詞</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_inns.html#dq3.inns.structure.C3D2D7">5.14.1.7. 配列 <code class="varname">$C3D2D7</code>: 宿泊後の台詞</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_inns.html#dq3.inns.behavior">5.14.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_inns.html#dq3.inns.behavior.C3D0F8">5.14.2.1. サブルーチン <code class="varname">$C3D0F8</code>: 普通の宿屋</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_inns.html#dq3.inns.behavior.C3D1D6">5.14.2.2. サブルーチン <code class="varname">$C3D1D6</code>: 「おおごえ」で現れる旅の宿屋</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_inns.html#dq3.inns.behavior.C3D1F1">5.14.2.3. サブルーチン <code class="varname">$C3D1F1</code>: すごろくの宿屋</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_inns.html#dq3.inns.behavior.C3D20C">5.14.2.4. サブルーチン <code class="varname">$C3D20C</code>: 旅・すごろく宿屋共通</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <p>
+本節では宿屋について述べる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.inns.structure"></a>5.14.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+宿屋を表現する型オブジェクトおよび、宿屋の台詞配列群から構成されている。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.inns.structure.C30A98"></a>5.14.1.1. 構造体 <code class="varname">$C30A98</code>: 宿屋</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C30A98</code> に宿屋オブジェクトが配列されている。
+</p>
+          <div class="table">
+            <a id="table.dq3.C30A98"></a>
+            <p class="title">
+              <strong>表 5.35 構造体 $C30A98</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C30A98" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FF</code>
+                    </td>
+                    <td>宿代</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$07FC</code>
+                    </td>
+                    <td>位置</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">宿代</span>
+              </dt>
+              <dd>
+                <p>
+        宿代とは、一人当たりの宿泊費を値とする属性だ。
+        実際の宿泊費はこの値にパーティー内の生存者数を乗じた値となる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">位置</span>
+              </dt>
+              <dd>
+                <p>
+        位置とは、この宿屋に宿泊したあとにパーティーがどこへ移動させられるかを表すオブジェクトの ID を値とする属性だ。
+        TODO: <code class="varname">$C89BB7</code> の節を参照する。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.inns.structure.C3D2C3"></a>5.14.1.2. 配列 <code class="varname">$C3D2C3</code>: 最初の挨拶</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+配列 <code class="varname">$C3D2C3</code> の要素はメッセージ ID であり、配列長は 2 しかない。
+「おおごえ」で現れる宿屋またはすごろくの宿屋の処理において、
+宿屋の来店挨拶の台詞として参照されるものだ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.inns.structure.C3D2C7"></a>5.14.1.3. 配列 <code class="varname">$C3D2C7</code>: 宿泊費の案内</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+配列 <code class="varname">$C3D2C7</code> の要素はメッセージ ID であり、配列長は 2 しかない。
+「おおごえ」で現れる宿屋またはすごろくの宿屋の処理において、
+宿泊費を告げる台詞として参照されるものだ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.inns.structure.C3D2CB"></a>5.14.1.4. 配列 <code class="varname">$C3D2CB</code>: 宿泊しないときの台詞</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+配列 <code class="varname">$C3D2CB</code> の要素はメッセージ ID であり、配列長は 2 しかない。
+「おおごえ」で現れる宿屋またはすごろくの宿屋の処理において、
+パーティーが宿泊しないときの宿屋の台詞として参照されるものだ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.inns.structure.C3D2CF"></a>5.14.1.5. 配列 <code class="varname">$C3D2CF</code>: 所持金不足のときの台詞</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+配列 <code class="varname">$C3D2CF</code> の要素はメッセージ ID であり、配列長は 2 しかない。
+「おおごえ」で現れる宿屋またはすごろくの宿屋の処理において、
+パーティーが利用しようとしたが、所持金が不足しているときの宿屋の反応の台詞として参照されるものだ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.inns.structure.C3D2D3"></a>5.14.1.6. 配列 <code class="varname">$C3D2D3</code>: 宿泊するときの台詞</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+配列 <code class="varname">$C3D2D3</code> の要素はメッセージ ID であり、配列長は 2 しかない。
+「おおごえ」で現れる宿屋またはすごろくの宿屋の処理における、
+パーティーが宿泊する際の宿屋の台詞として参照されるものだ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.inns.structure.C3D2D7"></a>5.14.1.7. 配列 <code class="varname">$C3D2D7</code>: 宿泊後の台詞</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+配列 <code class="varname"></code> の要素はメッセージ ID であり、配列長は 2 しかない。
+「おおごえ」で現れる宿屋またはすごろくの宿屋の処理における、
+パーティーが宿泊した後の宿屋の台詞として参照されるものだ。
+</p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.inns.behavior"></a>5.14.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+本作では宿屋の処理は三種類存在する。
+街中にある宿屋、商人が使える「おおごえ」でフィールドで出現することがある宿屋、そして各すごろくにある宿屋マスの宿屋である。
+いずれも、まず宿屋店主の挨拶があり、宿代を提示して……という一連の振る舞いが共通している。
+ここではそれらの共通処理について説明していく。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.inns.behavior.C3D0F8"></a>5.14.2.1. サブルーチン <code class="varname">$C3D0F8</code>: 普通の宿屋</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+街中にある宿屋は共通して <code class="varname">$C3D0F8</code> サブルーチンを呼び出すことで実装してある。
+このサブルーチンを呼び出す前に A レジスターに宿屋 ID をセットしておく。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.inns.behavior.C3D1D6"></a>5.14.2.2. サブルーチン <code class="varname">$C3D1D6</code>: 「おおごえ」で現れる旅の宿屋</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+フィールドで「おおごえ」を使うと出現する旅の宿屋は、
+サブルーチン <code class="varname">$C3D1D6</code> で実装されている。
+このサブルーチンは X レジスターに 0 をセットしてから、
+旅・すごろく宿屋共通サブルーチンを呼び出すだけで終わる。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.inns.behavior.C3D1F1"></a>5.14.2.3. サブルーチン <code class="varname">$C3D1F1</code>: すごろくの宿屋</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+すごろくの宿屋のマスに止まると、画面がいきなり変わって宿屋の処理に突入する。
+セリフ部分からの処理はサブルーチン <code class="varname">$C3D1F1</code> で実装されている。
+このサブルーチンは X レジスターに 2 をセットしてから、
+旅・すごろく宿屋共通サブルーチンを呼び出すだけで終わる。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.inns.behavior.C3D20C"></a>5.14.2.4. サブルーチン <code class="varname">$C3D20C</code>: 旅・すごろく宿屋共通</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3D20C</code> は、旅の宿屋とすごろくの宿屋の実装である。
+このサブルーチンを呼び出す前に A レジスターと X レジスターに宿屋 ID と宿屋分類（旅かすごろくか）をそれぞれセットしておく。
+</p>
+          <p>
+処理の特徴を以下に列挙する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      宿屋のセリフ表示をサブルーチン <code class="varname">$C1A95A</code> 呼び出しで実現している。
+      これは A レジスターにメッセージ ID をセットしてから呼び出すものである。
+      例えば最初の台詞は <code class="code">LDA $C3D2C3,X</code> でメッセージ ID をセットする（先述）。
+      旅の宿屋とすごろくの宿屋の違いは、
+      この <code class="code">LDA</code> 命令の X の違いに他ならない。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      宿屋の第一声のセリフは昼夜を問わない。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_overcharge.html" title="5.13. ふっかけ店屋"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_chapels.html" title="5.15. 教会"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_overcharge.html">5.13. ふっかけ店屋</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_chapels.html">5.15. 教会</a></div>
+  </body>
+</html>

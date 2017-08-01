@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.16. ルイーダの酒場</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_chapels.html" title="5.15. 教会" />
+    <link rel="next" href="dq3_registration.html" title="5.17. 冒険者たちの登録所" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_chapels.html" title="5.15. 教会"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_registration.html" title="5.17. 冒険者たちの登録所"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_chapels.html">5.15. 教会</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_registration.html">5.17. 冒険者たちの登録所</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.luida"></a>5.16. ルイーダの酒場</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_luida.html#luida.structure">5.16.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq3_luida.html#dq3.luida.behavior">5.16.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_luida.html#dq3.luida.C3D760">5.16.2.1. サブルーチン <code class="varname">$C3D760</code>: ルイーダの酒場処理</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_luida.html#dq3.luida.behavior.C3D7BB">5.16.2.2. サブルーチン <code class="varname">$D7BB</code>: なかまをあずける</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_luida.html#dq3.luida.behavior.C3D8E8">5.16.2.3. サブルーチン <code class="varname">$C3D8E8</code>: なかまをよびだす</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_luida.html#dq3.luida.behavior.C3D983">5.16.2.4. サブルーチン <code class="varname">$C3D983</code>: めいぼをみる</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <a id="term.dq3.luida" class="indexterm"></a>
+      <p>
+ルイーダの酒場について述べる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="luida.structure"></a>5.16.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+ルイーダの酒場を構成する構造に関する要素について述べる。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.luida.behavior"></a>5.16.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+ルイーダの酒場を構成する振る舞いに関する要素について述べる。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.luida.C3D760"></a>5.16.2.1. サブルーチン <code class="varname">$C3D760</code>: ルイーダの酒場処理</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3D760</code> が、ルイーダの酒場での通常処理を実装している。
+以下に処理の要点を挙げる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      サービスは「なかまをよびだす」「なかまをあずける」「めいぼをみる」固定だ。
+      それぞれ専用サブルーチンで処理する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      何かのサービスを受けた後ならば、もう一度サービスメニューが表示される。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.luida.behavior.C3D7BB"></a>5.16.2.2. サブルーチン <code class="varname">$D7BB</code>: なかまをあずける</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3D7BB</code> はメニュー項目「なかまをあずける」選択時の処理コードだ。
+以下に処理の要点を挙げる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      パーティー人数が一人のときは預かりを断られる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      主人公については、エンディングを見た後かつバラモスを倒した後でしかルイーダに預けられない。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      預けようとしたキャラクターの残りメンバー全てが死亡状態ならば、預かりを断られる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      預けようとしたキャラクターが死亡状態だと、ルイーダの台詞が変わって生き返らせるように提案される。そのまま預けることもできる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      預けるキャラクターの所持品は装備以外はパーティー共有のふくろに収められる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      初回のみルイーダが理由を説明するようにフラグ <code class="varname">$7E353B</code> &amp; <code class="literal">#$80</code> を用いる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      パーティー人数、酒場人数、仲間キャラクター配列の更新は別サブルーチン <code class="varname">$C42A6D</code> で処理する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      預けた後、パーティーの人数が 2 未満ならばルイーダは他にも預かるかどうか聞いてこない。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.luida.behavior.C3D8E8"></a>5.16.2.3. サブルーチン <code class="varname">$C3D8E8</code>: なかまをよびだす</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3D8E8</code> はメニュー項目「なかまをよびだす」選択時の処理コードだ。
+以下に処理の要点を挙げる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      パーティーに 4 人いると、ルイーダに呼び出しを断られる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      あるいは、酒場に仲間が誰もいないと、ルイーダに呼び出しを断られる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      呼び出し後、酒場にいる仲間の人数が 0 ならばルイーダは他にも呼ぶかどうか聞いてこない。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+ちなみに本節では、酒場にいる仲間の人数をアドレス <code class="varname">$7E36E4</code> の値であるとしている。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.luida.behavior.C3D983"></a>5.16.2.4. サブルーチン <code class="varname">$C3D983</code>: めいぼをみる</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3D983</code> はメニュー項目「めいぼをみる」選択時の処理コードだ。
+以下に処理の要点を挙げる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      酒場に仲間が誰もいないと、ルイーダに名簿閲覧を断られる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      名簿でキャラクターを選択すると、習得呪文ウィンドウ表示のために指定キャラクターの習得状況を調べる。
+      まほうつかい、そうりょ、その他の呪文個数を得た後、対象者の職業がゆうしゃが否かでウィンドウの表示形式を分ける。
+    </p>
+              </li>
+              <li class="listitem">
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+          ゆうしゃの場合、習得している呪文があればゆうしゃ用の習得呪文ウィンドウを表示する。
+        </p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+          それ以外の職業の場合、まほうつかい用、そうりょ用、それ以外用の順に習得呪文ウィンドウを表示する。
+        </p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_chapels.html" title="5.15. 教会"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_registration.html" title="5.17. 冒険者たちの登録所"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_chapels.html">5.15. 教会</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_registration.html">5.17. 冒険者たちの登録所</a></div>
+  </body>
+</html>

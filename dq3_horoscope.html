@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.22. 星座</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_matchmake.html" title="5.21. 格闘場" />
+    <link rel="next" href="dq3_medals.html" title="5.23. メダルおじさん" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_matchmake.html" title="5.21. 格闘場"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_medals.html" title="5.23. メダルおじさん"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_matchmake.html">5.21. 格闘場</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_medals.html">5.23. メダルおじさん</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.horoscope"></a>5.22. 星座</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_horoscope.html#dq3.horoscope.structure">5.22.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_horoscope.html#dq3.horoscope.structure.C31308">5.22.1.1. 構造体 <code class="varname">$C31308</code>: 星座</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_horoscope.html#dq3.horoscope.behavior">5.22.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+本節では星座について述べる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.horoscope.structure"></a>5.22.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.horoscope.structure.C31308"></a>5.22.1.1. 構造体 <code class="varname">$C31308</code>: 星座</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C31308</code> に 12 個配列されている 6 バイト長のオブジェクトが星座情報を表現する。
+</p>
+          <div class="table">
+            <a id="table.dq3.C31308"></a>
+            <p class="title">
+              <strong>表 5.45 構造体 $C31308</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C31308" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>名前</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>月 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>日 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>月 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>日 1</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味を説明する。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">名前</span>
+              </dt>
+              <dd>
+                <p>
+        星座名を表す文字列（<a class="xref" href="dq3_string.html" title="5.3. 文字列">5.3 文字列</a>で述べる）オブジェクトの ID を値とする属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">月 k (k = 0..1), </span>
+                <span class="term">日 k (k = 0..1)</span>
+              </dt>
+              <dd>
+                <p>
+        この星座が対応する日付範囲の下端と上端を k = 0 と 1 とがそれぞれ表す。
+        この二つの日付がなす区間は右閉半開区間だ。
+        例えば、星座 0 の上端と星座 1 の下端はともに 4 月 20 日となっている。
+        この日付は星座 1 ではなく星座 0 に対応する。
+      </p>
+              </dd>
+            </dl>
+          </div>
+          <p>
+星座構造体に関係するサブルーチンを表にまとめておく：
+</p>
+          <div class="table">
+            <a id="table.dq3.horoscope.structure.subroutines"></a>
+            <p class="title">
+              <strong>表 5.46 </strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.horoscope.structure.subroutines" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>サブルーチン</th>
+                    <th>入力</th>
+                    <th>出力</th>
+                    <th>機能</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td align="center">$C932A3</td>
+                    <td>a</td>
+                    <td>x</td>
+                    <td>日付に対応する星座 ID を取得する。</td>
+                  </tr>
+                  <tr>
+                    <td align="center">$C93311</td>
+                    <td>x</td>
+                    <td>a</td>
+                    <td>星座名を表す文字列 ID を取得する。</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.horoscope.behavior"></a>5.22.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+特になし。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_matchmake.html" title="5.21. 格闘場"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_medals.html" title="5.23. メダルおじさん"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_matchmake.html">5.21. 格闘場</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_medals.html">5.23. メダルおじさん</a></div>
+  </body>
+</html>

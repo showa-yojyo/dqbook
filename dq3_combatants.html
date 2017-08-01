@@ -1,0 +1,1228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.4. 戦闘員</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_string.html" title="5.3. 文字列" />
+    <link rel="next" href="dq3_characters.html" title="5.5. 仲間キャラクターオブジェクト" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_string.html" title="5.3. 文字列"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_characters.html" title="5.5. 仲間キャラクターオブジェクト"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_string.html">5.3. 文字列</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_characters.html">5.5. 仲間キャラクターオブジェクト</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.combatants"></a>5.4. 戦闘員</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_combatants.html#dq3.combatants.7E2030">5.4.1. 構造体 <code class="varname">$7E2030</code>: 戦闘員</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq3_combatants.html#dq3.combatants.methods">5.4.2. 戦闘員構造体メソッド</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+本節では、戦闘員構造体各種のメモリレイアウトを表で示し、
+また各メンバーデータの意味とアクセス例とをごく簡単に記す。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.combatants.7E2030"></a>5.4.1. 構造体 <code class="varname">$7E2030</code>: 戦闘員</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+サイズが <code class="literal">#$25</code> バイトのオブジェクトがアドレス <code class="varname">$7E2030</code> から 24 個直列している。
+これらのオブジェクトは次の表で示されるメモリレイアウトを型としている。
+本章ではこの型と個々のインスタンスをそれぞれ戦闘員構造体と戦闘員オブジェクトと呼称するものとする。
+</p>
+        <div class="table">
+          <a id="table.dq3.7E2030"></a>
+          <p class="title">
+            <strong>表 5.6 構造体 $7E2030</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq3.7E2030" class="lighttable">
+              <thead>
+                <tr>
+                  <th>オフセット</th>
+                  <th>桁</th>
+                  <th>属性</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="literal">#$00</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>HP</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$02</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>MP</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$04</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FF</code>
+                  </td>
+                  <td>戦闘コマンド 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$05</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FE</code>
+                  </td>
+                  <td>戦闘コマンド対象戦闘員 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$06</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FF</code>
+                  </td>
+                  <td>戦闘コマンド 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$07</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FE</code>
+                  </td>
+                  <td>戦闘コマンド対象戦闘員 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$08</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$01FF</code>
+                  </td>
+                  <td>戦闘コマンド 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$09</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FE</code>
+                  </td>
+                  <td>戦闘コマンド対象戦闘員 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0A</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>敵アニメーション</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>同一モンスター識別子</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0C</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>グループ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>どうぐつかうコマンドアイテム ID</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>どうぐつかうコマンド添字</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$0F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>攻撃力</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$11</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>守備力</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$13</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>すばやさ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$15</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>コマンド実行優位</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$17</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>ラリホーカウンター</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$18</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>戦闘コマンド決定用カウンター</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$19</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>自分自身</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1B</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$FFFF</code>
+                  </td>
+                  <td>変身相手</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1D</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>戦闘コマンド添字 0</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1E</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>戦闘コマンド添字 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$1F</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00FF</code>
+                  </td>
+                  <td>戦闘コマンド添字 2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0001</code>
+                  </td>
+                  <td>自陣側フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>アクティブフラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0004</code>
+                  </td>
+                  <td>死亡状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0008</code>
+                  </td>
+                  <td>マヒ状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0010</code>
+                  </td>
+                  <td>メダパニ状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0020</code>
+                  </td>
+                  <td>メダパニ回復状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0040</code>
+                  </td>
+                  <td>どく状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$20</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0080</code>
+                  </td>
+                  <td>防御状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$21</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0001</code>
+                  </td>
+                  <td>変身後自陣側フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$21</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>マホトーン状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$21</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0004</code>
+                  </td>
+                  <td>マヌーサ状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$21</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0008</code>
+                  </td>
+                  <td>バイキルト状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$21</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0010</code>
+                  </td>
+                  <td>マホカンタ状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$21</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0020</code>
+                  </td>
+                  <td>フバーハ状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$21</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0040</code>
+                  </td>
+                  <td>ドラゴラム状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$21</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0080</code>
+                  </td>
+                  <td>モシャス状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$22</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0001</code>
+                  </td>
+                  <td>素晴らしい状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$22</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0002</code>
+                  </td>
+                  <td>休み状態</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$22</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0004</code>
+                  </td>
+                  <td>呪文失敗フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$22</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0008</code>
+                  </td>
+                  <td>高守備力フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$22</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0010</code>
+                  </td>
+                  <td>一度倒したフラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$22</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0020</code>
+                  </td>
+                  <td>どうぐつかうフラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$22</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0040</code>
+                  </td>
+                  <td>MP 不足フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$22</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0080</code>
+                  </td>
+                  <td>ラリホー回復フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$23</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$0003</code>
+                  </td>
+                  <td>仲間攻撃特殊処理フラグ</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$23</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$000C</code>
+                  </td>
+                  <td>みかわしカウンター</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$23</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00F0</code>
+                  </td>
+                  <td>休み分類</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$24</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$001F</code>
+                  </td>
+                  <td>絡んでいるキャラクター</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="literal">#$24</code>
+                  </td>
+                  <td>
+                    <code class="literal">#$00E0</code>
+                  </td>
+                  <td>（未使用）</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+実質的には参照のない属性があるかもしれないが、それも含めて構造体の各属性の意味を以下に記す。
+</p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">HP, </span>
+              <span class="term">MP</span>
+            </dt>
+            <dd>
+              <p>
+        それぞれこの戦闘員の現在の HP と MP の値を保持するための属性だ。
+        どちらも敵陣キャラクターが利用する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">戦闘コマンド k (k = 0..2)</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員が実行するコマンドの ID を値に取る属性だ。
+        コマンドについては <a class="xref" href="dq3_commands.html#dq3.commands.structure.C21860" title="5.7.1.1. 構造体 $C21860: コマンド">5.7.1.1 構造体 <code class="varname">$C21860</code>: コマンド</a> で述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">戦闘コマンド対象戦闘員 k (k = 0..2)</span>
+            </dt>
+            <dd>
+              <p>
+        戦闘コマンド k を実行する相手を表現する 7 ビット長の数を値に取る属性だ。
+        この数は戦闘員インデックスと対象範囲を示すビットとの論理和で構成されている。
+      </p>
+              <p>
+        ビット <code class="literal">#$40</code> が立っていると、コマンド k の対象は複数グループに及ぶか、または空となる。
+        このとき、下位ビットで敵陣・自陣・両方等の詳細を表現する。
+        ビット <code class="literal">#$01</code> が 1 ならば敵陣すべてのグループを、
+        ビット <code class="literal">#$02</code> が 1 ならば自陣すべてのグループを、
+        そしてビット <code class="literal">#$04</code> が 1 ならばここから特定の誰かを選ばずにそのままコマンド対象とする。
+      </p>
+              <p>
+        ビット <code class="literal">#$20</code> が立っていると、コマンド k の対象は一つのグループとなる。
+        このとき、下位ビットがグループ添字を表す。
+      </p>
+              <p>
+        ビット <code class="literal">#$60</code> がどちらもゼロであれば、この値全体が戦闘員添字を直接表現する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">敵アニメーション</span>
+            </dt>
+            <dd>
+              <p>
+        プログラム上は値が 0 にしかならないはずの属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">同一モンスター識別子</span>
+            </dt>
+            <dd>
+              <p>
+        敵陣側にモンスター ID が同じ戦闘員が複数現れるときに、それらを識別するためのゼロからの連番を取る属性値だ。
+        このような場合にはウィンドウではモンスター名の末尾にアルファベット一文字が付されるが、その配列添字を意味する。
+        これは敵陣戦闘員専用の属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">グループ</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員が所属するグループ ID を値に取る属性だ。次の対応関係により定まる。
+      </p>
+              <div class="table">
+                <a id="table.dq3.combatants.groups"></a>
+                <p class="title">
+                  <strong>表 5.7 グループ</strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq3.combatants.groups" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>意味</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>0</th>
+                        <td>敵陣グループ 0</td>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <td>敵陣グループ 1</td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <td>敵陣グループ 2</td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <td>敵陣グループ 3</td>
+                      </tr>
+                      <tr>
+                        <th>4</th>
+                        <td>格闘場で賭けた選手のいるグループ</td>
+                      </tr>
+                      <tr>
+                        <th>5</th>
+                        <td>自陣グループ</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+            </dd>
+            <dt>
+              <span class="term">どうぐつかうコマンドアイテム ID</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員が所持品のアイテムを使用することによるコマンドを実行するときに、
+        そのアイテム ID を値に取る属性だ。
+        これは自陣側戦闘員専用の属性だ。
+      </p>
+              <p>
+        アイテムについては <a class="xref" href="dq3_items.html" title="5.24. アイテム">5.24 アイテム</a> で述べる。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">どうぐつかうコマンド添字</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員が所持品のアイテムを使用することによるコマンドを実行するときに、
+        その道具袋におけるアイテム位置を値に取る属性だ。
+        これは自陣側戦闘員専用の属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">攻撃力, </span>
+              <span class="term">守備力, </span>
+              <span class="term">すばやさ</span>
+            </dt>
+            <dd>
+              <p>
+        それぞれこの戦闘員の攻撃力、守備力、すばやさの現在の表す属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">コマンド実行優位</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員が実行する戦闘コマンドのターン内優先度を表す数値を取る属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">ラリホーカウンター</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員が眠っていることを示す値を取る属性だ。
+        値がゼロでない値からゼロに変化すると、この戦闘員は目を覚ます。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">戦闘コマンド決定用カウンター</span>
+            </dt>
+            <dd>
+              <p>
+        これは敵陣キャラクター専用属性であり、コマンドを実行するたびに値が 1 ずつ増えていき、
+        値が 8 に至ると 0 にリセットされるようなカウンターのような属性だ。
+        この値をモンスター固有の戦闘コマンド配列の添字として用い、次回実行コマンドを決定する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">自分自身</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員のオリジナルの識別子を表す属性だ。
+        値の型は自陣側フラグ属性値によって異なる。
+        自陣側戦闘員ならば RAM 上の仲間キャラクターオブジェクトのアドレスとして、
+        敵陣側戦闘員ならばモンスター ID として値を取り扱う。
+      </p>
+              <p>
+        この属性は変身系のコマンドでオリジナルを失われないようにする目的がある。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">変身相手</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員がモシャスかドラゴラムのコマンドを使用中ならば、
+        その相手キャラクターオブジェクトのアドレスかドラゴラム用モンスターデータ ID をそれぞれ値に取る属性だ。
+      </p>
+              <p>
+        この戦闘員が見かけ上あやしいかげであれば、その正体のモンスター ID を値に取る。
+      </p>
+              <p>
+        この属性はドラゴラム状態属性、モシャス状態属性、変身後自陣側フラグ属性と関係がある。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">戦闘コマンド添字 k (k = 0..2)</span>
+            </dt>
+            <dd>
+              <p>
+        先述の戦闘コマンド k 属性値がモンスター構造体のコマンド j (j = 0..7) から来ているのであれば、
+        この属性値は j となる。
+        詳細は <a class="xref" href="dq3_monsters.html#dq3.monsters.C20000" title="5.6.1. 構造体 $C20000: モンスター">5.6.1 構造体 <code class="varname">$C20000</code>: モンスター</a> のコマンド属性を参照。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">自陣側フラグ</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員が主人公たちのパーティーに所属するものであることを示すブーリアン型属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">アクティブフラグ</span>
+            </dt>
+            <dd>
+              <p>
+        適当な名前が思いつかないのだが、この属性はこの戦闘員が戦闘の場にいることを示すブーリアン値を取る。
+        死亡状態でも構わない。
+      </p>
+              <p>
+        属性の意味としてもっとも適切なのは、あるコマンドが存在して、その対象となり得るかどうかを示すものだということだろう。
+        例えば、ニフラムやバシルーラで退場した戦闘員には、この戦闘中はどうやっても影響を与えることはできない。
+        そういう戦闘員のアクティブフラグ属性値は 0 であるという具合に考えると理解しやすい。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">死亡状態</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員が死亡しているのかどうかを示すブーリアン値を取る属性だ。
+        敵陣キャラクターが利用する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">マヒ状態</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員がマヒしていることを示すブーリアン値を取る属性だ。
+        敵陣キャラクターが利用する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">メダパニ状態</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員が混乱していることを示すブーリアン値を取る属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">メダパニ回復状態</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員のメダパニ状態属性値が 1 から 0 になると、その時点で値が 1 になるブーリアン型属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">どく状態</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員がどくに冒されていることを示すブーリアン値を取る属性だ。
+        敵陣キャラクターが利用する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">防御状態</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員がぼうぎょコマンドを実行中であることを示すブーリアン値を取る属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">変身後自陣側フラグ</span>
+            </dt>
+            <dd>
+              <p>
+        適当な名前が思いつかないのだが、この戦闘員が何らかの理由で変身した後に、その変身後キャラクターの出自を示す属性だ。
+        値が 0 ならばモンスターオブジェクトから、値が 1 ならば仲間キャラクターオブジェクトから基本的な属性値を得て戦闘員オブジェクトにセットする。
+        ドラゴラムを適用すると属性値を 0 にするが、モシャスを適用すると 1 としなければならない。
+      </p>
+              <p>
+        あるいは、敵戦闘員を倒した後に得られる経験値やゴールドについては、
+        その戦闘員のフラグ属性値が 0 であることが必要という性質もある。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">マホトーン状態</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員がマホトーン等を適用されていることにより、呪文コマンドを封じられている状態にあることを示すブーリアン値を取る属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">マヌーサ状態</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員がマヌーサ等を適用されていることにより、直接攻撃系コマンドの成功率が低下する状態にあることを示すブーリアン値を取る属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">バイキルト状態</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員がバイキルト等を適用されていることを示すブーリアン値を取る属性だ。
+        すなわち、ダメージ補正処理の途中でダメージ値が倍になる規則が適用されることを意味する。
+      </p>
+              <p>
+        素晴らしい状態でもある場合には、プログラムはこちらのほうを優先する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">マホカンタ状態</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員がマホカンタ等を適用されていることを示すブーリアン値を取る属性だ。
+        すなわち、たいていの呪文コマンドを跳ね返すことを意味する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">フバーハ状態</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員がフバーハコマンドを使用していることを示すブーリアン値を取る属性だ。
+        すなわち、ダメージ補正処理の途中で炎・吹雪系コマンドのダメージ値が 2/3 になる規則が適用されることを意味する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">ドラゴラム状態, </span>
+              <span class="term">モシャス状態</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員がそれぞれのコマンドを適用していることを示すブーリアン値を取る属性だ。
+        変身相手属性と関係がある。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">素晴らしい状態</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員に素晴らしい攻撃力が備わっていることを示すブーリアン値を取る属性だ。
+        すなわち、通常攻撃が会心または痛恨の一撃に置き換わることを意味する。
+      </p>
+              <p>
+        バイキルト状態でもある場合には、プログラムはそちらのほうを優先する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">休み状態</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員が休んでいることを示すブーリアン値を取る属性だ。
+        休んでいるとは、様子を見たり、驚いたりして何もしてこない状態のことだ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">呪文失敗フラグ</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員が実際に何らかの呪文コマンドを実行し、それが失敗したときに 1 となるブーリアン値属性だ。
+        ただし、この属性値を参照する処理が存在しない。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">高守備力フラグ</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員の守備力が 1,023 以上であるときに値が 1 となるブーリアン値属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">一度倒したフラグ</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員を最初に倒したときに値が 1 となるブーリアン値属性だ。
+        これは敵陣戦闘員専用の属性だ。
+        戦闘終了後に経験値とゴールドを得るには、この属性値が 1 であることが必要だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">どうぐつかうフラグ</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員がどうぐメニューから実行コマンドを指定していることを示すブーリアン値を取る属性だ。
+        これは自陣戦闘員専用の属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">MP 不足フラグ</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員が実際に何らかの呪文コマンドを実行し、それが MP 不足が原因で失敗したときに値が 1 となるブーリアン値属性だ。 
+        敵側戦闘員の一部は、この属性値が実行コマンドの決定に影響する。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">ラリホー回復フラグ</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員のラリホーカウンター属性値が 1 から 0 になると、その時点で値が 1 になるブーリアン型属性だ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">仲間攻撃特殊処理フラグ</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員が仲間戦闘員を攻撃するのかどうかを示すブーリアン型属性だ。
+        自陣側戦闘員専用の属性だ。
+      </p>
+              <p>
+        このフラグが立っていることにより、一部のコマンド処理が特別に扱われる。
+        例えばラリホーやメダパニが適用されている仲間にこうげきコマンドを実行すると、
+        専用メッセージを追加で表示したり、会心の一撃を発生させないようにしたり、
+        一部の武器の装備効果が適用させないようにしたりする。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">みかわしカウンター</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員があそびのタップダンスを実行したときに 1 か 2 が値としてセットされる属性だ。
+        この属性値は他戦闘員からの攻撃をかわす確率に影響するものだ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">休み分類</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員がどのやすみ状態にあるかを示す値を取る属性だ。
+        遊びコマンドによるものがほとんどだ。
+        属性値と適用されているコマンドとの対応は次のとおりだ：
+      </p>
+              <div class="table">
+                <a id="table.dq3.combatants.pause"></a>
+                <p class="title">
+                  <strong>表 5.8 </strong>
+                </p>
+                <div class="table-contents">
+                  <table id="table.dq3.combatants.pause" class="lighttable">
+                    <thead>
+                      <tr>
+                        <th>値</th>
+                        <th>状態</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <code class="literal">#$00</code>
+                        </td>
+                        <td>n/a</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code class="literal">#$01</code>
+                        </td>
+                        <td>笑い転げている</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code class="literal">#$02</code>
+                        </td>
+                        <td>聞き惚れている</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code class="literal">#$03</code>
+                        </td>
+                        <td>びっくりしている</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code class="literal">#$04</code>
+                        </td>
+                        <td>うつむいている</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code class="literal">#$05</code>
+                        </td>
+                        <td>身震いしている</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code class="literal">#$06</code>
+                        </td>
+                        <td>絡んでいる</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code class="literal">#$07</code>
+                        </td>
+                        <td>絡まれている</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code class="literal">#$08</code>
+                        </td>
+                        <td>気分が悪い</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code class="literal">#$09</code>
+                        </td>
+                        <td>うっとりしている</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <br class="table-break" />
+            </dd>
+            <dt>
+              <span class="term">絡んでいるキャラクター</span>
+            </dt>
+            <dd>
+              <p>
+        この戦闘員が絡まれているときに、相手の遊び人戦闘員を値に取る属性だ。
+      </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.combatants.methods"></a>5.4.2. 戦闘員構造体メソッド</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+以下に <code class="varname">$7E2030</code> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
+例によって属性値に直接アクセスすることもある。
+</p>
+        <div class="table">
+          <a id="table.dq3.combatants.methods"></a>
+          <p class="title">
+            <strong>表 5.9 戦闘員構造体の属性にアクセスするサブルーチン</strong>
+          </p>
+          <div class="table-contents">
+            <table id="table.dq3.combatants.methods" class="lighttable">
+              <thead>
+                <tr>
+                  <th>サブルーチン</th>
+                  <th>固定引数長</th>
+                  <th>入力</th>
+                  <th>機能</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C2CA5B</code>
+                  </td>
+                  <td align="center">2</td>
+                  <td>x</td>
+                  <td>2 バイト長の属性値を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C2CA62</code>
+                  </td>
+                  <td align="center">2</td>
+                  <td>y</td>
+                  <td>2 バイト長の属性値を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C2CA98</code>
+                  </td>
+                  <td align="center">2</td>
+                  <td>a, x</td>
+                  <td>2 バイト長の属性値を更新する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C2CAA1</code>
+                  </td>
+                  <td align="center">2</td>
+                  <td>a, y</td>
+                  <td>2 バイト長の属性値を更新する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C2CAD9</code>
+                  </td>
+                  <td align="center">4</td>
+                  <td>x</td>
+                  <td>ビットフィールド属性値を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C2CAE0</code>
+                  </td>
+                  <td align="center">4</td>
+                  <td>y</td>
+                  <td>ビットフィールド属性値を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C2CB2B</code>
+                  </td>
+                  <td align="center">4</td>
+                  <td>x</td>
+                  <td>ビットフィールド属性値を取得する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C2CB32</code>
+                  </td>
+                  <td align="center">4</td>
+                  <td>y</td>
+                  <td>ビットフィールド属性値をテストする</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C2CB70</code>
+                  </td>
+                  <td align="center">4</td>
+                  <td>a, x</td>
+                  <td>ビットフィールド属性値を更新する</td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <code class="varname">$C2CB79</code>
+                  </td>
+                  <td align="center">4</td>
+                  <td>a, y</td>
+                  <td>ビットフィールド属性値を更新する</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br class="table-break" />
+        <p>
+表の凡例は前作の <a class="xref" href="dq6_combatants.html#dq6.combatants.methods" title="4.19.2. 戦闘キャラクター構造体メソッド">4.19.2 戦闘キャラクター構造体メソッド</a> を参照。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_string.html" title="5.3. 文字列"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_characters.html" title="5.5. 仲間キャラクターオブジェクト"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_string.html">5.3. 文字列</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_characters.html">5.5. 仲間キャラクターオブジェクト</a></div>
+  </body>
+</html>

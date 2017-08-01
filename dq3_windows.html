@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.10. ウィンドウ</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_damage.html" title="5.9. ダメージ" />
+    <link rel="next" href="dq3_kings.html" title="5.11. 王様" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_damage.html" title="5.9. ダメージ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_kings.html" title="5.11. 王様"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_damage.html">5.9. ダメージ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_kings.html">5.11. 王様</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.windows"></a>5.10. ウィンドウ</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_windows.html#dq3.windows.structure">5.10.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_windows.html#dq3.windows.structure.C30000">5.10.1.1. 構造体 <code class="varname">$C30000</code>: ウィンドウ</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_windows.html#dq3.windows.behavior">5.10.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+本節ではウィンドウについて述べる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.windows.structure"></a>5.10.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+ウィンドウを表現するのに関わる構造的な構成要素について述べる。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.windows.structure.C30000"></a>5.10.1.1. 構造体 <code class="varname">$C30000</code>: ウィンドウ</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C30000</code> に次の表が示す型のオブジェクトが 190 個程度配列されている。
+これらのオブジェクトが画面上に描画されるウィンドウの仕様を表現している。
+</p>
+          <div class="table">
+            <a id="table.dq3.C30000"></a>
+            <p class="title">
+              <strong>表 5.30 構造体 $C30000</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C30000" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001F</code>
+                    </td>
+                    <td>CX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03E0</code>
+                    </td>
+                    <td>CY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007C</code>
+                    </td>
+                    <td>SX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0F80</code>
+                    </td>
+                    <td>SY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0030</code>
+                    </td>
+                    <td>数値表示処理</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>入力解釈処理</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000F</code>
+                    </td>
+                    <td>前回入力保存処理</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0030</code>
+                    </td>
+                    <td>カーソル</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>グレーアウト禁止</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>位置固定</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>サイズ拡張方向</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001E</code>
+                    </td>
+                    <td>ページ当たり行数</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>サイズ固定</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>生成時効果音再生</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>カーソル効果音禁止</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007</code>
+                    </td>
+                    <td>マージン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00F8</code>
+                    </td>
+                    <td>処理分類</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>兄弟ウィンドウ 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>兄弟ウィンドウ 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>兄弟ウィンドウ 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>描画アドレス</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>実質未使用</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味を以下に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">CX, </span>
+                <span class="term">CY</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">SX, </span>
+                <span class="term">SY</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">数値表示処理</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">入力解釈処理</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">前回入力保存処理</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">カーソル</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">グレーアウト禁止</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">位置固定</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">サイズ拡張方向</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ページ当たり行数</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">サイズ固定</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">生成時効果音再生</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">カーソル効果音禁止</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">マージン</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">処理分類</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">兄弟ウィンドウ k (k = 0..2)</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">描画アドレス</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">実質未使用</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.windows.behavior"></a>5.10.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+ウィンドウの振る舞いについて述べる。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_damage.html" title="5.9. ダメージ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_kings.html" title="5.11. 王様"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_damage.html">5.9. ダメージ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_kings.html">5.11. 王様</a></div>
+  </body>
+</html>

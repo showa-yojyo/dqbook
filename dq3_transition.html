@@ -1,0 +1,1037 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.28. 画面遷移</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_talk.html" title="5.27. はなす" />
+    <link rel="next" href="dq3_search.html" title="5.29. しらべる" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_talk.html" title="5.27. はなす"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_search.html" title="5.29. しらべる"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_talk.html">5.27. はなす</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_search.html">5.29. しらべる</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.transition"></a>5.28. 画面遷移</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_transition.html#dq3.transition.structure">5.28.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_transition.html#dq3.transition.structure.abstract">5.28.1.1. 共通属性の意味について</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_transition.html#dq3.transition.structure.C84CA2">5.28.1.2. 構造体 <code class="varname">$C84CA2</code>: 階段</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_transition.html#dq3.transition.structure.C856AA">5.28.1.3. 構造体 <code class="varname">$C856AA</code>: 水平線</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_transition.html#dq3.transition.structure.C85A62">5.28.1.4. 構造体 <code class="varname">$C85A62</code>: 垂直線</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_transition.html#dq3.transition.structure.C85A70">5.28.1.5. 構造体 <code class="varname">$C85A70</code>: 矩形</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_transition.html#dq3.transition.structure.C86A84">5.28.1.6. 構造体 <code class="varname">$C86A84</code>: ランシール</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_transition.html#dq3.transition.structure.C86A90">5.28.1.7. 構造体 <code class="varname">$C86A90</code>: 幽霊船</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_transition.html#dq3.transition.structure.C86A9A">5.28.1.8. 構造体 <code class="varname">$C86A9A</code>: 目的地点</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_transition.html#dq3.transition.behavior">5.28.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+本節では画面遷移について述べる。
+画面遷移とは、移動モードでパーティーが別の場所に移動したり、
+イベント発生によって自動的にシーンが転換したりするときの画面の移り変わりのことだ。
+移動モードから戦闘モードに、あるいはその逆になったりすることは本節の画面遷移の定義には当てはまらない。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.transition.structure"></a>5.28.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+画面遷移に関係するデータ構造について述べる。
+本節では多くの構造体を列挙しなければならないので、それらの関係について概略を示したい。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.transition.structure.abstract"></a>5.28.1.1. 共通属性の意味について</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+以降の各画面遷移構造体に共通して登場する属性について先に説明しておく。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">場所</span>
+              </dt>
+              <dd>
+                <p>
+        画面遷移オブジェクトが存在する場所の ID を値とする属性だ。
+        場所については別の節で説明する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">MX, </span>
+                <span class="term">MY</span>
+              </dt>
+              <dd>
+                <p>
+        それぞれ画面遷移オブジェクトが位置する座標 X 成分と Y 成分を値とする属性だ。
+        座標系は M 系で表されている。これはキャラクターのサイズを単位系とする座標系だ。
+      </p>
+                <p>
+        型によっては X 座標属性や Y 座標属性が二つある。
+        この場合はその座標成分の組がなす区間すべてが画面遷移の発生判定に有効であることを意味する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ML</span>
+              </dt>
+              <dd>
+                <p>
+        画面遷移オブジェクトが位置する L 座標を値とする属性だ。
+        これはいわゆるレイヤーに相当する概念だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">屋根区域</span>
+              </dt>
+              <dd>
+                <p>
+        画面遷移オブジェクトが属する屋根区域を値とする属性だ。
+        屋根区域とは、値がデバッグ機能の座標ウィンドウのいちばん下に二進数で表示される値のことだ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">目的地</span>
+              </dt>
+              <dd>
+                <p>
+        階段、水平線、垂直線の各型については、
+        この画面遷移が発生すると移動する先の同型オブジェクト ID を値とする属性だ。
+        例えば、階段オブジェクト A の目的地属性値が指す階段オブジェクトを B とすると、
+        B の目的地属性値は A を指すという性質がある。
+      </p>
+                <p>
+        矩形型とランシール型については
+        <a class="xref" href="dq3_transition.html#dq3.transition.structure.C86A9A" title="5.28.1.8. 構造体 $C86A9A: 目的地点">5.28.1.8 構造体 <code class="varname">$C86A9A</code>: 目的地点</a> で述べるオブジェクトの ID を値とする属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">効果音考慮</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン型属性値であり、値が 1 ならば画面遷移時に足音が鳴る。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">演出</span>
+              </dt>
+              <dd>
+                <p>
+        演出とは、画面遷移時に引き起こす視聴覚効果を指示する値を取る属性だ。
+      </p>
+                <div class="table">
+                  <a id="table.dq3.transition.effects"></a>
+                  <p class="title">
+                    <strong>表 5.56 画面遷移演出</strong>
+                  </p>
+                  <div class="table-contents">
+                    <table id="table.dq3.transition.effects" class="lighttable">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>演出</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>1</th>
+                          <td>足音</td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <td>落下 A</td>
+                        </tr>
+                        <tr>
+                          <th>3</th>
+                          <td>旅の扉</td>
+                        </tr>
+                        <tr>
+                          <th>4</th>
+                          <td>天界</td>
+                        </tr>
+                        <tr>
+                          <th>5</th>
+                          <td>落下 B</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <br class="table-break" />
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.transition.structure.C84CA2"></a>5.28.1.2. 構造体 <code class="varname">$C84CA2</code>: 階段</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C84CA2</code> には次のオブジェクト型要素が多数配列されている。
+この型は階段による画面遷移を表現するものであり、移動モードにおいて階段の絵を描画させるものだ（例外もあるが）。
+</p>
+          <div class="table">
+            <a id="table.dq3.C84CA2"></a>
+            <p class="title">
+              <strong>表 5.57 構造体 $C84CA2</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C84CA2" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0003FF</code>
+                    </td>
+                    <td>場所</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007FC</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000FF8</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000030</code>
+                    </td>
+                    <td>ML</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0003C0</code>
+                    </td>
+                    <td>屋根区域</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003FFC</code>
+                    </td>
+                    <td>目的地</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000040</code>
+                    </td>
+                    <td>効果音考慮</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味については <a class="xref" href="dq3_transition.html#dq3.transition.structure.abstract" title="5.28.1.1. 共通属性の意味について">5.28.1.1</a> を参照。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.transition.structure.C856AA"></a>5.28.1.3. 構造体 <code class="varname">$C856AA</code>: 水平線</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C856AA</code> には次のオブジェクト型要素が多数配列されている。
+この型は主にパーティーが建造物の出入口（扉があることが多い）を通過することによる画面遷移を表現する。
+</p>
+          <div class="table">
+            <a id="table.dq3.C856AA"></a>
+            <p class="title">
+              <strong>表 5.58 構造体 $C856AA</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C856AA" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0003FF</code>
+                    </td>
+                    <td>場所</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007FC</code>
+                    </td>
+                    <td>MX0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000FF8</code>
+                    </td>
+                    <td>MX1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001FF0</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000060</code>
+                    </td>
+                    <td>ML</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000780</code>
+                    </td>
+                    <td>屋根区域</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007FF8</code>
+                    </td>
+                    <td>目的地</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000080</code>
+                    </td>
+                    <td>効果音考慮</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味については <a class="xref" href="dq3_transition.html#dq3.transition.structure.abstract" title="5.28.1.1. 共通属性の意味について">5.28.1.1</a> を参照。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.transition.structure.C85A62"></a>5.28.1.4. 構造体 <code class="varname">$C85A62</code>: 垂直線</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C85A62</code> には次のオブジェクト型要素がわずか 2 個だけ配列されている。
+カザーブの村にある教会と墓場との間にある画面遷移を表現する。
+</p>
+          <div class="table">
+            <a id="table.dq3.C85A62"></a>
+            <p class="title">
+              <strong>表 5.59 構造体 $C85A62</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C85A62" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0003FF</code>
+                    </td>
+                    <td>場所</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007FC</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000FF8</code>
+                    </td>
+                    <td>MY0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001FF0</code>
+                    </td>
+                    <td>MY1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000060</code>
+                    </td>
+                    <td>ML</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000780</code>
+                    </td>
+                    <td>屋根区域</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007FF8</code>
+                    </td>
+                    <td>目的地</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000080</code>
+                    </td>
+                    <td>効果音考慮</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味については <a class="xref" href="dq3_transition.html#dq3.transition.structure.abstract" title="5.28.1.1. 共通属性の意味について">5.28.1.1</a> を参照。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.transition.structure.C85A70"></a>5.28.1.5. 構造体 <code class="varname">$C85A70</code>: 矩形</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C85A70</code> には次のオブジェクト型要素が多数配列されている。
+パーティーがこの範囲内に足を踏み入れると画面が遷移するというような矩形を表現するものだ。
+</p>
+          <div class="table">
+            <a id="table.dq3.C85A70"></a>
+            <p class="title">
+              <strong>表 5.60 構造体 $C85A70</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C85A70" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00000F</code>
+                    </td>
+                    <td>演出</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001FF0</code>
+                    </td>
+                    <td>MX0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003FE0</code>
+                    </td>
+                    <td>MY0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007FC0</code>
+                    </td>
+                    <td>MX1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF80</code>
+                    </td>
+                    <td>MY1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000003</code>
+                    </td>
+                    <td>ML</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003FFC</code>
+                    </td>
+                    <td>目的地</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000040</code>
+                    </td>
+                    <td>効果音考慮</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.transition.structure.C86A84"></a>5.28.1.6. 構造体 <code class="varname">$C86A84</code>: ランシール</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C86A84</code> にあるオブジェクトはランシールの村を訪問する際の画面遷移を表現する。
+どの方向から村に入るかによって、パーティーの初期位置を決めることができる。
+</p>
+          <div class="table">
+            <a id="table.dq3.C86A84"></a>
+            <p class="title">
+              <strong>表 5.61 構造体 $C86A84</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C86A84" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00000F</code>
+                    </td>
+                    <td>演出</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001FF0</code>
+                    </td>
+                    <td>MX0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003FE0</code>
+                    </td>
+                    <td>MY0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007FC0</code>
+                    </td>
+                    <td>MX1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF80</code>
+                    </td>
+                    <td>MY1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000003</code>
+                    </td>
+                    <td>ML</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003FFC</code>
+                    </td>
+                    <td>目的地上向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FFC0</code>
+                    </td>
+                    <td>目的地右向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003FFC</code>
+                    </td>
+                    <td>目的地下向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FFC0</code>
+                    </td>
+                    <td>目的地左向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000004</code>
+                    </td>
+                    <td>効果音考慮</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+この型に固有の各属性の意味を以下に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">目的地上向き, </span>
+                <span class="term">目的地右向き, </span>
+                <span class="term">目的地下向き, </span>
+                <span class="term">目的地左向き</span>
+              </dt>
+              <dd>
+                <p>
+        それぞれ、パーティーキャラクターが対応する向きにランシールの村に入るときの、
+        目的地点 (<a class="xref" href="dq3_transition.html#dq3.transition.structure.C86A9A" title="5.28.1.8. 構造体 $C86A9A: 目的地点">5.28.1.8</a>) の ID を値とする属性だ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.transition.structure.C86A90"></a>5.28.1.7. 構造体 <code class="varname">$C86A90</code>: 幽霊船</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C86A90</code> にあるオブジェクトは幽霊船の出口における画面遷移を表現する。
+</p>
+          <div class="table">
+            <a id="table.dq3.C86A90"></a>
+            <p class="title">
+              <strong>表 5.62 構造体 $C86A90</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C86A90" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00000F</code>
+                    </td>
+                    <td>演出</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001FF0</code>
+                    </td>
+                    <td>MX0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003FE0</code>
+                    </td>
+                    <td>MY0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007FC0</code>
+                    </td>
+                    <td>MX1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF80</code>
+                    </td>
+                    <td>MY1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000003</code>
+                    </td>
+                    <td>ML</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>処理</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000001</code>
+                    </td>
+                    <td>効果音考慮</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+この型に固有の各属性の意味を以下に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">処理</span>
+              </dt>
+              <dd>
+                <p>
+        幽霊船の出口にパーティーが移動すると実行されるコードのアドレスを値とする属性だ。
+        これによって、パーティーの船に戻ることになる。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.transition.structure.C86A9A"></a>5.28.1.8. 構造体 <code class="varname">$C86A9A</code>: 目的地点</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C86A9A</code> には次のオブジェクト型要素が多数配列されている。
+この型は矩形型とランシール型から参照される画面遷移先座標を表現する。
+</p>
+          <div class="table">
+            <a id="table.dq3.C86A9A"></a>
+            <p class="title">
+              <strong>表 5.63 構造体 $C86A9A</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C86A9A" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0003FF</code>
+                    </td>
+                    <td>場所</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007FC</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000FF8</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000030</code>
+                    </td>
+                    <td>ML</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0003C0</code>
+                    </td>
+                    <td>屋根区域</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00000C</code>
+                    </td>
+                    <td>向き</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+この型固有の各属性の意味を以下に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">向き</span>
+              </dt>
+              <dd>
+                <p>
+        画面遷移直後のパーティーキャラクターの向きを表す値を取る属性だ。
+        「はなす」「しらべる」と同様だ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.transition.behavior"></a>5.28.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+TBW
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_talk.html" title="5.27. はなす"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_search.html" title="5.29. しらべる"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_talk.html">5.27. はなす</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_search.html">5.29. しらべる</a></div>
+  </body>
+</html>

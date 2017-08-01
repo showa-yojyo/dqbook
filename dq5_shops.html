@@ -1,0 +1,1407 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>3.10. 店屋</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)" />
+    <link rel="prev" href="dq5_battle_commands.html" title="3.9. 戦闘コマンド" />
+    <link rel="next" href="dq5_character_traits.html" title="3.11. 仲間キャラクターの特性データ" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq5_battle_commands.html" title="3.9. 戦闘コマンド"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq5_character_traits.html" title="3.11. 仲間キャラクターの特性データ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq5_battle_commands.html">3.9. 戦闘コマンド</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq5.html">第 3 章 SFC 版ドラクエ 5 (1992)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq5_character_traits.html">3.11. 仲間キャラクターの特性データ</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq5.shops"></a>3.10. 店屋</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq5_shops.html#dq5.shops.keepers">3.10.1. 店屋処理解析</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06DBFD">3.10.1.1. ダミーコード</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06DC04">3.10.1.2. 武器屋</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06E01F">3.10.1.3. 道具屋</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06E026">3.10.1.4. 防具屋</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06E02E">3.10.1.5. よろず屋</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06E036">3.10.1.6. 教会（尼）</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06E03E">3.10.1.7. 教会（神父）</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06E375">3.10.1.8. 宿屋（フランク）</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06E384">3.10.1.9. 宿屋（標準）</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06E4DE">3.10.1.10. 預かり所</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06E95A">3.10.1.11. モンスターじいさん</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06EBF7">3.10.1.12. メダル王</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06ED01">3.10.1.13. ルイーダの店</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06EE34">3.10.1.14. カジノキャッシャー</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06EF70">3.10.1.15. カジノ景品交換所</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06F1E8">3.10.1.16. スライムレース</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.06F226">3.10.1.17. 格闘場</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq5_shops.html#dq5.shops.keepers.variables">3.10.1.18. 頻出変数</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq5_shops.html#dq5.shops.data">3.10.2. 店屋データ</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq5.shops" class="indexterm"></a>
+      <p>
+本節では店屋共通処理について見ていく。
+最初にプレイヤーが街にいる人物の誰かに「はなす」とき、それが何らかの店屋であれば、
+その地域と店の種類によって定型処理を実行する仕組みについて簡単に述べる。
+次に、有効な店屋の種類それぞれについて、処理の概要を述べる。
+最後に、店屋処理が参照する定数テーブルを可能な限り示す。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.shops.keepers"></a>3.10.1. 店屋処理解析</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+店屋系の人物に対して「はなす」コマンドを実行すると、その店屋の系統に応じて処理が決定される。
+その仕掛けとは、サブルーチン <code class="varname">$06DBD2</code> から呼び出されるサブルーチンのための
+ジャンプテーブル <code class="varname">$06DBDB</code> だ。
+まずは呼び出し側サブルーチンのコードを次に示す：
+</p>
+        <pre class="programlisting">
+06/DBD2:    0A          ASL A
+06/DBD3:    AA          TAX
+06/DBD4:    FCDBDB      JSR ($DBDB,X)       ; 店屋系
+06/DBD7:    9C200F      STZ $0F20           ; 店屋タイプをゼロにしておく
+06/DBDA:    60          RTS
+</pre>
+        <p>
+この時点までに店屋の種類に対応する値がジャンプテーブルのインデックスとして設定されている。
+このジャンプテーブルが示すサブルーチンを解読することで、それぞれが店屋のどの種類の処理なのかが判明する。
+次に示すのは、そのようにして得られたジャンプテーブルの詳細だ：
+</p>
+        <pre class="programlisting">
+06/DBDB:    FDDB        ; ダミーコード
+06/DBDD:    04DC        ; 武器屋
+06/DBDF:    1FE0        ; 道具屋
+06/DBE1:    26E0        ; 防具屋
+06/DBE3:    DEE4        ; 預かり所
+06/DBE5:    3EE0        ; 教会（神父）
+06/DBE7:    84E3        ; 宿屋（標準）
+06/DBE9:    5AE9        ; モンスターじいさん
+06/DBEB:    2EE0        ; よろず屋
+06/DBED:    F7EB        ; メダル王
+06/DBEF:    01ED        ; ルイーダの店
+06/DBF1:    34EE        ; カジノキャッシャー
+06/DBF3:    70EF        ; カジノ景品交換所
+06/DBF5:    E8F1        ; スライムレース
+06/DBF7:    26F2        ; 格闘場
+06/DBF9:    36E0        ; 教会（尼）
+06/DBFB:    75E3        ; 宿屋（フランク）
+</pre>
+        <p>
+以下、店屋の種類ごとにそれぞれの処理の急所を記していく。
+読者自身でコードを解読するのであれば、次に挙げる記述やデータを利用して欲しい：
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist" style="list-style-type: disc; ">
+            <li class="listitem">
+              <p>
+                <a class="xref" href="dq5_brk.html" title="3.2. 詳解 BRK 命令">3.2 詳解 BRK 命令</a>
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <a class="xref" href="dq5_accessor.html" title="3.3. 汎用データアクセスサブルーチン（仮）">3.3 汎用データアクセスサブルーチン（仮）</a>
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <a class="ulink" href="./data/dq5_07D77C_text_travel.txt" target="_top">./data/dq5_07D77C_text_travel.txt</a>
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06DBFD"></a>3.10.1.1. ダミーコード</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+製品版プログラムはこのコードをカバーしない。便宜上存在するだけのダミーコードだ。
+短いので全文引用した上で、適宜コメントを付す：
+</p>
+          <pre class="programlisting">
+06/DBFD:    0095        BRK #$95            ; window #$00: (open)
+06/DBFF:    00
+06/DC00:    0098        BRK #$98            ; message #$01CC: その方向には ダレモイナイ。
+06/DC02:    CC
+06/DC03:    60          RTS
+</pre>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06DC04"></a>3.10.1.2. 武器屋</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+武器屋の処理は <code class="varname">$DC04</code> から始まり、かなりの分量のコードからなる。
+コードを逐一解説する紙幅がないので、要点に絞って解説する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      当サブルーチンの大部分は他の店屋の処理と共有されている。
+      この区別をするために変数 <code class="varname">$0F20</code> を参照する。
+      この値が影響するのは、メッセージウィンドウに表示する台詞と取り扱う品物が何であるかだ。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      補助サブルーチン <code class="varname">$DFC4</code> で店屋に喋らせる。
+      基本的には、台詞として ID の値が直前の LDA 命令のオペランドの 4 倍の値プラス <code class="varname">$0F20</code> の値のメッセージを出力する。
+      不規則的に別の台詞を適用する場合があるが、解読の困難とはならない。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      補助サブルーチン <code class="varname">$DFBA</code> で別バンクに定義されている店屋の品物データを参照する。
+      変数 <code class="varname">$0F20</code> のほかに変数 <code class="varname">$0F25</code> の設定が必要。
+      後者は店舗の立地地域を示す ID の値。詳しくは後述する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      補助サブルーチン <code class="varname">$F5E9</code> で所持金過不足テスト兼所持金からの支払いを処理する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「かいにきた」で品物を受け渡すときの台詞は、対称キャラクターの状態が
+      </p>
+                <div class="orderedlist">
+                  <ol class="orderedlist" type="1">
+                    <li class="listitem">
+                      <p>死んでいるか、</p>
+                    </li>
+                    <li class="listitem">
+                      <p>マヒしているか、</p>
+                    </li>
+                    <li class="listitem">
+                      <p>馬車にいるか、</p>
+                    </li>
+                    <li class="listitem">
+                      <p>それ以外</p>
+                    </li>
+                  </ol>
+                </div>
+                <p>
+      かどうかで決まる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「かいにきた」で品物を受け渡す対象キャラクターの所持品数が限界かどうかの判定がかなり後ろにある。
+      具体的には所持金過不足テストの直前。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「うりにきた」処理における下取り価格の評価はサブルーチン <code class="varname">$06DF5B</code> 呼び出しで行う。
+      より厳密にはサブルーチン <code class="varname">$DF75</code> で計算する。
+      周知のように市価の 3/4 に等しいわけだが、コードとしてはシフト演算と加算のみでこれを求める。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「うりにきた」については、パーティーの所持金が上限付近でも買い取る。
+      つまり、溢れた分の金額については失われる。これは預かり所やカジノにおけるゴールドやコインのやり取りとは挙動が異なる。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+先ほど後回しにしておいた、店屋の商品定義データについて以下に説明する。
+武器屋だけでなく、アイテム系店屋はどれもが店の品揃えを保持するデータと対応付けられている。
+最初に店の種別とデータアドレスとの対応表がアドレス <code class="varname">$04FBD5</code> にあり、それを最初に参照する。
+この対応表については短いのでコードを引用する：
+</p>
+          <pre class="programlisting">
+04/FBD5:    DDFB        ; 道具屋
+04/FBD7:    33FC        ; 防具屋
+04/FBD9:    ABFC        ; 武器の店
+04/FBDB:    2DFD        ; よろず屋
+</pre>
+          <p>
+それから店のある地域というか、ルーラの呪文でも使われる ID をキーとした探索操作によって、対応データの格納位置を ROM から特定する。
+対応データの構造が次のような不定長データの配列であることを踏まえて、その店固有の商品群を参照する：
+</p>
+          <div class="table">
+            <a id="table.dq5.shops.structure"></a>
+            <p class="title">
+              <strong>表 3.27 店屋構造体</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq5.shops.structure" class="lighttable">
+                <thead>
+                  <tr>
+      <th>オフセット</th>
+      <th>意味</th>
+    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>地域 ID</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>商品のアイテム ID</td>
+                  </tr>
+                  <tr>
+                    <td>...</td>
+                    <td>...</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>
+                      <code class="literal">#$FF</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06E01F"></a>3.10.1.3. 道具屋</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+道具屋の処理は武器屋のコードと共有している。
+店屋種類を表す変数 <code class="varname">$0F20</code> にゼロをセットし、共有部分の最初の命令にジャンプする。
+ちなみにこの値がゼロであるということは、解読時に台詞の流れを追いやすいことを意味する。
+</p>
+          <pre class="programlisting">
+06/E01F:    7B          TDC                 ; 0: 道具屋
+06/E020:    8D200F      STA $0F20           ; 店屋タイプ
+06/E023:    82E3FB      BRL $DC09           ; 共通部分へジャンプ
+</pre>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06E026"></a>3.10.1.4. 防具屋</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+防具屋の処理もまた、武器屋のコードと共有している。
+店屋種類を表す変数 <code class="varname">$0F20</code> に 1 をセットしてから、共有部分の最初の命令にジャンプする。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06E02E"></a>3.10.1.5. よろず屋</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+よろず屋の処理もまた、武器屋のコードと共有している。
+店屋種類を表す変数 <code class="varname">$0F20</code> に 3 をセットしてから、共有部分の最初の命令にジャンプする。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06E036"></a>3.10.1.6. 教会（尼）</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+教会処理の尼版は、次に説明する神父版とコードを共有している。
+台詞のメッセージ ID を調整するための変数 <code class="varname">$0F2B</code> に 1 をセットしてから、共有部分の最初の命令にジャンプする。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06E03E"></a>3.10.1.7. 教会（神父）</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+教会の処理はサブルーチンとしては <code class="varname">$E03E</code> から始まるかなり長いコードで構成されている。
+以下に要点のみを羅列する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      補助サブルーチン <code class="varname">$E367</code> で神父または尼に喋らせる。
+      基本的には、台詞として ID の値が直前の LDX 命令のオペランドの値プラス <code class="varname">$0F2B</code> の値のメッセージを出力する。
+      これを言う機会がなかなかないのでここに書いてしまうが、神父は「寄付」と言うが尼は「寄附」と言う。
+      なぜ表記が揺れるのだろう。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「おいのりをする」でゲームを終わる場合、アドレス <code class="varname">$06E0F9</code> でプログラムカウンターが停止する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「おいのりをする」による冒険の書保存処理はサブルーチン <code class="varname">$038D63</code> 呼び出しで行われると思われる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「いきかえらせる」の寄付金は、対象キャラクターのレベルに 10 を乗じた値に等しい。
+      これを補助サブルーチン <code class="varname">$F625</code> で計算する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      寄付の意志確認、寄付金の過不足テスト、およびその支払いは補助サブルーチン <code class="varname">$E322</code> 呼び出しで実現する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「いきかえらせる」によるキャラクター状態の更新はサブルーチン <code class="varname">$06E18C</code> 呼び出しによる。
+      これによりキャラクターの HP と生存フラグだけでなく MP と呪いフラグ各種および毒フラグ各種も回復する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「おつげをきく」においてはキャラクター構造体にあらかじめ格納された二種類の経験値の差を表示する。
+      <a class="xref" href="dq5_characters.html" title="3.4. 仲間キャラクター構造体">3.4 仲間キャラクター構造体</a> 参照。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「のろいをとく」の寄付金は、対象キャラクターのレベルに 10 を乗じた値に等しい。
+      先ほどとは異なり、ここで計算する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「のろいをとく」によるキャラクター状態の回復処理は補助サブルーチン <code class="varname">$E2A6</code> で行う。
+      そこでは HP に対する呪いと MP に対する呪いの両方を回復する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「どくのちりょう」の寄付金は 5 ゴールドだ。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06E375"></a>3.10.1.8. 宿屋（フランク）</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+店主がフランクな宿屋の処理は、次に説明する標準的な宿屋のそれとコードを共有している。
+台詞のメッセージ ID を調整するための変数 <code class="varname">$0F2B</code> に 7 をセットしてから、共有部分の最初の命令にジャンプする。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06E384"></a>3.10.1.9. 宿屋（標準）</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+宿屋の処理はサブルーチンとしては <code class="varname">$E384</code> から始まる。
+思いの外難しいコードを利用しているので、以下に要点を羅列することしかできない：
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      台詞表示は教会処理と同様の方針で実現する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      宿代の計算はサブルーチン <code class="varname">$F563</code> が行う。
+      そこでは一人あたりの宿代をデータテーブル <code class="varname">$04FD6D</code> から宿のある地域をキーとして得る。
+      それからその値を馬車を含むパーティー人数と同じ回数の加算により求める。
+      このアルゴリズムの計算時間が定数時間ではなく、線形時間になっている。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      所持金のやりとりはサブルーチン <code class="varname">$F5E9</code> の呼び出しによる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      パーティー内のキャラクターの回復処理はサブルーチン <code class="varname">$E43A</code> の呼び出しによる。
+      これは一見して何をする処理なのかわからない（多数のサブルーチン呼び出しを含むため）。
+      サブルーチンは回復処理とは関係のない処理を含んでいる可能性がある。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+データテーブル <code class="varname">$04FD6D</code> の単位構造は次のような単純な値の組だ：
+</p>
+          <div class="table">
+            <a id="table.dq5.inn.structure"></a>
+            <p class="title">
+              <strong>表 3.28 宿屋構造体</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq5.inn.structure" class="lighttable">
+                <thead>
+                  <tr>
+      <th>オフセット</th>
+      <th>意味</th>
+    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>地域 ID</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>一人当たりの宿代</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06E4DE"></a>3.10.1.10. 預かり所</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+預かり所の処理はサブルーチン <code class="varname">$E4DE</code> に実装されている。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      「あずける＞おかね」において、既に 1,000,000 ゴールドの残高がある場合は、
+      さらなる預金をすることができない。
+      また、これから預金する額と加算して 1,000,000 ゴールドを超えるような場合もいけない。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      サブルーチン <code class="varname">$E928</code> を呼び出すと、
+      入力ウィンドウで指定した金額を 1000G 単位に換算する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「あずける＞もちもの」において、既に 99 個預けてあるアイテムについては預けることは不可能だ。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      持ち物を預ける際に、持ち主の状態によって店員の台詞が異なるが、
+      この判定基準は武器屋等と同様となっている。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      先に預かり所のデータを更新してから、キャラクターの持ち物データを更新する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「ひきだす＞おかね」において、指定金額と現在の所持金の和が 99,999 を超える場合には引き出し処理を失敗させるのだが、
+      その際の変数比較処理が 3 バイト長にわたるため、やや面倒なことになっている：
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      先に預かり所のデータを更新してから、所持金を更新する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「ひきだす＞ぼうぐ」「ひきだす＞ぶき」「ひきだす＞どうぐ」の各処理の前半部はよく似ているが、
+      在庫がないときの台詞や表示するウィンドウが異なるためにほとんどコピーアンドペーストなコードとなっている。
+      後半部、つまり引き出すアイテムを指定した直後からの処理はコードを共有している。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      引き出したアイテムを受け取るキャラクターが所持品満杯なときは店員がダメ出しをするが、
+      なおかつパーティーがそのキャラクター一人しかいない場合には余分に台詞（何か 売るなり 捨てるなり～）がある。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      引き出したアイテムに装備可能性属性があると、受取人の装備可能性をテストする。
+      結果に応じて店員の台詞を追加で表示する。ただし装備可能であっても、この場で装備することはない。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      他の店屋でのアイテム受け取りと同様に、受け取るキャラクターの状態によって店員の台詞が変化する。
+      テスト順も生存、マヒ、馬車の順で一貫性がある。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      アイテム引き出しにおいても、先に預かり所のデータを更新して、それからキャラクターのデータを更新する。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06E95A"></a>3.10.1.11. モンスターじいさん</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+モンスターじいさんの処理はサブルーチン <code class="varname">$E95A</code> に実装されている。
+ただし、ここは馬車が使えるようになってから到達可能となるプログラムコードだ。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      当プログラムバンク内にある（店屋処理以外の）いろいろなサブルーチンが
+      「はい・いいえ」ウィンドウの処理をラップした補助サブルーチン <code class="varname">$EBBC</code> 
+      を利用するのだが、モンスターじいさんの処理中においてもこれを利用する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「わかれにきた」で仲間モンスターキャラクターを削除することが確定すると、
+      装備品の全てについて預かり所の対応アイテム数を高々 1 だけ増加し、
+      それから仲間モンスターの獲得状況を管理する配列 <code class="varname">$7E29EA</code> を更新する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「あずけにきた」でじいさんのところに収容できる仲間は 50 頭が上限。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「あずけにきた」で仲間キャラクターを選択すると、まずは彼のモンスターフラグをテストする。
+      それが真ならば、次に彼に対する、モンスターじいさんに預けるのを禁止するかどうかを示すフラグをテストする。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      預けられるキャラクターについては、じいさんの台詞のバリエーションに彩りを添えるために生存フラグをテストする。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      仲間を預けるときに所持品が預かり所へ送られる理由を説明する条件は、
+      じいさんに預けてあるキャラクターが一頭もいないことだ。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      仲間キャラクターの入れ替えに必要な処理は BRK 命令の特定の番号の処理でカプセル化されている。
+      これは <a class="xref" href="dq5_accessor.html" title="3.3. 汎用データアクセスサブルーチン（仮）">3.3 汎用データアクセスサブルーチン（仮）</a> の <code class="literal">#$A8</code> および
+      <code class="literal">#$A9</code> をラップしており、それぞれ「あずけにきた」と「むかえにきた」に対応する。
+      また、現在パーティーの更新処理と思われるが、サブルーチン <code class="varname">$05D89D</code> の呼び出しを行う。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      仲間を一頭預けたときに、じいさんが他のモンスターも預かろうか尋ねる条件が不透明。
+      コードを見る限りでは単に二名以上いることをテストするだけで十分だと思われる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「むかえにきた」では、次のどちらかが成り立ってる必要がある。
+      通常のゲーム状況では後者のみを考慮すればよい：
+    </p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+            馬車を所有していない場合、パーティー構成人数が 3 未満である。
+          </p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+            馬車を所有している場合、パーティー構成人数が 8 未満である。
+          </p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>
+      「むかえにきた」で仲間を追加した直後に、
+      サブルーチン <code class="varname">$21805A</code> を実行することで、
+      彼のキャラクター構造体オブジェクトの属性である「次のレベルアップ経験値」をセットする。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「ようすをみる」は基本的にはウィンドウ処理がほとんどだ。
+      この過程で選択したキャラクターデータが <code class="varname">$7E2040</code> 系のアドレスに一時的にロードされている気配がある。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06EBF7"></a>3.10.1.12. メダル王</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+メダル王の処理はサブルーチン <code class="varname">$EBF7</code> に実装されている。
+この処理の特徴を次に列挙する：
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      最初に、パーティーの全員の所持品それぞれから「ちいさなメダル」を取り除きながらメダル王のストックカウンターを増加するという処理がある。
+      これが実行効率を度外視したコードになっていることに注意したい。
+      パーティー全員に「ちいさなメダル」を 12 枚持たせてメダル王に「はなす」と、
+      相当体感時間が長いのではないだろうか。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      褒美品リストはデータとしてよろず屋データ配列に居候しているので、
+      先に述べたように変数 <code class="varname">$0F20</code> を <code class="literal">#$03</code> に上書きしてから、
+      店屋データアクセスサブルーチン <code class="varname">$DFBA</code> を呼び出す。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      褒美品のメダル換算率は配列 <code class="varname">$04FD55</code> で定義されている。
+      インデックスは褒美メニュー項目に対するそれと一致する。
+    </p>
+                <pre class="programlisting">
+04/FD55:    05  ;  5 せんしのパジャマ
+04/FD56:    0A  ; 10 ふしぎなボレロ
+04/FD57:    10  ; 16 きせきのつるぎ
+04/FD58:    15  ; 21 しんぴのよろい
+04/FD59:    1E  ; 30 はやぶさのけん
+04/FD5A:    2B  ; 43 メタルキングのたて
+</pre>
+              </li>
+              <li class="listitem">
+                <p>
+      褒美品の受け渡しでは、受け取るキャラクターの所持品を更新して、
+      それからメダル王のメダル残高を更新する。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06ED01"></a>3.10.1.13. ルイーダの店</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+ルイーダの店の処理はサブルーチン <code class="varname">$ED01</code> に実装されている。
+この処理の特徴を次に列挙する：
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      「なかまをはずす」の選択キャラクターの属性や状態で、ルイーダの応答内容が変化する。
+      まず、属性として「ルイーダに預けるの禁止」フラグが真の者については、さらに追加で
+      彼が人間かモンスターかをテストする。それによりルイーダの台詞が異なる。
+      次に、外したい仲間が死亡の場合、モンスターじいさんとは対照的に預けられない。
+      最後に、外したい仲間が馬車内にいるか否かで、台詞を使い分ける。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      仲間をルイーダに預けるときのデータ更新は BRK 命令処理となる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      仲間をルイーダに預けると、その人物に対応したフラグを更新する処理が入る。
+      サブルーチン <code class="varname">$2981CB</code> 呼び出しはそれを実行する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      「なかまを くわえる」では、モンスターじいさんの「むかえにきた」同様のポリシーがある。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      仲間が加わると、その人物に対応したフラグを更新するために、
+      サブルーチン <code class="varname">$298190</code> を呼び出す。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      ルイーダコマンドのどちらの処理においても、おそらく現在のパーティー情報を更新するために、
+      一人分の入れ替えの最後にサブルーチン <code class="varname">$05D89D</code> を呼び出す。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06EE34"></a>3.10.1.14. カジノキャッシャー</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+カジノキャッシャーはサブルーチン <code class="varname">$EE34</code> に実装されている。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      補助サブルーチン <code class="varname">$EEC3</code> では、プレイヤーが入力したコイン枚数を購入するのに必要なゴールドを計算する。
+      コードを読むと、文字列的データから十進数表現だと桁数が大きくなる値を処理することが面倒だということがわかる。
+      ここではさらに乗算も絡めているので大変だ。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      コインを 9,999,999 枚を超えて所有するようなコインの購入はできない。
+      そのような数値入力はバニーを断らせることになる。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06EF70"></a>3.10.1.15. カジノ景品交換所</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+カジノ景品交換所の処理はサブルーチン <code class="varname">$EF70</code> に実装されている。
+処理の構造はアイテム系店屋の「かいにきた」と同じだが、ゴールドの代わりにコインを消費するところが違いだ。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      あと、最初にこちらの懐具合をチェックしに来るのも特徴だ。
+      コインを一枚も持っていないとバニーが台詞をしゃべって店屋処理が終了する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      景品リストデータをよろず屋データ配列に間借りして定義している関係上、
+      変数 <code class="varname">$0F20</code> を <code class="literal">#$03</code> に上書きしてから、
+      店屋データアクセスサブルーチン <code class="varname">$DFBA</code> を呼び出す。
+      このときに地域 ID を <code class="literal">#$15</code> つまりエビルマウンテンの値にセットしているが、
+      店屋データでどういうわけかその値を検索キーとして採用しているに過ぎない。
+      エビルマウンテンに深い意味があるわけではないだろう。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      プレイヤーが景品を選択すると、アイテム系店屋とは異なり本当にそれでよいのか確認をする。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      選択アイテムが戦闘中に道具として使うと特別な効果がある性質のものであれば、
+      そのことを告げるようになっているのだが、
+      残念なことにカジノの景品ではそのようなものはないので、事実上没台詞となっている。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      選択した景品が武器、防具、盾、兜のいずれかのアイテム種別であり、
+      かつ受け取りたいキャラクターがそれを装備できないと、バニーから念を押される。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      景品を受け取りたいキャラクターがアイテムを 12 個所持していて、
+      かつパーティーに一人しかいない場合には、バニーが少し持ち物を減らしてからまた来るようにと告げる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      指定キャラクターが景品を持つ空間的余裕があることを確認してから、コインの支払い能力をテストする。
+      それを果たすためにサブルーチン <code class="varname">$F05B</code> を実行する。
+      この補助サブルーチンの中身を解読すると、カジノ景品交換率が次で定義されていることがわかる：
+    </p>
+                <pre class="programlisting">
+04/FD5B:    2C0100 ;     500 エルフののみぐすり
+04/FD5E:    E80300 ;   1,000 せかいじゅのは
+04/FD61:    881300 ;   5,000 メガンテのうでわ
+04/FD64:    102700 ;  10,000 キラーピアス
+04/FD67:    50C300 ;  50,000 メタルキングのけん
+04/FD6A:    90D003 ; 250,000 グリンガムのムチ
+</pre>
+              </li>
+              <li class="listitem">
+                <p>
+      コインでの支払いはサブルーチン <code class="varname">$F084</code> による。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      受け取りキャラクターが景品を装備可能であれば、バニーが装備するかどうかを尋ねる。
+      「はい」ならば受け取りキャラクターの所持品および装備状態を更新し、
+      「いいえ」ならば通常の受け渡し処理を行う。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      通常の受け渡し処理は、アイテム系店屋のポリシーを踏襲したコードになっている。
+      つまり、死亡テスト、マヒテスト、そして馬車テストを、この順番に行う可能性がある。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      ところで、このサブルーチンのコードは重複部がとても多い。
+      指定の景品が武器、防具、盾、兜のどれかであるか否かで処理を大きく分けているのだが、
+      それらの処理のうちの判定系コードが一致している。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06F1E8"></a>3.10.1.16. スライムレース</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+スライムレースの処理はサブルーチン <code class="varname">$F1E8</code> に実装されている。
+と言っても、レース自身は別バンクにあるサブルーチン <code class="varname">$03A1EE</code> に実装されている。
+そちらについては別の節で考察する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      コインを一枚たりとも持っていないと、コインを買ってからまた来るように言われる。
+      台詞の後半で唐突に言葉が丁寧になるので面白い。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.06F226"></a>3.10.1.17. 格闘場</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+格闘場の処理はサブルーチン <code class="varname">$F226</code> から始まる。
+このプログラムバンク内にあるコードを中心に見ていこう。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      試合におけるマッチメイクはサブルーチン <code class="varname">$268E38</code> で決定する。
+      そこでは主人公のレベルと乱数を基に、
+      あらかじめ定義された選手モンスターと倍率の組み合わせを参照する。
+      その後、倍率を乱数で揺らして、最終的なマッチメイクを決定するという処理を実行するサブルーチンだ。
+      配列 <code class="varname">$23DC27</code> がレベル閾値を、
+      データテーブル <code class="varname">$23DA97</code> が格闘場のマッチメイク一つ一つをそれぞれ表現している。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      賭けるモンスターを決定した後に、こちらに賭けるコインがあるかどうかをテストする。
+      コインを一枚たりとも持っていないと、例によってコインを買ってからまた来るように言われる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      賭ける額を入力して決定ボタンを押すと、こちらの所有コイン総額が減る。
+      減らしてから係員がセリフを喋る。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      この辺からコードを解読するのが面倒になるが、
+      とりあえずサブルーチン <code class="varname">$208226</code> が格闘場での戦闘そのもののようだ。
+      戻り値によって賭けの結果を表現しており、
+      </p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>ゼロならば勝ち、</p>
+                    </li>
+                    <li class="listitem">
+                      <p><code class="literal">#$80</code> ならば引き分け、</p>
+                    </li>
+                    <li class="listitem">
+                      <p>それ以外は負け</p>
+                    </li>
+                  </ul>
+                </div>
+                <p>
+      として扱う。
+    </p>
+                <p>
+       サブルーチン <code class="varname">$208226</code> についても本書の対象範囲にあるので、節を改めて論じる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      賭けに勝つと、賭けたコインの枚数と指定の倍率を乗算する。
+      CPU に浮動小数点演算がないので、倍率の小数点を右にずらして得られる整数を乗算したり、
+      乗算結果を 10 で除算したりするなどの工夫を要する。
+      演算用作業変数の値を 10 で割る補助サブルーチンとして <code class="varname">$F487</code> を繰り返し呼び出す。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      賭けに勝ったときのファンファーレをサブルーチン <code class="varname">$23E50B</code> で演奏する。
+      </p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>コイン総額 500 未満は小、</p>
+                    </li>
+                    <li class="listitem">
+                      <p>10,000 以上は大、</p>
+                    </li>
+                    <li class="listitem">
+                      <p>それ以外は中</p>
+                    </li>
+                  </ul>
+                </div>
+                <p>
+      のファンファーレが鳴り響く。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      さらに獲得コイン総額をプッシュして次のゲームに進む権利を得られる。
+      一度「はい」と答えてからキャンセルをすると、係員から取りやめられないことを告げられて、
+      再びモンスター選択ウィンドウがアクティブになる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      ただし獲得総額が 10,000 コイン以上になると打ち止めだ。
+      係員からカジノの本日のキングだとほめられて、格闘場の処理が終了となる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      賭けに負けると係員が残念だと一言あった後に、次の試合をやるかどうか尋ねてくる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      試合が引き分けると、係員から案内メッセージがあり賭けコインを返却され、
+      それから次の試合をやるかどうか尋ねてくる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      コインの獲得および返却には共通してサブルーチン <code class="varname">$F446</code> を呼び出す。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+データテーブル <code class="varname">$23DA97</code> の単位構造は次のようになっている。
+空席の選手には <code class="literal">#$FF</code> がモンスター ID の代わりに用いられている。
+倍率は、実際のゲームで適用されるオッズの整数部の値と思われる。
+対応する選手がいないデータでは、ここにはゼロが格納されている。
+</p>
+          <div class="table">
+            <a id="table.dq5.matchmake.structure"></a>
+            <p class="title">
+              <strong>表 3.29 マッチメイク構造体</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq5.matchmake.structure" class="lighttable">
+                <thead>
+                  <tr>
+      <th>オフセット</th>
+      <th>意味</th>
+    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>モンスター [00]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>倍率 [00]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>モンスター [01]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>倍率 [01]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>モンスター [02]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>倍率 [02]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>モンスター [03]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>倍率 [03]</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq5.shops.keepers.variables"></a>3.10.1.18. 頻出変数</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+コードを解読する作業の役に立つべく、
+上で説明した店屋処理に共通して参照される変数の役割を表にまとめておく：
+</p>
+          <div class="table">
+            <a id="table.dq5.shops.keepers.variables"></a>
+            <p class="title">
+              <strong>表 3.30 店屋処理に共通して参照される変数</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq5.shops.keepers.variables" class="lighttable">
+                <thead>
+                  <tr>
+      <th>変数</th>
+      <th>用途</th>
+    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td align="left">
+                      <code class="varname">$0F20</code>
+                    </td>
+                    <td>店屋種別コード</td>
+                  </tr>
+                  <tr>
+                    <td align="left">
+                      <code class="varname">$0F21</code>
+                    </td>
+                    <td>キャラクター ID</td>
+                  </tr>
+                  <tr>
+                    <td align="left">
+                      <code class="varname">$0F22</code>
+                    </td>
+                    <td>アイテム ID</td>
+                  </tr>
+                  <tr>
+                    <td align="left">
+                      <code class="varname">$0F23</code>
+                    </td>
+                    <td>キャラクター ID</td>
+                  </tr>
+                  <tr>
+                    <td align="left">
+                      <code class="varname">$0F24</code>
+                    </td>
+                    <td>カジノ景品リストの選択</td>
+                  </tr>
+                  <tr>
+                    <td align="left">
+                      <code class="varname">$0F25</code>
+                    </td>
+                    <td>店屋地域 ID</td>
+                  </tr>
+                  <tr>
+                    <td align="left">
+                      <code class="varname">$0F26:0F28</code>
+                    </td>
+                    <td>店屋データベースアドレス</td>
+                  </tr>
+                  <tr>
+                    <td align="left">
+                      <code class="varname">$0F28:0F2B</code>
+                    </td>
+                    <td>ゴールド・カジノコイン</td>
+                  </tr>
+                  <tr>
+                    <td align="left">
+                      <code class="varname">$0F2B</code>
+                    </td>
+                    <td>教会種別コードまたは宿屋種別コード</td>
+                  </tr>
+                  <tr>
+                    <td align="left">
+                      <code class="varname">$0F2C</code>
+                    </td>
+                    <td>値ゼロで固定</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">店屋種別コード</span>
+              </dt>
+              <dd>
+                <p>
+        この変数は、店屋が道具屋、防具屋、武器屋、よろず屋の共通処理中において、
+        現在の店屋がいずれなのかを判別する定数を表すために用いられる。
+        前述の台詞メッセージ ID のオフセットや
+        店屋データの検索キーの一つの値を意味する。
+        それゆえ、店屋の種類がこの四つのいずれかである場合以外は、
+        コードと店屋種別との対応関係はそれほど重要ではない。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">カジノ景品リストの選択</span>
+              </dt>
+              <dd>
+                <p>
+        この変数は、プレイヤーが指定したカジノ景品交換所のアイテムリストにおける選択位置を表す。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">店屋地域 ID</span>
+              </dt>
+              <dd>
+                <p>
+        この変数は、店屋に対応する地域を表す ID 値であり、
+        ルーラの呪文の各項目の ID と同一の概念だ。
+        これは店屋データの検索キーの一つの値として用いられる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">店屋データベースアドレス</span>
+              </dt>
+              <dd>
+                <p>
+        この変数は、店屋の売り物メニューを表現するデータ構造の先頭アドレスのためのものだ。
+        アドレス値なので 2 バイト長の変数として扱う。
+        ただしデータバンクは <code class="varname">$04</code> となる。
+        データの内容については後述する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ゴールド・カジノコイン</span>
+              </dt>
+              <dd>
+                <p>
+        この変数は、プレイヤーが店屋に支払う代金を格納する。
+        ゴールドの場合とカジノコインの場合とがあるので、
+        プログラムとしては 3 バイト長の変数として扱う。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">教会種別コードまたは宿屋種別コード</span>
+              </dt>
+              <dd>
+                <p>
+        この変数は店屋が教会系もしくは宿屋系の場合にのみ意味がある。
+        いずれも利用方法としては、店屋主人の台詞メッセージ ID のオフセットを調整するものだ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq5.shops.data"></a>3.10.2. 店屋データ</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+本節で見てきたデータテーブルでまだ内容を示していないものである、
+店屋商品データ、宿屋データ、格闘場データをテキストファイル化して <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> から参照できるようにしておく。
+基本的にはデータテーブル一つに対して、CSV ファイル一つを対応させるが、
+格闘場データは例外的にデータテーブル <code class="varname">$23DA97</code> と配列 <code class="varname">$23DC27</code> をこの順に <span class="command"><strong>paste</strong></span> しておいた。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq5_battle_commands.html" title="3.9. 戦闘コマンド"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq5_character_traits.html" title="3.11. 仲間キャラクターの特性データ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq5_battle_commands.html">3.9. 戦闘コマンド</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq5.html">第 3 章 SFC 版ドラクエ 5 (1992)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq5_character_traits.html">3.11. 仲間キャラクターの特性データ</a></div>
+  </body>
+</html>

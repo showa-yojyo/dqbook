@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.17. 冒険者たちの登録所</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_luida.html" title="5.16. ルイーダの酒場" />
+    <link rel="next" href="dq3_bank.html" title="5.18. ゴールド銀行" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_luida.html" title="5.16. ルイーダの酒場"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_bank.html" title="5.18. ゴールド銀行"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_luida.html">5.16. ルイーダの酒場</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_bank.html">5.18. ゴールド銀行</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.registration"></a>5.17. 冒険者たちの登録所</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_registration.html#dq3.registration.structure">5.17.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_registration.html#dq3.registration.structure.C30EFD">5.17.1.1. 構造体 <code class="varname">$C30EFD</code>: 初期性格条件</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_registration.html#dq3.registration.structure.C30FFC">5.17.1.2. 構造体 <code class="varname">C30FFC</code>: 初期性格確率分布</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_registration.html#dq3.registration.structure.C3E2EA">5.17.1.3. 配列 <code class="varname">$C3E2EA</code>: 登録所性格評価台詞</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_registration.html#dq3.registration.behavior">5.17.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_registration.html#dq3.registration.behavior.C3DAEB">5.17.2.1. サブルーチン <code class="varname">$C3DAEB</code>: 登録所メイン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_registration.html#dq3.registration.behavior.C3DD13">5.17.2.2. サブルーチン <code class="varname">$C3DD13</code>: キャラクター削除</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_registration.html#dq3.registration.behavior.C3DE95">5.17.2.3. サブルーチン <code class="varname">$C3DE95</code>: 性格決定</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <p>
+本節ではルイーダの酒場二階に併設されている冒険者たちの登録所について述べる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.registration.structure"></a>5.17.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+キャラクター作成処理のためにしか参照されないオブジェクト型が二つ存在する。
+それぞれ初期性格条件と初期性格確率分布と呼ぶことにしよう。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.registration.structure.C30EFD"></a>5.17.1.1. 構造体 <code class="varname">$C30EFD</code>: 初期性格条件</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C30EFD</code> には以下の表が示すようなオブジェクト型の要素が配列されている。
+</p>
+          <div class="table">
+            <a id="table.dq3.C30EFD"></a>
+            <p class="title">
+              <strong>表 5.37 構造体 $C30EFD</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C30EFD" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007F</code>
+                    </td>
+                    <td>閾値 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>第二位考慮 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>キャラクター属性 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>初期性格確率分布 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007F</code>
+                    </td>
+                    <td>閾値 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>第二位考慮 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>キャラクター属性 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>初期性格確率分布 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007F</code>
+                    </td>
+                    <td>閾値 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>第二位考慮 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>キャラクター属性 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>初期性格確率分布 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007F</code>
+                    </td>
+                    <td>閾値 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>第二位考慮 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>キャラクター属性 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>初期性格確率分布 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007F</code>
+                    </td>
+                    <td>閾値 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>第二位考慮 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>キャラクター属性 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>初期性格確率分布 4</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+以下に各属性を説明する。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">閾値 k (k = 0..3), </span>
+                <span class="term">第二位考慮 k (k = 0..3)</span>
+              </dt>
+              <dd>
+                <p>
+        閾値 k とはスカラー値属性であり、型は下で説明するキャラクター属性 k によって「ちから」「すばやさ」等に決まる。
+        第二位考慮 k とはブーリアン型属性だ。
+      </p>
+                <p>
+        第二位考慮 k 属性値が 1 のとき、後述する初期性格決定処理において、
+        第一位増分キャラクター属性値と閾値 k との比較を無視し、
+        代わりに第二位増分キャラクター属性値と閾値 k とを比較することを意味する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">キャラクター属性 k (k = 0..3)</span>
+              </dt>
+              <dd>
+                <p>
+        ちから、すばやさ、たいりょく、かしこさ、うんのよさのいずれなのかを表す値を取る属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">初期性格確率分布 k (k = 0..3)</span>
+              </dt>
+              <dd>
+                <p>
+        後述する初期性格確率分布オブジェクトの ID を値とする属性だ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.registration.structure.C30FFC"></a>5.17.1.2. 構造体 <code class="varname">C30FFC</code>: 初期性格確率分布</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C30FFC</code> には以下の表が示すようなオブジェクト型の要素が配列されている。
+</p>
+          <div class="table">
+            <a id="table.dq3.C30FFC"></a>
+            <p class="title">
+              <strong>表 5.38 構造体 $C30FFC</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C30FFC" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000F</code>
+                    </td>
+                    <td>頻度 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00F0</code>
+                    </td>
+                    <td>頻度 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000F</code>
+                    </td>
+                    <td>頻度 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00F0</code>
+                    </td>
+                    <td>頻度 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000F</code>
+                    </td>
+                    <td>頻度 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00F0</code>
+                    </td>
+                    <td>頻度 5</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000F</code>
+                    </td>
+                    <td>頻度 6</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00F0</code>
+                    </td>
+                    <td>頻度 7</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>性格 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>性格 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>性格 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>性格 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>性格 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>性格 5</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>性格 6</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>性格 7</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+以下に各属性を説明する。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">頻度 k (k = 0..7), </span>
+                <span class="term">性格 k (k = 0..7)</span>
+              </dt>
+              <dd>
+                <p>
+        これらの属性は対になっているのでまとめて説明する。
+        初期性格が性格 k 属性値となる確率が頻度 k 属性値で決まるということを表している。
+      </p>
+                <p>
+        頻度属性値の和を取ると 256 になるので、実際の確率は頻度 k 属性値を 256 で割った値となる。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.registration.structure.C3E2EA"></a>5.17.1.3. 配列 <code class="varname">$C3E2EA</code>: 登録所性格評価台詞</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C3E2EA</code> に次の内容のメッセージ ID の配列がある。
+これは、キャラクター完成直前に登録所の係員がその性格を説明するときに用いられる。
+</p>
+          <div class="table">
+            <a id="table.dq3.C3E2EA"></a>
+            <p class="title">
+              <strong>表 5.39 配列 $C3E2EA</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C3E2EA" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>台詞</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>0</th>
+                    <td>[D6]なかなか [B2][AD]のようですね。[AF]</td>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td>[D6]なかなか [B2][AD]なようですね。[AF]</td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td>[D6]なかなか [B2][AD]ようですね。[AF]</td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td>[D6]なかなか [B2]さん[AD]のようですね。[AF]</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.registration.behavior"></a>5.17.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+本節では登録所の処理を述べる。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.registration.behavior.C3DAEB"></a>5.17.2.1. サブルーチン <code class="varname">$C3DAEB</code>: 登録所メイン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3DAEB</code> は登録屋の通常処理だ。
+以下に要点を挙げる。長いので分けて列挙する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      係員がサービスの説明を初回しかしないように、フラグ<code class="varname">$7E353C</code> &amp; <code class="literal">#$20</code> を用いる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      新しい人を名簿に登録することが可能であるかを判定する。これについては後述する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      最初に名前を入力する。ただし、次の条件を満たすものは許されない。
+    </p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+          入力文字列が文字列「ロト」とマッチする場合
+        </p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+          入力文字列が予約名とマッチする場合
+        </p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+          入力文字列が既存の仲間キャラクターの誰かの名前と同一の場合
+        </p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <p>
+性別と職業を入力すると、サブルーチン <code class="varname">$C441AE</code> でキャラクターの初期状態を決定し、
+係員がこれでどうか尋ねる（この時点では性格は無効値が設定されている）。
+今興味があるのはこの初期状態におけるキャラクターの基本属性値がどのように決まるかなので、ここで説明する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+    ちから、すばやさ、たいりょく、かしこさ、うんのよさの初期値として、職業構造体（<a class="xref" href="dq3_vocations.html#dq3.vocations.structure.C4179E" title="5.25.1.1. 構造体 $C4179E: 職業">5.25.1.1 構造体 <code class="varname">$C4179E</code>: 職業</a> 参照）で設定されている値をそれぞれ用いる。
+    そこに、これらの属性値のいずれかをランダムに 2 回から 10 回選択して 1 ずつ加えるという処理が入る。
+    加算回数と属性選択の両方についてランダムであることを強調しておきたい。
+    これでちからからうんのよさ各属性値の初期値が確定した。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+    たいりょくが定まったので、最大 HP を <code class="code"> たいりょく * randint(500, 525) / 256 </code> で確定する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+    かしこさが定まったので、最大 MP を <code class="code"> かしこさ * randint(500, 525) / 256 </code> で確定する。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+再び登録所の処理の説明に戻る。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      係員が種使用について初回しか説明しないように、フラグ<code class="varname">$7E353C</code> &amp; <code class="literal">#$40</code> を用いる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      一度の登録で使える種の個数は 1/64 の確率で 6 個となるが、たいていは 5 個となる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      種の振り分けを終了すると、後述するサブルーチンを用いて新キャラクターの性格を確定させる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      最後に係員が確認してくるので、承知すればこのオブジェクトをサブルーチン <code class="varname">$C44566</code> で処理して、
+      ルイーダの酒場から呼び出せるようになる。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+登録所の登録手続きの概要は以上だ。細部のうち重要なものは後述する。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.registration.behavior.C3DD13"></a>5.17.2.2. サブルーチン <code class="varname">$C3DD13</code>: キャラクター削除</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+上述の登録処理中、名簿が満杯である場合には既存キャラクターを一人削除しない限り、新規登録手続きは取れない。
+その判定処理の要点を以下に挙げる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      名簿満杯判定はサブルーチン <code class="varname">$C4467F</code> による。
+      パーティーと酒場とバーク商人の人数が 24 以上であることが満杯条件となる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      満杯のときに限り、係員が削除するかどうか尋ねる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      バーク商人を削除することは認められない。その人を消すことはできないと係員が言う。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      または勇者を削除することは認められない。無茶を言うなと係員が言う。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      削除を決定すると、対象者の装備品全てをパーティーのふくろに移す。
+      それからキャラクターオブジェクトを削除する。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.registration.behavior.C3DE95"></a>5.17.2.3. サブルーチン <code class="varname">$C3DE95</code>: 性格決定</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3DE95</code> は、作成キャラクターの初期の性格を決定する処理だ。
+処理の要点を以下に挙げる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      ちから～うんのよさの属性値ごとに、職業オブジェクトの初期値属性値に対する、種使用後の属性値の増分値を求める。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      増分値 5 個からなる配列を降順ソートする。タイブレイクは乱数で採決する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      最大値を取る増分値が何であるかに依存して、職業オブジェクトの初期性格条件属性値を参照する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      初期性格条件オブジェクトの定義に従って、採用する初期性格確率分布オブジェクトを決定する。
+    </p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+          初期性格条件属性値の第二位考慮 k 属性値が 0 ならば、
+          属性 k が第一位増分値を取る属性と一致する限りで閾値 k と比較する。
+          増分値が閾値以上ならば、初期性格確率分布 k 属性値を利用するものとする。
+        </p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+          第二位考慮 k が 1 であり、属性 k が第ニ位増分値を取る属性と一致すれば、
+          やはり初期性格確率分布 k 属性値を利用するものとする。
+        </p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+          どちらでもなければ、次の k に進むものとし、
+          この手続きを検索が成功するまで k = 0..4 で反復する。
+        </p>
+                      <p>
+          どの初期性格条件オブジェクトも何らかの k で判定が停止するように設計されているので、
+          最後までどれにも当てはまらないという事態には陥らない。
+        </p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>
+      初期性格確率分布オブジェクトの定義に従って、抽選で性格を決定する。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+とりわけ第二位考慮の周辺が理解しにくいので、例を挙げるなりシミュレーターを作成するなりで説明を尽くしたい。
+次に、初期性格確率分布オブジェクトの操作の要点を挙げる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      初期性格確率分布オブジェクトの属性のうち、対象キャラクターの性別とマッチしないものを除外する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      残った性格（確率変数とみなせる）と対応する頻度（と呼んでいるが、総和で割れば確率に他ならない）について、抽選で性格を決定する。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+この確率分布データ構造と抽選アルゴリズムの組み合わせは、通常戦の敵陣編成決定ルーチンや
+敵陣キャラクターのコマンド決定ルーチン等、他の処理でもしばしば目にすることになる。
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_luida.html" title="5.16. ルイーダの酒場"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_bank.html" title="5.18. ゴールド銀行"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_luida.html">5.16. ルイーダの酒場</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_bank.html">5.18. ゴールド銀行</a></div>
+  </body>
+</html>

@@ -3,21 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>5.18. 命名神解析</title>
+    <title>5.20. 命名神</title>
     <link rel="stylesheet" type="text/css" href="dqbook.css" />
     <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
     <link rel="home" href="index.html" title="ドラクエ命" />
     <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
-    <link rel="prev" href="dq3_classchange.html" title="5.17. 転職解析" />
-    <link rel="next" href="dq3_matchmake.html" title="5.19. 格闘場マッチメイク解析" />
+    <link rel="prev" href="dq3_dharma.html" title="5.19. 転職" />
+    <link rel="next" href="dq3_matchmake.html" title="5.21. 格闘場" />
   </head>
   <body>
-    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_classchange.html" title="5.17. 転職解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_matchmake.html" title="5.19. 格闘場マッチメイク解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_classchange.html">5.17. 転職解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_matchmake.html">5.19. 格闘場マッチメイク解析</a><hr /></div>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_dharma.html" title="5.19. 転職"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_matchmake.html" title="5.21. 格闘場"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_dharma.html">5.19. 転職</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_matchmake.html">5.21. 格闘場</a><hr /></div>
     <div class="section">
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a id="dq3.rename"></a>5.18. 命名神解析</h2>
+            <h2 class="title" style="clear: both"><a id="dq3.rename"></a>5.20. 命名神</h2>
           </div>
         </div>
       </div>
@@ -25,1368 +25,650 @@
         <dl class="toc">
           <dt>
             <span class="section">
-              <a href="dq3_rename.html#dq3.rename.hack">5.18.1. 解析</a>
+              <a href="dq3_rename.html#dq3.rename.structure">5.20.1. 構造に関する構成要素</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_rename.html#dq3.rename.hack.C3E8D3">5.18.1.1. 命名神共通処理サブルーチン</a>
+                  <a href="dq3_rename.html#dq3.rename.structure.C30AF5">5.20.1.1. 配列 <code class="varname">$C30AF5</code>: ふざけた名前</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq3_rename.html#dq3.rename.hack.C3EB2B">5.18.1.2. 入力がふざけた名前かチェック</a>
+                  <a href="dq3_rename.html#dq3.rename.structure.C31368">5.20.1.2. 配列 <code class="varname">$C31368</code>: 予約名</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_rename.html#dq3.rename.behavior">5.20.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_rename.html#dq3.rename.behavior.C3E8D3">5.20.2.1. サブルーチン <code class="varname">$C3E8D3</code>: 命名神メイン</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq3_rename.html#dq3.rename.hack.C3EB3F">5.18.1.3. 入力が予約名かどうかチェック</a>
+                  <a href="dq3_rename.html#dq3.rename.behavior.C3EB2B">5.20.2.2. サブルーチン <code class="varname">$C3EB2B</code>: 名前がふざけた名前かどうか</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq3_rename.html#dq3.rename.hack.C3EB53">5.18.1.4. 名前テスト共通サブルーチン</a>
+                  <a href="dq3_rename.html#dq3.rename.behavior.C3EB3F">5.20.2.3. サブルーチン <code class="varname">$C3EB3F</code>: 入力が予約名かどうか</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq3_rename.html#dq3.rename.hack.C3EBAB">5.18.1.5. 入力が一文字しか使っていないか調べるサブルーチン</a>
+                  <a href="dq3_rename.html#dq3.rename.behavior.C3EB53">5.20.2.4. サブルーチン <code class="varname">$C3EB53</code>: 名前テスト共通</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq3_rename.html#dq3.rename.hack.C3EBCD">5.18.1.6. 選択キャラの現在の名前を先にチェック</a>
+                  <a href="dq3_rename.html#dq3.rename.behavior.C3EBAB">5.20.2.5. サブルーチン <code class="varname">C3EBAB</code>: 名前が同一文字の連続形かどうか</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_rename.html#dq3.rename.behavior.C3EBCD">5.20.2.6. サブルーチン <code class="varname">$C3EBCD</code>: 現在の名前が怒りに触れているかどうか</a>
                 </span>
               </dt>
             </dl>
           </dd>
         </dl>
       </div>
-      <a id="term.dq3.rename" class="indexterm"></a>
       <p>
-本節では SFC 版ドラクエ 6 から引き継いだ機能である、パーティーキャラクターの名前を変更する処理について解析する。
-SFC 版ドラクエ 3 の場合はキャラクターのデフォルトの名前という概念がないので、
-対応する SFC 版ドラクエ 6 の処理コードよりも量が少ないと予想して解析を開始したが、
-しかし期待は外れた。
+本節では命名神について述べる。
 </p>
       <div class="section">
         <div class="titlepage">
           <div>
             <div>
-              <h3 class="title"><a id="dq3.rename.hack"></a>5.18.1. 解析</h3>
+              <h3 class="title"><a id="dq3.rename.structure"></a>5.20.1. 構造に関する構成要素</h3>
             </div>
           </div>
         </div>
         <p>
-命名神に仕える神官（以下婆サン）に「はなす」とすぐに<a class="link" href="dq3_rename.html#dq3.rename.hack.C3E8D3" title="5.18.1.1. 命名神共通処理サブルーチン">命名神共通処理サブルーチン</a>が開始する。
-ここから処理をたどっていく。
-関係するサブルーチンは、婆サンの台詞表示にサブルーチン <code class="varname">$C1A92E</code> を用い、
-それ以外のメッセージ表示はサブルーチン <code class="varname">$C1A8D4</code> を用いる。
-これを手掛かりに処理の流れをつかむことができるので、そこから細かい処理を解読していくのが基本だ。
+命名神が参照するデータおよびそのの構造について述べる。
 </p>
         <div class="section">
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq3.rename.hack.C3E8D3"></a>5.18.1.1. 命名神共通処理サブルーチン</h4>
+                <h4 class="title"><a id="dq3.rename.structure.C30AF5"></a>5.20.1.1. 配列 <code class="varname">$C30AF5</code>: ふざけた名前</h4>
               </div>
             </div>
           </div>
           <p>
-サブルーチン <code class="varname">$C3E8D3</code> は、婆サンに「はなす」と始まる処理だ。
+アドレス <code class="varname">$C30AF5</code> に命名神の怒りに触れる名前を表す文字列 ID が配列している。
+文字列データ自体は基本的に平仮名をベースとした形式で配列している。
+濁点・半濁点が関係しない文字については、対応する平仮名と片仮名同士のコードポイント差が定数となることからこういう形式になっている。
+濁点・半濁点が関係する文字については、平仮名と片仮名それぞれをリストしなければならない。
+</p>
+          <div class="table">
+            <a id="table.dq3.C30AF5"></a>
+            <p class="title">
+              <strong>表 5.40 配列 $C30AF5</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C30AF5" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>文字列 ID</th>
+                    <th>文字列</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$02F6</code>
+                    </td>
+                    <td>ちんこ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$02F7</code>
+                    </td>
+                    <td>きんたま</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$02F8</code>
+                    </td>
+                    <td>ちんちん</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$02F9</code>
+                    </td>
+                    <td>あほ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$02FA</code>
+                    </td>
+                    <td>ちんぽこ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$02FB</code>
+                    </td>
+                    <td>ちんポこ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$02FC</code>
+                    </td>
+                    <td>へんたい</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$02FD</code>
+                    </td>
+                    <td>ちんぼ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$02FE</code>
+                    </td>
+                    <td>ちんボ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$02FF</code>
+                    </td>
+                    <td>ちかん</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0300</code>
+                    </td>
+                    <td>おめこ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0301</code>
+                    </td>
+                    <td>まんこ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0302</code>
+                    </td>
+                    <td>おまんこ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0303</code>
+                    </td>
+                    <td>あそこ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0304</code>
+                    </td>
+                    <td>うんこ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0305</code>
+                    </td>
+                    <td>でべそ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0306</code>
+                    </td>
+                    <td>デべそ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0307</code>
+                    </td>
+                    <td>うんち</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0308</code>
+                    </td>
+                    <td>はなたれ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0309</code>
+                    </td>
+                    <td>おしっこ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$030A</code>
+                    </td>
+                    <td>せっくす</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$030B</code>
+                    </td>
+                    <td>ばか</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$030C</code>
+                    </td>
+                    <td>バか</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$030D</code>
+                    </td>
+                    <td>おしり</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$030E</code>
+                    </td>
+                    <td>まぬけ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$030F</code>
+                    </td>
+                    <td>あなる</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0310</code>
+                    </td>
+                    <td>きちがい</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0311</code>
+                    </td>
+                    <td>すけべ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0312</code>
+                    </td>
+                    <td>きちガい</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0313</code>
+                    </td>
+                    <td>すけべ</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.rename.structure.C31368"></a>5.20.1.2. 配列 <code class="varname">$C31368</code>: 予約名</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C31368</code> には予約名を表す文字列 ID が配列している。
+物語の登場人物で厳選した者で編成されたものと考えられる。
+</p>
+          <div class="table">
+            <a id="table.dq3.C31368"></a>
+            <p class="title">
+              <strong>表 5.41 配列 $C31368</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C31368" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>文字列 ID</th>
+                    <th>文字列</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0324</code>
+                    </td>
+                    <td>おるてが</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0325</code>
+                    </td>
+                    <td>かんだた</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0326</code>
+                    </td>
+                    <td>がらい</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0327</code>
+                    </td>
+                    <td>おるてガ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0328</code>
+                    </td>
+                    <td>かんダた</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0329</code>
+                    </td>
+                    <td>ガらい</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$032A</code>
+                    </td>
+                    <td>えりっく</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$032B</code>
+                    </td>
+                    <td>おりびあ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$032C</code>
+                    </td>
+                    <td>ばらもす</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$032D</code>
+                    </td>
+                    <td>ぞーま</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$032E</code>
+                    </td>
+                    <td>おりビあ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$032F</code>
+                    </td>
+                    <td>バらもす</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0330</code>
+                    </td>
+                    <td>ゾーま</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0331</code>
+                    </td>
+                    <td>ひみこ</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0332</code>
+                    </td>
+                    <td>るびす</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0333</code>
+                    </td>
+                    <td>のるど</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0334</code>
+                    </td>
+                    <td>ばこた</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0335</code>
+                    </td>
+                    <td>ぜにす</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0336</code>
+                    </td>
+                    <td>るビす</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0337</code>
+                    </td>
+                    <td>のるド</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0338</code>
+                    </td>
+                    <td>バこた</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <code class="literal">#$0339</code>
+                    </td>
+                    <td>ゼにす</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.rename.behavior"></a>5.20.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+命名神に仕える神官の振る舞いについて述べる。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.rename.behavior.C3E8D3"></a>5.20.2.1. サブルーチン <code class="varname">$C3E8D3</code>: 命名神メイン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+ダーマの神殿の西側にいる婆サンに「はなす」とサブルーチン <code class="varname">$C3E8D3</code> が実行される。
+以下、要点を列挙する。
 </p>
           <div class="itemizedlist">
             <ul class="itemizedlist" style="list-style-type: disc; ">
               <li class="listitem">
                 <p>
-			台詞「わしは 命名神マリナン様につかえる神官じゃ（略）だれか 名前をかえるか？」(ID: <code class="literal">#$09CD</code>) を表示する。
-		</p>
+      対象はパーティー内の任意のキャラクターまたはパーティー共有のふくろのうちから選べる。
+    </p>
               </li>
               <li class="listitem">
                 <p>
-			「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
-		</p>
+      対象の現在の名前が怒りに触れているときは、まず呪いの効果音を再生する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      怒りを解くのに 5,000 ゴールドが必要となる。
+      この支払い判定はサブルーチン <code class="varname">$C45B66</code> で行う。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      入力内容によって神官の反応が違ってくる。このうち最後の二つについては命名神の怒りに触れる。
+    </p>
                 <div class="itemizedlist">
                   <ul class="itemizedlist" style="list-style-type: circle; ">
                     <li class="listitem">
                       <p>
-					キャンセルボタン ⇒【終了】へジャンプする。
-				</p>
+          入力文字列が現在の名前と全く同じ場合はキャンセル時と同じ扱いとする。
+        </p>
                     </li>
                     <li class="listitem">
                       <p>
-					「はい」⇒【だれをかえる】へジャンプする。
-				</p>
+          入力文字列が文字列「ロト」とマッチする場合。
+          これは登録所の処理で行う判定処理と同じものを用いる。
+        </p>
                     </li>
                     <li class="listitem">
                       <p>
-					「いいえ」⇒【終了】へジャンプする。
-				</p>
+          入力文字列が予約名とマッチする場合。
+          <a class="xref" href="dq3_rename.html#dq3.rename.behavior.C3EB3F" title="5.20.2.3. サブルーチン $C3EB3F: 入力が予約名かどうか">5.20.2.3</a> を参照。
+          これは登録所の処理で行う判定処理と同じだ。
+        </p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+          入力文字列が既存の仲間キャラクターの名前と全く同じ場合。
+          これは登録所の処理で行う判定処理と同じものを用いる。
+        </p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+          入力文字列がふざけた名前となる場合。
+          <a class="xref" href="dq3_rename.html#dq3.rename.behavior.C3EB2B" title="5.20.2.2. サブルーチン $C3EB2B: 名前がふざけた名前かどうか">5.20.2.2</a> を参照。
+        </p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+          入力文字列が同一文字の連続形となる場合。
+          <a class="xref" href="dq3_rename.html#dq3.rename.behavior.C3EBAB" title="5.20.2.5. サブルーチン C3EBAB: 名前が同一文字の連続形かどうか">5.20.2.5</a> を参照。
+        </p>
                     </li>
                   </ul>
                 </div>
               </li>
               <li class="listitem">
-                <p>【だれをかえる】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					台詞「だれの名前をかえたいと いうのじゃ？」(ID: <code class="literal">#$09CE</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					「だれの」ウィンドウを表示して、プレイヤーの入力を待つ。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							キャンセルボタン ⇒【キャンセル抜け】へジャンプする。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					<code class="code">$33D6 = 選択キャラクターの番号</code> とする。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					<a class="link" href="dq3_rename.html#dq3.rename.hack.C3EBCD" title="5.18.1.6. 選択キャラの現在の名前を先にチェック">サブルーチン <code class="varname">$C3EBCD</code></a> を呼び出すことで、
-					選択したキャラクターの<span class="emphasis"><em>現在の名前</em></span>が
-					命名神の怒りに触れているものかどうかをテストする。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							現在の名前が怒りに触れている名前 ⇒【既にダメな名前】へジャンプ。
-						</p>
-                          </li>
-                          <li class="listitem">
-                            <p>
-							パーティーメンバーを選択⇒【名前を変える対象を選択した】へジャンプ。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					台詞「むう それは……ふくろか？」(ID: <code class="literal">#$09D7</code>) を表示する。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【名前を変える対象を選択した】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					【名前を決める】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【既にダメな名前】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					サブルーチン <code class="varname">$C1E32E</code> 呼び出しにより効果音 (ID: <code class="literal">#$002A</code>) を鳴らす。終わるまで待つ。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					台詞「なんと！ その名は命名神の怒りにふれておる！」(ID: <code class="literal">#$09E5</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							キャンセルボタン or 「いいえ」⇒【5000 ゴールドを拒否】
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					<code class="code">X = #$1388, A = #$0000</code> として、所持金変更サブルーチン <code class="varname">$C45B66</code> を呼び出す。
-					これにより、パーティの現在の所持金から <code class="literal">5000</code> ゴールドを減らすことを試みる。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							所持金の変更に成功した ⇒【5000 ゴールド支払う】へジャンプ。
-						</p>
-                          </li>
-                          <li class="listitem">
-                            <p>
-							所持金の変更に失敗した ⇒ 台詞「そんな大金はないようじゃな」(ID: <code class="literal">#$09E9</code>) を表示する。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【キャンセル抜け】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					【ほかに誰か】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【5000 ゴールド支払う】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					メッセージ「○○○○は ５０００ゴールドをさしだした」(ID: <code class="literal">#$09E7</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					台詞「○○○○の新しい名前を教えてくれ」(ID: <code class="literal">#$09E8</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					【新しい名前】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【5000 ゴールドを拒否】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					台詞「ではやはりそのままじゃ」(ID: <code class="literal">#$09E6</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					【ほかに誰か】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【名前を変える】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					台詞「新しい名前をわしに教えてくれ」(ID: <code class="literal">#$09CF</code>) を表示する。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【新しい名前】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					「なまえをいれてください」ウィンドウを表示して、プレイヤーの入力を待つ。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							何か名前を入力した状態で終わった ⇒【入力直後】へジャンプ。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【入力の名前が現在の名前と完全一致】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					【名前を変えるのをやめる】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【入力直後】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					サブルーチン <code class="varname">$C3C37F</code> を呼び出し、
-					<span class="emphasis"><em>プレイヤーが入力した文字列を <code class="varname">$3332,X</code> や <code class="varname">$4056,X</code> にコピーする。</em></span>
-					ちなみに <code class="varname">$3332,X</code> と <code class="varname">$4056,X</code> はそれぞれキャラクターの名前文字列用、
-					ふくろの名前文字列用メモリだ。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					パーティ人数取得サブルーチン <code class="varname">$C4297C</code> を呼び出し、
-					現在のパーティの総人数を取得 (<code class="varname">A</code>) する。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							<code class="code">A == $33D6</code> ⇒【ふくろ】へジャンプ。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					<code class="code">A = $33D6</code> とする。
-					「だれの」ウィンドウで選択したキャラクターの番号だ。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					サブルーチン <code class="varname">$C3DDE5</code> を呼び出す。
-					これは「現在の名前と <code class="varname">$3332,X</code> と比較する」仕事をする。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							入力した名前が現在の選択キャラクターのそれと一致している
-							⇒【入力の名前が現在の名前と完全一致】へジャンプ。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【ふくろ】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					サブルーチン <code class="varname">$C3DDDC</code> を呼び出す。
-					これは「現在の名前と <code class="varname">$3332,X</code> と比較する」仕事をするが、
-					ふくろに特化したコードが走ることになる。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							入力した名前が現在のふくろのそれと一致している
-							⇒【入力の名前が現在の名前と完全一致】へジャンプ。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【ロトテスト】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					ロトテストサブルーチン <code class="varname">$C3C66B</code> を呼び出し、
-					入力した名前が「ロト」「ろと」「ロと」……等（アドレス <code class="varname">$C3C6A4</code> で定義）とマッチしないかテストする。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							マッチしない場合は【入力した名前が許されているか調べる】へジャンプ。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【予約名が入力された】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					台詞「命名神がその名はイカンといっておる」(ID: <code class="literal">#$09D9</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					【他の名前にする？】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【入力した名前が許されているか調べる】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					<a class="link" href="dq3_rename.html#dq3.rename.hack.C3EB3F" title="5.18.1.3. 入力が予約名かどうかチェック">サブルーチン <code class="varname">$C3EB3F</code></a> を呼び出して、
-					入力が予約名かどうかチェックする。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							入力が予約名 ⇒【予約名が入力された】へジャンプ。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					サブルーチン <code class="varname">$C3DDBF</code> を呼び出して、
-					入力が仲間の名前と同じかチェックする。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							入力がどの仲間の名前とも異なる ⇒【入力がふざけた名前か調べる】へジャンプ。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					台詞「その名前の者がおぬしの仲間にいるようじゃな」(ID: <code class="literal">#$09DD</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					【他の名前にする？】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【入力がふざけた名前か調べる】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					<a class="link" href="dq3_rename.html#dq3.rename.hack.C3EB2B" title="5.18.1.2. 入力がふざけた名前かチェック">サブルーチン <code class="varname">$C3EB2B</code></a> を呼び出して、
-					入力がふざけた名前かどうかを調べる。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							ふざけていない名前であれば、【一文字テスト】へジャンプする。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					ふざけた名前であれば、台詞「本気でそのような名前をつけようというのか」(ID: <code class="literal">#$09DE</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							キャンセルボタン or 「いいえ」⇒【他の名前にする？】
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【警告】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					台詞「命名神様の怒りにふれてもわしはしらんぞ」(ID: <code class="literal">#$09DF</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							キャンセルボタン or 「いいえ」⇒【他の名前にする？】
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					台詞「……おお 命名神マリナンよ 新たなる名××××に神の祝福……うわっ！！」(ID: <code class="literal">#$09E0</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					サブルーチン <code class="varname">$C3EC66</code> 呼び出しにより、画面を激しくフラッシュする。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					サブルーチン <code class="varname">$C3EC0D</code> 呼び出しにより、画面フラッシュをゆっくり戻す。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					サブルーチン <code class="varname">$C1E32E</code> 呼び出しにより、効果音 (ID: <code class="literal">#$002A</code>) を鳴らす。終わるまで待つ。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					台詞「おぬしは 命名神の怒りにふれてしまったぞ！！」(ID: <code class="literal">#$09E1</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					【名前更新】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【一文字テスト】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					<a class="link" href="dq3_rename.html#dq3.rename.hack.C3EBAB" title="5.18.1.5. 入力が一文字しか使っていないか調べるサブルーチン">サブルーチン <code class="varname">$C3EBAB</code></a> を呼び出して、
-					入力した名前が「ああああ」パターンかどうか調べる。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							複数の文字が使用されている ⇒【適切な名前が入力された】へジャンプ。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					台詞「おぬし名前というものをなめておるのか」(ID: <code class="literal">#$09E2</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							キャンセルボタン ⇒【なめていない】へジャンプ。
-						</p>
-                          </li>
-                          <li class="listitem">
-                            <p>
-							「はい」⇒【警告】へジャンプ。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【なめていない】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					台詞「では名をなめてはおらぬが～」(ID: <code class="literal">#$09E3</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							キャンセルボタン ⇒【ほかの名にすることじゃ】へジャンプ。
-						</p>
-                          </li>
-                          <li class="listitem">
-                            <p>
-							「はい」⇒【警告】へジャンプ。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【ほかの名にすることじゃ】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					台詞「ならばほかの名にすることじゃ」(ID: <code class="literal">#$09E4</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					【新しい名前】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【適切な名前が入力された】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					台詞「○○○○の名前を××××にかえるのじゃな」(ID: <code class="literal">#$09D0</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							キャンセルボタン or 「いいえ」⇒ 他の名前にする？
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					台詞「新たなる名に神の祝福を！！」(ID: <code class="literal">#$09D1</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					サブルーチン <code class="varname">$C3EC0D</code> 呼び出しにより、画面フラッシュをゆっくり戻す。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					台詞「これで○○○○は××××と名のることがゆるされたぞ！」(ID: <code class="literal">#$09D2</code>) を表示する。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【名前更新】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					パーティ人数取得サブルーチン <code class="varname">$C4297C</code> を呼び出し、
-					現在のパーティの総人数を取得 (<code class="varname">A</code>) する。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							<code class="code">A == $33D6</code> ⇒【ふくろ名前更新】へジャンプ。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					<code class="code">A = $33D6</code> とする。
-					「だれの」ウィンドウで選択したキャラクターの番号だ。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					キャラクターの名前更新サブルーチン <code class="varname">$C42FAE</code> を呼び出し、
-					選択キャラクターの名前を入力した名前に更新する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					【ほかに誰か】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【ふくろ名前更新】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					サブルーチン <code class="varname">$C455D2</code> を呼び出し、ふくろの名前を入力した名前に更新する
-					（ちなみに <code class="code">$368B,X = $4056,X</code> のような処理が走る）。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					【ほかに誰か】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【名前を変えるのをやめる】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					台詞「なんじゃ名前をかえないのか？」(ID: <code class="literal">#$09D8</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					【ほかに誰か】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【他の名前にする？】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					台詞「他の名前にかえるか？」(ID: <code class="literal">#$09D5</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							キャンセルボタン or 「いいえ」⇒【ほかに誰か】へジャンプ。
-						</p>
-                          </li>
-                          <li class="listitem">
-                            <p>
-							その他 ⇒【名前を変える】へジャンプ。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【ほかに誰か】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					台詞「他にだれか名前をかえたい者はおるか？」(ID: <code class="literal">#$09D3</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					「はい・いいえ」ウィンドウを表示して、プレイヤーの入力を待つ。
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							キャンセルボタン or 「いいえ」⇒【終了】へジャンプ。
-						</p>
-                          </li>
-                          <li class="listitem">
-                            <p>
-							その他 ⇒【だれをかえる】へジャンプ。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【終了】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					台詞「名前をかえたくなったら いつでも来るがよいぞ」(ID: <code class="literal">#$09D4</code>) を表示する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					呼び出し元に制御を戻す。
-				</p>
-                    </li>
-                  </ul>
-                </div>
+                <p>
+      命名神の怒りに触れると、画面がフラッシュして呪いの効果音を再生する。
+    </p>
               </li>
             </ul>
           </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.rename.behavior.C3EB2B"></a>5.20.2.2. サブルーチン <code class="varname">$C3EB2B</code>: 名前がふざけた名前かどうか</h4>
+              </div>
+            </div>
+          </div>
           <p>
-名前変更の本流サブルーチンは、ほぼ一枚岩の処理だった。
+プレイヤーが入力した名前がふざけたものであるかどうかをテストする。
+これは後述するサブルーチン <code class="varname">$C3EB53</code> にブラックリストを指定する形式で実行される。
+<a class="xref" href="dq3_rename.html#dq3.rename.structure.C30AF5" title="5.20.1.1. 配列 $C30AF5: ふざけた名前">5.20.1.1</a> および
+<a class="xref" href="dq3_rename.html#dq3.rename.behavior.C3EB53" title="5.20.2.4. サブルーチン $C3EB53: 名前テスト共通">5.20.2.4</a> を参照。
 </p>
         </div>
         <div class="section">
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq3.rename.hack.C3EB2B"></a>5.18.1.2. 入力がふざけた名前かチェック</h4>
+                <h4 class="title"><a id="dq3.rename.behavior.C3EB3F"></a>5.20.2.3. サブルーチン <code class="varname">$C3EB3F</code>: 入力が予約名かどうか</h4>
               </div>
             </div>
           </div>
           <p>
-	サブルーチン <code class="varname">$C3EB2B</code> は、プレイヤーが入力した名前がふざけたものであるかどうかをテストする。
-</p>
-          <div class="itemizedlist">
-            <ul class="itemizedlist" style="list-style-type: disc; ">
-              <li class="listitem">
-                <p>
-			<code class="code">$70 = #$001E</code>
-		</p>
-              </li>
-              <li class="listitem">
-                <p>
-			<code class="code">$72 = #$00C30AF5</code> （これは <code class="literal">4</code> バイト長で代入の意味）
-		</p>
-              </li>
-              <li class="listitem">
-                <p>
-			<a class="link" href="dq3_rename.html#dq3.rename.hack.C3EB53" title="5.18.1.4. 名前テスト共通サブルーチン">名前テスト共通サブルーチン <code class="varname">$C3EB53</code></a>
-			を呼び出す。
-		</p>
-              </li>
-              <li class="listitem">
-                <p>
-			呼び出し元に制御を戻す。
-		</p>
-              </li>
-            </ul>
-          </div>
-          <p>
-<code class="varname">$72</code> の示す値の型は、見るからに絶対アドレスだ。
-実際 <code class="varname">$C30AF5</code> 周辺をダンプして、既に解析済みの文字列表と照合すれば、
-これが<a class="link" href="dq3_string.html" title="5.3. 文字列">文字列 ID</a> の配列であることがわかる。
-内容は以下の通り、エロ＆バカ系統の単語が配列されている。
-平仮名と片仮名が入り交じっていることに注意したい。
-</p>
-          <pre class="programlisting">
-C3/0AF5:    F602  ; ちんこ
-C3/0AF7:    F702  ; きんたま
-C3/0AF9:    F802  ; ちんちん
-C3/0AFB:    F902  ; あほ
-C3/0AFD:    FA02  ; ちんぽこ
-C3/0AFF:    FB02  ; ちんポこ
-C3/0B01:    FC02  ; へんたい
-C3/0B03:    FD02  ; ちんぼ
-C3/0B05:    FE02  ; ちんボ
-C3/0B07:    FF02  ; ちかん
-C3/0B09:    0003  ; おめこ
-C3/0B0B:    0103  ; まんこ
-C3/0B0D:    0203  ; おまんこ
-C3/0B0F:    0303  ; あそこ
-C3/0B11:    0403  ; うんこ
-C3/0B13:    0503  ; でべそ
-C3/0B15:    0603  ; デべそ
-C3/0B17:    0703  ; うんち
-C3/0B19:    0803  ; はなたれ
-C3/0B1B:    0903  ; おしっこ
-C3/0B1D:    0A03  ; せっくす
-C3/0B1F:    0B03  ; ばか
-C3/0B21:    0C03  ; バか
-C3/0B23:    0D03  ; おしり
-C3/0B25:    0E03  ; まぬけ
-C3/0B27:    0F03  ; あなる
-C3/0B29:    1003  ; きちがい
-C3/0B2B:    1103  ; すけべ
-C3/0B2D:    1203  ; きちガい
-C3/0B2F:    1303  ; すけべ
-</pre>
-        </div>
-        <div class="section">
-          <div class="titlepage">
-            <div>
-              <div>
-                <h4 class="title"><a id="dq3.rename.hack.C3EB3F"></a>5.18.1.3. 入力が予約名かどうかチェック</h4>
-              </div>
-            </div>
-          </div>
-          <p>
-サブルーチン <code class="varname">$C3EB3F</code> は、プレイヤーが入力した名前が、
-ゲームにより予約された名前であるかどうかをテストする。
-</p>
-          <div class="itemizedlist">
-            <ul class="itemizedlist" style="list-style-type: disc; ">
-              <li class="listitem">
-                <p>
-			<code class="code">$70 = <code class="literal">#$0016</code></code>
-		</p>
-              </li>
-              <li class="listitem">
-                <p>
-			<code class="code">$72 = <code class="literal">#$00C31368</code></code> （これは <code class="literal">4</code> バイト長で代入の意味）
-		</p>
-              </li>
-              <li class="listitem">
-                <p>
-			<a class="link" href="dq3_rename.html#dq3.rename.hack.C3EB53" title="5.18.1.4. 名前テスト共通サブルーチン">名前テスト共通サブルーチン <code class="varname">$C3EB53</code></a>
-			を呼び出す。
-		</p>
-              </li>
-              <li class="listitem">
-                <p>
-			呼び出し元に制御を戻す。
-		</p>
-              </li>
-            </ul>
-          </div>
-          <p>
-<a class="link" href="dq3_rename.html#dq3.rename.hack.C3EB2B" title="5.18.1.2. 入力がふざけた名前かチェック">前項</a>と同様に、
-<code class="varname">$C31368</code> に予約名を表現する文字列の文字列 ID 配列が存在する。
-内容は以下の通り、重要キャラクターの名前を表す単語が配列されている
-ここでも平仮名と片仮名が入り交じっていることに注意したい。
-</p>
-          <pre class="programlisting">
-C3/1368:    2403  ; おるてが
-C3/136A:    2503  ; かんだた
-C3/136C:    2603  ; がらい
-C3/136E:    2703  ; おるてガ
-C3/1370:    2803  ; かんダた
-C3/1372:    2903  ; ガらい
-C3/1374:    2A03  ; えりっく
-C3/1376:    2B03  ; おりびあ
-C3/1378:    2C03  ; ばらもす
-C3/137A:    2D03  ; ぞーま
-C3/137C:    2E03  ; おりビあ
-C3/137E:    2F03  ; バらもす
-C3/1380:    3003  ; ゾーま
-C3/1382:    3103  ; ひみこ
-C3/1384:    3203  ; るびす
-C3/1386:    3303  ; のるど
-C3/1388:    3403  ; ばこた
-C3/138A:    3503  ; ぜにす
-C3/138C:    3603  ; るビす
-C3/138E:    3703  ; のるド
-C3/1390:    3803  ; バこた
-C3/1392:    3903  ; ゼにす
-</pre>
-        </div>
-        <div class="section">
-          <div class="titlepage">
-            <div>
-              <div>
-                <h4 class="title"><a id="dq3.rename.hack.C3EB53"></a>5.18.1.4. 名前テスト共通サブルーチン</h4>
-              </div>
-            </div>
-          </div>
-          <p>
-	サブルーチン <code class="varname">$C3EB53</code> は、呼び出し元が指定する文字列型配列から、文字列を検索する。
-</p>
-          <div class="itemizedlist">
-            <ul class="itemizedlist" style="list-style-type: disc; ">
-              <li class="listitem">
-                <p>【事前条件】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					<code class="varname">$70</code> は配列のサイズ、すなわち検索対象となる文字列の個数を指定する。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					<code class="varname">$72</code> は、<code class="literal">3</code> バイト長で、その配列の存在するアドレスを指定する。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>
-			文字列の格納アドレス配列アクセスサブルーチン <code class="varname">$C1BA53</code> と
-			文字列 Peeking サブルーチン <code class="varname">$C1BACC</code> を反復的に呼び出して、
-			<code class="code">[$72],Y</code> (<code class="code">Y == $70 * 2 ... 0</code>) と
-			<code class="varname">$3332,X</code> にある文字のペアを比較していく。
-			ただし、一つのペアにつき、最高二度比較を行う。
-			一度目は素の文字コードを比較し、
-			それらが一致していなければ、<code class="code">[$72],Y</code> 側の文字コードを
-			<code class="code">#$0043 - #$000C</code> 分だけ加算した値と比較する
-			（それぞれの値は「ア」と「あ」の文字コードだ）。
-		</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					一致する文字列が見つかるか、配列を最後まで調べつくすまでは、上記処理を繰り返す。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>
-			呼び出し元に制御を戻す。
-		</p>
-              </li>
-              <li class="listitem">
-                <p>【事後条件】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					一致するものがあれば、そのときに限り <code class="varname">Carry</code> ビットがセットされている。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <p>
-これは平仮名と片仮名を区別せずに文字列を比較するアルゴリズムのように読める。
+プレイヤーが入力した名前が、ゲームにより予約された名前であるかどうかをテストする。
+これは後述するサブルーチン <code class="varname">$C3EB53</code> に予約名リストを指定する形式で実行される。
+<a class="xref" href="dq3_rename.html#dq3.rename.structure.C31368" title="5.20.1.2. 配列 $C31368: 予約名">5.20.1.2</a> および
+<a class="xref" href="dq3_rename.html#dq3.rename.behavior.C3EB53" title="5.20.2.4. サブルーチン $C3EB53: 名前テスト共通">5.20.2.4</a> を参照。
 </p>
         </div>
         <div class="section">
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq3.rename.hack.C3EBAB"></a>5.18.1.5. 入力が一文字しか使っていないか調べるサブルーチン</h4>
+                <h4 class="title"><a id="dq3.rename.behavior.C3EB53"></a>5.20.2.4. サブルーチン <code class="varname">$C3EB53</code>: 名前テスト共通</h4>
               </div>
             </div>
           </div>
           <p>
-サブルーチン <code class="varname">$C3EBAB</code> は、プレイヤーが入力した名前が、
+サブルーチン <code class="varname">$C3EB53</code> は呼び出し元が指定する文字列型配列から、文字列を検索する。
 </p>
-          <div class="itemizedlist">
-            <ul class="itemizedlist" style="list-style-type: disc; ">
-              <li class="listitem">
-                <p>
-			ちょうど <code class="literal">4</code> 文字分の長さを持っていて
-		</p>
-              </li>
-              <li class="listitem">
-                <p>
-			使われている文字数が <code class="literal">1</code> であるか
-		</p>
-              </li>
-            </ul>
-          </div>
           <p>
-を調べる。
-</p>
-          <div class="itemizedlist">
-            <ul class="itemizedlist" style="list-style-type: disc; ">
-              <li class="listitem">
-                <p>
-			<code class="varname">A</code> レジスタへのアクセスモードを <code class="literal">1</code> バイトモードにする。
-		</p>
-              </li>
-              <li class="listitem">
-                <p>
-			<code class="code">X = 0</code>
-		</p>
-              </li>
-              <li class="listitem">
-                <p>【文字を比較】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					<code class="code">$3332,X == #$AC</code> ⇒【X をチェック】へジャンプ。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					<code class="code">$3333,X != $3332,X</code> ⇒【X をチェック】へジャンプ。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					<code class="code">++X</code>
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					【文字を比較】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【X をチェック】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					<code class="code">X &lt; 3:</code>
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							<code class="varname">A</code> レジスタへのアクセスモードを <code class="literal">2</code> バイトモードにする。
-						</p>
-                          </li>
-                          <li class="listitem">
-                            <p>
-							<code class="varname">Carry</code> ビットをクリアする。
-						</p>
-                          </li>
-                          <li class="listitem">
-                            <p>
-							呼び出し元に制御を戻す。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					<code class="code">X &gt;= 3:</code>
-				</p>
-                      <div class="itemizedlist">
-                        <ul class="itemizedlist" style="list-style-type: square; ">
-                          <li class="listitem">
-                            <p>
-							<code class="varname">A</code> レジスタへのアクセスモードを <code class="literal">2</code> バイトモードにする。
-						</p>
-                          </li>
-                          <li class="listitem">
-                            <p>
-							<code class="varname">Carry</code> ビットをセットする。
-						</p>
-                          </li>
-                          <li class="listitem">
-                            <p>
-							呼び出し元に制御を戻す。
-						</p>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <p>
-	「ああああ」のようなパターンの名前のときに <code class="varname">Carry</code> ビットをセットする。
-	「あ」「ああ」「あああ」パターンには関与しない。
+処理としては二重ループによる線形探索だ。
+対応する平仮名と片仮名同士を同じ文字として比較することにより、名前同士が「同じ」かどうかを判定する。
+濁点・半濁点の付かない文字は、文字コードの差が一定であることを利用しての比較となるが、
+付く文字はそうとも言えないので、リストの方に平仮名と片仮名を重複して定義しておく必要がある。
+具体的には掲載データを参照して欲しい。
 </p>
         </div>
         <div class="section">
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq3.rename.hack.C3EBCD"></a>5.18.1.6. 選択キャラの現在の名前を先にチェック</h4>
+                <h4 class="title"><a id="dq3.rename.behavior.C3EBAB"></a>5.20.2.5. サブルーチン <code class="varname">C3EBAB</code>: 名前が同一文字の連続形かどうか</h4>
               </div>
             </div>
           </div>
           <p>
-	サブルーチン <code class="varname">$C3EBCD</code> は、指定したキャラクターの現在の名前が、
-	命名神の怒りにふれているものかどうかをテストする。
+サブルーチン <code class="varname">C3EBAB</code> は名前が任意の一文字 4 個が連続する文字列であるかどうかをテストする。
+処理内容は十数個の命令からなる単純な配列検索に過ぎない。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.rename.behavior.C3EBCD"></a>5.20.2.6. サブルーチン <code class="varname">$C3EBCD</code>: 現在の名前が怒りに触れているかどうか</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3EBCD</code> は、指定したキャラクターの現在の名前が、
+命名神の怒りにふれているものかどうかをテストする。
+以下、要点を列挙する。
 </p>
           <div class="itemizedlist">
             <ul class="itemizedlist" style="list-style-type: disc; ">
               <li class="listitem">
-                <p>【事前条件】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					<code class="varname">Overflow</code> ビットがセットされていれば、ふくろの名前を調べるものとする。
-				</p>
-                    </li>
-                  </ul>
-                </div>
+                <p>
+      現在の対象者の名前がふざけた名前かどうかを判定する。
+      <a class="xref" href="dq3_rename.html#dq3.rename.behavior.C3EB3F" title="5.20.2.3. サブルーチン $C3EB3F: 入力が予約名かどうか">5.20.2.3</a> 参照。
+    </p>
               </li>
               <li class="listitem">
                 <p>
-			<code class="varname">A</code> に文字列 ID をセットする：
-		</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					ふくろの名前文字列を調べたければ、<code class="code">A = #$0020</code> をセットする。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					パーティメンバーの名前文字列を調べたければ、
-					サブルーチン <code class="varname">$C42F5E</code> を呼び出し、
-					キャラクター (<code class="varname">A</code>) の名前文字列 ID を取得 (<code class="varname">A</code>) する。
-				</p>
-                    </li>
-                  </ul>
-                </div>
+      現在の対象者の名前が同一文字の連続形かどうかを判定する。
+      <a class="xref" href="dq3_rename.html#dq3.rename.behavior.C3EBAB" title="5.20.2.5. サブルーチン C3EBAB: 名前が同一文字の連続形かどうか">5.20.2.5</a> 参照。
+    </p>
               </li>
               <li class="listitem">
                 <p>
-			<code class="code">$33D8 = A</code> として、
-			サブルーチン <code class="varname">$C1BA53</code> を呼び出して、文字列格納アドレス配列へアクセスする
-			（<code class="varname">$BA</code> に文字列のあるアドレスがセットされる）。
-		</p>
-              </li>
-              <li class="listitem">
-                <p>
-			サブルーチン <code class="varname">$C1BACC</code> を反復して呼び出すことで、
-			<span class="emphasis"><em>配列 <code class="varname">$3332,X</code> にキャラクターまたはふくろの名前を示す文字列を格納する。</em></span>
-			配列の最後には <code class="literal">#$AC</code> がセットされている状態になる。
-		</p>
-              </li>
-              <li class="listitem">
-                <p>
-			<a class="link" href="dq3_rename.html#dq3.rename.hack.C3EB2B" title="5.18.1.2. 入力がふざけた名前かチェック">サブルーチン <code class="varname">$C3EB2B</code></a> を呼び出して、
-			ふざけた名前かどうかを調べる。
-		</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					ふざけた名前 ⇒【怒りにふれている】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>
-			<a class="link" href="dq3_rename.html#dq3.rename.hack.C3EBAB" title="5.18.1.5. 入力が一文字しか使っていないか調べるサブルーチン">サブルーチン <code class="varname">$C3EBAB</code></a> を呼び出して、
-			名前が「ああああ」パターンかどうか調べる。
-		</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					「ああああ」パターンの名前 ⇒【怒りにふれている】へジャンプ。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【怒りにふれている】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					<code class="varname">Carry</code> ビットをセットする。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					呼び出し元に制御を戻す。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【問題なし】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					<code class="varname">Carry</code> ビットをクリアする。
-				</p>
-                    </li>
-                    <li class="listitem">
-                      <p>
-					呼び出し元に制御を戻す。
-				</p>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="listitem">
-                <p>【事後条件】</p>
-                <div class="itemizedlist">
-                  <ul class="itemizedlist" style="list-style-type: circle; ">
-                    <li class="listitem">
-                      <p>
-					命名神の怒りにふれている名前であれば、<code class="varname">Carry</code> ビットがセットされている。
-				</p>
-                    </li>
-                  </ul>
-                </div>
+      どちらかに判定された名前が怒りに触れているものとする。
+    </p>
               </li>
             </ul>
           </div>
         </div>
       </div>
     </div>
-    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_classchange.html" title="5.17. 転職解析"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_matchmake.html" title="5.19. 格闘場マッチメイク解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_classchange.html">5.17. 転職解析</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_matchmake.html">5.19. 格闘場マッチメイク解析</a></div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_dharma.html" title="5.19. 転職"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_matchmake.html" title="5.21. 格闘場"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_dharma.html">5.19. 転職</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_matchmake.html">5.21. 格闘場</a></div>
   </body>
 </html>

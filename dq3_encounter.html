@@ -1,0 +1,1236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.30. 敵との遭遇</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_search.html" title="5.29. しらべる" />
+    <link rel="next" href="dq3_pond.html" title="5.31. オルレラの泉" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_search.html" title="5.29. しらべる"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_pond.html" title="5.31. オルレラの泉"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_search.html">5.29. しらべる</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_pond.html">5.31. オルレラの泉</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.encounter"></a>5.30. 敵との遭遇</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_encounter.html#dq3.encounter.structure">5.30.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_encounter.html#dq3.encounter.structure.C8AC66">5.30.1.1. 構造体 <code class="varname">$C8AC66</code>: イベント戦</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_encounter.html#dq3.encounter.structure.C8ADD1">5.30.1.2. 構造体 <code class="varname">$C8ADD1</code>: 通常戦</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_encounter.html#dq3.encounter.structure.C8B6D8">5.30.1.3. 構造体 <code class="varname">$C8B6D8</code>: 通常戦確率分布</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_encounter.html#dq3.encounter.structure.C8B736">5.30.1.4. 構造体 <code class="varname">$C8B736</code>: 通常戦レア</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_encounter.html#dq3.encounter.behavior">5.30.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+本節では移動モードから戦闘モードに移行する際のデータアクセスについて述べる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.encounter.structure"></a>5.30.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+遭遇する敵がどのような編成になるかを決定するためのオブジェクト型をいくつか述べる。
+このような型はイベント戦と通常戦とに分類されており、後者の構造がやや複雑になっている。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.encounter.structure.C8AC66"></a>5.30.1.1. 構造体 <code class="varname">$C8AC66</code>: イベント戦</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C8AC66</code> には次に示す型のオブジェクトが 30 程度配列されている。
+この型はイベント戦一つの戦闘セッション自身の属性および敵陣の構成を表現するものだ。
+</p>
+          <div class="table">
+            <a id="table.dq3.C8AC66"></a>
+            <p class="title">
+              <strong>表 5.73 構造体 $C8AC66</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C8AC66" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>名前</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007F</code>
+                    </td>
+                    <td>背景セット</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FF80</code>
+                    </td>
+                    <td>サウンド</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>画面更新</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>（不明）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>逃走禁止/ルーラ禁止</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>（不明）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>ボス戦</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$3FC0</code>
+                    </td>
+                    <td>モンスター 0 </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01C0</code>
+                    </td>
+                    <td>モンスター頭数 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FE</code>
+                    </td>
+                    <td>モンスター 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000E</code>
+                    </td>
+                    <td>モンスター頭数 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0FF0</code>
+                    </td>
+                    <td>モンスター 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0070</code>
+                    </td>
+                    <td>モンスター頭数 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$7F80</code>
+                    </td>
+                    <td>モンスター 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0380</code>
+                    </td>
+                    <td>モンスター頭数 3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味を次に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">名前</span>
+              </dt>
+              <dd>
+                <p>
+        名前とは文字列 ID を値とする属性であり、
+        罠である「しらべる」オブジェクトがイベント戦を引き起こす際に、
+        メッセージウィンドウに記される文言の一部として表示される性質がある。
+        そうでない場合の名前は表に出てくることはない。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">背景セット</span>
+              </dt>
+              <dd>
+                <p>
+        戦闘モードの背景を指示するオブジェクトの ID を値とする属性だ。
+        戦闘背景については別の節で述べる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">サウンド</span>
+              </dt>
+              <dd>
+                <p>
+        戦闘中に BGM として再生されるサウンドの ID を値とする属性だ。
+        サウンドについては別の節で述べる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">画面更新</span>
+              </dt>
+              <dd>
+                <p>
+        この属性値については詳細が不明だ。
+        ただ、いずれのデータにおいても 1 でなければならないはずだ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">逃走禁止/ルーラ禁止</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン型属性であり、
+        値が 1 であれば、この戦闘において自陣側による「にげる」または「ルーラ」の実行が失敗することを意味する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ボス戦</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン型属性であり、値が 1 であればこの戦闘がボス戦であることを意味する。
+        ボス戦では振る舞いが制限される戦闘コマンドが存在する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">モンスター k (k = 0..3)</span>
+              </dt>
+              <dd>
+                <p>
+        モンスター ID を値とする属性であり、敵陣グループ k を構成するモンスターを指定する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">モンスター頭数 k (k = 0..3)</span>
+              </dt>
+              <dd>
+                <p>
+        敵陣グループ k を構成する戦闘員数を値とする属性だ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.encounter.structure.C8ADD1"></a>5.30.1.2. 構造体 <code class="varname">$C8ADD1</code>: 通常戦</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C8ADD1</code> には次に示す型のオブジェクトが 100 程度配列されている。
+この型は通常戦の戦闘セッション自身の属性および敵陣の構成を表現するものだ。
+</p>
+          <div class="table">
+            <a id="table.dq3.C8ADD1"></a>
+            <p class="title">
+              <strong>表 5.74 構造体 $C8ADD1</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C8ADD1" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>遭遇係数</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007</code>
+                    </td>
+                    <td>確率分布</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0038</code>
+                    </td>
+                    <td>先制発生</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>頭数調整 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>頭数調整 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>頭数調整 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>頭数調整 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>頭数調整 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター <code class="literal">#$00</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター <code class="literal">#$01</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター <code class="literal">#$02</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター <code class="literal">#$03</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター <code class="literal">#$04</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター <code class="literal">#$05</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター <code class="literal">#$06</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター <code class="literal">#$07</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター <code class="literal">#$08</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター <code class="literal">#$09</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター <code class="literal">#$0A</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター <code class="literal">#$0B</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター <code class="literal">#$0C</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$11</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター <code class="literal">#$0D</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$12</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>レベル</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$13</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頭数上限</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味を次に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">遭遇係数</span>
+              </dt>
+              <dd>
+                <p>
+        遭遇係数とは、配列 <code class="varname">$C6902F</code> の添字を値とする属性だ。
+        この値から決まる係数と、パーティーの現在位置に依存する数の積によって、
+        遭遇カウンター <code class="varname">$7EF796</code> から差し引く値（の初期値）が定まる。
+      </p>
+                <p>
+        敵遭遇決定のアルゴリズムについては後述する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">確率分布</span>
+              </dt>
+              <dd>
+                <p>
+        確率分布とは、このオブジェクトが参照する確率分布オブジェクトの ID を値とする属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">先制発生</span>
+              </dt>
+              <dd>
+                <p>
+        先制発生とは、ある配列ペアの添字を値とする属性だ。
+        それら配列の要素は、この戦闘開始時点で自陣か敵陣のどちらか一方が先制を取れるかどうかを抽選するのに用いられる。
+      </p>
+                <p>
+        自陣が先制を取れるかどうかの抽選は配列 <code class="varname">$C68175</code> に依存する。
+        この配列要素を x とすると、x / 256 の確率で先制が確定する。
+      </p>
+                <p>
+        敵陣が奇襲するかどうかの抽選は、自陣が先制を取らない条件の下で配列 <code class="varname">$C68185</code> に依存する。
+        この配列要素を y とすると、y / 256 の確率で奇襲が確定する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">頭数調整 k (k = 0..4)</span>
+              </dt>
+              <dd>
+                <p>
+        頭数調整とはブーリアン型属性で、
+        この遭遇オブジェクトにより敵陣が複数グループから編成される場合に参照される属性だ。
+        詳細は後述する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">モンスター k (k = <code class="literal">#$00</code>..<code class="literal">#$0D</code>)</span>
+              </dt>
+              <dd>
+                <p>
+        モンスター ID を値とする属性だ。
+        後述の確率変数オブジェクトの頻度属性の説明を参照して欲しい。
+      </p>
+                <p>
+        なお、k = <code class="literal">#$0A</code> のモンスターは夜専用となる。
+        また、k = <code class="literal">#$0C</code>..<code class="literal">#$0D</code> の属性値はダミーだ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">レベル</span>
+              </dt>
+              <dd>
+                <p>
+        この戦闘自体のレベルを表す数を取る属性だ。
+        戦闘地域を移動中に「せいすい」や「トヘロス」が有効であり、
+        パーティーの特定のキャラクターのレベルがこの値プラス 5 以上であれば、
+        遭遇カウンターから差し引く値がゼロになる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">頭数上限</span>
+              </dt>
+              <dd>
+                <p>
+        この属性値は、敵陣の戦闘員数の総和の上限を指定するものだ。
+        敵陣構成処理の仕上げの部分では、この値を超えないように各グループの頭数を調整する。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.encounter.structure.C8B6D8"></a>5.30.1.3. 構造体 <code class="varname">$C8B6D8</code>: 通常戦確率分布</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C8B6D8</code> には次に示す型のオブジェクトが 4 個配列されている。
+これは、通常戦オブジェクトのどのモンスターが採用されやすいかを表現する離散型確率分布だ。
+</p>
+          <div class="table">
+            <a id="table.dq3.C8B6D8"></a>
+            <p class="title">
+              <strong>表 5.75 構造体 $C8B6D8</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C8B6D8" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頻度 <code class="literal">#$00</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頻度 <code class="literal">#$01</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頻度 <code class="literal">#$02</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頻度 <code class="literal">#$03</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頻度 <code class="literal">#$04</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頻度 <code class="literal">#$05</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頻度 <code class="literal">#$06</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頻度 <code class="literal">#$07</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頻度 <code class="literal">#$08</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頻度 <code class="literal">#$09</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頻度 <code class="literal">#$0A</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頻度 <code class="literal">#$0B</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頻度 <code class="literal">#$0C</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>頻度 <code class="literal">#$0D</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>単数グループ用頭数決定 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>単数グループ用頭数決定 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>単数グループ用頭数決定 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$11</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>単数グループ用頭数決定 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$12</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>単数グループ用頭数決定 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$13</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>複数グループ用追加グループ確率 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$14</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>複数グループ用追加グループ確率 1</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味を次に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">頻度 k (k = <code class="literal">#$00</code>..<code class="literal">#$0D</code>)</span>
+              </dt>
+              <dd>
+                <p>
+        この属性値を 256 で割れば、各確率変数 k に対応する確率となる。
+        要するに <code class="literal">#$00</code> から <code class="literal">#$0D</code> までの値の出現確率を制御するためのものだ。
+      </p>
+                <p>
+        値が <code class="literal">#$00</code>..<code class="literal">#$04</code> に抽選されると、敵陣を複数グループで構成する。
+        その際、採用するモンスターは通常戦オブジェクトのモンスター <code class="literal">#$00</code>..<code class="literal">#$04</code>
+        および <code class="literal">#$0A</code> 属性値から抽選する。
+      </p>
+                <p>
+        値が <code class="literal">#$05</code> に抽選されると、
+        敵陣を単体グループ 1 と複数体グループ 1 で構成する。
+        その際、採用するモンスターは前者のグループには通常戦モンスター <code class="literal">#$05</code> 属性値を、
+        後者のグループには通常戦モンスター <code class="literal">#$00</code>..<code class="literal">#$04</code> 属性値から抽選してそれぞれ割り当てる。
+      </p>
+                <p>
+        値が <code class="literal">#$06</code>..<code class="literal">#$0A</code> に抽選されると、
+        敵陣を単数グループで構成する。
+        その際、採用するモンスターは対応する通常戦モンスター k 属性値を割り当てる。
+      </p>
+                <p>
+        値が <code class="literal">#$0B</code> に抽選されると、
+        敵陣をただ一体で構成し、そのモンスターは通常戦モンスター <code class="literal">#$0B</code> 属性値を割り当てる。
+      </p>
+                <p>
+        値が <code class="literal">#$0C</code>..<code class="literal">#$0D</code> に抽選されると、
+        通常戦オブジェクトからではなく、後述するレア戦闘オブジェクトから敵陣を構成する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">単数グループ用頭数決定 k (k = 0..4)</span>
+              </dt>
+              <dd>
+                <p>
+        上述の確率変数が <code class="literal">#$06</code>..<code class="literal">#$0A</code> のときに、
+        唯一のグループを構成するモンスターの頭数範囲を指定する属性だ。
+        この値は配列 <code class="varname">$C8B72C</code> の添字であり、その配列要素が頭数範囲の両端点を表現している。
+      </p>
+                <div class="table">
+                  <a id="table.dq3.C8B72C"></a>
+                  <p class="title">
+                    <strong>表 5.76 配列 $C8B72C</strong>
+                  </p>
+                  <div class="table-contents">
+                    <table id="table.dq3.C8B72C" class="lighttable">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>頭数</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <code class="literal">#$00</code>
+                          </td>
+                          <td align="center">0</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$01</code>
+                          </td>
+                          <td align="center">8..8</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$02</code>
+                          </td>
+                          <td align="center">4..5</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$03</code>
+                          </td>
+                          <td align="center">2..3</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$04</code>
+                          </td>
+                          <td align="center">3..7</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <br class="table-break" />
+              </dd>
+              <dt>
+                <span class="term">複数グループ用追加グループ確率 k (k = 0..1)</span>
+              </dt>
+              <dd>
+                <p>
+        上述の確率変数が <code class="literal">#$00</code>..<code class="literal">#$04</code> のときに、
+        敵陣にグループ k + 2 が存在するかどうかを与える確率（を 256 倍した値）だ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.encounter.structure.C8B736"></a>5.30.1.4. 構造体 <code class="varname">$C8B736</code>: 通常戦レア</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C8B736</code> には次の表に示される構造体オブジェクトが配列されている。
+これらは通常戦のうち、敵陣の構成を固定化して定義されているものを表現している。
+</p>
+          <div class="table">
+            <a id="table.dq3.C8B736"></a>
+            <p class="title">
+              <strong>表 5.77 構造体 $C8B736</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C8B736" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000F</code>
+                    </td>
+                    <td>頭数範囲 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00F0</code>
+                    </td>
+                    <td>頭数範囲 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000F</code>
+                    </td>
+                    <td>頭数範囲 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>モンスター 2</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味を次に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">頭数範囲 k (k = 0..2)</span>
+              </dt>
+              <dd>
+                <p>
+        敵陣グループ k を構成するモンスターの頭数範囲を指定する属性だ。
+        この値は配列 <code class="varname">$C8B7E5</code> の添字であり、その配列要素が頭数範囲の両端点を表現している。
+      </p>
+                <div class="table">
+                  <a id="table.dq3.C8B7E5"></a>
+                  <p class="title">
+                    <strong>表 5.78 配列 $C8B7E5</strong>
+                  </p>
+                  <div class="table-contents">
+                    <table id="table.dq3.C8B7E5" class="lighttable">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>範囲</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <code class="literal">#$00</code>
+                          </td>
+                          <td align="center">0</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$01</code>
+                          </td>
+                          <td align="center">8</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$02</code>
+                          </td>
+                          <td align="center">4..7</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$03</code>
+                          </td>
+                          <td align="center">1..3</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$04</code>
+                          </td>
+                          <td align="center">1..8</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$05</code>
+                          </td>
+                          <td align="center">1</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$06</code>
+                          </td>
+                          <td align="center">2</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$07</code>
+                          </td>
+                          <td align="center">3</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$08</code>
+                          </td>
+                          <td align="center">0..2</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$09</code>
+                          </td>
+                          <td align="center">5</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$0A</code>
+                          </td>
+                          <td align="center">4</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$0B</code>
+                          </td>
+                          <td align="center">6</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <br class="table-break" />
+              </dd>
+              <dt>
+                <span class="term">モンスター k (k = 0..2)</span>
+              </dt>
+              <dd>
+                <p>
+        敵陣グループ k を構成するモンスターのモンスター ID を値とする属性だ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.encounter.behavior"></a>5.30.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+戦闘地域移動中の戦闘発生および敵陣構成のそれぞれの仕組みについて述べる。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_search.html" title="5.29. しらべる"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_pond.html" title="5.31. オルレラの泉"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_search.html">5.29. しらべる</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_pond.html">5.31. オルレラの泉</a></div>
+  </body>
+</html>

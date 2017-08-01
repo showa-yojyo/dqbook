@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.11. 王様</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_windows.html" title="5.10. ウィンドウ" />
+    <link rel="next" href="dq3_shops.html" title="5.12. 店屋" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_windows.html" title="5.10. ウィンドウ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_shops.html" title="5.12. 店屋"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_windows.html">5.10. ウィンドウ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_shops.html">5.12. 店屋</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.kings"></a>5.11. 王様</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_kings.html#dq3.kings.structure">5.11.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_kings.html#dq3.kings.structure.C3C1D9">5.11.1.1. 配列 <code class="varname">$C3C1D9</code>: 王様台詞集</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_kings.html#dq3.kings.structure.C3C2F6">5.11.1.2. 配列 <code class="varname">$C3C2F6</code>: ルイーダの酒場の尼台詞集</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_kings.html#dq3.kings.behavior">5.11.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_kings.html#dq3.kings.behavior.C3C07E">5.11.2.1. サブルーチン <code class="varname">$C3C07E</code>: 王様</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_kings.html#dq3.kings.behavior.C3C251">5.11.2.2. サブルーチン <code class="varname">$C3C251</code>: ルイーダの酒場の尼</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <p>
+本節では冒険の書の保存を行う人物について述べる。
+各国の元首やその大臣がこれを実行することが多い。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.kings.structure"></a>5.11.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+冒険の書の保存を行う人物に関係するデータ構造について述べる。
+冒険の書オブジェクトについては別の節で述べる。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.kings.structure.C3C1D9"></a>5.11.1.1. 配列 <code class="varname">$C3C1D9</code>: 王様台詞集</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C3C1D9</code> は 5 個のメッセージ ID からなる組を要素とする配列の先頭だ。
+この組は各人の台詞回しであり、配列要素それぞれが状況に対応している。
+</p>
+          <p>
+例えば「休むがよい」を表示するために各人の言い回しに合う 5 タイプの台詞が用意されている。
+汎用台詞表示サブルーチン <code class="varname">$C1A95A</code> を呼び出すことで店員の台詞を表示している。
+</p>
+          <p>
+台詞配列を表にしてまとめておくと次のようになる。ロマリア王の台詞例（組添字 0 に相当）を付しておく。
+</p>
+          <div class="table">
+            <a id="table.dq3.C3C1D9"></a>
+            <p class="title">
+              <strong>表 5.31 王様台詞集</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C3C1D9" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>配列</th>
+                    <th>台詞例</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C1D9</code>
+                    </td>
+                    <td>[CD][D6]王「[C0]が つぎのレベルに[AD]なるには あと[BB]の[AD]けいけんが 必要じゃ。[AF]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C1E3</code>
+                    </td>
+                    <td>[CD][D6]王「そなたらの 旅の せいかを[AD]この 冒険の書に[AD]きろくしても よいかな？</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C1ED</code>
+                    </td>
+                    <td>[CD][D6]王「そうか… では[AD]書きとめないでおこう。[AF]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C1F7</code>
+                    </td>
+                    <td>[CD][D6]王「では なん番の 冒険の書に[AD]書きとめるかの？</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C201</code>
+                    </td>
+                    <td>[CD][D6]王「すると [B2] ＬＶ[BB]の[AD]きろくは 消えてしまうが[AD]それでも いいかな？</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C20B</code>
+                    </td>
+                    <td>[CD][D6]王「しかと きろくしたぞよ。[AD]どうじゃ？ また すぐに[AD]旅立つ つもりか？</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C215</code>
+                    </td>
+                    <td>[CD][D6]王「また すぐに[AD]旅立つ つもりかの？</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C21F</code>
+                    </td>
+                    <td>[CD][D6]王「なんと！ きろくせずに[AD]休むというのか。[AF](...)</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C229</code>
+                    </td>
+                    <td>[CD][D6]王「おや やめるのかね。[AD]では また いつでも 来るがよい。[AD][CB]よ！</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C233</code>
+                    </td>
+                    <td>[CD][D6]王「では しばし 休むがよい！[AD]また 会おう！ [CB]よ！</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C23D</code>
+                    </td>
+                    <td>[CD][D6]王「[C0]は[AD]もう じゅうぶんに 強い！[AF]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C247</code>
+                    </td>
+                    <td>[CD][D6]王「[C0]は わしにも わからぬ[AD]けいけんを つんだようじゃな。[AF](...)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.kings.structure.C3C2F6"></a>5.11.1.2. 配列 <code class="varname">$C3C2F6</code>: ルイーダの酒場の尼台詞集</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C3C2F6</code> はルイーダの酒場にいる尼の台詞メッセージ ID の配列だ。
+台詞配列を表にしてまとめておくと次のようになる。
+</p>
+          <div class="table">
+            <a id="table.dq3.C3C2F6"></a>
+            <p class="title">
+              <strong>表 5.32 ルイーダの酒場の尼台詞集</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C3C2F6" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>アドレス</th>
+                    <th>台詞</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C2F6</code>
+                    </td>
+                    <td>[D6][D1]あなたの旅の せいかを[AD]冒険の書に きろくなさいますか？</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C2F8</code>
+                    </td>
+                    <td>[D6][D1]あなたの旅に[AD]神のごかごが ありますように。</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C2FA</code>
+                    </td>
+                    <td>[D6][D1]では なん番の 冒険の書に[AD]書きとめますか？</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C2FC</code>
+                    </td>
+                    <td>[D6][D1]たしかに きろくしました。[AF]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3C2FE</code>
+                    </td>
+                    <td>[D6][D1]おやめに なるのですね。[AF]</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.kings.behavior"></a>5.11.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+冒険の書の保存を行う人物に関係する振る舞いについて述べる。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.kings.behavior.C3C07E"></a>5.11.2.1. サブルーチン <code class="varname">$C3C07E</code>: 王様</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3C07E</code> は各国王様の共通処理コードだ。
+以下、このサブルーチンの要点を挙げていく。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      最初に行うのは、パーティーメンバー全員に対する次のレベルに必要な経験値を告げることだ。この処理はサブルーチン <code class="varname">$C3C3E4</code> に実装されている。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      次に冒険の書に記録するかを尋ねる。冒険の書リストの現在の冒険の書にカーソルが合わせてある。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      現在の冒険の書と異なる項目を選択すると、王様が警告する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      保存処理はサブルーチン <code class="varname">$C4624E</code> に実装されている。冒険の書関連は別の節で述べる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      保存処理が終了したあとにおなじみの効果音を再生する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      冒険の書に保存せずにゲームを終了しようとすると、王様が警告する。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.kings.behavior.C3C251"></a>5.11.2.2. サブルーチン <code class="varname">$C3C251</code>: ルイーダの酒場の尼</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3C251</code> はルイーダの酒場にいる尼の共通処理コードだ。
+以下、このサブルーチンの要点を挙げていく。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      冒険の書に記録するか尋ねてくる。
+      王様処理とは異なり、このとき現在の冒険の書と異なる項目を選択しても、上書きすることになることを警告しない。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      王様処理と同様に、保存処理が終了したあとに効果音を再生する。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_windows.html" title="5.10. ウィンドウ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_shops.html" title="5.12. 店屋"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_windows.html">5.10. ウィンドウ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_shops.html">5.12. 店屋</a></div>
+  </body>
+</html>

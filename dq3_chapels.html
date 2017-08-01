@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.15. 教会</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_inns.html" title="5.14. 宿屋" />
+    <link rel="next" href="dq3_luida.html" title="5.16. ルイーダの酒場" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_inns.html" title="5.14. 宿屋"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_luida.html" title="5.16. ルイーダの酒場"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_inns.html">5.14. 宿屋</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_luida.html">5.16. ルイーダの酒場</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.chapels"></a>5.15. 教会</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_chapels.html#dq3.chapels.structure">5.15.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_chapels.html#dq3.chapels.structure.C3D50C">5.15.1.1. 配列 <code class="varname">$C3D50C</code>: 神父台詞集</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_chapels.html#dq3.chapels.behavior">5.15.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_chapels.html#dq3.chapels.behavior.C3D49C">5.15.2.1. サブルーチン <code class="varname">$C3D49C</code>: 教会処理</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_chapels.html#dq3.chapels.behavior.C3D554">5.15.2.2. サブルーチン <code class="varname">$C3D554</code>: いきかえらせる</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_chapels.html#dq3.chapels.behavior.C3D5DD">5.15.2.3. サブルーチン <code class="varname">$C3D5DD</code>: どくのちりょう</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_chapels.html#dq3.chapels.behavior.C3D64A">5.15.2.4. サブルーチン <code class="varname">$C3D64A</code>: のろいをとく</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <p>
+本節では教会について述べる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.chapels.structure"></a>5.15.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+教会を構成する構造に関する要素について述べる。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.chapels.structure.C3D50C"></a>5.15.1.1. 配列 <code class="varname">$C3D50C</code>: 神父台詞集</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C3D50C</code> は 2 個のメッセージ ID 対を要素とする配列の先頭だ。
+基本的には、このメッセージペアは神父と尼の台詞回しにそれぞれ対応する。
+</p>
+          <p>
+台詞配列を表にしてまとめておくと次のようになる。神父の台詞例（組添字 0 に相当）を付しておく。
+</p>
+          <div class="table">
+            <a id="table.dq3.C3D50C"></a>
+            <p class="title">
+              <strong>表 5.36 </strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C3D50C" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>配列</th>
+                    <th>台詞例</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D50C</code>
+                    </td>
+                    <td>[D6]たのもしき 神のしもべよ[AD]わが教会に どんな ご用じゃな？</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D510</code>
+                    </td>
+                    <td>[D6]どなたを この世へ[AD]呼びもどすのじゃな？[AF]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D514</code>
+                    </td>
+                    <td>[D6]ごじょうだんを。[C0]どのは[AD]生きていらっしゃる！</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D518</code>
+                    </td>
+                    <td>[D6]おお わが主よ！[AD]全知全能の神よ！[AF][AD](...)</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D51C</code>
+                    </td>
+                    <td>[C0]は よみがえった！[AF][AC]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D520</code>
+                    </td>
+                    <td>[D6]どなたの毒を とるのじゃな？[AF]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D524</code>
+                    </td>
+                    <td>[D6][C0]どのは 毒に[AD]おかされては いませんぞ。[AF]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D528</code>
+                    </td>
+                    <td>[D6]おお神よ おちからを！[AD][C0]より 毒のけがれを[AD]消し去りたまえっ！[AF]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D52C</code>
+                    </td>
+                    <td>[D6]さすれば わが教会に[AD][BB]ゴールドの ご寄付を。[AD]よろしいですかな？</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D530</code>
+                    </td>
+                    <td>[D6]なんと 寄付をするには お金が[AD]たりないでは ありませんか！[AD](...)</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D534</code>
+                    </td>
+                    <td>[D6]教会への寄付は[AD]神への かんしゃのきもち。[AD](...)</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D538</code>
+                    </td>
+                    <td>[D6]なんと やめると申されるか。[AF]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D53C</code>
+                    </td>
+                    <td>[D6]ほかに ご用は おありかな？</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D540</code>
+                    </td>
+                    <td>[D6]では お気をつけて。[AD]神の ご加護の あらんことを。</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D544</code>
+                    </td>
+                    <td>[D6]どなたの呪いを とくのじゃな？[AF]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D548</code>
+                    </td>
+                    <td>[D6][C0]どのは[AD]呪われては いませんぞ。[AF]</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D54C</code>
+                    </td>
+                    <td>[D6]おお神よ おちからを！[AD]いまわしき 呪いを[AD](...)</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="varname">$C3D550</code>
+                    </td>
+                    <td>[D6]こんな 夜ふけに わが教会に[AD]なんの ご用じゃな？</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.chapels.behavior"></a>5.15.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+教会を構成する振る舞いに関する要素について述べる。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.chapels.behavior.C3D49C"></a>5.15.2.1. サブルーチン <code class="varname">$C3D49C</code>: 教会処理</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3D49C</code> が神父と尼共通のおつとめ処理の実装だ。
+以下に処理の要点を挙げる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      冒頭の挨拶は教会に訪問するのが昼か夜かで異なる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      教会のサービスは「いきかえらせる」「どくのちりょう」「のろいをとく」固定だ。
+      それぞれ専用サブルーチンで処理する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      何かのサービスを受けた後ならば、もう一度サービスメニューが表示される。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.chapels.behavior.C3D554"></a>5.15.2.2. サブルーチン <code class="varname">$C3D554</code>: いきかえらせる</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3D554</code> は教会メニュー項目「いきかえらせる」の実装である。
+以下に処理の要点を挙げる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      指定キャラクターが死んでいるかどうかは、仲間キャラクターオブジェクトの死亡フラグで判定する。
+      このような状態フラグについては <a class="xref" href="dq3_characters.html" title="5.5. 仲間キャラクターオブジェクト">5.5 仲間キャラクターオブジェクト</a> で述べる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      寄付金は対象者のレベルだけで決まる。
+      その値を <code class="literal">level</code> とすると、Python コード風に言えば
+      <code class="code">(((level ** 2) // 10) + 1) * 10</code> ゴールドとなる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      寄付金の支払い前後の処理は、
+      他のサービス処理と共有されていることもあり、専用サブルーチンでカプセル化されている。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      実は対象者の回復、神父または尼の台詞、効果音再生の順に処理される。
+      これは他のサービスでも同様だ。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.chapels.behavior.C3D5DD"></a>5.15.2.3. サブルーチン <code class="varname">$C3D5DD</code>: どくのちりょう</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3D5DD</code> は教会メニュー項目「どくのちりょう」の実装である。
+以下に処理の要点を挙げる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      指定キャラクターが毒状態かどうかを、仲間キャラクターオブジェクトの状態フラグで判定する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      寄付金は対象者のレベルだけで決まる。
+      その値を <code class="literal">level</code> とすると、Python コード風に言えば
+      <code class="code">(level &gt;&gt; 2) + 4</code> ゴールドとなる。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.chapels.behavior.C3D64A"></a>5.15.2.4. サブルーチン <code class="varname">$C3D64A</code>: のろいをとく</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3D64A</code>は教会メニュー項目「のろいをとく」の実装である。
+以下に処理の要点を挙げる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      指定キャラクターが呪い状態かどうかを、仲間キャラクターオブジェクトの状態フラグで判定する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      寄付金は対象者のレベルだけで決まる。レベルを 30 倍した値が必要なゴールドだ。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      呪いの解除はサブルーチン <code class="varname">$C44168</code> 呼び出しで実行する。
+      この処理は注意を要する。
+      実行内容は対象者の装備品を先頭から順に反復して、アイテムオブジェクトの呪い属性をテストする。
+      もし呪い装備品を発見したら、それを所持品から削除し、
+      <span class="emphasis"><em>その他に呪い装備品がないときに限り</em></span>対象者の呪い状態をリセットするというものだ。
+      そのためかどうかは不明だが、呪い装備品の個数を問わず、施術後に呪いの状態変化についての語りがない。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_inns.html" title="5.14. 宿屋"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_luida.html" title="5.16. ルイーダの酒場"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_inns.html">5.14. 宿屋</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_luida.html">5.16. ルイーダの酒場</a></div>
+  </body>
+</html>

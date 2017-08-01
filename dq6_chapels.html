@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.8. 教会</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_inns.html" title="4.7. 宿屋" />
+    <link rel="next" href="dq6_forges.html" title="4.9. おしゃれなカジヤ" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_inns.html" title="4.7. 宿屋"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_forges.html" title="4.9. おしゃれなカジヤ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_inns.html">4.7. 宿屋</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_forges.html">4.9. おしゃれなカジヤ</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.chapels"></a>4.8. 教会</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_chapels.html#dq6.chapels.structure">4.8.1. データ</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_chapels.html#dq6.chapels.structure.C58E9F">4.8.1.1. 構造体 <code class="varname">$C58E9F</code>: 教会</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_chapels.html#dq6.chapels.structure.C3D9F8">4.8.1.2. 配列 <code class="varname">$C3D9F8</code>: 教会台詞セット</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_chapels.html#dq6.chapels.behavior">4.8.2. 処理手順</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_chapels.html#dq6.chapels.behavior.C3D3E3">4.8.2.1. サブルーチン <code class="varname">$C3D3E3</code>: 標準的な教会</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_chapels.html#dq6.chapels.behavior.C3D849">4.8.2.2. サブルーチン <code class="varname">$C3D849</code>: アモールの掃除中の教会</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_chapels.html#dq6.chapels.behavior.C3D8C3">4.8.2.3. サブルーチン <code class="varname">$C3D8C3</code>: 透明モード中のトルッカの教会</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_chapels.html#dq6.chapels.behavior.C3D910">4.8.2.4. サブルーチン <code class="varname">$C3D910</code>: マウントスノーの凍りついた神父</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <a id="term.dq6.chapels" class="indexterm"></a>
+      <p>
+本節では各地の教会を表現するデータ構造と処理を説明する。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.chapels.structure"></a>4.8.1. データ</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+各地の教会を表現するデータ構造を説明する。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.chapels.structure.C58E9F"></a>4.8.1.1. 構造体 <code class="varname">$C58E9F</code>: 教会</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C58E9F</code> にある配列要素のそれぞれが対応する教会オブジェクトを表現する。
+</p>
+          <div class="table">
+            <a id="table.dq6.C58E9F"></a>
+            <p class="title">
+              <strong>表 4.33 構造体 $C58E9F</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C58E9F" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>台詞セット</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>おいのり</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FE</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td rowspan="2">処理アドレス</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味は次のとおり：
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">台詞セット</span>
+              </dt>
+              <dd>
+                <p>
+        台詞セット属性は、教会にいる神父等の台詞の集合を指定する ID 値を取る。
+        具体的に言えば、後述する配列 <code class="varname">$C3D9F8</code> の添字に相当する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">おいのり</span>
+              </dt>
+              <dd>
+                <p>
+        おいのりはブーリアン型属性で、教会のメニューに「おいのりをする」の項目があるかどうかを示す。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">処理アドレス</span>
+              </dt>
+              <dd>
+                <p>
+        教会の処理は大部分は一つのサブルーチンで実装されてはいるものの、
+        場所によっては若干振る舞いに差異がある。
+        この属性はその「差分」を実装するサブルーチンのフルアドレスを値とする。
+      </p>
+                <p>
+        データによると以下のようなことを表現していることがわかる：
+      </p>
+                <div class="table">
+                  <a id="table.dq6.C58E9F.handlers"></a>
+                  <p class="title">
+                    <strong>表 4.34 処理アドレス</strong>
+                  </p>
+                  <div class="table-contents">
+                    <table id="table.dq6.C58E9F.handlers" class="lighttable">
+                      <thead>
+                        <tr>
+                          <th>値</th>
+                          <th>意味</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <code class="varname">$C3D3E3</code>
+                          </td>
+                          <td>普通の教会処理</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="varname">$C3D849</code>
+                          </td>
+                          <td>アモールの教会が掃除をしている最中</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="varname">$C3D8C3</code>
+                          </td>
+                          <td>下の世界で、パーティが実体化していないとき</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="varname">$C3D910</code>
+                          </td>
+                          <td>マウントスノー初期状態の教会</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <br class="table-break" />
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.chapels.structure.C3D9F8"></a>4.8.1.2. 配列 <code class="varname">$C3D9F8</code>: 教会台詞セット</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+教会のサービス担当者の話す台詞集（一部システムメッセージを含む）はメッセージ ID の配列の形式で表現されている。
+その台詞セットのアドレスの配列がアドレス <code class="varname">$C3D9F8</code> にある。
+</p>
+          <p>
+以下に台詞セットのデータを直接示す。セミコロンから右側が本書が独自に付したコメントだ：
+読者はメッセージ ID と実際のテキストとの対応を <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> に収録した移動モードテキストデータを参照すれば確認できる。
+</p>
+          <pre class="programlisting">
+C3/D9F8:    FCD9    ; 台詞セット 1 のアドレス
+C3/D9FB:    32DA    ; 台詞セット 2 のアドレス
+
+C3/D9FC:    CA18    ; #$00: [DE]生きとし生けるものは(...)
+C3/D9FE:    E418    ; #$01: [DE]おお 神よ！[AD]この者[B2]に(...)
+C3/DA00:    CB18    ; #$02: [DE]では 神のまえに[AD]これまでの(...)
+C3/DA02:    CE18    ; #$03: [DE]なんばんの 冒険の書に[AD]記録するのじゃ？
+C3/DA04:    D318    ; #$04: [DE]たしかに 記録しましたぞ(...)
+C3/DA06:    D418    ; #$05: [DE]おお神よ！[AD]この者[B2]に ひとときの(...)
+C3/DA08:    CD18    ; #$06: [DE]記録しないと申されるか(...)
+C3/DA0A:    D018    ; #$07: [DE]まだ 冒険を(...)
+C3/DA0C:    D118    ; #$08: [DE]なんと 記録せずに(...)
+C3/DA0E:    D218    ; #$09: [DE]では そなたの冒険が(...)
+C3/DA10:    CC18    ; #$0A: [DE]そして この冒険の書に(...)
+C3/DA12:    CF18    ; #$0B: [DE]そうすると [B2]ＬＶ[BB]の[AD]記録が(...)
+C3/DA14:    D518    ; #$0C: [DE]神の声が 聞こえます。[AF][D5]
+C3/DA16:    D618    ; #$0D: [DE][C0]よ。[AD]あと[BB]の経験で(...)
+C3/DA18:    E318    ; #$0E: [DE]ほかに ご用は おありかな？
+C3/DA1A:    D718    ; #$0F: [DE][C0]よ。[AD]そなたは もう(...)
+C3/DA1C:    D818    ; #$10: [DE]どなたを 生きかえして(...)
+C3/DA1E:    D918    ; #$11: [DE]なんと [B3]どのは(...)
+C3/DA20:    E218    ; #$12: [DE]なんと やめると申されるか。[AF]
+C3/DA22:    DF18    ; #$13: [DE]さすれば わが教会に[AD][BB]ゴールドの(...)
+C3/DA24:    E018    ; #$14: [DE]なんと 寄付をするには(...)
+C3/DA26:    E118    ; #$15: [DE]それもまた そなたの意志(...)
+C3/DA28:    DA18    ; #$16: [DE]おお わが主よ！[AD]全知全能の神よ(...)
+C3/DA2A:    DB18    ; #$17: [DE][B3]は よみがえった！[AF][D5]
+C3/DA2C:    DC18    ; #$18: [DE]どなたの毒を(...)
+C3/DA2E:    DE18    ; #$19: [DE]おお神よ！ わが主よ！[AD][B3]の身体より(...)
+C3/DA30:    DD18    ; #$1A: [DE]はて [B3]どのは(...)
+
+C3/DA32:    E518    ; #$00: [DE]ここは 神にみちびかれし[AD]迷える子羊たちの(...)
+C3/DA34:    FB18    ; #$01: [DE]神さまは いつも 私たちを[AD]みまもってくれています(...)
+C3/DA36:    E618    ; #$02: [DE]では 神のまえに[AD]これまでの おこないを(...)
+C3/DA38:    E918    ; #$03: [DE]なんばんの 冒険の書に(...)
+C3/DA3A:    EE18    ; #$04: [DE]たしかに 記録しました(...)
+C3/DA3C:    EF18    ; #$05: [DE]あなた[B2]に ひとときの[AD]やすらぎが(...)
+C3/DA3E:    E818    ; #$06: [DE]では これまでのことは[AD]記録しないで(...)
+C3/DA40:    EB18    ; #$07: [DE]まだ 冒険を[AD]おつづけに なりますか？
+C3/DA42:    EC18    ; #$08: [DE]では 記録せずに[AD]休むと(...)
+C3/DA44:    ED18    ; #$09: [DE]そうすると 冒険が[AD]前の記録まで(...)
+C3/DA46:    E718    ; #$0A: [DE]そして この冒険の書に(...)
+C3/DA48:    EA18    ; #$0B: [DE]すると [B2]ＬＶ[BB]の[AD]記録が(...)
+C3/DA4A:    D518    ; #$0C: [DE]神の声が 聞こえます。[AF][D5]
+C3/DA4C:    D618    ; #$0D: [DE][C0]よ。[AD]あと[BB]の経験で(...)
+C3/DA4E:    FA18    ; #$0E: [DE]ほかに ご用は ありますか？
+C3/DA50:    D718    ; #$0F: [DE][C0]よ。[AD]そなたは もう(...)
+C3/DA52:    F018    ; #$10: [DE]どなたを 生きかえして(...)
+C3/DA54:    F118    ; #$11: [DE]あら [B3]さんは(...)
+C3/DA56:    F918    ; #$12: [DE]あら？ やめるのですね。[AF]
+C3/DA58:    F618    ; #$13: [DE]それでは わが教会に[AD][BB]ゴールドの(...)
+C3/DA5A:    F718    ; #$14: [DE]ざんねんですが[AD]お金が(...)
+C3/DA5C:    F818    ; #$15: [DE]無理にとは いいません(...)
+C3/DA5E:    F218    ; #$16: [DE]ああ 天に まします[AD]われらが 神よ(...)
+C3/DA60:    DB18    ; #$17: [DE][B3]は よみがえった！[AF][D5]
+C3/DA62:    F318    ; #$18: [DE]どなたの毒を(...)
+C3/DA64:    F518    ; #$19: [DE]ああ われらが神よ。[AD][B3]を むしばむ毒を(...)
+C3/DA66:    F418    ; #$1A: [DE]あら？ [B3]さんは[AD]毒に(...)
+</pre>
+          <p>
+これらの台詞を表示するためのサブルーチンが用意されており、
+教会の処理中では汎用のメッセージ表示サブルーチンを呼び出す代わりに、
+サブルーチン <code class="varname">$C2D7B9</code> を用いる。
+呼び出し例を示す：
+</p>
+          <pre class="programlisting">
+C3/D401:    A90000      LDA #$0000          ; [DE]生きとし生けるものは(...) or [DE]ここは 神にみちびかれし[AD]迷える子羊たちの(...)
+C3/D404:    20B9D7      JSR $D7B9           ; 台詞表示
+</pre>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.chapels.behavior"></a>4.8.2. 処理手順</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+各地の教会に共通する処理手順を説明する。
+本当の意味での共通サブルーチンは <code class="varname">$C3D3AE</code> から始まるが、
+本節では教会オブジェクトの処理アドレス属性値が表すサブルーチンを解説する。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.chapels.behavior.C3D3E3"></a>4.8.2.1. サブルーチン <code class="varname">$C3D3E3</code>: 標準的な教会</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3D3E3</code> は標準的な教会処理の実装だ。
+対話的な処理が多いのでコードがたいへん長い。要点のみをいくつかに分けて列挙していく。
+</p>
+          <p>
+初期状態からメニューの表示までの処理手順を次に示す。以下では説明の便宜上、担当者を神父と呼ぶ。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      教会 ID を基に台詞セットの ID を参照する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      神父が挨拶する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      <span class="emphasis"><em>メニュー表示</em></span>。
+      教会オブジェクトのおいのり属性値に基づき、メニューを表示し分ける。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      プレイヤーの選択項目に対応する処理手順にスキップする。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+<span class="quote">「<span class="quote">おいのりをする</span>」</span>の処理概要を次に示す：
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      <span class="emphasis"><em>初期状態</em></span>。
+      冒険の書に記録するかどうかを神父が問うので、プレイヤーは回答する。
+      「はい」ならば<span class="emphasis"><em>冒険の書選択</em></span>に、
+      それ以外は<span class="emphasis"><em>記録取り消し</em></span>にそれぞれ処理手順を進める。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      <span class="emphasis"><em>記録取り消し</em></span>。
+      神父が冒険の書を更新しないことをやんわりと断る。
+      それから<span class="emphasis"><em>続行確認</em></span>に処理手順を進める。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      <span class="emphasis"><em>冒険の書選択</em></span>。
+      神父の台詞のあと、冒険の書選択ウィンドウが表示される。
+      ここでキャンセルすると、<span class="emphasis"><em>記録取り消し</em></span>に処理手順を進める。
+    </p>
+                <p>
+      次に、選択された冒険の書が、現在のそれとマッチするかどうかを調べる。
+      マッチしていれば<span class="emphasis"><em>記録開始</em></span>に処理手順を進める。
+      そうでなければ、神父が上書きになるが構わないかと聞いてくるので、プレイヤーは回答する。
+      「はい」ならば再度<span class="emphasis"><em>冒険の書選択</em></span>の冒頭に処理手順を戻し、
+      それ以外ならば<span class="emphasis"><em>記録開始</em></span>に処理手順を進める。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      <span class="emphasis"><em>記録開始</em></span>。
+      たいへん重要な処理であるので、別サブルーチン呼び出しで実現する。
+      神父が冒険の書に記録したことを告げ、冒険を続行するか尋ねるので、プレイヤーは回答する。
+      「はい」ならば終了状態に処理手順を進める。
+      それ以外は<span class="emphasis"><em>冒険中断</em></span>に処理手順を進める。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      <span class="emphasis"><em>冒険中断</em></span>。
+      神父の台詞を以って画面暗転、おつかれさまでしたメッセージの表示となる。
+      パーティーの人数が単数か複数かで僅かに文面を変える必要があり、
+      そのためのちょっとしたサブルーチン呼び出しがある。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      <span class="emphasis"><em>続行確認</em></span>。
+      神父がまだ冒険を続けるか問うので、プレイヤーは回答する。
+      「はい」ならば終了状態に処理手順を進める。
+      それ以外は神父が記録をしていないのにいいのかと念を押してくる。
+      ここで再度回答する必要がある。
+      「はい」ならば<span class="emphasis"><em>冒険中断</em></span>に、
+      それ以外は<span class="emphasis"><em>初期状態</em></span>に処理手順を進める。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+<span class="quote">「<span class="quote">おつげをきく</span>」</span>の処理概要を次に示す：
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      各パーティーメンバーにつき、以下の手順を繰り返す：
+      まず、仲間キャラクターの次のレベルがいくつかを求める。
+      この新レベルに対して、必要経験値をサブルーチン呼び出しで得る。
+      同時に現在レベルが既に上限に達しているかどうかも判明する。そのときは、そなたはもう十分に強いという台詞となる。
+      そうでなければ、必要経験値と現在経験値の差を求め、神父がその差分を告げる。
+    </p>
+                <p>
+      レベルアップ処理自体については <a class="xref" href="dq6_level.html" title="4.18. レベルアップ">4.18 レベルアップ</a> の述べる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      <span class="emphasis"><em>他の用事の有無を問う</em></span>。
+      神父が他に用があるか尋ねる。
+      そして、先述の<span class="emphasis"><em>メニュー表示</em></span>手順に戻る。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+<span class="quote">「<span class="quote">いきかえらせる</span>」</span>の処理概要を次に示す：
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      神父の台詞のあとに<span class="quote">「<span class="quote">だれを</span>」</span>ウィンドウを表示する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      選択した仲間キャラクターの状態が<span class="quote">「<span class="quote">しに</span>」</span>であることを試す。
+      死んでいない場合は神父の台詞の後、先述の<span class="emphasis"><em>他の用事の有無を問う</em></span>に処理手順を進める。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      寄付金計算請求処理を呼び出す。
+      生き返らせる際の寄付金は、キャラクターのレベルを <code class="literal">level</code> とすると Python コード風に言えば
+      <code class="code">(((level ** 2) // 10) + 1) * 10</code> ゴールドとなる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      神父の台詞のあとに、対象の仲間キャラクターの状態ビットを全てリセットする専用サブルーチンを呼び出す。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      対象の仲間キャラクターの HP を回復する専用サブルーチンを、回復量 999 として呼び出す。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      効果音 <code class="literal">#$0026</code> を再生する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      メッセージ <span class="quote">「<span class="quote">～は よみがえった！</span>」</span>を表示する。
+      先述の<span class="emphasis"><em>他の用事の有無を問う</em></span>に処理手順を進める。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+<span class="quote">「<span class="quote">どくのちりょう</span>」</span>の処理概要を次に示す：
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      神父の台詞のあとに<span class="quote">「<span class="quote">だれを</span>」</span>ウィンドウを表示する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      選択した仲間キャラクターの状態が<span class="quote">「<span class="quote">もうどく</span>」</span>または<span class="quote">「<span class="quote">どく</span>」</span>であることを試す。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      金額を 5 ゴールドとして、寄付金請求処理を呼び出す。
+      キャンセルすると、先述の<span class="emphasis"><em>他の用事の有無を問う</em></span>に処理手順を進める。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      効果音 <code class="literal">#$0026</code> を再生し、
+      <span class="quote">「<span class="quote">もうどく</span>」</span>または<span class="quote">「<span class="quote">どく</span>」</span>状態をリセットする専用サブルーチンを呼び出す。
+      それから先述の<span class="emphasis"><em>他の用事の有無を問う</em></span>に処理手順を進める。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+料金請求処理を細かく説明すると、次のようになる：
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      <span class="emphasis"><em>料金請求処理</em></span>。
+      神父が寄付金を要求するので、プレイヤーが回答する。
+      答えが「はい」でなければ、神父の台詞を表示して呼び出し元に戻る。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      寄付金額を支払える十分な所持金があるかどうかを判定する処理を実行する。
+      この判定処理は店屋共通処理でも利用されているサブルーチン <code class="varname">$C3EE59</code> を用いる。
+      これに失敗すると、神父の台詞を表示して呼び出し元に戻る。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      所持金から寄付金を減算し、寄付が発生したフラグをレジスターに立てて呼び出し元に返す。
+      所持金の更新はサブルーチン <code class="varname">$C42895</code> 実行のよる。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.chapels.behavior.C3D849"></a>4.8.2.2. サブルーチン <code class="varname">$C3D849</code>: アモールの掃除中の教会</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3D849</code> はアモールの教会が掃除中のときに神父に話すときの処理だ。
+サービスは冒険の書に記録することしかできない。
+なお、現在の冒険の書以外のものに上書きしようとしても、プレイヤーに対する意志確認がない。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.chapels.behavior.C3D8C3"></a>4.8.2.3. サブルーチン <code class="varname">$C3D8C3</code>: 透明モード中のトルッカの教会</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3D8C3</code> はゲーム序盤でトルッカの教会の神父に話すときの処理だ。
+サービスは冒険の書に記録することしかできない。
+こっそりおいのりすることに決めると、冒険の書メニューが無言で表示される。
+その上、現在の冒険の書以外のものに上書きしようとしても警告がない。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.chapels.behavior.C3D910"></a>4.8.2.4. サブルーチン <code class="varname">$C3D910</code>: マウントスノーの凍りついた神父</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3D910</code> はマウントスノーの凍りついた神父に話すときの処理だ。
+サービスは冒険の書に記録することしかできない。
+こちらは上書きの際の意志確認がある。
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_inns.html" title="4.7. 宿屋"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_forges.html" title="4.9. おしゃれなカジヤ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_inns.html">4.7. 宿屋</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_forges.html">4.9. おしゃれなカジヤ</a></div>
+  </body>
+</html>

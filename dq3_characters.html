@@ -1,0 +1,1512 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.5. 仲間キャラクターオブジェクト</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_combatants.html" title="5.4. 戦闘員" />
+    <link rel="next" href="dq3_monsters.html" title="5.6. モンスター" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_combatants.html" title="5.4. 戦闘員"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_monsters.html" title="5.6. モンスター"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_combatants.html">5.4. 戦闘員</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_monsters.html">5.6. モンスター</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.characters"></a>5.5. 仲間キャラクターオブジェクト</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_characters.html#dq3.characters.structure">5.5.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_characters.html#dq3.characters.structure.7E3925">5.5.1.1. 構造体 <code class="varname">$7E3925</code>: 仲間キャラクター</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_characters.html#dq3.characters.behavior">5.5.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+TBW
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.characters.structure"></a>5.5.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.characters.structure.7E3925"></a>5.5.1.1. 構造体 <code class="varname">$7E3925</code>: 仲間キャラクター</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+TBW
+</p>
+          <div class="table">
+            <a id="table.dq3.7E3925"></a>
+            <p class="title">
+              <strong>表 5.10 構造体 $7E3925</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.7E3925" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>登録済みフラグ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FE</code>
+                    </td>
+                    <td>レベル</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td rowspan="2">経験値</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>MHP</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>HP</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>MMP</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>MP</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>ちから</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>すばやさ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>たいりょく</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>かしこさ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>うんのよさ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$11</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>ちから持ち越し</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$12</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>たいりょく持ち越し</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$13</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>すばやさ持ち越し</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$14</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>かしこさ持ち越し</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$15</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>うんのよさ持ち越し</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$16</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>名前文字列 <code class="literal">#$00</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$17</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>名前文字列 <code class="literal">#$01</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$18</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>名前文字列 <code class="literal">#$02</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$19</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>名前文字列 <code class="literal">#$03</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>名前文字列 <code class="literal">#$04</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>名前文字列 <code class="literal">#$05</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>名前文字列 <code class="literal">#$06</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>名前文字列 <code class="literal">#$07</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>名前文字列 <code class="literal">#$08</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>毒フラグ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>マヒフラグ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>呪いフラグ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>瀕死フラグ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>死亡フラグ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>性別</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0FC0</code>
+                    </td>
+                    <td>性格</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$20</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0030</code>
+                    </td>
+                    <td>仲間分類</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$20</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$21</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>職業</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$22</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>移動時じゅもんカーソル位置</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$23</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>戦闘時じゅもんカーソル位置</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$24</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$00</code>: ホイミ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$24</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$01</code>: キアリー</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$24</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$02</code>: ベホイミ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$24</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$03</code>: ザオラル</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$24</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$04</code>: ベホマ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$24</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$05</code>: ザオリク</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$24</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$06</code>: ベホマラー</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$24</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$07</code>: ベホマズン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$25</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$08</code>: メラ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$25</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$09</code>: ギラ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$25</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$0A</code>: ヒャド</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$25</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$0B</code>: バギ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$25</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$0C</code>: ザキ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$25</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$0D</code>: イオ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$25</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$0E</code>: メラミ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$25</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$0F</code>: ベギラマ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$26</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$10</code>: ヒャダルコ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$26</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$11</code>: バギマ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$26</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$12</code>: ザラキ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$26</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$13</code>: イオラ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$26</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$14</code>: ライデイン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$26</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$15</code>: メラゾーマ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$26</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$16</code>: ベギラゴン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$26</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$17</code>: ヒャダイン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$27</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$18</code>: マヒャド</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$27</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$19</code>: バギクロス</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$27</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$1A</code>: イオナズン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$27</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$1B</code>: ギガデイン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$27</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$1C</code>: キアリク</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$27</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$1D</code>: ニフラム</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$27</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$1E</code>: マホトーン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$27</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$1F</code>: マホトラ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$28</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$20</code>: マホカンタ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$28</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$21</code>: ボミオス</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$28</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$22</code>: ルカニ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$28</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$23</code>: ルカナン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$28</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$24</code>: スカラ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$28</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$25</code>: スクルト</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$28</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$26</code>: ラリホー</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$28</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$27</code>: ザメハ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$29</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$28</code>: ピオリム</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$29</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$29</code>: マヌーサ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$29</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$2A</code>: メダパニ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$29</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$2B</code>: フバーハ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$29</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$2C</code>: バイキルト</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$29</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$2D</code>: アストロン</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$29</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$2E</code>: ドラゴラム</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$29</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$2F</code>: メガンテ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$30</code>: バシルーラ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$31</code>: パルプンテ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$32</code>: モシャス</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$33</code>: （未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$34</code>: ルーラ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$35</code>: リレミト</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$36</code>: インパス</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$37</code>: トラマナ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$38</code>: トヘロス</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$39</code>: ラナルータ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$3A</code>: シャナク</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$3B</code>: レムオル</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$3C</code>: アバカム</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$3D</code>: おもいだす</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$3E</code>: もっとおもいだす</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$3F</code>: ふかくおもいだす</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$40</code>: わすれる</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$41</code>: タカのめ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$42</code>: フローミ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$43</code>: しのびあし</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$44</code>: とうぞくのはな</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$45</code>: レミラーマ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$46</code>: くちぶえ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$47</code>: あなほり</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>習得フラグ <code class="literal">#$48</code>: おおごえ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FE</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>装備数</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>所持品数</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$30</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>所持品 <code class="literal">#$00</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$31</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>所持品 <code class="literal">#$01</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$32</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>所持品 <code class="literal">#$02</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$33</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>所持品 <code class="literal">#$03</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$34</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>所持品 <code class="literal">#$04</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$35</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>所持品 <code class="literal">#$05</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$36</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>所持品 <code class="literal">#$06</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$37</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>所持品 <code class="literal">#$07</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$38</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>所持品 <code class="literal">#$08</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$39</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>所持品 <code class="literal">#$09</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$3A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>所持品 <code class="literal">#$0A</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$3B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>所持品 <code class="literal">#$0B</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">登録済みフラグ</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">レベル</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">経験値</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">MHP</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">HP</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">MMP</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">MP</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ちから</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">すばやさ</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">たいりょく</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">かしこさ</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">うんのよさ</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ちから持ち越し</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">たいりょく持ち越し</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">すばやさ持ち越し</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">かしこさ持ち越し</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">うんのよさ持ち越し</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">名前文字列 k (k = <code class="literal">#$00</code>..<code class="literal">#$08</code>)</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">毒フラグ</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">マヒフラグ</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">呪いフラグ</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">瀕死フラグ</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">死亡フラグ</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">性別</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">性格</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">仲間分類</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">職業</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+                <p>
+        職業については <a class="xref" href="dq3_vocations.html" title="5.25. 職業">5.25 職業</a> で述べる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">移動時どうぐカーソル位置, </span>
+                <span class="term">戦闘時じゅもんカーソル位置</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">習得フラグ k (k = <code class="literal">#$00</code>..<code class="literal">#$48</code>)</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">装備数</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">所持品数</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+              <dt>
+                <span class="term">所持品 k (k = <code class="literal">#$00</code>..<code class="literal">#$0B</code>)</span>
+              </dt>
+              <dd>
+                <p>
+        TBW
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.characters.behavior"></a>5.5.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+TBW
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_combatants.html" title="5.4. 戦闘員"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_monsters.html" title="5.6. モンスター"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_combatants.html">5.4. 戦闘員</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_monsters.html">5.6. モンスター</a></div>
+  </body>
+</html>

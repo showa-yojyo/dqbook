@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.23. メダルおじさん</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_horoscope.html" title="5.22. 星座" />
+    <link rel="next" href="dq3_items.html" title="5.24. アイテム" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_horoscope.html" title="5.22. 星座"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_items.html" title="5.24. アイテム"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_horoscope.html">5.22. 星座</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_items.html">5.24. アイテム</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.medals"></a>5.23. メダルおじさん</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_medals.html#dq3.medals.structure">5.23.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_medals.html#dq3.medals.structure.C31350">5.23.1.1. 構造体 <code class="varname">$C31350</code>: メダルおじさんの景品</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_medals.html#dq3.medals.behavior">5.23.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_medals.html#dq3.medals.behavior.C3F076">5.23.2.1. サブルーチン <code class="varname">$C3F076</code>: メダルおじさんメイン</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_medals.html#dq3.medals.behavior.C3F199">5.23.2.2. サブルーチン <code class="varname">$C3F199</code>: 次の景品を調べる</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_medals.html#dq3.medals.behavior.C3F1BD">5.23.2.3. サブルーチン <code class="varname">$C3F1BD</code>: 持参したメダルを回収する</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_medals.html#dq3.medals.behavior.C3F21E">5.23.2.4. サブルーチン <code class="varname">$C3F21E</code>: 報酬 ID に対してアイテムを取得する</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_medals.html#dq3.medals.behavior.C3F239">5.23.2.5. サブルーチン <code class="varname">$C3F239</code>: 報酬 ID に対して必要枚数を取得する</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <p>
+本節ではメダルおじさんについて述べる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.medals.structure"></a>5.23.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+メダルおじさんに関わるデータおよびその構造について述べる。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.medals.structure.C31350"></a>5.23.1.1. 構造体 <code class="varname">$C31350</code>: メダルおじさんの景品</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C31350</code> には次のオブジェクト型要素が 12 個配列されている。
+これはメダルおじさんにちいさなメダルを献上した際の報酬を表現している。
+</p>
+          <div class="table">
+            <a id="table.dq3.C31350"></a>
+            <p class="title">
+              <strong>表 5.47 構造体 $C31350</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C31350" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>必要枚数</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>景品</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+属性の意味を以下に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">必要枚数</span>
+              </dt>
+              <dd>
+                <p>
+        メダルおじさんが報酬をよこすのに必要となるちいさなメダルの枚数を値に取る属性だ。
+        配列 <code class="varname">$C31350</code> の要素群はこの属性値をキーとして昇順にソートされている。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">景品</span>
+              </dt>
+              <dd>
+                <p>
+        景品を表すアイテム ID を値に取る属性だ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.medals.behavior"></a>5.23.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+メダルおじさんの振る舞いについて述べる。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.medals.behavior.C3F076"></a>5.23.2.1. サブルーチン <code class="varname">$C3F076</code>: メダルおじさんメイン</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3F076</code> は、メダルおじさんに「はなす」とすぐに始まる処理だ。
+以下に要点を挙げる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      最初にメダルおじさんに譲渡済のメダル枚数を参照する。
+      アドレス <code class="varname">$7E3538</code> の <code class="literal">#$03FC</code> 部分がその値だ。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      最終景品の枚数を確認する。
+      <a class="xref" href="dq3_medals.html#dq3.medals.behavior.C3F239" title="5.23.2.5. サブルーチン $C3F239: 報酬 ID に対して必要枚数を取得する">5.23.2.5</a> 参照。
+    </p>
+                <p>
+      パーティーの所持品とふくろからメダルを適宜回収する。
+      <a class="xref" href="dq3_medals.html#dq3.medals.behavior.C3F1BD" title="5.23.2.3. サブルーチン $C3F1BD: 持参したメダルを回収する">5.23.2.3</a> 参照。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      回収したばかりの枚数分と献上済みメダル枚数の和をアドレス <code class="varname">$7E3538</code> の <code class="literal">#$03FC</code> 部分に上書きする。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      次回報酬を参照する。
+      <a class="xref" href="dq3_medals.html#dq3.medals.behavior.C3F199" title="5.23.2.2. サブルーチン $C3F199: 次の景品を調べる">5.23.2.2</a> 参照。
+      もし全ての報酬が果たされていれば、おじさんの台詞だけで本処理を終了する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      ここで初めておじさんの台詞が入る。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      献上済み枚数がゼロの場合は初回説明処理のようなものをする。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      おじさんが現在の献上済み枚数を教える。
+    </p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist" style="list-style-type: circle; ">
+                    <li class="listitem">
+                      <p>
+          今回回収枚数がゼロの場合は、現在献上済み枚数告知まで処理をスキップする。
+        </p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+          今回回収枚数＋献上済み枚数が次回報酬に必要な枚数未満ならば、
+          次回の報酬を予告するところまで処理をスキップする。
+        </p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+          今回回収枚数＋献上済み枚数が次回報酬に必要な枚数以上ならば、
+          報酬アイテムをパーティーの所持品に追加する。
+        </p>
+                      <p>
+          受け取りメッセージの表示後、
+          次の報酬 ID が上限に達していない限り、
+          報酬と必要枚数を参照して枚数を判定する処理（
+          <a class="xref" href="dq3_medals.html#dq3.medals.behavior.C3F21E" title="5.23.2.4. サブルーチン $C3F21E: 報酬 ID に対してアイテムを取得する">5.23.2.4</a> および
+          <a class="xref" href="dq3_medals.html#dq3.medals.behavior.C3F239" title="5.23.2.5. サブルーチン $C3F239: 報酬 ID に対して必要枚数を取得する">5.23.2.5</a> 参照）
+          を実行する。
+        </p>
+                      <p>
+          さらにパーティー所持品追加処理を実行する。
+          これを累計枚数が次回報酬枚数未満になるまでループする。
+          ループ中に全ての報酬が果たされれば、おじさんの台詞で本処理を終了する。
+        </p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>
+      おじさんが現在の献上済み枚数を教える。
+    </p>
+                <p>
+      おじさんが次回の報酬を予告する。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.medals.behavior.C3F199"></a>5.23.2.2. サブルーチン <code class="varname">$C3F199</code>: 次の景品を調べる</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3F199</code> は、メダルおじさんに譲渡済みのメダル枚数を基に、
+次の褒美に対応するメダル必要累積枚数と、報酬のアイテム ID を検索するコードだ。
+内容はループで <a class="xref" href="dq3_medals.html#dq3.medals.behavior.C3F239" title="5.23.2.5. サブルーチン $C3F239: 報酬 ID に対して必要枚数を取得する">5.23.2.5</a> で述べる処理の出力を判定するというものだ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.medals.behavior.C3F1BD"></a>5.23.2.3. サブルーチン <code class="varname">$C3F1BD</code>: 持参したメダルを回収する</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3F1BD</code> は、持参したメダル枚数を献上枚数が 100 を超えない分だけ回収する処理だ。
+以下に要点を挙げる。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      パーティー各キャラクターの所持品からちいさなメダルを一枚ずつ回収しながら回収枚数をカウントし続ける。
+      このとき、カウンターと献上済み枚数の和が最終枚数 (100) 以上となれば、
+      その時点でこの回収枚数を呼び出し元に返す。
+      そうでなければ、カウンターの増加とキャラクター所持品の更新を行い反復処理を続行する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      次にふくろ内のちいさなメダル枚数を参照する。
+      先程と同様に、ちいさなメダルを一枚ずつ回収しながら回収枚数をカウントし続ける。
+      このとき、カウンターと献上済み枚数の和が最終枚数以上となれば、
+      その時点でこの回収枚数を呼び出し元に返す。
+      そうでなければ、カウンターの増加とふくろのちいさなメダル枚数更新を行い反復処理を続行する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      最終的なカウンターの値が、メダルおじさんの手許にあるメダル枚数を表す。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.medals.behavior.C3F21E"></a>5.23.2.4. サブルーチン <code class="varname">$C3F21E</code>: 報酬 ID に対してアイテムを取得する</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3F21E</code> は、報酬 ID を入力として、
+対応するメダルおじさん報酬オブジェクトのアイテム属性値を参照するだけの小さなコードだ。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.medals.behavior.C3F239"></a>5.23.2.5. サブルーチン <code class="varname">$C3F239</code>: 報酬 ID に対して必要枚数を取得する</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3F239</code> は、報酬 ID を入力として、
+対応するメダルおじさん報酬オブジェクトの必要枚数属性値を参照するだけの小さなコードだ。
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_horoscope.html" title="5.22. 星座"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_items.html" title="5.24. アイテム"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_horoscope.html">5.22. 星座</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_items.html">5.24. アイテム</a></div>
+  </body>
+</html>

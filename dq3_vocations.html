@@ -1,0 +1,1818 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.25. 職業</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_items.html" title="5.24. アイテム" />
+    <link rel="next" href="dq3_personalities.html" title="5.26. 性格" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_items.html" title="5.24. アイテム"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_personalities.html" title="5.26. 性格"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_items.html">5.24. アイテム</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_personalities.html">5.26. 性格</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.vocations"></a>5.25. 職業</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_vocations.html#dq3.vocations.structure">5.25.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_vocations.html#dq3.vocations.structure.C4179E">5.25.1.1. 構造体 <code class="varname">$C4179E</code>: 職業</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_vocations.html#dq3.vocations.behavior">5.25.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <a id="term.dq3.vocations.1" class="indexterm"></a>
+      <a id="term.dq3.vocations.2" class="indexterm"></a>
+      <a id="term.dq3.vocations.3" class="indexterm"></a>
+      <p>
+本節では職業について述べる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.vocations.structure"></a>5.25.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+職業を表現するオブジェクト型について述べる。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.vocations.structure.C4179E"></a>5.25.1.1. 構造体 <code class="varname">$C4179E</code>: 職業</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C4179E</code> に下の表に示すような巨大なオブジェクトが 9 個配列されている。
+これらがそれぞれの職業の性質を表現する。
+</p>
+          <div class="table">
+            <a id="table.dq3.C4179E"></a>
+            <p class="title">
+              <strong>表 5.51 構造体 $C4179E</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C4179E" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0000</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>名前</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>スプライト男</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0003</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>スプライト女</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>スプライト水着</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0005</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>頭文字コード</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0006</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>初期性格条件 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0007</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>初期性格条件 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>初期性格条件 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0009</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>初期性格条件 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$000A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>初期性格条件 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$000B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>習得呪文配列</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$000E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>習得呪文個数</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$000F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$00</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0012</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$01</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0015</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$02</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0018</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$03</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$001B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$04</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$001E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$05</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0021</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$06</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0024</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$07</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0027</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$08</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$002A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$09</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$002D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$0A</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0030</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$0B</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0033</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$0C</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0036</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$0D</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0039</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$0E</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$003C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$0F</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$003F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$10</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0042</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$11</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0045</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$12</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0048</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$13</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$004B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$14</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$004E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$15</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0051</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$16</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0054</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$17</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0057</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$18</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$005A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$19</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$005D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$1A</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0060</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$1B</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0063</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$1C</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0066</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$1D</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0069</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$1E</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$006C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$1F</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$006F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$20</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0072</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$21</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0075</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$22</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0078</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$23</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$007B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$24</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$007E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$25</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0081</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$26</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0084</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$27</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0087</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$28</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$008A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$29</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$008D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$2A</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0090</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$2B</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0093</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$2C</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0096</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$2D</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0099</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$2E</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$009C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$2F</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$009F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$30</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00A2</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$31</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00A5</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$32</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00A8</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$33</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00AB</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$34</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00AE</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$35</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00B1</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$36</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00B4</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$37</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00B7</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$38</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00BA</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$39</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00BD</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$3A</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$3B</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00C3</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$3C</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00C6</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$3D</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00C9</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$3E</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00CC</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$3F</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00CF</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$40</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00D2</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$41</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00D5</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$42</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00D8</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$43</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00DB</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$44</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00DE</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$45</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00E1</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$46</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00E4</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$47</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00E7</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$48</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00EA</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$49</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00ED</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$4A</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00F0</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$4B</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00F3</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$4C</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00F6</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$4D</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00F9</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$4E</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00FC</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$4F</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00FF</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$50</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0102</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$51</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0105</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$52</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0108</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$53</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$010B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$54</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$010E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$55</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0111</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$56</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0114</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$57</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0117</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$58</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$011A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$59</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$011D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$5A</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0120</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$5B</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0123</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$5C</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0126</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$5D</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0129</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$5E</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$012C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$5F</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$012F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$60</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0132</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>経験値 <code class="literal">#$61</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0135</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>ちから初期値男</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0136</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>ちから初期値女</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0137</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>ちからレベル 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0138</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>ちから増分 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0139</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>ちからレベル 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$013A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>ちから増分 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$013B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>ちからレベル 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$013C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>ちから増分 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$013D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>ちからレベル 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$013E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>ちから増分 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$013F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>ちからレベル 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0140</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>ちから増分 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0141</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>すばやさ初期値男</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0142</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>すばやさ初期値女</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0143</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>すばやさレベル 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0144</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>すばやさ増分 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0145</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>すばやさレベル 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0146</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>すばやさ増分 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0147</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>すばやさレベル 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0148</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>すばやさ増分 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0149</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>すばやさレベル 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$014A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>すばやさ増分 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$014B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>すばやさレベル 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$014C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>すばやさ増分 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$014D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>たいりょく初期値男</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$014E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>たいりょく初期値女</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$014F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>たいりょくレベル 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0150</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>たいりょく増分 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0151</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>たいりょくレベル 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0152</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>たいりょく増分 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0153</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>たいりょくレベル 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0154</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>たいりょく増分 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0155</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>たいりょくレベル 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0156</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>たいりょく増分 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0157</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>たいりょくレベル 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0158</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>たいりょく増分 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0159</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>たいりょくレベル 5</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$015A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>たいりょく増分 5</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$015B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>かしこさ初期値男</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$015C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>かしこさ初期値女</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$015D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>かしこさレベル 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$015E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>かしこさ増分 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$015F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>かしこさレベル 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0160</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>かしこさ増分 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0161</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>かしこさレベル 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0162</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>かしこさ増分 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0163</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>かしこさレベル 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0164</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>かしこさ増分 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0165</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>かしこさレベル 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0166</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>かしこさ増分 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0167</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>うんのよさ初期値男</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0168</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>うんのよさ初期値女</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0169</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>うんのよさレベル 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$016A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>うんのよさ増分 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$016B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>うんのよさレベル 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$016C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>うんのよさ増分 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$016D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>うんのよさレベル 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$016E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>うんのよさ増分 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$016F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>うんのよさレベル 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0170</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>うんのよさ増分 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0171</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>うんのよさレベル 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0172</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>うんのよさ増分 4</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味を次に述べる。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">名前</span>
+              </dt>
+              <dd>
+                <p>
+        職業の名前を表す文字列 の ID を値に取る属性だ。
+        文字列については <a class="xref" href="dq3_string.html" title="5.3. 文字列">5.3 文字列</a> で述べる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">スプライト男, </span>
+                <span class="term">スプライト女, </span>
+                <span class="term">スプライト水着</span>
+              </dt>
+              <dd>
+                <p>
+        「はなす」対象分類オブジェクトの ID を値に取る属性だ。
+        この職業のキャラクターを移動中の画面上に表現するときに用いられるスプライトに関する情報は、
+        そのオブジェクトから参照する。
+      </p>
+                <p>
+        「はなす」対象分類オブジェクトについては <a class="xref" href="dq3_talk.html#dq3.talk.model.C893D4" title="5.27.1.2. 構造体 $C893D4: 「はなす」対象分類">5.27.1.2 構造体 <code class="varname">$C893D4</code>: 「はなす」対象分類</a> で述べる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">頭文字コード</span>
+              </dt>
+              <dd>
+                <p>
+        移動中や戦闘中のパーティー編成ウィンドウにおいて、各キャラクターのレベルの左に現れる平仮名一文字のコード値を取る属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">初期性格条件 k (k = 0..4)</span>
+              </dt>
+              <dd>
+                <p>
+        この職業のキャラクターを仲間登録所で新規に作成する際に用いるオブジェクトの ID を値とする属性だ。
+        詳細は <a class="xref" href="dq3_registration.html" title="5.17. 冒険者たちの登録所">5.17 冒険者たちの登録所</a> で述べる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">習得呪文配列</span>
+              </dt>
+              <dd>
+                <p>
+        この職業のキャラクターが、レベルアップ時に習得する可能性のあるレベルと、
+        習得呪文のペアを定義する配列のアドレスである。
+        厳密には、コマンド ID を直接保持するわけではなく、
+        仲間キャラクターオブジェクトの一部である「習得済み呪文フラグ」の位置を指示する配列
+        <code class="varname">$C456AC</code> の添字を保持する。
+      </p>
+                <p>
+        仲間キャラクターオブジェクトについては <a class="xref" href="dq3_characters.html" title="5.5. 仲間キャラクターオブジェクト">5.5 仲間キャラクターオブジェクト</a> で述べる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">習得呪文個数</span>
+              </dt>
+              <dd>
+                <p>
+        上述した習得呪文配列属性の配列長を値とする属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">経験値 k (k = <code class="literal">#$00</code>..<code class="literal">#$61</code>)</span>
+              </dt>
+              <dd>
+                <p>
+        この職業のキャラクターのレベルが k + 2 であるために必要な経験値を値とする属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ちから初期値男, </span>
+                <span class="term">ちから初期値女</span>
+              </dt>
+              <dd>
+                <p>
+        この職業のキャラクターを仲間登録所で新規に作成する際、男女それぞれのちから属性値の初期値（の最小値）を表す属性だ。
+        実際にはここにある乱数が加算される。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ちからレベル k (k = 0..4), </span>
+                <span class="term">ちから増分 k (k = 0..4)</span>
+              </dt>
+              <dd>
+                <p>
+        この職業のキャラクターのレベルが上がるときに再設定されるちから属性値の基準値を計算するための属性だ。
+        この職業のキャラクターのレベルがちからレベル k 以上ちからレベル k + 1 未満であるとき、
+        その評価値を次の式で求める：
+      </p>
+                <pre class="programlisting">
+基準値 = (初期値
+        + 増分[0]     * (レベル[0]     - 2)
+        + 増分[1]     * (レベル[1]     - レベル[0])
+        + ...
+        + 増分[k - 1] * (レベル[k - 1] - レベル[k - 2])
+        + 増分[k]     * (キャラレベル  - レベル[k]))
+        / 16
+</pre>
+              </dd>
+              <dt>
+                <span class="term">すばやさ初期値男, </span>
+                <span class="term">すばやさ初期値女, </span>
+                <span class="term">すばやさレベル k (k = 0..4), </span>
+                <span class="term">すばやさ増分 k (k = 0..4)</span>
+              </dt>
+              <dd>
+                <p>
+        ちからでの各属性についての説明をすばやさに置き換えて読んで欲しい。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">たいりょく初期値男, </span>
+                <span class="term">たいりょく初期値女, </span>
+                <span class="term">たいりょくレベル k (k = 0..4), </span>
+                <span class="term">たいりょく増分 k (k = 0..4)</span>
+              </dt>
+              <dd>
+                <p>
+        ちからでの各属性についての説明をたいりょくに置き換えて読んで欲しい。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">かしこさ初期値男, </span>
+                <span class="term">かしこさ初期値女, </span>
+                <span class="term">かしこさレベル k (k = 0..4), </span>
+                <span class="term">かしこさ増分 k (k = 0..4)</span>
+              </dt>
+              <dd>
+                <p>
+        ちからでの各属性についての説明をかしこさに置き換えて読んで欲しい。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">うんのよさ初期値男, </span>
+                <span class="term">うんのよさ初期値女, </span>
+                <span class="term">うんのよさレベル k (k = 0..4), </span>
+                <span class="term">うんのよさ増分 k (k = 0..4)</span>
+              </dt>
+              <dd>
+                <p>
+        ちからでの各属性についての説明をうんのよさに置き換えて読んで欲しい。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.vocations.behavior"></a>5.25.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+職業オブジェクトが参照される処理のうち主要なものは、
+仲間キャラクター初期化処理、同レベルアップ処理、同転職処理だろう。
+本節ではそのうちで最も職業オブジェクトの属性値を参照するレベルアップ処理について記す。
+残りについてはそれぞれ別の節で述べる。
+TODO: それぞれを参照する。
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_items.html" title="5.24. アイテム"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_personalities.html" title="5.26. 性格"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_items.html">5.24. アイテム</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_personalities.html">5.26. 性格</a></div>
+  </body>
+</html>

@@ -8,11 +8,11 @@
     <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
     <link rel="home" href="index.html" title="ドラクエ命" />
     <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
-    <link rel="prev" href="dq6_combatant.html" title="4.19. 戦闘キャラクター構造体" />
+    <link rel="prev" href="dq6_combatants.html" title="4.19. 戦闘キャラクター構造体" />
     <link rel="next" href="dq6_spell_commands.html" title="4.21. 移動中の呪文コマンド処理" />
   </head>
   <body>
-    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_combatant.html" title="4.19. 戦闘キャラクター構造体"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_spell_commands.html" title="4.21. 移動中の呪文コマンド処理"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_combatant.html">4.19. 戦闘キャラクター構造体</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_spell_commands.html">4.21. 移動中の呪文コマンド処理</a><hr /></div>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_combatants.html" title="4.19. 戦闘キャラクター構造体"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_spell_commands.html" title="4.21. 移動中の呪文コマンド処理"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_combatants.html">4.19. 戦闘キャラクター構造体</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_spell_commands.html">4.21. 移動中の呪文コマンド処理</a><hr /></div>
     <div class="section">
       <div class="titlepage">
         <div>
@@ -50,7 +50,7 @@
 コマンドオブジェクトはその性質を動的に変更するような設計にはなっておらず、オブジェクトの特定には ID の値さえあればよい。
 コマンドオブジェクトの一覧については <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> に CSV ファイルを収録したので、必要があれば参照して欲しい。
 このような ID は戦闘キャラクターオブジェクトそれぞれの属性として保存される。
-詳しくは <a class="xref" href="dq6_combatant.html" title="4.19. 戦闘キャラクター構造体">4.19 戦闘キャラクター構造体</a> を参照して欲しい。
+詳しくは <a class="xref" href="dq6_combatants.html" title="4.19. 戦闘キャラクター構造体">4.19 戦闘キャラクター構造体</a> を参照して欲しい。
 </p>
       <div class="section">
         <div class="titlepage">
@@ -482,7 +482,7 @@
                   <td>
                     <code class="literal">#$00FF</code>
                   </td>
-                  <td>説明文 ID</td>
+                  <td>記述 ID</td>
                 </tr>
                 <tr>
                   <td align="right">
@@ -608,7 +608,7 @@
         対象決定判断とは、戦闘員がこのコマンドを自分のレパートリーの中から選択するかどうかを決定するサブルーチンを要素とするジャンプテーブルの行番号を値とする属性だ。
         ここで k の値は戦闘員のコマンド選択能力属性から決まるものなのだが、
         単純化して説明すると k の値が高いほど選択判断の質が高くなる。
-        詳しくはモンスターの節で述べる。
+        詳しくは <a class="xref" href="dq6_monsters.html" title="4.14. モンスター">4.14 モンスター</a> の節で述べる。
       </p>
               <p>
         例えばラリホーのコマンドは決定判断ロジックは 3 通りある。
@@ -817,12 +817,12 @@
         次のような対応関係があるようだ（ドラクエ 7 のデバッグ機能を参考にした）。
       </p>
               <div class="table">
-                <a id="table.dq6.battle.commands.classifications"></a>
+                <a id="table.dq6.battle.commands.families"></a>
                 <p class="title">
                   <strong>表 4.85 系統分類</strong>
                 </p>
                 <div class="table-contents">
-                  <table id="table.dq6.battle.commands.classifications" class="lighttable">
+                  <table id="table.dq6.battle.commands.families" class="lighttable">
                     <thead>
                       <tr>
                         <th>値</th>
@@ -1120,7 +1120,6 @@
             <dd>
               <p>
         対象陣営分類とは、このコマンドの対象をどの陣営から選択され得るかを示す数を値として取る属性だ。
-        この値と対象範囲分類属性を組み合わせることで、コマンドの用途が大づかみできる。
         次の表のような解釈ができる：
       </p>
               <div class="table">
@@ -1158,6 +1157,9 @@
                 </div>
               </div>
               <br class="table-break" />
+              <p>
+        この値と対象範囲属性を組み合わせることで、コマンドの用途が大づかみでわかる。
+      </p>
             </dd>
             <dt>
               <span class="term">どくばり装備考慮フラグ</span>
@@ -1695,11 +1697,11 @@
       </p>
             </dd>
             <dt>
-              <span class="term">説明文 ID</span>
+              <span class="term">記述 ID</span>
             </dt>
             <dd>
               <p>
-        説明文 ID とは、このコマンドに関連して画面ウィンドウに表示される説明文データの ID を値とする属性だ。
+        記述 ID とは、このコマンドに関連して画面ウィンドウに表示される記述データの ID を値とする属性だ。
         アドレス <code class="varname">$C9002E</code> にメッセージ ID 三つの組からなる配列があり、この属性値とはその添字だ。
         具体例は <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> に収録の当該 CSV を参照して欲しい。
       </p>
@@ -1879,7 +1881,7 @@
 値が 2 ならばオブジェクトのベースアドレスからのオフセット値が、
 値が 4 ならばオフセット値とビットマスク値がコード中に埋め込まれていることを示す。
 以下に参考コードと解釈例を示す。
-本節の表と <a class="xref" href="dq6_combatant.html#dq6.combatant.7E2030" title="4.19.1. 構造体 $7E2030: 戦闘キャラクター">4.19.1 構造体 <code class="varname">$7E2030</code>: 戦闘キャラクター</a> を照合しながら内容を確かめるといいだろう：
+本節の表と <a class="xref" href="dq6_combatants.html#dq6.combatants.7E2030" title="4.19.1. 構造体 $7E2030: 戦闘キャラクター">4.19.1 構造体 <code class="varname">$7E2030</code>: 戦闘キャラクター</a> を照合しながら内容を確かめるといいだろう：
 </p>
         <pre class="programlisting">
 C2/741B:    22FCF0C2    JSR $C2F0FC         戦闘コマンド x の属性値が設定されているかを見る
@@ -2348,6 +2350,6 @@ CSV に載せられないコマンド概要を表にして次に示す：
 </p>
       </div>
     </div>
-    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_combatant.html" title="4.19. 戦闘キャラクター構造体"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_spell_commands.html" title="4.21. 移動中の呪文コマンド処理"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_combatant.html">4.19. 戦闘キャラクター構造体</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_spell_commands.html">4.21. 移動中の呪文コマンド処理</a></div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_combatants.html" title="4.19. 戦闘キャラクター構造体"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_spell_commands.html" title="4.21. 移動中の呪文コマンド処理"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_combatants.html">4.19. 戦闘キャラクター構造体</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_spell_commands.html">4.21. 移動中の呪文コマンド処理</a></div>
   </body>
 </html>

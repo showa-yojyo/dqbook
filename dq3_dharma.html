@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.19. 転職</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_bank.html" title="5.18. ゴールド銀行" />
+    <link rel="next" href="dq3_rename.html" title="5.20. 命名神" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_bank.html" title="5.18. ゴールド銀行"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_rename.html" title="5.20. 命名神"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_bank.html">5.18. ゴールド銀行</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_rename.html">5.20. 命名神</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.dharma"></a>5.19. 転職</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_dharma.html#dq3.dharma.structure">5.19.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="dq3_dharma.html#dq3.dharma.behavior">5.19.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_dharma.html#dq3.dharma.behavior.C3E477">5.19.2.1. サブルーチン <code class="varname">$C3E477</code>: ダーマの神官との対話的処理</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_dharma.html#dq3.dharma.behavior.C3E5F8">5.19.2.2. サブルーチン <code class="varname">$C3E5F8</code>: 性格によっては神官が一言加える</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_dharma.html#dq3.dharma.behavior.C3E79C">5.19.2.3. サブルーチン <code class="varname">$C3E79C</code>: 「さとりのしょ」を消費する</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_dharma.html#dq3.dharma.behavior.C3E7CC">5.19.2.4. サブルーチン <code class="varname">$C3E7CC</code>: 装備を交換する</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_dharma.html#dq3.dharma.behavior.C3E7ED">5.19.2.5. サブルーチン <code class="varname">$C3E7ED</code>: 最適な装備品を調べる</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <a id="term.dq3.dharma.1" class="indexterm"></a>
+      <a id="term.dq3.dharma.2" class="indexterm"></a>
+      <p>
+本節では転職について述べる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.dharma.structure"></a>5.19.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+転職において関係があるデータ構造について述べる。
+</p>
+        <p>
+まずは職業構造体だ。この構造体については <a class="xref" href="dq3_vocations.html#dq3.vocations.structure.C4179E" title="5.25.1.1. 構造体 $C4179E: 職業">5.25.1.1 構造体 <code class="varname">$C4179E</code>: 職業</a> で述べる。
+一部の属性がキャラクターのレベルを初期化する際に習得する呪文を参照するのに用いられる。
+</p>
+        <p>
+そして性格構造体だ。これについては <a class="xref" href="dq3_personalities.html#dq3.personalities.structure.C424BC" title="5.26.1.1. 構造体 $C424BC: 性格">5.26.1.1 構造体 <code class="varname">$C424BC</code>: 性格</a> で述べる。
+ダーマの神官の台詞を決定するためだけに存在する属性が参照される。
+</p>
+        <p>
+アイテム構造体も転職直後の装備品を決定する処理で間接的に参照される。
+アイテムについては <a class="xref" href="dq3_items.html#dq3.items.structure.C40043" title="5.24.1.1. 構造体 $C40043: アイテム">5.24.1.1 構造体 <code class="varname">$C40043</code>: アイテム</a> で述べる。
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.dharma.behavior"></a>5.19.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+ダーマの神殿にいる神官が行う転職手続きを述べる。
+転職したいキャラクターの性格によって神官が感想を漏らす処理と、
+転職直後のキャラクターの装備を変更する処理がオリジナル版にはなかった機能だ。
+</p>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.dharma.behavior.C3E477"></a>5.19.2.1. サブルーチン <code class="varname">$C3E477</code>: ダーマの神官との対話的処理</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3E477</code> がダーマの神殿の中央にいる神官に「はなす」と呼び出される処理である。
+コードは大変長いもので、中身は台詞表示サブルーチン呼び出しと「はい・いいえ」メニューウィンドウの表示サブルーチンの呼び出しがほとんどを占めている。
+以下、処理の要点を列挙する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      転職希望者は生きている必要がある。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      転職希望者の現在の職業が勇者ではない必要がある。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      転職希望者のレベルが 20 以上である必要がある。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      転職希望者の現在の職業と異なる職業を選択する必要がある。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      転職者は経験値がゼロにリセットされ、仲間キャラクター属性値が半分になる。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      転職者は装備品が自動的に更新される（後述）。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      転職者は結果的に呪い状態ではなくなる。
+    </p>
+              </li>
+            </ul>
+          </div>
+          <p>
+この処理を表面的に見るだけでは「けんじゃ」が転職希望リストに表示される条件がわからない。
+また、転職後のキャラクター属性値の計算は別バンクのサブルーチンが担当しているので、興味があればそこを調べればよい。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.dharma.behavior.C3E5F8"></a>5.19.2.2. サブルーチン <code class="varname">$C3E5F8</code>: 性格によっては神官が一言加える</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3E5F8</code> は転職するキャラクターの性格によっては、
+神官が余計な一言をはなす処理である。
+以下、処理の要点を列挙する。
+</p>
+          <p>
+ダーマの神官評価属性値を性格オブジェクトから参照する。
+この属性値については <a class="xref" href="dq3_personalities.html#dq3.personalities.structure.C424BC" title="5.26.1.1. 構造体 $C424BC: 性格">5.26.1.1 構造体 <code class="varname">$C424BC</code>: 性格</a> で述べる。
+この値はジャンプテーブル <code class="varname">$C3E6CF</code> の行番号であり、
+各ジャンプ先のコードはメッセージ表示を何回か実行する。
+例えばダーマの神官評価属性値が 9 のときの処理は次のようなものだ。
+</p>
+          <pre class="programlisting">
+C3/E784:    AD77BE      LDA $BE77           ; 文字列 ID
+C3/E787:    48          PHA
+C3/E788:    8C77BE      STY $BE77           ; 文字列 ID
+C3/E78B:    222EA9C1    JSR $C1A92E         ; text #$0B2F: [D6][B2]の [C0]が[CE]
+C3/E78F:    2F0B
+C3/E791:    68          PLA
+C3/E792:    8D77BE      STA $BE77           ; 文字列 ID
+C3/E795:    222EA9C1    JSR $C1A92E         ; text #$0B30: [CD][D6][AD][B2]に なりたいとは[AD]ずいぶん 成長したものよのう。[CE][AF]
+C3/E799:    300B
+C3/E79B:    60          RTS
+</pre>
+          <p>
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.dharma.behavior.C3E79C"></a>5.19.2.3. サブルーチン <code class="varname">$C3E79C</code>: 「さとりのしょ」を消費する</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3E79C</code> は必要に応じて、
+転職するキャラクターの所持品から「さとりのしょ」を一つだけ消費する。
+以下、処理の要点を列挙する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      希望職業が「けんじゃ」でなければ戻る。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      転職希望者の現在の職業が「あそびにん」ならば戻る。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      転職希望者の所持品に「さとりのしょ」がなければ戻る。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      上のすべての判定をパスしたときのみ転職希望者の所持品から「さとりのしょ」を削除する。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.dharma.behavior.C3E7CC"></a>5.19.2.4. サブルーチン <code class="varname">$C3E7CC</code>: 装備を交換する</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3E7CC</code> は装備品の交換を行う処理だ。
+コードは A レジスターの値を変えつつ、後述の補助サブルーチンを呼び続けるという構造だ。
+以下、処理の要点を列挙する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      転職者の装備しているぶきを変更する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      転職者の装備しているよろいを変更する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      転職者の装備しているたてを変更する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      転職者の装備しているかぶとを変更する。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.dharma.behavior.C3E7ED"></a>5.19.2.5. サブルーチン <code class="varname">$C3E7ED</code>: 最適な装備品を調べる</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+サブルーチン <code class="varname">$C3E7ED</code> は、転職キャラクターに最適な装備品を検索し、可能ならば装備させる処理である。
+まず、転職したいキャラクターの所持品から、
+職業・性別・呪いを考慮した上で装備可能なアイテムをすべてチェックする。
+そのうち値が最も上昇するものを検索する。
+次に、パーティー全体のふくろから同様にして検索する。
+最後に、どちらかの検索が成功していれば、そのアイテムを対象キャラクターに装備させる。
+以下、処理の要点を列挙する。
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist" style="list-style-type: disc; ">
+              <li class="listitem">
+                <p>
+      まず転職者の所持品から、新職業に就いても装備可能かつ呪いにかからないアイテムのうち、最も属性値が上昇するものを検索する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      次に、転職者の持ち物に空きがある場合に限り、パーティー全体のふくろにある全アイテムから、先ほどと同様に検索する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      候補アイテムがふくろから検索された場合には、それをふくろから削除して転職者の持ち物に追加する。
+    </p>
+              </li>
+              <li class="listitem">
+                <p>
+      最終的に候補になったアイテムが転職者の持ち物に存在すれば、それを装備させる。
+    </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_bank.html" title="5.18. ゴールド銀行"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_rename.html" title="5.20. 命名神"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_bank.html">5.18. ゴールド銀行</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_rename.html">5.20. 命名神</a></div>
+  </body>
+</html>
