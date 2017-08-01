@@ -5,9 +5,9 @@
   %replacement;
 ]>
 
-<section id="dq5.monster"><?dbhtml filename="dq5_monster.html" ?>
+<section id="dq5.monsters"><?dbhtml filename="dq5_monsters.html" ?>
 <title>モンスター</title>
-<indexterm id="term.dq5.monster"><primary>モンスター</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.monsters"><primary>モンスター</primary><secondary>DQ5</secondary></indexterm>
 <para> 
 この節ではモンスターを取り扱う。
 ここで言うモンスターというのは、戦闘時における敵陣の構成員の個々のオブジェクトの型を意味するが、
@@ -20,7 +20,7 @@
 最後に、ゲーム中で定義されているモンスターデータを全て抽出して CSV ファイルを作成する。
 </para>
 
-<section id="dq5.monster.model">
+<section id="dq5.monsters.model">
 <title>モデル</title>
 <para>
 &dq5_1992; では ROM 容量の制約上なのか、論理的には一つの型であるものを、物理的に複数の型に分割して定義することが多い。
@@ -135,7 +135,7 @@
       <para>
         ただし、こちらにもマジックナンバーが存在する。プログラム上は次の 3 種が相当する：
       </para>
-      <table id="table.dq5.monster.hp" class="lighttable">
+      <table id="table.dq5.monsters.hp" class="lighttable">
         <caption>HP マジックナンバーと処理後の値（十進数）の対応</caption>
         <thead>
           <tr><th>値</th><th>処理後の値</th></tr>
@@ -192,7 +192,7 @@
         より直接的には、この回避を発生させる確率を決定するための配列 <varname>$278051</varname> の添字に他ならない。
         具体的には次のように取り扱われる：
       </para>
-      <table id="table.dq5.monster.evasion.probablity" class="lighttable">
+      <table id="table.dq5.monsters.evasion.probablity" class="lighttable">
         <caption>みかわし確率</caption>
         <thead>
           <tr><th>属性値</th><th>確率</th></tr>
@@ -223,7 +223,7 @@
         初期確率とは、このモンスターが戦闘開始時点で初期状態（後述）になる確率を与えるための属性だ。
         具体的には次のように取り扱われる：
       </para>
-      <table id="table.dq5.monster.initial.probablity" class="lighttable">
+      <table id="table.dq5.monsters.initial.probablity" class="lighttable">
         <caption>初期確率</caption>
         <thead>
           <tr><th>属性値</th><th>確率</th></tr>
@@ -244,7 +244,7 @@
         アイテム確率とは、戦闘終了時にこのモンスターが宝箱を落とす（ことが決まった後に落とす）確率を与える属性だ。
         実際は配列 <varname></varname> の添字であり、結局は次の表の確率を取らせる：
       </para>
-      <table id="table.dq5.monster.loot.probablity" class="lighttable">
+      <table id="table.dq5.monsters.loot.probablity" class="lighttable">
         <caption>アイテム確率</caption>
         <thead>
           <tr><th>属性値</th><th>確率（十進数）</th></tr>
@@ -276,7 +276,7 @@
         既に仲間にいる同一種のモンスターの頭数に応じて使い分けられる。
         最終的に、この属性の値は次の確率を意味する：
       </para>
-      <table id="table.dq5.monster.ally" class="lighttable">
+      <table id="table.dq5.monsters.ally" class="lighttable">
         <caption>仲間確率</caption>
         <thead>
           <tr><th>属性値</th><th>1 体目確率</th><th>2 体目確率</th><th>3 体目確率</th></tr>
@@ -317,7 +317,7 @@
         具体的には配列 <varname>$27804B</varname> および <varname>$27804E</varname> の添字を与える。
         回復量は大体次のようなものになる：
       </para>
-      <table id="table.dq5.monster.recovery" class="lighttable">
+      <table id="table.dq5.monsters.recovery" class="lighttable">
         <caption>自動回復</caption>
         <thead>
           <tr><th>属性値</th><th>回復量（十進数）</th></tr>
@@ -338,7 +338,7 @@
         複数回とは、このモンスターのコマンド実行番において、連続してコマンドを実行する能力を表す属性だ。
         属性値と実行回数の対応を次の表に示す：
       </para>
-      <table id="table.dq5.monster.combo" class="lighttable">
+      <table id="table.dq5.monsters.combo" class="lighttable">
         <caption>複数回</caption>
         <thead>
           <tr><th>属性値</th><th>実行回数</th></tr>
@@ -360,7 +360,7 @@
         先述の初期確率属性がゼロである場合にはこの属性は意味がない。
         属性値と状態の対応を次の表に示す：
       </para>
-      <table id="table.dq5.monster.initial.state" class="lighttable">
+      <table id="table.dq5.monsters.initial.state" class="lighttable">
         <caption>初期状態</caption>
         <thead>
           <tr><th>属性値</th><th>状態</th></tr>
@@ -545,7 +545,7 @@
     <listitem>
       <para>
         アイテムとは、このモンスターが戦闘終了後に宝箱を落とすとき、その中身のアイテムを指定するための属性だ。
-        アイテムについては <xref linkend="dq5.item"/> を参照。
+        アイテムについては <xref linkend="dq5.items"/> を参照。
       </para>
     </listitem>
   </varlistentry>
@@ -559,12 +559,12 @@
     </listitem>
   </varlistentry>
 </variablelist>
-</section> <!-- dq5.monster.model -->
+</section> <!-- dq5.monsters.model -->
 
-<section id="dq5.monster.data">
+<section id="dq5.monsters.data">
 <title>データ</title>
 <para>
 本節で説明したモンスター属性を単独の CSV ファイルに統合して <xref linkend="appendix.b"/> に収録する。
 </para>
-</section> <!-- dq5.monster.data -->
-</section> <!-- dq5.monster -->
+</section> <!-- dq5.monsters.data -->
+</section> <!-- dq5.monsters -->

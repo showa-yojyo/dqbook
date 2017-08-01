@@ -16,7 +16,7 @@
   <listitem><para>カジノの格闘場で試合を観戦することで発生するもの</para></listitem>
 </itemizedlist>
 本節ではこのうちの最初の二項目について記す。
-最後の格闘場における試合については <xref linkend="dq5.shop.keepers.06F226"/>で述べる。
+最後の格闘場における試合については <xref linkend="dq5.shops.keepers.06F226"/>で述べる。
 </para>
 <para>
 まずは、プログラムが敵方編成を決定するのに必要なデータ型について解説する。

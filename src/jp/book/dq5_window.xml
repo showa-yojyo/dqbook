@@ -5,7 +5,7 @@
   %replacement;
 ]>
 
-<section id="dq5.window"><?dbhtml filename="dq5_window.html" ?>
+<section id="dq5.windows"><?dbhtml filename="dq5_windows.html" ?>
 <title>ウィンドウ</title>
 <para>
 本節ではウィンドウシステムについて考察したい。
@@ -13,7 +13,7 @@
 当面の間は記者が独自に調査したウィンドウ ID とその内容の対応表を掲載するに留めざるを得ない。
 </para>
 
-<section id="dq5.window.data">
+<section id="dq5.windows.data">
 <title>ウィンドウ定義表</title>
 <para>
 次の各アドレスから始まるウィンドウに関するデータ列をひとつの表にまとめた。
@@ -27,7 +27,7 @@
   <listitem><simpara><varname>$04EC70</varname>: 何らかの配列</simpara></listitem>
   <listitem><simpara><varname>$04ED04</varname>: ウィンドウデータ</simpara></listitem>
 </itemizedlist>
-<table id="table.dq5.window.data" class="lighttable">
+<table id="table.dq5.windows.data" class="lighttable">
   <caption>ウィンドウ定義表</caption>
   <colgroup span="4" class="hexadecimal"/>
   <thead>
@@ -186,5 +186,5 @@
     <tr><td><literal>#$FF</literal></td><td>n/a</td><td>n/a</td><td>（メッセージウィンドウを終了する）</td></tr>
   </tbody>
 </table>
-</section> <!-- dq5.window.data -->
-</section> <!-- dq5.window -->
+</section> <!-- dq5.windows.data -->
+</section> <!-- dq5.windows -->

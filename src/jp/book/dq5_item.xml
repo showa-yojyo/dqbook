@@ -5,9 +5,9 @@
   %replacement;
 ]>
 
-<section id="dq5.item"><?dbhtml filename="dq5_item.html" ?>
+<section id="dq5.items"><?dbhtml filename="dq5_items.html" ?>
 <title>アイテム</title>
-<indexterm id="term.dq5.item"><primary>アイテム</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.items"><primary>アイテム</primary><secondary>DQ5</secondary></indexterm>
 
 <para>
 本節では「どうぐ」アイテムについての詳細を説明していく。
@@ -16,7 +16,7 @@
 最後に、ゲーム中に現れるアイテム全てのデータを抽出して CSV ファイルを作成する。
 </para>
 
-<section id="dq5.item.model">
+<section id="dq5.items.model">
 <title>モデル</title>
 <para>
 &dq5_1992; ではアイテムデータの物理的な表現方法に特徴がある。
@@ -28,7 +28,7 @@
 <para>
 本書では、アイテムを次のようにモデル化し、議論を進める：
 </para>
-<table id="table.dq5.item.model" class="lighttable">
+<table id="table.dq5.items.model" class="lighttable">
   <caption>アイテムモデル</caption>
   <thead>
     <tr><th>属性</th><th>定義開始位置</th><th>意味</th></tr>
@@ -62,9 +62,9 @@
 オブジェクト指向的な発想では、アイテムには上に挙げた属性だけではなく、振る舞いという特徴もある。
 ただし、振る舞いについては本節では扱わずに、戦闘コマンドと移動コマンドという枠組で議論をしたい。
 </para>
-</section> <!-- dq5.item.model -->
+</section> <!-- dq5.items.model -->
 
-<section id="dq5.item.23B081">
+<section id="dq5.items.23B081">
 <title>配列 <varname>$23B081</varname>: 価格</title>
 <para>
 本節ではアイテムの属性それぞれの物理的な定義位置と性質を述べていく。
@@ -83,9 +83,9 @@ P * Q, (where 0 &lt;= P and P &lt; 256; 0 &lt;= Q and Q &lt; 65536)
 このデータ表現を採用することで、消費する ROM が 135 バイトほど節約できる。
 上記計算コードのメモリ量が 135 を下回っていれば、全体としても節約できたと言える。
 </para>
-</section> <!-- dq5.item.23B081 -->
+</section> <!-- dq5.items.23B081 -->
 
-<section id="dq5.item.23B159">
+<section id="dq5.items.23B159">
 <title>配列 <varname>$23B159</varname>: 移動モードにおける属性など</title>
 <para>
 アドレス <varname>$23B159</varname> には次の表で示す 1 バイト長構造体の配列がある。
@@ -193,9 +193,9 @@ Q[4] = {1, 10, 100, 1000};
     </glossdef>
   </glossentry>
 </glosslist>
-</section> <!-- dq5.item.23B159 -->
+</section> <!-- dq5.items.23B159 -->
 
-<section id="dq5.item.23B231">
+<section id="dq5.items.23B231">
 <title>配列 <varname>$23B231</varname>: 戦闘モードにおける属性など</title>
 <para>
 アドレス <varname>$23B231</varname> には次の表で示す 1 バイト長構造体の配列がある。
@@ -303,9 +303,9 @@ Q[4] = {1, 10, 100, 1000};
     </glossdef>
   </glossentry>
 </glosslist>
-</section> <!-- dq5.item.23B231 -->
+</section> <!-- dq5.items.23B231 -->
 
-<section id="dq5.item.23B309">
+<section id="dq5.items.23B309">
 <title>配列 <varname>$23B309</varname>: 鑑定属性群</title>
 <para>
 アドレス <varname>$23B309</varname> には次の表で示す 1 バイト長構造体の配列がある。
@@ -362,9 +362,9 @@ Q[4] = {1, 10, 100, 1000};
 <para>
 インパス自身の挙動については、移動時の呪文コマンドの節で述べたい。
 </para>
-</section> <!-- dq5.item.23B309 -->
+</section> <!-- dq5.items.23B309 -->
 
-<section id="dq5.item.23B3E1">
+<section id="dq5.items.23B3E1">
 <title>配列 <varname>$23B3E1</varname>: 鑑定属性群</title>
 <para>
 アドレス <varname>$23B309</varname> には次の表で示す 1 バイト長構造体の配列がある。
@@ -426,9 +426,9 @@ Q[4] = {1, 10, 100, 1000};
   </glossdef>
   </glossentry>
 </glosslist>
-</section> <!-- dq5.item.23B3E1 -->
+</section> <!-- dq5.items.23B3E1 -->
 
-<section id="dq5.item.23B4B9">
+<section id="dq5.items.23B4B9">
 <title>配列 <varname>$23B4B9</varname>: 変化量</title>
 <para>
 アドレス <varname>$23B4B9</varname> には、使用対象キャラクターの何らかの属性値に対する変化量そのものの配列がある。
@@ -439,9 +439,9 @@ Q[4] = {1, 10, 100, 1000};
 値は 1 バイト長だ。
 変化量が特殊なものか、または変化をまったく引き起こさないアイテムの属性値はゼロになっている。
 </para>
-</section> <!-- dq5.item.23B4B9 -->
+</section> <!-- dq5.items.23B4B9 -->
 
-<section id="dq5.item.23B591">
+<section id="dq5.items.23B591">
 <title>配列 <varname>$23B591</varname>: 装備許可フラグ（人間）</title>
 <para>
 アドレス <varname>$23B591</varname> にある 8 ビット列の配列は、
@@ -467,9 +467,9 @@ Q[4] = {1, 10, 100, 1000};
 <para>
 ビアンカは子供大人共通とする。パパスとベラはいずれにも該当していない。
 </para>
-</section> <!-- dq5.item.23B591 -->
+</section> <!-- dq5.items.23B591 -->
 
-<section id="dq5.item.23B669">
+<section id="dq5.items.23B669">
 <title>配列 <varname>$23B669</varname>: 装備許可フラグ（モンスター）</title>
 <para>
 アドレス <varname>$23B639</varname> にある 16 ビット列の配列は、
@@ -500,12 +500,12 @@ Q[4] = {1, 10, 100, 1000};
     <tr><td><literal>#$0001</literal></td><td>メッサーラ シュプリンガー ライオネック</td></tr>
   </tbody>
 </table>
-</section> <!-- dq5.item.23B669 -->
+</section> <!-- dq5.items.23B669 -->
 
-<section id="dq5.item.data">
+<section id="dq5.items.data">
 <title>データ</title>
 <para>
 本節で説明したアイテム属性を単独の CSV ファイルに統合して <xref linkend="appendix.b"/> に収録する。
 </para>
-</section> <!-- dq5.item.data -->
-</section> <!-- dq5.item -->
+</section> <!-- dq5.items.data -->
+</section> <!-- dq5.items -->

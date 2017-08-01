@@ -475,7 +475,7 @@ BRK 命令のオペランドが <literal>#$94</literal> であれば、
 この命令実行は指定したアイテムに関する何らかの性質を参照することを意味する。
 正規のオペランドとは別に 1 バイトの「余分なオペランド」を呼び出し元から取り、どの特性を参照するのかを決定する。
 次に余分なオペランドの値 <varname>arg1</varname> と、対応する命令実行が参照する特性との対応表を示す
-（実際に参照するデータの列についてはアイテムのデータ構造については <xref linkend="dq5.item" /> を参照）。
+（実際に参照するデータの列についてはアイテムのデータ構造については <xref linkend="dq5.items" /> を参照）。
 </para>
 
 <table id="table.dq5.brk.94" class="lighttable">
@@ -536,7 +536,7 @@ BRK 命令のオペランドの値が <literal>#$95</literal> または <literal
 例外的に値 <literal>#$FF</literal> の場合には、メッセージウィンドウの終了を指示する命令を実行するようだ。
 </para>
 <para>
-ウィンドウ処理全般については <xref linkend="dq5.window" /> を参照。
+ウィンドウ処理全般については <xref linkend="dq5.windows" /> を参照。
 </para>
 </section> <!-- dq5.brk.spec.95-96 -->
 

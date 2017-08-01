@@ -20,7 +20,7 @@ ID の付いたデータについては <xref linkend="appendix.b"/> の対応�
 <section id="dq5.gallery.monsters">
 <title>謎のモンスター</title>
 <para>
-<xref linkend="dq5.monster"/> で言及したモンスターオブジェクトのうち、怪しいものを見ていく。
+<xref linkend="dq5.monsters"/> で言及したモンスターオブジェクトのうち、怪しいものを見ていく。
 </para>
 
 <section id="dq5.gallery.monsters.unused">
@@ -91,7 +91,7 @@ ID の付いたデータについては <xref linkend="appendix.b"/> の対応�
   <graphic width="256px" fileref="./image/dq5.gallery.item.png"/>
 </figure>
 <para>
-ここでは <xref linkend="dq5.item"/> の執筆過程で発見した謎のアイテム 5 件の存在を示す画像を展示する。
+ここでは <xref linkend="dq5.items"/> の執筆過程で発見した謎のアイテム 5 件の存在を示す画像を展示する。
 </para>
 <table id="table.dq5.gallery.items" class="lighttable">
   <caption>謎のアイテム</caption>

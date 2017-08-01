@@ -5,9 +5,9 @@
   %replacement;
 ]>
 
-<section id="dq5.shop"><?dbhtml filename="dq5_shop.html" ?>
+<section id="dq5.shops"><?dbhtml filename="dq5_shops.html" ?>
 <title>店屋</title>
-<indexterm id="term.dq5.shop"><primary>店屋</primary><secondary>DQ5</secondary></indexterm>
+<indexterm id="term.dq5.shops"><primary>店屋</primary><secondary>DQ5</secondary></indexterm>
 <para>
 本節では店屋共通処理について見ていく。
 最初にプレイヤーが街にいる人物の誰かに「はなす」とき、それが何らかの店屋であれば、
@@ -16,7 +16,7 @@
 最後に、店屋処理が参照する定数テーブルを可能な限り示す。
 </para>
 
-<section id="dq5.shop.keepers">
+<section id="dq5.shops.keepers">
 <title>店屋処理解析</title>
 <para>
 店屋系の人物に対して「はなす」コマンドを実行すると、その店屋の系統に応じて処理が決定される。
@@ -65,7 +65,7 @@
   <listitem><para><ulink url="./data/dq5_07D77C_text_travel.txt"/></para></listitem>
 </itemizedlist>
 
-<section id="dq5.shop.keepers.06DBFD">
+<section id="dq5.shops.keepers.06DBFD">
 <title>ダミーコード</title>
 <para>
 製品版プログラムはこのコードをカバーしない。便宜上存在するだけのダミーコードだ。
@@ -78,9 +78,9 @@
 06/DC02:    CC
 06/DC03:    60          RTS
 </programlisting>
-</section> <!-- dq5.shop.keepers.06DBFD -->
+</section> <!-- dq5.shops.keepers.06DBFD -->
 
-<section id="dq5.shop.keepers.06DC04">
+<section id="dq5.shops.keepers.06DC04">
 <title>武器屋</title>
 <para>
 武器屋の処理は <varname>$DC04</varname> から始まり、かなりの分量のコードからなる。
@@ -170,7 +170,7 @@
 それから店のある地域というか、ルーラの呪文でも使われる ID をキーとした探索操作によって、対応データの格納位置を ROM から特定する。
 対応データの構造が次のような不定長データの配列であることを踏まえて、その店固有の商品群を参照する：
 </para>
-<table id="table.dq5.shop.structure" class="lighttable">
+<table id="table.dq5.shops.structure" class="lighttable">
   <caption>店屋構造体</caption>
   <thead>
     <tr>
@@ -185,9 +185,9 @@
     <tr><td></td><td><literal>#$FF</literal></td></tr>
   </tbody>
 </table>
-</section> <!-- dq5.shop.keepers.06DC04 -->
+</section> <!-- dq5.shops.keepers.06DC04 -->
 
-<section id="dq5.shop.keepers.06E01F">
+<section id="dq5.shops.keepers.06E01F">
 <title>道具屋</title>
 <para>
 道具屋の処理は武器屋のコードと共有している。
@@ -199,33 +199,33 @@
 06/E020:    8D200F      STA $0F20           ; 店屋タイプ
 06/E023:    82E3FB      BRL $DC09           ; 共通部分へジャンプ
 </programlisting>
-</section> <!-- dq5.shop.keepers.06E01F -->
+</section> <!-- dq5.shops.keepers.06E01F -->
 
-<section id="dq5.shop.keepers.06E026">
+<section id="dq5.shops.keepers.06E026">
 <title>防具屋</title>
 <para>
 防具屋の処理もまた、武器屋のコードと共有している。
 店屋種類を表す変数 <varname>$0F20</varname> に 1 をセットしてから、共有部分の最初の命令にジャンプする。
 </para>
-</section> <!-- dq5.shop.keepers.06E026 -->
+</section> <!-- dq5.shops.keepers.06E026 -->
 
-<section id="dq5.shop.keepers.06E02E">
+<section id="dq5.shops.keepers.06E02E">
 <title>よろず屋</title>
 <para>
 よろず屋の処理もまた、武器屋のコードと共有している。
 店屋種類を表す変数 <varname>$0F20</varname> に 3 をセットしてから、共有部分の最初の命令にジャンプする。
 </para>
-</section> <!-- dq5.shop.keepers.06E02E -->
+</section> <!-- dq5.shops.keepers.06E02E -->
 
-<section id="dq5.shop.keepers.06E036">
+<section id="dq5.shops.keepers.06E036">
 <title>教会（尼）</title>
 <para>
 教会処理の尼版は、次に説明する神父版とコードを共有している。
 台詞のメッセージ ID を調整するための変数 <varname>$0F2B</varname> に 1 をセットしてから、共有部分の最初の命令にジャンプする。
 </para>
-</section> <!-- dq5.shop.keepers.06E036 -->
+</section> <!-- dq5.shops.keepers.06E036 -->
 
-<section id="dq5.shop.keepers.06E03E">
+<section id="dq5.shops.keepers.06E03E">
 <title>教会（神父）</title>
 <para>
 教会の処理はサブルーチンとしては <varname>$E03E</varname> から始まるかなり長いコードで構成されている。
@@ -291,17 +291,17 @@
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq5.shop.keepers.06E03E -->
+</section> <!-- dq5.shops.keepers.06E03E -->
 
-<section id="dq5.shop.keepers.06E375">
+<section id="dq5.shops.keepers.06E375">
 <title>宿屋（フランク）</title>
 <para>
 店主がフランクな宿屋の処理は、次に説明する標準的な宿屋のそれとコードを共有している。
 台詞のメッセージ ID を調整するための変数 <varname>$0F2B</varname> に 7 をセットしてから、共有部分の最初の命令にジャンプする。
 </para>
-</section> <!-- dq5.shop.keepers.06E375 -->
+</section> <!-- dq5.shops.keepers.06E375 -->
 
-<section id="dq5.shop.keepers.06E384">
+<section id="dq5.shops.keepers.06E384">
 <title>宿屋（標準）</title>
 <para>
 宿屋の処理はサブルーチンとしては <varname>$E384</varname> から始まる。
@@ -350,9 +350,9 @@
     <tr><td><literal>#$01</literal></td><td>一人当たりの宿代</td></tr>
   </tbody>
 </table>
-</section> <!-- dq5.shop.keepers.06E384 -->
+</section> <!-- dq5.shops.keepers.06E384 -->
 
-<section id="dq5.shop.keepers.06E4DE">
+<section id="dq5.shops.keepers.06E4DE">
 <title>預かり所</title>
 <para>
 預かり所の処理はサブルーチン <varname>$E4DE</varname> に実装されている。
@@ -429,9 +429,9 @@
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq5.shop.keepers.06E4DE -->
+</section> <!-- dq5.shops.keepers.06E4DE -->
 
-<section id="dq5.shop.keepers.06E95A">
+<section id="dq5.shops.keepers.06E95A">
 <title>モンスターじいさん</title>
 <para>
 モンスターじいさんの処理はサブルーチン <varname>$E95A</varname> に実装されている。
@@ -520,9 +520,9 @@
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq5.shop.keepers.06E95A -->
+</section> <!-- dq5.shops.keepers.06E95A -->
 
-<section id="dq5.shop.keepers.06EBF7">
+<section id="dq5.shops.keepers.06EBF7">
 <title>メダル王</title>
 <para>
 メダル王の処理はサブルーチン <varname>$EBF7</varname> に実装されている。
@@ -565,9 +565,9 @@
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq5.shop.keepers.06EBF7 -->
+</section> <!-- dq5.shops.keepers.06EBF7 -->
 
-<section id="dq5.shop.keepers.06ED01">
+<section id="dq5.shops.keepers.06ED01">
 <title>ルイーダの店</title>
 <para>
 ルイーダの店の処理はサブルーチン <varname>$ED01</varname> に実装されている。
@@ -612,9 +612,9 @@
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq5.shop.keepers.06ED01 -->
+</section> <!-- dq5.shops.keepers.06ED01 -->
 
-<section id="dq5.shop.keepers.06EE34">
+<section id="dq5.shops.keepers.06EE34">
 <title>カジノキャッシャー</title>
 <para>
 カジノキャッシャーはサブルーチン <varname>$EE34</varname> に実装されている。
@@ -634,9 +634,9 @@
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq5.shop.keepers.06EE34 -->
+</section> <!-- dq5.shops.keepers.06EE34 -->
 
-<section id="dq5.shop.keepers.06EF70">
+<section id="dq5.shops.keepers.06EF70">
 <title>カジノ景品交換所</title>
 <para>
 カジノ景品交換所の処理はサブルーチン <varname>$EF70</varname> に実装されている。
@@ -724,9 +724,9 @@
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq5.shop.keepers.06EF70 -->
+</section> <!-- dq5.shops.keepers.06EF70 -->
 
-<section id="dq5.shop.keepers.06F1E8">
+<section id="dq5.shops.keepers.06F1E8">
 <title>スライムレース</title>
 <para>
 スライムレースの処理はサブルーチン <varname>$F1E8</varname> に実装されている。
@@ -741,9 +741,9 @@
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq5.shop.keepers.06F1E8 -->
+</section> <!-- dq5.shops.keepers.06F1E8 -->
 
-<section id="dq5.shop.keepers.06F226">
+<section id="dq5.shops.keepers.06F226">
 <title>格闘場</title>
 <para>
 格闘場の処理はサブルーチン <varname>$F226</varname> から始まる。
@@ -862,15 +862,15 @@
     <tr><td><literal>#$07</literal></td><td>倍率 [03]</td></tr>
   </tbody>
 </table>
-</section> <!-- dq5.shop.keepers.06F226 -->
+</section> <!-- dq5.shops.keepers.06F226 -->
 
-<section id="dq5.shop.keepers.variables">
+<section id="dq5.shops.keepers.variables">
 <title>頻出変数</title>
 <para>
 コードを解読する作業の役に立つべく、
 上で説明した店屋処理に共通して参照される変数の役割を表にまとめておく：
 </para>
-<table id="table.dq5.shop.keepers.variables" class="lighttable">
+<table id="table.dq5.shops.keepers.variables" class="lighttable">
   <caption>店屋処理に共通して参照される変数</caption>
   <thead>
     <tr>
@@ -954,11 +954,11 @@
     </listitem>
   </varlistentry>
 </variablelist>
-</section> <!-- dq5.shop.keepers.variables -->
+</section> <!-- dq5.shops.keepers.variables -->
 
-</section> <!-- dq5.shop.keepers -->
+</section> <!-- dq5.shops.keepers -->
 
-<section id="dq5.shop.data">
+<section id="dq5.shops.data">
 <title>店屋データ</title>
 <para>
 本節で見てきたデータテーブルでまだ内容を示していないものである、
@@ -966,5 +966,5 @@
 基本的にはデータテーブル一つに対して、CSV ファイル一つを対応させるが、
 格闘場データは例外的にデータテーブル <varname>$23DA97</varname> と配列 <varname>$23DC27</varname> をこの順に <command>paste</command> しておいた。
 </para>
-</section> <!-- dq5.shop.data -->
-</section> <!-- dq5.shop -->
+</section> <!-- dq5.shops.data -->
+</section> <!-- dq5.shops -->
