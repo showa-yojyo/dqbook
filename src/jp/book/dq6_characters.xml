@@ -112,7 +112,7 @@
         例えば死亡フラグが 1 ならば、その他の異常状態フラグはいずれも 0 とするようにしている。
       </para>
       <para>
-        <xref linkend="dq6.combatant"/> で関連属性を述べる。
+        <xref linkend="dq6.combatants"/> で関連属性を述べる。
       </para>
     </listitem>
   </varlistentry>
@@ -193,7 +193,7 @@
     <listitem>
       <para>
         キャラクターの道具袋に入っているアイテムを順番に表す配列だ。
-        アイテムについては <xref linkend="dq6.item"/> で述べる。
+        アイテムについては <xref linkend="dq6.items"/> で述べる。
       </para>
     </listitem>
   </varlistentry>

@@ -99,7 +99,7 @@
       </para>
       <para>
         仲間キャラクターと敵キャラクターのレベルについては
-        <xref linkend="dq6.level"/> と <xref linkend="dq6.monster"/> をそれぞれ参照して欲しい。
+        <xref linkend="dq6.level"/> と <xref linkend="dq6.monsters"/> をそれぞれ参照して欲しい。
       </para>
     </listitem>
   </varlistentry>
@@ -221,7 +221,7 @@
         敵陣を構成するモンスターの ID を表す属性だ。
       </para>
       <para>
-        モンスターについては <xref linkend="dq6.monster"/> で述べる。
+        モンスターについては <xref linkend="dq6.monsters"/> で述べる。
       </para>
     </listitem>
   </varlistentry>

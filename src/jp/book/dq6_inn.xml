@@ -5,22 +5,22 @@
   %replacement;
 ]>
 
-<section id="dq6.inn"><?dbhtml filename="dq6_inn.html" ?>
+<section id="dq6.inns"><?dbhtml filename="dq6_inns.html" ?>
 <title>宿屋</title>
-<indexterm id="term.dq6.inn"><primary>宿屋</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.inns"><primary>宿屋</primary><secondary>DQ6</secondary></indexterm>
 <para>
 本節では宿屋のデータ構造および処理について述べる。
 まず宿屋のサービスを表現するための構造体について説明する。
 最後に宿屋すべてに共通する処理手順の概要を記述する。
 </para>
 
-<section id="dq6.inn.structure">
+<section id="dq6.inns.structure">
 <title>データ</title>
 <para>
 各地の宿屋を表現するデータ構造を説明する。
 </para>
 
-<section id="dq6.inn.structure.C58E0B">
+<section id="dq6.inns.structure.C58E0B">
 <title>構造体 <varname>$C58E0B</varname>: 宿屋</title>
 <para>
 以下に示すメモリレイアウトのオブジェクトがアドレス <varname>$C58E0B</varname> から 37 個配列されている。
@@ -64,9 +64,9 @@
     </listitem>
   </varlistentry>
 </variablelist>
-</section> <!-- dq6.inn.structure.C58E0B -->
+</section> <!-- dq6.inns.structure.C58E0B -->
 
-<section id="dq6.inn.structure.C7D0DD">
+<section id="dq6.inns.structure.C7D0DD">
 <title>配列 <varname>$C7D0DD</varname>: 宿屋台詞セット</title>
 <para>
 宿屋の話す台詞集はメッセージ ID の配列の形式で表現されている。
@@ -104,10 +104,10 @@ C7/D0F8:    4002    ; #$05: [D4][DE][D3]たちは 目がさめた。
 C7/CF9C:    A90100      LDA #$0001          ; [DE]ひと晩 [BB]ゴールドですが[AD]お泊まりに なりますか？ or おぬしらも 泊まっていくか？
 C7/CF9F:    20BAD0      JSR $D0BA           ; 台詞表示
 ]]></programlisting>
-</section> <!-- dq6.inn.structure.C7D0DD -->
-</section> <!-- dq6.inn.structure -->
+</section> <!-- dq6.inns.structure.C7D0DD -->
+</section> <!-- dq6.inns.structure -->
 
-<section id="dq6.inn.behavior">
+<section id="dq6.inns.behavior">
 <title>処理手順</title>
 <para>
 はなすオブジェクトが宿屋である場合は、その振る舞いは基本的に次のようになる：
@@ -162,5 +162,5 @@ CD/FEE5:    6B          RTL
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq6.inn.behavior -->
-</section> <!-- dq6.inn -->
+</section> <!-- dq6.inns.behavior -->
+</section> <!-- dq6.inns -->

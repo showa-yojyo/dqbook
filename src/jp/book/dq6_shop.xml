@@ -5,21 +5,21 @@
   %replacement;
 ]>
 
-<section id="dq6.shop"><?dbhtml filename="dq6_shop.html" ?>
+<section id="dq6.shops"><?dbhtml filename="dq6_shops.html" ?>
 <title>店屋</title>
-<indexterm id="term.dq6.shop"><primary>店屋</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.shops"><primary>店屋</primary><secondary>DQ6</secondary></indexterm>
 <para>
 本節では各地の武器屋、防具屋、道具屋、よろず屋を表現するデータ構造および店員との商品売買処理について記す。
 なお、本章を通じて、武器屋、防具屋、道具屋、よろず屋を一般化した概念を店屋という単語で総称する。
 </para>
 
-<section id="dq6.shop.structure">
+<section id="dq6.shops.structure">
 <title>データ</title>
 <para>
 各地の店屋を表現するデータ構造を示す。
 </para>
 
-<section id="dq6.shop.structure.C58B93">
+<section id="dq6.shops.structure.C58B93">
 <title>構造体 <varname>$C58B93</varname>: 店屋</title>
 <para>
 アドレス <varname>$C58B93</varname> にある配列要素のそれぞれが対応する店屋オブジェクトを表現する。
@@ -52,7 +52,7 @@
         この属性値は店屋の台詞回しを指定するために参照される。
         値と意味との対応は次のとおりだ：
       </para>
-      <table id="table.dq6.shop.classifications" class="lighttable">
+      <table id="table.dq6.shops.classifications" class="lighttable">
         <caption>店屋分類</caption>
         <thead>
           <tr><th>値</th><th>分類</th></tr>
@@ -79,9 +79,9 @@
     </listitem>
   </varlistentry>
 </variablelist>
-</section> <!-- dq6.shop.structure.C58B93 -->
+</section> <!-- dq6.shops.structure.C58B93 -->
 
-<section id="dq6.shop.structure.C5FD18">
+<section id="dq6.shops.structure.C5FD18">
 <title>配列 <varname>$C5FD18</varname>: 店屋台詞セット</title>
 <para>
 アドレス <varname>$C5FD18</varname> には店屋分類に応じた台詞セットのアドレスが配列されている。
@@ -235,10 +235,10 @@ C5/FE4D:    9118    ; #$18: [DE]あれれ？ お客さん。[AD]しかし それ
 C5/FE4F:    8118    ; #$19: [DE]これは 戦いのときに[AD]どうぐとして つかっても[AD]おトクな 品物ですよ。[AF][D5]
 C5/FE51:    8518    ; #$1A: [DE]ほかの人が 持ちますか？
 ]]></programlisting>
-</section> <!-- dq6.shop.structure.C5FD18 -->
-</section> <!-- dq6.shop.structure -->
+</section> <!-- dq6.shops.structure.C5FD18 -->
+</section> <!-- dq6.shops.structure -->
 
-<section id="dq6.shop.behavior">
+<section id="dq6.shops.behavior">
 <title>処理手順</title>
 <para>
 各地の店屋において展開される商品売買に共通する処理手順を説明する。
@@ -263,14 +263,14 @@ C5/FE51:    8518    ; #$1A: [DE]ほかの人が 持ちますか？
   </listitem>
 </itemizedlist>
 
-<section id="dq6.shop.behavior.quit">
+<section id="dq6.shops.behavior.quit">
 <title>やめる</title>
 <para>
 店員が挨拶をして店屋処理全体を終了する。
 </para>
-</section> <!-- dq6.shop.behavior.quit -->
+</section> <!-- dq6.shops.behavior.quit -->
 
-<section id="dq6.shop.behavior.buy">
+<section id="dq6.shops.behavior.buy">
 <title>かいにきた</title>
 <itemizedlist>
   <listitem>
@@ -335,17 +335,17 @@ C5/FE51:    8518    ; #$1A: [DE]ほかの人が 持ちますか？
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq6.shop.behavior.buy -->
+</section> <!-- dq6.shops.behavior.buy -->
 
-<section id="dq6.shop.behavior.others">
+<section id="dq6.shops.behavior.others">
 <title>ほかにも用は</title>
 <para>
 カジノの場合にはカジノの処理にジャンプし、
 それ以外店屋の場合には店員の台詞を表示してから<emphasis>店屋メニュー表示</emphasis>手順にジャンプする。
 </para>
-</section> <!-- dq6.shop.behavior.others -->
+</section> <!-- dq6.shops.behavior.others -->
 
-<section id="dq6.shop.behavior.sell">
+<section id="dq6.shops.behavior.sell">
 <title>うりにきた</title>
 <itemizedlist>
   <listitem>
@@ -400,6 +400,6 @@ C5/FE51:    8518    ; #$1A: [DE]ほかの人が 持ちますか？
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq6.shop.behavior.sell -->
-</section> <!-- dq6.shop.behavior -->
-</section> <!-- dq6.shop -->
+</section> <!-- dq6.shops.behavior.sell -->
+</section> <!-- dq6.shops.behavior -->
+</section> <!-- dq6.shops -->

@@ -5,20 +5,20 @@
   %replacement;
 ]>
 
-<section id="dq6.church"><?dbhtml filename="dq6_church.html" ?>
+<section id="dq6.chapels"><?dbhtml filename="dq6_chapels.html" ?>
 <title>教会</title>
-<indexterm id="term.dq6.church"><primary>教会</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.chapels"><primary>教会</primary><secondary>DQ6</secondary></indexterm>
 <para>
 本節では各地の教会を表現するデータ構造と処理を説明する。
 </para>
 
-<section id="dq6.church.structure">
+<section id="dq6.chapels.structure">
 <title>データ</title>
 <para>
 各地の教会を表現するデータ構造を説明する。
 </para>
 
-<section id="dq6.church.structure.C58E9F">
+<section id="dq6.chapels.structure.C58E9F">
 <title>構造体 <varname>$C58E9F</varname>: 教会</title>
 <para>
 アドレス <varname>$C58E9F</varname> にある配列要素のそれぞれが対応する教会オブジェクトを表現する。
@@ -83,9 +83,9 @@
     </listitem>
   </varlistentry>
 </variablelist>
-</section> <!-- dq6.church.structure.C58E9F -->
+</section> <!-- dq6.chapels.structure.C58E9F -->
 
-<section id="dq6.church.structure.C3D9F8">
+<section id="dq6.chapels.structure.C3D9F8">
 <title>配列 <varname>$C3D9F8</varname>: 教会台詞セット</title>
 <para>
 教会のサービス担当者の話す台詞集（一部システムメッセージを含む）はメッセージ ID の配列の形式で表現されている。
@@ -166,10 +166,10 @@ C3/DA66:    F418    ; #$1A: [DE]あら？ [B3]さんは[AD]毒に(...)
 C3/D401:    A90000      LDA #$0000          ; [DE]生きとし生けるものは(...) or [DE]ここは 神にみちびかれし[AD]迷える子羊たちの(...)
 C3/D404:    20B9D7      JSR $D7B9           ; 台詞表示
 ]]></programlisting>
-</section> <!-- dq6.church.structure.C3D9F8 -->
-</section> <!-- dq6.church.structure -->
+</section> <!-- dq6.chapels.structure.C3D9F8 -->
+</section> <!-- dq6.chapels.structure -->
 
-<section id="dq6.church.behavior">
+<section id="dq6.chapels.behavior">
 <title>処理手順</title>
 <para>
 各地の教会に共通する処理手順を説明する。
@@ -177,7 +177,7 @@ C3/D404:    20B9D7      JSR $D7B9           ; 台詞表示
 本節では教会オブジェクトの処理アドレス属性値が表すサブルーチンを解説する。
 </para>
 
-<section id="dq6.church.behavior.C3D3E3">
+<section id="dq6.chapels.behavior.C3D3E3">
 <title>サブルーチン <varname>$C3D3E3</varname>: 標準的な教会</title>
 <para>
 サブルーチン <varname>$C3D3E3</varname> は標準的な教会処理の実装だ。
@@ -396,18 +396,18 @@ C3/D404:    20B9D7      JSR $D7B9           ; 台詞表示
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq6.church.behavior.C3D3E3 -->
+</section> <!-- dq6.chapels.behavior.C3D3E3 -->
 
-<section id="dq6.church.behavior.C3D849">
+<section id="dq6.chapels.behavior.C3D849">
 <title>サブルーチン <varname>$C3D849</varname>: アモールの掃除中の教会</title>
 <para>
 サブルーチン <varname>$C3D849</varname> はアモールの教会が掃除中のときに神父に話すときの処理だ。
 サービスは冒険の書に記録することしかできない。
 なお、現在の冒険の書以外のものに上書きしようとしても、プレイヤーに対する意志確認がない。
 </para>
-</section> <!-- dq6.church.behavior.C3D849 -->
+</section> <!-- dq6.chapels.behavior.C3D849 -->
 
-<section id="dq6.church.behavior.C3D8C3">
+<section id="dq6.chapels.behavior.C3D8C3">
 <title>サブルーチン <varname>$C3D8C3</varname>: 透明モード中のトルッカの教会</title>
 <para>
 サブルーチン <varname>$C3D8C3</varname> はゲーム序盤でトルッカの教会の神父に話すときの処理だ。
@@ -415,15 +415,15 @@ C3/D404:    20B9D7      JSR $D7B9           ; 台詞表示
 こっそりおいのりすることに決めると、冒険の書メニューが無言で表示される。
 その上、現在の冒険の書以外のものに上書きしようとしても警告がない。
 </para>
-</section> <!-- dq6.church.behavior.C3D8C3 -->
+</section> <!-- dq6.chapels.behavior.C3D8C3 -->
 
-<section id="dq6.church.behavior.C3D910">
+<section id="dq6.chapels.behavior.C3D910">
 <title>サブルーチン <varname>$C3D910</varname>: マウントスノーの凍りついた神父</title>
 <para>
 サブルーチン <varname>$C3D910</varname> はマウントスノーの凍りついた神父に話すときの処理だ。
 サービスは冒険の書に記録することしかできない。
 こちらは上書きの際の意志確認がある。
 </para>
-</section> <!-- dq6.church.behavior.C3D910 -->
-</section> <!-- dq6.church.behavior -->
-</section> <!-- dq6.church -->
+</section> <!-- dq6.chapels.behavior.C3D910 -->
+</section> <!-- dq6.chapels.behavior -->
+</section> <!-- dq6.chapels -->

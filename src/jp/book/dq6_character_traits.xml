@@ -187,7 +187,7 @@
     <listitem>
       <para>
         耐性は、値の範囲の違いがなぜかあることを除けば、モンスター構造体のそれと同じ概念の属性だ。
-        <xref linkend="dq6.monster.C20154"/> の耐性の記述を参照して欲しい。
+        <xref linkend="dq6.monsters.C20154"/> の耐性の記述を参照して欲しい。
       </para>
     </listitem>
   </varlistentry>
@@ -200,7 +200,7 @@
     <listitem>
       <para>
         これらの属性についても、モンスター構造体のそれぞれと同じ概念の属性だ。
-        <xref linkend="dq6.monster.C20154"/> の耐性の記述を参照して欲しい。
+        <xref linkend="dq6.monsters.C20154"/> の耐性の記述を参照して欲しい。
       </para>
     </listitem>
   </varlistentry>
@@ -223,7 +223,7 @@
         所持品とは、このキャラクターを仲間にした時点でのその人物の道具袋にあるアイテム ID を表す属性だ。
       </para>
       <para>
-        アイテムについては <xref linkend="dq6.item"/> で述べる。
+        アイテムについては <xref linkend="dq6.items"/> で述べる。
       </para>
     </listitem>
   </varlistentry>

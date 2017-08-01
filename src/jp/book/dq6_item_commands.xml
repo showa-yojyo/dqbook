@@ -136,7 +136,7 @@ C3/C9FE:    E100D51661D3
     <simpara>
       前述のメッセージに加えて、対象の道具に固有のメッセージを道具データから取得するときには、
       サブルーチン <varname>$C3CA04</varname> を実行する。
-      道具データのメッセージ各種属性については <xref linkend="dq6.item.C4003D"/> で述べる。
+      道具データのメッセージ各種属性については <xref linkend="dq6.items.C4003D"/> で述べる。
     </simpara>
   </listitem>
   <listitem>

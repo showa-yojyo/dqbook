@@ -5,17 +5,17 @@
   %replacement;
 ]>
 
-<section id="dq6.monster"><?dbhtml filename="dq6_monster.html" ?>
+<section id="dq6.monsters"><?dbhtml filename="dq6_monsters.html" ?>
 <title>モンスター</title>
-<indexterm id="term.dq6.monster"><primary>モンスター</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.monsters"><primary>モンスター</primary><secondary>DQ6</secondary></indexterm>
 <para>
 この節ではモンスターデータについて述べる。
 ここで言うモンスターデータとは、モンスターそれぞれの静的な性質を定義したオブジェクトのことを意味するものであり、
 物理的にはアドレス <varname>$C20154</varname> に存在する配列を構成する要素の型のことだ。
-戦闘員としてのモンスターデータについては <xref linkend="dq6.combatant"/> で述べる。
+戦闘員としてのモンスターデータについては <xref linkend="dq6.combatants"/> で述べる。
 </para>
 
-<section id="dq6.monster.C20154">
+<section id="dq6.monsters.C20154">
 <title>構造体 <varname>$C20154</varname>: モンスター</title>
 <para>
 モンスター構造体とは、サイズが <literal>#$2A</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
@@ -511,7 +511,7 @@
         アイテムとは、このモンスターを倒すことで戦闘終了時に得られることがあるアイテムの ID を値に取る属性だ。
       </para>
       <para>
-        アイテムについては <xref linkend="dq6.item"/> および
+        アイテムについては <xref linkend="dq6.items"/> および
         <xref linkend="dq6.item.commands"/> で述べる。
       </para>
     </listitem>
@@ -533,7 +533,7 @@
         ただし、前述の初期確率属性に関係した判定処理が成功したときにしか、この設定は発生しない。
         属性値と状態との対応を次の表に示す：
       </para>
-      <table id="table.dq6.monster.initial" class="lighttable">
+      <table id="table.dq6.monsters.initial" class="lighttable">
         <caption>初期状態</caption>
         <thead>
           <tr><th>ID</th><th>状態</th></tr>
@@ -575,14 +575,14 @@
     </listitem>
   </varlistentry>
 </variablelist>
-</section> <!-- dq6.monster.C20154 -->
+</section> <!-- dq6.monsters.C20154 -->
 
-<section id="dq6.monster.methods">
+<section id="dq6.monsters.methods">
 <title>モンスター構造体メソッド</title>
 <para>
 逆アセンブルの便宜を図るため、以下に <varname>$C20154</varname> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
 </para>
-<table id="table.dq6.monster.methods" class="lighttable">
+<table id="table.dq6.monsters.methods" class="lighttable">
   <caption>モンスター構造体メソッド</caption>
   <thead>
     <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
@@ -604,5 +604,5 @@
 値が 2 ならばオブジェクトのベースアドレスからのオフセット値が、
 値が 4 ならばオフセット値とビットマスク値がコード中に埋め込まれていることを示す。
 </para>
-</section> <!-- dq6.monster.methods -->
-</section> <!-- dq6.monster -->
+</section> <!-- dq6.monsters.methods -->
+</section> <!-- dq6.monsters -->

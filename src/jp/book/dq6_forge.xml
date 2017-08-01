@@ -4,19 +4,19 @@
   <!ENTITY % replacement SYSTEM "replacement.xml">
   %replacement;
 ]>
-<section id="dq6.forge"><?dbhtml filename="dq6_forge.html" ?>
+<section id="dq6.forges"><?dbhtml filename="dq6_forges.html" ?>
 <title>おしゃれなカジヤ</title>
 <para>
 本節ではおしゃれなカジヤに関係するデータ構造と処理について述べる。
 </para>
 
-<section id="dq6.forge.structure">
+<section id="dq6.forges.structure">
 <title>データ</title>
 <para>
 おしゃれなカジヤに関係があるデータの構造について記す。
 </para>
 
-<section id="dq6.forge.structure.C58ECF">
+<section id="dq6.forges.structure.C58ECF">
 <title>対応 <varname>$C58ECF</varname>: 鍛造前後のアイテムの対応</title>
 <para>
 カジヤが鍛え直すことのできる装備品のアイテム ID の対応関係がアドレス <varname>$C58ECF</varname> に指定されている。
@@ -36,13 +36,13 @@
 <para>
 データを <xref linkend="appendix.b"/> に収録している。アイテムデータも併せて参考にして欲しい。
 </para>
-</section> <!-- dq6.forge.structure.C58ECF -->
-</section> <!-- dq6.forge.structure -->
+</section> <!-- dq6.forges.structure.C58ECF -->
+</section> <!-- dq6.forges.structure -->
 
-<section id="dq6.forge.behavior">
+<section id="dq6.forges.behavior">
 <title>処理手順</title>
 
-<section id="dq6.forge.behavior.C1F9F8">
+<section id="dq6.forges.behavior.C1F9F8">
 <title>サブルーチン <varname>$C1F9F8</varname>: おしゃれなカジヤ共通処理</title>
 <para>
 以下、要点を示す：
@@ -64,6 +64,6 @@
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq6.forge.behavior.C1F9F8 -->
-</section> <!-- dq6.forge.behavior -->
-</section> <!-- dq6.forge -->
+</section> <!-- dq6.forges.behavior.C1F9F8 -->
+</section> <!-- dq6.forges.behavior -->
+</section> <!-- dq6.forges -->

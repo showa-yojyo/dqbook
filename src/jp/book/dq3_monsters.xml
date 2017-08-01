@@ -471,7 +471,7 @@
 <title>モンスター構造体メソッド</title>
 <para>
 逆アセンブルの便宜を図るため、以下に <varname>$C20000</varname> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
-表の凡例は前作 <xref linkend="dq6.monster.methods"/> と同じにつき、記載を繰り返さない。
+表の凡例は前作 <xref linkend="dq6.monsters.methods"/> と同じにつき、記載を繰り返さない。
 </para>
 <table id="table.dq3.monsters.methods" class="lighttable">
   <caption>モンスター構造体の属性にアクセスするサブルーチン</caption>

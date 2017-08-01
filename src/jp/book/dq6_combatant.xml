@@ -4,14 +4,14 @@
   <!ENTITY % replacement SYSTEM "replacement.xml">
   %replacement;
 ]>
-<section id="dq6.combatant"><?dbhtml filename="dq6_combatant.html" ?>
+<section id="dq6.combatants"><?dbhtml filename="dq6_combatants.html" ?>
 <title>戦闘キャラクター構造体</title>
 <para>
 本節では、戦闘キャラクター構造体各種のメモリレイアウトを表で示し、また各メンバーデータの意味とアクセス例とをごく簡単に記す。
 前作では自陣側と敵陣側とで異なる型を使い分けていたが、本作では両者とも同じ型のオブジェクトで戦闘員を表現する。
 </para>
 
-<section id="dq6.combatant.7E2030">
+<section id="dq6.combatants.7E2030">
 <title>構造体 <varname>$7E2030</varname>: 戦闘キャラクター</title>
 <para>
 次の表で示されるメモリレイアウトで構成される、サイズが <literal>#$34</literal> バイトのオブジェクトがアドレス <varname>$7E2030</varname> から 24 個直列している。
@@ -256,7 +256,7 @@
       <para>
         この戦闘員が所属するグループ ID を値に取る属性だ。次の対応関係により定まる。
       </para>
-      <table id="table.dq6.combatant.groups" class="lighttable">
+      <table id="table.dq6.combatants.groups" class="lighttable">
         <caption>グループ</caption>
         <thead>
           <tr><th>ID</th><th>意味</th></tr>
@@ -482,7 +482,7 @@
         この戦闘員が次のいずれかのコマンドを実行中であることを表現する属性だ。
         表の左列と右列はそれぞれ属性値と戦闘員が実行中のコマンドを示す：
       </para>
-       <table id="table.dq6.combatant.guards" class="lighttable">
+       <table id="table.dq6.combatants.guards" class="lighttable">
          <caption>防御分類</caption>
          <thead>
            <tr><th>値</th><th>実行中のコマンド</th></tr>
@@ -545,7 +545,7 @@
         この戦闘員がどのやすみ状態にあるかを示す値を取る属性だ。
         属性値と適用されているコマンドとの対応は次のとおりだ：
       </para>
-      <table id="table.dq6.combatant.pause" class="lighttable">
+      <table id="table.dq6.combatants.pause" class="lighttable">
         <caption>やすみ分類</caption>
         <thead>
           <tr><th>値</th><th>コマンド</th></tr>
@@ -659,7 +659,7 @@
         この戦闘員が次のいずれかのコマンドを実行中であることを表現する属性だ。
         表の左列と右列はそれぞれ属性値と戦闘員が実行中のコマンドを示す：
       </para>
-      <table id="table.dq6.combatant.powerup" class="lighttable">
+      <table id="table.dq6.combatants.powerup" class="lighttable">
         <caption>ちからため系分類</caption>
         <thead>
           <tr><th>ID</th><th>実行中のコマンド</th></tr>
@@ -835,16 +835,16 @@
     </listitem>
   </varlistentry>
 </variablelist>
-</section> <!-- dq6.combatant.7E2030 -->
+</section> <!-- dq6.combatants.7E2030 -->
 
-<section id="dq6.combatant.methods">
+<section id="dq6.combatants.methods">
 <title>戦闘キャラクター構造体メソッド</title>
 <para>
 バンク <varname>$C2</varname> の逆アセンブルの便宜を図るため、
 以下に <varname>$7E2030</varname> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
 ただし、<code>LDA $7E205F,X</code> のように直接値にアクセスする処理も当然のように存在する。
 </para>
-<table id="table.dq6.combatant.methods" class="lighttable">
+<table id="table.dq6.combatants.methods" class="lighttable">
   <caption>戦闘キャラクター構造体の属性にアクセスするサブルーチン</caption>
   <thead>
     <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
@@ -896,5 +896,5 @@ C2/56F8:    38          SEC
                                             }
 C2/56F9:    60          RTS
 ]]></programlisting>
-</section> <!-- dq6.combatant.methods -->
-</section> <!-- dq6.combatant -->
+</section> <!-- dq6.combatants.methods -->
+</section> <!-- dq6.combatants -->

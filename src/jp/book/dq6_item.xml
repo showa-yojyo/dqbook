@@ -5,9 +5,9 @@
   %replacement;
 ]>
 
-<section id="dq6.item"><?dbhtml filename="dq6_item.html" ?>
+<section id="dq6.items"><?dbhtml filename="dq6_items.html" ?>
 <title>アイテム</title>
-<indexterm id="term.dq6.item"><primary>アイテム</primary><secondary>DQ6</secondary></indexterm>
+<indexterm id="term.dq6.items"><primary>アイテム</primary><secondary>DQ6</secondary></indexterm>
 <para>
 本節ではアイテム一般のデータ構造について述べる。
 アイテムを表現する構造体をメンバーごとに簡単に解説した後、
@@ -19,7 +19,7 @@
 後者については戦闘コマンドとして実装されているので <xref linkend="dq6.battle.commands"/> が関連項目となる。
 </para>
 
-<section id="dq6.item.C4003D">
+<section id="dq6.items.C4003D">
 <title>構造体 <varname>$C4003D</varname>: アイテム</title>
 <para>
 次の表に示すようなメモリレイアウトの構造体オブジェクトがアドレス <varname>$C4003D</varname> から 256 個配列されている。
@@ -106,7 +106,7 @@
       <para>
         すべてのアイテムオブジェクトをこの属性値で分類することができる。下の表のような意味がある：
       </para>
-      <table id="table.dq6.item.classification" class="lighttable">
+      <table id="table.dq6.items.classification" class="lighttable">
         <caption>アイテム分類</caption>
         <thead>
           <tr><th>値</th><th>分類</th></tr>
@@ -130,7 +130,7 @@
         どの属性値を増加させるのかを表す値を取る属性だ。
         値と作用する仲間キャラクター型の属性との対応を次の表に示す：
       </para>
-      <table id="table.dq6.item.applications" class="lighttable">
+      <table id="table.dq6.items.applications" class="lighttable">
         <caption>装備作用属性</caption>
         <thead>
           <tr><th>値</th><th>作用する属性</th></tr>
@@ -234,7 +234,7 @@
         消費度とは、このアイテムを「インパス」コマンドで鑑定するときの内容を指示する属性値だ。
         値と鑑定内容の対応は次のようなものだ：
       </para>
-      <table id="table.dq6.item.consumption" class="lighttable">
+      <table id="table.dq6.items.consumption" class="lighttable">
         <caption>消費度</caption>
         <thead>
           <tr><th>値</th><th>鑑定結果</th></tr>
@@ -282,15 +282,15 @@
     </listitem>
   </varlistentry>
 </variablelist>
-</section> <!-- dq6.item.C4003D -->
+</section> <!-- dq6.items.C4003D -->
 
-<section id="dq6.item.methods">
+<section id="dq6.items.methods">
 <title>アイテム構造体メソッド</title>
 <para>
 以下に <varname>$C4003D</varname> 構造体の各属性を参照するためのサブルーチンの一覧を示す。
 アイテム ID の他に、他の構造体（仲間キャラクター構造体）をも呼び出し側が指定する必要があるものについては掲載しない。
 </para>
-<table id="table.dq6.item.methods" class="lighttable">
+<table id="table.dq6.items.methods" class="lighttable">
   <caption>アイテム構造体メソッド</caption>
   <thead>
     <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>出力</th><th>機能</th></tr>
@@ -333,5 +333,5 @@ C1/FB38:    006719      BRK #$1967              ; message #$1967: [DE]ああ こ
 <para>
 なお、この表にないアイテム属性の参照には、<varname>$C92C39</varname> 等の汎用の構造体メンバー参照サブルーチンを用いる。
 </para>
-</section> <!-- dq6.item.methods -->
-</section> <!-- dq6.item -->
+</section> <!-- dq6.items.methods -->
+</section> <!-- dq6.items -->
