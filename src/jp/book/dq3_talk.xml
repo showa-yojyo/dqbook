@@ -346,7 +346,7 @@ ROM のアドレス <varname>$C893D4</varname> には次の表で示すような
 <title>例：ルイーダ</title>
 <para>
 ルイーダの処理がどのように指定されているのかを見てみよう。
-本処理の方は <xref linkend="dq3.pub"/> で述べるので、ここでは変身時の処理と透明人間の処理を見る。
+本処理の方は <xref linkend="dq3.luida"/> で述べるので、ここでは変身時の処理と透明人間の処理を見る。
 配列 <varname>$C893D4</varname> をダンプすることで、
 それぞれのコードが <varname>$CDBC2B</varname> および <varname>$CDB6C0</varname> に定義されていることがわかる。
 </para>

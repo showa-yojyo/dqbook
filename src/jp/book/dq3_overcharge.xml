@@ -6,364 +6,62 @@
 ]>
 
 <section id="dq3.overcharge"><?dbhtml filename="dq3_overcharge.html" ?>
-<title>ふっかけ店屋解析</title>
-<indexterm id="term.dq3.overcharge"><primary>ふっかけ店屋</primary><secondary>DQ3</secondary></indexterm>
+<title>ふっかけ店屋</title>
 <para>
-	アッサラームの町には標準価格で商品を売るつもりのない店がある。
-	対応するデバッグメニューの名前にちなみ、これらの店を「ふっかけ店屋」と呼ぶことにする。
-	この節では、ふっかけ店屋を処理するための共通サブルーチンを解析する。
-	値段を店主自ら値切っていく過程が、コードの形でどのように表現されているかが見所だ。
+本節ではアッサラームの街に二軒しかないふっかけ店屋について述べる。
+標準の店屋については <xref linkend="dq3.shops"/> で述べる。
 </para>
 
-<section id="dq3.overcharge.hack">
-<title>解析</title>
+<section id="dq3.overcharge.structure">
+<title>構造に関する構成要素</title>
 <para>
-	各ふっかけ店屋を処理するための<link linkend="dq3.overcharge.hack.C3CF9B">共通サブルーチン</link>は <varname>$C3CF9B</varname> である。
-	このサブルーチンもまた別のサブルーチンをいくつか呼び出す。
-	そのようなサブルーチンのうち、本流の処理を助ける目的専用のものが二つある。
-	一つは、通常の店屋でも用いられる「店屋構造体からメニューを構成するサブルーチン」であり、
-	もう一つがふっかけ店屋専用の
-	<link linkend="dq3.overcharge.hack.C3D0E5">売値の半額を計算するサブルーチン</link> <varname>$C3D0E5</varname> である。
-	以下、共通サブルーチンと半額計算サブルーチンの解析を行って得られた事実を述べる。
+ふっかけ店屋を表現するためのデータ構造は標準的な店屋のそれと変わらない。
+<xref linkend="dq3.shops.structure.C30900"/> を参照。
+</para>
+<para>
+データによると、北西の店舗が武器と防具の店に、西の店舗は道具屋にそれぞれ分類されていることがわかる。
+</para>
+</section> <!-- dq3.overcharge.structure -->
+
+<section id="dq3.overcharge.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+ふっかけ店屋に関係する振る舞いを述べる。
 </para>
 
-<section id="dq3.overcharge.hack.C3CF9B">
-<title>ふっかけ店屋共通サブルーチン</title>
+<section id="dq3.overcharge.behavior.C3CF9B">
+<title>サブルーチン <varname>$C3CF9B</varname>: ふっかけ店屋</title>
 <para>
-	各ふっかけ店屋の処理を実装しているサブルーチン <varname>$C3CF9B</varname> における制御の流れを記す。
-	台詞を表示するサブルーチンは一律 <varname>$C1A92E</varname> を用いるようなので、
-	これを利用して、逆アセンブルコードから処理の意味を読み解く。
+ふっかけ店屋の処理を実装しているのはサブルーチン <varname>$C1A92E</varname> だ。
+以下にこの処理の要点を挙げる。
 </para>
 <itemizedlist>
-	<listitem>
-		<para>
-			店屋共通処理でも利用するサブルーチン <varname>$C3CEC6</varname> を呼び出し、
-			商品リストデータを初期化する。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			台詞 (ID: <literal>#$0A0B</literal>)
-			「おお！ わたしの ともだち！ お待ちしておりました」
-			を店屋に言わせる。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			はい・いいえウィンドウを表示して、プレイヤーの入力を待つ。
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					キャンセルボタンで抜けた⇒【そう言わずに】へ制御を進める。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					「はい」⇒【メニュー表示】へ制御を進める。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					それ以外⇒そのまま進む。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-	<listitem>
-		<para>【そう言わずに】</para>
-		<para>
-			店屋に台詞 (ID: <literal>#$0A0C</literal>) 「まあそういわずに～」を言わせる。
-			次に制御を進める。
-		</para>
-	</listitem>
-	<listitem>
-		<para>【メニュー表示】</para>
-		<para>
-			店屋の商品リストをウィンドウに表示し、プレイヤーの入力を待つ。
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					キャンセルボタンで抜けた⇒
-					店屋に台詞 (ID: <literal>#$0A0D</literal>) 
-					「おや？ お気にめしませんでした？」を言わせる。
-					そして、制御を【終了】へ進める。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					それ以外⇒制御を【売値初期化】へ進める。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-	<listitem>
-		<para>【売値初期化】</para>
-		<para>
-			この時点で、<varname>A</varname> レジスタにプレイヤーが選択した商品のリスト番号がロード済みである。
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<code>$33DA = $2BBA,Y</code> (where <code>Y == A * 2</code>) を行う。これは商品のアイテム構造体 ID を示す。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<code>$33E2 = $2BCA,Y</code> (where <code>Y == A * 3</code>) を行う。これは上記アイテムの標準価格を示す。
-					ただし、両辺を <literal>4</literal> バイト長の整数とみなすように処理する。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<code>$33E2 &lt;&lt;= 4</code> を行う。
-					ここでも両辺を <literal>4</literal> バイト長の整数とみなすように処理する。
-					すなわち、標準価格を <literal>16</literal> 倍にした金額をセットする。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					ウィンドウに台詞を表示するための用のメモリに <varname>$33E2</varname> の値をストアする。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-	<listitem>
-		<para>
-			店屋に台詞 (ID: <literal>#$0A0E</literal>) 
-			「おお！ お目が高い！ ○○ゴールドですが～」を言わせる。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			はい・いいえウィンドウを表示して、プレイヤーの入力を待つ。
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					キャンセル抜け or いいえ ⇒【半額負ける：一回目】へ制御を進める。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					はい ⇒【お買い上げ】へ制御を進める。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-	<listitem>
-		<para>【半額負ける：一回目】</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<link linkend="dq3.overcharge.hack.C3D0E5">サブルーチン <varname>$D0E5</varname></link> を呼び出して売値の半額を計算する。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					店屋に台詞 (ID: <literal>#$0A0F</literal>)
-					「おお お客さん とても 買いもの上手～」を言わせる。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					はい・いいえウィンドウを表示して、プレイヤーの入力を待つ。
-				</para>
-				<itemizedlist>
-					<listitem>
-						<para>
-							キャンセル抜け or いいえ ⇒【半額負ける：二回目】へ制御を進める。
-						</para>
-					</listitem>
-					<listitem>
-						<para>
-							はい ⇒【お買い上げ】へ制御を進める。
-						</para>
-					</listitem>
-				</itemizedlist>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-
-	<listitem>
-		<para>【半額負ける：二回目】</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<link linkend="dq3.overcharge.hack.C3D0E5">サブルーチン <varname>$D0E5</varname></link> を呼び出して売値の半額を計算する。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					店屋に台詞 (ID: <literal>#$0A14</literal>)
-					「おお これいじょう まけると わたし おおぞんします！」を言わせる。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					はい・いいえウィンドウを表示して、プレイヤーの入力を待つ。
-				</para>
-				<itemizedlist>
-					<listitem>
-						<para>
-							キャンセル抜け or いいえ ⇒【半額負ける：三回目】へ制御を進める。
-						</para>
-					</listitem>
-					<listitem>
-						<para>
-							はい ⇒【お買い上げ】へ制御を進める。
-						</para>
-					</listitem>
-				</itemizedlist>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-
-	<listitem>
-		<para>【半額負ける：三回目】</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<link linkend="dq3.overcharge.hack.C3D0E5">サブルーチン <varname>$D0E5</varname></link> を呼び出して売値の半額を計算する。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					店屋に台詞 (ID: <literal>#$0A10</literal>)
-					「おお あなた ひどいひと！わたしに 首つれと いいますか？」を言わせる。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					はい・いいえウィンドウを表示して、プレイヤーの入力を待つ。
-				</para>
-				<itemizedlist>
-					<listitem>
-						<para>
-							キャンセル抜け or いいえ ⇒【諦める】へ制御を進める。
-						</para>
-					</listitem>
-					<listitem>
-						<para>
-							はい ⇒ 次の【お買い上げ】へ制御を進める。
-						</para>
-					</listitem>
-				</itemizedlist>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-
-	<listitem>
-		<para>【お買い上げ】</para>
-		<para>
-			プレイヤーが買うことを決めた直後の処理である。
-			<varname>$33E2</varname> に売値がセット済みである。
-		</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					<code>$70 = $33E2</code> の後、汎用サブルーチン <varname>$C45B66</varname> を呼び出して、
-					パーティの所持金を <varname>$70</varname> ゴールド分減らすことを試みる。
-				</para>
-				<itemizedlist>
-					<listitem>
-						<para>
-							所持金不足の場合、
-							店屋に台詞 (ID: <literal>#$0A12</literal>)
-							「おお！ でも おカネが たりません！」を言わせる。
-							そして、制御を【終了】へ進める。
-						</para>
-					</listitem>
-				</itemizedlist>
-			</listitem>
-			<listitem>
-				<para>
-					店屋に台詞 (ID: <literal>#$0A13</literal>)
-					「おお！ 買ってくれますか？」を言わせる。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					そのアイテムをパーティの持ち物に追加するために、
-					<varname>A</varname> レジスタに <varname>$33DA</varname> すなわち商品のアイテム構造体 ID をロードして、
-					汎用サブルーチン <varname>$C44824</varname> を呼び出す。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					制御を【終了】へ進める。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-
-	<listitem>
-		<para>【諦める】</para>
-		<para>店屋がふっかけることを諦めた状態の処理である。</para>
-		<itemizedlist>
-			<listitem>
-				<para>
-					店屋に台詞 (ID: <literal>#$0A11</literal>)
-					「そうですか。ざんねんです」を言わせる。
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					制御を次の【終了】へ進める。
-				</para>
-			</listitem>
-		</itemizedlist>
-	</listitem>
-
-	<listitem>
-		<para>【終了】</para>
-		<para>このサブルーチンの呼び出し元に制御を戻す。</para>
-	</listitem>
+  <listitem>
+    <para>
+      商品リストの初期化には標準の店屋処理でも利用されるサブルーチン <varname>$C3CEC6</varname> を利用する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      最初の店員の質問にどのように応じても、結局商品を見せられるはめになる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      商品を選択すると初めて価格を標準価格の 16 倍を計算する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      このあと最大 4 回ディスカウントに応じてくれるが、どの段階で買い上げてもよい。なお、所持金不足のときには店員が驚く。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      標準店屋とは異なり、一度物品を購入すると引き続き何かをするわけではなく、店屋処理全体が終了する。
+    </para>
+  </listitem>
 </itemizedlist>
-<para>
-	初め、ふっかけ店屋は商品を標準価格の <literal>16</literal> 倍の金額で客に売りつけようとする。
-	客がそれを拒むと、店主は売値を市価の <literal>8</literal> 倍、<literal>4</literal> 倍、
-	そして <literal>2</literal> 倍へと値段を大幅に下げてくる。
-	この値段調整の方法論は理に適っている。
-</para>
-</section> <!-- dq3.overcharge.hack.C3CF9B -->
-
-<section id="dq3.overcharge.hack.C3D0E5">
-<title>半額計算サブルーチン</title>
-<para>
-	サブルーチン <varname>$C3D0E5</varname> は、
-	<link linkend="dq3.overcharge.hack.C3CF9B">共通サブルーチン <varname>$C3CF9B</varname></link>
-	から呼び出されるサブルーチンである。
-	短い処理なので、すべてのコードを以下に掲載する。
-</para>
-<programlisting>
-C3/D0E5:    4EE433      LSR $33E4      <co id="dq3.overcharge.co.1" />
-C3/D0E8:    6EE233      ROR $33E2
-C3/D0EB:    ADE333      LDA $33E3      <co id="dq3.overcharge.co.2" />
-C3/D0EE:    8D82BE      STA $BE82
-C3/D0F1:    ADE233      LDA $33E2
-C3/D0F4:    8D81BE      STA $BE81
-C3/D0F7:    60          RTS
-</programlisting>
-<calloutlist>
-  <callout arearefs="dq3.overcharge.co.1">
-    <para>
-      このサブルーチンコードは、<varname>A</varname> レジスタが <literal>16</literal> ビットモードの状態で呼び出されることを暗黙的に事前条件としている。
-      最初の連続する <code>LSR, ROR</code> 命令実行により、<literal>4</literal> バイト長で算術処理
-      <code>$33E2 &gt;&gt;= 1</code> を行う。
-    </para>
-  </callout>
-  <callout arearefs="dq3.overcharge.co.2">
-    <para>
-      <literal>3</literal> バイト長で <code>$BE81 = $33E2</code> を処理する。
-    </para>
-  </callout>
-</calloutlist>
-<para>
-	<varname>$33E2</varname> は店屋のふっかける金額であり、
-	<varname>$BE81</varname> は台詞をウィンドウに表示するために使うものである。
-</para>
-</section> <!-- dq3.overcharge.hack.C3D0E5 -->
-</section> <!-- dq3.overcharge.hack -->
+</section> <!-- dq3.overcharge.behavior.C3CF9B -->
+</section> <!-- dq3.overcharge.behavior -->
 </section> <!-- dq3.overcharge -->

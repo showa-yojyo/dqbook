@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.inns"><?dbhtml filename="dq3_inns.html" ?>
+<title>宿屋</title>
+<para>
+本節では宿屋について述べる。
+</para>
+
+<section id="dq3.inns.structure">
+<title>構造に関する構成要素</title>
+<para>
+宿屋を表現する型オブジェクトおよび、宿屋の台詞配列群から構成されている。
+</para>
+
+<section id="dq3.inns.structure.C30A98">
+<title>構造体 <varname>$C30A98</varname>: 宿屋</title>
+<para>
+アドレス <varname>$C30A98</varname> に宿屋オブジェクトが配列されている。
+</para>
+<table id="table.dq3.C30A98" class="lighttable">
+  <caption>構造体 $C30A98</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$03FF</literal></td><td>宿代</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$07FC</literal></td><td>位置</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0080</literal></td><td>（未使用）</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>宿代</term>
+    <listitem>
+      <para>
+        宿代とは、一人当たりの宿泊費を値とする属性だ。
+        実際の宿泊費はこの値にパーティー内の生存者数を乗じた値となる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>位置</term>
+    <listitem>
+      <para>
+        位置とは、この宿屋に宿泊したあとにパーティーがどこへ移動させられるかを表すオブジェクトの ID を値とする属性だ。
+        TODO: <varname>$C89BB7</varname> の節を参照する。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.inns.structure.C30A98 -->
+
+<section id="dq3.inns.structure.C3D2C3">
+<title>配列 <varname>$C3D2C3</varname>: 最初の挨拶</title>
+<para>
+配列 <varname>$C3D2C3</varname> の要素はメッセージ ID であり、配列長は 2 しかない。
+「おおごえ」で現れる宿屋またはすごろくの宿屋の処理において、
+宿屋の来店挨拶の台詞として参照されるものだ。
+</para>
+</section> <!-- dq3.inns.structure.C3D2C3 -->
+
+<section id="dq3.inns.structure.C3D2C7">
+<title>配列 <varname>$C3D2C7</varname>: 宿泊費の案内</title>
+<para>
+配列 <varname>$C3D2C7</varname> の要素はメッセージ ID であり、配列長は 2 しかない。
+「おおごえ」で現れる宿屋またはすごろくの宿屋の処理において、
+宿泊費を告げる台詞として参照されるものだ。
+</para>
+</section> <!-- dq3.inns.structure.C3D2C7 -->
+
+<section id="dq3.inns.structure.C3D2CB">
+<title>配列 <varname>$C3D2CB</varname>: 宿泊しないときの台詞</title>
+<para>
+配列 <varname>$C3D2CB</varname> の要素はメッセージ ID であり、配列長は 2 しかない。
+「おおごえ」で現れる宿屋またはすごろくの宿屋の処理において、
+パーティーが宿泊しないときの宿屋の台詞として参照されるものだ。
+</para>
+</section> <!-- dq3.inns.structure.C3D2CB -->
+
+<section id="dq3.inns.structure.C3D2CF">
+<title>配列 <varname>$C3D2CF</varname>: 所持金不足のときの台詞</title>
+<para>
+配列 <varname>$C3D2CF</varname> の要素はメッセージ ID であり、配列長は 2 しかない。
+「おおごえ」で現れる宿屋またはすごろくの宿屋の処理において、
+パーティーが利用しようとしたが、所持金が不足しているときの宿屋の反応の台詞として参照されるものだ。
+</para>
+</section> <!-- dq3.inns.structure.C3D2CF -->
+
+<section id="dq3.inns.structure.C3D2D3">
+<title>配列 <varname>$C3D2D3</varname>: 宿泊するときの台詞</title>
+<para>
+配列 <varname>$C3D2D3</varname> の要素はメッセージ ID であり、配列長は 2 しかない。
+「おおごえ」で現れる宿屋またはすごろくの宿屋の処理における、
+パーティーが宿泊する際の宿屋の台詞として参照されるものだ。
+</para>
+</section> <!-- dq3.inns.structure.C3D2D3 -->
+
+<section id="dq3.inns.structure.C3D2D7">
+<title>配列 <varname>$C3D2D7</varname>: 宿泊後の台詞</title>
+<para>
+配列 <varname></varname> の要素はメッセージ ID であり、配列長は 2 しかない。
+「おおごえ」で現れる宿屋またはすごろくの宿屋の処理における、
+パーティーが宿泊した後の宿屋の台詞として参照されるものだ。
+</para>
+</section> <!-- dq3.inns.structure.C3D2D7 -->
+</section> <!-- dq3.inns.structure -->
+
+<section id="dq3.inns.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+本作では宿屋の処理は三種類存在する。
+街中にある宿屋、商人が使える「おおごえ」でフィールドで出現することがある宿屋、そして各すごろくにある宿屋マスの宿屋である。
+いずれも、まず宿屋店主の挨拶があり、宿代を提示して……という一連の振る舞いが共通している。
+ここではそれらの共通処理について説明していく。
+</para>
+
+<section id="dq3.inns.behavior.C3D0F8">
+<title>サブルーチン <varname>$C3D0F8</varname>: 普通の宿屋</title>
+<para>
+街中にある宿屋は共通して <varname>$C3D0F8</varname> サブルーチンを呼び出すことで実装してある。
+このサブルーチンを呼び出す前に A レジスターに宿屋 ID をセットしておく。
+</para>
+</section> <!-- dq3.inns.behavior.C3D0F8 -->
+
+<section id="dq3.inns.behavior.C3D1D6">
+<title>サブルーチン <varname>$C3D1D6</varname>: 「おおごえ」で現れる旅の宿屋</title>
+<para>
+フィールドで「おおごえ」を使うと出現する旅の宿屋は、
+サブルーチン <varname>$C3D1D6</varname> で実装されている。
+このサブルーチンは X レジスターに 0 をセットしてから、
+旅・すごろく宿屋共通サブルーチンを呼び出すだけで終わる。
+</para>
+</section> <!-- dq3.inns.behavior.C3D1D6 -->
+
+<section id="dq3.inns.behavior.C3D1F1">
+<title>サブルーチン <varname>$C3D1F1</varname>: すごろくの宿屋</title>
+<para>
+すごろくの宿屋のマスに止まると、画面がいきなり変わって宿屋の処理に突入する。
+セリフ部分からの処理はサブルーチン <varname>$C3D1F1</varname> で実装されている。
+このサブルーチンは X レジスターに 2 をセットしてから、
+旅・すごろく宿屋共通サブルーチンを呼び出すだけで終わる。
+</para>
+</section> <!-- dq3.inns.behavior.C3D1F1 -->
+
+<section id="dq3.inns.behavior.C3D20C">
+<title>サブルーチン <varname>$C3D20C</varname>: 旅・すごろく宿屋共通</title>
+<para>
+サブルーチン <varname>$C3D20C</varname> は、旅の宿屋とすごろくの宿屋の実装である。
+このサブルーチンを呼び出す前に A レジスターと X レジスターに宿屋 ID と宿屋分類（旅かすごろくか）をそれぞれセットしておく。
+</para>
+<para>
+処理の特徴を以下に列挙する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      宿屋のセリフ表示をサブルーチン <varname>$C1A95A</varname> 呼び出しで実現している。
+      これは A レジスターにメッセージ ID をセットしてから呼び出すものである。
+      例えば最初の台詞は <code>LDA $C3D2C3,X</code> でメッセージ ID をセットする（先述）。
+      旅の宿屋とすごろくの宿屋の違いは、
+      この <code>LDA</code> 命令の X の違いに他ならない。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      宿屋の第一声のセリフは昼夜を問わない。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.inns.behavior.C3D20C -->
+</section> <!-- dq3.inns.behavior -->
+</section> <!-- dq3.inns -->

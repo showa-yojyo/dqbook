@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+<section id="dq6.forges"><?dbhtml filename="dq6_forges.html" ?>
+<title>おしゃれなカジヤ</title>
+<para>
+本節ではおしゃれなカジヤに関係するデータ構造と処理について述べる。
+</para>
+
+<section id="dq6.forges.structure">
+<title>データ</title>
+<para>
+おしゃれなカジヤに関係があるデータの構造について記す。
+</para>
+
+<section id="dq6.forges.structure.C58ECF">
+<title>対応 <varname>$C58ECF</varname>: 鍛造前後のアイテムの対応</title>
+<para>
+カジヤが鍛え直すことのできる装備品のアイテム ID の対応関係がアドレス <varname>$C58ECF</varname> に指定されている。
+これは鍛造前後のアイテム ID の組の配列という形式で表現されている。
+念のため対応表の各項目のメモリレイアウトを示す：
+</para>
+<table id="table.dq6.C58ECF" class="lighttable">
+  <caption>対応表 $C58ECF</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00FF</literal></td><td>鍛造前のアイテム</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00FF</literal></td><td>鍛造後のアイテム</td></tr>
+  </tbody>
+</table>
+<para>
+データを <xref linkend="appendix.b"/> に収録している。アイテムデータも併せて参考にして欲しい。
+</para>
+</section> <!-- dq6.forges.structure.C58ECF -->
+</section> <!-- dq6.forges.structure -->
+
+<section id="dq6.forges.behavior">
+<title>処理手順</title>
+
+<section id="dq6.forges.behavior.C1F9F8">
+<title>サブルーチン <varname>$C1F9F8</varname>: おしゃれなカジヤ共通処理</title>
+<para>
+以下、要点を示す：
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      カジヤが<quote>こりゃひどい</quote>と評する条件は、対象アイテムのかっこよさ属性値が 15 未満であることだ。かっこよさが負の場合も含む。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      カジヤの手間賃は鍛造前後のアイテムの価格属性値の差の 4 倍となる。減算では鍛造後のアイテム価格から鍛造前のアイテム価格を引く。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      かっこよさの変化に関するメッセージは、キャラクターが鍛造直前に対象アイテムを装備していたかどうかで異なる。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq6.forges.behavior.C1F9F8 -->
+</section> <!-- dq6.forges.behavior -->
+</section> <!-- dq6.forges -->

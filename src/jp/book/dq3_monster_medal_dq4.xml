@@ -29,7 +29,7 @@
 	<listitem>
 		<para>
 			<literal>GBC</literal> エミュレーター。ただし、非圧縮セーブデータファイルを生成するものがよい。
-			よくわからなければ、<xref linkend="tools.emulator" /> を当たって欲しい。
+			よくわからなければ、<xref linkend="tools.emulators" /> を当たって欲しい。
 		</para>
 	</listitem>
 	<listitem>

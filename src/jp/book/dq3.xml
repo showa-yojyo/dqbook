@@ -19,46 +19,45 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_text.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_string.xml"/>
 
+<!-- RAM -->
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_combatants.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_characters.xml"/>
+
 <!-- BANK $C2 -->
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_monster.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_caption.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_monsters.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_commands.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_descriptions.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_damage.xml"/>
 
 <!-- BANK $C3 -->
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_window.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_king.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_sistersave.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_shop.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_windows.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_kings.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_shops.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_overcharge.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_inn.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_church.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_pub.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_entry.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_inns.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_chapels.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_luida.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_registration.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_bank.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_classchange.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_dharma.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_rename.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_matchmake.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_stadium.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_tipster.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_medal.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_horoscope.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_medals.xml"/>
 
 <!-- BANK $C4 -->
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_item.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_class.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_character.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_items.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_vocations.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_personalities.xml"/>
 
 <!-- BANK $C8 -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_talk.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_transition.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_search.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_encounter.xml"/>
 
 <!-- BANK $CB -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_pond.xml"/>
-
-<!-- YET MODIFIED DOCS
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_scene.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_act.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_zodiac.xml"/>
-  -->
 
 <!-- DEPRECATED DOCS -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_gallery.xml"/>

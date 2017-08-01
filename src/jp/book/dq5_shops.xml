@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq5.shops"><?dbhtml filename="dq5_shops.html" ?>
+<title>店屋</title>
+<indexterm id="term.dq5.shops"><primary>店屋</primary><secondary>DQ5</secondary></indexterm>
+<para>
+本節では店屋共通処理について見ていく。
+最初にプレイヤーが街にいる人物の誰かに「はなす」とき、それが何らかの店屋であれば、
+その地域と店の種類によって定型処理を実行する仕組みについて簡単に述べる。
+次に、有効な店屋の種類それぞれについて、処理の概要を述べる。
+最後に、店屋処理が参照する定数テーブルを可能な限り示す。
+</para>
+
+<section id="dq5.shops.keepers">
+<title>店屋処理解析</title>
+<para>
+店屋系の人物に対して「はなす」コマンドを実行すると、その店屋の系統に応じて処理が決定される。
+その仕掛けとは、サブルーチン <varname>$06DBD2</varname> から呼び出されるサブルーチンのための
+ジャンプテーブル <varname>$06DBDB</varname> だ。
+まずは呼び出し側サブルーチンのコードを次に示す：
+</para>
+<programlisting>
+06/DBD2:    0A          ASL A
+06/DBD3:    AA          TAX
+06/DBD4:    FCDBDB      JSR ($DBDB,X)       ; 店屋系
+06/DBD7:    9C200F      STZ $0F20           ; 店屋タイプをゼロにしておく
+06/DBDA:    60          RTS
+</programlisting>
+<para>
+この時点までに店屋の種類に対応する値がジャンプテーブルのインデックスとして設定されている。
+このジャンプテーブルが示すサブルーチンを解読することで、それぞれが店屋のどの種類の処理なのかが判明する。
+次に示すのは、そのようにして得られたジャンプテーブルの詳細だ：
+</para>
+<programlisting>
+06/DBDB:    FDDB        ; ダミーコード
+06/DBDD:    04DC        ; 武器屋
+06/DBDF:    1FE0        ; 道具屋
+06/DBE1:    26E0        ; 防具屋
+06/DBE3:    DEE4        ; 預かり所
+06/DBE5:    3EE0        ; 教会（神父）
+06/DBE7:    84E3        ; 宿屋（標準）
+06/DBE9:    5AE9        ; モンスターじいさん
+06/DBEB:    2EE0        ; よろず屋
+06/DBED:    F7EB        ; メダル王
+06/DBEF:    01ED        ; ルイーダの店
+06/DBF1:    34EE        ; カジノキャッシャー
+06/DBF3:    70EF        ; カジノ景品交換所
+06/DBF5:    E8F1        ; スライムレース
+06/DBF7:    26F2        ; 格闘場
+06/DBF9:    36E0        ; 教会（尼）
+06/DBFB:    75E3        ; 宿屋（フランク）
+</programlisting>
+<para>
+以下、店屋の種類ごとにそれぞれの処理の急所を記していく。
+読者自身でコードを解読するのであれば、次に挙げる記述やデータを利用して欲しい：
+</para>
+<itemizedlist>
+  <listitem><para><xref linkend="dq5.brk"/></para></listitem>
+  <listitem><para><xref linkend="dq5.accessor"/></para></listitem>
+  <listitem><para><ulink url="./data/dq5_07D77C_text_travel.txt"/></para></listitem>
+</itemizedlist>
+
+<section id="dq5.shops.keepers.06DBFD">
+<title>ダミーコード</title>
+<para>
+製品版プログラムはこのコードをカバーしない。便宜上存在するだけのダミーコードだ。
+短いので全文引用した上で、適宜コメントを付す：
+</para>
+<programlisting>
+06/DBFD:    0095        BRK #$95            ; window #$00: (open)
+06/DBFF:    00
+06/DC00:    0098        BRK #$98            ; message #$01CC: その方向には ダレモイナイ。
+06/DC02:    CC
+06/DC03:    60          RTS
+</programlisting>
+</section> <!-- dq5.shops.keepers.06DBFD -->
+
+<section id="dq5.shops.keepers.06DC04">
+<title>武器屋</title>
+<para>
+武器屋の処理は <varname>$DC04</varname> から始まり、かなりの分量のコードからなる。
+コードを逐一解説する紙幅がないので、要点に絞って解説する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      当サブルーチンの大部分は他の店屋の処理と共有されている。
+      この区別をするために変数 <varname>$0F20</varname> を参照する。
+      この値が影響するのは、メッセージウィンドウに表示する台詞と取り扱う品物が何であるかだ。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      補助サブルーチン <varname>$DFC4</varname> で店屋に喋らせる。
+      基本的には、台詞として ID の値が直前の LDA 命令のオペランドの 4 倍の値プラス <varname>$0F20</varname> の値のメッセージを出力する。
+      不規則的に別の台詞を適用する場合があるが、解読の困難とはならない。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      補助サブルーチン <varname>$DFBA</varname> で別バンクに定義されている店屋の品物データを参照する。
+      変数 <varname>$0F20</varname> のほかに変数 <varname>$0F25</varname> の設定が必要。
+      後者は店舗の立地地域を示す ID の値。詳しくは後述する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      補助サブルーチン <varname>$F5E9</varname> で所持金過不足テスト兼所持金からの支払いを処理する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「かいにきた」で品物を受け渡すときの台詞は、対称キャラクターの状態が
+      <orderedlist>
+        <listitem>
+          <para>死んでいるか、</para>
+        </listitem>
+        <listitem>
+          <para>マヒしているか、</para>
+        </listitem>
+        <listitem>
+          <para>馬車にいるか、</para>
+        </listitem>
+        <listitem>
+          <para>それ以外</para>
+        </listitem>
+      </orderedlist>
+      かどうかで決まる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「かいにきた」で品物を受け渡す対象キャラクターの所持品数が限界かどうかの判定がかなり後ろにある。
+      具体的には所持金過不足テストの直前。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「うりにきた」処理における下取り価格の評価はサブルーチン <varname>$06DF5B</varname> 呼び出しで行う。
+      より厳密にはサブルーチン <varname>$DF75</varname> で計算する。
+      周知のように市価の 3/4 に等しいわけだが、コードとしてはシフト演算と加算のみでこれを求める。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「うりにきた」については、パーティーの所持金が上限付近でも買い取る。
+      つまり、溢れた分の金額については失われる。これは預かり所やカジノにおけるゴールドやコインのやり取りとは挙動が異なる。
+    </para>
+  </listitem>
+</itemizedlist>
+
+<para>
+先ほど後回しにしておいた、店屋の商品定義データについて以下に説明する。
+武器屋だけでなく、アイテム系店屋はどれもが店の品揃えを保持するデータと対応付けられている。
+最初に店の種別とデータアドレスとの対応表がアドレス <varname>$04FBD5</varname> にあり、それを最初に参照する。
+この対応表については短いのでコードを引用する：
+</para>
+<programlisting>
+04/FBD5:    DDFB        ; 道具屋
+04/FBD7:    33FC        ; 防具屋
+04/FBD9:    ABFC        ; 武器の店
+04/FBDB:    2DFD        ; よろず屋
+</programlisting>
+<para>
+それから店のある地域というか、ルーラの呪文でも使われる ID をキーとした探索操作によって、対応データの格納位置を ROM から特定する。
+対応データの構造が次のような不定長データの配列であることを踏まえて、その店固有の商品群を参照する：
+</para>
+<table id="table.dq5.shops.structure" class="lighttable">
+  <caption>店屋構造体</caption>
+  <thead>
+    <tr>
+      <th>オフセット</th>
+      <th>意味</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td>地域 ID</td></tr>
+    <tr><td><literal>#$01</literal></td><td>商品のアイテム ID</td></tr>
+    <tr><td>...</td><td>...</td></tr>
+    <tr><td></td><td><literal>#$FF</literal></td></tr>
+  </tbody>
+</table>
+</section> <!-- dq5.shops.keepers.06DC04 -->
+
+<section id="dq5.shops.keepers.06E01F">
+<title>道具屋</title>
+<para>
+道具屋の処理は武器屋のコードと共有している。
+店屋種類を表す変数 <varname>$0F20</varname> にゼロをセットし、共有部分の最初の命令にジャンプする。
+ちなみにこの値がゼロであるということは、解読時に台詞の流れを追いやすいことを意味する。
+</para>
+<programlisting>
+06/E01F:    7B          TDC                 ; 0: 道具屋
+06/E020:    8D200F      STA $0F20           ; 店屋タイプ
+06/E023:    82E3FB      BRL $DC09           ; 共通部分へジャンプ
+</programlisting>
+</section> <!-- dq5.shops.keepers.06E01F -->
+
+<section id="dq5.shops.keepers.06E026">
+<title>防具屋</title>
+<para>
+防具屋の処理もまた、武器屋のコードと共有している。
+店屋種類を表す変数 <varname>$0F20</varname> に 1 をセットしてから、共有部分の最初の命令にジャンプする。
+</para>
+</section> <!-- dq5.shops.keepers.06E026 -->
+
+<section id="dq5.shops.keepers.06E02E">
+<title>よろず屋</title>
+<para>
+よろず屋の処理もまた、武器屋のコードと共有している。
+店屋種類を表す変数 <varname>$0F20</varname> に 3 をセットしてから、共有部分の最初の命令にジャンプする。
+</para>
+</section> <!-- dq5.shops.keepers.06E02E -->
+
+<section id="dq5.shops.keepers.06E036">
+<title>教会（尼）</title>
+<para>
+教会処理の尼版は、次に説明する神父版とコードを共有している。
+台詞のメッセージ ID を調整するための変数 <varname>$0F2B</varname> に 1 をセットしてから、共有部分の最初の命令にジャンプする。
+</para>
+</section> <!-- dq5.shops.keepers.06E036 -->
+
+<section id="dq5.shops.keepers.06E03E">
+<title>教会（神父）</title>
+<para>
+教会の処理はサブルーチンとしては <varname>$E03E</varname> から始まるかなり長いコードで構成されている。
+以下に要点のみを羅列する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      補助サブルーチン <varname>$E367</varname> で神父または尼に喋らせる。
+      基本的には、台詞として ID の値が直前の LDX 命令のオペランドの値プラス <varname>$0F2B</varname> の値のメッセージを出力する。
+      これを言う機会がなかなかないのでここに書いてしまうが、神父は「寄付」と言うが尼は「寄附」と言う。
+      なぜ表記が揺れるのだろう。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「おいのりをする」でゲームを終わる場合、アドレス <varname>$06E0F9</varname> でプログラムカウンターが停止する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「おいのりをする」による冒険の書保存処理はサブルーチン <varname>$038D63</varname> 呼び出しで行われると思われる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「いきかえらせる」の寄付金は、対象キャラクターのレベルに 10 を乗じた値に等しい。
+      これを補助サブルーチン <varname>$F625</varname> で計算する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      寄付の意志確認、寄付金の過不足テスト、およびその支払いは補助サブルーチン <varname>$E322</varname> 呼び出しで実現する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「いきかえらせる」によるキャラクター状態の更新はサブルーチン <varname>$06E18C</varname> 呼び出しによる。
+      これによりキャラクターの HP と生存フラグだけでなく MP と呪いフラグ各種および毒フラグ各種も回復する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「おつげをきく」においてはキャラクター構造体にあらかじめ格納された二種類の経験値の差を表示する。
+      <xref linkend="dq5.characters"/> 参照。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「のろいをとく」の寄付金は、対象キャラクターのレベルに 10 を乗じた値に等しい。
+      先ほどとは異なり、ここで計算する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「のろいをとく」によるキャラクター状態の回復処理は補助サブルーチン <varname>$E2A6</varname> で行う。
+      そこでは HP に対する呪いと MP に対する呪いの両方を回復する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「どくのちりょう」の寄付金は 5 ゴールドだ。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shops.keepers.06E03E -->
+
+<section id="dq5.shops.keepers.06E375">
+<title>宿屋（フランク）</title>
+<para>
+店主がフランクな宿屋の処理は、次に説明する標準的な宿屋のそれとコードを共有している。
+台詞のメッセージ ID を調整するための変数 <varname>$0F2B</varname> に 7 をセットしてから、共有部分の最初の命令にジャンプする。
+</para>
+</section> <!-- dq5.shops.keepers.06E375 -->
+
+<section id="dq5.shops.keepers.06E384">
+<title>宿屋（標準）</title>
+<para>
+宿屋の処理はサブルーチンとしては <varname>$E384</varname> から始まる。
+思いの外難しいコードを利用しているので、以下に要点を羅列することしかできない：
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      台詞表示は教会処理と同様の方針で実現する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      宿代の計算はサブルーチン <varname>$F563</varname> が行う。
+      そこでは一人あたりの宿代をデータテーブル <varname>$04FD6D</varname> から宿のある地域をキーとして得る。
+      それからその値を馬車を含むパーティー人数と同じ回数の加算により求める。
+      このアルゴリズムの計算時間が定数時間ではなく、線形時間になっている。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      所持金のやりとりはサブルーチン <varname>$F5E9</varname> の呼び出しによる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      パーティー内のキャラクターの回復処理はサブルーチン <varname>$E43A</varname> の呼び出しによる。
+      これは一見して何をする処理なのかわからない（多数のサブルーチン呼び出しを含むため）。
+      サブルーチンは回復処理とは関係のない処理を含んでいる可能性がある。
+    </para>
+  </listitem>
+</itemizedlist>
+<para>
+データテーブル <varname>$04FD6D</varname> の単位構造は次のような単純な値の組だ：
+</para>
+<table id="table.dq5.inn.structure" class="lighttable">
+  <caption>宿屋構造体</caption>
+  <thead>
+    <tr>
+      <th>オフセット</th>
+      <th>意味</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td>地域 ID</td></tr>
+    <tr><td><literal>#$01</literal></td><td>一人当たりの宿代</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq5.shops.keepers.06E384 -->
+
+<section id="dq5.shops.keepers.06E4DE">
+<title>預かり所</title>
+<para>
+預かり所の処理はサブルーチン <varname>$E4DE</varname> に実装されている。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      「あずける＞おかね」において、既に 1,000,000 ゴールドの残高がある場合は、
+      さらなる預金をすることができない。
+      また、これから預金する額と加算して 1,000,000 ゴールドを超えるような場合もいけない。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      サブルーチン <varname>$E928</varname> を呼び出すと、
+      入力ウィンドウで指定した金額を 1000G 単位に換算する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「あずける＞もちもの」において、既に 99 個預けてあるアイテムについては預けることは不可能だ。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      持ち物を預ける際に、持ち主の状態によって店員の台詞が異なるが、
+      この判定基準は武器屋等と同様となっている。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      先に預かり所のデータを更新してから、キャラクターの持ち物データを更新する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「ひきだす＞おかね」において、指定金額と現在の所持金の和が 99,999 を超える場合には引き出し処理を失敗させるのだが、
+      その際の変数比較処理が 3 バイト長にわたるため、やや面倒なことになっている：
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      先に預かり所のデータを更新してから、所持金を更新する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「ひきだす＞ぼうぐ」「ひきだす＞ぶき」「ひきだす＞どうぐ」の各処理の前半部はよく似ているが、
+      在庫がないときの台詞や表示するウィンドウが異なるためにほとんどコピーアンドペーストなコードとなっている。
+      後半部、つまり引き出すアイテムを指定した直後からの処理はコードを共有している。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      引き出したアイテムを受け取るキャラクターが所持品満杯なときは店員がダメ出しをするが、
+      なおかつパーティーがそのキャラクター一人しかいない場合には余分に台詞（何か 売るなり 捨てるなり～）がある。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      引き出したアイテムに装備可能性属性があると、受取人の装備可能性をテストする。
+      結果に応じて店員の台詞を追加で表示する。ただし装備可能であっても、この場で装備することはない。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      他の店屋でのアイテム受け取りと同様に、受け取るキャラクターの状態によって店員の台詞が変化する。
+      テスト順も生存、マヒ、馬車の順で一貫性がある。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      アイテム引き出しにおいても、先に預かり所のデータを更新して、それからキャラクターのデータを更新する。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shops.keepers.06E4DE -->
+
+<section id="dq5.shops.keepers.06E95A">
+<title>モンスターじいさん</title>
+<para>
+モンスターじいさんの処理はサブルーチン <varname>$E95A</varname> に実装されている。
+ただし、ここは馬車が使えるようになってから到達可能となるプログラムコードだ。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      当プログラムバンク内にある（店屋処理以外の）いろいろなサブルーチンが
+      「はい・いいえ」ウィンドウの処理をラップした補助サブルーチン <varname>$EBBC</varname> 
+      を利用するのだが、モンスターじいさんの処理中においてもこれを利用する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「わかれにきた」で仲間モンスターキャラクターを削除することが確定すると、
+      装備品の全てについて預かり所の対応アイテム数を高々 1 だけ増加し、
+      それから仲間モンスターの獲得状況を管理する配列 <varname>$7E29EA</varname> を更新する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「あずけにきた」でじいさんのところに収容できる仲間は 50 頭が上限。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「あずけにきた」で仲間キャラクターを選択すると、まずは彼のモンスターフラグをテストする。
+      それが真ならば、次に彼に対する、モンスターじいさんに預けるのを禁止するかどうかを示すフラグをテストする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      預けられるキャラクターについては、じいさんの台詞のバリエーションに彩りを添えるために生存フラグをテストする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      仲間を預けるときに所持品が預かり所へ送られる理由を説明する条件は、
+      じいさんに預けてあるキャラクターが一頭もいないことだ。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      仲間キャラクターの入れ替えに必要な処理は BRK 命令の特定の番号の処理でカプセル化されている。
+      これは <xref linkend="dq5.accessor"/> の <literal>#$A8</literal> および
+      <literal>#$A9</literal> をラップしており、それぞれ「あずけにきた」と「むかえにきた」に対応する。
+      また、現在パーティーの更新処理と思われるが、サブルーチン <varname>$05D89D</varname> の呼び出しを行う。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      仲間を一頭預けたときに、じいさんが他のモンスターも預かろうか尋ねる条件が不透明。
+      コードを見る限りでは単に二名以上いることをテストするだけで十分だと思われる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「むかえにきた」では、次のどちらかが成り立ってる必要がある。
+      通常のゲーム状況では後者のみを考慮すればよい：
+    </para>
+    <itemizedlist>
+        <listitem>
+          <para>
+            馬車を所有していない場合、パーティー構成人数が 3 未満である。
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            馬車を所有している場合、パーティー構成人数が 8 未満である。
+          </para>
+        </listitem>
+    </itemizedlist>
+  </listitem>
+  <listitem>
+    <para>
+      「むかえにきた」で仲間を追加した直後に、
+      サブルーチン <varname>$21805A</varname> を実行することで、
+      彼のキャラクター構造体オブジェクトの属性である「次のレベルアップ経験値」をセットする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「ようすをみる」は基本的にはウィンドウ処理がほとんどだ。
+      この過程で選択したキャラクターデータが <varname>$7E2040</varname> 系のアドレスに一時的にロードされている気配がある。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shops.keepers.06E95A -->
+
+<section id="dq5.shops.keepers.06EBF7">
+<title>メダル王</title>
+<para>
+メダル王の処理はサブルーチン <varname>$EBF7</varname> に実装されている。
+この処理の特徴を次に列挙する：
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      最初に、パーティーの全員の所持品それぞれから「ちいさなメダル」を取り除きながらメダル王のストックカウンターを増加するという処理がある。
+      これが実行効率を度外視したコードになっていることに注意したい。
+      パーティー全員に「ちいさなメダル」を 12 枚持たせてメダル王に「はなす」と、
+      相当体感時間が長いのではないだろうか。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      褒美品リストはデータとしてよろず屋データ配列に居候しているので、
+      先に述べたように変数 <varname>$0F20</varname> を <literal>#$03</literal> に上書きしてから、
+      店屋データアクセスサブルーチン <varname>$DFBA</varname> を呼び出す。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      褒美品のメダル換算率は配列 <varname>$04FD55</varname> で定義されている。
+      インデックスは褒美メニュー項目に対するそれと一致する。
+    </para>
+<programlisting>
+04/FD55:    05  ;  5 せんしのパジャマ
+04/FD56:    0A  ; 10 ふしぎなボレロ
+04/FD57:    10  ; 16 きせきのつるぎ
+04/FD58:    15  ; 21 しんぴのよろい
+04/FD59:    1E  ; 30 はやぶさのけん
+04/FD5A:    2B  ; 43 メタルキングのたて
+</programlisting>
+  </listitem>
+  <listitem>
+    <para>
+      褒美品の受け渡しでは、受け取るキャラクターの所持品を更新して、
+      それからメダル王のメダル残高を更新する。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shops.keepers.06EBF7 -->
+
+<section id="dq5.shops.keepers.06ED01">
+<title>ルイーダの店</title>
+<para>
+ルイーダの店の処理はサブルーチン <varname>$ED01</varname> に実装されている。
+この処理の特徴を次に列挙する：
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      「なかまをはずす」の選択キャラクターの属性や状態で、ルイーダの応答内容が変化する。
+      まず、属性として「ルイーダに預けるの禁止」フラグが真の者については、さらに追加で
+      彼が人間かモンスターかをテストする。それによりルイーダの台詞が異なる。
+      次に、外したい仲間が死亡の場合、モンスターじいさんとは対照的に預けられない。
+      最後に、外したい仲間が馬車内にいるか否かで、台詞を使い分ける。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      仲間をルイーダに預けるときのデータ更新は BRK 命令処理となる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      仲間をルイーダに預けると、その人物に対応したフラグを更新する処理が入る。
+      サブルーチン <varname>$2981CB</varname> 呼び出しはそれを実行する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      「なかまを くわえる」では、モンスターじいさんの「むかえにきた」同様のポリシーがある。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      仲間が加わると、その人物に対応したフラグを更新するために、
+      サブルーチン <varname>$298190</varname> を呼び出す。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      ルイーダコマンドのどちらの処理においても、おそらく現在のパーティー情報を更新するために、
+      一人分の入れ替えの最後にサブルーチン <varname>$05D89D</varname> を呼び出す。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shops.keepers.06ED01 -->
+
+<section id="dq5.shops.keepers.06EE34">
+<title>カジノキャッシャー</title>
+<para>
+カジノキャッシャーはサブルーチン <varname>$EE34</varname> に実装されている。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      補助サブルーチン <varname>$EEC3</varname> では、プレイヤーが入力したコイン枚数を購入するのに必要なゴールドを計算する。
+      コードを読むと、文字列的データから十進数表現だと桁数が大きくなる値を処理することが面倒だということがわかる。
+      ここではさらに乗算も絡めているので大変だ。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      コインを 9,999,999 枚を超えて所有するようなコインの購入はできない。
+      そのような数値入力はバニーを断らせることになる。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shops.keepers.06EE34 -->
+
+<section id="dq5.shops.keepers.06EF70">
+<title>カジノ景品交換所</title>
+<para>
+カジノ景品交換所の処理はサブルーチン <varname>$EF70</varname> に実装されている。
+処理の構造はアイテム系店屋の「かいにきた」と同じだが、ゴールドの代わりにコインを消費するところが違いだ。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      あと、最初にこちらの懐具合をチェックしに来るのも特徴だ。
+      コインを一枚も持っていないとバニーが台詞をしゃべって店屋処理が終了する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      景品リストデータをよろず屋データ配列に間借りして定義している関係上、
+      変数 <varname>$0F20</varname> を <literal>#$03</literal> に上書きしてから、
+      店屋データアクセスサブルーチン <varname>$DFBA</varname> を呼び出す。
+      このときに地域 ID を <literal>#$15</literal> つまりエビルマウンテンの値にセットしているが、
+      店屋データでどういうわけかその値を検索キーとして採用しているに過ぎない。
+      エビルマウンテンに深い意味があるわけではないだろう。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      プレイヤーが景品を選択すると、アイテム系店屋とは異なり本当にそれでよいのか確認をする。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      選択アイテムが戦闘中に道具として使うと特別な効果がある性質のものであれば、
+      そのことを告げるようになっているのだが、
+      残念なことにカジノの景品ではそのようなものはないので、事実上没台詞となっている。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      選択した景品が武器、防具、盾、兜のいずれかのアイテム種別であり、
+      かつ受け取りたいキャラクターがそれを装備できないと、バニーから念を押される。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      景品を受け取りたいキャラクターがアイテムを 12 個所持していて、
+      かつパーティーに一人しかいない場合には、バニーが少し持ち物を減らしてからまた来るようにと告げる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      指定キャラクターが景品を持つ空間的余裕があることを確認してから、コインの支払い能力をテストする。
+      それを果たすためにサブルーチン <varname>$F05B</varname> を実行する。
+      この補助サブルーチンの中身を解読すると、カジノ景品交換率が次で定義されていることがわかる：
+    </para>
+<programlisting>
+04/FD5B:    2C0100 ;     500 エルフののみぐすり
+04/FD5E:    E80300 ;   1,000 せかいじゅのは
+04/FD61:    881300 ;   5,000 メガンテのうでわ
+04/FD64:    102700 ;  10,000 キラーピアス
+04/FD67:    50C300 ;  50,000 メタルキングのけん
+04/FD6A:    90D003 ; 250,000 グリンガムのムチ
+</programlisting>
+  </listitem>
+  <listitem>
+    <para>
+      コインでの支払いはサブルーチン <varname>$F084</varname> による。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      受け取りキャラクターが景品を装備可能であれば、バニーが装備するかどうかを尋ねる。
+      「はい」ならば受け取りキャラクターの所持品および装備状態を更新し、
+      「いいえ」ならば通常の受け渡し処理を行う。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      通常の受け渡し処理は、アイテム系店屋のポリシーを踏襲したコードになっている。
+      つまり、死亡テスト、マヒテスト、そして馬車テストを、この順番に行う可能性がある。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      ところで、このサブルーチンのコードは重複部がとても多い。
+      指定の景品が武器、防具、盾、兜のどれかであるか否かで処理を大きく分けているのだが、
+      それらの処理のうちの判定系コードが一致している。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shops.keepers.06EF70 -->
+
+<section id="dq5.shops.keepers.06F1E8">
+<title>スライムレース</title>
+<para>
+スライムレースの処理はサブルーチン <varname>$F1E8</varname> に実装されている。
+と言っても、レース自身は別バンクにあるサブルーチン <varname>$03A1EE</varname> に実装されている。
+そちらについては別の節で考察する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      コインを一枚たりとも持っていないと、コインを買ってからまた来るように言われる。
+      台詞の後半で唐突に言葉が丁寧になるので面白い。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq5.shops.keepers.06F1E8 -->
+
+<section id="dq5.shops.keepers.06F226">
+<title>格闘場</title>
+<para>
+格闘場の処理はサブルーチン <varname>$F226</varname> から始まる。
+このプログラムバンク内にあるコードを中心に見ていこう。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      試合におけるマッチメイクはサブルーチン <varname>$268E38</varname> で決定する。
+      そこでは主人公のレベルと乱数を基に、
+      あらかじめ定義された選手モンスターと倍率の組み合わせを参照する。
+      その後、倍率を乱数で揺らして、最終的なマッチメイクを決定するという処理を実行するサブルーチンだ。
+      配列 <varname>$23DC27</varname> がレベル閾値を、
+      データテーブル <varname>$23DA97</varname> が格闘場のマッチメイク一つ一つをそれぞれ表現している。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      賭けるモンスターを決定した後に、こちらに賭けるコインがあるかどうかをテストする。
+      コインを一枚たりとも持っていないと、例によってコインを買ってからまた来るように言われる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      賭ける額を入力して決定ボタンを押すと、こちらの所有コイン総額が減る。
+      減らしてから係員がセリフを喋る。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      この辺からコードを解読するのが面倒になるが、
+      とりあえずサブルーチン <varname>$208226</varname> が格闘場での戦闘そのもののようだ。
+      戻り値によって賭けの結果を表現しており、
+      <itemizedlist>
+        <listitem><para>ゼロならば勝ち、</para></listitem>
+        <listitem><para><literal>#$80</literal> ならば引き分け、</para></listitem>
+        <listitem><para>それ以外は負け</para></listitem>
+      </itemizedlist>
+      として扱う。
+    </para>
+    <para>
+       サブルーチン <varname>$208226</varname> についても本書の対象範囲にあるので、節を改めて論じる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      賭けに勝つと、賭けたコインの枚数と指定の倍率を乗算する。
+      CPU に浮動小数点演算がないので、倍率の小数点を右にずらして得られる整数を乗算したり、
+      乗算結果を 10 で除算したりするなどの工夫を要する。
+      演算用作業変数の値を 10 で割る補助サブルーチンとして <varname>$F487</varname> を繰り返し呼び出す。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      賭けに勝ったときのファンファーレをサブルーチン <varname>$23E50B</varname> で演奏する。
+      <itemizedlist>
+        <listitem><para>コイン総額 500 未満は小、</para></listitem>
+        <listitem><para>10,000 以上は大、</para></listitem>
+        <listitem><para>それ以外は中</para></listitem>
+      </itemizedlist>
+      のファンファーレが鳴り響く。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      さらに獲得コイン総額をプッシュして次のゲームに進む権利を得られる。
+      一度「はい」と答えてからキャンセルをすると、係員から取りやめられないことを告げられて、
+      再びモンスター選択ウィンドウがアクティブになる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      ただし獲得総額が 10,000 コイン以上になると打ち止めだ。
+      係員からカジノの本日のキングだとほめられて、格闘場の処理が終了となる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      賭けに負けると係員が残念だと一言あった後に、次の試合をやるかどうか尋ねてくる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      試合が引き分けると、係員から案内メッセージがあり賭けコインを返却され、
+      それから次の試合をやるかどうか尋ねてくる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      コインの獲得および返却には共通してサブルーチン <varname>$F446</varname> を呼び出す。
+    </para>
+  </listitem>
+</itemizedlist>
+<para>
+データテーブル <varname>$23DA97</varname> の単位構造は次のようになっている。
+空席の選手には <literal>#$FF</literal> がモンスター ID の代わりに用いられている。
+倍率は、実際のゲームで適用されるオッズの整数部の値と思われる。
+対応する選手がいないデータでは、ここにはゼロが格納されている。
+</para>
+<table id="table.dq5.matchmake.structure" class="lighttable">
+  <caption>マッチメイク構造体</caption>
+  <thead>
+    <tr>
+      <th>オフセット</th>
+      <th>意味</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td>モンスター [00]</td></tr>
+    <tr><td><literal>#$01</literal></td><td>倍率 [00]</td></tr>
+    <tr><td><literal>#$02</literal></td><td>モンスター [01]</td></tr>
+    <tr><td><literal>#$03</literal></td><td>倍率 [01]</td></tr>
+    <tr><td><literal>#$04</literal></td><td>モンスター [02]</td></tr>
+    <tr><td><literal>#$05</literal></td><td>倍率 [02]</td></tr>
+    <tr><td><literal>#$06</literal></td><td>モンスター [03]</td></tr>
+    <tr><td><literal>#$07</literal></td><td>倍率 [03]</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq5.shops.keepers.06F226 -->
+
+<section id="dq5.shops.keepers.variables">
+<title>頻出変数</title>
+<para>
+コードを解読する作業の役に立つべく、
+上で説明した店屋処理に共通して参照される変数の役割を表にまとめておく：
+</para>
+<table id="table.dq5.shops.keepers.variables" class="lighttable">
+  <caption>店屋処理に共通して参照される変数</caption>
+  <thead>
+    <tr>
+      <th>変数</th>
+      <th>用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td align="left"><varname>$0F20</varname></td><td>店屋種別コード</td></tr>
+    <tr><td align="left"><varname>$0F21</varname></td><td>キャラクター ID</td></tr>
+    <tr><td align="left"><varname>$0F22</varname></td><td>アイテム ID</td></tr>
+    <tr><td align="left"><varname>$0F23</varname></td><td>キャラクター ID</td></tr>
+    <tr><td align="left"><varname>$0F24</varname></td><td>カジノ景品リストの選択</td></tr>
+    <tr><td align="left"><varname>$0F25</varname></td><td>店屋地域 ID</td></tr>
+    <tr><td align="left"><varname>$0F26:0F28</varname></td><td>店屋データベースアドレス</td></tr>
+    <tr><td align="left"><varname>$0F28:0F2B</varname></td><td>ゴールド・カジノコイン</td></tr>
+    <tr><td align="left"><varname>$0F2B</varname></td><td>教会種別コードまたは宿屋種別コード</td></tr>
+    <tr><td align="left"><varname>$0F2C</varname></td><td>値ゼロで固定</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>店屋種別コード</term>
+    <listitem>
+      <para>
+        この変数は、店屋が道具屋、防具屋、武器屋、よろず屋の共通処理中において、
+        現在の店屋がいずれなのかを判別する定数を表すために用いられる。
+        前述の台詞メッセージ ID のオフセットや
+        店屋データの検索キーの一つの値を意味する。
+        それゆえ、店屋の種類がこの四つのいずれかである場合以外は、
+        コードと店屋種別との対応関係はそれほど重要ではない。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>カジノ景品リストの選択</term>
+    <listitem>
+      <para>
+        この変数は、プレイヤーが指定したカジノ景品交換所のアイテムリストにおける選択位置を表す。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>店屋地域 ID</term>
+    <listitem>
+      <para>
+        この変数は、店屋に対応する地域を表す ID 値であり、
+        ルーラの呪文の各項目の ID と同一の概念だ。
+        これは店屋データの検索キーの一つの値として用いられる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>店屋データベースアドレス</term>
+    <listitem>
+      <para>
+        この変数は、店屋の売り物メニューを表現するデータ構造の先頭アドレスのためのものだ。
+        アドレス値なので 2 バイト長の変数として扱う。
+        ただしデータバンクは <varname>$04</varname> となる。
+        データの内容については後述する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ゴールド・カジノコイン</term>
+    <listitem>
+      <para>
+        この変数は、プレイヤーが店屋に支払う代金を格納する。
+        ゴールドの場合とカジノコインの場合とがあるので、
+        プログラムとしては 3 バイト長の変数として扱う。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>教会種別コードまたは宿屋種別コード</term>
+    <listitem>
+      <para>
+        この変数は店屋が教会系もしくは宿屋系の場合にのみ意味がある。
+        いずれも利用方法としては、店屋主人の台詞メッセージ ID のオフセットを調整するものだ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq5.shops.keepers.variables -->
+
+</section> <!-- dq5.shops.keepers -->
+
+<section id="dq5.shops.data">
+<title>店屋データ</title>
+<para>
+本節で見てきたデータテーブルでまだ内容を示していないものである、
+店屋商品データ、宿屋データ、格闘場データをテキストファイル化して <xref linkend="appendix.b"/> から参照できるようにしておく。
+基本的にはデータテーブル一つに対して、CSV ファイル一つを対応させるが、
+格闘場データは例外的にデータテーブル <varname>$23DA97</varname> と配列 <varname>$23DC27</varname> をこの順に <command>paste</command> しておいた。
+</para>
+</section> <!-- dq5.shops.data -->
+</section> <!-- dq5.shops -->

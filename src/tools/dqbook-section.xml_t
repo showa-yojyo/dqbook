@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="{{ section_id }}"><?dbhtml filename="{{ html_name }}.html" ?>
+<title>{{ title }}</title>
+<para>
+TBW
+</para>
+
+<section id="{{ section_id }}.structure">
+<title>構造に関する構成要素</title>
+<para>
+TBW
+</para>
+
+</section> <!-- {{ section_id }}.structure -->
+
+<section id="{{ section_id }}.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+TBW
+</para>
+
+</section> <!-- {{ section_id }}.behavior -->
+</section> <!-- {{ section_id }} -->

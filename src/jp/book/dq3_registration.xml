@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.registration"><?dbhtml filename="dq3_registration.html" ?>
+<title>冒険者たちの登録所</title>
+<para>
+本節ではルイーダの酒場二階に併設されている冒険者たちの登録所について述べる。
+</para>
+
+<section id="dq3.registration.structure">
+<title>構造に関する構成要素</title>
+<para>
+キャラクター作成処理のためにしか参照されないオブジェクト型が二つ存在する。
+それぞれ初期性格条件と初期性格確率分布と呼ぶことにしよう。
+</para>
+
+<section id="dq3.registration.structure.C30EFD">
+<title>構造体 <varname>$C30EFD</varname>: 初期性格条件</title>
+<para>
+アドレス <varname>$C30EFD</varname> には以下の表が示すようなオブジェクト型の要素が配列されている。
+</para>
+
+<table id="table.dq3.C30EFD" class="lighttable">
+  <caption>構造体 $C30EFD</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$007F</literal></td><td>閾値 0</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0080</literal></td><td>第二位考慮 0</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00FF</literal></td><td>キャラクター属性 0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00FF</literal></td><td>初期性格確率分布 0</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$007F</literal></td><td>閾値 1</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0080</literal></td><td>第二位考慮 1</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td><td>キャラクター属性 1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>初期性格確率分布 1</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$007F</literal></td><td>閾値 2</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$0080</literal></td><td>第二位考慮 2</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td><td>キャラクター属性 2</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td><td>初期性格確率分布 2</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$007F</literal></td><td>閾値 3</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$0080</literal></td><td>第二位考慮 3</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td><td>キャラクター属性 3</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$00FF</literal></td><td>初期性格確率分布 3</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$007F</literal></td><td>閾値 4</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$0080</literal></td><td>第二位考慮 4</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$00FF</literal></td><td>キャラクター属性 4</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$00FF</literal></td><td>初期性格確率分布 4</td></tr>
+  </tbody>
+</table>
+<para>
+以下に各属性を説明する。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>閾値 k (k = 0..3)</term>
+    <term>第二位考慮 k (k = 0..3)</term>
+    <listitem>
+      <para>
+        閾値 k とはスカラー値属性であり、型は下で説明するキャラクター属性 k によって「ちから」「すばやさ」等に決まる。
+        第二位考慮 k とはブーリアン型属性だ。
+      </para>
+      <para>
+        第二位考慮 k 属性値が 1 のとき、後述する初期性格決定処理において、
+        第一位増分キャラクター属性値と閾値 k との比較を無視し、
+        代わりに第二位増分キャラクター属性値と閾値 k とを比較することを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>キャラクター属性 k (k = 0..3)</term>
+    <listitem>
+      <para>
+        ちから、すばやさ、たいりょく、かしこさ、うんのよさのいずれなのかを表す値を取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>初期性格確率分布 k (k = 0..3)</term>
+    <listitem>
+      <para>
+        後述する初期性格確率分布オブジェクトの ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.registration.structure.C30EFD -->
+
+<section id="dq3.registration.structure.C30FFC">
+<title>構造体 <varname>C30FFC</varname>: 初期性格確率分布</title>
+<para>
+アドレス <varname>$C30FFC</varname> には以下の表が示すようなオブジェクト型の要素が配列されている。
+</para>
+
+<table id="table.dq3.C30FFC" class="lighttable">
+  <caption>構造体 $C30FFC</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000F</literal></td><td>頻度 0</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00F0</literal></td><td>頻度 1</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$000F</literal></td><td>頻度 2</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00F0</literal></td><td>頻度 3</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$000F</literal></td><td>頻度 4</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$00F0</literal></td><td>頻度 5</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000F</literal></td><td>頻度 6</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00F0</literal></td><td>頻度 7</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td><td>性格 0</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>性格 1</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td><td>性格 2</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td><td>性格 3</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td><td>性格 4</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$00FF</literal></td><td>性格 5</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td><td>性格 6</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$00FF</literal></td><td>性格 7</td></tr>
+  </tbody>
+</table>
+<para>
+以下に各属性を説明する。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>頻度 k (k = 0..7)</term>
+    <term>性格 k (k = 0..7)</term>
+    <listitem>
+      <para>
+        これらの属性は対になっているのでまとめて説明する。
+        初期性格が性格 k 属性値となる確率が頻度 k 属性値で決まるということを表している。
+      </para>
+      <para>
+        頻度属性値の和を取ると 256 になるので、実際の確率は頻度 k 属性値を 256 で割った値となる。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.registration.structure.C300FC -->
+
+<section id="dq3.registration.structure.C3E2EA">
+<title>配列 <varname>$C3E2EA</varname>: 登録所性格評価台詞</title>
+<para>
+アドレス <varname>$C3E2EA</varname> に次の内容のメッセージ ID の配列がある。
+これは、キャラクター完成直前に登録所の係員がその性格を説明するときに用いられる。
+</para>
+<table id="table.dq3.C3E2EA" class="lighttable">
+  <caption>配列 $C3E2EA</caption>
+  <thead>
+    <tr><th>ID</th><th>台詞</th></tr>
+  </thead>
+  <tbody>
+    <tr><th>0</th><td>[D6]なかなか [B2][AD]のようですね。[AF]</td></tr>
+    <tr><th>1</th><td>[D6]なかなか [B2][AD]なようですね。[AF]</td></tr>
+    <tr><th>2</th><td>[D6]なかなか [B2][AD]ようですね。[AF]</td></tr>
+    <tr><th>3</th><td>[D6]なかなか [B2]さん[AD]のようですね。[AF]</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq3.registration.structure.C3E2EA -->
+</section> <!-- dq3.registration.structure -->
+
+<section id="dq3.registration.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+本節では登録所の処理を述べる。
+</para>
+<section id="dq3.registration.behavior.C3DAEB">
+<title>サブルーチン <varname>$C3DAEB</varname>: 登録所メイン</title>
+<para>
+サブルーチン <varname>$C3DAEB</varname> は登録屋の通常処理だ。
+以下に要点を挙げる。長いので分けて列挙する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      係員がサービスの説明を初回しかしないように、フラグ<varname>$7E353C</varname> &amp; <literal>#$20</literal> を用いる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      新しい人を名簿に登録することが可能であるかを判定する。これについては後述する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      最初に名前を入力する。ただし、次の条件を満たすものは許されない。
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          入力文字列が文字列「ロト」とマッチする場合
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          入力文字列が予約名とマッチする場合
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          入力文字列が既存の仲間キャラクターの誰かの名前と同一の場合
+        </para>
+      </listitem>
+    </itemizedlist>
+  </listitem>
+</itemizedlist>
+
+<para>
+性別と職業を入力すると、サブルーチン <varname>$C441AE</varname> でキャラクターの初期状態を決定し、
+係員がこれでどうか尋ねる（この時点では性格は無効値が設定されている）。
+今興味があるのはこの初期状態におけるキャラクターの基本属性値がどのように決まるかなので、ここで説明する。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+    ちから、すばやさ、たいりょく、かしこさ、うんのよさの初期値として、職業構造体（<xref linkend="dq3.vocations.structure.C4179E"/> 参照）で設定されている値をそれぞれ用いる。
+    そこに、これらの属性値のいずれかをランダムに 2 回から 10 回選択して 1 ずつ加えるという処理が入る。
+    加算回数と属性選択の両方についてランダムであることを強調しておきたい。
+    これでちからからうんのよさ各属性値の初期値が確定した。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+    たいりょくが定まったので、最大 HP を <code><![CDATA[ たいりょく * randint(500, 525) / 256 ]]></code> で確定する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+    かしこさが定まったので、最大 MP を <code><![CDATA[ かしこさ * randint(500, 525) / 256 ]]></code> で確定する。
+    </para>
+  </listitem>
+</itemizedlist>
+<para>
+再び登録所の処理の説明に戻る。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      係員が種使用について初回しか説明しないように、フラグ<varname>$7E353C</varname> &amp; <literal>#$40</literal> を用いる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      一度の登録で使える種の個数は 1/64 の確率で 6 個となるが、たいていは 5 個となる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      種の振り分けを終了すると、後述するサブルーチンを用いて新キャラクターの性格を確定させる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      最後に係員が確認してくるので、承知すればこのオブジェクトをサブルーチン <varname>$C44566</varname> で処理して、
+      ルイーダの酒場から呼び出せるようになる。
+    </para>
+  </listitem>
+</itemizedlist>
+<para>
+登録所の登録手続きの概要は以上だ。細部のうち重要なものは後述する。
+</para>
+</section> <!-- dq3.registration.behavior.C3DAEB -->
+
+<section id="dq3.registration.behavior.C3DD13">
+<title>サブルーチン <varname>$C3DD13</varname>: キャラクター削除</title>
+<para>
+上述の登録処理中、名簿が満杯である場合には既存キャラクターを一人削除しない限り、新規登録手続きは取れない。
+その判定処理の要点を以下に挙げる。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      名簿満杯判定はサブルーチン <varname>$C4467F</varname> による。
+      パーティーと酒場とバーク商人の人数が 24 以上であることが満杯条件となる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      満杯のときに限り、係員が削除するかどうか尋ねる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      バーク商人を削除することは認められない。その人を消すことはできないと係員が言う。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      または勇者を削除することは認められない。無茶を言うなと係員が言う。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      削除を決定すると、対象者の装備品全てをパーティーのふくろに移す。
+      それからキャラクターオブジェクトを削除する。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.registration.behavior.C3DD13 -->
+
+<section id="dq3.registration.behavior.C3DE95">
+<title>サブルーチン <varname>$C3DE95</varname>: 性格決定</title>
+<para>
+サブルーチン <varname>$C3DE95</varname> は、作成キャラクターの初期の性格を決定する処理だ。
+処理の要点を以下に挙げる。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      ちから～うんのよさの属性値ごとに、職業オブジェクトの初期値属性値に対する、種使用後の属性値の増分値を求める。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      増分値 5 個からなる配列を降順ソートする。タイブレイクは乱数で採決する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      最大値を取る増分値が何であるかに依存して、職業オブジェクトの初期性格条件属性値を参照する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      初期性格条件オブジェクトの定義に従って、採用する初期性格確率分布オブジェクトを決定する。
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          初期性格条件属性値の第二位考慮 k 属性値が 0 ならば、
+          属性 k が第一位増分値を取る属性と一致する限りで閾値 k と比較する。
+          増分値が閾値以上ならば、初期性格確率分布 k 属性値を利用するものとする。
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          第二位考慮 k が 1 であり、属性 k が第ニ位増分値を取る属性と一致すれば、
+          やはり初期性格確率分布 k 属性値を利用するものとする。
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          どちらでもなければ、次の k に進むものとし、
+          この手続きを検索が成功するまで k = 0..4 で反復する。
+        </para>
+        <para>
+          どの初期性格条件オブジェクトも何らかの k で判定が停止するように設計されているので、
+          最後までどれにも当てはまらないという事態には陥らない。
+        </para>
+      </listitem>
+    </itemizedlist>
+  </listitem>
+  <listitem>
+    <para>
+      初期性格確率分布オブジェクトの定義に従って、抽選で性格を決定する。
+    </para>
+  </listitem>
+</itemizedlist>
+<para>
+とりわけ第二位考慮の周辺が理解しにくいので、例を挙げるなりシミュレーターを作成するなりで説明を尽くしたい。
+次に、初期性格確率分布オブジェクトの操作の要点を挙げる。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      初期性格確率分布オブジェクトの属性のうち、対象キャラクターの性別とマッチしないものを除外する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      残った性格（確率変数とみなせる）と対応する頻度（と呼んでいるが、総和で割れば確率に他ならない）について、抽選で性格を決定する。
+    </para>
+  </listitem>
+</itemizedlist>
+<para>
+この確率分布データ構造と抽選アルゴリズムの組み合わせは、通常戦の敵陣編成決定ルーチンや
+敵陣キャラクターのコマンド決定ルーチン等、他の処理でもしばしば目にすることになる。
+</para>
+</section> <!-- dq3.registration.behavior.C3DE95 -->
+</section> <!-- dq3.registration.behavior -->
+</section> <!-- dq3.registration -->

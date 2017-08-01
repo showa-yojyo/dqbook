@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq5.items"><?dbhtml filename="dq5_items.html" ?>
+<title>アイテム</title>
+<indexterm id="term.dq5.items"><primary>アイテム</primary><secondary>DQ5</secondary></indexterm>
+
+<para>
+本節では「どうぐ」アイテムについての詳細を説明していく。
+まず、アイテムを構成する各属性をプログラムではどのように表現しているのかについて簡単に述べる。
+それから、アイテムの属性それぞれの物理的な定義位置と、性質を述べる。
+最後に、ゲーム中に現れるアイテム全てのデータを抽出して CSV ファイルを作成する。
+</para>
+
+<section id="dq5.items.model">
+<title>モデル</title>
+<para>
+&dq5_1992; ではアイテムデータの物理的な表現方法に特徴がある。
+後続のシリーズでの実装では、アイテムだけでなく、キャラクターにせよコマンドにせよ、
+ゲーム構成要素の定数的な属性の全てを一つの構造体にカプセル化して定義し、
+そのオブジェクトをメモリ上で連続的に配列することで定義するというのが標準的な表現手法だ。
+ところが本プログラムでは、アイテムオブジェクトを属性ごとに分割して、それぞれを別々の場所で配列するという手法を採っている。
+</para>
+<para>
+本書では、アイテムを次のようにモデル化し、議論を進める：
+</para>
+<table id="table.dq5.items.model" class="lighttable">
+  <caption>アイテムモデル</caption>
+  <thead>
+    <tr><th>属性</th><th>定義開始位置</th><th>意味</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>ID</td><td>n/a</td><td>アイテムに関連付けられている 1 バイトサイズの一意的な値</td></tr>
+    <tr><td>名前</td><td><varname>$23CE0E</varname></td><td><xref linkend="dq5.string.access"/>参照</td></tr>
+    <tr><td>値段</td><td><varname>$23B081</varname> および <varname>$23B159</varname></td><td>（本節で後述する）</td></tr>
+    <tr><td>売却禁止</td><td rowspan="5"><varname>$23B159</varname></td><td rowspan="5">（本節で後述する）</td></tr>
+    <tr><td>廃棄禁止</td></tr>
+    <tr><td>消耗品</td></tr>
+    <tr><td>移動時対象者指定</td></tr>
+    <tr><td>移動時定型文省略</td></tr>
+    <tr><td>分類</td><td rowspan="6"><varname>$23B231</varname></td><td rowspan="6">（本節で後述する）</td></tr>
+    <tr><td>呪い</td></tr>
+    <tr><td>戦闘時複数対象</td></tr>
+    <tr><td>戦闘時対敵用途</td></tr>
+    <tr><td>戦闘時対象選択</td></tr>
+    <tr><td>移動時利用</td></tr>
+    <tr><td>特別効果鑑定</td><td rowspan="3"><varname>$23B309</varname></td><td rowspan="3">（本節で後述する）</td></tr>
+    <tr><td>売値鑑定</td></tr>
+    <tr><td>消耗性鑑定</td></tr>
+    <tr><td>戦闘時メッセージ</td><td rowspan="3"><varname>$23B3E1</varname></td><td rowspan="3">（本節で後述する）</td></tr>
+    <tr><td>装備可能者鑑定</td></tr>
+    <tr><td>分類鑑定</td></tr>
+    <tr><td>変化量</td><td><varname>$23B4B9</varname></td><td>（本節で後述する）</td></tr>
+    <tr><td>装備許可フラグ列</td><td><varname>$23B591</varname> および <varname>$23B669</varname></td><td>（本節で後述する）</td></tr>
+  </tbody>
+</table>
+<para>
+オブジェクト指向的な発想では、アイテムには上に挙げた属性だけではなく、振る舞いという特徴もある。
+ただし、振る舞いについては本節では扱わずに、戦闘コマンドと移動コマンドという枠組で議論をしたい。
+</para>
+</section> <!-- dq5.items.model -->
+
+<section id="dq5.items.23B081">
+<title>配列 <varname>$23B081</varname>: 価格</title>
+<para>
+本節ではアイテムの属性それぞれの物理的な定義位置と性質を述べていく。
+</para>
+<para>
+アドレス <varname>$23B081</varname> から始まる 1 バイトデータの配列は、アイテムの価格情報を表現する。
+これはアイテムの価格そのものが配列されているのではなく、
+価格を 10 の N 乗で割ったものが配列されている。
+その N を格納する配列がアドレス <varname>$23B159</varname> から始まっている。
+言い換えると、&dq5_1992; では、各アイテムの価格を次のような形で物理的に格納している：
+</para>
+<programlisting><![CDATA[
+P * Q, (where 0 &lt;= P and P &lt; 256; 0 &lt;= Q and Q &lt; 65536)
+]]></programlisting>
+<para>
+このデータ表現を採用することで、消費する ROM が 135 バイトほど節約できる。
+上記計算コードのメモリ量が 135 を下回っていれば、全体としても節約できたと言える。
+</para>
+</section> <!-- dq5.items.23B081 -->
+
+<section id="dq5.items.23B159">
+<title>配列 <varname>$23B159</varname>: 移動モードにおける属性など</title>
+<para>
+アドレス <varname>$23B159</varname> には次の表で示す 1 バイト長構造体の配列がある。
+主に移動中でのアイテムの振る舞いや性質に関係する属性を集めたようだ。
+</para>
+<table id="table.dq5.23B159" class="lighttable">
+  <caption>$23B159 構造体</caption>
+  <thead>
+    <tr><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$03</literal></td><td>値段オーダー</td></tr>
+    <tr><td><literal>#$04</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$08</literal></td><td>売却禁止</td></tr>
+    <tr><td><literal>#$10</literal></td><td>廃棄禁止</td></tr>
+    <tr><td><literal>#$20</literal></td><td>消耗品</td></tr>
+    <tr><td><literal>#$40</literal></td><td>移動時対象者指定</td></tr>
+    <tr><td><literal>#$80</literal></td><td>移動時定型文省略</td></tr>
+  </tbody>
+</table>
+<glosslist>
+  <glossentry>
+    <glossterm>値段オーダー</glossterm>
+    <glossdef>
+      <para>
+        値段オーダーとは、前項で述べたアイテム価格表現における 10 のべき乗項だ。
+        ただし、実際のデータとしては、10 のべき乗の数値を格納する配列 <varname>$21A47B</varname> の添字として実現している。
+        C 言語風に表せば、次の配列のような定数配列が存在して、その添字そのものだということだ。
+      </para>
+<programlisting>
+Q[4] = {1, 10, 100, 1000};
+</programlisting>
+    </glossdef>
+  </glossentry>
+
+  <glossentry>
+  <glossterm>売却禁止</glossterm>
+  <glossdef>
+    <para>
+      売却禁止とは、どの店においてもこのアイテムを売却処分することをプレイヤーに禁じるためのフラグ型属性だ。
+      この値が 1 であれば、売却を許さない。
+    </para>
+  </glossdef>
+  </glossentry>
+
+  <glossentry>
+  <glossterm>廃棄禁止</glossterm>
+  <glossdef>
+    <para>
+      廃棄禁止とは、このアイテムを「すてる」ことを許さないことを意味するフラグ型属性だ。
+      この値が 1 であれば、廃棄処分が許さないことを意味する。
+      また、特定のキャラクターに渡せないアイテムであることをも意味する。
+      例えば「ラーのかがみ」をヘンリーに「わたす」ことは、このフラグのせいで実現できない。
+    </para>
+  </glossdef>
+  </glossentry>
+
+  <glossentry>
+    <glossterm>消耗品</glossterm>
+    <glossdef>
+      <para>
+        消耗品とは、このアイテムを「つかう」と消滅するというフラグ型性質だ。
+        例えば「せかいじゅのは」を死んでいる仲間に対して「つかう」と、
+        生き返った後に「せかいじゅのは」がなくなる。
+      </para>
+      <para>
+        この値が 1 であれば、「つかう」により対象アイテムを消費する。
+      </para>
+    </glossdef>
+  </glossentry>
+
+  <glossentry>
+    <glossterm>移動時対象者指定</glossterm>
+    <glossdef>
+      <para>
+        仲間用とは、このアイテムに対応する移動中のコマンドが、所持者以外の仲間一人を対象とすることを示すフラグ型属性だ。
+        言い換えると、「だれに」ウィンドウの表示を必要とするかどうかを意味する。
+        例えば「やくそう」「どくけしそう」はこのビットが 1 である。
+        それに対し、「ちからのたね」「せかいじゅのしずく」「キメラのつばさ」など、
+        仲間一人を特定しないで「つかう」アイテムは 0 である。
+      </para>
+    </glossdef>
+  </glossentry>
+
+  <glossentry>
+    <glossterm>移動時定型文省略</glossterm>
+    <glossdef>
+      <para>
+        専用メッセージ表示とは、移動中にこのアイテムを「つかう」と表示するメッセージを、
+        定型文の表示を省略して、アイテム固有のものにするかことを示すというフラグ型属性だ。
+      </para>
+      <para>
+        例えば、移動中に「ひのきのぼう」をつかうと、
+        最初に表示されるメッセージは
+        「○○○○は ひのきのぼうを つかった！」となる。
+        これが一般的なメッセージであるが、アイテムによっては例えば
+        「○○○○は においぶくろを あけた！」のように、
+        独自の文言を表示する。
+      </para>
+      <para>
+        この値が 1 であれば、移動中にアイテムを「つかう」と、
+        メッセージ ID <literal>#$01A2</literal> のメッセージを表示せずに、
+        アイテムに対応するどうぐコマンドハンドラーによる固有のメッセージ出力に頼る。
+      </para>
+    </glossdef>
+  </glossentry>
+</glosslist>
+</section> <!-- dq5.items.23B159 -->
+
+<section id="dq5.items.23B231">
+<title>配列 <varname>$23B231</varname>: 戦闘モードにおける属性など</title>
+<para>
+アドレス <varname>$23B231</varname> には次の表で示す 1 バイト長構造体の配列がある。
+主に戦闘中でのアイテムの振る舞いや性質に関係する属性を集めたようだ。
+</para>
+<table id="table.dq5.23B231" class="lighttable">
+  <caption>$23B159 構造体</caption>
+  <thead>
+    <tr><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$07</literal></td><td>分類</td></tr>
+    <tr><td><literal>#$08</literal></td><td>呪い</td></tr>
+    <tr><td><literal>#$10</literal></td><td>戦闘時複数対象</td></tr>
+    <tr><td><literal>#$20</literal></td><td>戦闘時対敵用途</td></tr>
+    <tr><td><literal>#$40</literal></td><td>戦闘時対象選択</td></tr>
+    <tr><td><literal>#$80</literal></td><td>移動時利用</td></tr>
+  </tbody>
+</table>
+<glosslist>
+  <glossentry>
+    <glossterm>分類</glossterm>
+    <glossdef>
+      <para>
+        分類とは、武器類や盾類等のアイテムの分類を管理するための数値だ。
+        プログラムは 3 ビットの値でアイテム分類を取り扱う。
+        以下のように分類されている。
+      </para>
+      <table id="table.dq5.23B231.kind" class="lighttable">
+        <caption>アイテム分類</caption>
+        <thead>
+          <tr><th>値</th><th>分類</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>0</td><td>武器類</td></tr>
+          <tr><td>1</td><td>鎧類</td></tr>
+          <tr><td>2</td><td>盾類</td></tr>
+          <tr><td>3</td><td>兜類</td></tr>
+          <tr><td>4</td><td>非装備品類</td></tr>
+          <tr><td>5</td><td>「ほしふるうでわ」</td></tr>
+          <tr><td>6</td><td>「ビアンカのリボン」</td></tr>
+          <tr><td>7</td><td>装備可能道具類</td></tr>
+        </tbody>
+      </table>
+    </glossdef>
+  </glossentry>
+
+  <glossentry>
+    <glossterm>呪い</glossterm>
+    <glossdef>
+      <para>
+        呪いとは、これを装備すると呪いの効果音が鳴ることを示すフラグ型属性だ。
+        この属性の値が 1 であれば、「そうび」直後に呪いの効果音が鳴る。
+      </para>
+    </glossdef>
+  </glossentry>
+
+  <glossentry>
+    <glossterm>戦闘時複数対象</glossterm>
+    <glossdef>
+      <para>
+        戦闘時複数対象とは、戦闘中に使用する対象が味方全員、敵グループ、あるいは敵全体に作用することを示すフラグ型属性だ。
+        言い換えると、効果がキャラクター単体ではないようなアイテムである。
+        この属性の値が 1 であれば、このアイテムの対象が複数あるものとする。
+      </para>
+    </glossdef>
+  </glossentry>
+
+  <glossentry>
+    <glossterm>戦闘時対敵用途</glossterm>
+    <glossdef>
+      <para>
+        戦闘時対敵用途とは、戦闘中に使用する対象が敵側であることを示すフラグ型属性だ。
+        この属性の値が 1 であれば、アイテムを戦闘中に使用すると、敵側に効果がある振る舞いを引き起こすものとする。
+      </para>
+    </glossdef>
+  </glossentry>
+
+  <glossentry>
+    <glossterm>戦闘時対象選択</glossterm>
+    <glossdef>
+      <para>
+        戦闘時対象選択とは、戦闘中にこのアイテムを選択するか「つかう」と、
+        プレイヤーにその対象を指定させることを示すフラグ型属性だ。
+      </para>
+      <para>
+        この属性の値が 1 であるアイテムを戦闘中に選択するか「つかう」と、
+        前述の戦闘時対敵用属性も考慮した上で、
+        「だれに」ウィンドウまたはモンスターグループ選択ウィンドウを表示するものとする。
+      </para>
+    </glossdef>
+  </glossentry>
+
+  <glossentry>
+    <glossterm>移動時利用</glossterm>
+    <glossdef>
+      <para>
+        戦闘時利用とは、戦闘時に「つかう」と対応する戦闘コマンドが発動するようなフラグ型属性だ。
+        この属性の値が 1 であるアイテムを戦闘中に使用すると、「特別な効果がある」のだ。
+        また、移動中に「つかう」と「しかし 今は 何も おこらなかった……！」と表示される。
+      </para>
+      <para>
+        <xref linkend="appendix.b"/> に関連戦闘コマンド一覧を掲載する。
+      </para>
+    </glossdef>
+  </glossentry>
+</glosslist>
+</section> <!-- dq5.items.23B231 -->
+
+<section id="dq5.items.23B309">
+<title>配列 <varname>$23B309</varname>: 鑑定属性群</title>
+<para>
+アドレス <varname>$23B309</varname> には次の表で示す 1 バイト長構造体の配列がある。
+「インパス」の呪文コマンドをアイテムに対して適用した際に表示するメッセージを制御するフラグ群だ。
+</para>
+<table id="table.dq5.23B309" class="lighttable">
+  <caption>$23B309 構造体</caption>
+  <thead>
+    <tr><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$3F</literal></td><td>特別効果鑑定</td></tr>
+    <tr><td><literal>#$40</literal></td><td>売値鑑定</td></tr>
+    <tr><td><literal>#$80</literal></td><td>消耗性鑑定</td></tr>
+  </tbody>
+</table>
+<glosslist>
+  <glossentry>
+    <glossterm>特別効果鑑定</glossterm>
+    <glossdef>
+      <para>
+        特別効果鑑定とは、インパス鑑定中に、何らかの特別効果があることを示すメッセージを特定するための ID 型属性だ。
+        メッセージ出力処理がテーブル参照とプログラム的処理のハイブリッドになっているので、まとめにくい。
+        どの没アイテムについてもゼロがセットされている。
+        この値が <literal>#$38</literal> 未満ならば、
+        メッセージ ID <literal>#$048F</literal> からのオフセット値として用いられる。
+        この値がそれ以外の値であれば、メッセージ表示をプログラムで指定する。
+        該当アイテムは「てんくうのよろい」「ふうじんのたて」「てんくうのたて」だけだ。
+      </para>
+    </glossdef>
+  </glossentry>
+
+  <glossentry>
+    <glossterm>売値鑑定</glossterm>
+    <glossdef>
+      <para>
+        売値鑑定とは、インパス鑑定中に、売値を鑑定するかどうかを示すフラグ型のアイテム属性だ。
+        この属性の値が 1 であるアイテムを鑑定すると、売却時に得られるゴールドがわかる。
+      </para>
+    </glossdef>
+  </glossentry>
+
+  <glossentry>
+    <glossterm>消耗性鑑定</glossterm>
+    <glossdef>
+      <para>
+        消耗性鑑定とは、インパス鑑定中に、このアイテムの消耗品属性が 0 であるときに、
+        「何回つかってもなくならないらしい」メッセージを表示することを示すフラグ型のアイテム属性だ。
+        この属性の値が 1 であるアイテムを鑑定すると、この文言が示される。
+      </para>
+    </glossdef>
+  </glossentry>
+</glosslist>
+<para>
+インパス自身の挙動については、移動時の呪文コマンドの節で述べたい。
+</para>
+</section> <!-- dq5.items.23B309 -->
+
+<section id="dq5.items.23B3E1">
+<title>配列 <varname>$23B3E1</varname>: 鑑定属性群</title>
+<para>
+アドレス <varname>$23B309</varname> には次の表で示す 1 バイト長構造体の配列がある。
+前項の続きに加え、戦闘時のメッセージ出力に関するものもある。
+</para>
+<table id="table.dq5.23B3E1" class="lighttable">
+  <caption>$23B3E1 構造体</caption>
+  <thead>
+    <tr><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$3F</literal></td><td>戦闘時メッセージ</td></tr>
+    <tr><td><literal>#$40</literal></td><td>装備可能者鑑定</td></tr>
+    <tr><td><literal>#$80</literal></td><td>分類鑑定</td></tr>
+  </tbody>
+</table>
+<glosslist>
+  <glossentry>
+    <glossterm>戦闘時表示メッセージ</glossterm>
+    <glossdef>
+      <para>
+        戦闘時表示メッセージとは、戦闘時に「つかう」と専用メッセージを表示することを示す ID 型のアイテム属性だ。
+        この属性値が <literal>#$06</literal> ならば、動的にメッセージを変更することがあるが、
+        それ以外は戦闘メッセージ ID が格納されている配列 <varname>$2781D0</varname> のインデックスを表現している。
+      </para>
+      <para>
+        配列 <varname>$2781D0</varname> は戦闘メッセージ ID の対を要素とする。
+        一例を挙げる。例えば「ほのおのリング」の当属性値は <literal>#$1F</literal> だ。
+        これが指す配列要素は
+      </para>
+<programlisting>
+27/820E:    CE EB
+</programlisting>
+      <para>
+        となっている。それぞれのメッセージ ID に対応するテキストは
+        <xref linkend="appendix.b"/> にある戦闘メッセージ CSV ファイルで確認できるようにしてある。
+      </para>
+    </glossdef>
+  </glossentry>
+
+  <glossentry>
+  <glossterm>装備可能者鑑定</glossterm>
+  <glossdef>
+    <para>
+      装備可能者鑑定とは、フラグ型のアイテム属性であり、
+      インパスによる鑑定中に「これを装備できるのは……」メッセージを表示することを示すものだ。
+      この属性の値が 1 のときにこの表示処理が入る。
+    </para>
+  </glossdef>
+  </glossentry>
+
+  <glossentry>
+  <glossterm>分類鑑定</glossterm>
+  <glossdef>
+    <para>
+      分類鑑定とは、インパスによる鑑定中に前述したアイテム分類を鑑定するかどうかを示すフラグ型のフラグ型のアイテム属性だ。
+      この属性の値が 1 のときにこの表示処理が入る。
+    </para>
+  </glossdef>
+  </glossentry>
+</glosslist>
+</section> <!-- dq5.items.23B3E1 -->
+
+<section id="dq5.items.23B4B9">
+<title>配列 <varname>$23B4B9</varname>: 変化量</title>
+<para>
+アドレス <varname>$23B4B9</varname> には、使用対象キャラクターの何らかの属性値に対する変化量そのものの配列がある。
+変化量とは、例えばアイテムが武器であれば攻撃力の上昇値、
+身に着けるものならば守備力の上昇値、というような値のことだ。
+</para>
+<para>
+値は 1 バイト長だ。
+変化量が特殊なものか、または変化をまったく引き起こさないアイテムの属性値はゼロになっている。
+</para>
+</section> <!-- dq5.items.23B4B9 -->
+
+<section id="dq5.items.23B591">
+<title>配列 <varname>$23B591</varname>: 装備許可フラグ（人間）</title>
+<para>
+アドレス <varname>$23B591</varname> にある 8 ビット列の配列は、
+各ビットがそのアイテムをビット位置に対応するキャラクターが装備できるかどうかを示すフラグである。
+値が 1 ならば装備を認める。
+</para>
+<table id="table.dq5.23B591" class="lighttable">
+  <caption>$23B591 構造体</caption>
+  <thead>
+     <tr><th>桁</th><th>装備を認めるキャラクター</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$80</literal></td><td>主人公</td></tr>
+    <tr><td><literal>#$40</literal></td><td>ビアンカ</td></tr>
+    <tr><td><literal>#$20</literal></td><td>ヘンリー</td></tr>
+    <tr><td><literal>#$10</literal></td><td>フローラ</td></tr>
+    <tr><td><literal>#$08</literal></td><td>サンチョ</td></tr>
+    <tr><td><literal>#$04</literal></td><td>ピピン</td></tr>
+    <tr><td><literal>#$02</literal></td><td>クーパー</td></tr>
+    <tr><td><literal>#$01</literal></td><td>アニー</td></tr>
+  </tbody>
+</table>
+<para>
+ビアンカは子供大人共通とする。パパスとベラはいずれにも該当していない。
+</para>
+</section> <!-- dq5.items.23B591 -->
+
+<section id="dq5.items.23B669">
+<title>配列 <varname>$23B669</varname>: 装備許可フラグ（モンスター）</title>
+<para>
+アドレス <varname>$23B639</varname> にある 16 ビット列の配列は、
+各ビットがそのアイテムをビット位置に対応するキャラクターが装備できるかどうかを示すフラグである。
+値が 1 ならば装備を認める。
+</para>
+<table id="table.dq5.23B669" class="lighttable">
+  <caption>$23B669 構造体</caption>
+  <thead>
+     <tr><th>桁</th><th>装備を認めるキャラクターのモンスター名</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$8000</literal></td><td>ベビーパンサー キラーパンサー</td></tr>
+    <tr><td><literal>#$4000</literal></td><td>スライム ホイミスライム はぐれメタル ベホマスライム キングスライム スライムベホマズン</td></tr>
+    <tr><td><literal>#$2000</literal></td><td>ドラキー ダンスニードル ばくだんベビー</td></tr>
+    <tr><td><literal>#$1000</literal></td><td>ドラゴンキッズ</td></tr>
+    <tr><td><literal>#$0800</literal></td><td>ブラウニー オークキング エリミネーター</td></tr>
+    <tr><td><literal>#$0400</literal></td><td>スライムナイト ソルジャーブル アンクルホーン</td></tr>
+    <tr><td><literal>#$0200</literal></td><td>まほうつかい ネーレウス</td></tr>
+    <tr><td><literal>#$0100</literal></td><td>パペットマン ゴーレム</td></tr>
+    <tr><td><literal>#$0080</literal></td><td>クックルー キメラ ホークブリザード</td></tr>
+    <tr><td><literal>#$0040</literal></td><td>くさったしたい ばくだんいわ</td></tr>
+    <tr><td><literal>#$0020</literal></td><td>イエティ ビックアイ ミニデーモン アームライオン</td></tr>
+    <tr><td><literal>#$0010</literal></td><td>おどるほうせき メガザルロック</td></tr>
+    <tr><td><literal>#$0008</literal></td><td>ケンタラウス</td></tr>
+    <tr><td><literal>#$0004</literal></td><td>ドラゴンマッド グレイトドラゴン</td></tr>
+    <tr><td><literal>#$0002</literal></td><td>キラーマシン ヘルバトラー</td></tr>
+    <tr><td><literal>#$0001</literal></td><td>メッサーラ シュプリンガー ライオネック</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq5.items.23B669 -->
+
+<section id="dq5.items.data">
+<title>データ</title>
+<para>
+本節で説明したアイテム属性を単独の CSV ファイルに統合して <xref linkend="appendix.b"/> に収録する。
+</para>
+</section> <!-- dq5.items.data -->
+</section> <!-- dq5.items -->

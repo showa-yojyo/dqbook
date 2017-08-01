@@ -634,23 +634,23 @@ C3/BE6D:    C416
     </listitem>
     <listitem>
       <simpara>最近訪問した店と同じ品揃えの旅の店屋、
-      ある旅の宿屋、または旅の神父がそれぞれ確率 1/3 で現れる。</simpara>
-
+      ある旅の宿屋、または旅の神父がそれぞれ確率 1/3 で現れる。
+      </simpara>
       <itemizedlist>
         <listitem>
           <simpara>店屋の場合には <varname>$7E3B77</varname> に格納済みの店屋 ID を参照する。
           店の種別に合わせて出力メッセージ用に誰が現れるのかを決め、
-          <xref linkend="dq6.shop.behavior" /> で述べる処理を実行する。</simpara>
+          <xref linkend="dq6.shops.behavior"/> で述べる処理を実行する。</simpara>
         </listitem>
         <listitem>
           <simpara>宿屋の場合には ID <literal>#$0024</literal> の宿屋が現れる。
-          それから <xref linkend="dq6.inn.behavior"/> で述べるサブルーチンを実行する。
+          それから <xref linkend="dq6.inns.behavior"/> で述べるサブルーチンを実行する。
           宿賃は一人 100 ゴールドだ。</simpara>
         </listitem>
         <listitem>
           <simpara>教会の場合には ID <literal>#$0006</literal> の教会が現れる。
           つまり「おいのりをする」がない教会だ。
-          それから <xref linkend="dq6.church.behavior.C3D3E3"/> で述べるサブルーチンを実行する。
+          それから <xref linkend="dq6.chapels.behavior.C3D3E3"/> で述べるサブルーチンを実行する。
           </simpara>
         </listitem>
       </itemizedlist>
@@ -776,7 +776,7 @@ C3/BE6D:    C416
       モンスターの ID がゼロならば、アイテム抽選を行わないものとする。
     </simpara>
     <simpara>
-      このモンスターの宝箱を落とす確率を<link linkend="dq6.monster.C20154">モンスターデータ</link>の対応属性に基いて決定する。
+      このモンスターの宝箱を落とす確率をモンスターデータの対応属性（<xref linkend="dq6.monsters.C20154" xrefstyle="select: labelnumber"/> 参照）に基いて決定する。
       確率表は <xref linkend="table.dq6.C2B1C3"/> のものを参照する。
       それから当選確率がこの値であるような抽選をする。
     </simpara>

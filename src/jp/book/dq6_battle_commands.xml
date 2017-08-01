@@ -16,7 +16,7 @@
 コマンドオブジェクトはその性質を動的に変更するような設計にはなっておらず、オブジェクトの特定には ID の値さえあればよい。
 コマンドオブジェクトの一覧については <xref linkend="appendix.b"/> に CSV ファイルを収録したので、必要があれば参照して欲しい。
 このような ID は戦闘キャラクターオブジェクトそれぞれの属性として保存される。
-詳しくは <xref linkend="dq6.combatant"/> を参照して欲しい。
+詳しくは <xref linkend="dq6.combatants"/> を参照して欲しい。
 </para>
 
 <section id="dq6.battle.commands.C8C65D">
@@ -75,7 +75,7 @@
     <tr><td align="right"><literal>#$0A</literal></td><td><literal>#$0080</literal></td><td>意識回復フラグ</td></tr>
     <tr><td align="right"><literal>#$0B</literal></td><td><literal>#$007F</literal></td><td>ダメージ ID</td></tr>
     <tr><td align="right"><literal>#$0B</literal></td><td><literal>#$0080</literal></td><td>仲間許可フラグ</td></tr>
-    <tr><td align="right"><literal>#$0C</literal></td><td><literal>#$00FF</literal></td><td>説明文 ID</td></tr>
+    <tr><td align="right"><literal>#$0C</literal></td><td><literal>#$00FF</literal></td><td>記述 ID</td></tr>
     <tr><td align="right"><literal>#$0D</literal></td><td><literal>#$00FF</literal></td><td>画面演出 ID</td></tr>
     <tr><td align="right"><literal>#$0E</literal></td><td><literal>#$7FFF</literal></td><td>（調査中）</td></tr>
     <tr><td align="right"><literal>#$0F</literal></td><td><literal>#$0080</literal></td><td>戦果逸失フラグ</td></tr>
@@ -116,7 +116,7 @@
         対象決定判断とは、戦闘員がこのコマンドを自分のレパートリーの中から選択するかどうかを決定するサブルーチンを要素とするジャンプテーブルの行番号を値とする属性だ。
         ここで k の値は戦闘員のコマンド選択能力属性から決まるものなのだが、
         単純化して説明すると k の値が高いほど選択判断の質が高くなる。
-        詳しくはモンスターの節で述べる。
+        詳しくは <xref linkend="dq6.monsters"/> の節で述べる。
       </para>
       <para>
         例えばラリホーのコマンドは決定判断ロジックは 3 通りある。
@@ -262,7 +262,7 @@
         系統分類とは、このコマンドの系統的性質を表現する数を値に取る属性だ。
         次のような対応関係があるようだ（ドラクエ 7 のデバッグ機能を参考にした）。
       </para>
-    <table id="table.dq6.battle.commands.classifications" class="lighttable">
+    <table id="table.dq6.battle.commands.families" class="lighttable">
       <caption>系統分類</caption>
       <thead>
         <tr><th>値</th><th>系統</th></tr>
@@ -354,7 +354,6 @@
     <listitem>
       <para>
         対象陣営分類とは、このコマンドの対象をどの陣営から選択され得るかを示す数を値として取る属性だ。
-        この値と対象範囲分類属性を組み合わせることで、コマンドの用途が大づかみできる。
         次の表のような解釈ができる：
       </para>
       <table id="table.dq6.battle.commands.targets" class="lighttable">
@@ -369,6 +368,9 @@
           <tr><th>3</th><td>その場にいる全員</td></tr>
         </tbody>
       </table>
+      <para>
+        この値と対象範囲属性を組み合わせることで、コマンドの用途が大づかみでわかる。
+      </para>
     </listitem>
   </varlistentry>
   <varlistentry>
@@ -687,10 +689,10 @@
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>説明文 ID</term>
+    <term>記述 ID</term>
     <listitem>
       <para>
-        説明文 ID とは、このコマンドに関連して画面ウィンドウに表示される説明文データの ID を値とする属性だ。
+        記述 ID とは、このコマンドに関連して画面ウィンドウに表示される記述データの ID を値とする属性だ。
         アドレス <varname>$C9002E</varname> にメッセージ ID 三つの組からなる配列があり、この属性値とはその添字だ。
         具体例は <xref linkend="appendix.b"/> に収録の当該 CSV を参照して欲しい。
       </para>
@@ -810,7 +812,7 @@
 値が 2 ならばオブジェクトのベースアドレスからのオフセット値が、
 値が 4 ならばオフセット値とビットマスク値がコード中に埋め込まれていることを示す。
 以下に参考コードと解釈例を示す。
-本節の表と <xref linkend="dq6.combatant.7E2030"/> を照合しながら内容を確かめるといいだろう：
+本節の表と <xref linkend="dq6.combatants.7E2030"/> を照合しながら内容を確かめるといいだろう：
 </para>
 <programlisting><![CDATA[
 C2/741B:    22FCF0C2    JSR $C2F0FC         戦闘コマンド x の属性値が設定されているかを見る

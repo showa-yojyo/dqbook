@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq5.monsters"><?dbhtml filename="dq5_monsters.html" ?>
+<title>モンスター</title>
+<indexterm id="term.dq5.monsters"><primary>モンスター</primary><secondary>DQ5</secondary></indexterm>
+<para> 
+この節ではモンスターを取り扱う。
+ここで言うモンスターというのは、戦闘時における敵陣の構成員の個々のオブジェクトの型を意味するが、
+それに加えて、自陣の戦闘員でいながら「めいれいさせろ」の対象とはならないキャラクターたちの特性もこの型によって表現されている。
+便宜上、本節ではそれらを総称してモンスターとする。
+</para>
+<para>
+まずはモンスター構造体をプログラムコードに基いてモデル化する。
+構造体のメモリレイアウトと各メンバーデータの目的を図表にして示す。
+最後に、ゲーム中で定義されているモンスターデータを全て抽出して CSV ファイルを作成する。
+</para>
+
+<section id="dq5.monsters.model">
+<title>モデル</title>
+<para>
+&dq5_1992; では ROM 容量の制約上なのか、論理的には一つの型であるものを、物理的に複数の型に分割して定義することが多い。
+しかし、モンスター型はその貴重な例外の一つだ。
+モンスターという概念は多数の属性を必要とするのにも関わらず、以下に示すサイズ 25 バイトの型一つで表現し切っている。
+相異なるモンスターオブジェクト 235 個がアドレス <varname>$238000</varname> に配列している。
+</para>
+
+<table id="table.dq5.238000" class="lighttable">
+  <caption>構造体 $238000: モンスター構造体</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="center"><literal>#$00</literal></td><td></td><td>すばやさ</td></tr>
+    <tr><td align="center"><literal>#$01</literal></td><td></td><td>攻撃力 (L)</td></tr>
+    <tr><td align="center"><literal>#$02</literal></td><td></td><td>守備力 (L)</td></tr>
+    <tr><td align="center"><literal>#$03</literal></td><td></td><td>HP (L)</td></tr>
+    <tr><td align="center"><literal>#$04</literal></td><td></td><td>MP</td></tr>
+    <tr><td align="center"><literal>#$05</literal></td><td></td><td rowspan="2">けいけんち</td></tr>
+    <tr><td align="center"><literal>#$06</literal></td><td></td></tr>
+    <tr><td align="center"><literal>#$07</literal></td><td></td><td>ゴールド (L)</td></tr>
+    <tr><td align="center" rowspan="5"><literal>#$08</literal></td><td><literal>#$80</literal></td><td>攻撃力 (H)</td></tr>
+    <tr><td align="center"><literal>#$40</literal></td><td>守備力 (H)</td></tr>
+    <tr><td align="center"><literal>#$30</literal></td><td>みかわし</td></tr>
+    <tr><td align="center"><literal>#$0C</literal></td><td>ゴールド (H)</td></tr>
+    <tr><td align="center"><literal>#$03</literal></td><td>コマンド選択制約</td></tr>
+    <tr><td align="center" rowspan="3"><literal>#$09</literal></td><td><literal>#$C0</literal></td><td>初期状態確率</td></tr>
+    <tr><td align="center"><literal>#$38</literal></td><td>アイテム確率</td></tr>
+    <tr><td align="center"><literal>#$07</literal></td><td>仲間確率</td></tr>
+    <tr><td align="center" rowspan="3"><literal>#$0A</literal></td><td><literal>#$E0</literal></td><td>コマンド選択</td></tr>
+    <tr><td align="center"><literal>#$18</literal></td><td>自動回復</td></tr>
+    <tr><td align="center"><literal>#$07</literal></td><td>さいだい HP (H)</td></tr>
+    <tr><td align="center" rowspan="2"><literal>#$0B</literal></td><td><literal>#$C0</literal></td><td>複数回攻撃</td></tr>
+    <tr><td align="center"><literal>#$3F</literal></td><td>不明 A</td></tr>
+    <tr><td align="center" rowspan="5"><literal>#$0C</literal></td><td><literal>#$80</literal></td><td>初期状態</td></tr>
+    <tr><td align="center"><literal>#$40</literal></td><td>集中攻撃</td></tr>
+    <tr><td align="center"><literal>#$30</literal></td><td>メラ</td></tr>
+    <tr><td align="center"><literal>#$0C</literal></td><td>ギラ</td></tr>
+    <tr><td align="center"><literal>#$03</literal></td><td>イオ</td></tr>
+    <tr><td align="center" rowspan="4"><literal>#$0D</literal></td><td><literal>#$C0</literal></td><td>ヒャド</td></tr>
+    <tr><td align="center"><literal>#$30</literal></td><td>バギ</td></tr>
+    <tr><td align="center"><literal>#$0C</literal></td><td>デイン</td></tr>
+    <tr><td align="center"><literal>#$03</literal></td><td>ザキ</td></tr>
+    <tr><td align="center" rowspan="4"><literal>#$0E</literal></td><td><literal>#$C0</literal></td><td>ラリホー</td></tr>
+    <tr><td align="center"><literal>#$30</literal></td><td>マヌーサ</td></tr>
+    <tr><td align="center"><literal>#$0C</literal></td><td>ニフラム</td></tr>
+    <tr><td align="center"><literal>#$03</literal></td><td>ルカニ</td></tr>
+    <tr><td align="center" rowspan="4"><literal>#$0F</literal></td><td><literal>#$C0</literal></td><td>マホトラ</td></tr>
+    <tr><td align="center"><literal>#$30</literal></td><td>マホトーン</td></tr>
+    <tr><td align="center"><literal>#$0C</literal></td><td>メダパニ</td></tr>
+    <tr><td align="center"><literal>#$03</literal></td><td>メガンテ</td></tr>
+    <tr><td align="center" rowspan="4"><literal>#$10</literal></td><td><literal>#$C0</literal></td><td>不明 B</td></tr>
+    <tr><td align="center"><literal>#$30</literal></td><td>毒</td></tr>
+    <tr><td align="center"><literal>#$0C</literal></td><td>休み</td></tr>
+    <tr><td align="center"><literal>#$03</literal></td><td>未使用</td></tr>
+    <tr><td align="center"><literal>#$11</literal></td><td></td><td>コマンド 0</td></tr>
+    <tr><td align="center">...</td><td></td><td>...</td></tr>
+    <tr><td align="center"><literal>#$16</literal></td><td></td><td>コマンド 5</td></tr>
+    <tr><td align="center"><literal>#$17</literal></td><td></td><td>アイテム</td></tr>
+    <tr><td align="center" rowspan="2"><literal>#$18</literal></td><td><literal>#$80</literal></td><td>未使用</td></tr>
+    <tr><td align="center"><literal>#$7F</literal></td><td>仲間モンスター</td></tr>
+  </tbody>
+</table>
+
+<para>
+以下、モンスターの属性について、本節で勝手に言葉を付けたものを含めて、説明する。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>すばやさ</term>
+    <listitem>
+      <para>
+        すばやさとは、ターンにおけるコマンド実行順を決定するパラメーターとして参照される属性だ。
+      </para>
+      <para>
+        構造体 <varname>$0007C0</varname> オブジェクト（<xref linkend="dq5.combatants.0007C0"/> 参照）の対応属性に設定される値だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>攻撃力</term>
+    <listitem>
+      <para>
+        攻撃力の値は物理的に分割されて定義されている。より高位のアドレスにあるほうは 256 の位の値だ。
+      </para>
+      <para>
+        構造体 <varname>$0007C0</varname> オブジェクト対応属性に設定される。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>守備力</term>
+    <listitem>
+      <para>
+        守備力の値は物理的に分割されて定義されている。より高位のアドレスにあるほうは 256 の位の値だ。
+        構造体 <varname>$0007C0</varname> オブジェクト対応属性に設定される。
+      </para>
+      <para>
+        ただし、オブジェクトで定義されている値が <literal>#$01FF</literal> であれば、
+        <xref linkend="dq5.accessor"/> で説明する処理系はこれをマジックナンバーとして扱う。
+        この値を十進数の 511 ではなく、改めて 2,047 として敵陣戦闘員オブジェクトに設定する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>HP</term>
+    <listitem>
+      <para>
+        最大 HP の値は物理的に分割されて定義されている。より高位のアドレスにあるほうは 256 以上の位の値だ。
+      </para>
+      <para>
+        ただし、こちらにもマジックナンバーが存在する。プログラム上は次の 3 種が相当する：
+      </para>
+      <table id="table.dq5.monsters.hp" class="lighttable">
+        <caption>HP マジックナンバーと処理後の値（十進数）の対応</caption>
+        <thead>
+          <tr><th>値</th><th>処理後の値</th></tr>
+        </thead>
+        <tbody>
+          <tr><td align="center"><literal>#$07FC</literal></td><td align="right">3,000</td></tr>
+          <tr><td align="center"><literal>#$07FD</literal></td><td align="right">9,000</td></tr>
+          <tr><td align="center"><literal>#$07FE</literal></td><td align="right">4,500</td></tr>
+        </tbody>
+      </table>
+      <para>
+        構造体 <varname>$0007C0</varname> オブジェクト対応属性に設定される。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>MP</term>
+    <listitem>
+      <para>
+        最大 MP の値は <literal>#$FF</literal> つまり 255 をマジックナンバーとする。
+        このようなモンスターはいくら呪文を唱えても MP が全く減らないようになっている。
+      </para>
+      <para>
+        構造体 <varname>$0007C0</varname> オブジェクト対応属性に設定される。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>経験値</term>
+    <listitem>
+      <para>
+        経験値とは、戦闘勝利後に得られる合計の経験値に計上される値であり、
+        戦闘中にこのモンスターを一度倒すことで加算される。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ゴールド</term>
+    <listitem>
+      <para>
+        ゴールドとは、戦闘勝利後に得られる合計のゴールドに計上される値であり、
+        戦闘中にこのモンスターを一度倒すことで加算される。
+      </para>
+      <para>
+        ゴールドの値は物理的に分割されて定義されている。より高位のアドレスにあるほうは 256 以上の位の値だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>みかわし</term>
+    <listitem>
+      <para>
+        みかわしとは、戦闘中に直接攻撃を受けるときの「ひらりと みをかわした！」を発動しやすさを表す属性だ。
+        より直接的には、この回避を発生させる確率を決定するための配列 <varname>$278051</varname> の添字に他ならない。
+        具体的には次のように取り扱われる：
+      </para>
+      <table id="table.dq5.monsters.evasion.probablity" class="lighttable">
+        <caption>みかわし確率</caption>
+        <thead>
+          <tr><th>属性値</th><th>確率</th></tr>
+        </thead>
+        <tbody>
+          <tr><td align="center"><literal>0</literal></td><td>0</td></tr>
+          <tr><td align="center"><literal>1</literal></td><td>1/64</td></tr>
+          <tr><td align="center"><literal>2</literal></td><td>1/16</td></tr>
+          <tr><td align="center"><literal>3</literal></td><td>1/4</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンド制約</term>
+    <listitem>
+      <para>
+        コマンド制約とは、戦闘中の状況に応じてコマンド選択肢を阻めるような振る舞いをモンスターにさせるための属性だ。
+        これも別の節で議論するが、例えば「対象がマホカンタまたはマホキテが適用されている」ならば、
+        「攻撃呪文を無効化する」ような処理をするようになる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>初期確率</term>
+    <listitem>
+      <para>
+        初期確率とは、このモンスターが戦闘開始時点で初期状態（後述）になる確率を与えるための属性だ。
+        具体的には次のように取り扱われる：
+      </para>
+      <table id="table.dq5.monsters.initial.probablity" class="lighttable">
+        <caption>初期確率</caption>
+        <thead>
+          <tr><th>属性値</th><th>確率</th></tr>
+        </thead>
+        <tbody>
+          <tr><td align="center"><literal>0</literal></td><td>0</td></tr>
+          <tr><td align="center"><literal>1</literal></td><td>1/4</td></tr>
+          <tr><td align="center"><literal>2</literal></td><td>1/2</td></tr>
+          <tr><td align="center"><literal>3</literal></td><td>1</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>アイテム確率</term>
+    <listitem>
+      <para>
+        アイテム確率とは、戦闘終了時にこのモンスターが宝箱を落とす（ことが決まった後に落とす）確率を与える属性だ。
+        実際は配列 <varname></varname> の添字であり、結局は次の表の確率を取らせる：
+      </para>
+      <table id="table.dq5.monsters.loot.probablity" class="lighttable">
+        <caption>アイテム確率</caption>
+        <thead>
+          <tr><th>属性値</th><th>確率（十進数）</th></tr>
+        </thead>
+        <tbody>
+          <tr><td align="center"><literal>0</literal></td><td>1/1</td></tr>
+          <tr><td align="center"><literal>1</literal></td><td>1/8</td></tr>
+          <tr><td align="center"><literal>2</literal></td><td>1/16</td></tr>
+          <tr><td align="center"><literal>3</literal></td><td>1/32</td></tr>
+          <tr><td align="center"><literal>4</literal></td><td>1/64</td></tr>
+          <tr><td align="center"><literal>5</literal></td><td>1/128</td></tr>
+          <tr><td align="center"><literal>6</literal></td><td>1/256</td></tr>
+          <tr><td align="center"><literal>7</literal></td><td>1/4096</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>仲間確率</term>
+    <listitem>
+      <para>
+        仲間確率とは、その他の条件が整っているときにこのモンスターが戦闘終了時に突然起き上がり、
+        仲間になりたそうにこちらを見る確率を与える属性だ。
+      </para>
+      <para>
+        実際にこの値が意味するのは、ある確率を発生させるための定数の配列の添字だ。
+        これらの確率テーブルはアドレス <literal>$278162</literal>,
+        <literal>$278172</literal>, <literal>$278182</literal> にあり、
+        既に仲間にいる同一種のモンスターの頭数に応じて使い分けられる。
+        最終的に、この属性の値は次の確率を意味する：
+      </para>
+      <table id="table.dq5.monsters.ally" class="lighttable">
+        <caption>仲間確率</caption>
+        <thead>
+          <tr><th>属性値</th><th>1 体目確率</th><th>2 体目確率</th><th>3 体目確率</th></tr>
+        </thead>
+        <tbody>
+          <tr><td align="center"><literal>0</literal></td><td>0    </td><td>0     </td><td>0     </td></tr>
+          <tr><td align="center"><literal>1</literal></td><td>1/256</td><td>1/1024</td><td>1/1024</td></tr>
+          <tr><td align="center"><literal>2</literal></td><td>1/64 </td><td>1/128 </td><td>1/256 </td></tr>
+          <tr><td align="center"><literal>3</literal></td><td>1/32 </td><td>1/64  </td><td>1/128 </td></tr>
+          <tr><td align="center"><literal>4</literal></td><td>1/16 </td><td>1/64  </td><td>1/64  </td></tr>
+          <tr><td align="center"><literal>5</literal></td><td>1/4  </td><td>1/64  </td><td>1/64  </td></tr>
+          <tr><td align="center"><literal>6</literal></td><td>1/2  </td><td>1/64  </td><td>1/64  </td></tr>
+          <tr><td align="center"><literal>7</literal></td><td>1/2  </td><td>1/32  </td><td>1/16  </td></tr>
+        </tbody>
+      </table>
+      <para>
+        同一種モンスターが 3 体（以上）いるときは、さらに同じモンスターを仲間に加えることはない。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンド選択</term>
+    <listitem>
+      <para>
+        コマンド選択とは、このモンスターがコマンドを決定するサブルーチンを特定する値のための属性だ。
+        具体的に言うと、ジャンプテーブル <varname>$21BB32</varname> の添字になる。
+        どのモンスターも、後述するコマンド配列の中から一つのコマンドを各ターンで選択して実行することで戦闘が成り立っている。
+        その選択アルゴリズムがモンスターごとに 8 パターン存在して、かつそれが固定されていることを表現している。
+        詳細は戦闘解析の節で議論したい。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>自動回復</term>
+    <listitem>
+      <para>
+        自動回復とは、このモンスターがターン終了時に、生きていれば HP を回復する度合いを表す属性だ。
+        具体的には配列 <varname>$27804B</varname> および <varname>$27804E</varname> の添字を与える。
+        回復量は大体次のようなものになる：
+      </para>
+      <table id="table.dq5.monsters.recovery" class="lighttable">
+        <caption>自動回復</caption>
+        <thead>
+          <tr><th>属性値</th><th>回復量（十進数）</th></tr>
+        </thead>
+        <tbody>
+          <tr><td align="center"><literal>0</literal></td><td>なし</td></tr>
+          <tr><td align="center"><literal>1</literal></td><td>16 から 25</td></tr>
+          <tr><td align="center"><literal>2</literal></td><td>44 から 67</td></tr>
+          <tr><td align="center"><literal>3</literal></td><td>90 から 111</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>複数回</term>
+    <listitem>
+      <para>
+        複数回とは、このモンスターのコマンド実行番において、連続してコマンドを実行する能力を表す属性だ。
+        属性値と実行回数の対応を次の表に示す：
+      </para>
+      <table id="table.dq5.monsters.combo" class="lighttable">
+        <caption>複数回</caption>
+        <thead>
+          <tr><th>属性値</th><th>実行回数</th></tr>
+        </thead>
+        <tbody>
+          <tr><td align="center"><literal>0</literal></td><td>1 回実行</td></tr>
+          <tr><td align="center"><literal>1</literal></td><td>1/2 の確率で 2 回実行</td></tr>
+          <tr><td align="center"><literal>2</literal></td><td rowspan="2">2 回実行</td></tr>
+          <tr><td align="center"><literal>3</literal></td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>初期状態</term>
+    <listitem>
+      <para>
+        初期状態とは、このモンスターが戦闘開始時点で「ある種の呪文が適用されている」ことを示す属性だ。
+        先述の初期確率属性がゼロである場合にはこの属性は意味がない。
+        属性値と状態の対応を次の表に示す：
+      </para>
+      <table id="table.dq5.monsters.initial.state" class="lighttable">
+        <caption>初期状態</caption>
+        <thead>
+          <tr><th>属性値</th><th>状態</th></tr>
+        </thead>
+        <tbody>
+          <tr><td align="center"><literal>0</literal></td><td>ラリホー</td></tr>
+          <tr><td align="center"><literal>1</literal></td><td>マホカンタ</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>集中攻撃</term>
+    <listitem>
+      <para>
+        集中攻撃とは、このモンスターが（単体で）戦闘中に攻撃相手を固定するか否かを示す属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>メラ</term>
+    <listitem>
+      <para>
+        メラとは、メラ系呪文戦闘コマンドに対するダメージ面での耐性を表現する属性だ。
+      </para>
+      <para>
+        ダメージ理論については別節で述べるが、簡単にまとめておく。
+        耐性属性については 0 から 3 の値を取る。
+        これは数値が低いほど、対応するコマンドの効果が期待できる。
+        値が 0 ならば確実に効き、値が 3 ならば全く効かないというのが全コマンドで共通の規則だ。
+        値が 1 または 2 であれば、プレイヤー側キャラクターのレベル、
+        対象キャラクターがモンスターではなく、
+        自陣の戦闘員でいながら「めいれいさせろ」の対象とはならないキャラクターであるか、
+        かつ、実際のコマンドの ID などの条件によって、
+        ダメージ係数や的中確率の計算パラメーターを与える定数配列が異なってくる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ギラ</term>
+    <listitem>
+      <para>
+        ギラとは、ギラ系呪文、火炎の息系、いかづちのつえの各戦闘コマンド、
+        およびほのおのツメ装備時の直接攻撃系戦闘コマンドに対するダメージ面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>イオ</term>
+    <listitem>
+      <para>
+        イオとは、イオ系呪文およびばくだんいしの戦闘コマンドに対するダメージ面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ヒャド</term>
+    <listitem>
+      <para>
+        ヒャドとは、ヒャド系呪文および吹雪系の各戦闘コマンド、
+        およびふぶきのつるぎやこおりのやいば装備時の直接攻撃系戦闘コマンドに対するダメージ面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>バギ</term>
+    <listitem>
+      <para>
+        バギとは、バギ系呪文戦闘コマンドに対するダメージ面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>デイン</term>
+    <listitem>
+      <para>
+        デインとは、デイン系呪文およびいなずまの戦闘コマンドに対するダメージ面での耐性を表現する属性だ。
+        変則的だが、この耐性は敵側のイオ系呪文を仲間側がマホカンタで跳ね返したときのダメージを決定するのにも参照されるかもしれない。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ザキ</term>
+    <listitem>
+      <para>
+        ザキとは、ザキ系呪文、ぶきみなひかり、まひこうげき、やけつくいき、みなごろし、
+        およびふうじんのたての各戦闘コマンドに対する確率面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ラリホー</term>
+    <listitem>
+      <para>
+        ラリホーとは、ラリホー系呪文、ねむりこうげき、あまいいきの戦闘コマンドに対する確率面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>マヌーサ</term>
+    <listitem>
+      <para>
+        マヌーサとは、マヌーサ、ガスミンク等による砂煙、まぶしいひかりの戦闘コマンドに対する確率面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ニフラム</term>
+    <listitem>
+      <para>
+        ニフラムとは、ニフラムの戦闘コマンドに対する確率面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ルカニ</term>
+    <listitem>
+      <para>
+        ルカニとは、ルカニ系呪文の戦闘コマンドに対する確率面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>マホトラ</term>
+    <listitem>
+      <para>
+        マホトラとは、マホトラとふしぎなおどり系の戦闘コマンドに対する確率面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>マホトーン</term>
+    <listitem>
+      <para>
+        マホトーンとは、マホトーンとまふうじのつえの戦闘コマンドに対する確率面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>メダパニ</term>
+    <listitem>
+      <para>
+        メダパニとは、メダパニの戦闘コマンドに対する確率面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>メガンテ</term>
+    <listitem>
+      <para>
+        メガンテとは、メガンテの戦闘コマンドに対する確率面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>毒</term>
+    <listitem>
+      <para>
+        毒とは、どくこうげき、どくのいき、もうどくのきりの戦闘コマンドに対する確率面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>休み</term>
+    <listitem>
+      <para>
+        休みとは、なめまわし、さそうおどり、おたけびの戦闘コマンドに対する確率面での耐性を表現する属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンド i (i = 0 .. 5)</term>
+    <listitem>
+      <para>
+        モンスターが実行可能な戦闘コマンドが最大 6 種類、属性として関連付けられている。
+        戦闘コマンドについては <xref linkend="dq5.battle.commands"/> を参照。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>アイテム</term>
+    <listitem>
+      <para>
+        アイテムとは、このモンスターが戦闘終了後に宝箱を落とすとき、その中身のアイテムを指定するための属性だ。
+        アイテムについては <xref linkend="dq5.items"/> を参照。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>仲間</term>
+    <listitem>
+      <para>
+        仲間とは、このモンスターが仲間になったときのキャラクター ID を表す属性だ。
+        値と意味の対応は <xref linkend="dq5.character.traits.specific"/> の後半部で記述する。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq5.monsters.model -->
+
+<section id="dq5.monsters.data">
+<title>データ</title>
+<para>
+本節で説明したモンスター属性を単独の CSV ファイルに統合して <xref linkend="appendix.b"/> に収録する。
+</para>
+</section> <!-- dq5.monsters.data -->
+</section> <!-- dq5.monsters -->

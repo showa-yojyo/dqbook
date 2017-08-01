@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="tools.emulators"><?dbhtml filename="tools_emulators.html" ?>
+<title>ゲーム機エミュレータ</title>
+<para>
+	本節では Windows アプリとして動作するゲーム機エミュレータのうち、
+	とりあえず記者が利用しているものをごく簡単に紹介していく。
+	なにしろスーファミとプレステしか知らない人間が書き手なので、
+	読者の方がずっと詳しいということがあり得る。
+	その場合は、失望感を抱いたまま次のページに行っていただく。
+</para>
+
+<section id="tools.emulators.gsd">
+<title>Snes9X - Geiger's Snes9x Debugger</title>
+<indexterm id="term.gsd"><primary>GSD</primary></indexterm>
+<indexterm id="term.snes9x"><primary>Snes9X</primary></indexterm>
+<indexterm id="term.sfc"><primary>エミュレータ</primary><secondary>SFC</secondary></indexterm>
+<indexterm id="term.snes"><primary>エミュレータ</primary><secondary>SNES</secondary></indexterm>
+
+<figure id="fig.dq.hack.tool.gsd">
+	<title>GSD Breakpoints ダイアログ</title>
+	<graphic width="186px" fileref="./image/tools.emulators.gsd.png"/>
+</figure>
+<para>
+	スーファミのエミュレータ。すなわち、スーファミのロムイメージファイルを読み込んで、
+	ゲームを Windows 環境上に再現するアプリケーションの一つである。以下 GSD と呼ぶ。
+	これは伝統的な <ulink url="http://www.snes9x.com/">Snes9x</ulink> というエミュレータを
+	デバッグ機能を強化するべく改良したものである。
+	入手先は <ulink url="http://geigercount.net/crypt/">http://geigercount.net/crypt/</ulink> のようだ。
+	エミュレータの起動には、MFC の DLL が必要となる。
+	フリー DLL のダウンロードサイトを適当に探せば、入手は容易いだろう。
+	ちなみに記者は .NET 2003 をインストール済みの環境で作業をしているため、
+	DLL のインストールを必要としなかった。
+</para>
+<para>
+	元祖 <application>Snes9x</application> の機能に加え、次のような機能を提供する。
+	このほかにも、記者が説明できないような専門的な機能
+	<footnote id="ftn.tools.emulators.gsd">
+		<para>
+			<ulink url="http://www.geocities.jp/to_546/intro/intro.html">http://www.geocities.jp/to_546/intro/intro.html</ulink>
+			に各コマンドのリストが掲載されている。
+		</para>
+	</footnote>
+	を豊富に有する。
+</para>
+<para>
+	最重要コマンドを以下に示す。
+</para>
+<glosslist>
+	<glossentry>
+		<glossterm>デバッガ機能</glossterm>
+		<glossdef>
+			<para>
+				基本的なステップ実行機能や、現在のプログラムカウンタの命令のスキップ。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>逆アセンブル機能</glossterm>
+		<glossdef>
+			<para>
+				アドレス範囲を指定して逆アセンブルコードを見ることができる。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>トレース機能</glossterm>
+		<glossdef>
+			<para>
+				実行パスの逆アセンブルコードをテキストファイルとして出力する。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm><acronym>RAM</acronym> ダンプ</glossterm>
+		<glossdef>
+			<para>
+				<acronym>RAM</acronym> のメモリイメージをバイナリファイルとして出力する。
+			</para>
+		</glossdef>
+	</glossentry>
+	<glossentry>
+		<glossterm>メモリビュー</glossterm>
+		<glossdef>
+			<para>
+				プログラムのメモリ空間の内容を、バイナリエディタ風の表示で確認できる。
+			</para>
+		</glossdef>
+	</glossentry>
+</glosslist>
+<para>
+	ドラクエ命の活動では、「ステップ実行」「トレース」「メモリビュー」機能をフル活用する。
+	これにより、各種データアドレスやアルゴリズムの解読を達成することが可能となる。
+	改造コードの知識があれば、メモリビューの $7E0000-$7FFFFF の見方はすぐに理解できる。
+	しかし、逆アセンブルコードの解読には、65816 マシン語の知識が必要となる。
+</para>
+<para>
+	記者がこれを知ったのは、某ドラクエ解析系秘密サイトである。
+	そこには解析目的の必須・推奨ツールおよびドキュメントが紹介されており、
+	情報源として極めて価値が高い。
+	そこが公開サイトになれば、本節は不要となる。
+</para>
+</section> <!-- tools.emulators.gsd -->
+
+<section id="tools.emulators.epsxe">
+<title>ePSXe</title>
+<indexterm id="term.epsxe"><primary>ePSXe</primary></indexterm>
+<indexterm id="term.emulators.playstation"><primary>エミュレータ</primary><secondary>PS</secondary></indexterm>
+
+<figure id="fig.tools.emulators.epsxe">
+	<title>ePSXe</title>
+	<graphic width="483px" fileref="./image/tools.emulators.epsxe.png"/>
+</figure>
+<para>
+	プレステのエミュレータである。最近使っていないので迂闊に説明できない。
+	入手先は <ulink url="http://www.epsxe.com/">http://www.epsxe.com/</ulink> と思われる。
+	なお、ゲームをプレイするには、ゲームの他にプレステの BIOS イメージが必要となる。
+	入手困難と思われるが、何とか入手していただきたい。
+	さらに（現在ではどうか知らないが）&dq7_2000; や &dq4_2001; をまともに動作させるためには、
+	また特別なプラグイン DLL を必要とする筈だ。
+</para>
+<para>
+	ヘルプドキュメントを一通り読んでから動作させることを強くお勧めする。
+	かなり力を入れて制作されたエミュレータであることが窺える。
+</para>
+</section> <!-- tools.emulators.epsxe -->
+
+<section id="tools.emulators.cep">
+<title>cep</title>
+<indexterm id="term.cep"><primary>Cep</primary></indexterm>
+
+<figure id="fig.tools.emulators.cep">
+	<title>Cep</title>
+	<graphic width="431px" fileref="./image/tools.emulators.cep.png"/>
+</figure>
+<para>
+	Windows アプリ、特にプレステエミュレータ用のチートツールである。
+	要するにプロセスの使用メモリにアクセスするアプリである。
+	README によれば、入手先は
+	<ulink url="http://members.tripod.co.jp/DrHell/">http://members.tripod.co.jp/DrHell/</ulink>
+	だそうだ。
+</para>
+<para>
+	記者は &dq7_2000; のデバッグモードを有効にする目的で本ツールを用いている
+	（<xref linkend="dq7.dbg"/>参照）。
+</para>
+</section> <!-- tools.emulators.cep -->
+
+<section id="tools.emulators.yame">
+<title>YAME</title>
+<indexterm id="term.yame"><primary>YAME</primary></indexterm>
+<indexterm id="term.emulators.gameboy"><primary>エミュレータ</primary><secondary>GB</secondary></indexterm>
+<indexterm id="term.emulators.famicom"><primary>エミュレータ</primary><secondary>FC</secondary></indexterm>
+<indexterm id="term.emulators.nes"><primary>エミュレータ</primary><secondary>NES</secondary></indexterm>
+
+<figure id="fig.tools.emulators.yame">
+	<title>YAME030 設定ダイアログ</title>
+	<graphic width="399px" fileref="./image/tools.emulators.yame.png"/>
+</figure>
+<para>
+	<application>YAME</application> はゲームボーイ・ファミコンおよび PC エンジンのエミュレータである。
+	本書では &dq3_2000; のモンスターメダルデータの格納位置を、
+	セーブデータファイルから特定するのに用いる（<xref linkend="dq3.monmedal.dq4.hack"/>参照）。
+</para>
+<para>
+	この節を執筆するために、ファイルシステムの奥深くにあるフォルダから
+	<application>YAME</application> を引っ張り出してみたのだが、
+	どういうわけか、存在するはずのドキュメントが行方不明になってしまっていた。
+	従って、ここに入手先を記すことができない。
+	申し訳ない。
+</para>
+</section> <!-- tools.emulators.yame -->
+</section> <!-- tools.emulators -->

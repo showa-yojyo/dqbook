@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.monsters"><?dbhtml filename="dq3_monsters.html" ?>
+<title>モンスター</title>
+<indexterm id="term.dq3.monsters"><primary>モンスター</primary><secondary>dq3</secondary></indexterm>
+<para>
+この節ではモンスターデータについて述べる。
+ここで言うモンスターデータとは、モンスターそれぞれの静的な性質を定義したオブジェクトのことを意味するものであり、
+物理的にはアドレス <varname>$C20000</varname> に存在する配列を構成する要素の型のことだ。
+戦闘員としてのモンスターデータについては <xref linkend="dq3.combatants"/> で述べる。
+</para>
+
+<section id="dq3.monsters.C20000">
+<title>構造体 <varname>$C20000</varname>: モンスター</title>
+<para>
+モンスター構造体とは、サイズが <literal>#$25</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
+この型のオブジェクトがアドレス <varname>$C20000</varname> から 160 個直列している。
+</para>
+<para>
+これらのモンスターオブジェクトは戦闘員オブジェクトの初期化や属性値の再設定の目的で参照されることになる。
+あるいは、戦闘員としてのモンスターの状態に依存しないような属性、例えば使えるコマンドの集合、耐性、経験値といった量が格納されている。
+</para>
+<table id="table.dq3.C20000" class="lighttable">
+  <caption>構造体 $C20000</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>名前</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$003F</literal></td><td>レベル</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0040</literal></td><td>ドラゴン系</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0080</literal></td><td>ゾンビ系</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$FFFF</literal></td><td>経験値</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$03FF</literal></td><td>ゴールド</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$0FFC</literal></td><td>攻撃力</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$3FF0</literal></td><td>守備力</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$FFC0</literal></td><td>パレット</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td><td>すばやさ</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$00FF</literal></td><td>MP</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$00FF</literal></td><td>アイテム</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$00FF</literal></td><td>スプライト</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$01FF</literal></td><td>コマンド 0</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$03FE</literal></td><td>コマンド 1</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$07FC</literal></td><td>コマンド 2</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$0FF8</literal></td><td>コマンド 3</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$1FF0</literal></td><td>コマンド 4</td></tr>
+    <tr><td><literal>#$13</literal></td><td><literal>#$3FE0</literal></td><td>コマンド 5</td></tr>
+    <tr><td><literal>#$14</literal></td><td><literal>#$7FC0</literal></td><td>コマンド 6</td></tr>
+    <tr><td><literal>#$15</literal></td><td><literal>#$FF80</literal></td><td>コマンド 7</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$0001</literal></td><td>コマンド制約 0</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$0002</literal></td><td>コマンド制約 1</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$0004</literal></td><td>コマンド制約 2</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$0008</literal></td><td>コマンド制約 3</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$0010</literal></td><td>コマンド制約 4</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$0020</literal></td><td>コマンド制約 5</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$0040</literal></td><td>コマンド制約 6</td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$0080</literal></td><td>コマンド制約 7</td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$000F</literal></td><td>コマンドアニメーション 0</td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$00F0</literal></td><td>コマンドアニメーション 1</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$000F</literal></td><td>コマンドアニメーション 2</td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$00F0</literal></td><td>コマンドアニメーション 3</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$000F</literal></td><td>コマンドアニメーション 4</td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$00F0</literal></td><td>コマンドアニメーション 5</td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$000F</literal></td><td>コマンドアニメーション 6</td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$00F0</literal></td><td>コマンドアニメーション 7</td></tr>
+    <tr><td><literal>#$1C</literal></td><td><literal>#$000F</literal></td><td>コマンドアニメーション 8</td></tr>
+    <tr><td><literal>#$1C</literal></td><td><literal>#$0030</literal></td><td>コマンド選択判断</td></tr>
+    <tr><td><literal>#$1C</literal></td><td><literal>#$00C0</literal></td><td>コマンド決定戦略</td></tr>
+    <tr><td><literal>#$1D</literal></td><td><literal>#$0007</literal></td><td>みかわし</td></tr>
+    <tr><td><literal>#$1D</literal></td><td><literal>#$0038</literal></td><td>アイテム確率</td></tr>
+    <tr><td><literal>#$1D</literal></td><td><literal>#$00C0</literal></td><td>複数回</td></tr>
+    <tr><td><literal>#$1E</literal></td><td><literal>#$0003</literal></td><td>自動回復</td></tr>
+    <tr><td><literal>#$1E</literal></td><td><literal>#$000C</literal></td><td>集中攻撃</td></tr>
+    <tr><td><literal>#$1E</literal></td><td><literal>#$0030</literal></td><td>耐性 <literal>#$00</literal></td></tr>
+    <tr><td><literal>#$1E</literal></td><td><literal>#$00C0</literal></td><td>耐性 <literal>#$01</literal></td></tr>
+    <tr><td><literal>#$1F</literal></td><td><literal>#$0003</literal></td><td>耐性 <literal>#$02</literal></td></tr>
+    <tr><td><literal>#$1F</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$03</literal></td></tr>
+    <tr><td><literal>#$1F</literal></td><td><literal>#$0030</literal></td><td>耐性 <literal>#$04</literal></td></tr>
+    <tr><td><literal>#$1F</literal></td><td><literal>#$00C0</literal></td><td>耐性 <literal>#$05</literal></td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$0003</literal></td><td>耐性 <literal>#$06</literal></td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$07</literal></td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$0030</literal></td><td>耐性 <literal>#$08</literal></td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$00C0</literal></td><td>耐性 <literal>#$09</literal></td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$0003</literal></td><td>耐性 <literal>#$0A</literal></td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$000C</literal></td><td>耐性 <literal>#$0B</literal></td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$0030</literal></td><td>耐性 <literal>#$0C</literal></td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$00C0</literal></td><td>耐性 <literal>#$0D</literal></td></tr>
+    <tr><td><literal>#$22</literal></td><td><literal>#$FFFF</literal></td><td>HP</td></tr>
+    <tr><td><literal>#$24</literal></td><td><literal>#$0001</literal></td><td>（メタル系）</td></tr>
+    <tr><td><literal>#$24</literal></td><td><literal>#$00FE</literal></td><td>（未使用）</td></tr>
+  </tbody>
+</table>
+<para>
+（未使用）等の括弧付きの属性は、オブジェクトによって値が異なっているかもしれないが、プログラムからの参照がないものだ。
+以下に各属性の概要を記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>名前</term>
+    <listitem>
+      <para>
+        名前とは、このモンスターの名前を意味する文字列の ID を値とする属性だ。
+        名前文字列はコマンド入力ウィンドウやメッセージ出力ウィンドウ上のテキスト内に表示される。
+      </para>
+      <para>
+        文字列全般については <xref linkend="dq3.string"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>レベル</term>
+    <listitem>
+      <para>
+        レベルとは、このモンスターのレベルを値に取る属性だ。
+        あやしいかげの実体決定や自陣敵陣双方の逃走判定等に参照される属性値だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ドラゴン系</term>
+    <listitem>
+      <para>
+        ドラゴン系とは、このモンスターがドラゴンのような性質があることを示すブーリアン型属性だ。
+        この属性値が 1 のモンスターに対するドラゴンキラー装備時の攻撃では、ダメージを上乗せする処理が発生する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>（ゾンビ系）</term>
+    <listitem>
+      <para>
+        ゾンビ系とは、このモンスターがゾンビのような性質があることを示すブーリアン型属性だ。
+        実際のプログラムではこの属性は参照されていない。
+        ゾンビキラーのダメージ補正はこれではなく、ニフラム耐性属性値を参照することで処理が発生する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>経験値</term>
+    <listitem>
+      <para>
+        経験値とは、自陣側パーティーが一人しかいないときに、このモンスターを倒すことで得られる経験値を表す属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ゴールド</term>
+    <listitem>
+      <para>
+        ゴールドとは、このモンスターを倒すことで得られるゴールドの金額を値として取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>攻撃力</term>
+    <term>守備力</term>
+    <listitem>
+      <para>
+        それぞれ、このモンスターの攻撃力と守備力を表す値を取る属性だ。
+        この属性値は戦闘員オブジェクトの初期化の際に対応属性に割り当てられる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>パレット</term>
+    <listitem>
+      <para>
+        パレットとは、画面上に描画されるモンスターのイメージの色彩データを指示する属性だ。
+        詳細は調査中。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>すばやさ</term>
+    <listitem>
+      <para>
+        すばやさとは、このモンスターのすばやさを値に取る属性だ。
+        この属性値は戦闘員オブジェクトの初期化の際に対応属性に割り当てられる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>MP</term>
+    <listitem>
+      <para>
+        MP とは、このモンスターの最大 MP を値に取る属性だ。
+        ただし、属性値が 255 であるときは戦闘員オブジェクトの MP 属性値を 65,535 で初期化する。
+        この値はマジックナンバーであり、どんなコマンドを実行しても MP が減少しないことを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>アイテム</term>
+    <listitem>
+      <para>
+        アイテムとは、このモンスターを倒すことで戦闘終了時に得られることがあるアイテムの ID を値に取る属性だ。
+      </para>
+      <para>
+        アイテム全般については <xref linkend="dq3.items"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>スプライト</term>
+    <listitem>
+      <para>
+        スプライトとは、画面上に描画されるモンスターの画像の形状データを指示する属性だ。
+        詳細は調査中。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンド k (k = 0..7)</term>
+    <listitem>
+      <para>
+        コマンドとは、このモンスターが戦闘中に実行する可能性のある戦闘コマンドの ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンド制約 k (k = 0..7)</term>
+    <listitem>
+      <para>
+        コマンド制約とは以下に述べる性質があるブーリアン型の属性だ。
+        同一ターン内において、このモンスター戦闘員が所属するグループ内の他の戦闘員が既にコマンド k を実行したとする。
+        その場合には、この戦闘員にコマンド k を実行するために選択しないものとする。
+      </para>
+      <para>
+        例を挙げると、バラモスエビルのイオナズンとこごえるふぶきの属性値の違いだ。
+        前者は 1 で後者は 0 となっている。これはイオナズンは遠慮するが、吹雪は遠慮しないということだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンドアニメーション k (k = 0..8)</term>
+    <listitem>
+      <para>
+        コマンドアニメーション k とは、このモンスターがコマンド k を実行するときのアニメーションパターンを指示する値を取る属性だ。
+        コマンド制約や選択能力の都合上、どのコマンドも実行できないという状況があり得るので、
+        そのときには全モンスター共通で通常攻撃を実行することになっている。
+        そのアニメーション用に k = 8 のものが存在する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンド選択判断</term>
+    <listitem>
+      <para>
+        コマンド選択判断とは、このモンスター戦闘員が自分のレパートリーにあるコマンドを実行するかどうかを決定する方式を表現する属性だ。
+        この属性値はコマンドオブジェクトの対象決定判断属性 0..2 に対応している。
+      </para>
+      <para>
+        「せんたくバカ」「せんたくにんげん」「せんたくかみ」というテスト用のモンスターデータが存在するが、
+        これらはまさにこの属性値が 0..2 とそれぞれ設定されている。
+        コマンドを指定して、属性値に応じた振る舞いの違いを見るためのものに違いない。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>コマンド決定戦略</term>
+    <listitem>
+      <para>
+        コマンド決定戦略とは、このモンスターが自身の実行するコマンドの選択傾向を表す属性だ。
+        取り得る値は 0..3 であり、0..2 と 3 とで意味合いが異なる。
+      </para>
+      <para>
+        値が 0..2 であれば、配列 <varname>$C268CD</varname> で決められた確率表に従う抽選でコマンドを決める。ここで分母は 256 とみなす。
+        ただし、同一グループ制約があり先約済みであれば、その項目を選択失敗とする。
+      </para>
+      <table id="table.dq3.C268CD" class="lighttable">
+        <caption>コマンド選択確率</caption>
+        <thead>
+          <tr><th>ID</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td align="right">32</td><td align="right">32</td><td align="right">32</td><td align="right">32</td><td align="right">32</td><td align="right">32</td><td align="right">32</td><td align="right">32</td></tr>
+          <tr><th>1</th><td align="right">18</td><td align="right">22</td><td align="right">26</td><td align="right">30</td><td align="right">34</td><td align="right">38</td><td align="right">42</td><td align="right">46</td></tr>
+          <tr><th>2</th><td align="right"> 2</td><td align="right"> 4</td><td align="right"> 6</td><td align="right"> 8</td><td align="right">10</td><td align="right">12</td><td align="right">14</td><td align="right">200</td></tr>
+        </tbody>
+      </table>
+      <para>
+        値が 3 であれば、モンスターの所属グループ上のローテーションでコマンドを決める。
+        このときは配列 <varname>$C268CD</varname> の値をマスクとして用いる
+        （ビットに対応する項目しか抽選しないようにする）。
+      </para>
+      <table id="table.dq3.C268E5" class="lighttable">
+        <caption>コマンド選択確率</caption>
+        <thead>
+          <tr><th>ID</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>3</th><td><literal>#$01</literal></td><td><literal>#$02</literal></td><td><literal>#$04</literal></td><td><literal>#$08</literal></td><td><literal>#$10</literal></td><td><literal>#$20</literal></td><td><literal>#$40</literal></td><td><literal>#$80</literal></td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>みかわし</term>
+    <listitem>
+      <para>
+        みかわしとは、このモンスターが戦闘相手から直接攻撃系統のコマンド、
+        厳密に言えばみかわし属性値が 1 のコマンドを実行されたときに、
+        それを身のこなしで避ける度合いを表現する値を取る属性だ。
+      </para>
+      <para>
+        通常戦の敵陣モンスターの場合は、みかわし属性値プラス 1 を 48 で割った値がみかわしが発生する確率と考えられる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>アイテム確率</term>
+    <listitem>
+      <para>
+        アイテム確率とは、戦闘終了後にこのモンスターが（他に条件が加わらないときの）宝箱を落とす確率を決定する値の配列の添字を値とする属性だ。
+        その配列とは <varname>$C2AA34</varname> であり、その要素らが意味するところは次の表のようになる：
+      </para>
+      <table id="table.dq3.C2AA34" class="lighttable">
+        <caption>アイテム確率</caption>
+        <thead>
+          <tr><th>ID</th><th>確率</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td align="right">1/1</td></tr>
+          <tr><th>1</th><td align="right">1/8</td></tr>
+          <tr><th>2</th><td align="right">1/16</td></tr>
+          <tr><th>3</th><td align="right">1/32</td></tr>
+          <tr><th>4</th><td align="right">1/64</td></tr>
+          <tr><th>5</th><td align="right">1/128</td></tr>
+          <tr><th>6</th><td align="right">1/256</td></tr>
+          <tr><th>7</th><td align="right">1/1024</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>複数回</term>
+    <listitem>
+      <para>
+        複数回とは、このモンスター戦闘員が自分のコマンド実行手番のときに、何回連続でコマンドを実行するかを表す属性だ。
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            値が 0 ならば単にコマンドを実行する。
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            値が 1 ならば、5 割の確率で連続してコマンドを実行する。一般的には相異なるコマンドを実行する。
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            値が 2 ならば、一様ランダムに 1 回から 3 回連続実行する。
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            それ以外の値のときは確実に 2 回連続実行する。
+          </para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>自動回復</term>
+    <listitem>
+      <para>
+        自動回復とは、このモンスター戦闘員がターン終了時に回復する HP の量を指定する属性だ。
+        配列 <varname>$C2C3A6</varname> に回復量の範囲が表現されている。次の表のように解釈できる：
+      </para>
+      <table id="table.dq3.C2C3A6" class="lighttable">
+        <caption>自動回復</caption>
+        <thead>
+          <tr><th>ID</th><th>回復量</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td align="center">0</td></tr>
+          <tr><th>1</th><td align="center">16..24</td></tr>
+          <tr><th>2</th><td align="center">44..56</td></tr>
+          <tr><th>3</th><td align="center">90..110</td></tr>
+        </tbody>
+      </table>
+      <para>
+        上の表の本体は前作の <xref linkend="table.dq6.C2C47F"/> のコピーアンドペーストで済ませた。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>集中攻撃</term>
+    <listitem>
+      <para>
+        集中攻撃とは、このモンスター戦闘員が所属するグループが、
+        コマンド実行の標的を固定するか否かを示すブーリアン型属性だ。
+        この値が 1 かつコマンド選択判断が 1 以上のときは、所属グループで共有した標的を狙い打ちにする。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>耐性 k (k = <literal>#$00</literal>..<literal>#$0D</literal>)</term>
+    <listitem>
+      <para>
+        耐性とは、このモンスターの戦闘コマンドに対する耐久度を示す指標を値とする属性だ。
+        取り得る値は 0..3 であり、数値が高いほど耐久度が高い（ただし耐久度の意味はコマンドの耐性分類による）。
+      </para>
+      <para>
+        「せんたく０」「せんたく１」「せんたく２」「せんたく３」というテスト用のモンスターデータが存在するが、
+        これらはまさにこの属性値が 0..3 とそれぞれ設定されている。
+        これらのモンスターを一頭ずつ登場させて、同じ攻撃呪文を試すて受けるダメージを比較するという用途だろう。
+      </para>
+      <para>
+        耐性の k とコマンド系統との対応関係を表にすると下記のようになる。
+        注意を要するのは、コマンド属性の系統分類とは一対一対応でないという点だ。
+      </para>
+      <table id="table.dq3.monsters.immunity" class="lighttable">
+        <caption>モンスター耐性表</caption>
+        <thead>
+          <tr><th>k</th><th>系統</th></tr>
+        </thead>
+        <tbody>
+          <tr><th><literal>#$00</literal></th><td>メラ・ギラ・イオ</td></tr>
+          <tr><th><literal>#$01</literal></th><td>ヒャド</td></tr>
+          <tr><th><literal>#$02</literal></th><td>バギ</td></tr>
+          <tr><th><literal>#$03</literal></th><td>デイン</td></tr>
+          <tr><th><literal>#$04</literal></th><td>ザキ</td></tr>
+          <tr><th><literal>#$05</literal></th><td>メガンテ</td></tr>
+          <tr><th><literal>#$06</literal></th><td>ラリホー</td></tr>
+          <tr><th><literal>#$07</literal></th><td>マホトーン</td></tr>
+          <tr><th><literal>#$08</literal></th><td>ルカニ</td></tr>
+          <tr><th><literal>#$09</literal></th><td>マヌーサ</td></tr>
+          <tr><th><literal>#$0A</literal></th><td>マホトラ</td></tr>
+          <tr><th><literal>#$0B</literal></th><td>メダパニ</td></tr>
+          <tr><th><literal>#$0C</literal></th><td>ボミオス・バシルーラ</td></tr>
+          <tr><th><literal>#$0D</literal></th><td>ニフラム・せいすい</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>HP</term>
+    <listitem>
+      <para>
+        HP とは、このモンスターの最大 HP を値に取る属性だ。
+      </para>
+      <para>
+        通常戦の場合、モンスター戦闘員の初期 HP はこの値の 90% から 100% までの値のいずれかを抽選して割り当てる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>（メタル系）</term>
+    <listitem>
+      <para>
+        メタル系とは、このモンスターがメタリックであるかどうかを示すためのブーリアン型属性だ。
+      </para>
+      <para>
+        オブジェクトをダンプしてみると「メタルスライム」「はぐれメタル」「メタルキメラ」に対して 1 が設定されていることがわかるのだが、
+        プログラム中にこの属性値を参照しているコードが見当たらない。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.monsters.C20000 -->
+
+<section id="dq3.monsters.methods">
+<title>モンスター構造体メソッド</title>
+<para>
+逆アセンブルの便宜を図るため、以下に <varname>$C20000</varname> 構造体の各属性にアクセスするためのサブルーチンの一覧を次に示す。
+表の凡例は前作 <xref linkend="dq6.monsters.methods"/> と同じにつき、記載を繰り返さない。
+</para>
+<table id="table.dq3.monsters.methods" class="lighttable">
+  <caption>モンスター構造体の属性にアクセスするサブルーチン</caption>
+  <thead>
+    <tr><th>サブルーチン</th><th>固定引数長</th><th>入力</th><th>機能</th></tr>
+  </thead>
+  <tbody>
+    <tr><td align="center"><varname>$C2CC69</varname></td><td>2</td><td align="center">x</td><td>2 バイト長の属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2CC70</varname></td><td>2</td><td align="center">y</td><td>2 バイト長の属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2CC8B</varname></td><td>4</td><td align="center">x</td><td>ビットフィールド属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2CC92</varname></td><td>4</td><td align="center">y</td><td>ビットフィールド属性値を取得する</td></tr>
+    <tr><td align="center"><varname>$C2CCAD</varname></td><td>4</td><td align="center">x</td><td>ビットフィールド属性値をテストする</td></tr>
+    <tr><td align="center"><varname>$C2CCB4</varname></td><td>4</td><td align="center">y</td><td>ビットフィールド属性値をテストする</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq3.monsters.methods -->
+</section> <!-- dq3.monsters -->

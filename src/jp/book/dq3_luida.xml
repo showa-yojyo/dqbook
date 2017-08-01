@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.luida"><?dbhtml filename="dq3_luida.html" ?>
+<title>ルイーダの酒場</title>
+<indexterm id="term.dq3.luida"><primary>ルイーダの酒場</primary><secondary>DQ3</secondary></indexterm>
+<para>
+ルイーダの酒場について述べる。
+</para>
+
+<section id="luida.structure">
+<title>構造に関する構成要素</title>
+<para>
+ルイーダの酒場を構成する構造に関する要素について述べる。
+</para>
+</section> <!-- dq3.luida.structure -->
+
+<section id="dq3.luida.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+ルイーダの酒場を構成する振る舞いに関する要素について述べる。
+</para>
+
+<section id="dq3.luida.C3D760">
+<title>サブルーチン <varname>$C3D760</varname>: ルイーダの酒場処理</title>
+<para>
+サブルーチン <varname>$C3D760</varname> が、ルイーダの酒場での通常処理を実装している。
+以下に処理の要点を挙げる。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      サービスは「なかまをよびだす」「なかまをあずける」「めいぼをみる」固定だ。
+      それぞれ専用サブルーチンで処理する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      何かのサービスを受けた後ならば、もう一度サービスメニューが表示される。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.luida.behavior.C3D760 -->
+
+<section id="dq3.luida.behavior.C3D7BB">
+<title>サブルーチン <varname>$D7BB</varname>: なかまをあずける</title>
+<para>
+サブルーチン <varname>$C3D7BB</varname> はメニュー項目「なかまをあずける」選択時の処理コードだ。
+以下に処理の要点を挙げる。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      パーティー人数が一人のときは預かりを断られる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      主人公については、エンディングを見た後かつバラモスを倒した後でしかルイーダに預けられない。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      預けようとしたキャラクターの残りメンバー全てが死亡状態ならば、預かりを断られる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      預けようとしたキャラクターが死亡状態だと、ルイーダの台詞が変わって生き返らせるように提案される。そのまま預けることもできる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      預けるキャラクターの所持品は装備以外はパーティー共有のふくろに収められる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      初回のみルイーダが理由を説明するようにフラグ <varname>$7E353B</varname> &amp; <literal>#$80</literal> を用いる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      パーティー人数、酒場人数、仲間キャラクター配列の更新は別サブルーチン <varname>$C42A6D</varname> で処理する。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      預けた後、パーティーの人数が 2 未満ならばルイーダは他にも預かるかどうか聞いてこない。
+    </para>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.luida.behavior.C3D7BB -->
+
+<section id="dq3.luida.behavior.C3D8E8">
+<title>サブルーチン <varname>$C3D8E8</varname>: なかまをよびだす</title>
+<para>
+サブルーチン <varname>$C3D8E8</varname> はメニュー項目「なかまをよびだす」選択時の処理コードだ。
+以下に処理の要点を挙げる。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      パーティーに 4 人いると、ルイーダに呼び出しを断られる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      あるいは、酒場に仲間が誰もいないと、ルイーダに呼び出しを断られる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      呼び出し後、酒場にいる仲間の人数が 0 ならばルイーダは他にも呼ぶかどうか聞いてこない。
+    </para>
+  </listitem>
+</itemizedlist>
+<para>
+ちなみに本節では、酒場にいる仲間の人数をアドレス <varname>$7E36E4</varname> の値であるとしている。
+</para>
+</section> <!-- dq3.luida.behavior.C3D8E8 -->
+
+<section id="dq3.luida.behavior.C3D983">
+<title>サブルーチン <varname>$C3D983</varname>: めいぼをみる</title>
+<para>
+サブルーチン <varname>$C3D983</varname> はメニュー項目「めいぼをみる」選択時の処理コードだ。
+以下に処理の要点を挙げる。
+</para>
+<itemizedlist>
+  <listitem>
+    <para>
+      酒場に仲間が誰もいないと、ルイーダに名簿閲覧を断られる。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      名簿でキャラクターを選択すると、習得呪文ウィンドウ表示のために指定キャラクターの習得状況を調べる。
+      まほうつかい、そうりょ、その他の呪文個数を得た後、対象者の職業がゆうしゃが否かでウィンドウの表示形式を分ける。
+    </para>
+  </listitem>
+  <listitem>
+    <itemizedlist>
+      <listitem>
+        <para>
+          ゆうしゃの場合、習得している呪文があればゆうしゃ用の習得呪文ウィンドウを表示する。
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          それ以外の職業の場合、まほうつかい用、そうりょ用、それ以外用の順に習得呪文ウィンドウを表示する。
+        </para>
+      </listitem>
+    </itemizedlist>
+  </listitem>
+</itemizedlist>
+</section> <!-- dq3.luida.behavior.C3D983 -->
+</section> <!-- dq3.luida.behavior -->
+</section> <!-- dq3.luida -->
