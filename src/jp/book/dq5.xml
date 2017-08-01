@@ -25,11 +25,11 @@ SFC で動くドラクエシリーズの中で、
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_combatants.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_text.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_string.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_window.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_windows.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_battle_commands.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_shop.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_shops.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_character_traits.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_monster.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_item.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_monsters.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_items.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq5_encounter.xml"/>
 </chapter> <!-- dq5 -->
