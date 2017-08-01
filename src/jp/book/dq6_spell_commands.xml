@@ -776,7 +776,7 @@ C3/BE6D:    C416
       モンスターの ID がゼロならば、アイテム抽選を行わないものとする。
     </simpara>
     <simpara>
-      このモンスターの宝箱を落とす確率をモンスターデータの対応属性（<xref linkend="dq6.monsters.C20154" xrefstyle="select: %n"/> 参照）に基いて決定する。
+      このモンスターの宝箱を落とす確率をモンスターデータの対応属性（<xref linkend="dq6.monsters.C20154" xrefstyle="select: labelnumber"/> 参照）に基いて決定する。
       確率表は <xref linkend="table.dq6.C2B1C3"/> のものを参照する。
       それから当選確率がこの値であるような抽選をする。
     </simpara>

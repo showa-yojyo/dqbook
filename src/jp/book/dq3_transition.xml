@@ -137,7 +137,7 @@
   </tbody>
 </table>
 <para>
-各属性の意味については <xref linkend="dq3.transition.structure.abstract" xrefstyle="select: %n"/> を参照。
+各属性の意味については <xref linkend="dq3.transition.structure.abstract" xrefstyle="select: labelnumber"/> を参照。
 </para>
 </section> <!-- dq3.transition.structure.C84CA2 -->
 
@@ -164,7 +164,7 @@
   </tbody>
 </table>
 <para>
-各属性の意味については <xref linkend="dq3.transition.structure.abstract" xrefstyle="select: %n"/> を参照。
+各属性の意味については <xref linkend="dq3.transition.structure.abstract" xrefstyle="select: labelnumber"/> を参照。
 </para>
 </section> <!-- dq3.transition.structure.C856AA -->
 
@@ -191,7 +191,7 @@
   </tbody>
 </table>
 <para>
-各属性の意味については <xref linkend="dq3.transition.structure.abstract" xrefstyle="select: %n"/> を参照。
+各属性の意味については <xref linkend="dq3.transition.structure.abstract" xrefstyle="select: labelnumber"/> を参照。
 </para>
 </section> <!-- dq3.transition.structure.C85A62 -->
 
@@ -256,7 +256,7 @@
     <listitem>
       <para>
         それぞれ、パーティーキャラクターが対応する向きにランシールの村に入るときの、
-        目的地点 (<xref linkend="dq3.transition.structure.C86A9A" xrefstyle="select: %n"/>) の ID を値とする属性だ。
+        目的地点 (<xref linkend="dq3.transition.structure.C86A9A" xrefstyle="select: labelnumber"/>) の ID を値とする属性だ。
       </para>
     </listitem>
   </varlistentry>
