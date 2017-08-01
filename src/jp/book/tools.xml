@@ -44,10 +44,10 @@
   </itemizedlist>
 </caution>
 
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools_emulator.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools_emulators.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools_disasm.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools_cygwin.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools_editor.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools_editors.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools_python.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="tools_utility.xml"/>
 
