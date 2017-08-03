@@ -46,54 +46,54 @@
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td align="center"><literal>#$00</literal></td><td align="center"><literal>#$FF</literal></td><td>レベル</td></tr>
-    <tr><td rowspan="3" align="center"><literal>#$01</literal></td><td align="center"><literal>#$07</literal></td><td>モンスター抽選 00</td></tr>
-    <tr><td align="center"><literal>#$38</literal></td><td>グループ複数時頭数抽選 0</td></tr>
-    <tr><td align="center"><literal>#$C0</literal></td><td>グループ数抽選 0</td></tr>
-    <tr><td rowspan="3" align="center"><literal>#$02</literal></td><td align="center"><literal>#$07</literal></td><td>モンスター抽選 01</td></tr>
-    <tr><td align="center"><literal>#$38</literal></td><td>グループ複数時頭数抽選 1</td></tr>
-    <tr><td align="center"><literal>#$C0</literal></td><td>グループ数抽選 1</td></tr>
-    <tr><td rowspan="3" align="center"><literal>#$03</literal></td><td align="center"><literal>#$07</literal></td><td>モンスター抽選 02</td></tr>
-    <tr><td align="center"><literal>#$38</literal></td><td>グループ複数時頭数抽選 2</td></tr>
-    <tr><td align="center"><literal>#$C0</literal></td><td>グループ数抽選 2</td></tr>
-    <tr><td rowspan="3" align="center"><literal>#$04</literal></td><td align="center"><literal>#$07</literal></td><td>モンスター抽選 03</td></tr>
-    <tr><td align="center"><literal>#$38</literal></td><td>グループ複数時頭数抽選 3</td></tr>
-    <tr><td align="center"><literal>#$C0</literal></td><td>先制攻撃抽選</td></tr>
-    <tr><td rowspan="4" align="center"><literal>#$05</literal></td><td align="center"><literal>#$07</literal></td><td>モンスター抽選 04</td></tr>
-    <tr><td align="center"><literal>#$38</literal></td><td>グループ複数時頭数抽選 4</td></tr>
-    <tr><td align="center"><literal>#$40</literal></td><td>（未使用）</td></tr>
-    <tr><td align="center"><literal>#$80</literal></td><td>戦闘発生率調整 A</td></tr>
-    <tr><td rowspan="4" align="center"><literal>#$06</literal></td><td align="center"><literal>#$07</literal></td><td>モンスター抽選 05</td></tr>
-    <tr><td align="center"><literal>#$38</literal></td><td>グループ単数時頭数抽選 0</td></tr>
-    <tr><td align="center"><literal>#$40</literal></td><td>（未使用）</td></tr>
-    <tr><td align="center"><literal>#$80</literal></td><td>戦闘発生率調整 B</td></tr>
-    <tr><td rowspan="4" align="center"><literal>#$07</literal></td><td align="center"><literal>#$07</literal></td><td>モンスター抽選 06</td></tr>
-    <tr><td align="center"><literal>#$38</literal></td><td>グループ単数時頭数抽選 1</td></tr>
-    <tr><td align="center"><literal>#$40</literal></td><td>（未使用）</td></tr>
-    <tr><td align="center"><literal>#$80</literal></td><td>戦闘発生率調整 C</td></tr>
-    <tr><td rowspan="4" align="center"><literal>#$08</literal></td><td align="center"><literal>#$07</literal></td><td>モンスター抽選 07</td></tr>
-    <tr><td align="center"><literal>#$38</literal></td><td>グループ単数時頭数抽選 2</td></tr>
-    <tr><td align="center"><literal>#$40</literal></td><td>（未使用）</td></tr>
-    <tr><td align="center"><literal>#$80</literal></td><td>仲間可能性</td></tr>
-    <tr><td rowspan="4" align="center"><literal>#$09</literal></td><td align="center"><literal>#$07</literal></td><td>モンスター抽選 08</td></tr>
-    <tr><td align="center"><literal>#$38</literal></td><td>グループ単数時頭数抽選 3</td></tr>
-    <tr><td align="center"><literal>#$40</literal></td><td>（未使用）</td></tr>
-    <tr><td align="center"><literal>#$80</literal></td><td>昼夜判定</td></tr>
-    <tr><td rowspan="3" align="center"><literal>#$0A</literal></td><td align="center"><literal>#$07</literal></td><td>モンスター抽選 09</td></tr>
-    <tr><td align="center"><literal>#$38</literal></td><td>グループ単数時頭数抽選 4</td></tr>
-    <tr><td align="center"><literal>#$C0</literal></td><td>（未使用）</td></tr>
-    <tr><td rowspan="2" align="center"><literal>#$0B</literal></td><td align="center"><literal>#$07</literal></td><td>モンスター抽選 0A</td></tr>
-    <tr><td align="center"><literal>#$F8</literal></td><td>特殊な通常戦闘用編成 ID</td></tr>
-    <tr><td align="center"><literal>#$0C</literal></td><td align="center"><literal>#$FF</literal></td><td>グループ複数時モンスター 0</td></tr>
-    <tr><td align="center"><literal>#$0D</literal></td><td align="center"><literal>#$FF</literal></td><td>グループ複数時モンスター 1</td></tr>
-    <tr><td align="center"><literal>#$0E</literal></td><td align="center"><literal>#$FF</literal></td><td>グループ複数時モンスター 2</td></tr>
-    <tr><td align="center"><literal>#$0F</literal></td><td align="center"><literal>#$FF</literal></td><td>グループ複数時モンスター 3</td></tr>
-    <tr><td align="center"><literal>#$10</literal></td><td align="center"><literal>#$FF</literal></td><td>グループ複数時モンスター 4</td></tr>
-    <tr><td align="center"><literal>#$11</literal></td><td align="center"><literal>#$FF</literal></td><td>グループ単数時モンスター 0</td></tr>
-    <tr><td align="center"><literal>#$12</literal></td><td align="center"><literal>#$FF</literal></td><td>グループ単数時モンスター 1</td></tr>
-    <tr><td align="center"><literal>#$13</literal></td><td align="center"><literal>#$FF</literal></td><td>グループ単数時モンスター 2</td></tr>
-    <tr><td align="center"><literal>#$14</literal></td><td align="center"><literal>#$FF</literal></td><td>グループ単数時モンスター 3</td></tr>
-    <tr><td align="center"><literal>#$15</literal></td><td align="center"><literal>#$FF</literal></td><td>グループ単数時モンスター 4</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FF</literal></td><td>レベル</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$07</literal></td><td>頻度 <literal>#$00</literal></td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$38</literal></td><td>グループ複数時頭数 0</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$C0</literal></td><td>追加グループ数頻度 0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$07</literal></td><td>頻度 <literal>#$01</literal></td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$38</literal></td><td>グループ複数時頭数 1</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$C0</literal></td><td>追加グループ数頻度 1</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$07</literal></td><td>頻度 <literal>#$02</literal></td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$38</literal></td><td>グループ複数時頭数 2</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$C0</literal></td><td>追加グループ数頻度 2</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$07</literal></td><td>頻度 <literal>#$03</literal></td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$38</literal></td><td>グループ複数時頭数 3</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$C0</literal></td><td>先制攻撃抽選</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$07</literal></td><td>頻度 <literal>#$04</literal></td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$38</literal></td><td>グループ複数時頭数 4</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$40</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$80</literal></td><td>戦闘発生率調整 A</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$07</literal></td><td>頻度 <literal>#$05</literal></td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$38</literal></td><td>グループ単数時頭数 0</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$40</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$80</literal></td><td>戦闘発生率調整 B</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$07</literal></td><td>頻度 <literal>#$06</literal></td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$38</literal></td><td>グループ単数時頭数 1</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$40</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$80</literal></td><td>戦闘発生率調整 C</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$07</literal></td><td>頻度 <literal>#$07</literal></td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$38</literal></td><td>グループ単数時頭数 2</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$40</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$80</literal></td><td>仲間可能性</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$07</literal></td><td>頻度 <literal>#$08</literal></td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$38</literal></td><td>グループ単数時頭数 3</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$40</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$80</literal></td><td>昼夜判定</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$07</literal></td><td>頻度 <literal>#$09</literal></td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$38</literal></td><td>グループ単数時頭数 4</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$C0</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$07</literal></td><td>頻度 <literal>#$0A</literal></td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$F8</literal></td><td>レア戦闘 ID</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$FF</literal></td><td>グループ複数時モンスター 0</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$FF</literal></td><td>グループ複数時モンスター 1</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$FF</literal></td><td>グループ複数時モンスター 2</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$FF</literal></td><td>グループ複数時モンスター 3</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$FF</literal></td><td>グループ複数時モンスター 4</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$FF</literal></td><td>グループ単数時モンスター 0</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$FF</literal></td><td>グループ単数時モンスター 1</td></tr>
+    <tr><td><literal>#$13</literal></td><td><literal>#$FF</literal></td><td>グループ単数時モンスター 2</td></tr>
+    <tr><td><literal>#$14</literal></td><td><literal>#$FF</literal></td><td>グループ単数時モンスター 3</td></tr>
+    <tr><td><literal>#$15</literal></td><td><literal>#$FF</literal></td><td>グループ単数時モンスター 4</td></tr>
   </tbody>
 </table>
 <para>
@@ -177,12 +177,15 @@
   </varlistentry>
 
   <varlistentry>
-    <term>モンスター抽選</term>
+    <term>頻度 k (k = <literal>#$00</literal>..<literal>#$0A</literal>)</term>
     <listitem>
       <para>
-        モンスター抽選とは、敵陣のグループ数や構成モンスターを大まかに決定するのに用いられる数値型配列属性だ。
+        頻度とは、敵陣のグループ数や構成モンスターを大まかに決定するのに用いられる数値型配列属性だ。
         まずこの配列の総和を求め、それからその値を上限とする乱数を生成する。
         次に配列の初項からの部分和が初めて総和以上となる添字を求める。
+        要するに、この配列は <literal>#$00</literal> から <literal>#$0A</literal> までの値を確率変数とする離散確率分布を表現している。
+      </para>
+      <para>
         この添字が配列の前半か後半のどちらに属するかで、まずは敵陣のグループが単独なのか複数なのかを決める。
         グループが単数のときのモンスター ID と、複数のときの先頭グループのモンスター ID は、
         それぞれそのまま後述するグループ単数時モンスター配列およびグループ複数時モンスター配列の添字とする。
@@ -217,10 +220,10 @@
   </varlistentry>
 
   <varlistentry>
-    <term>グループ単数時頭数抽選</term>
+    <term>グループ単数時頭数 k (k = 0..4)</term>
     <listitem>
       <para>
-        グループ単数時頭数抽選とは、敵陣が単独グループで構成することを決定した後に
+        グループ単数時頭数とは、敵陣が単独グループで構成することを決定した後に
         そのグループにおける構成員の頭数を抽選するために参照される ID 型配列の属性だ。
         言い換えると、頭数範囲を表現する定数テーブル <varname>$23EA63</varname> および <varname>$23EA73</varname> の添字の配列だ。
         下に示す表のように暫定的にグループを構成するモンスターの頭数が決まるが、
@@ -257,32 +260,29 @@
     <term>グループ単数時モンスター</term>
     <listitem>
       <para>
-        グループ単数時モンスター抽選とは、敵陣が単独グループで構成することを決定した後に
+        グループ単数時モンスターとは、敵陣が単独グループで構成することを決定した後に
         そのグループを構成するモンスターの ID からなる配列の属性だ。
       </para>
     </listitem>
   </varlistentry>
 
   <varlistentry>
-    <term>グループ数抽選</term>
+    <term>追加グループ数頻度 (k = 0..2)</term>
     <listitem>
       <para>
-        グループ数抽選とは、敵陣が複数グループで構成することを決定した後に、
+        追加グループ数頻度とは、敵陣が複数グループで構成することを決定した後に、
         最初のグループに加えて、あといくつグループを追加するのかを抽選するために用いる数値型配列属性だ。
-      </para>
-      <para>
-        抽選方式は、先に述べたモンスター抽選における方式と同様だ。
-        今度の配列は要素が重複する可能性のある 0, 1, 2 からなる非減少列であるという性質がある。
+        抽選方式は、先に述べた頻度属性値における方式と同様だ。
       </para>
     </listitem>
   </varlistentry>
 
   <varlistentry>
-    <term>グループ複数時頭数抽選</term>
+    <term>グループ複数時頭数 k (k = 0..4)</term>
     <listitem>
       <para>
-        先述のグループ単数時頭数抽選と同じく、
-        グループ複数時頭数抽選とは、敵陣が複数グループで構成することを決定した後に、
+        グループ複数時頭数とは、先述のグループ単数時頭数と同じく、
+        敵陣が複数グループで構成することを決定した後に、
         グループそれぞれに何頭のモンスターを割り当てるのかを抽選するために用いる ID 型配列属性だ。
       </para>
     </listitem>
@@ -313,15 +313,15 @@
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td align="center"><literal>#$00</literal></td><td align="center"><literal>#$FF</literal></td><td>モンスター 0</td></tr>
-    <tr><td align="center"><literal>#$01</literal></td><td align="center"><literal>#$FF</literal></td><td>モンスター 1</td></tr>
-    <tr><td align="center"><literal>#$02</literal></td><td align="center"><literal>#$FF</literal></td><td>モンスター 2</td></tr>
-    <tr><td align="center"><literal>#$03</literal></td><td align="center"><literal>#$0F</literal></td><td>表示位置調整 0</td></tr>
-    <tr><td align="center"><literal>#$03</literal></td><td align="center"><literal>#$F0</literal></td><td>頭数指定 0</td></tr>
-    <tr><td align="center"><literal>#$04</literal></td><td align="center"><literal>#$0F</literal></td><td>表示位置調整 1</td></tr>
-    <tr><td align="center"><literal>#$04</literal></td><td align="center"><literal>#$F0</literal></td><td>頭数指定 1</td></tr>
-    <tr><td align="center"><literal>#$05</literal></td><td align="center"><literal>#$0F</literal></td><td>表示位置調整 2</td></tr>
-    <tr><td align="center"><literal>#$05</literal></td><td align="center"><literal>#$F0</literal></td><td>頭数指定 2</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FF</literal></td><td>モンスター 0</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$FF</literal></td><td>モンスター 1</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$FF</literal></td><td>モンスター 2</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0F</literal></td><td>表示位置調整 0</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$F0</literal></td><td>頭数指定 0</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0F</literal></td><td>表示位置調整 1</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$F0</literal></td><td>頭数指定 1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$0F</literal></td><td>表示位置調整 2</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$F0</literal></td><td>頭数指定 2</td></tr>
   </tbody>
 </table>
 <para>
@@ -329,31 +329,31 @@
 </para>
 <variablelist>
   <varlistentry>
-    <term>モンスター i</term>
+    <term>モンスター k (k = 0..2)</term>
     <listitem>
       <para>
-        モンスター i とは、敵陣グループ i を構成するモンスターの ID を値とする属性だ。
-        ただし、値が <literal>#$FF</literal> であれば、グループ i にモンスターを割り当てないことを意味する。
+        モンスター k とは、敵陣グループ k を構成するモンスターの ID を値とする属性だ。
+        ただし、値が <literal>#$FF</literal> であれば、グループ k にモンスターを割り当てないことを意味する。
       </para>
     </listitem>
   </varlistentry>
 
   <varlistentry>
-    <term>表示位置調整 i</term>
+    <term>表示位置調整 k (k = 0..2)</term>
     <listitem>
       <para>
-        表示位置調整 i とは、敵陣グループ i にいるモンスターの描画位置を画面垂直方向に調整するための値を取る属性だと思われる。
+        表示位置調整 k とは、敵陣グループ k にいるモンスターの描画位置を画面垂直方向に調整するための値を取る属性だと思われる。
         どのオブジェクトも属性値が 0 につき、詳細不明。
       </para>
     </listitem>
   </varlistentry>
 
   <varlistentry>
-    <term>頭数指定 i</term>
+    <term>頭数指定 k (k = 0..2)</term>
     <listitem>
       <para>
-        頭数指定 i とは、グループ i に何頭のモンスターを割り当てるのかを抽選するために用いる ID 型配列属性だ。
-        ID とは、前述の定数テーブルの添字だ。
+        頭数指定 k とは、グループ k に何頭のモンスターを割り当てるのかを抽選するために用いる ID 型配列属性だ。
+        ID とは、前述の定数テーブルの行番号だ。
       </para>
     </listitem>
   </varlistentry>
@@ -376,25 +376,25 @@
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td rowspan="7" align="center"><literal>#$00</literal></td><td align="center"><literal>#$03</literal></td><td>先制攻撃抽選</td></tr>
-    <tr><td align="center"><literal>#$04</literal></td><td>（未使用）</td></tr>
-    <tr><td align="center"><literal>#$08</literal></td><td>格闘場モード</td></tr>
-    <tr><td align="center"><literal>#$10</literal></td><td>乱入</td></tr>
-    <tr><td align="center"><literal>#$20</literal></td><td>パパス単独</td></tr>
-    <tr><td align="center"><literal>#$40</literal></td><td>逃走禁止</td></tr>
-    <tr><td align="center"><literal>#$80</literal></td><td>制限モード</td></tr>
-    <tr><td align="center"><literal>#$01</literal></td><td align="center"><literal>#$FF</literal></td><td>モンスター 0</td></tr>
-    <tr><td align="center"><literal>#$02</literal></td><td align="center"><literal>#$FF</literal></td><td>モンスター 1</td></tr>
-    <tr><td align="center"><literal>#$03</literal></td><td align="center"><literal>#$FF</literal></td><td>モンスター 2</td></tr>
-    <tr><td align="center"><literal>#$04</literal></td><td align="center"><literal>#$FF</literal></td><td>モンスター 3</td></tr>
-    <tr><td align="center"><literal>#$05</literal></td><td align="center"><literal>#$FF</literal></td><td>頭数 0</td></tr>
-    <tr><td align="center"><literal>#$06</literal></td><td align="center"><literal>#$FF</literal></td><td>頭数 1</td></tr>
-    <tr><td align="center"><literal>#$07</literal></td><td align="center"><literal>#$FF</literal></td><td>頭数 2</td></tr>
-    <tr><td align="center"><literal>#$08</literal></td><td align="center"><literal>#$FF</literal></td><td>頭数 3</td></tr>
-    <tr><td align="center"><literal>#$09</literal></td><td align="center"><literal>#$FF</literal></td><td>表示位置調整 0</td></tr>
-    <tr><td align="center"><literal>#$0A</literal></td><td align="center"><literal>#$FF</literal></td><td>表示位置調整 1</td></tr>
-    <tr><td align="center"><literal>#$0B</literal></td><td align="center"><literal>#$FF</literal></td><td>表示位置調整 2</td></tr>
-    <tr><td align="center"><literal>#$0C</literal></td><td align="center"><literal>#$FF</literal></td><td>表示位置調整 3</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$03</literal></td><td>先制攻撃</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$04</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$08</literal></td><td>格闘場</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$10</literal></td><td>乱入</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$20</literal></td><td>パパス単独</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$40</literal></td><td>逃走禁止</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$80</literal></td><td>制限モード</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$FF</literal></td><td>モンスター 0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$FF</literal></td><td>モンスター 1</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$FF</literal></td><td>モンスター 2</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$FF</literal></td><td>モンスター 3</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$FF</literal></td><td>頭数 0</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FF</literal></td><td>頭数 1</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$FF</literal></td><td>頭数 2</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$FF</literal></td><td>頭数 3</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$FF</literal></td><td>表示位置調整 0</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$FF</literal></td><td>表示位置調整 1</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$FF</literal></td><td>表示位置調整 2</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$FF</literal></td><td>表示位置調整 3</td></tr>
   </tbody>
 </table>
 <para>
