@@ -62,7 +62,9 @@
     <term>CY</term>
     <listitem>
       <para>
-        TBW
+        画面の最も左上のドットからウィンドウの左上隅のドットまでの
+        X および Y 方向についての変位を文字サイズ単位で表した値を取る属性だ。
+        ウィンドウが画面最も左上から描画されるときに値が (1, 1) であるものとする。
       </para>
     </listitem>
   </varlistentry>
@@ -71,7 +73,9 @@
     <term>SY</term>
     <listitem>
       <para>
-        TBW
+        文字サイズ単位でのウィンドウ横幅および縦幅の寸法をそれぞれ値とする属性だ。
+        ただし、ウィンドウがその内容に依存して動的に大きさを決定する必要がある寸法については、
+        でたらめな値が属性値として定義されていることがあるので注意を要する。
       </para>
     </listitem>
   </varlistentry>
@@ -79,7 +83,7 @@
     <term>数値表示処理</term>
     <listitem>
       <para>
-        TBW
+        具体的にはジャンプテーブル <varname>$C31ACC</varname> の行番号を属性値とする。
       </para>
     </listitem>
   </varlistentry>
@@ -87,7 +91,7 @@
     <term>入力解釈処理</term>
     <listitem>
       <para>
-        TBW
+        具体的にはジャンプテーブル <varname>$C33BB7</varname> の行番号を属性値とする。
       </para>
     </listitem>
   </varlistentry>
@@ -95,7 +99,13 @@
     <term>前回入力保存処理</term>
     <listitem>
       <para>
-        TBW
+        この属性値はプレイヤーによるウィンドウでの何らかの入力を何らかの形式で保存する処理の分類とみなせる。
+        例えば仲間キャラクターの移動中じゅもんウィンドウで何かの項目を選択すると、
+        次に同一キャラクターのじゅもんウィンドウを開いたときにこの項目にカーソルがセットされているが、
+        この振る舞いはこの属性値の作用によるものだ。
+      </para>
+      <para>
+        具体的にはジャンプテーブル <varname>$C33BBF</varname> の行番号を属性値とする。
       </para>
     </listitem>
   </varlistentry>
@@ -103,15 +113,29 @@
     <term>カーソル</term>
     <listitem>
       <para>
-        TBW
+        ウィンドウにカーソルを描画するときには、そのカーソルの形状を表す値を取る属性だ。
+        値とカーソル形状の対応は次のようになっている。
       </para>
+      <table id="table.dq3.windows.cursors" class="lighttable">
+        <caption>カーソル</caption>
+        <thead>
+          <tr><th>ID</th><th>カーソル</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td>なし</td></tr>
+          <tr><th>1</th><td>三角形</td></tr>
+          <tr><th>2</th><td>米印</td></tr>
+          <tr><th>3</th><td>透明</td></tr>
+        </tbody>
+      </table>
     </listitem>
   </varlistentry>
   <varlistentry>
     <term>グレーアウト禁止</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性で、値が 1 ならばこのウィンドウが入力フォーカスを失っても、
+        ウィンドウ全体をグレーアウトする処理を省略することを示す属性だ。
       </para>
     </listitem>
   </varlistentry>
@@ -119,7 +143,9 @@
     <term>位置固定</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性で、値が 1 ならばこのウィンドウを常に同じ位置に描画することを示す。
+        唯一値が 0 となっているオブジェクトは、移動時のメッセージ出力ウィンドウだ。
+        「はなす」および「しらべる」の際には、パーティーの画面に対する相対的な位置によっては画面上側に描画する。
       </para>
     </listitem>
   </varlistentry>
@@ -127,7 +153,8 @@
     <term>サイズ拡張方向</term>
     <listitem>
       <para>
-        TBW
+        ウィンドウが内容物によってサイズを拡張する場合に用いられる属性だ。
+        値が 0 ならば垂直方向（下方向）に、値が 1 ならば水平方向
       </para>
     </listitem>
   </varlistentry>
@@ -135,7 +162,8 @@
     <term>ページ当たり行数</term>
     <listitem>
       <para>
-        TBW
+        ウィンドウが複数ページからなるときに、一つのページあたりの可変項目部分の最大行数を値とする属性だ。
+        例を挙げると、ルーラウィンドウならばこの属性値は 5 となる。
       </para>
     </listitem>
   </varlistentry>
@@ -143,7 +171,7 @@
     <term>サイズ固定</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性で、値が 1 ならばこのウィンドウはサイズが固定されていることを意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -151,7 +179,8 @@
     <term>生成時効果音再生</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性で、値が 1 ならばこのウィンドウが画面に表示される瞬間に効果音 <literal>#$0050</literal> を再生する。
+        「はい・いいえ」系のウィンドウオブジェクトの属性値が 1 となる。
       </para>
     </listitem>
   </varlistentry>
@@ -159,7 +188,7 @@
     <term>カーソル効果音禁止</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性で、値が 1 ならばカーソル音 <literal>#$003D</literal> を鳴らさないことを意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -167,7 +196,9 @@
     <term>マージン</term>
     <listitem>
       <para>
-        TBW
+        このウィンドウがサイズ固定でないときに、ウィンドウ構成単位の可変長方向に対する寸法を文字サイズ単位で表した値を属性とする。
+        例えば「つよさ/ぜんいん」のマージン属性値は 5 となっている。
+        これは各キャラクターのスペースが 5 文字長（このオブジェクトは水平方向）であることを意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -175,7 +206,7 @@
     <term>処理分類</term>
     <listitem>
       <para>
-        TBW
+        ウィンドウ処理に関する各種ジャンプテーブルの行番号を属性値とする。
       </para>
     </listitem>
   </varlistentry>
@@ -183,7 +214,9 @@
     <term>兄弟ウィンドウ k (k = 0..2)</term>
     <listitem>
       <para>
-        TBW
+        このウィンドウを描画するときに、同時に画面内に描画する別ウィンドウの ID をそれぞれ値に取る属性だ。
+        例えば「つよさ」ウィンドウはキャラクターリストが本体で、
+        同時にステータスウィンドウ、装備リストウィンドウ、属性値リストウィンドウを兄弟ウィンドウとして描画する。
       </para>
     </listitem>
   </varlistentry>
@@ -191,7 +224,8 @@
     <term>描画アドレス</term>
     <listitem>
       <para>
-        TBW
+        ウィンドウの内容を定義するための処理コードのアドレスを値とする属性だ。
+        プログラムバンクは <literal>#$C3</literal> 固定とする。
       </para>
     </listitem>
   </varlistentry>
@@ -199,7 +233,8 @@
     <term>実質未使用</term>
     <listitem>
       <para>
-        TBW
+        全てのオブジェクトで値 0 が設定されており、プログラムからの参照もあるのだが、
+        用途が不明の属性だ。
       </para>
     </listitem>
   </varlistentry>
@@ -211,6 +246,7 @@
 <title>振る舞いに関する構成要素</title>
 <para>
 ウィンドウの振る舞いについて述べる。
+特に、ウィンドウオブジェクトの操作を実現しているサブルーチンについて述べたい。
 </para>
 
 </section> <!-- dq3.windows.behavior -->
