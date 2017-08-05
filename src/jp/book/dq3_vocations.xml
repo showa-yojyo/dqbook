@@ -367,9 +367,10 @@
 職業オブジェクトが参照される処理のうち主要なものは、
 仲間キャラクター初期化処理、同レベルアップ処理、同転職処理だろう。
 本節ではそのうちで最も職業オブジェクトの属性値を参照するレベルアップ処理について記す。
-残りについてはそれぞれ別の節で述べる。
-TODO: それぞれを参照する。
 </para>
-
+<para>
+仲間キャラクター初期化処理については <xref linkend="dq3.registration.behavior.C3DAEB"/> で、
+転職処理については <xref linkend="dq3.dharma.behavior.C3E477"/> でそれぞれ述べる。
+</para>
 </section> <!-- dq3.vocations.behavior -->
 </section> <!-- dq3.vocations -->

@@ -8,16 +8,20 @@
 <section id="dq3.characters"><?dbhtml filename="dq3_characters.html" ?>
 <title>仲間キャラクターオブジェクト</title>
 <para>
-TBW
+本節では RAM に展開される仲間キャラクターオブジェクトについて述べる。
 </para>
 
 <section id="dq3.characters.structure">
 <title>構造に関する構成要素</title>
+<para>
+仲間キャラクターの状態を表現する構造体について述べる。
+</para>
 
 <section id="dq3.characters.structure.7E3925">
 <title>構造体 <varname>$7E3925</varname>: 仲間キャラクター</title>
 <para>
-TBW
+アドレス <varname>$7E3925</varname> には次の表で示される型のオブジェクトが最大 24 個配列されている。
+このオブジェクトが仲間キャラクターを表現する。
 </para>
 <table id="table.dq3.7E3925" class="lighttable">
   <caption>構造体 $7E3925</caption>
@@ -25,142 +29,143 @@ TBW
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td><literal>#$00</literal></td><td><literal>#$0001</literal></td><td>登録済みフラグ</td></tr>
-    <tr><td><literal>#$00</literal></td><td><literal>#$00FE</literal></td><td>レベル</td></tr>
-    <tr><td><literal>#$01</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">経験値</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$00FF</literal></td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$FFFF</literal></td><td>MHP</td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$FFFF</literal></td><td>HP</td></tr>
-    <tr><td><literal>#$08</literal></td><td><literal>#$FFFF</literal></td><td>MMP</td></tr>
-    <tr><td><literal>#$0A</literal></td><td><literal>#$FFFF</literal></td><td>MP</td></tr>
-    <tr><td><literal>#$0C</literal></td><td><literal>#$00FF</literal></td><td>ちから</td></tr>
-    <tr><td><literal>#$0D</literal></td><td><literal>#$00FF</literal></td><td>すばやさ</td></tr>
-    <tr><td><literal>#$0E</literal></td><td><literal>#$00FF</literal></td><td>たいりょく</td></tr>
-    <tr><td><literal>#$0F</literal></td><td><literal>#$00FF</literal></td><td>かしこさ</td></tr>
-    <tr><td><literal>#$10</literal></td><td><literal>#$00FF</literal></td><td>うんのよさ</td></tr>
-    <tr><td><literal>#$11</literal></td><td><literal>#$00FF</literal></td><td>ちから持ち越し</td></tr>
-    <tr><td><literal>#$12</literal></td><td><literal>#$00FF</literal></td><td>たいりょく持ち越し</td></tr>
-    <tr><td><literal>#$13</literal></td><td><literal>#$00FF</literal></td><td>すばやさ持ち越し</td></tr>
-    <tr><td><literal>#$14</literal></td><td><literal>#$00FF</literal></td><td>かしこさ持ち越し</td></tr>
-    <tr><td><literal>#$15</literal></td><td><literal>#$00FF</literal></td><td>うんのよさ持ち越し</td></tr>
-    <tr><td><literal>#$16</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$00</literal></td></tr>
-    <tr><td><literal>#$17</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$01</literal></td></tr>
-    <tr><td><literal>#$18</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$02</literal></td></tr>
-    <tr><td><literal>#$19</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$03</literal></td></tr>
-    <tr><td><literal>#$1A</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$04</literal></td></tr>
-    <tr><td><literal>#$1B</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$05</literal></td></tr>
-    <tr><td><literal>#$1C</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$06</literal></td></tr>
-    <tr><td><literal>#$1D</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$07</literal></td></tr>
-    <tr><td><literal>#$1E</literal></td><td><literal>#$00FF</literal></td><td>名前文字列 <literal>#$08</literal></td></tr>
-    <tr><td><literal>#$1F</literal></td><td><literal>#$0001</literal></td><td>毒フラグ</td></tr>
-    <tr><td><literal>#$1F</literal></td><td><literal>#$0002</literal></td><td>マヒフラグ</td></tr>
-    <tr><td><literal>#$1F</literal></td><td><literal>#$0004</literal></td><td>呪いフラグ</td></tr>
-    <tr><td><literal>#$1F</literal></td><td><literal>#$0008</literal></td><td>瀕死フラグ</td></tr>
-    <tr><td><literal>#$1F</literal></td><td><literal>#$0010</literal></td><td>死亡フラグ</td></tr>
-    <tr><td><literal>#$1F</literal></td><td><literal>#$0020</literal></td><td>性別</td></tr>
-    <tr><td><literal>#$1F</literal></td><td><literal>#$0FC0</literal></td><td>性格</td></tr>
-    <tr><td><literal>#$20</literal></td><td><literal>#$0030</literal></td><td>仲間分類</td></tr>
-    <tr><td><literal>#$20</literal></td><td><literal>#$00C0</literal></td><td>（未使用）</td></tr>
-    <tr><td><literal>#$21</literal></td><td><literal>#$00FF</literal></td><td>職業</td></tr>
-    <tr><td><literal>#$22</literal></td><td><literal>#$00FF</literal></td><td>移動時じゅもんカーソル位置</td></tr>
-    <tr><td><literal>#$23</literal></td><td><literal>#$00FF</literal></td><td>戦闘時じゅもんカーソル位置</td></tr>
-    <tr><td><literal>#$24</literal></td><td><literal>#$0001</literal></td><td>習得フラグ <literal>#$00</literal>: ホイミ</td></tr>
-    <tr><td><literal>#$24</literal></td><td><literal>#$0002</literal></td><td>習得フラグ <literal>#$01</literal>: キアリー</td></tr>
-    <tr><td><literal>#$24</literal></td><td><literal>#$0004</literal></td><td>習得フラグ <literal>#$02</literal>: ベホイミ</td></tr>
-    <tr><td><literal>#$24</literal></td><td><literal>#$0008</literal></td><td>習得フラグ <literal>#$03</literal>: ザオラル</td></tr>
-    <tr><td><literal>#$24</literal></td><td><literal>#$0010</literal></td><td>習得フラグ <literal>#$04</literal>: ベホマ</td></tr>
-    <tr><td><literal>#$24</literal></td><td><literal>#$0020</literal></td><td>習得フラグ <literal>#$05</literal>: ザオリク</td></tr>
-    <tr><td><literal>#$24</literal></td><td><literal>#$0040</literal></td><td>習得フラグ <literal>#$06</literal>: ベホマラー</td></tr>
-    <tr><td><literal>#$24</literal></td><td><literal>#$0080</literal></td><td>習得フラグ <literal>#$07</literal>: ベホマズン</td></tr>
-    <tr><td><literal>#$25</literal></td><td><literal>#$0001</literal></td><td>習得フラグ <literal>#$08</literal>: メラ</td></tr>
-    <tr><td><literal>#$25</literal></td><td><literal>#$0002</literal></td><td>習得フラグ <literal>#$09</literal>: ギラ</td></tr>
-    <tr><td><literal>#$25</literal></td><td><literal>#$0004</literal></td><td>習得フラグ <literal>#$0A</literal>: ヒャド</td></tr>
-    <tr><td><literal>#$25</literal></td><td><literal>#$0008</literal></td><td>習得フラグ <literal>#$0B</literal>: バギ</td></tr>
-    <tr><td><literal>#$25</literal></td><td><literal>#$0010</literal></td><td>習得フラグ <literal>#$0C</literal>: ザキ</td></tr>
-    <tr><td><literal>#$25</literal></td><td><literal>#$0020</literal></td><td>習得フラグ <literal>#$0D</literal>: イオ</td></tr>
-    <tr><td><literal>#$25</literal></td><td><literal>#$0040</literal></td><td>習得フラグ <literal>#$0E</literal>: メラミ</td></tr>
-    <tr><td><literal>#$25</literal></td><td><literal>#$0080</literal></td><td>習得フラグ <literal>#$0F</literal>: ベギラマ</td></tr>
-    <tr><td><literal>#$26</literal></td><td><literal>#$0001</literal></td><td>習得フラグ <literal>#$10</literal>: ヒャダルコ</td></tr>
-    <tr><td><literal>#$26</literal></td><td><literal>#$0002</literal></td><td>習得フラグ <literal>#$11</literal>: バギマ</td></tr>
-    <tr><td><literal>#$26</literal></td><td><literal>#$0004</literal></td><td>習得フラグ <literal>#$12</literal>: ザラキ</td></tr>
-    <tr><td><literal>#$26</literal></td><td><literal>#$0008</literal></td><td>習得フラグ <literal>#$13</literal>: イオラ</td></tr>
-    <tr><td><literal>#$26</literal></td><td><literal>#$0010</literal></td><td>習得フラグ <literal>#$14</literal>: ライデイン</td></tr>
-    <tr><td><literal>#$26</literal></td><td><literal>#$0020</literal></td><td>習得フラグ <literal>#$15</literal>: メラゾーマ</td></tr>
-    <tr><td><literal>#$26</literal></td><td><literal>#$0040</literal></td><td>習得フラグ <literal>#$16</literal>: ベギラゴン</td></tr>
-    <tr><td><literal>#$26</literal></td><td><literal>#$0080</literal></td><td>習得フラグ <literal>#$17</literal>: ヒャダイン</td></tr>
-    <tr><td><literal>#$27</literal></td><td><literal>#$0001</literal></td><td>習得フラグ <literal>#$18</literal>: マヒャド</td></tr>
-    <tr><td><literal>#$27</literal></td><td><literal>#$0002</literal></td><td>習得フラグ <literal>#$19</literal>: バギクロス</td></tr>
-    <tr><td><literal>#$27</literal></td><td><literal>#$0004</literal></td><td>習得フラグ <literal>#$1A</literal>: イオナズン</td></tr>
-    <tr><td><literal>#$27</literal></td><td><literal>#$0008</literal></td><td>習得フラグ <literal>#$1B</literal>: ギガデイン</td></tr>
-    <tr><td><literal>#$27</literal></td><td><literal>#$0010</literal></td><td>習得フラグ <literal>#$1C</literal>: キアリク</td></tr>
-    <tr><td><literal>#$27</literal></td><td><literal>#$0020</literal></td><td>習得フラグ <literal>#$1D</literal>: ニフラム</td></tr>
-    <tr><td><literal>#$27</literal></td><td><literal>#$0040</literal></td><td>習得フラグ <literal>#$1E</literal>: マホトーン</td></tr>
-    <tr><td><literal>#$27</literal></td><td><literal>#$0080</literal></td><td>習得フラグ <literal>#$1F</literal>: マホトラ</td></tr>
-    <tr><td><literal>#$28</literal></td><td><literal>#$0001</literal></td><td>習得フラグ <literal>#$20</literal>: マホカンタ</td></tr>
-    <tr><td><literal>#$28</literal></td><td><literal>#$0002</literal></td><td>習得フラグ <literal>#$21</literal>: ボミオス</td></tr>
-    <tr><td><literal>#$28</literal></td><td><literal>#$0004</literal></td><td>習得フラグ <literal>#$22</literal>: ルカニ</td></tr>
-    <tr><td><literal>#$28</literal></td><td><literal>#$0008</literal></td><td>習得フラグ <literal>#$23</literal>: ルカナン</td></tr>
-    <tr><td><literal>#$28</literal></td><td><literal>#$0010</literal></td><td>習得フラグ <literal>#$24</literal>: スカラ</td></tr>
-    <tr><td><literal>#$28</literal></td><td><literal>#$0020</literal></td><td>習得フラグ <literal>#$25</literal>: スクルト</td></tr>
-    <tr><td><literal>#$28</literal></td><td><literal>#$0040</literal></td><td>習得フラグ <literal>#$26</literal>: ラリホー</td></tr>
-    <tr><td><literal>#$28</literal></td><td><literal>#$0080</literal></td><td>習得フラグ <literal>#$27</literal>: ザメハ</td></tr>
-    <tr><td><literal>#$29</literal></td><td><literal>#$0001</literal></td><td>習得フラグ <literal>#$28</literal>: ピオリム</td></tr>
-    <tr><td><literal>#$29</literal></td><td><literal>#$0002</literal></td><td>習得フラグ <literal>#$29</literal>: マヌーサ</td></tr>
-    <tr><td><literal>#$29</literal></td><td><literal>#$0004</literal></td><td>習得フラグ <literal>#$2A</literal>: メダパニ</td></tr>
-    <tr><td><literal>#$29</literal></td><td><literal>#$0008</literal></td><td>習得フラグ <literal>#$2B</literal>: フバーハ</td></tr>
-    <tr><td><literal>#$29</literal></td><td><literal>#$0010</literal></td><td>習得フラグ <literal>#$2C</literal>: バイキルト</td></tr>
-    <tr><td><literal>#$29</literal></td><td><literal>#$0020</literal></td><td>習得フラグ <literal>#$2D</literal>: アストロン</td></tr>
-    <tr><td><literal>#$29</literal></td><td><literal>#$0040</literal></td><td>習得フラグ <literal>#$2E</literal>: ドラゴラム</td></tr>
-    <tr><td><literal>#$29</literal></td><td><literal>#$0080</literal></td><td>習得フラグ <literal>#$2F</literal>: メガンテ</td></tr>
-    <tr><td><literal>#$2A</literal></td><td><literal>#$0001</literal></td><td>習得フラグ <literal>#$30</literal>: バシルーラ</td></tr>
-    <tr><td><literal>#$2A</literal></td><td><literal>#$0002</literal></td><td>習得フラグ <literal>#$31</literal>: パルプンテ</td></tr>
-    <tr><td><literal>#$2A</literal></td><td><literal>#$0004</literal></td><td>習得フラグ <literal>#$32</literal>: モシャス</td></tr>
-    <tr><td><literal>#$2A</literal></td><td><literal>#$0008</literal></td><td>習得フラグ <literal>#$33</literal>: （未使用）</td></tr>
-    <tr><td><literal>#$2A</literal></td><td><literal>#$0010</literal></td><td>習得フラグ <literal>#$34</literal>: ルーラ</td></tr>
-    <tr><td><literal>#$2A</literal></td><td><literal>#$0020</literal></td><td>習得フラグ <literal>#$35</literal>: リレミト</td></tr>
-    <tr><td><literal>#$2A</literal></td><td><literal>#$0040</literal></td><td>習得フラグ <literal>#$36</literal>: インパス</td></tr>
-    <tr><td><literal>#$2A</literal></td><td><literal>#$0080</literal></td><td>習得フラグ <literal>#$37</literal>: トラマナ</td></tr>
-    <tr><td><literal>#$2B</literal></td><td><literal>#$0001</literal></td><td>習得フラグ <literal>#$38</literal>: トヘロス</td></tr>
-    <tr><td><literal>#$2B</literal></td><td><literal>#$0002</literal></td><td>習得フラグ <literal>#$39</literal>: ラナルータ</td></tr>
-    <tr><td><literal>#$2B</literal></td><td><literal>#$0004</literal></td><td>習得フラグ <literal>#$3A</literal>: シャナク</td></tr>
-    <tr><td><literal>#$2B</literal></td><td><literal>#$0008</literal></td><td>習得フラグ <literal>#$3B</literal>: レムオル</td></tr>
-    <tr><td><literal>#$2B</literal></td><td><literal>#$0010</literal></td><td>習得フラグ <literal>#$3C</literal>: アバカム</td></tr>
-    <tr><td><literal>#$2B</literal></td><td><literal>#$0020</literal></td><td>習得フラグ <literal>#$3D</literal>: おもいだす</td></tr>
-    <tr><td><literal>#$2B</literal></td><td><literal>#$0040</literal></td><td>習得フラグ <literal>#$3E</literal>: もっとおもいだす</td></tr>
-    <tr><td><literal>#$2B</literal></td><td><literal>#$0080</literal></td><td>習得フラグ <literal>#$3F</literal>: ふかくおもいだす</td></tr>
-    <tr><td><literal>#$2C</literal></td><td><literal>#$0001</literal></td><td>習得フラグ <literal>#$40</literal>: わすれる</td></tr>
-    <tr><td><literal>#$2C</literal></td><td><literal>#$0002</literal></td><td>習得フラグ <literal>#$41</literal>: タカのめ</td></tr>
-    <tr><td><literal>#$2C</literal></td><td><literal>#$0004</literal></td><td>習得フラグ <literal>#$42</literal>: フローミ</td></tr>
-    <tr><td><literal>#$2C</literal></td><td><literal>#$0008</literal></td><td>習得フラグ <literal>#$43</literal>: しのびあし</td></tr>
-    <tr><td><literal>#$2C</literal></td><td><literal>#$0010</literal></td><td>習得フラグ <literal>#$44</literal>: とうぞくのはな</td></tr>
-    <tr><td><literal>#$2C</literal></td><td><literal>#$0020</literal></td><td>習得フラグ <literal>#$45</literal>: レミラーマ</td></tr>
-    <tr><td><literal>#$2C</literal></td><td><literal>#$0040</literal></td><td>習得フラグ <literal>#$46</literal>: くちぶえ</td></tr>
-    <tr><td><literal>#$2C</literal></td><td><literal>#$0080</literal></td><td>習得フラグ <literal>#$47</literal>: あなほり</td></tr>
-    <tr><td><literal>#$2D</literal></td><td><literal>#$0001</literal></td><td>習得フラグ <literal>#$48</literal>: おおごえ</td></tr>
-    <tr><td><literal>#$2D</literal></td><td><literal>#$00FE</literal></td><td>（未使用）</td></tr>
-    <tr><td><literal>#$2E</literal></td><td><literal>#$00FF</literal></td><td>装備数</td></tr>
-    <tr><td><literal>#$2F</literal></td><td><literal>#$00FF</literal></td><td>所持品数</td></tr>
-    <tr><td><literal>#$30</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$00</literal></td></tr>
-    <tr><td><literal>#$31</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$01</literal></td></tr>
-    <tr><td><literal>#$32</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$02</literal></td></tr>
-    <tr><td><literal>#$33</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$03</literal></td></tr>
-    <tr><td><literal>#$34</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$04</literal></td></tr>
-    <tr><td><literal>#$35</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$05</literal></td></tr>
-    <tr><td><literal>#$36</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$06</literal></td></tr>
-    <tr><td><literal>#$37</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$07</literal></td></tr>
-    <tr><td><literal>#$38</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$08</literal></td></tr>
-    <tr><td><literal>#$39</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$09</literal></td></tr>
-    <tr><td><literal>#$3A</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$0A</literal></td></tr>
-    <tr><td><literal>#$3B</literal></td><td><literal>#$00FF</literal></td><td>所持品 <literal>#$0B</literal></td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000001</literal></td><td>登録済みフラグ</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0000FE</literal></td><td>レベル</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$FFFFFF</literal></td><td>経験値</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00FFFF</literal></td><td>さいだい HP</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$00FFFF</literal></td><td>HP</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00FFFF</literal></td><td>さいだい MP</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$00FFFF</literal></td><td>MP</td></tr>
+    <tr><td><literal>#$0C</literal></td><td><literal>#$0000FF</literal></td><td>ちから</td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$0000FF</literal></td><td>すばやさ</td></tr>
+    <tr><td><literal>#$0E</literal></td><td><literal>#$0000FF</literal></td><td>たいりょく</td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$0000FF</literal></td><td>かしこさ</td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$0000FF</literal></td><td>うんのよさ</td></tr>
+    <tr><td><literal>#$11</literal></td><td><literal>#$0000FF</literal></td><td>ちから持ち越し</td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$0000FF</literal></td><td>たいりょく持ち越し</td></tr>
+    <tr><td><literal>#$13</literal></td><td><literal>#$0000FF</literal></td><td>すばやさ持ち越し</td></tr>
+    <tr><td><literal>#$14</literal></td><td><literal>#$0000FF</literal></td><td>かしこさ持ち越し</td></tr>
+    <tr><td><literal>#$15</literal></td><td><literal>#$0000FF</literal></td><td>うんのよさ持ち越し</td></tr>
+    <tr><td><literal>#$16</literal></td><td><literal>#$0000FF</literal></td><td>名前文字列 <literal>#$00</literal></td></tr>
+    <tr><td><literal>#$17</literal></td><td><literal>#$0000FF</literal></td><td>名前文字列 <literal>#$01</literal></td></tr>
+    <tr><td><literal>#$18</literal></td><td><literal>#$0000FF</literal></td><td>名前文字列 <literal>#$02</literal></td></tr>
+    <tr><td><literal>#$19</literal></td><td><literal>#$0000FF</literal></td><td>名前文字列 <literal>#$03</literal></td></tr>
+    <tr><td><literal>#$1A</literal></td><td><literal>#$0000FF</literal></td><td>名前文字列 <literal>#$04</literal></td></tr>
+    <tr><td><literal>#$1B</literal></td><td><literal>#$0000FF</literal></td><td>名前文字列 <literal>#$05</literal></td></tr>
+    <tr><td><literal>#$1C</literal></td><td><literal>#$0000FF</literal></td><td>名前文字列 <literal>#$06</literal></td></tr>
+    <tr><td><literal>#$1D</literal></td><td><literal>#$0000FF</literal></td><td>名前文字列 <literal>#$07</literal></td></tr>
+    <tr><td><literal>#$1E</literal></td><td><literal>#$0000FF</literal></td><td>名前文字列 <literal>#$08</literal></td></tr>
+    <tr><td><literal>#$1F</literal></td><td><literal>#$000001</literal></td><td>毒フラグ</td></tr>
+    <tr><td><literal>#$1F</literal></td><td><literal>#$000002</literal></td><td>マヒフラグ</td></tr>
+    <tr><td><literal>#$1F</literal></td><td><literal>#$000004</literal></td><td>呪いフラグ</td></tr>
+    <tr><td><literal>#$1F</literal></td><td><literal>#$000008</literal></td><td>瀕死フラグ</td></tr>
+    <tr><td><literal>#$1F</literal></td><td><literal>#$000010</literal></td><td>死亡フラグ</td></tr>
+    <tr><td><literal>#$1F</literal></td><td><literal>#$000020</literal></td><td>性別</td></tr>
+    <tr><td><literal>#$1F</literal></td><td><literal>#$000FC0</literal></td><td>性格</td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$000030</literal></td><td>仲間分類</td></tr>
+    <tr><td><literal>#$20</literal></td><td><literal>#$0000C0</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$21</literal></td><td><literal>#$0000FF</literal></td><td>職業</td></tr>
+    <tr><td><literal>#$22</literal></td><td><literal>#$0000FF</literal></td><td>移動時じゅもんカーソル位置</td></tr>
+    <tr><td><literal>#$23</literal></td><td><literal>#$0000FF</literal></td><td>戦闘時じゅもんカーソル位置</td></tr>
+    <tr><td><literal>#$24</literal></td><td><literal>#$000001</literal></td><td>習得フラグ <literal>#$00</literal>: ホイミ</td></tr>
+    <tr><td><literal>#$24</literal></td><td><literal>#$000002</literal></td><td>習得フラグ <literal>#$01</literal>: キアリー</td></tr>
+    <tr><td><literal>#$24</literal></td><td><literal>#$000004</literal></td><td>習得フラグ <literal>#$02</literal>: ベホイミ</td></tr>
+    <tr><td><literal>#$24</literal></td><td><literal>#$000008</literal></td><td>習得フラグ <literal>#$03</literal>: ザオラル</td></tr>
+    <tr><td><literal>#$24</literal></td><td><literal>#$000010</literal></td><td>習得フラグ <literal>#$04</literal>: ベホマ</td></tr>
+    <tr><td><literal>#$24</literal></td><td><literal>#$000020</literal></td><td>習得フラグ <literal>#$05</literal>: ザオリク</td></tr>
+    <tr><td><literal>#$24</literal></td><td><literal>#$000040</literal></td><td>習得フラグ <literal>#$06</literal>: ベホマラー</td></tr>
+    <tr><td><literal>#$24</literal></td><td><literal>#$000080</literal></td><td>習得フラグ <literal>#$07</literal>: ベホマズン</td></tr>
+    <tr><td><literal>#$25</literal></td><td><literal>#$000001</literal></td><td>習得フラグ <literal>#$08</literal>: メラ</td></tr>
+    <tr><td><literal>#$25</literal></td><td><literal>#$000002</literal></td><td>習得フラグ <literal>#$09</literal>: ギラ</td></tr>
+    <tr><td><literal>#$25</literal></td><td><literal>#$000004</literal></td><td>習得フラグ <literal>#$0A</literal>: ヒャド</td></tr>
+    <tr><td><literal>#$25</literal></td><td><literal>#$000008</literal></td><td>習得フラグ <literal>#$0B</literal>: バギ</td></tr>
+    <tr><td><literal>#$25</literal></td><td><literal>#$000010</literal></td><td>習得フラグ <literal>#$0C</literal>: ザキ</td></tr>
+    <tr><td><literal>#$25</literal></td><td><literal>#$000020</literal></td><td>習得フラグ <literal>#$0D</literal>: イオ</td></tr>
+    <tr><td><literal>#$25</literal></td><td><literal>#$000040</literal></td><td>習得フラグ <literal>#$0E</literal>: メラミ</td></tr>
+    <tr><td><literal>#$25</literal></td><td><literal>#$000080</literal></td><td>習得フラグ <literal>#$0F</literal>: ベギラマ</td></tr>
+    <tr><td><literal>#$26</literal></td><td><literal>#$000001</literal></td><td>習得フラグ <literal>#$10</literal>: ヒャダルコ</td></tr>
+    <tr><td><literal>#$26</literal></td><td><literal>#$000002</literal></td><td>習得フラグ <literal>#$11</literal>: バギマ</td></tr>
+    <tr><td><literal>#$26</literal></td><td><literal>#$000004</literal></td><td>習得フラグ <literal>#$12</literal>: ザラキ</td></tr>
+    <tr><td><literal>#$26</literal></td><td><literal>#$000008</literal></td><td>習得フラグ <literal>#$13</literal>: イオラ</td></tr>
+    <tr><td><literal>#$26</literal></td><td><literal>#$000010</literal></td><td>習得フラグ <literal>#$14</literal>: ライデイン</td></tr>
+    <tr><td><literal>#$26</literal></td><td><literal>#$000020</literal></td><td>習得フラグ <literal>#$15</literal>: メラゾーマ</td></tr>
+    <tr><td><literal>#$26</literal></td><td><literal>#$000040</literal></td><td>習得フラグ <literal>#$16</literal>: ベギラゴン</td></tr>
+    <tr><td><literal>#$26</literal></td><td><literal>#$000080</literal></td><td>習得フラグ <literal>#$17</literal>: ヒャダイン</td></tr>
+    <tr><td><literal>#$27</literal></td><td><literal>#$000001</literal></td><td>習得フラグ <literal>#$18</literal>: マヒャド</td></tr>
+    <tr><td><literal>#$27</literal></td><td><literal>#$000002</literal></td><td>習得フラグ <literal>#$19</literal>: バギクロス</td></tr>
+    <tr><td><literal>#$27</literal></td><td><literal>#$000004</literal></td><td>習得フラグ <literal>#$1A</literal>: イオナズン</td></tr>
+    <tr><td><literal>#$27</literal></td><td><literal>#$000008</literal></td><td>習得フラグ <literal>#$1B</literal>: ギガデイン</td></tr>
+    <tr><td><literal>#$27</literal></td><td><literal>#$000010</literal></td><td>習得フラグ <literal>#$1C</literal>: キアリク</td></tr>
+    <tr><td><literal>#$27</literal></td><td><literal>#$000020</literal></td><td>習得フラグ <literal>#$1D</literal>: ニフラム</td></tr>
+    <tr><td><literal>#$27</literal></td><td><literal>#$000040</literal></td><td>習得フラグ <literal>#$1E</literal>: マホトーン</td></tr>
+    <tr><td><literal>#$27</literal></td><td><literal>#$000080</literal></td><td>習得フラグ <literal>#$1F</literal>: マホトラ</td></tr>
+    <tr><td><literal>#$28</literal></td><td><literal>#$000001</literal></td><td>習得フラグ <literal>#$20</literal>: マホカンタ</td></tr>
+    <tr><td><literal>#$28</literal></td><td><literal>#$000002</literal></td><td>習得フラグ <literal>#$21</literal>: ボミオス</td></tr>
+    <tr><td><literal>#$28</literal></td><td><literal>#$000004</literal></td><td>習得フラグ <literal>#$22</literal>: ルカニ</td></tr>
+    <tr><td><literal>#$28</literal></td><td><literal>#$000008</literal></td><td>習得フラグ <literal>#$23</literal>: ルカナン</td></tr>
+    <tr><td><literal>#$28</literal></td><td><literal>#$000010</literal></td><td>習得フラグ <literal>#$24</literal>: スカラ</td></tr>
+    <tr><td><literal>#$28</literal></td><td><literal>#$000020</literal></td><td>習得フラグ <literal>#$25</literal>: スクルト</td></tr>
+    <tr><td><literal>#$28</literal></td><td><literal>#$000040</literal></td><td>習得フラグ <literal>#$26</literal>: ラリホー</td></tr>
+    <tr><td><literal>#$28</literal></td><td><literal>#$000080</literal></td><td>習得フラグ <literal>#$27</literal>: ザメハ</td></tr>
+    <tr><td><literal>#$29</literal></td><td><literal>#$000001</literal></td><td>習得フラグ <literal>#$28</literal>: ピオリム</td></tr>
+    <tr><td><literal>#$29</literal></td><td><literal>#$000002</literal></td><td>習得フラグ <literal>#$29</literal>: マヌーサ</td></tr>
+    <tr><td><literal>#$29</literal></td><td><literal>#$000004</literal></td><td>習得フラグ <literal>#$2A</literal>: メダパニ</td></tr>
+    <tr><td><literal>#$29</literal></td><td><literal>#$000008</literal></td><td>習得フラグ <literal>#$2B</literal>: フバーハ</td></tr>
+    <tr><td><literal>#$29</literal></td><td><literal>#$000010</literal></td><td>習得フラグ <literal>#$2C</literal>: バイキルト</td></tr>
+    <tr><td><literal>#$29</literal></td><td><literal>#$000020</literal></td><td>習得フラグ <literal>#$2D</literal>: アストロン</td></tr>
+    <tr><td><literal>#$29</literal></td><td><literal>#$000040</literal></td><td>習得フラグ <literal>#$2E</literal>: ドラゴラム</td></tr>
+    <tr><td><literal>#$29</literal></td><td><literal>#$000080</literal></td><td>習得フラグ <literal>#$2F</literal>: メガンテ</td></tr>
+    <tr><td><literal>#$2A</literal></td><td><literal>#$000001</literal></td><td>習得フラグ <literal>#$30</literal>: バシルーラ</td></tr>
+    <tr><td><literal>#$2A</literal></td><td><literal>#$000002</literal></td><td>習得フラグ <literal>#$31</literal>: パルプンテ</td></tr>
+    <tr><td><literal>#$2A</literal></td><td><literal>#$000004</literal></td><td>習得フラグ <literal>#$32</literal>: モシャス</td></tr>
+    <tr><td><literal>#$2A</literal></td><td><literal>#$000008</literal></td><td>習得フラグ <literal>#$33</literal>: （未使用）</td></tr>
+    <tr><td><literal>#$2A</literal></td><td><literal>#$000010</literal></td><td>習得フラグ <literal>#$34</literal>: ルーラ</td></tr>
+    <tr><td><literal>#$2A</literal></td><td><literal>#$000020</literal></td><td>習得フラグ <literal>#$35</literal>: リレミト</td></tr>
+    <tr><td><literal>#$2A</literal></td><td><literal>#$000040</literal></td><td>習得フラグ <literal>#$36</literal>: インパス</td></tr>
+    <tr><td><literal>#$2A</literal></td><td><literal>#$000080</literal></td><td>習得フラグ <literal>#$37</literal>: トラマナ</td></tr>
+    <tr><td><literal>#$2B</literal></td><td><literal>#$000001</literal></td><td>習得フラグ <literal>#$38</literal>: トヘロス</td></tr>
+    <tr><td><literal>#$2B</literal></td><td><literal>#$000002</literal></td><td>習得フラグ <literal>#$39</literal>: ラナルータ</td></tr>
+    <tr><td><literal>#$2B</literal></td><td><literal>#$000004</literal></td><td>習得フラグ <literal>#$3A</literal>: シャナク</td></tr>
+    <tr><td><literal>#$2B</literal></td><td><literal>#$000008</literal></td><td>習得フラグ <literal>#$3B</literal>: レムオル</td></tr>
+    <tr><td><literal>#$2B</literal></td><td><literal>#$000010</literal></td><td>習得フラグ <literal>#$3C</literal>: アバカム</td></tr>
+    <tr><td><literal>#$2B</literal></td><td><literal>#$000020</literal></td><td>習得フラグ <literal>#$3D</literal>: おもいだす</td></tr>
+    <tr><td><literal>#$2B</literal></td><td><literal>#$000040</literal></td><td>習得フラグ <literal>#$3E</literal>: もっとおもいだす</td></tr>
+    <tr><td><literal>#$2B</literal></td><td><literal>#$000080</literal></td><td>習得フラグ <literal>#$3F</literal>: ふかくおもいだす</td></tr>
+    <tr><td><literal>#$2C</literal></td><td><literal>#$000001</literal></td><td>習得フラグ <literal>#$40</literal>: わすれる</td></tr>
+    <tr><td><literal>#$2C</literal></td><td><literal>#$000002</literal></td><td>習得フラグ <literal>#$41</literal>: タカのめ</td></tr>
+    <tr><td><literal>#$2C</literal></td><td><literal>#$000004</literal></td><td>習得フラグ <literal>#$42</literal>: フローミ</td></tr>
+    <tr><td><literal>#$2C</literal></td><td><literal>#$000008</literal></td><td>習得フラグ <literal>#$43</literal>: しのびあし</td></tr>
+    <tr><td><literal>#$2C</literal></td><td><literal>#$000010</literal></td><td>習得フラグ <literal>#$44</literal>: とうぞくのはな</td></tr>
+    <tr><td><literal>#$2C</literal></td><td><literal>#$000020</literal></td><td>習得フラグ <literal>#$45</literal>: レミラーマ</td></tr>
+    <tr><td><literal>#$2C</literal></td><td><literal>#$000040</literal></td><td>習得フラグ <literal>#$46</literal>: くちぶえ</td></tr>
+    <tr><td><literal>#$2C</literal></td><td><literal>#$000080</literal></td><td>習得フラグ <literal>#$47</literal>: あなほり</td></tr>
+    <tr><td><literal>#$2D</literal></td><td><literal>#$000001</literal></td><td>習得フラグ <literal>#$48</literal>: おおごえ</td></tr>
+    <tr><td><literal>#$2D</literal></td><td><literal>#$0000FE</literal></td><td>（未使用）</td></tr>
+    <tr><td><literal>#$2E</literal></td><td><literal>#$0000FF</literal></td><td>装備数</td></tr>
+    <tr><td><literal>#$2F</literal></td><td><literal>#$0000FF</literal></td><td>所持品数</td></tr>
+    <tr><td><literal>#$30</literal></td><td><literal>#$0000FF</literal></td><td>所持品 <literal>#$00</literal></td></tr>
+    <tr><td><literal>#$31</literal></td><td><literal>#$0000FF</literal></td><td>所持品 <literal>#$01</literal></td></tr>
+    <tr><td><literal>#$32</literal></td><td><literal>#$0000FF</literal></td><td>所持品 <literal>#$02</literal></td></tr>
+    <tr><td><literal>#$33</literal></td><td><literal>#$0000FF</literal></td><td>所持品 <literal>#$03</literal></td></tr>
+    <tr><td><literal>#$34</literal></td><td><literal>#$0000FF</literal></td><td>所持品 <literal>#$04</literal></td></tr>
+    <tr><td><literal>#$35</literal></td><td><literal>#$0000FF</literal></td><td>所持品 <literal>#$05</literal></td></tr>
+    <tr><td><literal>#$36</literal></td><td><literal>#$0000FF</literal></td><td>所持品 <literal>#$06</literal></td></tr>
+    <tr><td><literal>#$37</literal></td><td><literal>#$0000FF</literal></td><td>所持品 <literal>#$07</literal></td></tr>
+    <tr><td><literal>#$38</literal></td><td><literal>#$0000FF</literal></td><td>所持品 <literal>#$08</literal></td></tr>
+    <tr><td><literal>#$39</literal></td><td><literal>#$0000FF</literal></td><td>所持品 <literal>#$09</literal></td></tr>
+    <tr><td><literal>#$3A</literal></td><td><literal>#$0000FF</literal></td><td>所持品 <literal>#$0A</literal></td></tr>
+    <tr><td><literal>#$3B</literal></td><td><literal>#$0000FF</literal></td><td>所持品 <literal>#$0B</literal></td></tr>
   </tbody>
 </table>
-
+<para>
+各属性の意味を説明する。
+</para>
 <variablelist>
   <varlistentry>
     <term>登録済みフラグ</term>
     <listitem>
       <para>
-        TBW
+        この属性値が 1 であることが、アドレスに仲間キャラクターオブジェクトが本当に定義されていることを示す条件となる。
       </para>
     </listitem>
   </varlistentry>
@@ -168,7 +173,8 @@ TBW
     <term>レベル</term>
     <listitem>
       <para>
-        TBW
+        仲間キャラクターのレベルを値とする属性だ。
+        前作とは異なり経験値そのものが格納される。
       </para>
     </listitem>
   </varlistentry>
@@ -176,39 +182,27 @@ TBW
     <term>経験値</term>
     <listitem>
       <para>
-        TBW
+        仲間キャラクターの経験値を値とする属性だ。
+        前作とは異なり経験値そのものが格納される。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>MHP</term>
+    <term>さいだい HP</term>
+    <term>さいだい MP</term>
     <listitem>
       <para>
-        TBW
+        それぞれ仲間キャラクターのさいだい HP とさいだい MP を値とする属性だ。
+        取り得る値の範囲は 0..999 だ。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
     <term>HP</term>
-    <listitem>
-      <para>
-        TBW
-      </para>
-    </listitem>
-  </varlistentry>
-  <varlistentry>
-    <term>MMP</term>
-    <listitem>
-      <para>
-        TBW
-      </para>
-    </listitem>
-  </varlistentry>
-  <varlistentry>
     <term>MP</term>
     <listitem>
       <para>
-        TBW
+        それぞれ仲間キャラクターの HP と MP を値とする属性だ。取り得る値の範囲は 0..999 だ。
       </para>
     </listitem>
   </varlistentry>
@@ -216,7 +210,12 @@ TBW
     <term>ちから</term>
     <listitem>
       <para>
-        TBW
+        ちからとは、攻撃力を評価する際に参照される数値型属性だ。
+        移動時で「つよさ」メニューで確認できる攻撃力は、この属性値と装備アイテム属性値によって決まる。
+      </para>
+      <para>
+        「つよさ」ウィンドウに表示されるちからの値はこの属性値に装備を考慮したものになっている。
+        以下で述べるすばやさ、たいりょく、かしこさ、うんのよさについても同様だ。
       </para>
     </listitem>
   </varlistentry>
@@ -224,7 +223,9 @@ TBW
     <term>すばやさ</term>
     <listitem>
       <para>
-        TBW
+        すばやさとは、守備力を評価する際に参照される数値型属性であり、
+        また、戦闘中のコマンド実行順を決定する際に参照される数値型属性だ。
+        移動時で「つよさ」メニューで確認できる守備力は、この属性値の半分と装備アイテム属性値によって決まる値との和とする。
       </para>
     </listitem>
   </varlistentry>
@@ -232,7 +233,9 @@ TBW
     <term>たいりょく</term>
     <listitem>
       <para>
-        TBW
+        たいりょくとは、レベルアップ時にさいだい HP の上昇量を増加しやすくするための属性値だ。
+        <code><![CDATA[ randint(500, 525) * たいりょく / 256 ]]></code> の値がさいだい HP より上回っていれば、
+        この評価値と現時点でのさいだい HP との差が増加量となる。
       </para>
     </listitem>
   </varlistentry>
@@ -240,7 +243,8 @@ TBW
     <term>かしこさ</term>
     <listitem>
       <para>
-        TBW
+        かしこさとは、レベルアップ時にさいだい MP の上昇量を増加しやすくするための属性値だ。
+        増加量の評価式において、かしこさとさいだい MP の関係は上述のたいりょくとさいだい HP との関係と同じだ。
       </para>
     </listitem>
   </varlistentry>
@@ -248,47 +252,33 @@ TBW
     <term>うんのよさ</term>
     <listitem>
       <para>
-        TBW
+        うんのよさとは、コマンドの一部の効力、的中確率を評価するのに参照される属性値だ。
+        このようなコマンドには毒攻撃、マヒ攻撃、ザキ系、バシルーラ、ボミオス等々が該当する。
+      </para>
+      <para>
+        <xref linkend="dq3.commands.structure.C21860"/> のうんのよさ考慮属性で説明する。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
     <term>ちから持ち越し</term>
-    <listitem>
-      <para>
-        TBW
-      </para>
-    </listitem>
-  </varlistentry>
-  <varlistentry>
     <term>たいりょく持ち越し</term>
-    <listitem>
-      <para>
-        TBW
-      </para>
-    </listitem>
-  </varlistentry>
-  <varlistentry>
     <term>すばやさ持ち越し</term>
-    <listitem>
-      <para>
-        TBW
-      </para>
-    </listitem>
-  </varlistentry>
-  <varlistentry>
     <term>かしこさ持ち越し</term>
-    <listitem>
-      <para>
-        TBW
-      </para>
-    </listitem>
-  </varlistentry>
-  <varlistentry>
     <term>うんのよさ持ち越し</term>
     <listitem>
       <para>
-        TBW
+        レベルアップにおける対応する仲間キャラクターの属性値の増加量を調整するための属性だ。
+        いずれも同様の意味を持つので、ちから属性とちから持ち越し属性の場合の関係について説明する。
+      </para>
+      <para>
+        レベルアップの際には、ちからの増分とちから持ち越しの増分の両方を同時に決定する。
+        このとき、ちから持ち越し属性値が 255 を超えると、本来のちから属性値に対する増分値をさらに 1 だけ加算する。
+        変化後のちから持ち越し属性の値の扱いは、変化後のちから属性値がある閾値をまたぐかどうかによって異なる。
+        255 を超えたぶんだけ残るか、あるいは  0 にリセットされる。
+      </para>
+      <para>
+        詳細はレベルアップの節で述べる。
       </para>
     </listitem>
   </varlistentry>
@@ -296,7 +286,7 @@ TBW
     <term>名前文字列 k (k = <literal>#$00</literal>..<literal>#$08</literal>)</term>
     <listitem>
       <para>
-        TBW
+        この仲間キャラクターの名前を表す文字列を値とする属性だ。
       </para>
     </listitem>
   </varlistentry>
@@ -304,7 +294,7 @@ TBW
     <term>毒フラグ</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性で、この仲間キャラクターが毒状態であるかどうかを示すものだ。
       </para>
     </listitem>
   </varlistentry>
@@ -312,7 +302,7 @@ TBW
     <term>マヒフラグ</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性で、この仲間キャラクターがマヒ状態であるかどうかを示すものだ。
       </para>
     </listitem>
   </varlistentry>
@@ -320,7 +310,7 @@ TBW
     <term>呪いフラグ</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性で、この仲間キャラクターが呪い状態であるかどうかを示すものだ。
       </para>
     </listitem>
   </varlistentry>
@@ -328,7 +318,8 @@ TBW
     <term>瀕死フラグ</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性で、この仲間キャラクターの HP の量がさいだい HP の 1/4 未満であり、
+        かつ死亡状態でなければ、値が 1 となる。
       </para>
     </listitem>
   </varlistentry>
@@ -336,7 +327,8 @@ TBW
     <term>死亡フラグ</term>
     <listitem>
       <para>
-        TBW
+        ブーリアン型属性で、この仲間キャラクターが死亡状態であるかどうかを示すものだ。
+        死亡状態であることと HP 属性値がゼロであることとが同値でなければならない。
       </para>
     </listitem>
   </varlistentry>
@@ -344,7 +336,8 @@ TBW
     <term>性別</term>
     <listitem>
       <para>
-        TBW
+        この仲間キャラクターの性別を示す 1 ビット値を取る属性だ。
+        値 0 が男を、値 1 が女をそれぞれ表す。
       </para>
     </listitem>
   </varlistentry>
@@ -352,7 +345,12 @@ TBW
     <term>性格</term>
     <listitem>
       <para>
-        TBW
+        この仲間キャラクターの性格を値とする属性だ。
+        性格については <xref linkend="dq3.personalities"/> で述べる。
+      </para>
+      <para>
+        なお、「つよさ」ウィンドウに表示される性格はこの属性値そのものではなく、
+        装備品によってはそれが定める性格で上書きされていることがある。
       </para>
     </listitem>
   </varlistentry>
@@ -360,7 +358,8 @@ TBW
     <term>仲間分類</term>
     <listitem>
       <para>
-        TBW
+        仲間キャラクターの分類を意味する値とする属性だ。
+        値が 1 であれば主人公を、値が 2 であれば通常の仲間キャラクターであることをそれぞれ意味する。
       </para>
     </listitem>
   </varlistentry>
@@ -368,19 +367,18 @@ TBW
     <term>職業</term>
     <listitem>
       <para>
-        TBW
-      </para>
-      <para>
+        この仲間キャラクターの職業を値とする属性だ。
         職業については <xref linkend="dq3.vocations"/> で述べる。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>移動時どうぐカーソル位置</term>
+    <term>移動時じゅもんカーソル位置</term>
     <term>戦闘時じゅもんカーソル位置</term>
     <listitem>
       <para>
-        TBW
+        それぞれウィンドウで選択したコマンドを次のウィンドウ表示の際に再現するための値を保持する属性だ。
+        ウィンドウについては <xref linkend="dq3.windows"/> で述べる。
       </para>
     </listitem>
   </varlistentry>
@@ -388,7 +386,7 @@ TBW
     <term>習得フラグ k (k = <literal>#$00</literal>..<literal>#$48</literal>)</term>
     <listitem>
       <para>
-        TBW
+        対応するコマンドを習得したことを示すビット配列型属性だ。
       </para>
     </listitem>
   </varlistentry>
@@ -396,7 +394,7 @@ TBW
     <term>装備数</term>
     <listitem>
       <para>
-        TBW
+        この仲間キャラクターが装備しているアイテムの個数を値に取る属性だ。
       </para>
     </listitem>
   </varlistentry>
@@ -404,7 +402,7 @@ TBW
     <term>所持品数</term>
     <listitem>
       <para>
-        TBW
+        この仲間キャラクターの持ち物の個数を値に取る属性だ。
       </para>
     </listitem>
   </varlistentry>
@@ -412,18 +410,29 @@ TBW
     <term>所持品 k (k = <literal>#$00</literal>..<literal>#$0B</literal>)</term>
     <listitem>
       <para>
-        TBW
+        この仲間キャラクターの持ち物のアイテム ID を値に取る属性だ。
+        アイテムについては <xref linkend="dq3.items"/> で述べる。
       </para>
     </listitem>
   </varlistentry>
 </variablelist>
 </section> <!-- dq3.characters.structure.7E3925 -->
+
+<section id="dq3.characters.structure.7E36E8">
+<title>配列 <varname>$7E36E8</varname>: 仲間キャラクターポインター列</title>
+<para>
+アドレス <varname>$7E36E8</varname> は 2 バイト値が 24 個配列されている。
+この各要素は仲間キャラクターオブジェクトのアドレス値（データバンクは <literal>#$7E</literal> とする）を直接表現していて、
+パーティーの隊列とルイーダの酒場に控えているキャラクターの並びを連結したような順序に格納されている。
+まだ存在しないキャラクターについては <literal>#$0000</literal> がセットされている。
+</para>
+</section> <!-- dq3.characters.structure.7E36E8 -->
 </section> <!-- dq3.characters.structure -->
 
 <section id="dq3.characters.behavior">
 <title>振る舞いに関する構成要素</title>
 <para>
-TBW
+仲間キャラクターの属性にアクセスするサブルーチンが多数存在する。
 </para>
 
 </section> <!-- dq3.characters.behavior -->
