@@ -42,40 +42,40 @@
     <tr><td><literal>#$01</literal></td><td><literal>#$0003</literal></td><td>先制攻撃抽選</td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$001C</literal></td><td>戦闘発生カウンター減少量係数</td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$0020</literal></td><td>仲間処理無視</td></tr>
-    <tr><td><literal>#$01</literal></td><td><literal>#$01C0</literal></td><td>追加グループ数抽選 0</td></tr>
-    <tr><td><literal>#$02</literal></td><td><literal>#$000E</literal></td><td>追加グループ数抽選 1</td></tr>
-    <tr><td><literal>#$02</literal></td><td><literal>#$0070</literal></td><td>追加グループ数抽選 2</td></tr>
-    <tr><td><literal>#$02</literal></td><td><literal>#$0380</literal></td><td>モンスター抽選 <literal>#$00</literal></td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$01C0</literal></td><td>追加グループ数頻度 0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$000E</literal></td><td>追加グループ数頻度 1</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0070</literal></td><td>追加グループ数頻度 2</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0380</literal></td><td>頻度 <literal>#$00</literal></td></tr>
     <tr><td><literal>#$03</literal></td><td><literal>#$001C</literal></td><td>グループ複数時頭数 0</td></tr>
     <tr><td><literal>#$03</literal></td><td><literal>#$1FE0</literal></td><td>グループ複数時モンスター 0</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$00E0</literal></td><td>モンスター抽選 <literal>#$01</literal></td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00E0</literal></td><td>頻度 <literal>#$01</literal></td></tr>
     <tr><td><literal>#$05</literal></td><td><literal>#$0007</literal></td><td>グループ複数時頭数 1</td></tr>
     <tr><td><literal>#$05</literal></td><td><literal>#$07F8</literal></td><td>グループ複数時モンスター 1</td></tr>
-    <tr><td><literal>#$06</literal></td><td><literal>#$0038</literal></td><td>モンスター抽選 <literal>#$02</literal></td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$0038</literal></td><td>頻度 <literal>#$02</literal></td></tr>
     <tr><td><literal>#$06</literal></td><td><literal>#$01C0</literal></td><td>グループ複数時頭数限 2</td></tr>
     <tr><td><literal>#$07</literal></td><td><literal>#$01FE</literal></td><td>グループ複数時モンスター 2</td></tr>
-    <tr><td><literal>#$08</literal></td><td><literal>#$000E</literal></td><td>モンスター抽選 <literal>#$03</literal></td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$000E</literal></td><td>頻度 <literal>#$03</literal></td></tr>
     <tr><td><literal>#$08</literal></td><td><literal>#$0070</literal></td><td>グループ複数時頭数 3</td></tr>
     <tr><td><literal>#$08</literal></td><td><literal>#$7F80</literal></td><td>グループ複数時モンスター 3</td></tr>
-    <tr><td><literal>#$09</literal></td><td><literal>#$0380</literal></td><td>モンスター抽選 <literal>#$04</literal></td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$0380</literal></td><td>頻度 <literal>#$04</literal></td></tr>
     <tr><td><literal>#$0A</literal></td><td><literal>#$001C</literal></td><td>グループ複数時頭数 4</td></tr>
     <tr><td><literal>#$0A</literal></td><td><literal>#$1FE0</literal></td><td>グループ複数時モンスター 4</td></tr>
-    <tr><td><literal>#$0B</literal></td><td><literal>#$00E0</literal></td><td>モンスター抽選 <literal>#$05</literal></td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$00E0</literal></td><td>頻度 <literal>#$05</literal></td></tr>
     <tr><td><literal>#$0C</literal></td><td><literal>#$0007</literal></td><td>グループ単数時頭数 0</td></tr>
     <tr><td><literal>#$0C</literal></td><td><literal>#$07F8</literal></td><td>グループ単数時モンスター 0</td></tr>
-    <tr><td><literal>#$0D</literal></td><td><literal>#$0038</literal></td><td>モンスター抽選 <literal>#$06</literal></td></tr>
+    <tr><td><literal>#$0D</literal></td><td><literal>#$0038</literal></td><td>頻度 <literal>#$06</literal></td></tr>
     <tr><td><literal>#$0D</literal></td><td><literal>#$01C0</literal></td><td>グループ単数時頭数 1</td></tr>
     <tr><td><literal>#$0E</literal></td><td><literal>#$01FE</literal></td><td>グループ単数時モンスター 1</td></tr>
-    <tr><td><literal>#$0F</literal></td><td><literal>#$000E</literal></td><td>モンスター抽選 <literal>#$07</literal></td></tr>
+    <tr><td><literal>#$0F</literal></td><td><literal>#$000E</literal></td><td>頻度 <literal>#$07</literal></td></tr>
     <tr><td><literal>#$0F</literal></td><td><literal>#$0070</literal></td><td>グループ単数時頭数 2</td></tr>
     <tr><td><literal>#$0F</literal></td><td><literal>#$7F80</literal></td><td>グループ単数時モンスター 2</td></tr>
-    <tr><td><literal>#$10</literal></td><td><literal>#$0380</literal></td><td>モンスター抽選 <literal>#$08</literal></td></tr>
+    <tr><td><literal>#$10</literal></td><td><literal>#$0380</literal></td><td>頻度 <literal>#$08</literal></td></tr>
     <tr><td><literal>#$11</literal></td><td><literal>#$001C</literal></td><td>グループ単数時頭数 3</td></tr>
     <tr><td><literal>#$11</literal></td><td><literal>#$1FE0</literal></td><td>グループ単数時モンスター 3</td></tr>
-    <tr><td><literal>#$12</literal></td><td><literal>#$00E0</literal></td><td>モンスター抽選 <literal>#$09</literal></td></tr>
+    <tr><td><literal>#$12</literal></td><td><literal>#$00E0</literal></td><td>頻度 <literal>#$09</literal></td></tr>
     <tr><td><literal>#$13</literal></td><td><literal>#$0007</literal></td><td>グループ単数時頭数 4</td></tr>
     <tr><td><literal>#$13</literal></td><td><literal>#$07F8</literal></td><td>グループ単数時モンスター 4</td></tr>
-    <tr><td><literal>#$14</literal></td><td><literal>#$0038</literal></td><td>モンスター抽選 <literal>#$0A</literal></td></tr>
+    <tr><td><literal>#$14</literal></td><td><literal>#$0038</literal></td><td>頻度 <literal>#$0A</literal></td></tr>
     <tr><td><literal>#$14</literal></td><td><literal>#$3FC0</literal></td><td>レア戦闘</td></tr>
   </tbody>
 </table>
@@ -170,10 +170,10 @@
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>モンスター抽選 k (k = <literal>#$00</literal>..<literal>#$0A</literal>)</term>
+    <term>頻度 k (k = <literal>#$00</literal>..<literal>#$0A</literal>)</term>
     <listitem>
       <para>
-        モンスター抽選とは、敵陣のグループ数や構成モンスターを大まかに決定するのに用いられる数値型配列属性だ。
+        頻度とは、敵陣のグループ数や構成モンスターを大まかに決定するのに用いられる数値型配列属性だ。
         前作と同様の抽選方式で敵陣がレアか単独グループからなるのか複数グループからなるのかを決める。
       </para>
     </listitem>
@@ -226,10 +226,10 @@
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>追加グループ数抽選 k (k = 0..2)</term>
+    <term>追加グループ数頻度 k (k = 0..2)</term>
     <listitem>
       <para>
-        追加グループ数抽選 k とは、先に述べた大まかな抽選により敵陣を複数グループで構成することを決定した後に、
+        追加グループ数頻度 k とは、先に述べた大まかな抽選により敵陣を複数グループで構成することを決定した後に、
         グループ 0 の他にあといくつグループを追加するのかを抽選するために用いる数値型配列属性だ。
       </para>
       <para>
@@ -474,12 +474,12 @@
 判定処理で戦闘発生が確定すると、次に敵陣を構成する処理を行う。それは次に述べるようなものだ：
 </para>
 <itemizedlist>
-  <listitem><simpara>戦闘構成オブジェクトのモンスター抽選属性値の総和 S を取る。</simpara></listitem>
+  <listitem><simpara>戦闘構成オブジェクトの頻度属性値の総和 S を取る。</simpara></listitem>
   <listitem><simpara>乱数 <code>r = randint(0, S)</code> を取る。</simpara></listitem>
   <listitem>
     <simpara>
-      戦闘構成オブジェクトのモンスター抽選属性値の部分和 s を求め、
-      <code><![CDATA[s >= r]]></code> なるモンスター抽選属性値添字 k を求める。
+      戦闘構成オブジェクトの頻度属性値の部分和 s を求め、
+      <code><![CDATA[s >= r]]></code> なる頻度属性値添字 k を求める。
       この添字 k の値により、次の (a), (b), (c) のいずれかの処理を行う：
     </simpara>
     <itemizedlist>
@@ -508,11 +508,12 @@
 <itemizedlist>
   <listitem>
     <simpara>追加グループ数を抽選する。</simpara>
-    <simpara>戦闘構成オブジェクトの追加グループ数抽選 k 属性値に対して、先ほどの総和・部分和比較処理相当のことを行う。</simpara>
+    <simpara>戦闘構成オブジェクトの追加グループ数頻度 k 属性値に対して、
+    先ほどの総和・部分和比較処理相当のことを行う。</simpara>
   </listitem>
   <listitem>
     <simpara>
-      各グループについて添字 k を、モンスター抽選 <literal>00</literal>..<literal>04</literal> を用いて総和・部分和比較方式で抽選して決める。
+      各グループについて添字 k を、頻度 <literal>#$00</literal>..<literal>#$04</literal> を確率変数として総和・部分和比較方式で抽選して決める。
     </simpara>
   </listitem>
   <listitem>
