@@ -952,13 +952,14 @@
         取り得る値は 0..7 であり、0..3 と 4..7 とで意味合いが異なる。
       </p>
               <p>
-        値が 0..3 であれば、配列 <code class="varname">$C24549</code> で決められた確率表に従う抽選でコマンドを決める。ここで分母は 256 とみなす。
+        値が 0..3 であれば、配列 <code class="varname">$C24549</code> で決められた確率分布表に従う抽選でコマンドを決める。
+        各値を 256 で割ると、この確率変数に対応するコマンドを採用する確率が得られる。
         ただし、同一グループ制約があり先約済みであれば、その項目を選択失敗とする。
       </p>
               <div class="table">
                 <a id="table.dq6.C24549"></a>
                 <p class="title">
-                  <strong>表 4.56 コマンド選択確率</strong>
+                  <strong>表 4.56 コマンド選択確率分布</strong>
                 </p>
                 <div class="table-contents">
                   <table id="table.dq6.C24549" class="lighttable">

@@ -147,7 +147,7 @@
                     <td>
                       <code class="literal">#$01C0</code>
                     </td>
-                    <td>追加グループ数抽選 0</td>
+                    <td>追加グループ数頻度 0</td>
                   </tr>
                   <tr>
                     <td>
@@ -156,7 +156,7 @@
                     <td>
                       <code class="literal">#$000E</code>
                     </td>
-                    <td>追加グループ数抽選 1</td>
+                    <td>追加グループ数頻度 1</td>
                   </tr>
                   <tr>
                     <td>
@@ -165,7 +165,7 @@
                     <td>
                       <code class="literal">#$0070</code>
                     </td>
-                    <td>追加グループ数抽選 2</td>
+                    <td>追加グループ数頻度 2</td>
                   </tr>
                   <tr>
                     <td>
@@ -174,7 +174,7 @@
                     <td>
                       <code class="literal">#$0380</code>
                     </td>
-                    <td>モンスター抽選 <code class="literal">#$00</code></td>
+                    <td>頻度 <code class="literal">#$00</code></td>
                   </tr>
                   <tr>
                     <td>
@@ -201,7 +201,7 @@
                     <td>
                       <code class="literal">#$00E0</code>
                     </td>
-                    <td>モンスター抽選 <code class="literal">#$01</code></td>
+                    <td>頻度 <code class="literal">#$01</code></td>
                   </tr>
                   <tr>
                     <td>
@@ -228,7 +228,7 @@
                     <td>
                       <code class="literal">#$0038</code>
                     </td>
-                    <td>モンスター抽選 <code class="literal">#$02</code></td>
+                    <td>頻度 <code class="literal">#$02</code></td>
                   </tr>
                   <tr>
                     <td>
@@ -255,7 +255,7 @@
                     <td>
                       <code class="literal">#$000E</code>
                     </td>
-                    <td>モンスター抽選 <code class="literal">#$03</code></td>
+                    <td>頻度 <code class="literal">#$03</code></td>
                   </tr>
                   <tr>
                     <td>
@@ -282,7 +282,7 @@
                     <td>
                       <code class="literal">#$0380</code>
                     </td>
-                    <td>モンスター抽選 <code class="literal">#$04</code></td>
+                    <td>頻度 <code class="literal">#$04</code></td>
                   </tr>
                   <tr>
                     <td>
@@ -309,7 +309,7 @@
                     <td>
                       <code class="literal">#$00E0</code>
                     </td>
-                    <td>モンスター抽選 <code class="literal">#$05</code></td>
+                    <td>頻度 <code class="literal">#$05</code></td>
                   </tr>
                   <tr>
                     <td>
@@ -336,7 +336,7 @@
                     <td>
                       <code class="literal">#$0038</code>
                     </td>
-                    <td>モンスター抽選 <code class="literal">#$06</code></td>
+                    <td>頻度 <code class="literal">#$06</code></td>
                   </tr>
                   <tr>
                     <td>
@@ -363,7 +363,7 @@
                     <td>
                       <code class="literal">#$000E</code>
                     </td>
-                    <td>モンスター抽選 <code class="literal">#$07</code></td>
+                    <td>頻度 <code class="literal">#$07</code></td>
                   </tr>
                   <tr>
                     <td>
@@ -390,7 +390,7 @@
                     <td>
                       <code class="literal">#$0380</code>
                     </td>
-                    <td>モンスター抽選 <code class="literal">#$08</code></td>
+                    <td>頻度 <code class="literal">#$08</code></td>
                   </tr>
                   <tr>
                     <td>
@@ -417,7 +417,7 @@
                     <td>
                       <code class="literal">#$00E0</code>
                     </td>
-                    <td>モンスター抽選 <code class="literal">#$09</code></td>
+                    <td>頻度 <code class="literal">#$09</code></td>
                   </tr>
                   <tr>
                     <td>
@@ -444,7 +444,7 @@
                     <td>
                       <code class="literal">#$0038</code>
                     </td>
-                    <td>モンスター抽選 <code class="literal">#$0A</code></td>
+                    <td>頻度 <code class="literal">#$0A</code></td>
                   </tr>
                   <tr>
                     <td>
@@ -607,11 +607,11 @@
       </p>
               </dd>
               <dt>
-                <span class="term">モンスター抽選 k (k = <code class="literal">#$00</code>..<code class="literal">#$0A</code>)</span>
+                <span class="term">頻度 k (k = <code class="literal">#$00</code>..<code class="literal">#$0A</code>)</span>
               </dt>
               <dd>
                 <p>
-        モンスター抽選とは、敵陣のグループ数や構成モンスターを大まかに決定するのに用いられる数値型配列属性だ。
+        頻度とは、敵陣のグループ数や構成モンスターを大まかに決定するのに用いられる数値型配列属性だ。
         前作と同様の抽選方式で敵陣がレアか単独グループからなるのか複数グループからなるのかを決める。
       </p>
               </dd>
@@ -698,11 +698,11 @@
       </p>
               </dd>
               <dt>
-                <span class="term">追加グループ数抽選 k (k = 0..2)</span>
+                <span class="term">追加グループ数頻度 k (k = 0..2)</span>
               </dt>
               <dd>
                 <p>
-        追加グループ数抽選 k とは、先に述べた大まかな抽選により敵陣を複数グループで構成することを決定した後に、
+        追加グループ数頻度 k とは、先に述べた大まかな抽選により敵陣を複数グループで構成することを決定した後に、
         グループ 0 の他にあといくつグループを追加するのかを抽選するために用いる数値型配列属性だ。
       </p>
                 <p>
@@ -1189,12 +1189,12 @@
 </p>
         <div class="itemizedlist">
           <ul class="itemizedlist" style="list-style-type: disc; ">
-            <li class="listitem">戦闘構成オブジェクトのモンスター抽選属性値の総和 S を取る。</li>
+            <li class="listitem">戦闘構成オブジェクトの頻度属性値の総和 S を取る。</li>
             <li class="listitem">乱数 <code class="code">r = randint(0, S)</code> を取る。</li>
             <li class="listitem">
               <p class="simpara">
-      戦闘構成オブジェクトのモンスター抽選属性値の部分和 s を求め、
-      <code class="code">s &gt;= r</code> なるモンスター抽選属性値添字 k を求める。
+      戦闘構成オブジェクトの頻度属性値の部分和 s を求め、
+      <code class="code">s &gt;= r</code> なる頻度属性値添字 k を求める。
       この添字 k の値により、次の (a), (b), (c) のいずれかの処理を行う：
     </p>
               <div class="itemizedlist">
@@ -1225,10 +1225,11 @@
           <ul class="itemizedlist" style="list-style-type: disc; ">
             <li class="listitem">
               <p class="simpara">追加グループ数を抽選する。</p>
-              <p class="simpara">戦闘構成オブジェクトの追加グループ数抽選 k 属性値に対して、先ほどの総和・部分和比較処理相当のことを行う。</p>
+              <p class="simpara">戦闘構成オブジェクトの追加グループ数頻度 k 属性値に対して、
+    先ほどの総和・部分和比較処理相当のことを行う。</p>
             </li>
             <li class="listitem">
-      各グループについて添字 k を、モンスター抽選 <code class="literal">00</code>..<code class="literal">04</code> を用いて総和・部分和比較方式で抽選して決める。
+      各グループについて添字 k を、頻度 <code class="literal">#$00</code>..<code class="literal">#$04</code> を確率変数として総和・部分和比較方式で抽選して決める。
     </li>
             <li class="listitem">
       戦闘構成オブジェクトのグループ複数時モンスター k 属性値とグループ複数時頭数 k 属性値からモンスターと頭数をそれぞれ決定する。
