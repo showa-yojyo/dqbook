@@ -164,6 +164,95 @@
     </listitem>
   </varlistentry>
 </variablelist>
+<para>
+マス分類と内容の対応を次の表に示す。
+</para>
+<table id="table.dq3.sugoroku.squares" class="lighttable">
+  <caption>マス分類</caption>
+  <thead>
+    <tr><th>ID</th><th>内容</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td>n/a</td></tr>
+    <tr><td><literal>#$01</literal></td><td>草原</td></tr>
+    <tr><td><literal>#$02</literal></td><td>森</td></tr>
+    <tr><td><literal>#$03</literal></td><td>山</td></tr>
+    <tr><td><literal>#$04</literal></td><td>立て札上</td></tr>
+    <tr><td><literal>#$05</literal></td><td>立て札右</td></tr>
+    <tr><td><literal>#$06</literal></td><td>立て札下</td></tr>
+    <tr><td><literal>#$07</literal></td><td>立て札左</td></tr>
+    <tr><td><literal>#$08</literal></td><td>ゴールド +50</td></tr>
+    <tr><td><literal>#$09</literal></td><td>ゴールド +100</td></tr>
+    <tr><td><literal>#$0A</literal></td><td>ゴールド +150</td></tr>
+    <tr><td><literal>#$0B</literal></td><td>ゴールド +200</td></tr>
+    <tr><td><literal>#$0C</literal></td><td>ゴールド +250</td></tr>
+    <tr><td><literal>#$0D</literal></td><td>ゴールド +300</td></tr>
+    <tr><td><literal>#$0E</literal></td><td>ゴールド +500</td></tr>
+    <tr><td><literal>#$0F</literal></td><td>ゴールド +1000</td></tr>
+    <tr><td><literal>#$10</literal></td><td>ゴールド +2000</td></tr>
+    <tr><td><literal>#$11</literal></td><td>ゴールド +5000</td></tr>
+    <tr><td><literal>#$12</literal></td><td>ゴールド -50</td></tr>
+    <tr><td><literal>#$13</literal></td><td>ゴールド -100</td></tr>
+    <tr><td><literal>#$14</literal></td><td>ゴールド -150</td></tr>
+    <tr><td><literal>#$15</literal></td><td>ゴールド -200</td></tr>
+    <tr><td><literal>#$16</literal></td><td>ゴールド -250</td></tr>
+    <tr><td><literal>#$17</literal></td><td>ゴールド -300</td></tr>
+    <tr><td><literal>#$18</literal></td><td>ゴールド -500</td></tr>
+    <tr><td><literal>#$19</literal></td><td>ゴールド -1000</td></tr>
+    <tr><td><literal>#$1A</literal></td><td>ゴールド -2000</td></tr>
+    <tr><td><literal>#$1B</literal></td><td>ゴールド -3000</td></tr>
+    <tr><td><literal>#$1C</literal></td><td>戦闘</td></tr>
+    <tr><td><literal>#$1D</literal></td><td>HP ダメージ</td></tr>
+    <tr><td><literal>#$1E</literal></td><td>旅の扉</td></tr>
+    <tr><td><literal>#$1F</literal></td><td>マス移動 +1</td></tr>
+    <tr><td><literal>#$20</literal></td><td>マス移動 +2</td></tr>
+    <tr><td><literal>#$21</literal></td><td>マス移動 +3</td></tr>
+    <tr><td><literal>#$22</literal></td><td>マス移動 +4</td></tr>
+    <tr><td><literal>#$23</literal></td><td>マス移動 +5</td></tr>
+    <tr><td><literal>#$24</literal></td><td>マス移動 +6</td></tr>
+    <tr><td><literal>#$25</literal></td><td>マス移動 -1</td></tr>
+    <tr><td><literal>#$26</literal></td><td>マス移動 -2</td></tr>
+    <tr><td><literal>#$27</literal></td><td>マス移動 -3</td></tr>
+    <tr><td><literal>#$28</literal></td><td>マス移動 -4</td></tr>
+    <tr><td><literal>#$29</literal></td><td>マス移動 -5</td></tr>
+    <tr><td><literal>#$2A</literal></td><td>マス移動 -6</td></tr>
+    <tr><td><literal>#$2B</literal></td><td>振り出しに戻る</td></tr>
+    <tr><td><literal>#$2C</literal></td><td>ランダム</td></tr>
+    <tr><td><literal>#$2D</literal></td><td>宿屋</td></tr>
+    <tr><td><literal>#$2E</literal></td><td>よろず屋</td></tr>
+    <tr><td><literal>#$2F</literal></td><td>階段上り</td></tr>
+    <tr><td><literal>#$30</literal></td><td>階段下り</td></tr>
+    <tr><td><literal>#$31</literal></td><td>階段上り</td></tr>
+    <tr><td><literal>#$32</literal></td><td>階段下り</td></tr>
+    <tr><td><literal>#$33</literal></td><td>洞くつ</td></tr>
+    <tr><td><literal>#$34</literal></td><td>ふりだし</td></tr>
+    <tr><td><literal>#$35</literal></td><td>あがり</td></tr>
+    <tr><td><literal>#$36</literal></td><td>宝箱アイテム</td></tr>
+    <tr><td><literal>#$37</literal></td><td>宝箱ゴールド</td></tr>
+    <tr><td><literal>#$38</literal></td><td>宝箱罠</td></tr>
+    <tr><td><literal>#$39</literal></td><td>つぼアイテム</td></tr>
+    <tr><td><literal>#$3A</literal></td><td>つぼゴールド</td></tr>
+    <tr><td><literal>#$3B</literal></td><td>つぼ罠</td></tr>
+    <tr><td><literal>#$3C</literal></td><td>タンスアイテム</td></tr>
+    <tr><td><literal>#$3D</literal></td><td>タンスゴールド</td></tr>
+    <tr><td><literal>#$3E</literal></td><td>タンス罠</td></tr>
+    <tr><td><literal>#$3F</literal></td><td>落とし穴場外</td></tr>
+    <tr><td><literal>#$40</literal></td><td>落とし穴場内</td></tr>
+    <tr><td><literal>#$41</literal></td><td>回復</td></tr>
+    <tr><td><literal>#$42</literal></td><td>MP ダメージ</td></tr>
+    <tr><td><literal>#$43</literal></td><td>MP 0</td></tr>
+    <tr><td><literal>#$44</literal></td><td>サイコロ +1</td></tr>
+    <tr><td><literal>#$45</literal></td><td>サイコロ +2</td></tr>
+    <tr><td><literal>#$46</literal></td><td>サイコロ +3</td></tr>
+    <tr><td><literal>#$47</literal></td><td>サイコロ +5</td></tr>
+    <tr><td><literal>#$48</literal></td><td>サイコロ -1</td></tr>
+    <tr><td><literal>#$49</literal></td><td>サイコロ -2</td></tr>
+    <tr><td><literal>#$4A</literal></td><td>サイコロ -3</td></tr>
+    <tr><td><literal>#$4B</literal></td><td>数値変化</td></tr>
+    <tr><td><literal>#$4C</literal></td><td>カギ</td></tr>
+    <tr><td><literal>#$4D</literal></td><td>宝箱</td></tr>
+  </tbody>
+</table>
 </section> <!-- dq3.sugoroku.structure.C8EECA -->
 
 <section id="dq3.sugoroku.structure.C8F188">
@@ -172,6 +261,54 @@
 すごろくランダムイベントハンドラーとは、すごろくマス「？」で引き起こされるイベントの処理を実行するコードだと定義する。
 アドレス <varname>$C8F188</varname> にはそのようなコードの完全アドレスが 36 個配列されている。
 </para>
+<para>
+以下にイベントハンドラーの ID とイベントの概要を記す。
+各ハンドラーの具体的なアドレスについては、<xref linkend="appendix.b.dq3" xrefstyle="付録"/>の CSV に収録した。
+</para>
+<table id="table.dq3.C8F188" class="lighttable">
+  <caption>すごろくランダムイベント一覧</caption>
+  <thead>
+    <tr><th>ID</th><th>メッセージ冒頭</th><th>イベント</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td>夜空をやきつくす火の山</td><td>ちから +2</td></tr>
+    <tr><td><literal>#$01</literal></td><td>大地の神々よりつどいて</td><td>ちから +4</td></tr>
+    <tr><td><literal>#$02</literal></td><td>時は風</td><td>すばやさ +2</td></tr>
+    <tr><td><literal>#$03</literal></td><td>夜空のきらめき</td><td>すばやさ +4</td></tr>
+    <tr><td><literal>#$04</literal></td><td>つかれ知らぬその身体</td><td>たいりょく +2</td></tr>
+    <tr><td><literal>#$05</literal></td><td>こぶし１００万回</td><td>たいりょく +4</td></tr>
+    <tr><td><literal>#$06</literal></td><td>これを知るをこれ知るとなせ</td><td>かしこさ +2</td></tr>
+    <tr><td><literal>#$07</literal></td><td>おろかなる者は教えたがり</td><td>かしこさ -3</td></tr>
+    <tr><td><literal>#$08</literal></td><td>しあわせの時は来たれり</td><td>うんのよさ +2</td></tr>
+    <tr><td><literal>#$09</literal></td><td>森深き青き泉</td><td>うんのよさ +4</td></tr>
+    <tr><td><literal>#$0A</literal></td><td>ちからなくうなだれる者</td><td>ちから -2</td></tr>
+    <tr><td><literal>#$0B</literal></td><td>あまねく星たちのきらめきは見</td><td>すばやさ -2</td></tr>
+    <tr><td><literal>#$0C</literal></td><td>しゃくねつのさばく</td><td>たいりょく -2</td></tr>
+    <tr><td><literal>#$0D</literal></td><td>無知を恐るるなかれ</td><td>かしこさ -2</td></tr>
+    <tr><td><literal>#$0E</literal></td><td>運わるしといたずらになげく者</td><td>うんのよさ -2</td></tr>
+    <tr><td><literal>#$0F</literal></td><td>時はいつわり</td><td>ふりだしに移動</td></tr>
+    <tr><td><literal>#$10</literal></td><td>それは嵐か</td><td>何もない</td></tr>
+    <tr><td><literal>#$11</literal></td><td>闇に光る巨大な眼</td><td>盤面固定戦 0 が発生する</td></tr>
+    <tr><td><literal>#$12</literal></td><td>降りすさむ雨はやがて大河に</td><td>盤面固定戦 1 が発生する</td></tr>
+    <tr><td><literal>#$13</literal></td><td>おぞましきはばたきの音</td><td>盤面固定戦 2 が発生する</td></tr>
+    <tr><td><literal>#$14</literal></td><td>不注意なる者</td><td>所持金の半額 + 1 を失う</td></tr>
+    <tr><td><literal>#$15</literal></td><td>それは天の恵みか</td><td>所持金の半額 + 1 を得る</td></tr>
+    <tr><td><literal>#$16</literal></td><td>うごめくものどもにひとときの</td><td>ランダム戦闘が発生しなくなる</td></tr>
+    <tr><td><literal>#$17</literal></td><td>過ぎし日の思い出を今いちど</td><td>何もない</td></tr>
+    <tr><td><literal>#$18</literal></td><td>それはならくの底か</td><td>落とし穴</td></tr>
+    <tr><td><literal>#$19</literal></td><td>試練の時は来たれり</td><td>すごろくイベント #$4B と同じ</td></tr>
+    <tr><td><literal>#$1A</literal></td><td>深き土の底でねむる物</td><td>アイテム入手</td></tr>
+    <tr><td><literal>#$1B</literal></td><td>なにごとも経験なりき</td><td>経験値 +1,000</td></tr>
+    <tr><td><literal>#$1C</literal></td><td>なにごとも経験なりき</td><td>経験値 +10,000</td></tr>
+    <tr><td><literal>#$1D</literal></td><td>おだやかなる時の流れ</td><td>サイコロ残り +10</td></tr>
+    <tr><td><literal>#$1E</literal></td><td>人は人我は我</td><td>キャラクターが入れ替わる</td></tr>
+    <tr><td><literal>#$1F</literal></td><td>小鳥たちつどいて春を歌う</td><td>宿屋のマスに移動</td></tr>
+    <tr><td><literal>#$20</literal></td><td>我なんじの願いかなえる者なり</td><td>次のサイコロ出目を指定できる</td></tr>
+    <tr><td><literal>#$21</literal></td><td>風向きは追い風</td><td>マス移動 +6</td></tr>
+    <tr><td><literal>#$22</literal></td><td>風向きはむかい風</td><td>マス移動 -5</td></tr>
+    <tr><td><literal>#$23</literal></td><td>はげしい炎はすべてを無に帰し</td><td>性格が変化する</td></tr>
+  </tbody>
+</table>
 </section> <!-- dq3.sugoroku.structure.C8F188 -->
 
 <section id="dq3.sugoroku.structure.C8F1F4">
