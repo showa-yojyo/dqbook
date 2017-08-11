@@ -662,6 +662,64 @@
 </variablelist>
 </section> <!-- dq3.sugoroku.structure.C8F2F3 -->
 
+<section id="dq3.sugoroku.structure.C8F53F">
+<title>構造体 <varname>$C8F53F</varname>: すごろく店屋画像</title>
+<para>
+すごろく店屋画像とは画像の一種であり、宿屋またはよろず屋のマスに止まった際に画面中央に描画されるものだ。
+アドレス <varname>$C8F53F</varname> に次の表で示される型のオブジェクトが 3 個配列されていて、
+それぞれ対応する分類のマスに止まったときの店屋画像を指定するものだ。
+</para>
+<table id="table.dq3.C8F53F" class="lighttable">
+  <caption>構造体 $C8F53F</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$0000</literal></td><td><literal>#$0007FF</literal></td><td>店先のスプライト</td></tr>
+    <tr><td><literal>#$0001</literal></td><td><literal>#$001FF8</literal></td><td>店先のパレット</td></tr>
+    <tr><td><literal>#$0002</literal></td><td><literal>#$00FFE0</literal></td><td>（調査中）</td></tr>
+    <tr><td><literal>#$0004</literal></td><td><literal>#$0003FF</literal></td><td>店員のパレット</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味を以下に記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>店先のスプライト</term>
+    <listitem>
+      <para>
+        店先の画像を表現するスプライト (BG2) の ID を値に取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>店先のパレット</term>
+    <listitem>
+      <para>
+        店先のスプライトの色を指定するオブジェクトの ID を値に取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>（調査中）</term>
+    <listitem>
+      <para>
+        配列 <varname>$C542A6</varname> の ID を値に取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>店員のパレット</term>
+    <listitem>
+      <para>
+        店員のスプライトの色を指定するオブジェクトの ID を値に取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq3.sugoroku.structure.C8F53F -->
+
 <section id="dq3.sugoroku.structure.C8F551">
 <title>構造体 <varname>$C8F551</varname>: すごろくアイテム確率</title>
 <para>
