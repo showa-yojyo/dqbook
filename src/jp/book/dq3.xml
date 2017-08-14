@@ -12,9 +12,6 @@
 モンスターメダルの文書のみ &dq3_2000; (2000) に関する記述である。
 </para>
 
-<!-- DEBUG -->
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_debug.xml"/>
-
 <!-- TEXT -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_text.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_string.xml"/>
@@ -56,6 +53,7 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_search.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_encounter.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_sugoroku.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_debug.xml"/>
 
 <!-- BANK $CB -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_pond.xml"/>
