@@ -43,13 +43,13 @@
 
 <section id="dq3.gallery.monsters.89">
 <title>オルテガ</title>
-<figure id="fig.dq3_57">
+<figure id="fig.dq3.monsters.89a">
   <title>ファミコン版の戦闘を再現</title>
-  <graphic width="248px" fileref="./image/dq3_57.png"/>
+  <graphic width="248px" fileref="./image/dq3.monsters.89.a.png"/>
 </figure>
-<figure id="fig.dq3_58">
+<figure id="fig.dq3.monsters.89b">
   <title>オルテガの攻撃</title>
-  <graphic width="248px" fileref="./image/dq3_58.png"/>
+  <graphic width="248px" fileref="./image/dq3.monsters.89.b.png"/>
 </figure>
 <para>
 重要人物であるオルテガがモンスター <literal>#$89</literal> として定義されている。
@@ -57,9 +57,9 @@
 ここで示すような映像イベントは起こらない。
 </para>
 
-<figure id="fig.dq3_59">
+<figure id="fig.dq3.monsters.89c">
   <title>オルテガとカンダタこぶん</title>
-  <graphic width="248px" fileref="./image/dq3_59.png"/>
+  <graphic width="248px" fileref="./image/dq3.monsters.89.c.png"/>
 </figure>
 <para>
 モンスターデータとしてのオルテガとカンダタは見てくれがよく似ているので、
@@ -70,9 +70,9 @@
 
 <section id="dq3.gallery.monsters.8F">
 <title>せんたくバカ</title>
-<figure id="fig.dq3_31">
+<figure id="fig.dq3.monsters.8F">
   <title>せんたくバカとスライム</title>
-  <graphic width="248px" fileref="./image/dq3_31.png"/>
+  <graphic width="248px" fileref="./image/dq3.monsters.8F.png"/>
 </figure>
 <para>
 謎のモンスター「せんたくバカ」について述べる。
@@ -97,29 +97,33 @@
 
 <section id="dq3.gallery.windows.01">
 <title>ウィンドウ <literal>#$01</literal></title>
-<figure id="fig.dq3.window.01">
+<figure id="fig.dq3.windows.01">
   <title>ウィンドウ <literal>#$01</literal></title>
-  <graphic width="240px" fileref="./image/dq3.window.01.png"/>
+  <graphic width="240px" fileref="./image/dq3.windows.01.png"/>
 </figure>
-<para>TBW</para>
+<para>
+謎のウィンドウだ。
+</para>
 </section> <!-- dq3.gallery.windows.01 -->
 
 <section id="dq3.gallery.windows.43">
 <title>ウィンドウ <literal>#$43</literal></title>
-<figure id="fig.dq3.window.43">
+<figure id="fig.dq3.windows.43">
   <title>ウィンドウ <literal>#$43</literal></title>
-  <graphic width="240px" fileref="./image/dq3.window.43.png"/>
+  <graphic width="240px" fileref="./image/dq3.windows.43.png"/>
 </figure>
-<para>TBW</para>
+<para>
+謎のウィンドウだ。デバッグコマンドのメニューにも見えるが、<xref linkend="dq3.debug"/> で述べるようにそれは別にある。
+</para>
 </section> <!-- dq3.gallery.windows.43 -->
 </section> <!-- dq3.gallery.windows -->
 
 <section id="dq3.gallery.items">
 <title>アイテム</title>
 <indexterm id="term.dq3.gallery.items"><primary>アイテム</primary><secondary>没アイテム</secondary></indexterm>
-<figure id="fig.dq3_19">
+<figure id="fig.dq3.items.unused">
   <title>謎のアイテム</title>
-  <graphic width="240px" fileref="./image/dq3_19.png"/>
+  <graphic width="240px" fileref="./image/dq3.items.unused.png"/>
 </figure>
 <para>
 アイテムに関する珍画像を示す。
@@ -140,13 +144,13 @@
 
 <section id="dq3.gallery.items.89">
 <title>みずでっぽう</title>
-<figure id="fig.dq3_20">
+<figure id="fig.dq3.items.89a">
   <title>みずでっぽうをみる</title>
-  <graphic width="240px" fileref="./image/dq3_20.png"/>
+  <graphic width="240px" fileref="./image/dq3.items.89.a.png"/>
 </figure>
-<figure id="fig.dq3_21">
+<figure id="fig.dq3.items.89b">
   <title>戦闘でみずでっぽうをつかう</title>
-  <graphic width="248px" fileref="./image/dq3_21.png"/>
+  <graphic width="248px" fileref="./image/dq3.items.89.b.png"/>
 </figure>
 <para>
 商人を仲間にしてこのアイテムを見せたところ、
@@ -158,7 +162,7 @@
 <para>
 移動中に使っても、戦闘中に使っても何も起こらない。
 オリジナル版では、みずでっぽうが正規のアイテムとして存在した。
-人に向けて「つかう」と「うわっ つめたい!」のような台詞を言い、
+人に向けて「つかう」と「うわっ つめたい！」のような台詞を言い、
 一歩動いてくれるというものだったが、それが全く再現しない。
 正真正銘の没アイテムだ。
 </para>
@@ -166,9 +170,9 @@
 
 <section id="dq3.gallery.items.BD">
 <title>すいしょうだま</title>
-<figure id="fig.dq3_22">
+<figure id="fig.dq3.items.BD">
   <title>戦闘ですいしょうだまをつかう</title>
-  <graphic width="248px" fileref="./image/dq3_22.png"/>
+  <graphic width="248px" fileref="./image/dq3.items.BD.png"/>
 </figure>
 <para>
 仲間の商人にこのアイテムを見せたところ、
@@ -181,17 +185,17 @@
 
 <section id="dq3.gallery.items.C0">
 <title>しのオルゴール</title>
-<figure id="fig.dq3_23">
+<figure id="fig.dq3.items.C0a">
   <title>かなしいメロディがながれる</title>
-  <graphic width="248px" fileref="./image/dq3_23.png"/>
+  <graphic width="248px" fileref="./image/dq3.items.C0.a.png"/>
 </figure>
-<figure id="fig.dq3_24">
+<figure id="fig.dq3.items.C0b">
   <title>敵のいきのねをとめた</title>
-  <graphic width="248px" fileref="./image/dq3_24.png"/>
+  <graphic width="248px" fileref="./image/dq3.items.C0.b.png"/>
 </figure>
-<figure id="fig.dq3_25">
+<figure id="fig.dq3.items.C0c">
   <title>味方がしんでしまった</title>
-  <graphic width="248px" fileref="./image/dq3_25.png"/>
+  <graphic width="248px" fileref="./image/dq3.items.C0.c.png"/>
 </figure>
 <para>
 商人の鑑定を試みると、やはりウィンドウが即座に閉じる。
@@ -264,13 +268,13 @@
 <para>
 空間オブジェクト <literal>#$0163</literal> の画像を示す。
 </para>
-<figure id="fig.dq3_kennel">
+<figure id="fig.dq3.rooms.0163a">
   <title>イヌとネコのいる空間</title>
-  <graphic width="240px" fileref="./image/dq3_kennel.png"/>
+  <graphic width="240px" fileref="./image/dq3.rooms.0163.a.png"/>
 </figure>
-<figure id="fig.dq3_kennel_through">
+<figure id="fig.dq3.rooms.0163b">
   <title>牢屋の扉をすり抜ける</title>
-  <graphic width="240px" fileref="./image/dq3_kennel_through.png"/>
+  <graphic width="240px" fileref="./image/dq3.rooms.0163.b.png"/>
 </figure>
 <para>
 改造環境をお持ちの方は <code>$7E9850 = #$0163</code> を試してみよう。
@@ -288,9 +292,9 @@ BGM は格闘場とすごろく場に共通のものである。
 <para>
 牢屋の扉は扉判定がいない。すなわち単なる床の模様である。
 </para>
-<figure id="fig.dq3_kennel_medal_list">
+<figure id="fig.dq3.rooms.0163c">
   <title>右のツボはメダル景品リスト</title>
-  <graphic width="240px" fileref="./image/dq3_kennel_medal_list.png"/>
+  <graphic width="240px" fileref="./image/dq3.rooms.0163.c.png"/>
 </figure>
 <para>
 ツボがふたつあるが、左の牢屋のものはツボと認識されないようで、
@@ -298,22 +302,21 @@ BGM は格闘場とすごろく場に共通のものである。
 右の牢屋のものはツボではなく本棚だ。
 そこにはアリアハンのメダルおじさんの家の本棚に置いてあるメダル景品リストと同じものがある。
 </para>
-<figure id="fig.dq3_kennel_sugoroku">
+<figure id="fig.dq3.C89BB7.0184">
   <title>すごろく</title>
-  <graphic width="240px" fileref="./image/dq3_kennel_sugoroku.png"/>
+  <graphic width="240px" fileref="./image/dq3.C89BB7.0184.png"/>
 </figure>
 <para>
-イヌにはなしかけると、すごろくが開始される。
+イヌにはなしかけると、画面が切り替わってすごろくが開始する。
 ここにいるイヌそれぞれに相異なるすごろくの階段のマスが対応している。
 話し掛けると場面が犬小屋からすごろく場に変わり、対応するマスからすごろくが始まる。
-<literal>737</literal>という、半端な回数だが十分な残りさいころ回数が与えられている。
 </para>
 <para>
 左の牢屋の右端のイヌに話し掛けると、例外的にすごろくにならないようだ。
 </para>
-<figure id="fig.dq3_kennel_cat">
+<figure id="fig.dq3.rooms.0163d">
   <title>ネコにはなす</title>
-  <graphic width="240px" fileref="./image/dq3_kennel_cat.png"/>
+  <graphic width="240px" fileref="./image/dq3.rooms.0163.d.png"/>
 </figure>
 <para>
 犬小屋のわきにある階段にネコが立ちふさがっている。
