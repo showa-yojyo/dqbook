@@ -142,6 +142,19 @@
   </tbody>
 </table>
 
+<section id="dq3.gallery.items.2A">
+<title>てつのそろばん</title>
+<figure id="fig.dq3.items.2A">
+  <title>てつのそろばんをつかう</title>
+  <graphic width="240px" fileref="./image/dq3.items.2A.png"/>
+</figure>
+<para>
+アイテム <literal>#$2A</literal> はてつのそろばんという名前のものだ。
+データ上はオブジェクト属性が十分に設定されているにも関わらず、ゲーム本編では入手方法がないため没アイテムとなっている。
+上の画像は移動モードでの振る舞いだ。戦闘モードでもこのような振る舞いを呈する。
+</para>
+</section> <!-- dq3.gallery.items.2A -->
+
 <section id="dq3.gallery.items.89">
 <title>みずでっぽう</title>
 <figure id="fig.dq3.items.89a">
