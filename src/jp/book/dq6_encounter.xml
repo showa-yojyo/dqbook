@@ -76,7 +76,7 @@
     <tr><td><literal>#$13</literal></td><td><literal>#$0007</literal></td><td>グループ単数時頭数 4</td></tr>
     <tr><td><literal>#$13</literal></td><td><literal>#$07F8</literal></td><td>グループ単数時モンスター 4</td></tr>
     <tr><td><literal>#$14</literal></td><td><literal>#$0038</literal></td><td>頻度 <literal>#$0A</literal></td></tr>
-    <tr><td><literal>#$14</literal></td><td><literal>#$3FC0</literal></td><td>レア戦闘</td></tr>
+    <tr><td><literal>#$14</literal></td><td><literal>#$3FC0</literal></td><td>敵陣グループ固定戦</td></tr>
   </tbody>
 </table>
 <para>
@@ -174,15 +174,15 @@
     <listitem>
       <para>
         頻度とは、敵陣のグループ数や構成モンスターを大まかに決定するのに用いられる数値型配列属性だ。
-        前作と同様の抽選方式で敵陣がレアか単独グループからなるのか複数グループからなるのかを決める。
+        前作と同様の抽選方式で敵陣が固定構成か単独グループからなるのか複数グループからなるのかを決める。
       </para>
     </listitem>
   </varlistentry>
     <varlistentry>
-    <term>レア戦闘</term>
+    <term>敵陣グループ固定戦</term>
     <listitem>
       <para>
-        レア戦闘とは、先述の大まかな抽選処理でレア戦闘に決定するときに採用されるオブジェクトの ID を値とする属性だ。
+        敵陣グループ固定戦とは、先述の大まかな抽選処理で敵陣グループ固定戦に決定するときに採用されるオブジェクトの ID を値とする属性だ。
         そのオブジェクトとは、<xref linkend="dq6.encounter.model.C58F64"/> で述べるものに他ならない。
       </para>
     </listitem>
@@ -261,7 +261,7 @@
 </section> <!-- dq6.encounter.model.C6843C -->
 
 <section id="dq6.encounter.model.C58F64">
-<title>構造体 <varname>$C58F64</varname>: レア戦闘用編成</title>
+<title>構造体 <varname>$C58F64</varname>: 敵陣グループ固定戦</title>
 <para>
 アドレス <varname>$C58F64</varname> にはバイトサイズ <literal>#$06</literal> のオブジェクトが配列されている。
 正規の抽選処理から分岐して、こちらのオブジェクトのいずれかで敵陣を指定するという場合が起こり得る。
@@ -483,7 +483,7 @@
       この添字 k の値により、次の (a), (b), (c) のいずれかの処理を行う：
     </simpara>
     <itemizedlist>
-      <listitem><simpara>(a) 添字 k が上限値のときには対応するレア戦闘構成オブジェクトから敵陣を構成する。</simpara></listitem>
+      <listitem><simpara>(a) 添字 k が上限値のときには対応する敵陣グループ固定戦オブジェクトから敵陣を構成する。</simpara></listitem>
       <listitem><simpara>(b) 添字 k が配列後半にあれば単独グループを構成する処理を行う。</simpara></listitem>
       <listitem><simpara>(c) そうでなければ複数グループを構成する処理を行う。</simpara></listitem>
     </itemizedlist>

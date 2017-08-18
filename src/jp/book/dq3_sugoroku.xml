@@ -448,9 +448,9 @@
     <tr><td><literal>#$001B</literal></td><td><literal>#$00001C</literal></td><td>アイテム確率 <literal>#$0A</literal></td></tr>
     <tr><td><literal>#$001B</literal></td><td><literal>#$001FE0</literal></td><td>アイテム <literal>#$0B</literal></td></tr>
     <tr><td><literal>#$001C</literal></td><td><literal>#$0000E0</literal></td><td>アイテム確率 <literal>#$0B</literal></td></tr>
-    <tr><td><literal>#$001D</literal></td><td><literal>#$0000FF</literal></td><td>レア戦闘 0</td></tr>
-    <tr><td><literal>#$001E</literal></td><td><literal>#$0000FF</literal></td><td>レア戦闘 1</td></tr>
-    <tr><td><literal>#$001F</literal></td><td><literal>#$0000FF</literal></td><td>レア戦闘 2</td></tr>
+    <tr><td><literal>#$001D</literal></td><td><literal>#$0000FF</literal></td><td>敵陣グループ固定戦 0</td></tr>
+    <tr><td><literal>#$001E</literal></td><td><literal>#$0000FF</literal></td><td>敵陣グループ固定戦 1</td></tr>
+    <tr><td><literal>#$001F</literal></td><td><literal>#$0000FF</literal></td><td>敵陣グループ固定戦 2</td></tr>
     <tr><td><literal>#$0020</literal></td><td><literal>#$00000F</literal></td><td>すごろくランダムイベント</td></tr>
     <tr><td><literal>#$0021</literal></td><td><literal>#$00FFFF</literal></td><td>すごろくマス範囲下限</td></tr>
     <tr><td><literal>#$0023</literal></td><td><literal>#$00FFFF</literal></td><td>すごろくマス範囲上限</td></tr>
