@@ -99,7 +99,7 @@
     <tr><td><literal>#$72</literal></td><td><literal>#$00FF</literal></td><td>（未使用）</td></tr>
     <tr><td><literal>#$73</literal></td><td><literal>#$00FF</literal></td><td>さいだい MP に対する係数</td></tr>
     <tr><td><literal>#$74</literal></td><td><literal>#$00FF</literal></td><td>（未使用）</td></tr>
-    <tr><td><literal>#$75</literal></td><td><literal>#$FFFF</literal></td><td>（不明）</td></tr>
+    <tr><td><literal>#$75</literal></td><td><literal>#$FFFF</literal></td><td>説明</td></tr>
   </tbody>
 </table>
 <para>
@@ -259,6 +259,14 @@
           </para>
         </listitem>
       </orderedlist>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>説明</term>
+    <listitem>
+      <para>
+        説明とはメッセージ ID を取る属性であり、ダーマの神殿にいる職業説明係の台詞を指定するものだ。
+      </para>
     </listitem>
   </varlistentry>
 </variablelist>
