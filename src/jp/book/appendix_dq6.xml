@@ -19,6 +19,7 @@
   <member><ulink url="./data/dq6_C58F64_encounter_fixed.txt"><filename>dq6_C58F64_encounter_fixed</filename></ulink></member>
   <member><ulink url="./data/dq6_C6843C_encounter_regular.txt"><filename>dq6_C6843C_encounter_regular.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C815BF_levels.txt"><filename>dq6_C815BF_levels.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_C834FC_transition_destinations.txt"><filename>dq6_C834FC_transition_destinations.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C83E5C_search_item.txt"><filename>dq6_C83E5C_search_item.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C8477E_search_gold.txt"><filename>dq6_C8477E_search_gold.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_C848B6_search_information.txt"><filename>dq6_C848B6_search_information.txt</filename></ulink></member>
@@ -35,6 +36,11 @@
   <member><ulink url="./data/dq6_FB8703_string.txt"><filename>dq6_FB8703_string.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_FF08DA_talk.txt"><filename>dq6_FF08DA_talk.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_FF243C_talk.txt"><filename>dq6_FF243C_talk.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_FF8072_transition_stairways.txt"><filename>dq6_FF8072_transition_stairways.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_FF8D5A_transition_horizontal.txt"><filename>dq6_FF8D5A_transition_horizontal.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_FFA02A_transition_vertical.txt"><filename>dq6_FFA02A_transition_vertical.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_FFA0BA_transition_rectangles.txt"><filename>dq6_FFA0BA_transition_rectangles.txt</filename></ulink></member>
+  <member><ulink url="./data/dq6_FFB692_transition_barriers.txt"><filename>dq6_FFB692_transition_barriers.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_FFB6C2_level.txt"><filename>dq6_FFB6C2_level.txt</filename></ulink></member>
   <member><ulink url="./data/dq6_FFC96D_command_positions.txt"><filename>dq6_FFC96D_command_positions.txt</filename></ulink></member>
 </simplelist>
