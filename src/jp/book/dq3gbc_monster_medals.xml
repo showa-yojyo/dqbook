@@ -5,9 +5,9 @@
   %replacement;
 ]>
 
-<section id="dq3.monmedal.dq4"><?dbhtml filename="dq3_monster_medal_dq4.html" ?>
+<section id="dq3gbc.monster.medals"><?dbhtml filename="dq3gbc_monster_medals.html" ?>
 <title>ドラクエ 4 のモンスターメダル</title>
-<indexterm id="term.dq3.monmedal.dq4"><primary>モンスターメダル</primary><secondary>DQ3</secondary></indexterm>
+<indexterm id="term.dq3gbc.monster.medals"><primary>モンスターメダル</primary><secondary>DQ3</secondary></indexterm>
 <figure id="fig.dq3gbc.medals.menu">
   <title>「メダルをみる」ウィンドウ出現</title>
   <graphic fileref="./image/dq3gbc.medals.menu.png"/>
@@ -19,7 +19,7 @@
 
 <para>
 &dq3_2000; 独自のモンスターメダルシステムで、
-なぜか<link linkend="dq3.monmedal.dq4">ドラクエ 4 のモンスターのメダル</link>が存在する。
+なぜか<link linkend="dq3gbc.monster.medals">ドラクエ 4 のモンスターのメダル</link>が存在する。
 出現方法については、セーブデータのメダルデータ部分を手作業で書き換えるのが楽である。
 もっとも、メダルデータ部分の最後でチェックサムを持つので、
 手作業でのデータ改竄については細心の注意が必要だ。
@@ -53,7 +53,7 @@
   <graphic fileref="./image/dq3gbc.medals.dq4.BF.png"/>
 </figure>
 
-<section id="dq3.monmedal.dq4.hack">
+<section id="dq3gbc.monster.medals.hack">
 <title>セーブデータ改造によるメダル採取</title>
 <para>
   エミュレーターによるモンスターメダル出現方法を説明する。
@@ -117,7 +117,7 @@
 <para>
   少し試行錯誤すればわかるが、以下のような構成に基づいてデータが定義されているらしいことが判明している：
 </para>
-<table id="table.dq3.monmedal.memory.regions" class="lighttable">
+<table id="table.dq3gbc.medals" class="lighttable">
   <caption>モンスターメダルデータ領域</caption>
   <thead>
     <tr><th>データ</th>
@@ -178,9 +178,9 @@
   <title>No. 69 メタルスライム (DQ4)</title>
   <graphic fileref="./image/dq3gbc.medals.dq4.45.png"/>
 </figure>
-</section> <!-- dq3.monmedal.dq4.hack -->
+</section> <!-- dq3gbc.monster.medals.hack -->
 
-<section id="dq3.monmedal.dq4.ref">
+<section id="dq3gbc.monster.medals.ref">
 <title>参考サイト</title>
 <para>
   ドラクエ 4 のモンスターメダルデータに関する情報を提供するページへのリンク集である。
@@ -194,5 +194,5 @@
     </para>
   </listitem>
 </itemizedlist>
-</section> <!-- dq3.monmedal.dq4.ref -->
-</section> <!-- dq3.monmedal.dq4 -->
+</section> <!-- dq3gbc.monster.medals.ref -->
+</section> <!-- dq3gbc.monster.medals -->

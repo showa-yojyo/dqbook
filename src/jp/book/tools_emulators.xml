@@ -165,7 +165,7 @@
 <para>
 	<application>YAME</application> はゲームボーイ・ファミコンおよび PC エンジンのエミュレータである。
 	本書では &dq3_2000; のモンスターメダルデータの格納位置を、
-	セーブデータファイルから特定するのに用いる（<xref linkend="dq3.monmedal.dq4.hack"/>参照）。
+	セーブデータファイルから特定するのに用いる（<xref linkend="dq3gbc.monster.medals"/>参照）。
 </para>
 <para>
 	この節を執筆するために、ファイルシステムの奥深くにあるフォルダから
