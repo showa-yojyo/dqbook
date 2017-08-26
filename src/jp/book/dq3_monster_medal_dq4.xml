@@ -8,59 +8,99 @@
 <section id="dq3.monmedal.dq4"><?dbhtml filename="dq3_monster_medal_dq4.html" ?>
 <title>ドラクエ 4 のモンスターメダル</title>
 <indexterm id="term.dq3.monmedal.dq4"><primary>モンスターメダル</primary><secondary>DQ3</secondary></indexterm>
+<figure id="fig.dq3gbc.medals.menu">
+  <title>「メダルをみる」ウィンドウ出現</title>
+  <graphic fileref="./image/dq3gbc.medals.menu.png"/>
+</figure>
+<figure id="fig.dq3gbc.medals.dq4.01">
+  <title>No. 1 スライム (DQ4)</title>
+  <graphic fileref="./image/dq3gbc.medals.dq4.01.png"/>
+</figure>
+
 <para>
-	&dq3_2000; で密かに存在する「ドラクエ 4 のモンスターメダル」について記す。
-	あまり多くは語らない。
+&dq3_2000; 独自のモンスターメダルシステムで、
+なぜか<link linkend="dq3.monmedal.dq4">ドラクエ 4 のモンスターのメダル</link>が存在する。
+出現方法については、セーブデータのメダルデータ部分を手作業で書き換えるのが楽である。
+もっとも、メダルデータ部分の最後でチェックサムを持つので、
+手作業でのデータ改竄については細心の注意が必要だ。
 </para>
+
+<figure id="fig.dq3gbc.medals.dq4.4A">
+  <title>No. 74 ミステリードール (DQ4)</title>
+  <graphic fileref="./image/dq3gbc.medals.dq4.4A.png"/>
+</figure>
+<figure id="fig.dq3gbc.medals.dq4.AC">
+  <title>No. 172 ピサロナイト (DQ4)</title>
+  <graphic fileref="./image/dq3gbc.medals.dq4.AC.png"/>
+</figure>
+
+<para>
+モンスターメダルデータはドラクエ 3 とドラクエ 4 セクションに分けられている。
+ドラクエ 4 セクションには <literal>191</literal> 種類のモンスターメダルが定義されている。
+番号 <literal>179</literal> から <literal>191</literal> までは、一般には聞いたことのないモンスターである。
+</para>
+
+<figure id="fig.dq3gbc.medals.dq4.BC">
+  <title>No. 188 ヘマトフィリア</title>
+  <graphic fileref="./image/dq3gbc.medals.dq4.BC.png"/>
+</figure>
+<figure id="fig.dq3gbc.medals.dq4.BE">
+  <title>No. 190 エースドラゴン</title>
+  <graphic fileref="./image/dq3gbc.medals.dq4.BE.png"/>
+</figure>
+<figure id="fig.dq3gbc.medals.dq4.BF">
+  <title>No. 191 クインメドーサ</title>
+  <graphic fileref="./image/dq3gbc.medals.dq4.BF.png"/>
+</figure>
 
 <section id="dq3.monmedal.dq4.hack">
 <title>セーブデータ改造によるメダル採取</title>
 <para>
-	エミュレーターによるモンスターメダル出現方法を説明する。
-	素朴な方法だが、普通にプレイして得られるセーブデータファイルを、
-	エミュレーター外部のツールで編集するというやり方を取るのが手っ取り早い。
-	その改竄データをエミュレーターに解釈させることで、
-	無理にすべてのモンスターメダルを出すのだ。
+  エミュレーターによるモンスターメダル出現方法を説明する。
+  素朴な方法だが、普通にプレイして得られるセーブデータファイルを、
+  エミュレーター外部のツールで編集するというやり方を取るのが手っ取り早い。
+  その改竄データをエミュレーターに解釈させることで、
+  無理にすべてのモンスターメダルを出すのだ。
 </para>
 <para>
-	まずは、以下のものを準備する。
+  まずは、以下のものを準備する。
 </para>
 <itemizedlist>
-	<listitem>
-		<para>
-			<literal>GBC</literal> エミュレーター。ただし、非圧縮セーブデータファイルを生成するものがよい。
-			よくわからなければ、<xref linkend="tools.emulators" /> を当たって欲しい。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			言うまでもなく &dq3_2000; ロムイメージファイルが必要だ。
-			ファイル容量は 4 MB あるハズだ。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			同エミュレーターで用いる、適度にプレイして得られた &dq3_2000; のセーブデータファイル。
-			おそらく 32 KB ある。
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-			セーブデータファイルを「編集」するためのバイナリエディター。
-		</para>
-	</listitem>
+  <listitem>
+    <para>
+      <literal>GBC</literal> エミュレーター。ただし、非圧縮セーブデータファイルを生成するものがよい。
+      よくわからなければ、<xref linkend="tools.emulators" /> を当たって欲しい。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      言うまでもなく &dq3_2000; ロムイメージファイルが必要だ。
+      ファイル容量は 4 MB あるハズだ。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      同エミュレーターで用いる、適度にプレイして得られた &dq3_2000; のセーブデータファイル。
+      おそらく 32 KB ある。
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      セーブデータファイルを「編集」するためのバイナリエディター。
+    </para>
+  </listitem>
 </itemizedlist>
 <para>
-	バイナリエディターを用いて、普通のプレイで得られるセーブデータファイルを修正する。
-	セーブデータの最初のほうは以下のようになっている。
-	注目するのは <varname>$00000036</varname> からの 3 バイト、<literal>01 04 02</literal> である
-	（この値は、記者のプレイ内容がそういうメダル枚数になっていたということなので、
-	数値は読者によって異なる）。「メダルの書」と照合すれば、
-	このオフセットにドラクエ 3 のメダル番号 1「スライム」のメダル枚数が金・銀・銅の順に格納されていることに気付く。
-	続く 3 バイトはメダル番号 2 「おおがらす」のそれである。
-	このようにして、ドラクエ 3 の全モンスターメダルの枚数が記録されている。
-	なお、<literal>FF</literal> は「一度も手に入れたことがない」を意味すると思われる。
-	「メダルこうかん」等で減って 0 枚になった状態とは区別される。
+  バイナリエディターを用いて、普通のプレイで得られるセーブデータファイルを修正する。
+  セーブデータの最初のほうは以下のようになっている。
+  注目するのは <varname>$00000036</varname> からの 3 バイト、<literal>01 04 02</literal> である
+  （この値は、記者のプレイ内容がそういうメダル枚数になっていたということなので、
+  数値は読者によって異なる）。「メダルの書」と照合すれば、
+  このオフセットにドラクエ 3 のメダル番号 1「スライム」のメダル枚数が金・銀・銅の順に格納されていることに気付く。
+  続く 3 バイトはメダル番号 2 「おおがらす」のそれである。
+  このようにして、ドラクエ 3 の全モンスターメダルの枚数が記録されている。
+  なお、<literal>FF</literal> は「一度も手に入れたことがない」を意味すると思われる。
+  「メダルこうかん」等で減って 0 枚になった状態とは区別される。
 </para>
 <programlisting>
 [offset]: +0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +A +B +C +D +E +F  0123456789ABCDEF 
@@ -75,84 +115,84 @@
 ...
 </programlisting>
 <para>
-	少し試行錯誤すればわかるが、以下のような構成に基づいてデータが定義されているらしいことが判明している：
+  少し試行錯誤すればわかるが、以下のような構成に基づいてデータが定義されているらしいことが判明している：
 </para>
 <table id="table.dq3.monmedal.memory.regions" class="lighttable">
-	<caption>モンスターメダルデータ領域</caption>
-	<thead>
-		<tr><th>データ</th>
-			<th>イメージオフセット</th>
-			<th>バイト数</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>ドラクエ 3 モンスターメダルデータ領域</td>
-			<td><varname>$000033</varname>-<varname>$000224</varname></td>
-			<td><literal>3 * 166 == 498</literal></td>
-		</tr>
-		<tr>
-			<td>ドラクエ 4 モンスターメダルデータ領域</td>
-			<td><varname>$000225</varname>-<varname>$000464</varname></td>
-			<td><literal>3 * 192 == 576</literal></td>
-		</tr>
-		<tr>
-			<td>チェックサム</td>
-			<td><varname>$000465</varname>-<varname>$000466</varname></td>
-			<td><literal>2</literal></td>
-		</tr>
-	</tbody>
+  <caption>モンスターメダルデータ領域</caption>
+  <thead>
+    <tr><th>データ</th>
+      <th>イメージオフセット</th>
+      <th>バイト数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ドラクエ 3 モンスターメダルデータ領域</td>
+      <td><varname>$000033</varname>-<varname>$000224</varname></td>
+      <td><literal>3 * 166 == 498</literal></td>
+    </tr>
+    <tr>
+      <td>ドラクエ 4 モンスターメダルデータ領域</td>
+      <td><varname>$000225</varname>-<varname>$000464</varname></td>
+      <td><literal>3 * 192 == 576</literal></td>
+    </tr>
+    <tr>
+      <td>チェックサム</td>
+      <td><varname>$000465</varname>-<varname>$000466</varname></td>
+      <td><literal>2</literal></td>
+    </tr>
+  </tbody>
 </table>
 <para>
-	ちなみに、ドラクエ 3 とドラクエ 4 それぞれのスライムのデータはそれぞれ
-	<varname>$000036</varname>, <varname>$000228</varname> から始まる。
-	その直前の 3 byte はダミーかもしれない。
+  ちなみに、ドラクエ 3 とドラクエ 4 それぞれのスライムのデータはそれぞれ
+  <varname>$000036</varname>, <varname>$000228</varname> から始まる。
+  その直前の 3 byte はダミーかもしれない。
 </para>
 <para>
-	チェックサムの定義方法は、メダルデータ領域の 1 byte 値を単純に加算していけばよい。
-	そして、最終的な和の下位 2byte だけとればよい。
-	例えば、全モンスターの全種類のメダルをそれぞれ 254 枚欲しい場合は、
-	<literal>254 * (498 + 576) == 272796 == 0x4299C</literal> となる。この <literal>299C</literal> だけを使えばよい。
-	バイナリエディターで
-	<itemizedlist>
-		<listitem>
-			<para>
-				<varname>$000333</varname>-<varname>$000464</varname> をすべて <literal>FE</literal>,
-			</para>
-		</listitem>
-		<listitem>
-			<para>
-				<varname>$000465</varname> に <literal>9C</literal>,
-			</para>
-		</listitem>
-		<listitem>
-			<para>
-				<varname>$000466</varname> に <literal>29</literal>
-			</para>
-		</listitem>
-	</itemizedlist>
-	という具合に、各オフセットの値を上書きすることで簡単に改造できる。
+  チェックサムの定義方法は、メダルデータ領域の 1 byte 値を単純に加算していけばよい。
+  そして、最終的な和の下位 2byte だけとればよい。
+  例えば、全モンスターの全種類のメダルをそれぞれ 254 枚欲しい場合は、
+  <literal>254 * (498 + 576) == 272796 == 0x4299C</literal> となる。この <literal>299C</literal> だけを使えばよい。
+  バイナリエディターで
+  <itemizedlist>
+    <listitem>
+      <para>
+        <varname>$000333</varname>-<varname>$000464</varname> をすべて <literal>FE</literal>,
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        <varname>$000465</varname> に <literal>9C</literal>,
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        <varname>$000466</varname> に <literal>29</literal>
+      </para>
+    </listitem>
+  </itemizedlist>
+  という具合に、各オフセットの値を上書きすることで簡単に改造できる。
 </para>
 
-<figure id="fig.dq3.medal.dq4.069">
-	<title>メタルスライム (DQ4)</title>
-	<graphic width="160px" fileref="./image/dq3.medal.dq4.069.png"/>
+<figure id="fig.dq3gbc.medals.dq4.45">
+  <title>No. 69 メタルスライム (DQ4)</title>
+  <graphic fileref="./image/dq3gbc.medals.dq4.45.png"/>
 </figure>
 </section> <!-- dq3.monmedal.dq4.hack -->
 
 <section id="dq3.monmedal.dq4.ref">
 <title>参考サイト</title>
 <para>
-	ドラクエ 4 のモンスターメダルデータに関する情報を提供するページへのリンク集である。
-	以前はもっとたくさんのページがネット上に存在したはずだが、減ってしまったのだろうか。
+  ドラクエ 4 のモンスターメダルデータに関する情報を提供するページへのリンク集である。
+  以前はもっとたくさんのページがネット上に存在したはずだが、減ってしまったのだろうか。
 </para>
 <itemizedlist>
-	<listitem>
-		<para>
-			<ulink url="http://www.hcn.zaq.ne.jp/caawq507/dq/dq4/img/medal.htm">ＧＢ３カセットと交換可能なＧＢ４メダルリスト</ulink>
-			ドラクエ 4 の完全なモンスターメダルリストおよび、一部のモンスターメダルについて画像を紹介している。
-		</para>
-	</listitem>
+  <listitem>
+    <para>
+      <ulink url="http://www.hcn.zaq.ne.jp/caawq507/dq/dq4/img/medal.htm">ＧＢ３カセットと交換可能なＧＢ４メダルリスト</ulink>
+      ドラクエ 4 の完全なモンスターメダルリストおよび、一部のモンスターメダルについて画像を紹介している。
+    </para>
+  </listitem>
 </itemizedlist>
 </section> <!-- dq3.monmedal.dq4.ref -->
 </section> <!-- dq3.monmedal.dq4 -->
