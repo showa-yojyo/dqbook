@@ -18,5 +18,6 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq7.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3gbc.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq4.xml"/>
 </part> <!-- part02 -->

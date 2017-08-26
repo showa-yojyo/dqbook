@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<chapter id="dq3gbc"><?dbhtml filename="dq3gbc.html" ?>
+<title>&dq3_2000; (2000)</title>
+<para>
+&dq3_2000; (2000) に関する記述だ。
+</para>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_monster_medal_dq4.xml"/>
+</chapter>
