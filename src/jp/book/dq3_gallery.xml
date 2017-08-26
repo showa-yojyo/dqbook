@@ -342,4 +342,34 @@ BGM は格闘場とすごろく場に共通のものである。
 </para>
 </section> <!-- dq3.gallery.rooms.0163 -->
 </section> <!-- dq3.gallery.rooms -->
+
+<section id="dq3.gallery.sugoroku">
+<title>すごろく</title>
+<para>
+すごろくに関する珍画像を示す。
+</para>
+
+<section id="dq3.gallery.sugoroku.cave">
+<title>すごろくダンジョン</title>
+<para>
+ROM データ改造で強引に出現させたすごろくダンジョンのマスを示す。
+最終的に未使用となったようだが、すごろくダンジョンの構想は既にこの時点であったようだ。
+</para>
+<figure id="fig.dq3.sugoroku.cave">
+  <title>すごろくダンジョン</title>
+  <graphic fileref="./image/dq3.sugoroku.cave.png"/>
+</figure>
+</section> <!-- dq3.gallery.sugoroku.cave -->
+
+<section id="dq3.gallery.sugoroku.shopkeeper">
+<title>未使用店員画像</title>
+<para>
+同様にして出現させた、未使用のすごろく内店屋用と思しき店員の画像を示す。
+</para>
+<figure id="fig.dq3.sugoroku.shopkeeper">
+  <title>すごろく用店員未使用画像</title>
+  <graphic fileref="./image/dq3.sugoroku.shopkeeper.png"/>
+</figure>
+</section> <!-- dq3.gallery.sugoroku.shopkeeper -->
+</section> <!-- dq3.gallery.sugoroku -->
 </section> <!-- dq3.gallery -->
