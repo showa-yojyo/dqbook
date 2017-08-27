@@ -28,6 +28,7 @@
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_characters.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_character_traits.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_encounter.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_locations.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_transition.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_level.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq6_combatants.xml"/>

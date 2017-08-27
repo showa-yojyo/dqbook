@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq6.locations"><?dbhtml filename="dq6_locations.html" ?>
+<title>空間情報</title>
+<para>
+TBW
+</para>
+
+<section id="dq6.locations.structure">
+<title>構造に関する構成要素</title>
+<para>
+TBW
+</para>
+
+<section id="dq6.locations.structure.C815BF">
+<title>配列 <varname>$C815BF</varname>: 空間単位</title>
+<para>
+アドレス <varname>$C815BF</varname> から 1 バイト長要素の配列が定義されている。
+配列というよりは、フローミの呪文が取り扱う情報単位の ID から場所 ID への対応関係、または関数と解釈したほうがよい。
+</para>
+<para>
+例を挙げると、この配列の添字 <literal>#$01FB</literal> から <literal>#$0200</literal> まではすべて値が
+<literal>#$4E</literal> であり、これらはすべてスライム格闘場を意味している。
+ただし、各要素は「格闘場エントランス→格闘場」、「格闘場地下会場→格闘場」、「格闘場地下控室→格闘場」……の相異なる対応をそれぞれ表現している。
+付録の CSV ではコメントを念入りにいれてあるので、読者はそれを見て配列が表現しているモデルを把握して欲しい。
+</para>
+<para>
+読者が PAR 機能が利用可能ならば、ぜひアドレス <varname>$7E5ED9</varname> を観察して欲しい。
+これが現在パーティーがいる空間単位配列の添字値を表している。
+</para>
+</section> <!-- dq6.locations.structure.C815BF -->
+
+<section id="dq6.locations.structure.C8997A">
+<title>構造体 <varname>$C8997A</varname>: ルーラ</title>
+<para>
+TBW
+</para>
+
+<table id="table.dq6.C8997A" class="lighttable">
+  <caption>構造体 $C8997A</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>名前</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$000F</literal></td><td>フィールド分類</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$1FF0</literal></td><td>ルーラ座標</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$3FE0</literal></td><td>船座標 0</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$7FC0</literal></td><td>船座標 1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$FF80</literal></td><td>船座標 2</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$01FF</literal></td><td>空飛ぶベッド座標</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$03FE</literal></td><td>ひょうたん島座標 0</td></tr>
+    <tr><td><literal>#$09</literal></td><td><literal>#$07FC</literal></td><td>ひょうたん島座標 1</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.locations.structure.C8997A -->
+
+<section id="dq6.locations.structure.C8A188">
+<title>構造体 <varname>$C8A188</varname>: 場所</title>
+<para>
+TBW
+</para>
+
+<table id="table.dq6.C8A188" class="lighttable">
+  <caption>構造体 $C8A188</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000F</literal></td><td>フィールド</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0010</literal></td><td>タカのめ許可</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3FC0</literal></td><td>ルーラ番号</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00C0</literal></td><td>ルーラ判定</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0001</literal></td><td>リレミト</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$07FC</literal></td><td>座標 0</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0FF8</literal></td><td>座標 1</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$1FF0</literal></td><td>座標 2</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$0020</literal></td><td>毒考慮</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$0040</literal></td><td>おおごえ許可</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$FFFF</literal></td><td>名前</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.locations.structure.C8A188 -->
+
+<section id="dq6.locations.structure.C8B314">
+<title>構造体 <varname>$C8B314</varname>: 座標</title>
+<para>
+TBW
+</para>
+
+<table id="table.dq6.C8B314" class="lighttable">
+  <caption>構造体 $C8B314</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$03FF</literal></td><td>場所</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$000C</literal></td><td>座標配列</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$1FF0</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$3FE0</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00C0</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$001F</literal></td><td>屋根区域</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0060</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0080</literal></td><td>（未使用）</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.locations.structure.C8B314 -->
+</section> <!-- dq6.locations.structure -->
+
+<section id="dq6.locations.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+TBW
+</para>
+
+</section> <!-- dq6.locations.behavior -->
+</section> <!-- dq6.locations -->
