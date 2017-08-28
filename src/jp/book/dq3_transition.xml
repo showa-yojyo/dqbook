@@ -80,7 +80,7 @@
       </para>
       <para>
         矩形型とランシール型については
-        <xref linkend="dq3.transition.structure.C86A9A" xrefstyle="select: labelname"/> で述べるオブジェクトの ID を値とする属性だ。
+        <xref linkend="dq3.transition.structure.C86A9A" xrefstyle="select: labelnumber"/> で述べるオブジェクトの ID を値とする属性だ。
       </para>
     </listitem>
   </varlistentry>

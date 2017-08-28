@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq3.locations"><?dbhtml filename="dq3_locations.html" ?>
+<title>空間情報</title>
+<para>
+本節では前作の <xref linkend="dq6.locations"/> に相当する諸構成要素について述べる。
+</para>
+
+<section id="dq3.locations.structure">
+<title>構造に関する構成要素</title>
+<para>
+空間情報に関係するデータ構造について述べる。
+</para>
+
+<section id="dq3.locations.structure.C802F4">
+<title>配列 <varname>$C802F4</varname>: 空間最小単位</title>
+<para>
+アドレス <varname>$C802F4</varname> に 1 バイト長要素が配列されている。
+意味は前作の対応型とまったく同じだ。
+アドレス <varname>$7E9850</varname> の値が現在パーティーがいる空間を意味する値として、この配列の添字を表している。
+</para>
+</section> <!-- dq3.locations.structure.C802F4 -->
+
+<section id="dq3.locations.structure.C8A3AF">
+<title>構造体 <varname>$C8A3AF</varname>: ルーラ</title>
+<para>
+アドレス <varname>$C8A3AF</varname> には次の表が表現する型のオブジェクトが多数配列されている。
+構成は異なるが、意味は前作の対応型と同じだ。
+</para>
+<table id="table.dq3.C8A3AF" class="lighttable">
+  <caption>構造体 $C8A3AF</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$FFFF</literal></td><td>名前</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$1FF0</literal></td><td>ルーラ座標</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$3FE0</literal></td><td>船座標 0</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$7FC0</literal></td><td>船座標 1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$FF80</literal></td><td>ラーミア座標</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味の説明は割愛する。
+座標属性はすべて <xref linkend="dq3.locations.structure.C89BB7"/> で述べるオブジェクトの ID を値とする。
+</para>
+</section> <!-- dq3.locations.structure.C8A3AF -->
+
+<section id="dq3.locations.structure.C8A6D4">
+<title>構造体 <varname>$C8A6D4</varname>: 場所</title>
+<para>
+アドレス <varname>$C8A6D4</varname> には次の表が表現する型のオブジェクトが多数配列されている。
+構成は異なるが、意味は前作の対応型と同じだ。
+</para>
+
+<table id="table.dq3.C8A6D4" class="lighttable">
+  <caption>構造体 $C8A6D4</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000F</literal></td><td>フィールド分類</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0010</literal></td><td>タカのめ許可</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$3FC0</literal></td><td>ルーラ番号</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00C0</literal></td><td>ルーラ判定</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0001</literal></td><td>リレミト許可</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0002</literal></td><td>（不明）</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$07FC</literal></td><td>地図座標</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0FF8</literal></td><td>リレミト座標 0</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$1FF0</literal></td><td>リレミト座標 1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$3FE0</literal></td><td>ラナルータ座標</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$0040</literal></td><td>毒考慮</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$0080</literal></td><td>おおごえ許可</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$FFFF</literal></td><td>名前</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味の説明は割愛する。
+</para>
+</section> <!-- dq3.locations.structure.C8A6D4 -->
+
+<section id="dq3.locations.structure.C89BB7">
+<title>構造体 <varname>$C89BB7</varname>: 座標</title>
+<para>
+アドレス <varname>$C89BB7</varname> には次の表が表現する型のオブジェクトが多数配列されている。
+構成は異なるが、意味は前作の対応型と同じだ。
+</para>
+
+<table id="table.dq3.C89BB7" class="lighttable">
+  <caption>構造体 $C89BB7</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$03FF</literal></td><td>空間最小単位</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$07FC</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0FF8</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0030</literal></td><td>ML</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$07C0</literal></td><td>屋根区域</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0018</literal></td><td>向き</td></tr>
+  </tbody>
+</table>
+<para>
+各属性の意味の説明は割愛する。
+</para>
+</section> <!-- dq3.locations.structure.C89BB7 -->
+</section> <!-- dq3.locations.structure -->
+
+<section id="dq3.locations.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+TBW
+</para>
+
+</section> <!-- dq3.locations.behavior -->
+</section> <!-- dq3.locations -->
