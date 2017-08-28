@@ -8,17 +8,23 @@
 <section id="dq6.locations"><?dbhtml filename="dq6_locations.html" ?>
 <title>空間情報</title>
 <para>
-TBW
+本節では ROM における空間情報の構成について述べる。
+ここで言う空間情報とは、パーティーがどこにいるのか、どこに移動しようとしているのか、
+そもそも「どこ」をどのように表現するのかを定義するデータ全般を指すものとする。
 </para>
 
 <section id="dq6.locations.structure">
 <title>構造に関する構成要素</title>
 <para>
-TBW
+空間情報に関係するデータ構造について述べる。
 </para>
+<figure id="fig.dq6.cd.locations">
+  <title>空間情報に関するクラス図</title>
+  <graphic fileref="./image/dq6.cd.locations.png"/>
+</figure>
 
 <section id="dq6.locations.structure.C815BF">
-<title>配列 <varname>$C815BF</varname>: 空間単位</title>
+<title>配列 <varname>$C815BF</varname>: 空間最小単位</title>
 <para>
 アドレス <varname>$C815BF</varname> から 1 バイト長要素の配列が定義されている。
 配列というよりは、フローミの呪文が取り扱う情報単位の ID から場所 ID への対応関係、または関数と解釈したほうがよい。
@@ -38,7 +44,8 @@ TBW
 <section id="dq6.locations.structure.C8997A">
 <title>構造体 <varname>$C8997A</varname>: ルーラ</title>
 <para>
-TBW
+アドレス <varname>$C8997A</varname> からは次の表が表現する型のオブジェクトが多数配列されている。
+これらのオブジェクトはルーラの呪文を実現するのに必要な情報をいくつかの属性として保持する。
 </para>
 
 <table id="table.dq6.C8997A" class="lighttable">
@@ -58,12 +65,84 @@ TBW
     <tr><td><literal>#$09</literal></td><td><literal>#$07FC</literal></td><td>ひょうたん島座標 1</td></tr>
   </tbody>
 </table>
+<para>
+各属性の意味を次に説明する。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>名前</term>
+    <listitem>
+      <para>
+        ルーラメニューウィンドウの項目として表示するための文字列の ID を値とする属性だ。
+        文字列については <xref linkend="dq6.string"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>フィールド分類</term>
+    <listitem>
+      <para>
+        この場所がどのフィールドにあるのかを示す値をとる属性だ。
+        ただし、データを見ると実情とそぐわない設定をされているオブジェクトがわずかに存在する。
+      </para>
+      <table id="table.dq6.fields" class="lighttable">
+        <caption>フィールド分類</caption>
+        <thead>
+          <tr><th>値</th><th>意味</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><literal>#$00</literal></td><td>n/a</td></tr>
+          <tr><td><literal>#$01</literal></td><td>上フィールド</td></tr>
+          <tr><td><literal>#$02</literal></td><td>下フィールド</td></tr>
+          <tr><td><literal>#$04</literal></td><td>海底</td></tr>
+          <tr><td><literal>#$08</literal></td><td>はざまの世界</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ルーラ座標</term>
+    <listitem>
+      <para>
+        パーティーがルーラを実行した直後の彼らの位置を表現する座標オブジェクト
+        (<xref linkend="dq6.locations.structure.C8B314" xrefstyle="select: labelnumber"/>)
+        の ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>船座標 k (k = 0..2)</term>
+    <listitem>
+      <para>
+        パーティーがルーラを実行した直後の船の位置を表現する座標オブジェクトの ID を値とする属性だ。
+        物語の進行状況によって、参照する k が決まる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>空飛ぶベッド座標</term>
+    <listitem>
+      <para>
+        パーティーがルーラを実行した直後の空飛ぶベッドの位置を表現する座標オブジェクトの ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ひょうたん島座標 k (k = 0..1)</term>
+    <listitem>
+      <para>
+        パーティーがルーラを実行した直後のひょうたん島の位置を表現する座標オブジェクトの ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
 </section> <!-- dq6.locations.structure.C8997A -->
 
 <section id="dq6.locations.structure.C8A188">
 <title>構造体 <varname>$C8A188</varname>: 場所</title>
 <para>
-TBW
+アドレス <varname>$C8A188</varname> からは次の表が表現する型のオブジェクトが多数配列されている。
+これらのオブジェクトは先述した空間単位構成要素のいくつかを集約する構成要素を表現する。
 </para>
 
 <table id="table.dq6.C8A188" class="lighttable">
@@ -72,25 +151,120 @@ TBW
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td><literal>#$00</literal></td><td><literal>#$000F</literal></td><td>フィールド</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000F</literal></td><td>フィールド分類</td></tr>
     <tr><td><literal>#$00</literal></td><td><literal>#$0010</literal></td><td>タカのめ許可</td></tr>
     <tr><td><literal>#$00</literal></td><td><literal>#$3FC0</literal></td><td>ルーラ番号</td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$00C0</literal></td><td>ルーラ判定</td></tr>
-    <tr><td><literal>#$02</literal></td><td><literal>#$0001</literal></td><td>リレミト</td></tr>
-    <tr><td><literal>#$02</literal></td><td><literal>#$07FC</literal></td><td>座標 0</td></tr>
-    <tr><td><literal>#$03</literal></td><td><literal>#$0FF8</literal></td><td>座標 1</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$1FF0</literal></td><td>座標 2</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0001</literal></td><td>リレミト許可</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$07FC</literal></td><td>地図座標</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0FF8</literal></td><td>リレミト座標 0</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$1FF0</literal></td><td>リレミト座標 1</td></tr>
     <tr><td><literal>#$05</literal></td><td><literal>#$0020</literal></td><td>毒考慮</td></tr>
     <tr><td><literal>#$05</literal></td><td><literal>#$0040</literal></td><td>おおごえ許可</td></tr>
     <tr><td><literal>#$06</literal></td><td><literal>#$FFFF</literal></td><td>名前</td></tr>
   </tbody>
 </table>
+<para>
+各属性の意味を次に説明する。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>フィールド分類</term>
+    <listitem>
+      <para>
+        <xref linkend="dq6.locations.structure.C8997A" xrefstyle="select: labelnumber"/> で述べたものと同じだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>タカのめ許可</term>
+    <listitem>
+      <para>
+        ブーリアン型属性であり、値が 1 であれば移動コマンドの「タカのめ」がこの場所では有効であることを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ルーラ番号</term>
+    <listitem>
+      <para>
+        ルーラメニューウィンドウの項目番号を値とする属性だ。
+        フィールド分類属性値と関係なしに番号が割り振られていて、
+        例えば上フィールドの「ライフコッド」と下フィールドの「ダーマしんでん」はどちらも先頭の項目だが、
+        属性値は相異なる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ルーラ判定</term>
+    <listitem>
+      <para>
+        この場所でルーラを実行すると、どう振る舞うのかを示す値を取る属性だ。
+      </para>
+      <table id="table.dq6.zoom" class="lighttable">
+        <caption>ルーラ判定</caption>
+        <thead>
+          <tr><th>値</th><th>意味</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><literal>#$00</literal></td><td>有効</td></tr>
+          <tr><td><literal>#$01</literal></td><td>天井に頭をぶつける</td></tr>
+          <tr><td><literal>#$02</literal></td><td>基本的には不思議な力でかき消される</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>リレミト許可</term>
+    <listitem>
+      <para>
+        ブーリアン型属性であり、値が 1 であればリレミトの実行がこの場所では有効であることを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>地図座標</term>
+    <term>リレミト座標 k (k = 0..1)</term>
+    <listitem>
+      <para>
+        地図座標は「せかいちず」「ふしぎなちず」を開いたときの羽の位置を、
+        リレミト座標 k (k = 0..1) はリレミト実行時のパーティー位置を定義する座標オブジェクトの ID をそれぞれ取る属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>毒考慮</term>
+    <listitem>
+      <para>
+        ブーリアン型属性であり、値が 1 であれば毒状態のキャラクターが移動中にダメージを受けることを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>おおごえ許可</term>
+    <listitem>
+      <para>
+        ブーリアン型属性であり、値が 1 であれば移動コマンドの「おおごえ」がこの場所では有効であることを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>名前</term>
+    <listitem>
+      <para>
+        フローミの実行結果における場所の名前を表す文字列の ID を値とする属性だ。
+        文字列については <xref linkend="dq6.string"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
 </section> <!-- dq6.locations.structure.C8A188 -->
 
 <section id="dq6.locations.structure.C8B314">
 <title>構造体 <varname>$C8B314</varname>: 座標</title>
 <para>
-TBW
+アドレス <varname>$C8B314</varname> からは次の表が表現する型のオブジェクトが多数配列されている。
+これらのオブジェクトはパーティーが画面遷移直後に対象空間のどの座標に現れるのかを指定する。
 </para>
 
 <table id="table.dq6.C8B314" class="lighttable">
@@ -99,7 +273,7 @@ TBW
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td><literal>#$00</literal></td><td><literal>#$03FF</literal></td><td>場所</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$03FF</literal></td><td>空間最小単位</td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$000C</literal></td><td>座標配列</td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$1FF0</literal></td><td>MX</td></tr>
     <tr><td><literal>#$02</literal></td><td><literal>#$3FE0</literal></td><td>MY</td></tr>
@@ -109,6 +283,9 @@ TBW
     <tr><td><literal>#$04</literal></td><td><literal>#$0080</literal></td><td>（未使用）</td></tr>
   </tbody>
 </table>
+<para>
+各属性の意味は <xref linkend="dq6.transition.structure.C834FC"/> で述べるものと同様だ。
+</para>
 </section> <!-- dq6.locations.structure.C8B314 -->
 </section> <!-- dq6.locations.structure -->
 

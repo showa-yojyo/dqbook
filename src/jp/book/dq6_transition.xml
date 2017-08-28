@@ -40,12 +40,12 @@
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>場所</term>
+    <term>空間最小単位</term>
     <listitem>
       <para>
-        画面遷移オブジェクトが存在する場所の ID を値とする属性だ。
+        画面遷移オブジェクトが存在する空間最小単位の ID を値とする属性だ。
         データとしては配列 <varname>$C815BF</varname> の添字を表す。
-        場所については別の節で説明する。
+        このデータについては <xref linkend="dq6.locations.structure.C815BF"/> で述べる。
       </para>
     </listitem>
   </varlistentry>
@@ -157,7 +157,7 @@
   </thead>
   <tbody>
     <tr><td><literal>#$00</literal></td><td><literal>#$000001</literal></td><td>フラグ</td></tr>
-    <tr><td><literal>#$00</literal></td><td><literal>#$0007FE</literal></td><td>場所</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0007FE</literal></td><td>空間最小単位</td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$000018</literal></td><td>座標配列</td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$003FE0</literal></td><td>MX</td></tr>
     <tr><td><literal>#$02</literal></td><td><literal>#$007FC0</literal></td><td>MY</td></tr>
@@ -184,7 +184,7 @@
   </thead>
   <tbody>
     <tr><td><literal>#$00</literal></td><td><literal>#$000001</literal></td><td>フラグ</td></tr>
-    <tr><td><literal>#$00</literal></td><td><literal>#$0007FE</literal></td><td>場所</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0007FE</literal></td><td>空間最小単位</td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$000018</literal></td><td>座標配列</td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$003FE0</literal></td><td>MX0</td></tr>
     <tr><td><literal>#$02</literal></td><td><literal>#$007FC0</literal></td><td>MY</td></tr>
@@ -212,7 +212,7 @@
   </thead>
   <tbody>
     <tr><td><literal>#$00</literal></td><td><literal>#$000001</literal></td><td>フラグ</td></tr>
-    <tr><td><literal>#$00</literal></td><td><literal>#$0007FE</literal></td><td>場所</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0007FE</literal></td><td>空間最小単位</td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$000018</literal></td><td>座標配列</td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$003FE0</literal></td><td>MX</td></tr>
     <tr><td><literal>#$02</literal></td><td><literal>#$007FC0</literal></td><td>MY0</td></tr>
@@ -311,7 +311,7 @@
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
   <tbody>
-    <tr><td><literal>#$00</literal></td><td><literal>#$0003FF</literal></td><td>場所</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0003FF</literal></td><td>空間最小単位</td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$00000C</literal></td><td>座標配列</td></tr>
     <tr><td><literal>#$01</literal></td><td><literal>#$001FF0</literal></td><td>MX</td></tr>
     <tr><td><literal>#$02</literal></td><td><literal>#$003FE0</literal></td><td>MY</td></tr>
