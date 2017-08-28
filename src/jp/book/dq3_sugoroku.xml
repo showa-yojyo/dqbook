@@ -61,7 +61,7 @@
     <listitem>
       <para>
         このマスの分類値を取る属性だ。
-        <xref linkend="dq3.sugoroku.structure.C8EECA" xrefstyle="select: labelname"/> で述べるオブジェクトの ID に他ならない。
+        <xref linkend="dq3.sugoroku.structure.C8EECA" xrefstyle="select: labelnumber"/> で述べるオブジェクトの ID に他ならない。
       </para>
     </listitem>
   </varlistentry>
@@ -533,7 +533,7 @@
     <listitem>
       <para>
         足もとをしらべることでアイテムを発見するイベントで、実際に発見するかどうかを抽選するためのオブジェクト、
-        すなわち <xref linkend="dq3.sugoroku.structure.C8F551" xrefstyle="select: labelname"/> で述べるオブジェクトの ID を値とする属性だ。
+        すなわち <xref linkend="dq3.sugoroku.structure.C8F551" xrefstyle="select: labelnumber"/> で述べるオブジェクトの ID を値とする属性だ。
       </para>
     </listitem>
   </varlistentry>
@@ -565,7 +565,7 @@
     <listitem>
       <para>
         この盤面で発生してもよいランダムイベントを列挙した配列を指定する値、
-        すなわち <xref linkend="dq3.sugoroku.structure.C8F1F4" xrefstyle="select: labelname"/>
+        すなわち <xref linkend="dq3.sugoroku.structure.C8F1F4" xrefstyle="select: labelnumber"/>
         で述べた配列（外側）の添字を取る属性だ。
       </para>
     </listitem>
@@ -576,7 +576,7 @@
     <listitem>
       <para>
         この盤面を構成するすごろくマス
-        (<xref linkend="dq3.sugoroku.structure.C8D532" xrefstyle="select: labelname"/>)
+        (<xref linkend="dq3.sugoroku.structure.C8D532" xrefstyle="select: labelnumber"/>)
         オブジェクトの ID の最小値および最大値をそれぞれ取る属性だ。
       </para>
     </listitem>

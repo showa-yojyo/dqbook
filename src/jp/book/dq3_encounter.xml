@@ -324,7 +324,7 @@
       </para>
       <para>
         値が <literal>#$0C</literal>..<literal>#$0D</literal> に抽選されると、
-        通常戦オブジェクトからではなく、<xref linkend="dq3.encounter.structure.C8B736" xrefstyle="select: labelname"/> で述べる敵陣グループ固定戦闘オブジェクトから敵陣を構成する。
+        通常戦オブジェクトからではなく、<xref linkend="dq3.encounter.structure.C8B736" xrefstyle="select: labelnumber"/> で述べる敵陣グループ固定戦闘オブジェクトから敵陣を構成する。
       </para>
     </listitem>
   </varlistentry>

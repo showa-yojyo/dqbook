@@ -86,7 +86,7 @@
     <listitem>
       <para>
         サブルーチンの完全アドレスを値とする属性であり、メニュー項目選択時の処理を実行する。
-        各処理については <xref linkend="dq3.debug.behavior" xrefstyle="select: labelname"/> 以降で述べる。
+        各処理については <xref linkend="dq3.debug.behavior" xrefstyle="select: labelnumber"/> 以降で述べる。
       </para>
     </listitem>
   </varlistentry>
@@ -186,7 +186,7 @@
   </tbody>
 </table>
 <para>
-各属性の詳細は <xref linkend="dq3.debug.structure.C8D4B0" xrefstyle="select: labelname"/> と同様だ。
+各属性の詳細は <xref linkend="dq3.debug.structure.C8D4B0" xrefstyle="select: labelnumber"/> と同様だ。
 </para>
 </section> <!-- dq3.debug.structure.C8F661 -->
 </section> <!-- dq3.debug.structure -->
@@ -207,7 +207,7 @@
   <term>いんちきルーラ</term>
     <listitem>
       <para>
-        <xref linkend="dq3.debug.structure.C8A3AF" xrefstyle="select: labelname"/> の冒頭の説明を参照。
+        <xref linkend="dq3.debug.structure.C8A3AF" xrefstyle="select: labelnumber"/> の冒頭の説明を参照。
       </para>
     </listitem>
   </varlistentry>
@@ -333,7 +333,7 @@
     <term>フラグショップ</term>
     <listitem>
       <para>
-        <xref linkend="dq3.debug.structure.C8F661" xrefstyle="select: labelname"/> の冒頭の説明を参照。
+        <xref linkend="dq3.debug.structure.C8F661" xrefstyle="select: labelnumber"/> の冒頭の説明を参照。
       </para>
       <para>
         各項目の詳細は後述する。
