@@ -16,6 +16,10 @@
 <para>
 すごろくに関係するデータ構造について述べる。
 </para>
+<figure id="fig.dq3.cd.sugoroku">
+  <title>すごろくに関するクラス図</title>
+  <graphic fileref="./image/dq3.cd.sugoroku.png"/>
+</figure>
 
 <section id="dq3.sugoroku.structure.C8D532">
 <title>構造体 <varname>$C8D532</varname>: すごろくマス</title>

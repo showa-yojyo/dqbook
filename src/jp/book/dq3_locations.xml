@@ -16,6 +16,10 @@
 <para>
 空間情報に関係するデータ構造について述べる。
 </para>
+<figure id="fig.dq3.cd.locations">
+  <title>空間情報に関するクラス図</title>
+  <graphic fileref="./image/dq3.cd.locations.png"/>
+</figure>
 
 <section id="dq3.locations.structure.C802F4">
 <title>配列 <varname>$C802F4</varname>: 空間最小単位</title>

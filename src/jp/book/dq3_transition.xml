@@ -20,6 +20,10 @@
 画面遷移に関係するデータ構造について述べる。
 本節では多くの構造体を列挙しなければならないので、それらの関係について概略を示したい。
 </para>
+<figure id="fig.dq3.cd.transition">
+  <title>画面遷移に関するクラス図</title>
+  <graphic fileref="./image/dq3.cd.transition.png"/>
+</figure>
 
 <section id="dq3.transition.structure.abstract">
 <title>共通属性の意味について</title>
