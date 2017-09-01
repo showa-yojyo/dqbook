@@ -597,7 +597,8 @@
         データによると、どの盤面でも対応するすごろく屋の右隣の位置が設定されている。
       </para>
       <para>
-        TODO: <varname>$C89BB7</varname> への参照。
+        このような座標オブジェクトについては
+        <xref linkend="dq3.locations.structure.C89BB7"/> で述べる。
       </para>
     </listitem>
   </varlistentry>
