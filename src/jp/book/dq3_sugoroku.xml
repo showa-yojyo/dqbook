@@ -402,14 +402,14 @@
 </table>
 </section> <!-- dq3.sugoroku.structure.C8F311 -->
 
-<section id="dq3.sugoroku.structure.C8F2F3">
-<title>構造体 <varname>$C8F2F3</varname>: すごろく盤面</title>
+<section id="dq3.sugoroku.structure.C8F323">
+<title>構造体 <varname>$C8F323</varname>: すごろく盤面</title>
 <para>
 すごろく盤面とは、次の表で示すようなすごろくゲームの詳細を表現するオブジェクト型のことだ。
-アドレス <varname>$C8F2F3</varname> にこの型のオブジェクトが 10 個配列されている。
+アドレス <varname>$C8F323</varname> にこの型のオブジェクトが 10 個配列されている。
 </para>
-<table id="table.dq3.C8F2F3" class="lighttable">
-  <caption>構造体 $C8F2F3</caption>
+<table id="table.dq3.C8F323" class="lighttable">
+  <caption>構造体 $C8F323</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
@@ -661,7 +661,7 @@
     </listitem>
   </varlistentry>
 </variablelist>
-</section> <!-- dq3.sugoroku.structure.C8F2F3 -->
+</section> <!-- dq3.sugoroku.structure.C8F323 -->
 
 <section id="dq3.sugoroku.structure.C8F53F">
 <title>構造体 <varname>$C8F53F</varname>: すごろく店屋画像</title>
