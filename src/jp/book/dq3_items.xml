@@ -298,6 +298,7 @@ C9/1D27:    6B          RTL
     <listitem>
       <para>
         移動中に「しらべる」コマンドでこのアイテムを発見したときなどに画面上にポップアップ描画するアイコンスプライトを特定する値を取る属性だ。
+        具体的には <varname>$C8F571</varname> オブジェクトの ID を属性値とする。
       </para>
     </listitem>
   </varlistentry>

@@ -83,7 +83,7 @@
     <tr><td><literal>#$0A</literal></td><td><literal>#$38</literal></td><td>グループ単数時頭数 4</td></tr>
     <tr><td><literal>#$0A</literal></td><td><literal>#$C0</literal></td><td>（未使用）</td></tr>
     <tr><td><literal>#$0B</literal></td><td><literal>#$07</literal></td><td>頻度 <literal>#$0A</literal></td></tr>
-    <tr><td><literal>#$0B</literal></td><td><literal>#$F8</literal></td><td>レア戦闘 ID</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$F8</literal></td><td>敵陣グループ固定戦 ID</td></tr>
     <tr><td><literal>#$0C</literal></td><td><literal>#$FF</literal></td><td>グループ複数時モンスター 0</td></tr>
     <tr><td><literal>#$0D</literal></td><td><literal>#$FF</literal></td><td>グループ複数時モンスター 1</td></tr>
     <tr><td><literal>#$0E</literal></td><td><literal>#$FF</literal></td><td>グループ複数時モンスター 2</td></tr>

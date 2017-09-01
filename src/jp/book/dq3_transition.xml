@@ -20,6 +20,10 @@
 画面遷移に関係するデータ構造について述べる。
 本節では多くの構造体を列挙しなければならないので、それらの関係について概略を示したい。
 </para>
+<figure id="fig.dq3.cd.transition">
+  <title>画面遷移に関するクラス図</title>
+  <graphic fileref="./image/dq3.cd.transition.png"/>
+</figure>
 
 <section id="dq3.transition.structure.abstract">
 <title>共通属性の意味について</title>
@@ -32,6 +36,7 @@
     <listitem>
       <para>
         画面遷移オブジェクトが存在する場所の ID を値とする属性だ。
+        データとしては配列 <varname>$C802F4</varname> の添字を表す。
         場所については別の節で説明する。
       </para>
     </listitem>
@@ -72,14 +77,14 @@
     <term>目的地</term>
     <listitem>
       <para>
-        階段、水平線、垂直線の各型については、
+        階段、水平帯域、垂直帯域の各型については、
         この画面遷移が発生すると移動する先の同型オブジェクト ID を値とする属性だ。
         例えば、階段オブジェクト A の目的地属性値が指す階段オブジェクトを B とすると、
         B の目的地属性値は A を指すという性質がある。
       </para>
       <para>
         矩形型とランシール型については
-        <xref linkend="dq3.transition.structure.C86A9A"/> で述べるオブジェクトの ID を値とする属性だ。
+        <xref linkend="dq3.transition.structure.C86A9A" xrefstyle="select: labelnumber"/> で述べるオブジェクトの ID を値とする属性だ。
       </para>
     </listitem>
   </varlistentry>
@@ -136,13 +141,10 @@
     <tr><td><literal>#$05</literal></td><td><literal>#$000040</literal></td><td>効果音考慮</td></tr>
   </tbody>
 </table>
-<para>
-各属性の意味については <xref linkend="dq3.transition.structure.abstract" xrefstyle="select: labelnumber"/> を参照。
-</para>
 </section> <!-- dq3.transition.structure.C84CA2 -->
 
 <section id="dq3.transition.structure.C856AA">
-<title>構造体 <varname>$C856AA</varname>: 水平線</title>
+<title>構造体 <varname>$C856AA</varname>: 水平帯域</title>
 <para>
 アドレス <varname>$C856AA</varname> には次のオブジェクト型要素が多数配列されている。
 この型は主にパーティーが建造物の出入口（扉があることが多い）を通過することによる画面遷移を表現する。
@@ -163,13 +165,10 @@
     <tr><td><literal>#$06</literal></td><td><literal>#$000080</literal></td><td>効果音考慮</td></tr>
   </tbody>
 </table>
-<para>
-各属性の意味については <xref linkend="dq3.transition.structure.abstract" xrefstyle="select: labelnumber"/> を参照。
-</para>
 </section> <!-- dq3.transition.structure.C856AA -->
 
 <section id="dq3.transition.structure.C85A62">
-<title>構造体 <varname>$C85A62</varname>: 垂直線</title>
+<title>構造体 <varname>$C85A62</varname>: 垂直帯域</title>
 <para>
 アドレス <varname>$C85A62</varname> には次のオブジェクト型要素がわずか 2 個だけ配列されている。
 カザーブの村にある教会と墓場との間にある画面遷移を表現する。
@@ -190,16 +189,13 @@
     <tr><td><literal>#$06</literal></td><td><literal>#$000080</literal></td><td>効果音考慮</td></tr>
   </tbody>
 </table>
-<para>
-各属性の意味については <xref linkend="dq3.transition.structure.abstract" xrefstyle="select: labelnumber"/> を参照。
-</para>
 </section> <!-- dq3.transition.structure.C85A62 -->
 
 <section id="dq3.transition.structure.C85A70">
-<title>構造体 <varname>$C85A70</varname>: 矩形</title>
+<title>構造体 <varname>$C85A70</varname>: 矩形領域</title>
 <para>
 アドレス <varname>$C85A70</varname> には次のオブジェクト型要素が多数配列されている。
-パーティーがこの範囲内に足を踏み入れると画面が遷移するというような矩形を表現するものだ。
+パーティーがこの範囲内に足を踏み入れると画面が遷移するというような矩形領域を表現するものだ。
 </para>
 <table id="table.dq3.C85A70" class="lighttable">
   <caption>構造体 $C85A70</caption>

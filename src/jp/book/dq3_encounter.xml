@@ -68,7 +68,8 @@
     <term>背景セット</term>
     <listitem>
       <para>
-        戦闘モードの背景を指示するオブジェクトの ID を値とする属性だ。
+        戦闘モードのフィールド時刻別背景を指示するオブジェクトの ID を値とする属性だ。
+        具体的には <varname>$C8AAE5</varname> オブジェクトの ID を属性値とする。
         戦闘背景については別の節で述べる。
       </para>
     </listitem>
@@ -323,7 +324,7 @@
       </para>
       <para>
         値が <literal>#$0C</literal>..<literal>#$0D</literal> に抽選されると、
-        通常戦オブジェクトからではなく、後述するレア戦闘オブジェクトから敵陣を構成する。
+        通常戦オブジェクトからではなく、<xref linkend="dq3.encounter.structure.C8B736" xrefstyle="select: labelnumber"/> で述べる敵陣グループ固定戦闘オブジェクトから敵陣を構成する。
       </para>
     </listitem>
   </varlistentry>
@@ -363,7 +364,7 @@
 </section> <!-- dq3.encounter.structure.C8B6D8 -->
 
 <section id="dq3.encounter.structure.C8B736">
-<title>構造体 <varname>$C8B736</varname>: 通常戦レア</title>
+<title>構造体 <varname>$C8B736</varname>: 敵陣グループ固定戦</title>
 <para>
 アドレス <varname>$C8B736</varname> には次の表に示される構造体オブジェクトが配列されている。
 これらは通常戦のうち、敵陣の構成を固定化して定義されているものを表現している。

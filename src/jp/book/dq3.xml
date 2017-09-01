@@ -8,12 +8,8 @@
 <chapter id="dq3"><?dbhtml filename="dq3.html" ?>
 <title>&dq3_1996; (1996)</title>
 <para>
-基本的に &dq3_1996; に関する解析について述べた文書である。 
-モンスターメダルの文書のみ &dq3_2000; (2000) に関する記述である。
+&dq3_1996; を解析する。
 </para>
-
-<!-- DEBUG -->
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_debug.xml"/>
 
 <!-- TEXT -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_text.xml"/>
@@ -53,13 +49,15 @@
 <!-- BANK $C8 -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_talk.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_transition.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_locations.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_search.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_encounter.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_sugoroku.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_debug.xml"/>
 
 <!-- BANK $CB -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_pond.xml"/>
 
-<!-- DEPRECATED DOCS -->
+<!-- EXTRA -->
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_gallery.xml"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dq3_monster_medal_dq4.xml"/>
 </chapter>

@@ -5,12 +5,6 @@ import sys
 from jinja2 import Environment
 
 TABLE_TEMPLATE = '''
-<section id=".structure.">
-<title>構造体 <varname>$</varname>: </title>
-<para>
-TBW
-</para>
-
 <table id="table." class="lighttable">
   <caption>構造体 </caption>
   <thead>
@@ -22,22 +16,6 @@ TBW
 {%- endfor %}
   </tbody>
 </table>
-<para>
-各属性の意味を以下に記す。
-</para>
-<variablelist>
-{%- for row in records %}
-  <varlistentry>
-    <term>{{ row['Attribute'] }}</term>
-    <listitem>
-      <para>
-        TBW
-      </para>
-    </listitem>
-  </varlistentry>
-{%- endfor %}
-</variablelist>
-</section> <!-- .structure. -->
 '''
 
 def main():

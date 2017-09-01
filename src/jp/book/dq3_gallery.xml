@@ -12,153 +12,207 @@
 本節では特殊な方法で撮影に成功した珍画像の数々を披露する。
 </para>
 
-<section id="dq3.gallery.ortega">
+<section id="dq3.gallery.battle">
+<title>戦闘</title>
+<para>
+戦闘に関する珍画像を示す。
+</para>
+
+<section id="dq3.gallery.battle.65535">
+<title>戦闘ターン数 65535</title>
+<figure id="fig.dq3.battle.abort.65535">
+  <title>戦闘ターン数 65535</title>
+  <graphic width="248px" fileref="./image/dq3.battle.abort.65535.png"/>
+</figure>
+<para>
+格闘場を除き、戦闘時の消費ターン数 <varname>$7E23D0</varname> が 65535 に到達すると自陣側キャラクターが全滅したものとして扱われる。
+</para>
+</section> <!-- dq3.gallery.battle.65535 -->
+</section> <!-- dq3.gallery.battle -->
+
+<section id="dq3.gallery.monsters">
+<title>モンスター</title>
+<para>
+モンスターに関する珍画像を示す。
+これらのキャラクターはモンスターデータとして定義されているので、
+適当に PAR 改造で出現させることができる。
+</para>
+<para>
+モンスターに関する基本的な事項については <xref linkend="dq3.monsters"/> で述べる。
+</para>
+
+<section id="dq3.gallery.monsters.89">
 <title>オルテガ</title>
-
-<section id="dq3.gallery.ortega.kinghydra">
-<title>Feat. キングヒドラ</title>
-
-<figure id="fig.dq3_57">
-	<title>オルテガ V.S. キングヒドラ</title>
-	<graphic width="248px" fileref="./image/dq3_57.png"/>
+<figure id="fig.dq3.monsters.89a">
+  <title>ファミコン版の戦闘を再現</title>
+  <graphic width="248px" fileref="./image/dq3.monsters.89.a.png"/>
 </figure>
-
-<para>
-スーファミ版に知悉する読者ならすぐにお気づきになることと思うが、
-これはゲーム中の画面ではない。
-ゾーマの居城で繰り広げられるオルテガとキングヒドラの死闘に、
-図のような通常の戦闘画面はそもそも使われない。
-&dq6_1995; のテリーとバトルレックスの戦闘のようなイメージでリメイクされている。
-</para>
-<para>
-ファミコン版は、まさにここに紹介するような画面を展開し、
-格闘場で見られるような戦闘風景が見られたのだ。
-しかし、ここで撮影した状況はそうではない。
-勇者パーティー対オルテガ＆キングヒドラなのだ。
-</para>
-
-<para>
-記者は画面撮影のついでに、実際に彼らと一戦を交えてみた。
-確認したところ、オルテガはラリホーとベホマを使う。そしてギガデインは効かなかった。
-デイン系の耐性があるとはさすが勇者。
-ゲーム中で一切参照されないはずの、こんな細かい耐性データ設定まで実装している芸の細かさに驚愕。
-</para>
-<figure id="fig.dq3_58">
-	<title>オルテガの攻撃</title>
-	<graphic width="248px" fileref="./image/dq3_58.png"/>
+<figure id="fig.dq3.monsters.89b">
+  <title>オルテガの攻撃</title>
+  <graphic width="248px" fileref="./image/dq3.monsters.89.b.png"/>
 </figure>
 <para>
-オルテガの最大 HP は高々 <literal>380</literal> のようだが、戦ってみたところ、
-まだ確認はとっていないが自動回復があるような印象を記者は持った。
-本書で解析済みのモンスターデータを確認してみるといいだろう。
+重要人物であるオルテガがモンスター <literal>#$89</literal> として定義されている。
+ゲーム本編では専用スプライトによる特殊アニメーションでキングヒドラと死闘を繰り広げるので、
+ここで示すような映像イベントは起こらない。
 </para>
-</section>  <!-- dq3.gallery.ortega.kinghydra -->
 
-<section id="dq3.gallery.ortega.henchman">
-<title>Feat. カンダタこぶん</title>
-<figure id="fig.dq3_59">
-	<title>オルテガとカンダタこぶん</title>
-	<graphic width="248px" fileref="./image/dq3_59.png"/>
+<figure id="fig.dq3.monsters.89c">
+  <title>オルテガとカンダタこぶん</title>
+  <graphic width="248px" fileref="./image/dq3.monsters.89.c.png"/>
 </figure>
 <para>
 モンスターデータとしてのオルテガとカンダタは見てくれがよく似ているので、
 ストーリー上まったく縁はないが、カンダタこぶんと共演をしてもらった。
 図のカンダタこぶんは、バハラタのイベントバージョンを使用してみた。
 </para>
-</section>  <!-- dq3.gallery.ortega.henchman -->
-</section>  <!-- dq3.gallery.ortega -->
+</section> <!-- dq3.gallery.monsters.89 -->
 
-<section id="dq3.gallery.goods">
-<title>謎のアイテム</title>
-<indexterm id="term.dq3.gallery.goods"><primary>アイテム</primary><secondary>没アイテム</secondary></indexterm>
-<figure id="fig.dq3_19">
-	<title>謎のアイテム</title>
-	<graphic width="240px" fileref="./image/dq3_19.png"/>
+<section id="dq3.gallery.monsters.8F">
+<title>せんたくバカ</title>
+<figure id="fig.dq3.monsters.8F">
+  <title>せんたくバカとスライム</title>
+  <graphic width="248px" fileref="./image/dq3.monsters.8F.png"/>
 </figure>
-
 <para>
-リメイク版の謎のどうぐである
-「みずでっぽう」「すいしょうだま」「しのオルゴール」について撮影した。
+謎のモンスター「せんたくバカ」について述べる。
+「せんたくバカ」のほかにも、同様のモンスター
+「せんたくかみ」「せんたくにんげん」「せんたく０」「せんたく１」「せんたく２」「せんたく３」の存在も確認している。
 </para>
 <para>
-それらの入手方法は PAR コード操作のできる環境で、
-任意のキャラクターの何か安いアイテムが格納されているアドレスの値（アイテム ID のハズ）を、
-未確認アイテムのアイテム ID に改竄するだけである。
+こいつらは戦闘コマンドのデバッグ用に作成されたモンスターだと推測できる。
+コマンドをこのウィンドウで指定すると、以降の各ターンで指定コマンドを基本的には実行する。
+詳しくは <xref linkend="dq3.monsters"/> や <xref linkend="dq3.commands"/> で述べるが、
+モンスターの属性値によっては指定コマンドが実行時にキャンセルされる可能性もある。
+</para>
+</section> <!-- dq3.gallery.monsters.8F -->
+</section> <!-- dq3.gallery.monsters -->
+
+<section id="dq3.gallery.windows">
+<title>ウィンドウ</title>
+<para>
+ウィンドウに関する珍画像を示す。
+ウィンドウに関する基本的な事項については <xref linkend="dq3.windows"/> で述べる。
 </para>
 
-<segmentedlist>
-	<title>謎のアイテム コード</title>
-	<?dbhtml list-presentation="table"?>
-	<segtitle>値</segtitle><segtitle>どうぐ</segtitle>
+<section id="dq3.gallery.windows.01">
+<title>ウィンドウ <literal>#$01</literal></title>
+<figure id="fig.dq3.windows.01">
+  <title>ウィンドウ <literal>#$01</literal></title>
+  <graphic width="240px" fileref="./image/dq3.windows.01.png"/>
+</figure>
+<para>
+謎のウィンドウだ。
+</para>
+</section> <!-- dq3.gallery.windows.01 -->
 
-	<seglistitem><seg><literal>#$89</literal></seg><seg>すいしょうだま</seg></seglistitem>
-	<seglistitem><seg><literal>#$BD</literal></seg><seg>しのオルゴール</seg></seglistitem>
-	<seglistitem><seg><literal>#$C0</literal></seg><seg>みずでっぽう</seg></seglistitem>
-</segmentedlist>
+<section id="dq3.gallery.windows.43">
+<title>ウィンドウ <literal>#$43</literal></title>
+<figure id="fig.dq3.windows.43">
+  <title>ウィンドウ <literal>#$43</literal></title>
+  <graphic width="240px" fileref="./image/dq3.windows.43.png"/>
+</figure>
+<para>
+謎のウィンドウだ。デバッグコマンドのメニューにも見えるが、<xref linkend="dq3.debug"/> で述べるようにそれは別にある。
+</para>
+</section> <!-- dq3.gallery.windows.43 -->
+</section> <!-- dq3.gallery.windows -->
 
-<section id="dq3.gallery.goods.squirt">
+<section id="dq3.gallery.items">
+<title>アイテム</title>
+<indexterm id="term.dq3.gallery.items"><primary>アイテム</primary><secondary>没アイテム</secondary></indexterm>
+<figure id="fig.dq3.items.unused">
+  <title>謎のアイテム</title>
+  <graphic width="240px" fileref="./image/dq3.items.unused.png"/>
+</figure>
+<para>
+アイテムに関する珍画像を示す。
+アイテムに関する基本的な事項については <xref linkend="dq3.items"/> で述べる。
+</para>
+<table id="table.dq3.gallery.items" class="lighttable">
+  <caption>謎のアイテム</caption>
+  <thead>
+    <tr><th>ID</th><th>名前</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$2A</literal></td><td>てつのそろばん</td></tr>
+    <tr><td><literal>#$89</literal></td><td>すいしょうだま</td></tr>
+    <tr><td><literal>#$BD</literal></td><td>しのオルゴール</td></tr>
+    <tr><td><literal>#$C0</literal></td><td>みずでっぽう</td></tr>
+  </tbody>
+</table>
+
+<section id="dq3.gallery.items.2A">
+<title>てつのそろばん</title>
+<figure id="fig.dq3.items.2A">
+  <title>てつのそろばんをつかう</title>
+  <graphic width="240px" fileref="./image/dq3.items.2A.png"/>
+</figure>
+<para>
+アイテム <literal>#$2A</literal> はてつのそろばんという名前のものだ。
+データ上はオブジェクト属性が十分に設定されているにも関わらず、ゲーム本編では入手方法がないため没アイテムとなっている。
+上の画像は移動モードでの振る舞いだ。戦闘モードでもこのような振る舞いを呈する。
+</para>
+</section> <!-- dq3.gallery.items.2A -->
+
+<section id="dq3.gallery.items.89">
 <title>みずでっぽう</title>
-
-<figure id="fig.dq3_20">
-	<title>みずでっぽうをみる</title>
-	<graphic width="240px" fileref="./image/dq3_20.png"/>
+<figure id="fig.dq3.items.89a">
+  <title>みずでっぽうをみる</title>
+  <graphic width="240px" fileref="./image/dq3.items.89.a.png"/>
 </figure>
-<figure id="fig.dq3_21">
-	<title>戦闘でみずでっぽうをつかう</title>
-	<graphic width="248px" fileref="./image/dq3_21.png"/>
+<figure id="fig.dq3.items.89b">
+  <title>戦闘でみずでっぽうをつかう</title>
+  <graphic width="248px" fileref="./image/dq3.items.89.b.png"/>
 </figure>
-
 <para>
 商人を仲間にしてこのアイテムを見せたところ、
 カーソルを押した直後にウィンドウが閉じる。
 </para>
 <para>
-店に持っていけば、店屋は <literal>15</literal> ゴールドで引き取ってもいいと言う。
+店に持っていけば、店屋は 15 ゴールドで引き取ってもいいと言う。
 </para>
 <para>
 移動中に使っても、戦闘中に使っても何も起こらない。
 オリジナル版では、みずでっぽうが正規のアイテムとして存在した。
-人に向けて「つかう」と「うわっ つめたい!」のような台詞を言い、
+人に向けて「つかう」と「うわっ つめたい！」のような台詞を言い、
 一歩動いてくれるというものだったが、それが全く再現しない。
 正真正銘の没アイテムだ。
 </para>
-</section>  <!-- dq3.gallery.goods.squirt -->
+</section>  <!-- dq3.gallery.items.89 -->
 
-<section id="dq3.gallery.goods.crystal">
+<section id="dq3.gallery.items.BD">
 <title>すいしょうだま</title>
-<figure id="fig.dq3_22">
-	<title>戦闘ですいしょうだまをつかう</title>
-	<graphic width="248px" fileref="./image/dq3_22.png"/>
+<figure id="fig.dq3.items.BD">
+  <title>戦闘ですいしょうだまをつかう</title>
+  <graphic width="248px" fileref="./image/dq3.items.BD.png"/>
 </figure>
-
 <para>
-商人を仲間にしてこのアイテムを見せたところ、
+仲間の商人にこのアイテムを見せたところ、
 みずでっぽうと同様に、カーソルを押した直後にウィンドウが閉じてしまう。
-店屋に下取りに出そうものなら、<literal>0</literal> ゴールドでの買取となる。
+店屋に下取りに出そうものなら、0 ゴールドでの買取となる。
 すいしょうだまも前述のみずでっぽう同様、
 移動中でも戦闘中でも「つかう」ことで何か特別なことが起こることはない。
 </para>
-</section>  <!-- dq3.gallery.goods.crystal -->
+</section>  <!-- dq3.gallery.items.BD -->
 
-<section id="dq3.gallery.goods.orgel">
+<section id="dq3.gallery.items.C0">
 <title>しのオルゴール</title>
-
-<figure id="fig.dq3_23">
-	<title>かなしいメロディがながれる</title>
-	<graphic width="248px" fileref="./image/dq3_23.png"/>
+<figure id="fig.dq3.items.C0a">
+  <title>かなしいメロディがながれる</title>
+  <graphic width="248px" fileref="./image/dq3.items.C0.a.png"/>
 </figure>
-<figure id="fig.dq3_24">
-	<title>敵のいきのねをとめた</title>
-	<graphic width="248px" fileref="./image/dq3_24.png"/>
+<figure id="fig.dq3.items.C0b">
+  <title>敵のいきのねをとめた</title>
+  <graphic width="248px" fileref="./image/dq3.items.C0.b.png"/>
 </figure>
-<figure id="fig.dq3_25">
-	<title>味方がしんでしまった</title>
-	<graphic width="248px" fileref="./image/dq3_25.png"/>
+<figure id="fig.dq3.items.C0c">
+  <title>味方がしんでしまった</title>
+  <graphic width="248px" fileref="./image/dq3.items.C0.c.png"/>
 </figure>
-
 <para>
 商人の鑑定を試みると、やはりウィンドウが即座に閉じる。
-買い取りも <literal>0</literal> ゴールドである。
+買い取りも 0 ゴールドである。
 </para>
 <para>
 ただし、アイテムとしての用途はある。
@@ -170,139 +224,75 @@
 メッセージ遷移は以下の通りである。
 </para>
 <itemizedlist>
-	<listitem>
-		<para>
-		○○○○は しのオルゴールの ふたを あけた！
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-		かなしいメロディーが ながれる。（実際には音楽的な演出はない）
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-		××××の いきのねを とめた！（敵側メッセージ）
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-		○○○○は しんでしまった！（自分側メッセージ）
-		</para>
-	</listitem>
+  <listitem>
+    <para>
+    ○○○○は しのオルゴールの ふたを あけた！
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+    かなしいメロディーが ながれる。（実際には音楽的な演出はない）
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+    ○○○○の いきのねを とめた！（敵側メッセージ）
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+    ○○○○は しんでしまった！（自分側メッセージ）
+    </para>
+  </listitem>
 </itemizedlist>
 <para>
 マニアックなポイントとして、次の点をおさえておきたい。
 </para>
 <itemizedlist>
-	<listitem>
-		<para>
-		敵側にはザキ耐性が適用され、自分側パーティは <literal>100</literal> ％の確率で息の根が止まる
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-		「いちどつかうと なくなる」道具である
-		</para>
-	</listitem>
-	<listitem>
-		<para>
-		ザキ系呪文やメガンテと同様、「いのちのいし」が身代わりになる
-		</para>
-	</listitem>
+  <listitem>
+    <para>
+    敵側にはザキ耐性が適用され、自分側パーティは 100 の確率で息の根が止まる
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+    「いちどつかうと なくなる」道具である
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+    ザキ系呪文やメガンテと同様、「いのちのいし」が身代わりになる
+    </para>
+  </listitem>
 </itemizedlist>
-</section>  <!-- dq3.gallery.goods.orgel -->
-</section>  <!-- dq3.gallery.goods -->
+</section>  <!-- dq3.gallery.items.C0 -->
+</section>  <!-- dq3.gallery.items -->
 
-<section id="dq3.gallery.sentaku">
-<title>せんたくスライム</title>
-<figure id="fig.dq3_31">
-	<title>せんたくスライム</title>
-	<graphic width="248px" fileref="./image/dq3_31.png"/>
-</figure>
-
+<section id="dq3.gallery.rooms">
+<title>空間</title>
 <para>
-リメイク版の謎のモンスター「せんたくバカ」について述べる。
-「せんたくバカ」のほかにも、同様のモンスター
-「せんたくかみ」「せんたくにんげん」「せんたく０」「せんたく１」「せんたく２」「せんたく３」の存在も確認している。
-これらのキャラクターはモンスターデータとして定義されている（<xref linkend="dq3.monsters" xrefstyle="select: labelnumber"/> を参照）ので、
-適当に <acronym>PAR</acronym> 改造で出現させることができる。
-</para>
-<para>
-こいつらはメラとかぼうぎょとかの戦闘行動デバッグ用に作成されたモンスターだと推測できる。
-行動をこのウィンドウで指定した後に初めて敵方の HP 等の各種パラメータを初期化するので注意。
-</para>
-</section>  <!-- dq3.gallery.sentaku -->
-
-<section id="dq3.gallery.monmedal">
-<title>ドラクエ 4 のモンスターメダル</title>
-<indexterm id="term.dq3.gallery.monmedal"><primary>モンスターメダル</primary><secondary>DQ3</secondary></indexterm>
-
-<figure id="fig.dq4g_01">
-	<title>「メダルをみる」ウィンドウ出現</title>
-	<graphic width="160px" fileref="./image/dq4g_01.png"/>
-</figure>
-<figure id="fig.dq4g_02">
-	<title>No.1 スライム (DQ4)</title>
-	<graphic width="160px" fileref="./image/dq4g_02.png"/>
-</figure>
-
-<para>
-&dq3_2000; 独自のモンスターメダルシステムで、
-なぜか<link linkend="dq3.monmedal.dq4">ドラクエ 4 のモンスターのメダル</link>が存在する。
-出現方法については、セーブデータのメダルデータ部分を手作業で書き換えるのが楽である。
-もっとも、メダルデータ部分の最後でチェックサムを持つので、
-手作業でのデータ改竄については細心の注意が必要だ。
+空間に関する珍画像を示す。
+空間については付録の <varname>$C802F4</varname> または
+<varname>$C804A3</varname> オブジェクトの CSV ファイルを参照して欲しい。
 </para>
 
-<figure id="fig.dq4g_03">
-	<title>No.74 ミステリードール (DQ4)</title>
-	<graphic width="160px" fileref="./image/dq4g_03.png"/>
-</figure>
-<figure id="fig.dq4g_04">
-	<title>No.172 ピサロナイト (DQ4)</title>
-	<graphic width="160px" fileref="./image/dq4g_04.png"/>
-</figure>
-
-<para>
-モンスターメダルデータはドラクエ 3 とドラクエ 4 セクションに分けられている。
-ドラクエ 4 セクションには <literal>191</literal> 種類のモンスターメダルが定義されている。
-番号 <literal>179</literal> から <literal>191</literal> までは、一般には聞いたことのないモンスターである。
-</para>
-
-<figure id="fig.dq4g_05">
-	<title>No.188 ヘマトフィリア</title>
-	<graphic width="160px" fileref="./image/dq4g_05.png"/>
-</figure>
-<figure id="fig.dq4_m190">
-	<title>No.190 エースドラゴン</title>
-	<graphic width="160px" fileref="./image/dq4_m190.png"/>
-</figure>
-<figure id="fig.dq4_m191">
-	<title>No.191 クインメドーサ</title>
-	<graphic width="160px" fileref="./image/dq4_m191.png"/>
-</figure>
-</section>  <!-- dq3.gallery.monmedal -->
-
-<section id="dq3.gallery.kennel">
+<section id="dq3.gallery.rooms.0163">
 <title>犬小屋</title>
 <para>
-最大の謎フロア「犬小屋」の画像を紹介する。
+空間オブジェクト <literal>#$0163</literal> の画像を示す。
 </para>
-
-<figure id="fig.dq3_kennel">
-	<title>ネコもいる犬小屋</title>
-	<graphic width="240px" fileref="./image/dq3_kennel.png"/>
+<figure id="fig.dq3.rooms.0163a">
+  <title>イヌとネコのいる空間</title>
+  <graphic width="240px" fileref="./image/dq3.rooms.0163.a.png"/>
 </figure>
-<figure id="fig.dq3_kennel_through">
-	<title>牢屋の扉をすり抜ける</title>
-	<graphic width="240px" fileref="./image/dq3_kennel_through.png"/>
+<figure id="fig.dq3.rooms.0163b">
+  <title>牢屋の扉をすり抜ける</title>
+  <graphic width="240px" fileref="./image/dq3.rooms.0163.b.png"/>
 </figure>
-
 <para>
-例によって <acronym>PAR</acronym> 改造ネタである。
-改造環境をお持ちの方は<code>7E985001 7E985163</code>を試してみよう。
+改造環境をお持ちの方は <code>$7E9850 = #$0163</code> を試してみよう。
 運がよければ、適当にフロア切替をやっているとこの犬小屋にたどり着く。
+デバッグコマンドが利用可能ならば、いんちきルーラのページ１１の「しげのテスト」の一番目を選択するのが良い。
 </para>
 <para>
 外観こそアリアハンの牢屋と同じであるが、ここにいるのはイヌとネコ。
@@ -310,71 +300,76 @@
 これについては後述する。
 </para>
 <para>
-<acronym>BGM</acronym> は格闘場とすごろく場に共通のものである。
+BGM は格闘場とすごろく場に共通のものである。
 </para>
 <para>
 牢屋の扉は扉判定がいない。すなわち単なる床の模様である。
 </para>
-
-<figure id="fig.dq3_kennel_medal_list">
-	<title>右のツボはメダル景品リスト</title>
-	<graphic width="240px" fileref="./image/dq3_kennel_medal_list.png"/>
+<figure id="fig.dq3.rooms.0163c">
+  <title>右のツボはメダル景品リスト</title>
+  <graphic width="240px" fileref="./image/dq3.rooms.0163.c.png"/>
 </figure>
-
 <para>
 ツボがふたつあるが、左の牢屋のものはツボと認識されないようで、
 「しらべる」コマンドでも足元を調べてしまう。
 右の牢屋のものはツボではなく本棚だ。
 そこにはアリアハンのメダルおじさんの家の本棚に置いてあるメダル景品リストと同じものがある。
 </para>
-
-<figure id="fig.dq3_kennel_sugoroku">
-	<title>すごろく</title>
-	<graphic width="240px" fileref="./image/dq3_kennel_sugoroku.png"/>
+<figure id="fig.dq3.C89BB7.0184">
+  <title>すごろく</title>
+  <graphic width="240px" fileref="./image/dq3.C89BB7.0184.png"/>
 </figure>
-
 <para>
-イヌにはなしかけると、すごろくが開始される。
+イヌにはなしかけると、画面が切り替わってすごろくが開始する。
 ここにいるイヌそれぞれに相異なるすごろくの階段のマスが対応している。
 話し掛けると場面が犬小屋からすごろく場に変わり、対応するマスからすごろくが始まる。
-<literal>737</literal>という、半端な回数だが十分な残りさいころ回数が与えられている。
 </para>
-
 <para>
 左の牢屋の右端のイヌに話し掛けると、例外的にすごろくにならないようだ。
 </para>
-
-<figure id="fig.dq3_kennel_cat">
-	<title>ネコにはなす</title>
-	<graphic width="240px" fileref="./image/dq3_kennel_cat.png"/>
+<figure id="fig.dq3.rooms.0163d">
+  <title>ネコにはなす</title>
+  <graphic width="240px" fileref="./image/dq3.rooms.0163.d.png"/>
 </figure>
-
 <para>
 犬小屋のわきにある階段にネコが立ちふさがっている。
-話し掛けると、「にゃ～ん」と返事があり、
+話し掛けると「にゃ～ん」と返事があり、
 直後に「はい」または「いいえ」を選択することになる。
 </para>
-
 <para>
-「はい」を選択すると、会話が終了し一瞬画面が止まる。
-どうぐ→ふくろをチェックすると、ちいさなメダルが <literal>99</literal> 個になっている。
+「はい」を選択すると、会話が終了し一瞬画面が止まるが、実はふくろのちいさなメダルが 99 個になっている。
 「いいえ」を選択すると、会話が終了する。
 </para>
-</section>  <!-- dq3.gallery.kennel -->
+</section> <!-- dq3.gallery.rooms.0163 -->
+</section> <!-- dq3.gallery.rooms -->
 
-<section id="dq3.gallery.turn.65535">
-<title>戦闘ターン数 65535</title>
-
-<figure id="fig.dq3.battle.abort.65535">
-	<title>戦闘ターン数 65535</title>
-	<graphic width="248px" fileref="./image/dq3.battle.abort.65535.png"/>
-</figure>
-
+<section id="dq3.gallery.sugoroku">
+<title>すごろく</title>
 <para>
-戦闘ターン数が 65535 を超えるとレクイエムが流れ、全滅時の処理になる。
-このシーンをインチキなしで見たことのある人間こそ、ドラクエマニアの名にふさわしい
-<footnote id="ftn.dq3.gallery.turn.65535"><para>真に受けないように。</para></footnote>。
+すごろくに関する珍画像を示す。
 </para>
-</section>  <!-- dq3.gallery.turn.65535 -->
-</section>  <!-- dq3.gallery -->
 
+<section id="dq3.gallery.sugoroku.cave">
+<title>すごろくダンジョン</title>
+<para>
+ROM データ改造で強引に出現させたすごろくダンジョンのマスを示す。
+最終的に未使用となったようだが、すごろくダンジョンの構想は既にこの時点であったようだ。
+</para>
+<figure id="fig.dq3.sugoroku.cave">
+  <title>すごろくダンジョン</title>
+  <graphic fileref="./image/dq3.sugoroku.cave.png"/>
+</figure>
+</section> <!-- dq3.gallery.sugoroku.cave -->
+
+<section id="dq3.gallery.sugoroku.shopkeeper">
+<title>未使用店員画像</title>
+<para>
+同様にして出現させた、未使用のすごろく内店屋用と思しき店員の画像を示す。
+</para>
+<figure id="fig.dq3.sugoroku.shopkeeper">
+  <title>すごろく用店員未使用画像</title>
+  <graphic fileref="./image/dq3.sugoroku.shopkeeper.png"/>
+</figure>
+</section> <!-- dq3.gallery.sugoroku.shopkeeper -->
+</section> <!-- dq3.gallery.sugoroku -->
+</section> <!-- dq3.gallery -->

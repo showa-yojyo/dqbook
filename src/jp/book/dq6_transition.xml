@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+  <!ENTITY % replacement SYSTEM "replacement.xml">
+  %replacement;
+]>
+
+<section id="dq6.transition"><?dbhtml filename="dq6_transition.html" ?>
+<title>画面遷移</title>
+<para>
+本節では画面遷移について述べる。
+画面遷移とは、移動モードでパーティーが別の場所に移動したり、
+イベント発生によって自動的にシーンが転換したりするときの画面の移り変わりのことだ。
+移動モードから戦闘モードに、あるいはその逆になったりすることは本節の画面遷移の定義には当てはまらない。
+</para>
+
+<section id="dq6.transition.structure">
+<title>構造に関する構成要素</title>
+<para>
+画面遷移に関係するデータ構造について述べる。
+本節では多くの構造体を列挙しなければならないので、それらの関係について概略を示したい。
+</para>
+<figure id="fig.dq6.cd.transition">
+  <title>画面遷移に関するクラス図</title>
+  <graphic fileref="./image/dq6.cd.transition.png"/>
+</figure>
+
+<section id="dq6.transition.structure.abstract">
+<title>共通属性の意味について</title>
+<para>
+以降の各画面遷移構造体に共通して登場する属性について先に説明しておく。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>フラグ</term>
+    <listitem>
+      <para>
+        ブーリアン型属性値であり、値が 0 ならば既定の画面遷移を引き起こすことを示す。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>空間最小単位</term>
+    <listitem>
+      <para>
+        画面遷移オブジェクトが存在する空間最小単位の ID を値とする属性だ。
+        データとしては配列 <varname>$C815BF</varname> の添字を表す。
+        このデータについては <xref linkend="dq6.locations.structure.C815BF"/> で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>座標配列</term>
+    <listitem>
+      <para>
+        詳細不明ではあるが、全データで属性値がゼロであるため本書では今のところ考慮しない。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>MX</term>
+    <term>MY</term>
+    <listitem>
+      <para>
+        それぞれ画面遷移オブジェクトが位置する座標 X 成分と Y 成分を値とする属性だ。
+        座標系は M 系で表されている。これはキャラクターのサイズを単位系とする座標系だ。
+      </para>
+      <para>
+        型によっては X 座標属性や Y 座標属性が二つある。
+        この場合はその座標成分の組がなす区間すべてが画面遷移の発生判定に有効であることを意味する。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>LV</term>
+    <listitem>
+      <para>
+        画面遷移オブジェクトが位置する L 座標を値とする属性だ。
+        LV とは、同一画面内における仮想的な地面の高さを表現していると解釈できる。
+      </para>
+      <para>
+        例を挙げると、モンストル屋外の地面部分と宿屋の屋上は同時に描画される。
+        デバッグ機能のキャンセル歩行を利用して、地面部分から屋上に移動し、
+        そこにある階段に乗っても、言い換えると XY 座標を一致させても画面遷移が発生しないはずだ。
+        これは、パーティーと階段の LV 値が異なることによる。
+        パーティーの LV 値は地面部分の値と同じだが、
+        データを見ればわかるように、階段のそれは地面のそれと異なる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>屋根区域</term>
+    <listitem>
+      <para>
+        画面遷移オブジェクトが属する屋根区域を値とする属性だ。
+        屋根区域とは、ダンジョン等でマップ全体を描画せず局所的に表示したり、
+        反対に隠したりする仕組みにおける、描画部分の単位のことだ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>目的地</term>
+    <listitem>
+      <para>
+        階段、水平帯域、垂直帯域の各型については、
+        この画面遷移が発生すると移動する先の同型オブジェクト ID を値とする属性だ。
+        例えば、階段オブジェクト A の目的地属性値が指す階段オブジェクトを B とすると、
+        B の目的地属性値は A を指すという性質がある。
+      </para>
+      <para>
+        矩形型と関所型については
+        <xref linkend="dq6.transition.structure.C834FC" xrefstyle="select: labelnumber"/> で述べるオブジェクトの ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>効果音考慮</term>
+    <listitem>
+      <para>
+        ブーリアン型属性値であり、値が 1 ならば画面遷移時に足音が鳴る。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>演出</term>
+    <listitem>
+      <para>
+        演出とは、画面遷移時に引き起こす視聴覚効果を指示する値を取る属性だ。
+      </para>
+      <table id="table.dq6.transition.effects" class="lighttable">
+        <caption>画面遷移演出</caption>
+        <thead>
+          <tr><th>ID</th><th>演出</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>1</th><td>足音</td></tr>
+          <tr><th>2</th><td>落下 A</td></tr>
+          <tr><th>3</th><td>落下 B</td></tr>
+        </tbody>
+      </table>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.transition.structure.abstract -->
+
+<section id="dq6.transition.structure.FF8072">
+<title>構造体 <varname>$FF8072</varname>: 階段</title>
+<para>
+アドレス <varname>$FF8072</varname> には次のオブジェクト型要素が多数配列されている。
+この型は階段による画面遷移を表現するものであり、移動モードにおいて階段の絵を描画させるものだ。
+</para>
+
+<table id="table.dq6.FF8072" class="lighttable">
+  <caption>構造体 $FF8072</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000001</literal></td><td>フラグ</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0007FE</literal></td><td>空間最小単位</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$000018</literal></td><td>座標配列</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$003FE0</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$007FC0</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$000180</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00001E</literal></td><td>屋根区域</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$01FFE0</literal></td><td>目的地</td></tr>
+    <tr><td><literal>#$06</literal></td><td><literal>#$000002</literal></td><td>効果音考慮</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.transition.structure.FF8072 -->
+
+<section id="dq6.transition.structure.FF8D5A">
+<title>構造体 <varname>$FF8D5A</varname>: 水平帯域</title>
+<para>
+アドレス <varname>$FF8D5A</varname> には次のオブジェクト型要素が多数配列されている。
+この型は主にパーティーが建造物の出入口を通過することによる画面遷移を表現する。
+画面遷移を引き起こすためのヒットテストの矩形の縦幅が 1 なので、水平帯域と呼ぶことにする。
+</para>
+
+<table id="table.dq6.FF8D5A" class="lighttable">
+  <caption>構造体 $FF8D5A</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000001</literal></td><td>フラグ</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0007FE</literal></td><td>空間最小単位</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$000018</literal></td><td>座標配列</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$003FE0</literal></td><td>MX0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$007FC0</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF80</literal></td><td>MX1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$000003</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00003C</literal></td><td>屋根区域</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$03FFC0</literal></td><td>目的地</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$000004</literal></td><td>効果音考慮</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.transition.structure.FF8D5A -->
+
+<section id="dq6.transition.structure.FFA02A">
+<title>構造体 <varname>$FFA02A</varname>: 垂直帯域</title>
+<para>
+アドレス <varname>$FFA02A</varname> には次のオブジェクト型要素が配列されている。
+この型は主にパーティーが建造物の出入口を通過することによる画面遷移を表現する。
+画面遷移を引き起こすためのヒットテストの矩形の横幅が 1 なので、垂直帯域と呼ぶことにする。
+</para>
+
+<table id="table.dq6.FFA02A" class="lighttable">
+  <caption>構造体 $FFA02A</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000001</literal></td><td>フラグ</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0007FE</literal></td><td>空間最小単位</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$000018</literal></td><td>座標配列</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$003FE0</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$007FC0</literal></td><td>MY0</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$00FF80</literal></td><td>MY1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$000003</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00003C</literal></td><td>屋根区域</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$03FFC0</literal></td><td>目的地</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$000004</literal></td><td>効果音考慮</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.transition.structure.FFA02A -->
+
+<section id="dq6.transition.structure.FFA0BA">
+<title>構造体 <varname>$FFA0BA</varname>: 矩形領域</title>
+<para>
+アドレス <varname>$FFA0BA</varname> には次のオブジェクト型要素が多数配列されている。
+画面遷移を引き起こすためのヒットテストの矩形が一般の寸法の場合のものだ。
+</para>
+
+<table id="table.dq6.FFA0BA" class="lighttable">
+  <caption>構造体 $FFA0BA</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000001</literal></td><td>フラグ</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00001E</literal></td><td>演出</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000060</literal></td><td>座標配列</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00FF80</literal></td><td>MX0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0001FF</literal></td><td>MY0</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0003FE</literal></td><td>MX1</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0007FC</literal></td><td>MY1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$000018</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$01FFE0</literal></td><td>目的地</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$000002</literal></td><td>効果音考慮</td></tr>
+  </tbody>
+</table>
+</section> <!-- dq6.transition.structure.FFA0BA -->
+
+<section id="dq6.transition.structure.FFB692">
+<title>構造体 <varname>$FFB692</varname>: 関所</title>
+<para>
+アドレス <varname>$FFB692</varname> には次のオブジェクト型要素が配列されている。
+パーティーがフィールドから各関所に画面遷移すると、関所内のどの位置に現れるのかを指定する。
+</para>
+
+<table id="table.dq6.FFB692" class="lighttable">
+  <caption>構造体 $FFB692</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000001</literal></td><td>フラグ</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00001E</literal></td><td>演出</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$000060</literal></td><td>座標配列</td></tr>
+    <tr><td><literal>#$00</literal></td><td><literal>#$00FF80</literal></td><td>MX0</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$0001FF</literal></td><td>MY0</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0003FE</literal></td><td>MX1</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$0007FC</literal></td><td>MY1</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$000018</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$01FFE0</literal></td><td>目的地上向き</td></tr>
+    <tr><td><literal>#$07</literal></td><td><literal>#$001FFE</literal></td><td>目的地右向き</td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$01FFE0</literal></td><td>目的地下向き</td></tr>
+    <tr><td><literal>#$0A</literal></td><td><literal>#$001FFE</literal></td><td>目的地左向き</td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$000020</literal></td><td>効果音考慮</td></tr>
+  </tbody>
+</table>
+<variablelist>
+  <varlistentry>
+    <term>目的地上向き</term>
+    <term>目的地右向き</term>
+    <term>目的地下向き</term>
+    <term>目的地左向き</term>
+    <listitem>
+      <para>
+        それぞれ、パーティーキャラクターが対応する向きに関所に入るときの、
+        目的地点 (<xref linkend="dq6.transition.structure.C834FC" xrefstyle="select: labelnumber"/>) の ID を値とする属性だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.transition.structure.FFB692 -->
+
+<section id="dq6.transition.structure.C834FC">
+<title>構造体 <varname>$C834FC</varname>: 目的地点</title>
+<para>
+アドレス <varname>$C834FC</varname> には次のオブジェクト型要素が多数配列されている。
+この型は矩形型 (<xref linkend="dq6.transition.structure.FFA0BA" xrefstyle="select: labelnumber"/>)
+と関所型 (<xref linkend="dq6.transition.structure.FFB692" xrefstyle="select: labelnumber"/>)
+が参照する画面遷移先座標を表現する。
+</para>
+
+<table id="table.dq6.C834FC" class="lighttable">
+  <caption>構造体 $C834FC</caption>
+  <thead>
+    <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><literal>#$00</literal></td><td><literal>#$0003FF</literal></td><td>空間最小単位</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$00000C</literal></td><td>座標配列</td></tr>
+    <tr><td><literal>#$01</literal></td><td><literal>#$001FF0</literal></td><td>MX</td></tr>
+    <tr><td><literal>#$02</literal></td><td><literal>#$003FE0</literal></td><td>MY</td></tr>
+    <tr><td><literal>#$03</literal></td><td><literal>#$0000C0</literal></td><td>LV</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$00000F</literal></td><td>屋根区域</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$000030</literal></td><td>向き</td></tr>
+    <tr><td><literal>#$04</literal></td><td><literal>#$000040</literal></td><td>（未使用）</td></tr>
+  </tbody>
+</table>
+<para>
+この型固有の各属性の意味を以下に記す。
+</para>
+<variablelist>
+  <varlistentry>
+    <term>向き</term>
+    <listitem>
+      <para>
+        画面遷移直後のパーティーキャラクターの向きを表す値を取る属性だ。
+        「はなす」「しらべる」と同様だ。
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</section> <!-- dq6.transition.structure.C834FC -->
+</section> <!-- dq6.transition.structure -->
+
+<section id="dq6.transition.behavior">
+<title>振る舞いに関する構成要素</title>
+<para>
+TBW
+</para>
+
+</section> <!-- dq6.transition.behavior -->
+</section> <!-- dq6.transition -->
