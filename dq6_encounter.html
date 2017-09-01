@@ -9,10 +9,10 @@
     <link rel="home" href="index.html" title="ドラクエ命" />
     <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
     <link rel="prev" href="dq6_character_traits.html" title="4.16. 仲間キャラクターの特性データ" />
-    <link rel="next" href="dq6_level.html" title="4.18. レベルアップ" />
+    <link rel="next" href="dq6_locations.html" title="4.18. 空間情報" />
   </head>
   <body>
-    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_character_traits.html" title="4.16. 仲間キャラクターの特性データ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_level.html" title="4.18. レベルアップ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_character_traits.html">4.16. 仲間キャラクターの特性データ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_level.html">4.18. レベルアップ</a><hr /></div>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_character_traits.html" title="4.16. 仲間キャラクターの特性データ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_locations.html" title="4.18. 空間情報"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_character_traits.html">4.16. 仲間キャラクターの特性データ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_locations.html">4.18. 空間情報</a><hr /></div>
     <div class="section">
       <div class="titlepage">
         <div>
@@ -37,7 +37,7 @@
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_encounter.html#dq6.encounter.model.C58F64">4.17.1.2. 構造体 <code class="varname">$C58F64</code>: レア戦闘用編成</a>
+                  <a href="dq6_encounter.html#dq6.encounter.model.C58F64">4.17.1.2. 構造体 <code class="varname">$C58F64</code>: 敵陣グループ固定戦</a>
                 </span>
               </dt>
               <dt>
@@ -453,7 +453,7 @@
                     <td>
                       <code class="literal">#$3FC0</code>
                     </td>
-                    <td>レア戦闘</td>
+                    <td>敵陣グループ固定戦</td>
                   </tr>
                 </tbody>
               </table>
@@ -482,7 +482,7 @@
       </p>
                 <p>
         仲間キャラクターと敵キャラクターのレベルについては
-        <a class="xref" href="dq6_level.html" title="4.18. レベルアップ">4.18 レベルアップ</a> と <a class="xref" href="dq6_monsters.html" title="4.14. モンスター">4.14 モンスター</a> をそれぞれ参照して欲しい。
+        <a class="xref" href="dq6_level.html" title="4.20. レベルアップ">4.20 レベルアップ</a> と <a class="xref" href="dq6_monsters.html" title="4.14. モンスター">4.14 モンスター</a> をそれぞれ参照して欲しい。
       </p>
               </dd>
               <dt>
@@ -531,7 +531,7 @@
                 <br class="table-break" />
                 <p>
         これらの確率は「しのびあし」コマンドの適用状態やドラゴン職の仲間の有無で変動する。
-        <a class="xref" href="dq6_spell_commands.html" title="4.21. 移動中の呪文コマンド処理">4.21 移動中の呪文コマンド処理</a> や <a class="xref" href="dq6_vocations.html" title="4.12. 職業">4.12 職業</a> の記述を参照して欲しい。
+        <a class="xref" href="dq6_spell_commands.html" title="4.23. 移動中の呪文コマンド処理">4.23 移動中の呪文コマンド処理</a> や <a class="xref" href="dq6_vocations.html" title="4.12. 職業">4.12 職業</a> の記述を参照して欲しい。
       </p>
               </dd>
               <dt>
@@ -612,16 +612,16 @@
               <dd>
                 <p>
         頻度とは、敵陣のグループ数や構成モンスターを大まかに決定するのに用いられる数値型配列属性だ。
-        前作と同様の抽選方式で敵陣がレアか単独グループからなるのか複数グループからなるのかを決める。
+        前作と同様の抽選方式で敵陣が固定構成か単独グループからなるのか複数グループからなるのかを決める。
       </p>
               </dd>
               <dt>
-                <span class="term">レア戦闘</span>
+                <span class="term">敵陣グループ固定戦</span>
               </dt>
               <dd>
                 <p>
-        レア戦闘とは、先述の大まかな抽選処理でレア戦闘に決定するときに採用されるオブジェクトの ID を値とする属性だ。
-        そのオブジェクトとは、<a class="xref" href="dq6_encounter.html#dq6.encounter.model.C58F64" title="4.17.1.2. 構造体 $C58F64: レア戦闘用編成">4.17.1.2 構造体 <code class="varname">$C58F64</code>: レア戦闘用編成</a> で述べるものに他ならない。
+        敵陣グループ固定戦とは、先述の大まかな抽選処理で敵陣グループ固定戦に決定するときに採用されるオブジェクトの ID を値とする属性だ。
+        そのオブジェクトとは、<a class="xref" href="dq6_encounter.html#dq6.encounter.model.C58F64" title="4.17.1.2. 構造体 $C58F64: 敵陣グループ固定戦">4.17.1.2 構造体 <code class="varname">$C58F64</code>: 敵陣グループ固定戦</a> で述べるものに他ならない。
       </p>
               </dd>
               <dt>
@@ -736,7 +736,7 @@
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.encounter.model.C58F64"></a>4.17.1.2. 構造体 <code class="varname">$C58F64</code>: レア戦闘用編成</h4>
+                <h4 class="title"><a id="dq6.encounter.model.C58F64"></a>4.17.1.2. 構造体 <code class="varname">$C58F64</code>: 敵陣グループ固定戦</h4>
               </div>
             </div>
           </div>
@@ -1199,7 +1199,7 @@
     </p>
               <div class="itemizedlist">
                 <ul class="itemizedlist" style="list-style-type: circle; ">
-                  <li class="listitem">(a) 添字 k が上限値のときには対応するレア戦闘構成オブジェクトから敵陣を構成する。</li>
+                  <li class="listitem">(a) 添字 k が上限値のときには対応する敵陣グループ固定戦オブジェクトから敵陣を構成する。</li>
                   <li class="listitem">(b) 添字 k が配列後半にあれば単独グループを構成する処理を行う。</li>
                   <li class="listitem">(c) そうでなければ複数グループを構成する処理を行う。</li>
                 </ul>
@@ -1211,7 +1211,7 @@
           </ul>
         </div>
         <p>
-分岐 (a) の処理は <a class="xref" href="dq6_encounter.html#dq6.encounter.model.C58F64" title="4.17.1.2. 構造体 $C58F64: レア戦闘用編成">4.17.1.2 構造体 <code class="varname">$C58F64</code>: レア戦闘用編成</a> で述べた。
+分岐 (a) の処理は <a class="xref" href="dq6_encounter.html#dq6.encounter.model.C58F64" title="4.17.1.2. 構造体 $C58F64: 敵陣グループ固定戦">4.17.1.2 構造体 <code class="varname">$C58F64</code>: 敵陣グループ固定戦</a> で述べた。
 </p>
         <p>
 分岐 (b) の処理は、モンスターと頭数をグループ単数時モンスター k とグループ単数時頭数 k によりそれぞれ定める。
@@ -1239,6 +1239,6 @@
         </div>
       </div>
     </div>
-    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_character_traits.html" title="4.16. 仲間キャラクターの特性データ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_level.html" title="4.18. レベルアップ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_character_traits.html">4.16. 仲間キャラクターの特性データ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_level.html">4.18. レベルアップ</a></div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_character_traits.html" title="4.16. 仲間キャラクターの特性データ"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_locations.html" title="4.18. 空間情報"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_character_traits.html">4.16. 仲間キャラクターの特性データ</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_locations.html">4.18. 空間情報</a></div>
   </body>
 </html>

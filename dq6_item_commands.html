@@ -3,21 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>4.22. 移動中の道具使用コマンド処理</title>
+    <title>4.24. 移動中の道具使用コマンド処理</title>
     <link rel="stylesheet" type="text/css" href="dqbook.css" />
     <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
     <link rel="home" href="index.html" title="ドラクエ命" />
     <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
-    <link rel="prev" href="dq6_spell_commands.html" title="4.21. 移動中の呪文コマンド処理" />
+    <link rel="prev" href="dq6_spell_commands.html" title="4.23. 移動中の呪文コマンド処理" />
     <link rel="next" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
   </head>
   <body>
-    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_spell_commands.html" title="4.21. 移動中の呪文コマンド処理"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_spell_commands.html">4.21. 移動中の呪文コマンド処理</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a><hr /></div>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_spell_commands.html" title="4.23. 移動中の呪文コマンド処理"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_spell_commands.html">4.23. 移動中の呪文コマンド処理</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a><hr /></div>
     <div class="section">
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a id="dq6.item.commands"></a>4.22. 移動中の道具使用コマンド処理</h2>
+            <h2 class="title" style="clear: both"><a id="dq6.item.commands"></a>4.24. 移動中の道具使用コマンド処理</h2>
           </div>
         </div>
       </div>
@@ -25,179 +25,179 @@
         <dl class="toc">
           <dt>
             <span class="section">
-              <a href="dq6_item_commands.html#dq6.item.commands.C3C8C0">4.22.1. コマンドハンドラーテーブル</a>
+              <a href="dq6_item_commands.html#dq6.item.commands.C3C8C0">4.24.1. コマンドハンドラーテーブル</a>
             </span>
           </dt>
           <dt>
             <span class="section">
-              <a href="dq6_item_commands.html#dq6.item.commands.desc">4.22.2. 解析</a>
+              <a href="dq6_item_commands.html#dq6.item.commands.desc">4.24.2. 解析</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CA5D">4.22.2.1. やくそう</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CA5D">4.24.2.1. やくそう</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CAFD">4.22.2.2. どくけしそう</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CAFD">4.24.2.2. どくけしそう</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CB7D">4.22.2.3. せかいじゅのは</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CB7D">4.24.2.3. せかいじゅのは</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CBFC">4.22.2.4. せかいじゅのしずく</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CBFC">4.24.2.4. せかいじゅのしずく</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CCB8">4.22.2.5. まほうのせいすい</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CCB8">4.24.2.5. まほうのせいすい</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CD3D">4.22.2.6. ちからのたね</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CD3D">4.24.2.6. ちからのたね</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CD9B">4.22.2.7. すばやさのたね</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CD9B">4.24.2.7. すばやさのたね</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CDF9">4.22.2.8. かしこさのたね</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CDF9">4.24.2.8. かしこさのたね</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CE57">4.22.2.9. まもりのたね</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CE57">4.24.2.9. まもりのたね</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CEB5">4.22.2.10. いのちのきのみ</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CEB5">4.24.2.10. いのちのきのみ</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CF13">4.22.2.11. ふしぎなきのみ</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CF13">4.24.2.11. ふしぎなきのみ</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CF71">4.22.2.12. いのりのゆびわ</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3CF71">4.24.2.12. いのりのゆびわ</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D02B">4.22.2.13. せいすい</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D02B">4.24.2.13. せいすい</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D067">4.22.2.14. むらのみんげいひん</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D067">4.24.2.14. むらのみんげいひん</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D082">4.22.2.15. ゆめみのしずく</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D082">4.24.2.15. ゆめみのしずく</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D098">4.22.2.16. キメラのつばさ</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D098">4.24.2.16. キメラのつばさ</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D162">4.22.2.17. かぜのぼうし</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D162">4.24.2.17. かぜのぼうし</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D169">4.22.2.18. おうごんのつるはし</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D169">4.24.2.18. おうごんのつるはし</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D17F">4.22.2.19. ラーのカガミ</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D17F">4.24.2.19. ラーのカガミ</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D195">4.22.2.20. すなのうつわ</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D195">4.24.2.20. すなのうつわ</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1AB">4.22.2.21. まほうのじゅうたん</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1AB">4.24.2.21. まほうのじゅうたん</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1BC">4.22.2.22. マーメイドハープ</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1BC">4.24.2.22. マーメイドハープ</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1D1">4.22.2.23. せかいちず</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1D1">4.24.2.23. せかいちず</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1E6">4.22.2.24. ふしぎなちず</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1E6">4.24.2.24. ふしぎなちず</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1FB">4.22.2.25. ふるびたパイプ</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D1FB">4.24.2.25. ふるびたパイプ</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D211">4.22.2.26. へいしのふく４つ</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D211">4.24.2.26. へいしのふく４つ</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D227">4.22.2.27. ろうごくのカギ</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D227">4.24.2.27. ろうごくのカギ</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D23D">4.22.2.28. しんじつのオーブ</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D23D">4.24.2.28. しんじつのオーブ</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D253">4.22.2.29. りせいのタネその他</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D253">4.24.2.29. りせいのタネその他</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D274">4.22.2.30. デセオのパス</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D274">4.24.2.30. デセオのパス</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D2B0">4.22.2.31. てんまのたづな</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D2B0">4.24.2.31. てんまのたづな</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D2C1">4.22.2.32. アモールのみず</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D2C1">4.24.2.32. アモールのみず</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D361">4.22.2.33. うつくしそう</a>
+                  <a href="dq6_item_commands.html#dq6.item.commands.desc.C3D361">4.24.2.33. うつくしそう</a>
                 </span>
               </dt>
             </dl>
@@ -215,7 +215,7 @@
         <div class="titlepage">
           <div>
             <div>
-              <h3 class="title"><a id="dq6.item.commands.C3C8C0"></a>4.22.1. コマンドハンドラーテーブル</h3>
+              <h3 class="title"><a id="dq6.item.commands.C3C8C0"></a>4.24.1. コマンドハンドラーテーブル</h3>
             </div>
           </div>
         </div>
@@ -240,7 +240,7 @@ C3/C9FE:    E100D51661D3
         <div class="table">
           <a id="table.dq6.C3C8C0"></a>
           <p class="title">
-            <strong>表 4.101 $C3C8C0 コマンドハンドラーテーブル</strong>
+            <strong>表 4.113 $C3C8C0 コマンドハンドラーテーブル</strong>
           </p>
           <div class="table-contents">
             <table id="table.dq6.C3C8C0" class="lighttable">
@@ -262,7 +262,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CA5D" title="4.22.2.1. やくそう">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CA5D" title="4.24.2.1. やくそう">
                       <code class="varname">$CA5D</code>
                     </a>
                   </td>
@@ -276,7 +276,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CAFD" title="4.22.2.2. どくけしそう">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CAFD" title="4.24.2.2. どくけしそう">
                       <code class="varname">$CAFD</code>
                     </a>
                   </td>
@@ -290,7 +290,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CB7D" title="4.22.2.3. せかいじゅのは">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CB7D" title="4.24.2.3. せかいじゅのは">
                       <code class="varname">$CB7D</code>
                     </a>
                   </td>
@@ -304,7 +304,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CBFC" title="4.22.2.4. せかいじゅのしずく">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CBFC" title="4.24.2.4. せかいじゅのしずく">
                       <code class="varname">$CBFC</code>
                     </a>
                   </td>
@@ -318,7 +318,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CCB8" title="4.22.2.5. まほうのせいすい">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CCB8" title="4.24.2.5. まほうのせいすい">
                       <code class="varname">$CCB8</code>
                     </a>
                   </td>
@@ -332,7 +332,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CD3D" title="4.22.2.6. ちからのたね">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CD3D" title="4.24.2.6. ちからのたね">
                       <code class="varname">$CD3D</code>
                     </a>
                   </td>
@@ -346,7 +346,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CD9B" title="4.22.2.7. すばやさのたね">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CD9B" title="4.24.2.7. すばやさのたね">
                       <code class="varname">$CD9B</code>
                     </a>
                   </td>
@@ -360,7 +360,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CDF9" title="4.22.2.8. かしこさのたね">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CDF9" title="4.24.2.8. かしこさのたね">
                       <code class="varname">$CDF9</code>
                     </a>
                   </td>
@@ -374,7 +374,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CE57" title="4.22.2.9. まもりのたね">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CE57" title="4.24.2.9. まもりのたね">
                       <code class="varname">$CE57</code>
                     </a>
                   </td>
@@ -388,7 +388,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CEB5" title="4.22.2.10. いのちのきのみ">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CEB5" title="4.24.2.10. いのちのきのみ">
                       <code class="varname">$CEB5</code>
                     </a>
                   </td>
@@ -402,7 +402,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CF13" title="4.22.2.11. ふしぎなきのみ">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CF13" title="4.24.2.11. ふしぎなきのみ">
                       <code class="varname">$CF13</code>
                     </a>
                   </td>
@@ -416,7 +416,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CF71" title="4.22.2.12. いのりのゆびわ">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3CF71" title="4.24.2.12. いのりのゆびわ">
                       <code class="varname">$CF71</code>
                     </a>
                   </td>
@@ -430,7 +430,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D02B" title="4.22.2.13. せいすい">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D02B" title="4.24.2.13. せいすい">
                       <code class="varname">$D02B</code>
                     </a>
                   </td>
@@ -444,7 +444,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D067" title="4.22.2.14. むらのみんげいひん">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D067" title="4.24.2.14. むらのみんげいひん">
                       <code class="varname">$D067</code>
                     </a>
                   </td>
@@ -458,7 +458,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D082" title="4.22.2.15. ゆめみのしずく">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D082" title="4.24.2.15. ゆめみのしずく">
                       <code class="varname">$D082</code>
                     </a>
                   </td>
@@ -472,7 +472,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D098" title="4.22.2.16. キメラのつばさ">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D098" title="4.24.2.16. キメラのつばさ">
                       <code class="varname">$D098</code>
                     </a>
                   </td>
@@ -486,7 +486,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D162" title="4.22.2.17. かぜのぼうし">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D162" title="4.24.2.17. かぜのぼうし">
                       <code class="varname">$D162</code>
                     </a>
                   </td>
@@ -500,7 +500,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D169" title="4.22.2.18. おうごんのつるはし">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D169" title="4.24.2.18. おうごんのつるはし">
                       <code class="varname">$D169</code>
                     </a>
                   </td>
@@ -514,7 +514,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D17F" title="4.22.2.19. ラーのカガミ">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D17F" title="4.24.2.19. ラーのカガミ">
                       <code class="varname">$D17F</code>
                     </a>
                   </td>
@@ -528,7 +528,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D195" title="4.22.2.20. すなのうつわ">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D195" title="4.24.2.20. すなのうつわ">
                       <code class="varname">$D195</code>
                     </a>
                   </td>
@@ -542,7 +542,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D1AB" title="4.22.2.21. まほうのじゅうたん">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D1AB" title="4.24.2.21. まほうのじゅうたん">
                       <code class="varname">$D1AB</code>
                     </a>
                   </td>
@@ -556,7 +556,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D1BC" title="4.22.2.22. マーメイドハープ">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D1BC" title="4.24.2.22. マーメイドハープ">
                       <code class="varname">$D1BC</code>
                     </a>
                   </td>
@@ -570,7 +570,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D1D1" title="4.22.2.23. せかいちず">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D1D1" title="4.24.2.23. せかいちず">
                       <code class="varname">$D1D1</code>
                     </a>
                   </td>
@@ -584,7 +584,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D1E6" title="4.22.2.24. ふしぎなちず">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D1E6" title="4.24.2.24. ふしぎなちず">
                       <code class="varname">$D1E6</code>
                     </a>
                   </td>
@@ -598,7 +598,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D1FB" title="4.22.2.25. ふるびたパイプ">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D1FB" title="4.24.2.25. ふるびたパイプ">
                       <code class="varname">$D1FB</code>
                     </a>
                   </td>
@@ -612,7 +612,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D211" title="4.22.2.26. へいしのふく４つ">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D211" title="4.24.2.26. へいしのふく４つ">
                       <code class="varname">$D211</code>
                     </a>
                   </td>
@@ -626,7 +626,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D227" title="4.22.2.27. ろうごくのカギ">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D227" title="4.24.2.27. ろうごくのカギ">
                       <code class="varname">$D227</code>
                     </a>
                   </td>
@@ -640,7 +640,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D23D" title="4.22.2.28. しんじつのオーブ">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D23D" title="4.24.2.28. しんじつのオーブ">
                       <code class="varname">$D23D</code>
                     </a>
                   </td>
@@ -654,7 +654,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D6</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -668,7 +668,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$1743</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -682,7 +682,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$1745</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -696,7 +696,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$1747</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -710,7 +710,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$1749</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -724,7 +724,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$174F</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -738,7 +738,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$1751</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -752,7 +752,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$1753</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -766,7 +766,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$1755</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D274" title="4.22.2.30. デセオのパス">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D274" title="4.24.2.30. デセオのパス">
                       <code class="varname">$D274</code>
                     </a>
                   </td>
@@ -780,7 +780,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D2B0" title="4.22.2.31. てんまのたづな">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D2B0" title="4.24.2.31. てんまのたづな">
                       <code class="varname">$D2B0</code>
                     </a>
                   </td>
@@ -794,7 +794,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$175D</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -808,7 +808,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$175E</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -822,7 +822,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$175E</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -836,7 +836,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$175E</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -850,7 +850,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$1760</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -864,7 +864,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$1762</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -878,7 +878,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$1762</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -892,7 +892,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$1763</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -906,7 +906,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$1763</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -920,7 +920,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D2C1" title="4.22.2.32. アモールのみず">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D2C1" title="4.24.2.32. アモールのみず">
                       <code class="varname">$D2C1</code>
                     </a>
                   </td>
@@ -934,7 +934,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$170E</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -948,7 +948,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$170E</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -962,7 +962,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$170E</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -976,7 +976,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$170E</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -990,7 +990,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$170E</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.22.2.29. りせいのタネその他">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D253" title="4.24.2.29. りせいのタネその他">
                       <code class="varname">$D253</code>
                     </a>
                   </td>
@@ -1004,7 +1004,7 @@ C3/C9FE:    E100D51661D3
                     <code class="literal">#$16D5</code>
                   </td>
                   <td>
-                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D361" title="4.22.2.33. うつくしそう">
+                    <a class="link" href="dq6_item_commands.html#dq6.item.commands.desc.C3D361" title="4.24.2.33. うつくしそう">
                       <code class="varname">$D361</code>
                     </a>
                   </td>
@@ -1020,7 +1020,7 @@ C3/C9FE:    E100D51661D3
         <div class="table">
           <a id="table.dq6.item.commands.messages"></a>
           <p class="title">
-            <strong>表 4.102 メッセージ一覧</strong>
+            <strong>表 4.114 メッセージ一覧</strong>
           </p>
           <div class="table-contents">
             <table id="table.dq6.item.commands.messages" class="lighttable">
@@ -1137,7 +1137,7 @@ C3/C9FE:    E100D51661D3
         <div class="titlepage">
           <div>
             <div>
-              <h3 class="title"><a id="dq6.item.commands.desc"></a>4.22.2. 解析</h3>
+              <h3 class="title"><a id="dq6.item.commands.desc"></a>4.24.2. 解析</h3>
             </div>
           </div>
         </div>
@@ -1179,7 +1179,7 @@ C3/C9FE:    E100D51661D3
     </li>
             <li class="listitem">
       幅のある乱数処理には、呪文コマンド同様にサブルーチン <code class="varname">$C3B8FC</code> を利用する
-      （詳細は <a class="xref" href="dq6_spell_commands.html#dq6.spell.commands.desc.C3B9A8" title="4.21.2.1. ホイミ・べホイミ・ベホマ">4.21.2.1 ホイミ・べホイミ・ベホマ</a> の説明を参照）。
+      （詳細は <a class="xref" href="dq6_spell_commands.html#dq6.spell.commands.desc.C3B9A8" title="4.23.2.1. ホイミ・べホイミ・ベホマ">4.23.2.1 ホイミ・べホイミ・ベホマ</a> の説明を参照）。
     </li>
             <li class="listitem">
       パーティーメンバーのパラメーターを上げる道具については、
@@ -1218,7 +1218,7 @@ C3/C9FE:    E100D51661D3
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3CA5D"></a>4.22.2.1. やくそう</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3CA5D"></a>4.24.2.1. やくそう</h4>
               </div>
             </div>
           </div>
@@ -1230,7 +1230,7 @@ HP の回復ポイント量は 30 から 40 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3CAFD"></a>4.22.2.2. どくけしそう</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3CAFD"></a>4.24.2.2. どくけしそう</h4>
               </div>
             </div>
           </div>
@@ -1242,7 +1242,7 @@ HP の回復ポイント量は 30 から 40 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3CB7D"></a>4.22.2.3. せかいじゅのは</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3CB7D"></a>4.24.2.3. せかいじゅのは</h4>
               </div>
             </div>
           </div>
@@ -1254,7 +1254,7 @@ HP の回復ポイント量は 30 から 40 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3CBFC"></a>4.22.2.4. せかいじゅのしずく</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3CBFC"></a>4.24.2.4. せかいじゅのしずく</h4>
               </div>
             </div>
           </div>
@@ -1266,7 +1266,7 @@ HP の回復ポイント量は 30 から 40 だ。
           <p>
 次に回復メッセージ <code class="literal">#$1730</code> を表示した後に、
 生きているパーティーメンバーそれぞれの HP を 999 ポイント回復する。
-<a class="xref" href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BA5B" title="4.21.2.2. べホマラー・べホマズン">4.21.2.2 べホマラー・べホマズン</a> もそうだが、
+<a class="xref" href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BA5B" title="4.23.2.2. べホマラー・べホマズン">4.23.2.2 べホマラー・べホマズン</a> もそうだが、
 このときなぜか乱数処理が走る。
 </p>
           <p>
@@ -1277,7 +1277,7 @@ HP の回復ポイント量は 30 から 40 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3CCB8"></a>4.22.2.5. まほうのせいすい</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3CCB8"></a>4.24.2.5. まほうのせいすい</h4>
               </div>
             </div>
           </div>
@@ -1289,7 +1289,7 @@ MP の回復ポイント量は 40 から 50 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3CD3D"></a>4.22.2.6. ちからのたね</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3CD3D"></a>4.24.2.6. ちからのたね</h4>
               </div>
             </div>
           </div>
@@ -1301,7 +1301,7 @@ MP の回復ポイント量は 40 から 50 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3CD9B"></a>4.22.2.7. すばやさのたね</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3CD9B"></a>4.24.2.7. すばやさのたね</h4>
               </div>
             </div>
           </div>
@@ -1313,7 +1313,7 @@ MP の回復ポイント量は 40 から 50 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3CDF9"></a>4.22.2.8. かしこさのたね</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3CDF9"></a>4.24.2.8. かしこさのたね</h4>
               </div>
             </div>
           </div>
@@ -1325,7 +1325,7 @@ MP の回復ポイント量は 40 から 50 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3CE57"></a>4.22.2.9. まもりのたね</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3CE57"></a>4.24.2.9. まもりのたね</h4>
               </div>
             </div>
           </div>
@@ -1337,7 +1337,7 @@ MP の回復ポイント量は 40 から 50 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3CEB5"></a>4.22.2.10. いのちのきのみ</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3CEB5"></a>4.24.2.10. いのちのきのみ</h4>
               </div>
             </div>
           </div>
@@ -1349,7 +1349,7 @@ MP の回復ポイント量は 40 から 50 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3CF13"></a>4.22.2.11. ふしぎなきのみ</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3CF13"></a>4.24.2.11. ふしぎなきのみ</h4>
               </div>
             </div>
           </div>
@@ -1361,7 +1361,7 @@ MP の回復ポイント量は 40 から 50 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3CF71"></a>4.22.2.12. いのりのゆびわ</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3CF71"></a>4.24.2.12. いのりのゆびわ</h4>
               </div>
             </div>
           </div>
@@ -1382,13 +1382,13 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D02B"></a>4.22.2.13. せいすい</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D02B"></a>4.24.2.13. せいすい</h4>
               </div>
             </div>
           </div>
           <p>
 道具を消費した後に、カウンター <code class="varname">$7E3BA9</code> をリセットする。
-このカウンターは <a class="xref" href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BDDE" title="4.21.2.9. トヘロス">4.21.2.9 トヘロス</a> とせいすいとで共用になっている。
+このカウンターは <a class="xref" href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BDDE" title="4.23.2.9. トヘロス">4.23.2.9 トヘロス</a> とせいすいとで共用になっている。
 </p>
           <p>
 カウンターリセット後に、どういうわけかトヘロスフラグとせいすいフラグの両方をセットする。
@@ -1399,7 +1399,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D067"></a>4.22.2.14. むらのみんげいひん</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D067"></a>4.24.2.14. むらのみんげいひん</h4>
               </div>
             </div>
           </div>
@@ -1412,7 +1412,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D082"></a>4.22.2.15. ゆめみのしずく</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D082"></a>4.24.2.15. ゆめみのしずく</h4>
               </div>
             </div>
           </div>
@@ -1425,12 +1425,12 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D098"></a>4.22.2.16. キメラのつばさ</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D098"></a>4.24.2.16. キメラのつばさ</h4>
               </div>
             </div>
           </div>
           <p>
-キメラのつばさの処理は概ね <a class="xref" href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BC70" title="4.21.2.6. ルーラ">4.21.2.6 ルーラ</a> のコピーアンドペーストとなっている。
+キメラのつばさの処理は概ね <a class="xref" href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BC70" title="4.23.2.6. ルーラ">4.23.2.6 ルーラ</a> のコピーアンドペーストとなっている。
 違いは表示メッセージと消費するものだけだろう。
 </p>
         </div>
@@ -1438,12 +1438,12 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D162"></a>4.22.2.17. かぜのぼうし</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D162"></a>4.24.2.17. かぜのぼうし</h4>
               </div>
             </div>
           </div>
           <p>
-かぜのぼうしは <a class="xref" href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BC70" title="4.21.2.6. ルーラ">4.21.2.6 ルーラ</a> の処理コードの途中にプログラムカウンターを飛ばす。
+かぜのぼうしは <a class="xref" href="dq6_spell_commands.html#dq6.spell.commands.desc.C3BC70" title="4.23.2.6. ルーラ">4.23.2.6 ルーラ</a> の処理コードの途中にプログラムカウンターを飛ばす。
 これによりコマンド処理を共有している。
 </p>
         </div>
@@ -1451,7 +1451,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D169"></a>4.22.2.18. おうごんのつるはし</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D169"></a>4.24.2.18. おうごんのつるはし</h4>
               </div>
             </div>
           </div>
@@ -1464,7 +1464,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D17F"></a>4.22.2.19. ラーのカガミ</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D17F"></a>4.24.2.19. ラーのカガミ</h4>
               </div>
             </div>
           </div>
@@ -1476,7 +1476,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D195"></a>4.22.2.20. すなのうつわ</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D195"></a>4.24.2.20. すなのうつわ</h4>
               </div>
             </div>
           </div>
@@ -1489,7 +1489,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D1AB"></a>4.22.2.21. まほうのじゅうたん</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D1AB"></a>4.24.2.21. まほうのじゅうたん</h4>
               </div>
             </div>
           </div>
@@ -1502,7 +1502,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D1BC"></a>4.22.2.22. マーメイドハープ</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D1BC"></a>4.24.2.22. マーメイドハープ</h4>
               </div>
             </div>
           </div>
@@ -1515,7 +1515,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D1D1"></a>4.22.2.23. せかいちず</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D1D1"></a>4.24.2.23. せかいちず</h4>
               </div>
             </div>
           </div>
@@ -1528,7 +1528,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D1E6"></a>4.22.2.24. ふしぎなちず</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D1E6"></a>4.24.2.24. ふしぎなちず</h4>
               </div>
             </div>
           </div>
@@ -1541,7 +1541,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D1FB"></a>4.22.2.25. ふるびたパイプ</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D1FB"></a>4.24.2.25. ふるびたパイプ</h4>
               </div>
             </div>
           </div>
@@ -1554,7 +1554,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D211"></a>4.22.2.26. へいしのふく４つ</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D211"></a>4.24.2.26. へいしのふく４つ</h4>
               </div>
             </div>
           </div>
@@ -1567,7 +1567,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D227"></a>4.22.2.27. ろうごくのカギ</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D227"></a>4.24.2.27. ろうごくのカギ</h4>
               </div>
             </div>
           </div>
@@ -1580,7 +1580,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D23D"></a>4.22.2.28. しんじつのオーブ</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D23D"></a>4.24.2.28. しんじつのオーブ</h4>
               </div>
             </div>
           </div>
@@ -1593,7 +1593,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D253"></a>4.22.2.29. りせいのタネその他</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D253"></a>4.24.2.29. りせいのタネその他</h4>
               </div>
             </div>
           </div>
@@ -1631,7 +1631,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D274"></a>4.22.2.30. デセオのパス</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D274"></a>4.24.2.30. デセオのパス</h4>
               </div>
             </div>
           </div>
@@ -1643,7 +1643,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D2B0"></a>4.22.2.31. てんまのたづな</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D2B0"></a>4.24.2.31. てんまのたづな</h4>
               </div>
             </div>
           </div>
@@ -1656,7 +1656,7 @@ MP の回復ポイント量は 20 から 30 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D2C1"></a>4.22.2.32. アモールのみず</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D2C1"></a>4.24.2.32. アモールのみず</h4>
               </div>
             </div>
           </div>
@@ -1668,7 +1668,7 @@ HP の回復ポイント量は 60 から 70 だ。
           <div class="titlepage">
             <div>
               <div>
-                <h4 class="title"><a id="dq6.item.commands.desc.C3D361"></a>4.22.2.33. うつくしそう</h4>
+                <h4 class="title"><a id="dq6.item.commands.desc.C3D361"></a>4.24.2.33. うつくしそう</h4>
               </div>
             </div>
           </div>
@@ -1680,6 +1680,6 @@ HP の回復ポイント量は 60 から 70 だ。
         </div>
       </div>
     </div>
-    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_spell_commands.html" title="4.21. 移動中の呪文コマンド処理"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_spell_commands.html">4.21. 移動中の呪文コマンド処理</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a></div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_spell_commands.html" title="4.23. 移動中の呪文コマンド処理"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_spell_commands.html">4.23. 移動中の呪文コマンド処理</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a></div>
   </body>
 </html>

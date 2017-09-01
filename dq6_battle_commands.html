@@ -3,21 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>4.20. 戦闘コマンド</title>
+    <title>4.22. 戦闘コマンド</title>
     <link rel="stylesheet" type="text/css" href="dqbook.css" />
     <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
     <link rel="home" href="index.html" title="ドラクエ命" />
     <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
-    <link rel="prev" href="dq6_combatants.html" title="4.19. 戦闘キャラクター構造体" />
-    <link rel="next" href="dq6_spell_commands.html" title="4.21. 移動中の呪文コマンド処理" />
+    <link rel="prev" href="dq6_combatants.html" title="4.21. 戦闘キャラクター構造体" />
+    <link rel="next" href="dq6_spell_commands.html" title="4.23. 移動中の呪文コマンド処理" />
   </head>
   <body>
-    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_combatants.html" title="4.19. 戦闘キャラクター構造体"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_spell_commands.html" title="4.21. 移動中の呪文コマンド処理"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_combatants.html">4.19. 戦闘キャラクター構造体</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_spell_commands.html">4.21. 移動中の呪文コマンド処理</a><hr /></div>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_combatants.html" title="4.21. 戦闘キャラクター構造体"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_spell_commands.html" title="4.23. 移動中の呪文コマンド処理"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_combatants.html">4.21. 戦闘キャラクター構造体</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_spell_commands.html">4.23. 移動中の呪文コマンド処理</a><hr /></div>
     <div class="section">
       <div class="titlepage">
         <div>
           <div>
-            <h2 class="title" style="clear: both"><a id="dq6.battle.commands"></a>4.20. 戦闘コマンド</h2>
+            <h2 class="title" style="clear: both"><a id="dq6.battle.commands"></a>4.22. 戦闘コマンド</h2>
           </div>
         </div>
       </div>
@@ -25,17 +25,17 @@
         <dl class="toc">
           <dt>
             <span class="section">
-              <a href="dq6_battle_commands.html#dq6.battle.commands.C8C65D">4.20.1. 構造体 <code class="varname">$C8C65D</code>: 戦闘コマンド</a>
+              <a href="dq6_battle_commands.html#dq6.battle.commands.C8C65D">4.22.1. 構造体 <code class="varname">$C8C65D</code>: 戦闘コマンド</a>
             </span>
           </dt>
           <dt>
             <span class="section">
-              <a href="dq6_battle_commands.html#dq6.battle.commands.methods">4.20.2. 戦闘コマンド構造体メソッド</a>
+              <a href="dq6_battle_commands.html#dq6.battle.commands.methods">4.22.2. 戦闘コマンド構造体メソッド</a>
             </span>
           </dt>
           <dt>
             <span class="section">
-              <a href="dq6_battle_commands.html#dq6.battle.commands.data">4.20.3. データ</a>
+              <a href="dq6_battle_commands.html#dq6.battle.commands.data">4.22.3. データ</a>
             </span>
           </dt>
         </dl>
@@ -50,13 +50,13 @@
 コマンドオブジェクトはその性質を動的に変更するような設計にはなっておらず、オブジェクトの特定には ID の値さえあればよい。
 コマンドオブジェクトの一覧については <a class="xref" href="appendix_b.html" title="付録 B データ">付録 B <em>データ</em></a> に CSV ファイルを収録したので、必要があれば参照して欲しい。
 このような ID は戦闘キャラクターオブジェクトそれぞれの属性として保存される。
-詳しくは <a class="xref" href="dq6_combatants.html" title="4.19. 戦闘キャラクター構造体">4.19 戦闘キャラクター構造体</a> を参照して欲しい。
+詳しくは <a class="xref" href="dq6_combatants.html" title="4.21. 戦闘キャラクター構造体">4.21 戦闘キャラクター構造体</a> を参照して欲しい。
 </p>
       <div class="section">
         <div class="titlepage">
           <div>
             <div>
-              <h3 class="title"><a id="dq6.battle.commands.C8C65D"></a>4.20.1. 構造体 <code class="varname">$C8C65D</code>: 戦闘コマンド</h3>
+              <h3 class="title"><a id="dq6.battle.commands.C8C65D"></a>4.22.1. 構造体 <code class="varname">$C8C65D</code>: 戦闘コマンド</h3>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@
         <div class="table">
           <a id="table.dq6.C8C65D"></a>
           <p class="title">
-            <strong>表 4.83 構造体 $C8C65D</strong>
+            <strong>表 4.95 構造体 $C8C65D</strong>
           </p>
           <div class="table-contents">
             <table id="table.dq6.C8C65D" class="lighttable">
@@ -687,7 +687,7 @@
               <div class="table">
                 <a id="table.dq6.C28C30"></a>
                 <p class="title">
-                  <strong>表 4.84 構造体 $C28C30</strong>
+                  <strong>表 4.96 構造体 $C28C30</strong>
                 </p>
                 <div class="table-contents">
                   <table id="table.dq6.C28C30" class="lighttable">
@@ -819,7 +819,7 @@
               <div class="table">
                 <a id="table.dq6.battle.commands.families"></a>
                 <p class="title">
-                  <strong>表 4.85 系統分類</strong>
+                  <strong>表 4.97 系統分類</strong>
                 </p>
                 <div class="table-contents">
                   <table id="table.dq6.battle.commands.families" class="lighttable">
@@ -1054,7 +1054,7 @@
               <div class="table">
                 <a id="table.dq6.battle.commands.weapons.scalar"></a>
                 <p class="title">
-                  <strong>表 4.86 特殊武器ダメージ倍率</strong>
+                  <strong>表 4.98 特殊武器ダメージ倍率</strong>
                 </p>
                 <div class="table-contents">
                   <table id="table.dq6.battle.commands.weapons.scalar" class="lighttable">
@@ -1125,7 +1125,7 @@
               <div class="table">
                 <a id="table.dq6.battle.commands.targets"></a>
                 <p class="title">
-                  <strong>表 4.87 対象陣営分類</strong>
+                  <strong>表 4.99 対象陣営分類</strong>
                 </p>
                 <div class="table-contents">
                   <table id="table.dq6.battle.commands.targets" class="lighttable">
@@ -1184,7 +1184,7 @@
               <div class="table">
                 <a id="table.dq6.battle.commands.weapons.effect"></a>
                 <p class="title">
-                  <strong>表 4.88 追加効果武器</strong>
+                  <strong>表 4.100 追加効果武器</strong>
                 </p>
                 <div class="table-contents">
                   <table id="table.dq6.battle.commands.weapons.effect" class="lighttable">
@@ -1257,7 +1257,7 @@
               <div class="table">
                 <a id="table.dq6.battle.commands.weapons.extra"></a>
                 <p class="title">
-                  <strong>表 4.89 追加ダメージ武器</strong>
+                  <strong>表 4.101 追加ダメージ武器</strong>
                 </p>
                 <div class="table-contents">
                   <table id="table.dq6.battle.commands.weapons.extra" class="lighttable">
@@ -1341,7 +1341,7 @@
               <div class="table">
                 <a id="table.dq6.battle.commands.scopes"></a>
                 <p class="title">
-                  <strong>表 4.90 対象範囲分類</strong>
+                  <strong>表 4.102 対象範囲分類</strong>
                 </p>
                 <div class="table-contents">
                   <table id="table.dq6.battle.commands.scopes" class="lighttable">
@@ -1394,7 +1394,7 @@
               <div class="table">
                 <a id="table.dq6.battle.commands.paladin"></a>
                 <p class="title">
-                  <strong>表 4.91 パラディンのコマンド実行による即死発生確率</strong>
+                  <strong>表 4.103 パラディンのコマンド実行による即死発生確率</strong>
                 </p>
                 <div class="table-contents">
                   <table id="table.dq6.battle.commands.paladin" class="lighttable">
@@ -1498,7 +1498,7 @@
               <div class="table">
                 <a id="table.dq6.battle.commands.copy"></a>
                 <p class="title">
-                  <strong>表 4.92 まねまね反応分類</strong>
+                  <strong>表 4.104 まねまね反応分類</strong>
                 </p>
                 <div class="table-contents">
                   <table id="table.dq6.battle.commands.copy" class="lighttable">
@@ -1544,7 +1544,7 @@
               <div class="table">
                 <a id="table.dq6.battle.commands.modes"></a>
                 <p class="title">
-                  <strong>表 4.93 モード</strong>
+                  <strong>表 4.105 モード</strong>
                 </p>
                 <div class="table-contents">
                   <table id="table.dq6.battle.commands.modes" class="lighttable">
@@ -1608,7 +1608,7 @@
               <div class="table">
                 <a id="table.dq6.battle.commands.leaving"></a>
                 <p class="title">
-                  <strong>表 4.94 退場分類</strong>
+                  <strong>表 4.106 退場分類</strong>
                 </p>
                 <div class="table-contents">
                   <table id="table.dq6.battle.commands.leaving" class="lighttable">
@@ -1793,7 +1793,7 @@
         <div class="titlepage">
           <div>
             <div>
-              <h3 class="title"><a id="dq6.battle.commands.methods"></a>4.20.2. 戦闘コマンド構造体メソッド</h3>
+              <h3 class="title"><a id="dq6.battle.commands.methods"></a>4.22.2. 戦闘コマンド構造体メソッド</h3>
             </div>
           </div>
         </div>
@@ -1805,7 +1805,7 @@
         <div class="table">
           <a id="table.dq6.battle.commands.methods"></a>
           <p class="title">
-            <strong>表 4.95 戦闘コマンド構造体の属性にアクセスするサブルーチン</strong>
+            <strong>表 4.107 戦闘コマンド構造体の属性にアクセスするサブルーチン</strong>
           </p>
           <div class="table-contents">
             <table id="table.dq6.battle.commands.methods" class="lighttable">
@@ -1881,7 +1881,7 @@
 値が 2 ならばオブジェクトのベースアドレスからのオフセット値が、
 値が 4 ならばオフセット値とビットマスク値がコード中に埋め込まれていることを示す。
 以下に参考コードと解釈例を示す。
-本節の表と <a class="xref" href="dq6_combatants.html#dq6.combatants.7E2030" title="4.19.1. 構造体 $7E2030: 戦闘キャラクター">4.19.1 構造体 <code class="varname">$7E2030</code>: 戦闘キャラクター</a> を照合しながら内容を確かめるといいだろう：
+本節の表と <a class="xref" href="dq6_combatants.html#dq6.combatants.7E2030" title="4.21.1. 構造体 $7E2030: 戦闘キャラクター">4.21.1 構造体 <code class="varname">$7E2030</code>: 戦闘キャラクター</a> を照合しながら内容を確かめるといいだろう：
 </p>
         <pre class="programlisting">
 C2/741B:    22FCF0C2    JSR $C2F0FC         戦闘コマンド x の属性値が設定されているかを見る
@@ -1923,7 +1923,7 @@ C2/745B:    60          RTS
         <div class="titlepage">
           <div>
             <div>
-              <h3 class="title"><a id="dq6.battle.commands.data"></a>4.20.3. データ</h3>
+              <h3 class="title"><a id="dq6.battle.commands.data"></a>4.22.3. データ</h3>
             </div>
           </div>
         </div>
@@ -1945,7 +1945,7 @@ CSV に載せられないコマンド概要を表にして次に示す：
         <div class="table">
           <a id="table.dq6.battle.commands.special"></a>
           <p class="title">
-            <strong>表 4.96 特別な戦闘コマンド</strong>
+            <strong>表 4.108 特別な戦闘コマンド</strong>
           </p>
           <div class="table-contents">
             <table id="table.dq6.battle.commands.special" class="lighttable">
@@ -2350,6 +2350,6 @@ CSV に載せられないコマンド概要を表にして次に示す：
 </p>
       </div>
     </div>
-    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_combatants.html" title="4.19. 戦闘キャラクター構造体"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_spell_commands.html" title="4.21. 移動中の呪文コマンド処理"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_combatants.html">4.19. 戦闘キャラクター構造体</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_spell_commands.html">4.21. 移動中の呪文コマンド処理</a></div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_combatants.html" title="4.21. 戦闘キャラクター構造体"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_spell_commands.html" title="4.23. 移動中の呪文コマンド処理"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_combatants.html">4.21. 戦闘キャラクター構造体</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_spell_commands.html">4.23. 移動中の呪文コマンド処理</a></div>
   </body>
 </html>

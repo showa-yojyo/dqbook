@@ -8,11 +8,11 @@
     <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
     <link rel="home" href="index.html" title="ドラクエ命" />
     <link rel="up" href="part02.html" title="第 II 部 解析" />
-    <link rel="prev" href="dq6_item_commands.html" title="4.22. 移動中の道具使用コマンド処理" />
-    <link rel="next" href="dq3_debug.html" title="5.1. デバッグモード解析" />
+    <link rel="prev" href="dq6_item_commands.html" title="4.24. 移動中の道具使用コマンド処理" />
+    <link rel="next" href="dq3_text.html" title="5.1. テキスト" />
   </head>
   <body>
-    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_item_commands.html" title="4.22. 移動中の道具使用コマンド処理"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="part02.html" title="第 II 部 解析"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_debug.html" title="5.1. デバッグモード解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_item_commands.html">4.22. 移動中の道具使用コマンド処理</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="part02.html">第 II 部 解析</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_debug.html">5.1. デバッグモード解析</a><hr /></div>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_item_commands.html" title="4.24. 移動中の道具使用コマンド処理"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="part02.html" title="第 II 部 解析"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_text.html" title="5.1. テキスト"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_item_commands.html">4.24. 移動中の道具使用コマンド処理</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="part02.html">第 II 部 解析</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_text.html">5.1. テキスト</a><hr /></div>
     <div class="chapter">
       <div class="titlepage">
         <div>
@@ -25,258 +25,220 @@
         <dl class="toc">
           <dt>
             <span class="section">
-              <a href="dq3_debug.html">5.1. デバッグモード解析</a>
+              <a href="dq3_text.html">5.1. テキスト</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_debug.html#dq3.debug.hack">5.1.1. 解析</a>
+                  <a href="dq3_text.html#dq3.text.battle">5.1.1. 戦闘モード</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_text.html#dq3.text.travel">5.1.2. 移動モード</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_text.html#dq3.text.data">5.1.3. データ</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_string.html">5.2. 文字列</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_string.html#dq3.string.overview">5.2.1. 概要</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_string.html#dq3.string.data">5.2.2. データ</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_combatants.html">5.3. 戦闘員</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_combatants.html#dq3.combatants.7E2030">5.3.1. 構造体 <code class="varname">$7E2030</code>: 戦闘員</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_combatants.html#dq3.combatants.methods">5.3.2. 戦闘員構造体メソッド</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_characters.html">5.4. 仲間キャラクターオブジェクト</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_characters.html#dq3.characters.structure">5.4.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_debug.html#dq3.debug.hack.C1FFFE">5.1.1.1. <code class="varname">$C1FFFE</code> 参照位置一覧</a>
+                      <a href="dq3_characters.html#dq3.characters.structure.7E3925">5.4.1.1. 構造体 <code class="varname">$7E3925</code>: 仲間キャラクター</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_debug.html#dq3.debug.hack.FFFF">5.1.1.2. デバッグモード</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_debug.html#dq3.debug.hack.0001">5.1.1.3. ゲームショーモード</a>
+                      <a href="dq3_characters.html#dq3.characters.structure.7E36E8">5.4.1.2. 配列 <code class="varname">$7E36E8</code>: 仲間キャラクターポインター列</a>
                     </span>
                   </dt>
                 </dl>
               </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_debug.html#dq3.debug.crack">5.1.2. 改竄</a>
+                  <a href="dq3_characters.html#dq3.characters.behavior">5.4.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
             </dl>
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_text.html">5.2. テキスト</a>
+              <a href="dq3_monsters.html">5.5. モンスター</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_text.html#dq3.text.battle">5.2.1. 戦闘モード</a>
+                  <a href="dq3_monsters.html#dq3.monsters.C20000">5.5.1. 構造体 <code class="varname">$C20000</code>: モンスター</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq3_text.html#dq3.text.travel">5.2.2. 移動モード</a>
-                </span>
-              </dt>
-              <dt>
-                <span class="section">
-                  <a href="dq3_text.html#dq3.text.data">5.2.3. データ</a>
+                  <a href="dq3_monsters.html#dq3.monsters.methods">5.5.2. モンスター構造体メソッド</a>
                 </span>
               </dt>
             </dl>
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_string.html">5.3. 文字列</a>
+              <a href="dq3_commands.html">5.6. コマンド</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_string.html#dq3.string.overview">5.3.1. 概要</a>
-                </span>
-              </dt>
-              <dt>
-                <span class="section">
-                  <a href="dq3_string.html#dq3.string.data">5.3.2. データ</a>
-                </span>
-              </dt>
-            </dl>
-          </dd>
-          <dt>
-            <span class="section">
-              <a href="dq3_combatants.html">5.4. 戦闘員</a>
-            </span>
-          </dt>
-          <dd>
-            <dl>
-              <dt>
-                <span class="section">
-                  <a href="dq3_combatants.html#dq3.combatants.7E2030">5.4.1. 構造体 <code class="varname">$7E2030</code>: 戦闘員</a>
-                </span>
-              </dt>
-              <dt>
-                <span class="section">
-                  <a href="dq3_combatants.html#dq3.combatants.methods">5.4.2. 戦闘員構造体メソッド</a>
-                </span>
-              </dt>
-            </dl>
-          </dd>
-          <dt>
-            <span class="section">
-              <a href="dq3_characters.html">5.5. 仲間キャラクターオブジェクト</a>
-            </span>
-          </dt>
-          <dd>
-            <dl>
-              <dt>
-                <span class="section">
-                  <a href="dq3_characters.html#dq3.characters.structure">5.5.1. 構造に関する構成要素</a>
+                  <a href="dq3_commands.html#dq3.commands.structure">5.6.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_characters.html#dq3.characters.structure.7E3925">5.5.1.1. 構造体 <code class="varname">$7E3925</code>: 仲間キャラクター</a>
+                      <a href="dq3_commands.html#dq3.commands.structure.C21860">5.6.1.1. 構造体 <code class="varname">$C21860</code>: コマンド</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_characters.html#dq3.characters.structure.7E36E8">5.5.1.2. 配列 <code class="varname">$7E36E8</code>: 仲間キャラクターポインター列</a>
+                      <a href="dq3_commands.html#dq3.commands.structure.methods">5.6.1.2. 構造体の属性へのアクセス</a>
                     </span>
                   </dt>
                 </dl>
               </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_characters.html#dq3.characters.behavior">5.5.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_commands.html#dq3.commands.behavior">5.6.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
             </dl>
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_monsters.html">5.6. モンスター</a>
+              <a href="dq3_descriptions.html">5.7. コマンドに関する記述</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_monsters.html#dq3.monsters.C20000">5.6.1. 構造体 <code class="varname">$C20000</code>: モンスター</a>
-                </span>
-              </dt>
-              <dt>
-                <span class="section">
-                  <a href="dq3_monsters.html#dq3.monsters.methods">5.6.2. モンスター構造体メソッド</a>
-                </span>
-              </dt>
-            </dl>
-          </dd>
-          <dt>
-            <span class="section">
-              <a href="dq3_commands.html">5.7. コマンド</a>
-            </span>
-          </dt>
-          <dd>
-            <dl>
-              <dt>
-                <span class="section">
-                  <a href="dq3_commands.html#dq3.commands.structure">5.7.1. 構造に関する構成要素</a>
+                  <a href="dq3_descriptions.html#dq3.descriptions.structure">5.7.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_commands.html#dq3.commands.structure.C21860">5.7.1.1. 構造体 <code class="varname">$C21860</code>: コマンド</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_commands.html#dq3.commands.structure.methods">5.7.1.2. 構造体の属性へのアクセス</a>
+                      <a href="dq3_descriptions.html#dq3.descriptions.structure.C2398E">5.7.1.1. 構造体 <code class="varname">$C2398E</code>: コマンドに関する記述</a>
                     </span>
                   </dt>
                 </dl>
               </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_commands.html#dq3.commands.behavior">5.7.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_descriptions.html#dq3.descriptions.behavior">5.7.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
             </dl>
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_descriptions.html">5.8. コマンドに関する記述</a>
+              <a href="dq3_damage.html">5.8. ダメージ</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_descriptions.html#dq3.descriptions.structure">5.8.1. 構造に関する構成要素</a>
+                  <a href="dq3_damage.html#dq3.damage.structure">5.8.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_descriptions.html#dq3.descriptions.structure.C2398E">5.8.1.1. 構造体 <code class="varname">$C2398E</code>: コマンドに関する記述</a>
+                      <a href="dq3_damage.html#dq3.damage.structure.C23BB4">5.8.1.1. 構造体 <code class="varname">$C23BB4</code>: ダメージ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_damage.html#dq3.damage.structure.methods">5.8.1.2. 構造体の属性へのアクセス</a>
                     </span>
                   </dt>
                 </dl>
               </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_descriptions.html#dq3.descriptions.behavior">5.8.2. 振る舞いに関する構成要素</a>
-                </span>
-              </dt>
-            </dl>
-          </dd>
-          <dt>
-            <span class="section">
-              <a href="dq3_damage.html">5.9. ダメージ</a>
-            </span>
-          </dt>
-          <dd>
-            <dl>
-              <dt>
-                <span class="section">
-                  <a href="dq3_damage.html#dq3.damage.structure">5.9.1. 構造に関する構成要素</a>
+                  <a href="dq3_damage.html#dq3.damage.behavior">5.8.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_damage.html#dq3.damage.structure.C23BB4">5.9.1.1. 構造体 <code class="varname">$C23BB4</code>: ダメージ</a>
+                      <a href="dq3_damage.html#dq3.damage.behavior.C90AF7">5.8.2.1. サブルーチン <code class="varname">$C90AF7</code>: ダメージ決定サブルーチン</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_damage.html#dq3.damage.structure.methods">5.9.1.2. 構造体の属性へのアクセス</a>
-                    </span>
-                  </dt>
-                </dl>
-              </dd>
-              <dt>
-                <span class="section">
-                  <a href="dq3_damage.html#dq3.damage.behavior">5.9.2. 振る舞いに関する構成要素</a>
-                </span>
-              </dt>
-              <dd>
-                <dl>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_damage.html#dq3.damage.behavior.C90AF7">5.9.2.1. サブルーチン <code class="varname">$C90AF7</code>: ダメージ決定サブルーチン</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_damage.html#dq3.damage.behavior.C90B3A">5.9.2.2. サブルーチン <code class="varname">$C90B3A</code>: ダメージ決定サブルーチン</a>
+                      <a href="dq3_damage.html#dq3.damage.behavior.C90B3A">5.8.2.2. サブルーチン <code class="varname">$C90B3A</code>: ダメージ決定サブルーチン</a>
                     </span>
                   </dt>
                 </dl>
@@ -285,165 +247,73 @@
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_windows.html">5.10. ウィンドウ</a>
+              <a href="dq3_windows.html">5.9. ウィンドウ</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_windows.html#dq3.windows.structure">5.10.1. 構造に関する構成要素</a>
+                  <a href="dq3_windows.html#dq3.windows.structure">5.9.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_windows.html#dq3.windows.structure.C30000">5.10.1.1. 構造体 <code class="varname">$C30000</code>: ウィンドウ</a>
+                      <a href="dq3_windows.html#dq3.windows.structure.C30000">5.9.1.1. 構造体 <code class="varname">$C30000</code>: ウィンドウ</a>
                     </span>
                   </dt>
                 </dl>
               </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_windows.html#dq3.windows.behavior">5.10.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_windows.html#dq3.windows.behavior">5.9.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
             </dl>
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_kings.html">5.11. 王様</a>
+              <a href="dq3_kings.html">5.10. 王様</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_kings.html#dq3.kings.structure">5.11.1. 構造に関する構成要素</a>
+                  <a href="dq3_kings.html#dq3.kings.structure">5.10.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_kings.html#dq3.kings.structure.C3C1D9">5.11.1.1. 配列 <code class="varname">$C3C1D9</code>: 王様台詞集</a>
+                      <a href="dq3_kings.html#dq3.kings.structure.C3C1D9">5.10.1.1. 配列 <code class="varname">$C3C1D9</code>: 王様台詞集</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_kings.html#dq3.kings.structure.C3C2F6">5.11.1.2. 配列 <code class="varname">$C3C2F6</code>: ルイーダの酒場の尼台詞集</a>
+                      <a href="dq3_kings.html#dq3.kings.structure.C3C2F6">5.10.1.2. 配列 <code class="varname">$C3C2F6</code>: ルイーダの酒場の尼台詞集</a>
                     </span>
                   </dt>
                 </dl>
               </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_kings.html#dq3.kings.behavior">5.11.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_kings.html#dq3.kings.behavior">5.10.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_kings.html#dq3.kings.behavior.C3C07E">5.11.2.1. サブルーチン <code class="varname">$C3C07E</code>: 王様</a>
+                      <a href="dq3_kings.html#dq3.kings.behavior.C3C07E">5.10.2.1. サブルーチン <code class="varname">$C3C07E</code>: 王様</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_kings.html#dq3.kings.behavior.C3C251">5.11.2.2. サブルーチン <code class="varname">$C3C251</code>: ルイーダの酒場の尼</a>
-                    </span>
-                  </dt>
-                </dl>
-              </dd>
-            </dl>
-          </dd>
-          <dt>
-            <span class="section">
-              <a href="dq3_shops.html">5.12. 店屋</a>
-            </span>
-          </dt>
-          <dd>
-            <dl>
-              <dt>
-                <span class="section">
-                  <a href="dq3_shops.html#dq3.shops.structure">5.12.1. 構造に関する構成要素</a>
-                </span>
-              </dt>
-              <dd>
-                <dl>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_shops.html#dq3.shops.structure.C30900">5.12.1.1. 構造体 <code class="varname">$C30900</code>: 店屋</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_shops.html#dq3.shops.structure.C3CA2A">5.12.1.2. 店屋台詞集</a>
-                    </span>
-                  </dt>
-                </dl>
-              </dd>
-              <dt>
-                <span class="section">
-                  <a href="dq3_shops.html#dq3.shops.behavior">5.12.2. 振る舞いに関する構成要素</a>
-                </span>
-              </dt>
-              <dd>
-                <dl>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_shops.html#dq3.shops.behavior.C3C77C">5.12.2.1. サブルーチン <code class="varname">$C3C77C</code>: 店屋</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_shops.html#dq3.shops.behavior.C3C7EF">5.12.2.2. サブルーチン <code class="varname">$C3C7EF</code>: かいにきた</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_shops.html#dq3.shops.behavior.C3CB74">5.12.2.3. サブルーチン <code class="varname">$C3CB74</code>: 購入時呪い処理</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_shops.html#dq3.shops.behavior.C3CBBE">5.12.2.4. サブルーチン <code class="varname">$C3CBBE</code>: 売却時呪い処理</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_shops.html#dq3.shops.behavior.C3CC21">5.12.2.5. サブルーチン <code class="varname">$C3CC21</code>: 所持金が十分あるか判定する</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_shops.html#dq3.shops.behavior.C3CC37">5.12.2.6. サブルーチン <code class="varname">$C3CC37</code>: 購入代金を計算する</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_shops.html#dq3.shops.behavior.C3CC51">5.12.2.7. サブルーチン <code class="varname">$C3CC51</code>: 購入取引成立処理</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_shops.html#dq3.shops.behavior.C3CCB1">5.12.2.8. サブルーチン <code class="varname">$C3CCB1</code>: うりにきた</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_shops.html#dq3.shops.behavior.C3CE2A">5.12.2.9. サブルーチン <code class="varname">$C3CE2A</code>: 所持金の増え方を調べる</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_shops.html#dq3.shops.behavior.C3CE5B">5.12.2.10. サブルーチン <code class="varname">$C3CE5B</code>: 売却取引成立処理</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_shops.html#dq3.shops.behavior.C3CE93">5.12.2.11. サブルーチン <code class="varname">$C3CE93</code>: 仲間の誰かまたはふくろにアイテムがあるか調べる</a>
+                      <a href="dq3_kings.html#dq3.kings.behavior.C3C251">5.10.2.2. サブルーチン <code class="varname">$C3C251</code>: ルイーダの酒場の尼</a>
                     </span>
                   </dt>
                 </dl>
@@ -452,26 +322,90 @@
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_overcharge.html">5.13. ふっかけ店屋</a>
+              <a href="dq3_shops.html">5.11. 店屋</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_overcharge.html#dq3.overcharge.structure">5.13.1. 構造に関する構成要素</a>
-                </span>
-              </dt>
-              <dt>
-                <span class="section">
-                  <a href="dq3_overcharge.html#dq3.overcharge.behavior">5.13.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_shops.html#dq3.shops.structure">5.11.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_overcharge.html#dq3.overcharge.behavior.C3CF9B">5.13.2.1. サブルーチン <code class="varname">$C3CF9B</code>: ふっかけ店屋</a>
+                      <a href="dq3_shops.html#dq3.shops.structure.C30900">5.11.1.1. 構造体 <code class="varname">$C30900</code>: 店屋</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shops.html#dq3.shops.structure.C3CA2A">5.11.1.2. 店屋台詞集</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_shops.html#dq3.shops.behavior">5.11.2. 振る舞いに関する構成要素</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shops.html#dq3.shops.behavior.C3C77C">5.11.2.1. サブルーチン <code class="varname">$C3C77C</code>: 店屋</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shops.html#dq3.shops.behavior.C3C7EF">5.11.2.2. サブルーチン <code class="varname">$C3C7EF</code>: かいにきた</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shops.html#dq3.shops.behavior.C3CB74">5.11.2.3. サブルーチン <code class="varname">$C3CB74</code>: 購入時呪い処理</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shops.html#dq3.shops.behavior.C3CBBE">5.11.2.4. サブルーチン <code class="varname">$C3CBBE</code>: 売却時呪い処理</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shops.html#dq3.shops.behavior.C3CC21">5.11.2.5. サブルーチン <code class="varname">$C3CC21</code>: 所持金が十分あるか判定する</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shops.html#dq3.shops.behavior.C3CC37">5.11.2.6. サブルーチン <code class="varname">$C3CC37</code>: 購入代金を計算する</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shops.html#dq3.shops.behavior.C3CC51">5.11.2.7. サブルーチン <code class="varname">$C3CC51</code>: 購入取引成立処理</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shops.html#dq3.shops.behavior.C3CCB1">5.11.2.8. サブルーチン <code class="varname">$C3CCB1</code>: うりにきた</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shops.html#dq3.shops.behavior.C3CE2A">5.11.2.9. サブルーチン <code class="varname">$C3CE2A</code>: 所持金の増え方を調べる</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shops.html#dq3.shops.behavior.C3CE5B">5.11.2.10. サブルーチン <code class="varname">$C3CE5B</code>: 売却取引成立処理</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_shops.html#dq3.shops.behavior.C3CE93">5.11.2.11. サブルーチン <code class="varname">$C3CE93</code>: 仲間の誰かまたはふくろにアイテムがあるか調べる</a>
                     </span>
                   </dt>
                 </dl>
@@ -480,80 +414,26 @@
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_inns.html">5.14. 宿屋</a>
+              <a href="dq3_overcharge.html">5.12. ふっかけ店屋</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_inns.html#dq3.inns.structure">5.14.1. 構造に関する構成要素</a>
+                  <a href="dq3_overcharge.html#dq3.overcharge.structure">5.12.1. 構造に関する構成要素</a>
                 </span>
               </dt>
-              <dd>
-                <dl>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_inns.html#dq3.inns.structure.C30A98">5.14.1.1. 構造体 <code class="varname">$C30A98</code>: 宿屋</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_inns.html#dq3.inns.structure.C3D2C3">5.14.1.2. 配列 <code class="varname">$C3D2C3</code>: 最初の挨拶</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_inns.html#dq3.inns.structure.C3D2C7">5.14.1.3. 配列 <code class="varname">$C3D2C7</code>: 宿泊費の案内</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_inns.html#dq3.inns.structure.C3D2CB">5.14.1.4. 配列 <code class="varname">$C3D2CB</code>: 宿泊しないときの台詞</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_inns.html#dq3.inns.structure.C3D2CF">5.14.1.5. 配列 <code class="varname">$C3D2CF</code>: 所持金不足のときの台詞</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_inns.html#dq3.inns.structure.C3D2D3">5.14.1.6. 配列 <code class="varname">$C3D2D3</code>: 宿泊するときの台詞</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_inns.html#dq3.inns.structure.C3D2D7">5.14.1.7. 配列 <code class="varname">$C3D2D7</code>: 宿泊後の台詞</a>
-                    </span>
-                  </dt>
-                </dl>
-              </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_inns.html#dq3.inns.behavior">5.14.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_overcharge.html#dq3.overcharge.behavior">5.12.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_inns.html#dq3.inns.behavior.C3D0F8">5.14.2.1. サブルーチン <code class="varname">$C3D0F8</code>: 普通の宿屋</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_inns.html#dq3.inns.behavior.C3D1D6">5.14.2.2. サブルーチン <code class="varname">$C3D1D6</code>: 「おおごえ」で現れる旅の宿屋</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_inns.html#dq3.inns.behavior.C3D1F1">5.14.2.3. サブルーチン <code class="varname">$C3D1F1</code>: すごろくの宿屋</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_inns.html#dq3.inns.behavior.C3D20C">5.14.2.4. サブルーチン <code class="varname">$C3D20C</code>: 旅・すごろく宿屋共通</a>
+                      <a href="dq3_overcharge.html#dq3.overcharge.behavior.C3CF9B">5.12.2.1. サブルーチン <code class="varname">$C3CF9B</code>: ふっかけ店屋</a>
                     </span>
                   </dt>
                 </dl>
@@ -562,50 +442,80 @@
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_chapels.html">5.15. 教会</a>
+              <a href="dq3_inns.html">5.13. 宿屋</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_chapels.html#dq3.chapels.structure">5.15.1. 構造に関する構成要素</a>
+                  <a href="dq3_inns.html#dq3.inns.structure">5.13.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_chapels.html#dq3.chapels.structure.C3D50C">5.15.1.1. 配列 <code class="varname">$C3D50C</code>: 神父台詞集</a>
+                      <a href="dq3_inns.html#dq3.inns.structure.C30A98">5.13.1.1. 構造体 <code class="varname">$C30A98</code>: 宿屋</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_inns.html#dq3.inns.structure.C3D2C3">5.13.1.2. 配列 <code class="varname">$C3D2C3</code>: 最初の挨拶</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_inns.html#dq3.inns.structure.C3D2C7">5.13.1.3. 配列 <code class="varname">$C3D2C7</code>: 宿泊費の案内</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_inns.html#dq3.inns.structure.C3D2CB">5.13.1.4. 配列 <code class="varname">$C3D2CB</code>: 宿泊しないときの台詞</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_inns.html#dq3.inns.structure.C3D2CF">5.13.1.5. 配列 <code class="varname">$C3D2CF</code>: 所持金不足のときの台詞</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_inns.html#dq3.inns.structure.C3D2D3">5.13.1.6. 配列 <code class="varname">$C3D2D3</code>: 宿泊するときの台詞</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_inns.html#dq3.inns.structure.C3D2D7">5.13.1.7. 配列 <code class="varname">$C3D2D7</code>: 宿泊後の台詞</a>
                     </span>
                   </dt>
                 </dl>
               </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_chapels.html#dq3.chapels.behavior">5.15.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_inns.html#dq3.inns.behavior">5.13.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_chapels.html#dq3.chapels.behavior.C3D49C">5.15.2.1. サブルーチン <code class="varname">$C3D49C</code>: 教会処理</a>
+                      <a href="dq3_inns.html#dq3.inns.behavior.C3D0F8">5.13.2.1. サブルーチン <code class="varname">$C3D0F8</code>: 普通の宿屋</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_chapels.html#dq3.chapels.behavior.C3D554">5.15.2.2. サブルーチン <code class="varname">$C3D554</code>: いきかえらせる</a>
+                      <a href="dq3_inns.html#dq3.inns.behavior.C3D1D6">5.13.2.2. サブルーチン <code class="varname">$C3D1D6</code>: 「おおごえ」で現れる旅の宿屋</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_chapels.html#dq3.chapels.behavior.C3D5DD">5.15.2.3. サブルーチン <code class="varname">$C3D5DD</code>: どくのちりょう</a>
+                      <a href="dq3_inns.html#dq3.inns.behavior.C3D1F1">5.13.2.3. サブルーチン <code class="varname">$C3D1F1</code>: すごろくの宿屋</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_chapels.html#dq3.chapels.behavior.C3D64A">5.15.2.4. サブルーチン <code class="varname">$C3D64A</code>: のろいをとく</a>
+                      <a href="dq3_inns.html#dq3.inns.behavior.C3D20C">5.13.2.4. サブルーチン <code class="varname">$C3D20C</code>: 旅・すごろく宿屋共通</a>
                     </span>
                   </dt>
                 </dl>
@@ -614,41 +524,50 @@
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_luida.html">5.16. ルイーダの酒場</a>
+              <a href="dq3_chapels.html">5.14. 教会</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_luida.html#luida.structure">5.16.1. 構造に関する構成要素</a>
-                </span>
-              </dt>
-              <dt>
-                <span class="section">
-                  <a href="dq3_luida.html#dq3.luida.behavior">5.16.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_chapels.html#dq3.chapels.structure">5.14.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_luida.html#dq3.luida.C3D760">5.16.2.1. サブルーチン <code class="varname">$C3D760</code>: ルイーダの酒場処理</a>
+                      <a href="dq3_chapels.html#dq3.chapels.structure.C3D50C">5.14.1.1. 配列 <code class="varname">$C3D50C</code>: 神父台詞集</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_chapels.html#dq3.chapels.behavior">5.14.2. 振る舞いに関する構成要素</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_chapels.html#dq3.chapels.behavior.C3D49C">5.14.2.1. サブルーチン <code class="varname">$C3D49C</code>: 教会処理</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_luida.html#dq3.luida.behavior.C3D7BB">5.16.2.2. サブルーチン <code class="varname">$D7BB</code>: なかまをあずける</a>
+                      <a href="dq3_chapels.html#dq3.chapels.behavior.C3D554">5.14.2.2. サブルーチン <code class="varname">$C3D554</code>: いきかえらせる</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_luida.html#dq3.luida.behavior.C3D8E8">5.16.2.3. サブルーチン <code class="varname">$C3D8E8</code>: なかまをよびだす</a>
+                      <a href="dq3_chapels.html#dq3.chapels.behavior.C3D5DD">5.14.2.3. サブルーチン <code class="varname">$C3D5DD</code>: どくのちりょう</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_luida.html#dq3.luida.behavior.C3D983">5.16.2.4. サブルーチン <code class="varname">$C3D983</code>: めいぼをみる</a>
+                      <a href="dq3_chapels.html#dq3.chapels.behavior.C3D64A">5.14.2.4. サブルーチン <code class="varname">$C3D64A</code>: のろいをとく</a>
                     </span>
                   </dt>
                 </dl>
@@ -657,55 +576,41 @@
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_registration.html">5.17. 冒険者たちの登録所</a>
+              <a href="dq3_luida.html">5.15. ルイーダの酒場</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_registration.html#dq3.registration.structure">5.17.1. 構造に関する構成要素</a>
+                  <a href="dq3_luida.html#luida.structure">5.15.1. 構造に関する構成要素</a>
                 </span>
               </dt>
-              <dd>
-                <dl>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_registration.html#dq3.registration.structure.C30EFD">5.17.1.1. 構造体 <code class="varname">$C30EFD</code>: 初期性格条件</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_registration.html#dq3.registration.structure.C30FFC">5.17.1.2. 構造体 <code class="varname">C30FFC</code>: 初期性格確率分布</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_registration.html#dq3.registration.structure.C3E2EA">5.17.1.3. 配列 <code class="varname">$C3E2EA</code>: 登録所性格評価台詞</a>
-                    </span>
-                  </dt>
-                </dl>
-              </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_registration.html#dq3.registration.behavior">5.17.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_luida.html#dq3.luida.behavior">5.15.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_registration.html#dq3.registration.behavior.C3DAEB">5.17.2.1. サブルーチン <code class="varname">$C3DAEB</code>: 登録所メイン</a>
+                      <a href="dq3_luida.html#dq3.luida.C3D760">5.15.2.1. サブルーチン <code class="varname">$C3D760</code>: ルイーダの酒場処理</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_registration.html#dq3.registration.behavior.C3DD13">5.17.2.2. サブルーチン <code class="varname">$C3DD13</code>: キャラクター削除</a>
+                      <a href="dq3_luida.html#dq3.luida.behavior.C3D7BB">5.15.2.2. サブルーチン <code class="varname">$D7BB</code>: なかまをあずける</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_registration.html#dq3.registration.behavior.C3DE95">5.17.2.3. サブルーチン <code class="varname">$C3DE95</code>: 性格決定</a>
+                      <a href="dq3_luida.html#dq3.luida.behavior.C3D8E8">5.15.2.3. サブルーチン <code class="varname">$C3D8E8</code>: なかまをよびだす</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_luida.html#dq3.luida.behavior.C3D983">5.15.2.4. サブルーチン <code class="varname">$C3D983</code>: めいぼをみる</a>
                     </span>
                   </dt>
                 </dl>
@@ -714,36 +619,55 @@
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_bank.html">5.18. ゴールド銀行</a>
+              <a href="dq3_registration.html">5.16. 冒険者たちの登録所</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_bank.html#dq3.bank.structure">5.18.1. 構造に関する構成要素</a>
-                </span>
-              </dt>
-              <dt>
-                <span class="section">
-                  <a href="dq3_bank.html#dq3.bank.behavior">5.18.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_registration.html#dq3.registration.structure">5.16.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_bank.html#dq3.bank.behavior.C3E2F2">5.18.2.1. サブルーチン <code class="varname">$C3E2F2</code>: ゴールド銀行メイン</a>
+                      <a href="dq3_registration.html#dq3.registration.structure.C30EFD">5.16.1.1. 構造体 <code class="varname">$C30EFD</code>: 初期性格条件</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_bank.html#dq3.bank.behavior.C3E39E">5.18.2.2. サブルーチン <code class="varname">$C3E39E</code>: あずける</a>
+                      <a href="dq3_registration.html#dq3.registration.structure.C30FFC">5.16.1.2. 構造体 <code class="varname">C30FFC</code>: 初期性格確率分布</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_bank.html#dq3.bank.behavior.C3E410">5.18.2.3. サブルーチン <code class="varname">$C3E410</code>: ひきだす</a>
+                      <a href="dq3_registration.html#dq3.registration.structure.C3E2EA">5.16.1.3. 配列 <code class="varname">$C3E2EA</code>: 登録所性格評価台詞</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_registration.html#dq3.registration.behavior">5.16.2. 振る舞いに関する構成要素</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_registration.html#dq3.registration.behavior.C3DAEB">5.16.2.1. サブルーチン <code class="varname">$C3DAEB</code>: 登録所メイン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_registration.html#dq3.registration.behavior.C3DD13">5.16.2.2. サブルーチン <code class="varname">$C3DD13</code>: キャラクター削除</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_registration.html#dq3.registration.behavior.C3DE95">5.16.2.3. サブルーチン <code class="varname">$C3DE95</code>: 性格決定</a>
                     </span>
                   </dt>
                 </dl>
@@ -752,46 +676,36 @@
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_dharma.html">5.19. 転職</a>
+              <a href="dq3_bank.html">5.17. ゴールド銀行</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_dharma.html#dq3.dharma.structure">5.19.1. 構造に関する構成要素</a>
+                  <a href="dq3_bank.html#dq3.bank.structure">5.17.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq3_dharma.html#dq3.dharma.behavior">5.19.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_bank.html#dq3.bank.behavior">5.17.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_dharma.html#dq3.dharma.behavior.C3E477">5.19.2.1. サブルーチン <code class="varname">$C3E477</code>: ダーマの神官との対話的処理</a>
+                      <a href="dq3_bank.html#dq3.bank.behavior.C3E2F2">5.17.2.1. サブルーチン <code class="varname">$C3E2F2</code>: ゴールド銀行メイン</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_dharma.html#dq3.dharma.behavior.C3E5F8">5.19.2.2. サブルーチン <code class="varname">$C3E5F8</code>: 性格によっては神官が一言加える</a>
+                      <a href="dq3_bank.html#dq3.bank.behavior.C3E39E">5.17.2.2. サブルーチン <code class="varname">$C3E39E</code>: あずける</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_dharma.html#dq3.dharma.behavior.C3E79C">5.19.2.3. サブルーチン <code class="varname">$C3E79C</code>: 「さとりのしょ」を消費する</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_dharma.html#dq3.dharma.behavior.C3E7CC">5.19.2.4. サブルーチン <code class="varname">$C3E7CC</code>: 装備を交換する</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_dharma.html#dq3.dharma.behavior.C3E7ED">5.19.2.5. サブルーチン <code class="varname">$C3E7ED</code>: 最適な装備品を調べる</a>
+                      <a href="dq3_bank.html#dq3.bank.behavior.C3E410">5.17.2.3. サブルーチン <code class="varname">$C3E410</code>: ひきだす</a>
                     </span>
                   </dt>
                 </dl>
@@ -800,65 +714,46 @@
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_rename.html">5.20. 命名神</a>
+              <a href="dq3_dharma.html">5.18. 転職</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_rename.html#dq3.rename.structure">5.20.1. 構造に関する構成要素</a>
+                  <a href="dq3_dharma.html#dq3.dharma.structure">5.18.1. 構造に関する構成要素</a>
                 </span>
               </dt>
-              <dd>
-                <dl>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_rename.html#dq3.rename.structure.C30AF5">5.20.1.1. 配列 <code class="varname">$C30AF5</code>: ふざけた名前</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_rename.html#dq3.rename.structure.C31368">5.20.1.2. 配列 <code class="varname">$C31368</code>: 予約名</a>
-                    </span>
-                  </dt>
-                </dl>
-              </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_rename.html#dq3.rename.behavior">5.20.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_dharma.html#dq3.dharma.behavior">5.18.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_rename.html#dq3.rename.behavior.C3E8D3">5.20.2.1. サブルーチン <code class="varname">$C3E8D3</code>: 命名神メイン</a>
+                      <a href="dq3_dharma.html#dq3.dharma.behavior.C3E477">5.18.2.1. サブルーチン <code class="varname">$C3E477</code>: ダーマの神官との対話的処理</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_rename.html#dq3.rename.behavior.C3EB2B">5.20.2.2. サブルーチン <code class="varname">$C3EB2B</code>: 名前がふざけた名前かどうか</a>
+                      <a href="dq3_dharma.html#dq3.dharma.behavior.C3E5F8">5.18.2.2. サブルーチン <code class="varname">$C3E5F8</code>: 性格によっては神官が一言加える</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_rename.html#dq3.rename.behavior.C3EB3F">5.20.2.3. サブルーチン <code class="varname">$C3EB3F</code>: 入力が予約名かどうか</a>
+                      <a href="dq3_dharma.html#dq3.dharma.behavior.C3E79C">5.18.2.3. サブルーチン <code class="varname">$C3E79C</code>: 「さとりのしょ」を消費する</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_rename.html#dq3.rename.behavior.C3EB53">5.20.2.4. サブルーチン <code class="varname">$C3EB53</code>: 名前テスト共通</a>
+                      <a href="dq3_dharma.html#dq3.dharma.behavior.C3E7CC">5.18.2.4. サブルーチン <code class="varname">$C3E7CC</code>: 装備を交換する</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_rename.html#dq3.rename.behavior.C3EBAB">5.20.2.5. サブルーチン <code class="varname">C3EBAB</code>: 名前が同一文字の連続形かどうか</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_rename.html#dq3.rename.behavior.C3EBCD">5.20.2.6. サブルーチン <code class="varname">$C3EBCD</code>: 現在の名前が怒りに触れているかどうか</a>
+                      <a href="dq3_dharma.html#dq3.dharma.behavior.C3E7ED">5.18.2.5. サブルーチン <code class="varname">$C3E7ED</code>: 最適な装備品を調べる</a>
                     </span>
                   </dt>
                 </dl>
@@ -867,45 +762,65 @@
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_matchmake.html">5.21. 格闘場</a>
+              <a href="dq3_rename.html">5.19. 命名神</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_matchmake.html#dq3.matchmake.structure">5.21.1. 構造に関する構成要素</a>
+                  <a href="dq3_rename.html#dq3.rename.structure">5.19.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_matchmake.html#dq3.matchmake.structure.C30DC5">5.21.1.1. 構造体 <code class="varname">$C30DC5</code>: マッチメイク</a>
+                      <a href="dq3_rename.html#dq3.rename.structure.C30AF5">5.19.1.1. 配列 <code class="varname">$C30AF5</code>: ふざけた名前</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_rename.html#dq3.rename.structure.C31368">5.19.1.2. 配列 <code class="varname">$C31368</code>: 予約名</a>
                     </span>
                   </dt>
                 </dl>
               </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_matchmake.html#dq3.matchmake.behavior">5.21.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_rename.html#dq3.rename.behavior">5.19.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_matchmake.html#dq3.matchmake.behavior.C3EC84">5.21.2.1. サブルーチン <code class="varname">$C3EC84</code>: マッチメイク処理</a>
+                      <a href="dq3_rename.html#dq3.rename.behavior.C3E8D3">5.19.2.1. サブルーチン <code class="varname">$C3E8D3</code>: 命名神メイン</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_matchmake.html#dq3.matchmake.behavior.C3EE64">5.21.2.2. サブルーチン <code class="varname">$C3EE64</code>: 格闘場処理</a>
+                      <a href="dq3_rename.html#dq3.rename.behavior.C3EB2B">5.19.2.2. サブルーチン <code class="varname">$C3EB2B</code>: 名前がふざけた名前かどうか</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_matchmake.html#dq3.matchmake.behavior.C3EFBE">5.21.2.3. サブルーチン <code class="varname">$C3EFBE</code>: 予想屋処理</a>
+                      <a href="dq3_rename.html#dq3.rename.behavior.C3EB3F">5.19.2.3. サブルーチン <code class="varname">$C3EB3F</code>: 入力が予約名かどうか</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_rename.html#dq3.rename.behavior.C3EB53">5.19.2.4. サブルーチン <code class="varname">$C3EB53</code>: 名前テスト共通</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_rename.html#dq3.rename.behavior.C3EBAB">5.19.2.5. サブルーチン <code class="varname">C3EBAB</code>: 名前が同一文字の連続形かどうか</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_rename.html#dq3.rename.behavior.C3EBCD">5.19.2.6. サブルーチン <code class="varname">$C3EBCD</code>: 現在の名前が怒りに触れているかどうか</a>
                     </span>
                   </dt>
                 </dl>
@@ -914,83 +829,45 @@
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_horoscope.html">5.22. 星座</a>
+              <a href="dq3_matchmake.html">5.20. 格闘場</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_horoscope.html#dq3.horoscope.structure">5.22.1. 構造に関する構成要素</a>
+                  <a href="dq3_matchmake.html#dq3.matchmake.structure">5.20.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_horoscope.html#dq3.horoscope.structure.C31308">5.22.1.1. 構造体 <code class="varname">$C31308</code>: 星座</a>
+                      <a href="dq3_matchmake.html#dq3.matchmake.structure.C30DC5">5.20.1.1. 構造体 <code class="varname">$C30DC5</code>: マッチメイク</a>
                     </span>
                   </dt>
                 </dl>
               </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_horoscope.html#dq3.horoscope.behavior">5.22.2. 振る舞いに関する構成要素</a>
-                </span>
-              </dt>
-            </dl>
-          </dd>
-          <dt>
-            <span class="section">
-              <a href="dq3_medals.html">5.23. メダルおじさん</a>
-            </span>
-          </dt>
-          <dd>
-            <dl>
-              <dt>
-                <span class="section">
-                  <a href="dq3_medals.html#dq3.medals.structure">5.23.1. 構造に関する構成要素</a>
+                  <a href="dq3_matchmake.html#dq3.matchmake.behavior">5.20.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_medals.html#dq3.medals.structure.C31350">5.23.1.1. 構造体 <code class="varname">$C31350</code>: メダルおじさんの景品</a>
-                    </span>
-                  </dt>
-                </dl>
-              </dd>
-              <dt>
-                <span class="section">
-                  <a href="dq3_medals.html#dq3.medals.behavior">5.23.2. 振る舞いに関する構成要素</a>
-                </span>
-              </dt>
-              <dd>
-                <dl>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_medals.html#dq3.medals.behavior.C3F076">5.23.2.1. サブルーチン <code class="varname">$C3F076</code>: メダルおじさんメイン</a>
+                      <a href="dq3_matchmake.html#dq3.matchmake.behavior.C3EC84">5.20.2.1. サブルーチン <code class="varname">$C3EC84</code>: マッチメイク処理</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_medals.html#dq3.medals.behavior.C3F199">5.23.2.2. サブルーチン <code class="varname">$C3F199</code>: 次の景品を調べる</a>
+                      <a href="dq3_matchmake.html#dq3.matchmake.behavior.C3EE64">5.20.2.2. サブルーチン <code class="varname">$C3EE64</code>: 格闘場処理</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_medals.html#dq3.medals.behavior.C3F1BD">5.23.2.3. サブルーチン <code class="varname">$C3F1BD</code>: 持参したメダルを回収する</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_medals.html#dq3.medals.behavior.C3F21E">5.23.2.4. サブルーチン <code class="varname">$C3F21E</code>: 報酬 ID に対してアイテムを取得する</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_medals.html#dq3.medals.behavior.C3F239">5.23.2.5. サブルーチン <code class="varname">$C3F239</code>: 報酬 ID に対して必要枚数を取得する</a>
+                      <a href="dq3_matchmake.html#dq3.matchmake.behavior.C3EFBE">5.20.2.3. サブルーチン <code class="varname">$C3EFBE</code>: 予想屋処理</a>
                     </span>
                   </dt>
                 </dl>
@@ -999,129 +876,83 @@
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_items.html">5.24. アイテム</a>
+              <a href="dq3_horoscope.html">5.21. 星座</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_items.html#dq3.items.structure">5.24.1. 構造に関する構成要素</a>
+                  <a href="dq3_horoscope.html#dq3.horoscope.structure">5.21.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_items.html#dq3.items.structure.C40043">5.24.1.1. 構造体 <code class="varname">$C40043</code>: アイテム</a>
+                      <a href="dq3_horoscope.html#dq3.horoscope.structure.C31308">5.21.1.1. 構造体 <code class="varname">$C31308</code>: 星座</a>
                     </span>
                   </dt>
                 </dl>
               </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_items.html#dq3.items.behavior">5.24.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_horoscope.html#dq3.horoscope.behavior">5.21.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
             </dl>
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_vocations.html">5.25. 職業</a>
+              <a href="dq3_medals.html">5.22. メダルおじさん</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_vocations.html#dq3.vocations.structure">5.25.1. 構造に関する構成要素</a>
+                  <a href="dq3_medals.html#dq3.medals.structure">5.22.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_vocations.html#dq3.vocations.structure.C4179E">5.25.1.1. 構造体 <code class="varname">$C4179E</code>: 職業</a>
+                      <a href="dq3_medals.html#dq3.medals.structure.C31350">5.22.1.1. 構造体 <code class="varname">$C31350</code>: メダルおじさんの景品</a>
                     </span>
                   </dt>
                 </dl>
               </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_vocations.html#dq3.vocations.behavior">5.25.2. 振る舞いに関する構成要素</a>
-                </span>
-              </dt>
-            </dl>
-          </dd>
-          <dt>
-            <span class="section">
-              <a href="dq3_personalities.html">5.26. 性格</a>
-            </span>
-          </dt>
-          <dd>
-            <dl>
-              <dt>
-                <span class="section">
-                  <a href="dq3_personalities.html#dq3.personalities.structure">5.26.1. 構造に関する構成要素</a>
+                  <a href="dq3_medals.html#dq3.medals.behavior">5.22.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_personalities.html#dq3.personalities.structure.C424BC">5.26.1.1. 構造体 <code class="varname">$C424BC</code>: 性格</a>
-                    </span>
-                  </dt>
-                </dl>
-              </dd>
-              <dt>
-                <span class="section">
-                  <a href="dq3_personalities.html#dq3.personalities.behavior">5.26.2. 振る舞いに関する構成要素</a>
-                </span>
-              </dt>
-            </dl>
-          </dd>
-          <dt>
-            <span class="section">
-              <a href="dq3_talk.html">5.27. はなす</a>
-            </span>
-          </dt>
-          <dd>
-            <dl>
-              <dt>
-                <span class="section">
-                  <a href="dq3_talk.html#dq3.talk.model">5.27.1. モデル</a>
-                </span>
-              </dt>
-              <dd>
-                <dl>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_talk.html#dq3.talk.model.C808DA">5.27.1.1. 構造体 <code class="varname">$C808DA</code>: 「はなす」対象</a>
+                      <a href="dq3_medals.html#dq3.medals.behavior.C3F076">5.22.2.1. サブルーチン <code class="varname">$C3F076</code>: メダルおじさんメイン</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_talk.html#dq3.talk.model.C893D4">5.27.1.2. 構造体 <code class="varname">$C893D4</code>: 「はなす」対象分類</a>
+                      <a href="dq3_medals.html#dq3.medals.behavior.C3F199">5.22.2.2. サブルーチン <code class="varname">$C3F199</code>: 次の景品を調べる</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_talk.html#dq3.talk.model.data">5.27.1.3. データ</a>
+                      <a href="dq3_medals.html#dq3.medals.behavior.C3F1BD">5.22.2.3. サブルーチン <code class="varname">$C3F1BD</code>: 持参したメダルを回収する</a>
                     </span>
                   </dt>
-                </dl>
-              </dd>
-              <dt>
-                <span class="section">
-                  <a href="dq3_talk.html#dq3.talk.process">5.27.2. 処理手順</a>
-                </span>
-              </dt>
-              <dd>
-                <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_talk.html#dq3.talk.process.example">5.27.2.1. 例：ルイーダ</a>
+                      <a href="dq3_medals.html#dq3.medals.behavior.C3F21E">5.22.2.4. サブルーチン <code class="varname">$C3F21E</code>: 報酬 ID に対してアイテムを取得する</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_medals.html#dq3.medals.behavior.C3F239">5.22.2.5. サブルーチン <code class="varname">$C3F239</code>: 報酬 ID に対して必要枚数を取得する</a>
                     </span>
                   </dt>
                 </dl>
@@ -1130,63 +961,237 @@
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_transition.html">5.28. 画面遷移</a>
+              <a href="dq3_items.html">5.23. アイテム</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_transition.html#dq3.transition.structure">5.28.1. 構造に関する構成要素</a>
+                  <a href="dq3_items.html#dq3.items.structure">5.23.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_transition.html#dq3.transition.structure.abstract">5.28.1.1. 共通属性の意味について</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_transition.html#dq3.transition.structure.C84CA2">5.28.1.2. 構造体 <code class="varname">$C84CA2</code>: 階段</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_transition.html#dq3.transition.structure.C856AA">5.28.1.3. 構造体 <code class="varname">$C856AA</code>: 水平線</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_transition.html#dq3.transition.structure.C85A62">5.28.1.4. 構造体 <code class="varname">$C85A62</code>: 垂直線</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_transition.html#dq3.transition.structure.C85A70">5.28.1.5. 構造体 <code class="varname">$C85A70</code>: 矩形</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_transition.html#dq3.transition.structure.C86A84">5.28.1.6. 構造体 <code class="varname">$C86A84</code>: ランシール</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_transition.html#dq3.transition.structure.C86A90">5.28.1.7. 構造体 <code class="varname">$C86A90</code>: 幽霊船</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_transition.html#dq3.transition.structure.C86A9A">5.28.1.8. 構造体 <code class="varname">$C86A9A</code>: 目的地点</a>
+                      <a href="dq3_items.html#dq3.items.structure.C40043">5.23.1.1. 構造体 <code class="varname">$C40043</code>: アイテム</a>
                     </span>
                   </dt>
                 </dl>
               </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_transition.html#dq3.transition.behavior">5.28.2. 振る舞いに関する構成要素</a>
+                  <a href="dq3_items.html#dq3.items.behavior">5.23.2. 振る舞いに関する構成要素</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_vocations.html">5.24. 職業</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_vocations.html#dq3.vocations.structure">5.24.1. 構造に関する構成要素</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_vocations.html#dq3.vocations.structure.C4179E">5.24.1.1. 構造体 <code class="varname">$C4179E</code>: 職業</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_vocations.html#dq3.vocations.behavior">5.24.2. 振る舞いに関する構成要素</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_personalities.html">5.25. 性格</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_personalities.html#dq3.personalities.structure">5.25.1. 構造に関する構成要素</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_personalities.html#dq3.personalities.structure.C424BC">5.25.1.1. 構造体 <code class="varname">$C424BC</code>: 性格</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_personalities.html#dq3.personalities.behavior">5.25.2. 振る舞いに関する構成要素</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_talk.html">5.26. はなす</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_talk.html#dq3.talk.model">5.26.1. モデル</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_talk.html#dq3.talk.model.C808DA">5.26.1.1. 構造体 <code class="varname">$C808DA</code>: 「はなす」対象</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_talk.html#dq3.talk.model.C893D4">5.26.1.2. 構造体 <code class="varname">$C893D4</code>: 「はなす」対象分類</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_talk.html#dq3.talk.model.data">5.26.1.3. データ</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_talk.html#dq3.talk.process">5.26.2. 処理手順</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_talk.html#dq3.talk.process.example">5.26.2.1. 例：ルイーダ</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_transition.html">5.27. 画面遷移</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_transition.html#dq3.transition.structure">5.27.1. 構造に関する構成要素</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_transition.html#dq3.transition.structure.abstract">5.27.1.1. 共通属性の意味について</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_transition.html#dq3.transition.structure.C84CA2">5.27.1.2. 構造体 <code class="varname">$C84CA2</code>: 階段</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_transition.html#dq3.transition.structure.C856AA">5.27.1.3. 構造体 <code class="varname">$C856AA</code>: 水平帯域</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_transition.html#dq3.transition.structure.C85A62">5.27.1.4. 構造体 <code class="varname">$C85A62</code>: 垂直帯域</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_transition.html#dq3.transition.structure.C85A70">5.27.1.5. 構造体 <code class="varname">$C85A70</code>: 矩形領域</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_transition.html#dq3.transition.structure.C86A84">5.27.1.6. 構造体 <code class="varname">$C86A84</code>: ランシール</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_transition.html#dq3.transition.structure.C86A90">5.27.1.7. 構造体 <code class="varname">$C86A90</code>: 幽霊船</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_transition.html#dq3.transition.structure.C86A9A">5.27.1.8. 構造体 <code class="varname">$C86A9A</code>: 目的地点</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_transition.html#dq3.transition.behavior">5.27.2. 振る舞いに関する構成要素</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_locations.html">5.28. 空間情報</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_locations.html#dq3.locations.structure">5.28.1. 構造に関する構成要素</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_locations.html#dq3.locations.structure.C802F4">5.28.1.1. 配列 <code class="varname">$C802F4</code>: 空間最小単位</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_locations.html#dq3.locations.structure.C8A3AF">5.28.1.2. 構造体 <code class="varname">$C8A3AF</code>: ルーラ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_locations.html#dq3.locations.structure.C8A6D4">5.28.1.3. 構造体 <code class="varname">$C8A6D4</code>: 場所</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_locations.html#dq3.locations.structure.C89BB7">5.28.1.4. 構造体 <code class="varname">$C89BB7</code>: 座標</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_locations.html#dq3.locations.behavior">5.28.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
             </dl>
@@ -1280,7 +1285,7 @@
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_encounter.html#dq3.encounter.structure.C8B736">5.30.1.4. 構造体 <code class="varname">$C8B736</code>: 通常戦レア</a>
+                      <a href="dq3_encounter.html#dq3.encounter.structure.C8B736">5.30.1.4. 構造体 <code class="varname">$C8B736</code>: 敵陣グループ固定戦</a>
                     </span>
                   </dt>
                 </dl>
@@ -1294,126 +1299,292 @@
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_pond.html">5.31. オルレラの泉</a>
+              <a href="dq3_sugoroku.html">5.31. すごろく</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_pond.html#dq3.pond.CCED57">5.31.1. イベント開始サブルーチン</a>
-                </span>
-              </dt>
-              <dt>
-                <span class="section">
-                  <a href="dq3_pond.html#dq3.pond.CBA5D6">5.31.2. オルレラとの初回でのやりとり</a>
-                </span>
-              </dt>
-              <dt>
-                <span class="section">
-                  <a href="dq3_pond.html#dq3.pond.CBA581">5.31.3. オルレラとの二回目以降でのやりとり</a>
-                </span>
-              </dt>
-            </dl>
-          </dd>
-          <dt>
-            <span class="section">
-              <a href="dq3_gallery.html">5.32. バカ画像</a>
-            </span>
-          </dt>
-          <dd>
-            <dl>
-              <dt>
-                <span class="section">
-                  <a href="dq3_gallery.html#dq3.gallery.ortega">5.32.1. オルテガ</a>
+                  <a href="dq3_sugoroku.html#dq3.sugoroku.structure">5.31.1. 構造に関する構成要素</a>
                 </span>
               </dt>
               <dd>
                 <dl>
                   <dt>
                     <span class="section">
-                      <a href="dq3_gallery.html#dq3.gallery.ortega.kinghydra">5.32.1.1. Feat. キングヒドラ</a>
+                      <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8D532">5.31.1.1. 構造体 <code class="varname">$C8D532</code>: すごろくマス</a>
                     </span>
                   </dt>
                   <dt>
                     <span class="section">
-                      <a href="dq3_gallery.html#dq3.gallery.ortega.henchman">5.32.1.2. Feat. カンダタこぶん</a>
+                      <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8EECA">5.31.1.2. 構造体 <code class="varname">$C8EECA</code>: すごろくマス分類</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F188">5.31.1.3. 配列 <code class="varname">$C8F188</code>: すごろくランダムイベントハンドラー</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F1F4">5.31.1.4. 構造体 <code class="varname">$C8F1F4</code>: すごろくランダムイベント列</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F2E4">5.31.1.5. 構造体 <code class="varname">$C8F2E4</code>: すごろく戦闘イベント</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F311">5.31.1.6. 配列 <code class="varname">$C8F311</code>: すごろくしらべるイベントハンドラー</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F323">5.31.1.7. 構造体 <code class="varname">$C8F323</code>: すごろく盤面</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F53F">5.31.1.8. 構造体 <code class="varname">$C8F53F</code>: すごろく店屋画像</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F551">5.31.1.9. 構造体 <code class="varname">$C8F551</code>: すごろくアイテム確率</a>
                     </span>
                   </dt>
                 </dl>
               </dd>
               <dt>
                 <span class="section">
-                  <a href="dq3_gallery.html#dq3.gallery.goods">5.32.2. 謎のアイテム</a>
-                </span>
-              </dt>
-              <dd>
-                <dl>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_gallery.html#dq3.gallery.goods.squirt">5.32.2.1. みずでっぽう</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_gallery.html#dq3.gallery.goods.crystal">5.32.2.2. すいしょうだま</a>
-                    </span>
-                  </dt>
-                  <dt>
-                    <span class="section">
-                      <a href="dq3_gallery.html#dq3.gallery.goods.orgel">5.32.2.3. しのオルゴール</a>
-                    </span>
-                  </dt>
-                </dl>
-              </dd>
-              <dt>
-                <span class="section">
-                  <a href="dq3_gallery.html#dq3.gallery.sentaku">5.32.3. せんたくスライム</a>
-                </span>
-              </dt>
-              <dt>
-                <span class="section">
-                  <a href="dq3_gallery.html#dq3.gallery.monmedal">5.32.4. ドラクエ 4 のモンスターメダル</a>
-                </span>
-              </dt>
-              <dt>
-                <span class="section">
-                  <a href="dq3_gallery.html#dq3.gallery.kennel">5.32.5. 犬小屋</a>
-                </span>
-              </dt>
-              <dt>
-                <span class="section">
-                  <a href="dq3_gallery.html#dq3.gallery.turn.65535">5.32.6. 戦闘ターン数 65535</a>
+                  <a href="dq3_sugoroku.html#dq3.sugoroku.behavior">5.31.2. 振る舞いに関する構成要素</a>
                 </span>
               </dt>
             </dl>
           </dd>
           <dt>
             <span class="section">
-              <a href="dq3_monster_medal_dq4.html">5.33. ドラクエ 4 のモンスターメダル</a>
+              <a href="dq3_debug.html">5.32. デバッグ</a>
             </span>
           </dt>
           <dd>
             <dl>
               <dt>
                 <span class="section">
-                  <a href="dq3_monster_medal_dq4.html#dq3.monmedal.dq4.hack">5.33.1. セーブデータ改造によるメダル採取</a>
+                  <a href="dq3_debug.html#dq3.debug.structure">5.32.1. 構造に関する構成要素</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_debug.html#dq3.debug.structure.C1FFFE">5.32.1.1. 定数 <code class="varname">$C1FFFE</code>: デバッグスイッチ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_debug.html#dq3.debug.structure.C8D4B0">5.32.1.2. 構造体 <code class="varname">$C8D4B0</code>: デバッグコマンド</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_debug.html#dq3.debug.structure.C8A3AF">5.32.1.3. 構造体 <code class="varname">$C8A3AF</code>: いんちきルーラ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_debug.html#dq3.debug.structure.C8F661">5.32.1.4. 構造体 <code class="varname">$C8F661</code>: フラグショップ</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_debug.html#dq3.debug.behavior">5.32.2. 振る舞いに関する構成要素</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_debug.html#dq3.debug.behavior.commands">5.32.2.1. デバッグコマンド群の振る舞い</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_debug.html#dq3.debug.behavior.sugoroku">5.32.2.2. すごろく</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_debug.html#dq3.debug.behavior.preset">5.32.2.3. 「ぼうけんのしょ３」新規作成でパーティーが編成済み</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_debug.html#dq3.debug.behavior.gameshow">5.32.2.4. ゲームショーモード</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_pond.html">5.33. オルレラの泉</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pond.html#dq3.pond.CCED57">5.33.1. イベント開始サブルーチン</a>
                 </span>
               </dt>
               <dt>
                 <span class="section">
-                  <a href="dq3_monster_medal_dq4.html#dq3.monmedal.dq4.ref">5.33.2. 参考サイト</a>
+                  <a href="dq3_pond.html#dq3.pond.CBA5D6">5.33.2. オルレラとの初回でのやりとり</a>
                 </span>
               </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_pond.html#dq3.pond.CBA581">5.33.3. オルレラとの二回目以降でのやりとり</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_gallery.html">5.34. バカ画像</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_gallery.html#dq3.gallery.battle">5.34.1. 戦闘</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.battle.65535">5.34.1.1. 戦闘ターン数 65535</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_gallery.html#dq3.gallery.monsters">5.34.2. モンスター</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.monsters.89">5.34.2.1. オルテガ</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.monsters.8F">5.34.2.2. せんたくバカ</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_gallery.html#dq3.gallery.windows">5.34.3. ウィンドウ</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.windows.01">5.34.3.1. ウィンドウ <code class="literal">#$01</code></a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.windows.43">5.34.3.2. ウィンドウ <code class="literal">#$43</code></a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_gallery.html#dq3.gallery.items">5.34.4. アイテム</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.items.2A">5.34.4.1. てつのそろばん</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.items.89">5.34.4.2. みずでっぽう</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.items.BD">5.34.4.3. すいしょうだま</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.items.C0">5.34.4.4. しのオルゴール</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_gallery.html#dq3.gallery.rooms">5.34.5. 空間</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.rooms.0163">5.34.5.1. 犬小屋</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
+              <dt>
+                <span class="section">
+                  <a href="dq3_gallery.html#dq3.gallery.sugoroku">5.34.6. すごろく</a>
+                </span>
+              </dt>
+              <dd>
+                <dl>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.sugoroku.cave">5.34.6.1. すごろくダンジョン</a>
+                    </span>
+                  </dt>
+                  <dt>
+                    <span class="section">
+                      <a href="dq3_gallery.html#dq3.gallery.sugoroku.shopkeeper">5.34.6.2. 未使用店員画像</a>
+                    </span>
+                  </dt>
+                </dl>
+              </dd>
             </dl>
           </dd>
         </dl>
       </div>
       <p>
-基本的に SFC 版ドラクエ 3 に関する解析について述べた文書である。 
-モンスターメダルの文書のみ GBC 版ドラクエ 3 (2000) に関する記述である。
+SFC 版ドラクエ 3 を解析する。
 </p>
     </div>
-    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_item_commands.html" title="4.22. 移動中の道具使用コマンド処理"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="part02.html" title="第 II 部 解析"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_debug.html" title="5.1. デバッグモード解析"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_item_commands.html">4.22. 移動中の道具使用コマンド処理</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="part02.html">第 II 部 解析</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_debug.html">5.1. デバッグモード解析</a></div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_item_commands.html" title="4.24. 移動中の道具使用コマンド処理"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="part02.html" title="第 II 部 解析"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_text.html" title="5.1. テキスト"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_item_commands.html">4.24. 移動中の道具使用コマンド処理</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="part02.html">第 II 部 解析</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_text.html">5.1. テキスト</a></div>
   </body>
 </html>

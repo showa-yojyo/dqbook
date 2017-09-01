@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.18. 空間情報</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_encounter.html" title="4.17. 敵との遭遇" />
+    <link rel="next" href="dq6_transition.html" title="4.19. 画面遷移" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_encounter.html" title="4.17. 敵との遭遇"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_transition.html" title="4.19. 画面遷移"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_encounter.html">4.17. 敵との遭遇</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_transition.html">4.19. 画面遷移</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.locations"></a>4.18. 空間情報</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_locations.html#dq6.locations.structure">4.18.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_locations.html#dq6.locations.structure.C815BF">4.18.1.1. 配列 <code class="varname">$C815BF</code>: 空間最小単位</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_locations.html#dq6.locations.structure.C8997A">4.18.1.2. 構造体 <code class="varname">$C8997A</code>: ルーラ</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_locations.html#dq6.locations.structure.C8A188">4.18.1.3. 構造体 <code class="varname">$C8A188</code>: 場所</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_locations.html#dq6.locations.structure.C8B314">4.18.1.4. 構造体 <code class="varname">$C8B314</code>: 座標</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_locations.html#dq6.locations.behavior">4.18.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+本節では ROM における空間情報の構成について述べる。
+ここで言う空間情報とは、パーティーがどこにいるのか、どこに移動しようとしているのか、
+そもそも「どこ」をどのように表現するのかを定義するデータ全般を指すものとする。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.locations.structure"></a>4.18.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+空間情報に関係するデータ構造について述べる。
+</p>
+        <div class="figure">
+          <a id="fig.dq6.cd.locations"></a>
+          <p class="title">
+            <strong>図 4.35 空間情報に関するクラス図</strong>
+          </p>
+          <div class="figure-contents">
+            <div>
+              <img src="./image/dq6.cd.locations.png" alt="空間情報に関するクラス図" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.locations.structure.C815BF"></a>4.18.1.1. 配列 <code class="varname">$C815BF</code>: 空間最小単位</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C815BF</code> から 1 バイト長要素の配列が定義されている。
+配列というよりは、フローミの呪文が取り扱う情報単位の ID から場所 ID への対応関係、または関数と解釈したほうがよい。
+</p>
+          <p>
+例を挙げると、この配列の添字 <code class="literal">#$01FB</code> から <code class="literal">#$0200</code> まではすべて値が
+<code class="literal">#$4E</code> であり、これらはすべてスライム格闘場を意味している。
+ただし、各要素は「格闘場エントランス→格闘場」、「格闘場地下会場→格闘場」、「格闘場地下控室→格闘場」……の相異なる対応をそれぞれ表現している。
+付録の CSV ではコメントを念入りにいれてあるので、読者はそれを見て配列が表現しているモデルを把握して欲しい。
+</p>
+          <p>
+読者が PAR 機能が利用可能ならば、ぜひアドレス <code class="varname">$7E5ED9</code> を観察して欲しい。
+これが現在パーティーがいる空間単位配列の添字値を表している。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.locations.structure.C8997A"></a>4.18.1.2. 構造体 <code class="varname">$C8997A</code>: ルーラ</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C8997A</code> からは次の表が表現する型のオブジェクトが多数配列されている。
+これらのオブジェクトはルーラの呪文を実現するのに必要な情報をいくつかの属性として保持する。
+</p>
+          <div class="table">
+            <a id="table.dq6.C8997A"></a>
+            <p class="title">
+              <strong>表 4.76 構造体 $C8997A</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C8997A" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>名前</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000F</code>
+                    </td>
+                    <td>フィールド分類</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$1FF0</code>
+                    </td>
+                    <td>ルーラ座標</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$3FE0</code>
+                    </td>
+                    <td>船座標 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$7FC0</code>
+                    </td>
+                    <td>船座標 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FF80</code>
+                    </td>
+                    <td>船座標 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FF</code>
+                    </td>
+                    <td>空飛ぶベッド座標</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FE</code>
+                    </td>
+                    <td>ひょうたん島座標 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$07FC</code>
+                    </td>
+                    <td>ひょうたん島座標 1</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味を次に説明する。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">名前</span>
+              </dt>
+              <dd>
+                <p>
+        ルーラメニューウィンドウの項目として表示するための文字列の ID を値とする属性だ。
+        文字列については <a class="xref" href="dq6_string.html" title="4.2. 文字列">4.2 文字列</a> で述べる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">フィールド分類</span>
+              </dt>
+              <dd>
+                <p>
+        この場所がどのフィールドにあるのかを示す値をとる属性だ。
+        ただし、データを見ると実情とそぐわない設定をされているオブジェクトがわずかに存在する。
+      </p>
+                <div class="table">
+                  <a id="table.dq6.fields"></a>
+                  <p class="title">
+                    <strong>表 4.77 フィールド分類</strong>
+                  </p>
+                  <div class="table-contents">
+                    <table id="table.dq6.fields" class="lighttable">
+                      <thead>
+                        <tr>
+                          <th>値</th>
+                          <th>意味</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <code class="literal">#$00</code>
+                          </td>
+                          <td>n/a</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$01</code>
+                          </td>
+                          <td>上フィールド</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$02</code>
+                          </td>
+                          <td>下フィールド</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$04</code>
+                          </td>
+                          <td>海底</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$08</code>
+                          </td>
+                          <td>はざまの世界</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <br class="table-break" />
+              </dd>
+              <dt>
+                <span class="term">ルーラ座標</span>
+              </dt>
+              <dd>
+                <p>
+        パーティーがルーラを実行した直後の彼らの位置を表現する座標オブジェクト
+        (<a class="xref" href="dq6_locations.html#dq6.locations.structure.C8B314" title="4.18.1.4. 構造体 $C8B314: 座標">4.18.1.4</a>)
+        の ID を値とする属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">船座標 k (k = 0..2)</span>
+              </dt>
+              <dd>
+                <p>
+        パーティーがルーラを実行した直後の船の位置を表現する座標オブジェクトの ID を値とする属性だ。
+        物語の進行状況によって、参照する k が決まる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">空飛ぶベッド座標</span>
+              </dt>
+              <dd>
+                <p>
+        パーティーがルーラを実行した直後の空飛ぶベッドの位置を表現する座標オブジェクトの ID を値とする属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ひょうたん島座標 k (k = 0..1)</span>
+              </dt>
+              <dd>
+                <p>
+        パーティーがルーラを実行した直後のひょうたん島の位置を表現する座標オブジェクトの ID を値とする属性だ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.locations.structure.C8A188"></a>4.18.1.3. 構造体 <code class="varname">$C8A188</code>: 場所</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C8A188</code> からは次の表が表現する型のオブジェクトが多数配列されている。
+これらのオブジェクトは先述した空間単位構成要素のいくつかを集約する構成要素を表現する。
+</p>
+          <div class="table">
+            <a id="table.dq6.C8A188"></a>
+            <p class="title">
+              <strong>表 4.78 構造体 $C8A188</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C8A188" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000F</code>
+                    </td>
+                    <td>フィールド分類</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>タカのめ許可</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$3FC0</code>
+                    </td>
+                    <td>ルーラ番号</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>ルーラ判定</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>リレミト許可</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$07FC</code>
+                    </td>
+                    <td>地図座標</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0FF8</code>
+                    </td>
+                    <td>リレミト座標 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$1FF0</code>
+                    </td>
+                    <td>リレミト座標 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>毒考慮</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>おおごえ許可</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>名前</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味を次に説明する。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">フィールド分類</span>
+              </dt>
+              <dd>
+                <p>
+        <a class="xref" href="dq6_locations.html#dq6.locations.structure.C8997A" title="4.18.1.2. 構造体 $C8997A: ルーラ">4.18.1.2</a> で述べたものと同じだ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">タカのめ許可</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン型属性であり、値が 1 であれば移動コマンドの「タカのめ」がこの場所では有効であることを意味する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ルーラ番号</span>
+              </dt>
+              <dd>
+                <p>
+        ルーラメニューウィンドウの項目番号を値とする属性だ。
+        フィールド分類属性値と関係なしに番号が割り振られていて、
+        例えば上フィールドの「ライフコッド」と下フィールドの「ダーマしんでん」はどちらも先頭の項目だが、
+        属性値は相異なる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ルーラ判定</span>
+              </dt>
+              <dd>
+                <p>
+        この場所でルーラを実行すると、どう振る舞うのかを示す値を取る属性だ。
+      </p>
+                <div class="table">
+                  <a id="table.dq6.zoom"></a>
+                  <p class="title">
+                    <strong>表 4.79 ルーラ判定</strong>
+                  </p>
+                  <div class="table-contents">
+                    <table id="table.dq6.zoom" class="lighttable">
+                      <thead>
+                        <tr>
+                          <th>値</th>
+                          <th>意味</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <code class="literal">#$00</code>
+                          </td>
+                          <td>有効</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$01</code>
+                          </td>
+                          <td>天井に頭をぶつける</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <code class="literal">#$02</code>
+                          </td>
+                          <td>基本的には不思議な力でかき消される</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <br class="table-break" />
+              </dd>
+              <dt>
+                <span class="term">リレミト許可</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン型属性であり、値が 1 であればリレミトの実行がこの場所では有効であることを意味する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">地図座標, </span>
+                <span class="term">リレミト座標 k (k = 0..1)</span>
+              </dt>
+              <dd>
+                <p>
+        地図座標は「せかいちず」「ふしぎなちず」を開いたときの羽の位置を、
+        リレミト座標 k (k = 0..1) はリレミト実行時のパーティー位置を定義する座標オブジェクトの ID をそれぞれ取る属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">毒考慮</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン型属性であり、値が 1 であれば毒状態のキャラクターが移動中にダメージを受けることを意味する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">おおごえ許可</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン型属性であり、値が 1 であれば移動コマンドの「おおごえ」がこの場所では有効であることを意味する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">名前</span>
+              </dt>
+              <dd>
+                <p>
+        フローミの実行結果における場所の名前を表す文字列の ID を値とする属性だ。
+        文字列については <a class="xref" href="dq6_string.html" title="4.2. 文字列">4.2 文字列</a> で述べる。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.locations.structure.C8B314"></a>4.18.1.4. 構造体 <code class="varname">$C8B314</code>: 座標</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C8B314</code> からは次の表が表現する型のオブジェクトが多数配列されている。
+これらのオブジェクトはパーティーが画面遷移直後に対象空間のどの座標に現れるのかを指定する。
+</p>
+          <div class="table">
+            <a id="table.dq6.C8B314"></a>
+            <p class="title">
+              <strong>表 4.80 構造体 $C8B314</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C8B314" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FF</code>
+                    </td>
+                    <td>空間最小単位</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000C</code>
+                    </td>
+                    <td>座標配列</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$1FF0</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$3FE0</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001F</code>
+                    </td>
+                    <td>屋根区域</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0060</code>
+                    </td>
+                    <td>向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味は <a class="xref" href="dq6_transition.html#dq6.transition.structure.C834FC" title="4.19.1.7. 構造体 $C834FC: 目的地点">4.19.1.7 構造体 <code class="varname">$C834FC</code>: 目的地点</a> で述べるものと同様だ。
+</p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.locations.behavior"></a>4.18.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+TBW
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_encounter.html" title="4.17. 敵との遭遇"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_transition.html" title="4.19. 画面遷移"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_encounter.html">4.17. 敵との遭遇</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_transition.html">4.19. 画面遷移</a></div>
+  </body>
+</html>

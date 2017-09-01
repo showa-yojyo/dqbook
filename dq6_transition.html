@@ -1,0 +1,1042 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.19. 画面遷移</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)" />
+    <link rel="prev" href="dq6_locations.html" title="4.18. 空間情報" />
+    <link rel="next" href="dq6_level.html" title="4.20. レベルアップ" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq6_locations.html" title="4.18. 空間情報"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_level.html" title="4.20. レベルアップ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_locations.html">4.18. 空間情報</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_level.html">4.20. レベルアップ</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq6.transition"></a>4.19. 画面遷移</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq6_transition.html#dq6.transition.structure">4.19.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq6_transition.html#dq6.transition.structure.abstract">4.19.1.1. 共通属性の意味について</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_transition.html#dq6.transition.structure.FF8072">4.19.1.2. 構造体 <code class="varname">$FF8072</code>: 階段</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_transition.html#dq6.transition.structure.FF8D5A">4.19.1.3. 構造体 <code class="varname">$FF8D5A</code>: 水平帯域</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_transition.html#dq6.transition.structure.FFA02A">4.19.1.4. 構造体 <code class="varname">$FFA02A</code>: 垂直帯域</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_transition.html#dq6.transition.structure.FFA0BA">4.19.1.5. 構造体 <code class="varname">$FFA0BA</code>: 矩形領域</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_transition.html#dq6.transition.structure.FFB692">4.19.1.6. 構造体 <code class="varname">$FFB692</code>: 関所</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq6_transition.html#dq6.transition.structure.C834FC">4.19.1.7. 構造体 <code class="varname">$C834FC</code>: 目的地点</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq6_transition.html#dq6.transition.behavior">4.19.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+本節では画面遷移について述べる。
+画面遷移とは、移動モードでパーティーが別の場所に移動したり、
+イベント発生によって自動的にシーンが転換したりするときの画面の移り変わりのことだ。
+移動モードから戦闘モードに、あるいはその逆になったりすることは本節の画面遷移の定義には当てはまらない。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.transition.structure"></a>4.19.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+画面遷移に関係するデータ構造について述べる。
+本節では多くの構造体を列挙しなければならないので、それらの関係について概略を示したい。
+</p>
+        <div class="figure">
+          <a id="fig.dq6.cd.transition"></a>
+          <p class="title">
+            <strong>図 4.36 画面遷移に関するクラス図</strong>
+          </p>
+          <div class="figure-contents">
+            <div>
+              <img src="./image/dq6.cd.transition.png" alt="画面遷移に関するクラス図" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.transition.structure.abstract"></a>4.19.1.1. 共通属性の意味について</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+以降の各画面遷移構造体に共通して登場する属性について先に説明しておく。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">フラグ</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン型属性値であり、値が 0 ならば既定の画面遷移を引き起こすことを示す。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">空間最小単位</span>
+              </dt>
+              <dd>
+                <p>
+        画面遷移オブジェクトが存在する空間最小単位の ID を値とする属性だ。
+        データとしては配列 <code class="varname">$C815BF</code> の添字を表す。
+        このデータについては <a class="xref" href="dq6_locations.html#dq6.locations.structure.C815BF" title="4.18.1.1. 配列 $C815BF: 空間最小単位">4.18.1.1 配列 <code class="varname">$C815BF</code>: 空間最小単位</a> で述べる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">座標配列</span>
+              </dt>
+              <dd>
+                <p>
+        詳細不明ではあるが、全データで属性値がゼロであるため本書では今のところ考慮しない。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">MX, </span>
+                <span class="term">MY</span>
+              </dt>
+              <dd>
+                <p>
+        それぞれ画面遷移オブジェクトが位置する座標 X 成分と Y 成分を値とする属性だ。
+        座標系は M 系で表されている。これはキャラクターのサイズを単位系とする座標系だ。
+      </p>
+                <p>
+        型によっては X 座標属性や Y 座標属性が二つある。
+        この場合はその座標成分の組がなす区間すべてが画面遷移の発生判定に有効であることを意味する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">LV</span>
+              </dt>
+              <dd>
+                <p>
+        画面遷移オブジェクトが位置する L 座標を値とする属性だ。
+        LV とは、同一画面内における仮想的な地面の高さを表現していると解釈できる。
+      </p>
+                <p>
+        例を挙げると、モンストル屋外の地面部分と宿屋の屋上は同時に描画される。
+        デバッグ機能のキャンセル歩行を利用して、地面部分から屋上に移動し、
+        そこにある階段に乗っても、言い換えると XY 座標を一致させても画面遷移が発生しないはずだ。
+        これは、パーティーと階段の LV 値が異なることによる。
+        パーティーの LV 値は地面部分の値と同じだが、
+        データを見ればわかるように、階段のそれは地面のそれと異なる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">屋根区域</span>
+              </dt>
+              <dd>
+                <p>
+        画面遷移オブジェクトが属する屋根区域を値とする属性だ。
+        屋根区域とは、ダンジョン等でマップ全体を描画せず局所的に表示したり、
+        反対に隠したりする仕組みにおける、描画部分の単位のことだ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">目的地</span>
+              </dt>
+              <dd>
+                <p>
+        階段、水平帯域、垂直帯域の各型については、
+        この画面遷移が発生すると移動する先の同型オブジェクト ID を値とする属性だ。
+        例えば、階段オブジェクト A の目的地属性値が指す階段オブジェクトを B とすると、
+        B の目的地属性値は A を指すという性質がある。
+      </p>
+                <p>
+        矩形型と関所型については
+        <a class="xref" href="dq6_transition.html#dq6.transition.structure.C834FC" title="4.19.1.7. 構造体 $C834FC: 目的地点">4.19.1.7</a> で述べるオブジェクトの ID を値とする属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">効果音考慮</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン型属性値であり、値が 1 ならば画面遷移時に足音が鳴る。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">演出</span>
+              </dt>
+              <dd>
+                <p>
+        演出とは、画面遷移時に引き起こす視聴覚効果を指示する値を取る属性だ。
+      </p>
+                <div class="table">
+                  <a id="table.dq6.transition.effects"></a>
+                  <p class="title">
+                    <strong>表 4.81 画面遷移演出</strong>
+                  </p>
+                  <div class="table-contents">
+                    <table id="table.dq6.transition.effects" class="lighttable">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>演出</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>1</th>
+                          <td>足音</td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <td>落下 A</td>
+                        </tr>
+                        <tr>
+                          <th>3</th>
+                          <td>落下 B</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <br class="table-break" />
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.transition.structure.FF8072"></a>4.19.1.2. 構造体 <code class="varname">$FF8072</code>: 階段</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$FF8072</code> には次のオブジェクト型要素が多数配列されている。
+この型は階段による画面遷移を表現するものであり、移動モードにおいて階段の絵を描画させるものだ。
+</p>
+          <div class="table">
+            <a id="table.dq6.FF8072"></a>
+            <p class="title">
+              <strong>表 4.82 構造体 $FF8072</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.FF8072" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000001</code>
+                    </td>
+                    <td>フラグ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007FE</code>
+                    </td>
+                    <td>空間最小単位</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000018</code>
+                    </td>
+                    <td>座標配列</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003FE0</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007FC0</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000180</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00001E</code>
+                    </td>
+                    <td>屋根区域</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FFE0</code>
+                    </td>
+                    <td>目的地</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000002</code>
+                    </td>
+                    <td>効果音考慮</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.transition.structure.FF8D5A"></a>4.19.1.3. 構造体 <code class="varname">$FF8D5A</code>: 水平帯域</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$FF8D5A</code> には次のオブジェクト型要素が多数配列されている。
+この型は主にパーティーが建造物の出入口を通過することによる画面遷移を表現する。
+画面遷移を引き起こすためのヒットテストの矩形の縦幅が 1 なので、水平帯域と呼ぶことにする。
+</p>
+          <div class="table">
+            <a id="table.dq6.FF8D5A"></a>
+            <p class="title">
+              <strong>表 4.83 構造体 $FF8D5A</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.FF8D5A" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000001</code>
+                    </td>
+                    <td>フラグ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007FE</code>
+                    </td>
+                    <td>空間最小単位</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000018</code>
+                    </td>
+                    <td>座標配列</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003FE0</code>
+                    </td>
+                    <td>MX0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007FC0</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF80</code>
+                    </td>
+                    <td>MX1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000003</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00003C</code>
+                    </td>
+                    <td>屋根区域</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FFC0</code>
+                    </td>
+                    <td>目的地</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000004</code>
+                    </td>
+                    <td>効果音考慮</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.transition.structure.FFA02A"></a>4.19.1.4. 構造体 <code class="varname">$FFA02A</code>: 垂直帯域</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$FFA02A</code> には次のオブジェクト型要素が配列されている。
+この型は主にパーティーが建造物の出入口を通過することによる画面遷移を表現する。
+画面遷移を引き起こすためのヒットテストの矩形の横幅が 1 なので、垂直帯域と呼ぶことにする。
+</p>
+          <div class="table">
+            <a id="table.dq6.FFA02A"></a>
+            <p class="title">
+              <strong>表 4.84 構造体 $FFA02A</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.FFA02A" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000001</code>
+                    </td>
+                    <td>フラグ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007FE</code>
+                    </td>
+                    <td>空間最小単位</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000018</code>
+                    </td>
+                    <td>座標配列</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003FE0</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007FC0</code>
+                    </td>
+                    <td>MY0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF80</code>
+                    </td>
+                    <td>MY1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000003</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00003C</code>
+                    </td>
+                    <td>屋根区域</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FFC0</code>
+                    </td>
+                    <td>目的地</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000004</code>
+                    </td>
+                    <td>効果音考慮</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.transition.structure.FFA0BA"></a>4.19.1.5. 構造体 <code class="varname">$FFA0BA</code>: 矩形領域</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$FFA0BA</code> には次のオブジェクト型要素が多数配列されている。
+画面遷移を引き起こすためのヒットテストの矩形が一般の寸法の場合のものだ。
+</p>
+          <div class="table">
+            <a id="table.dq6.FFA0BA"></a>
+            <p class="title">
+              <strong>表 4.85 構造体 $FFA0BA</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.FFA0BA" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000001</code>
+                    </td>
+                    <td>フラグ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00001E</code>
+                    </td>
+                    <td>演出</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000060</code>
+                    </td>
+                    <td>座標配列</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF80</code>
+                    </td>
+                    <td>MX0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001FF</code>
+                    </td>
+                    <td>MY0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0003FE</code>
+                    </td>
+                    <td>MX1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007FC</code>
+                    </td>
+                    <td>MY1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000018</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FFE0</code>
+                    </td>
+                    <td>目的地</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000002</code>
+                    </td>
+                    <td>効果音考慮</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.transition.structure.FFB692"></a>4.19.1.6. 構造体 <code class="varname">$FFB692</code>: 関所</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$FFB692</code> には次のオブジェクト型要素が配列されている。
+パーティーがフィールドから各関所に画面遷移すると、関所内のどの位置に現れるのかを指定する。
+</p>
+          <div class="table">
+            <a id="table.dq6.FFB692"></a>
+            <p class="title">
+              <strong>表 4.86 構造体 $FFB692</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.FFB692" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000001</code>
+                    </td>
+                    <td>フラグ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00001E</code>
+                    </td>
+                    <td>演出</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000060</code>
+                    </td>
+                    <td>座標配列</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FF80</code>
+                    </td>
+                    <td>MX0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001FF</code>
+                    </td>
+                    <td>MY0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0003FE</code>
+                    </td>
+                    <td>MX1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007FC</code>
+                    </td>
+                    <td>MY1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000018</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FFE0</code>
+                    </td>
+                    <td>目的地上向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001FFE</code>
+                    </td>
+                    <td>目的地右向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$01FFE0</code>
+                    </td>
+                    <td>目的地下向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001FFE</code>
+                    </td>
+                    <td>目的地左向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000020</code>
+                    </td>
+                    <td>効果音考慮</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">目的地上向き, </span>
+                <span class="term">目的地右向き, </span>
+                <span class="term">目的地下向き, </span>
+                <span class="term">目的地左向き</span>
+              </dt>
+              <dd>
+                <p>
+        それぞれ、パーティーキャラクターが対応する向きに関所に入るときの、
+        目的地点 (<a class="xref" href="dq6_transition.html#dq6.transition.structure.C834FC" title="4.19.1.7. 構造体 $C834FC: 目的地点">4.19.1.7</a>) の ID を値とする属性だ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq6.transition.structure.C834FC"></a>4.19.1.7. 構造体 <code class="varname">$C834FC</code>: 目的地点</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C834FC</code> には次のオブジェクト型要素が多数配列されている。
+この型は矩形型 (<a class="xref" href="dq6_transition.html#dq6.transition.structure.FFA0BA" title="4.19.1.5. 構造体 $FFA0BA: 矩形領域">4.19.1.5</a>)
+と関所型 (<a class="xref" href="dq6_transition.html#dq6.transition.structure.FFB692" title="4.19.1.6. 構造体 $FFB692: 関所">4.19.1.6</a>)
+が参照する画面遷移先座標を表現する。
+</p>
+          <div class="table">
+            <a id="table.dq6.C834FC"></a>
+            <p class="title">
+              <strong>表 4.87 構造体 $C834FC</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq6.C834FC" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0003FF</code>
+                    </td>
+                    <td>空間最小単位</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00000C</code>
+                    </td>
+                    <td>座標配列</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001FF0</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003FE0</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000C0</code>
+                    </td>
+                    <td>LV</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00000F</code>
+                    </td>
+                    <td>屋根区域</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000030</code>
+                    </td>
+                    <td>向き</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000040</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+この型固有の各属性の意味を以下に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">向き</span>
+              </dt>
+              <dd>
+                <p>
+        画面遷移直後のパーティーキャラクターの向きを表す値を取る属性だ。
+        「はなす」「しらべる」と同様だ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq6.transition.behavior"></a>4.19.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+TBW
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq6_locations.html" title="4.18. 空間情報"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq6.html" title="第 4 章 SFC 版ドラクエ 6 (1995)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq6_level.html" title="4.20. レベルアップ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq6_locations.html">4.18. 空間情報</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq6.html">第 4 章 SFC 版ドラクエ 6 (1995)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq6_level.html">4.20. レベルアップ</a></div>
+  </body>
+</html>

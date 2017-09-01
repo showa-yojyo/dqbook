@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.28. 空間情報</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_transition.html" title="5.27. 画面遷移" />
+    <link rel="next" href="dq3_search.html" title="5.29. しらべる" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_transition.html" title="5.27. 画面遷移"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_search.html" title="5.29. しらべる"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_transition.html">5.27. 画面遷移</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_search.html">5.29. しらべる</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.locations"></a>5.28. 空間情報</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_locations.html#dq3.locations.structure">5.28.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_locations.html#dq3.locations.structure.C802F4">5.28.1.1. 配列 <code class="varname">$C802F4</code>: 空間最小単位</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_locations.html#dq3.locations.structure.C8A3AF">5.28.1.2. 構造体 <code class="varname">$C8A3AF</code>: ルーラ</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_locations.html#dq3.locations.structure.C8A6D4">5.28.1.3. 構造体 <code class="varname">$C8A6D4</code>: 場所</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_locations.html#dq3.locations.structure.C89BB7">5.28.1.4. 構造体 <code class="varname">$C89BB7</code>: 座標</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_locations.html#dq3.locations.behavior">5.28.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+本節では前作の <a class="xref" href="dq6_locations.html" title="4.18. 空間情報">4.18 空間情報</a> に相当する諸構成要素について述べる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.locations.structure"></a>5.28.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+空間情報に関係するデータ構造について述べる。
+</p>
+        <div class="figure">
+          <a id="fig.dq3.cd.locations"></a>
+          <p class="title">
+            <strong>図 5.2 空間情報に関するクラス図</strong>
+          </p>
+          <div class="figure-contents">
+            <div>
+              <img src="./image/dq3.cd.locations.png" alt="空間情報に関するクラス図" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.locations.structure.C802F4"></a>5.28.1.1. 配列 <code class="varname">$C802F4</code>: 空間最小単位</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C802F4</code> に 1 バイト長要素が配列されている。
+意味は前作の対応型とまったく同じだ。
+アドレス <code class="varname">$7E9850</code> の値が現在パーティーがいる空間を意味する値として、この配列の添字を表している。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.locations.structure.C8A3AF"></a>5.28.1.2. 構造体 <code class="varname">$C8A3AF</code>: ルーラ</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C8A3AF</code> には次の表が表現する型のオブジェクトが多数配列されている。
+構成は異なるが、意味は前作の対応型と同じだ。
+</p>
+          <div class="table">
+            <a id="table.dq3.C8A3AF"></a>
+            <p class="title">
+              <strong>表 5.63 構造体 $C8A3AF</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C8A3AF" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>名前</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$1FF0</code>
+                    </td>
+                    <td>ルーラ座標</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$3FE0</code>
+                    </td>
+                    <td>船座標 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$7FC0</code>
+                    </td>
+                    <td>船座標 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FF80</code>
+                    </td>
+                    <td>ラーミア座標</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味の説明は割愛する。
+座標属性はすべて <a class="xref" href="dq3_locations.html#dq3.locations.structure.C89BB7" title="5.28.1.4. 構造体 $C89BB7: 座標">5.28.1.4 構造体 <code class="varname">$C89BB7</code>: 座標</a> で述べるオブジェクトの ID を値とする。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.locations.structure.C8A6D4"></a>5.28.1.3. 構造体 <code class="varname">$C8A6D4</code>: 場所</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C8A6D4</code> には次の表が表現する型のオブジェクトが多数配列されている。
+構成は異なるが、意味は前作の対応型と同じだ。
+</p>
+          <div class="table">
+            <a id="table.dq3.C8A6D4"></a>
+            <p class="title">
+              <strong>表 5.64 構造体 $C8A6D4</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C8A6D4" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000F</code>
+                    </td>
+                    <td>フィールド分類</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>タカのめ許可</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$3FC0</code>
+                    </td>
+                    <td>ルーラ番号</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00C0</code>
+                    </td>
+                    <td>ルーラ判定</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>リレミト許可</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>（不明）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$07FC</code>
+                    </td>
+                    <td>地図座標</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0FF8</code>
+                    </td>
+                    <td>リレミト座標 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$1FF0</code>
+                    </td>
+                    <td>リレミト座標 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$3FE0</code>
+                    </td>
+                    <td>ラナルータ座標</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0040</code>
+                    </td>
+                    <td>毒考慮</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0080</code>
+                    </td>
+                    <td>おおごえ許可</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>名前</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味の説明は割愛する。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.locations.structure.C89BB7"></a>5.28.1.4. 構造体 <code class="varname">$C89BB7</code>: 座標</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C89BB7</code> には次の表が表現する型のオブジェクトが多数配列されている。
+構成は異なるが、意味は前作の対応型と同じだ。
+</p>
+          <div class="table">
+            <a id="table.dq3.C89BB7"></a>
+            <p class="title">
+              <strong>表 5.65 構造体 $C89BB7</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C89BB7" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FF</code>
+                    </td>
+                    <td>空間最小単位</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$07FC</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0FF8</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0030</code>
+                    </td>
+                    <td>ML</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$07C0</code>
+                    </td>
+                    <td>屋根区域</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0018</code>
+                    </td>
+                    <td>向き</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味の説明は割愛する。
+</p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.locations.behavior"></a>5.28.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+TBW
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_transition.html" title="5.27. 画面遷移"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_search.html" title="5.29. しらべる"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_transition.html">5.27. 画面遷移</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_search.html">5.29. しらべる</a></div>
+  </body>
+</html>

@@ -1,0 +1,2371 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>5.31. すごろく</title>
+    <link rel="stylesheet" type="text/css" href="dqbook.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <link rel="home" href="index.html" title="ドラクエ命" />
+    <link rel="up" href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)" />
+    <link rel="prev" href="dq3_encounter.html" title="5.30. 敵との遭遇" />
+    <link rel="next" href="dq3_debug.html" title="5.32. デバッグ" />
+  </head>
+  <body>
+    <div class="navigation"><table><tr><td class="online-navigation"><a href="dq3_encounter.html" title="5.30. 敵との遭遇"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_debug.html" title="5.32. デバッグ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_encounter.html">5.30. 敵との遭遇</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_debug.html">5.32. デバッグ</a><hr /></div>
+    <div class="section">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="dq3.sugoroku"></a>5.31. すごろく</h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="dq3_sugoroku.html#dq3.sugoroku.structure">5.31.1. 構造に関する構成要素</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8D532">5.31.1.1. 構造体 <code class="varname">$C8D532</code>: すごろくマス</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8EECA">5.31.1.2. 構造体 <code class="varname">$C8EECA</code>: すごろくマス分類</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F188">5.31.1.3. 配列 <code class="varname">$C8F188</code>: すごろくランダムイベントハンドラー</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F1F4">5.31.1.4. 構造体 <code class="varname">$C8F1F4</code>: すごろくランダムイベント列</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F2E4">5.31.1.5. 構造体 <code class="varname">$C8F2E4</code>: すごろく戦闘イベント</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F311">5.31.1.6. 配列 <code class="varname">$C8F311</code>: すごろくしらべるイベントハンドラー</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F323">5.31.1.7. 構造体 <code class="varname">$C8F323</code>: すごろく盤面</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F53F">5.31.1.8. 構造体 <code class="varname">$C8F53F</code>: すごろく店屋画像</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F551">5.31.1.9. 構造体 <code class="varname">$C8F551</code>: すごろくアイテム確率</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="section">
+              <a href="dq3_sugoroku.html#dq3.sugoroku.behavior">5.31.2. 振る舞いに関する構成要素</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+本節ではすごろくについて述べる。
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.sugoroku.structure"></a>5.31.1. 構造に関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+すごろくに関係するデータ構造について述べる。
+</p>
+        <div class="figure">
+          <a id="fig.dq3.cd.sugoroku"></a>
+          <p class="title">
+            <strong>図 5.3 すごろくに関するクラス図</strong>
+          </p>
+          <div class="figure-contents">
+            <div>
+              <img src="./image/dq3.cd.sugoroku.png" alt="すごろくに関するクラス図" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.sugoroku.structure.C8D532"></a>5.31.1.1. 構造体 <code class="varname">$C8D532</code>: すごろくマス</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C8D532</code> にはすごろく盤面を構成するマスを表現するオブジェクトが配列されている。
+後述するように、ここにあるすごろくマスオブジェクトは構成する盤面ごとにグループ分けされている。
+</p>
+          <p>
+このオブジェクト型の詳細を次の表に示す。
+</p>
+          <div class="table">
+            <a id="table.dq3.C8D532"></a>
+            <p class="title">
+              <strong>表 5.81 構造体 $C8D532</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C8D532" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0000</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>MX</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>MY</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>分類</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0006</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>イベント引数</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000003</code>
+                    </td>
+                    <td>通行上</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00000C</code>
+                    </td>
+                    <td>通行下</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000030</code>
+                    </td>
+                    <td>通行右</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000C0</code>
+                    </td>
+                    <td>通行左</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味を以下に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">MX, </span>
+                <span class="term">MY</span>
+              </dt>
+              <dd>
+                <p>
+        このマスの配置位置を M 座標系で表した X および Y 座標成分の値を属性とする。
+        プレイキャラクターの立つ位置と一致する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">分類</span>
+              </dt>
+              <dd>
+                <p>
+        このマスの分類値を取る属性だ。
+        <a class="xref" href="dq3_sugoroku.html#dq3.sugoroku.structure.C8EECA" title="5.31.1.2. 構造体 $C8EECA: すごろくマス分類">5.31.1.2</a> で述べるオブジェクトの ID に他ならない。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">イベント引数</span>
+              </dt>
+              <dd>
+                <p>
+        このマスで引き起こされる何らかのイベントが必要とする値を取る属性だ。
+        解釈は分類属性値によって決まる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">通行上, </span>
+                <span class="term">通行下, </span>
+                <span class="term">通行右, </span>
+                <span class="term">通行左</span>
+              </dt>
+              <dd>
+                <p>
+        各方向に対する移動制約を示す値を取る属性だ。
+        値が 0 ならばその属性方向に進める。値が 1 ならばその属性方向に戻る。
+        値が 2 以上ならば、その属性方向には一切通行できないことを意味する。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.sugoroku.structure.C8EECA"></a>5.31.1.2. 構造体 <code class="varname">$C8EECA</code>: すごろくマス分類</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+すごろくマス分類とは、草原、森、山など、そのマスの種類を表すためのオブジェクト型であり、その詳細が次に示す表のようなものだ。
+アドレス <code class="varname">$C8EECA</code> にはこの型のオブジェクトが 80 近く配列されている。
+</p>
+          <div class="table">
+            <a id="table.dq3.C8EECA"></a>
+            <p class="title">
+              <strong>表 5.82 構造体 $C8EECA</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C8EECA" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0000</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000001</code>
+                    </td>
+                    <td>サイコロ残り目を無視</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0000</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000002</code>
+                    </td>
+                    <td>階層変化時でもイベントを処理</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0000</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001FFC</code>
+                    </td>
+                    <td>スプライト 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFE0</code>
+                    </td>
+                    <td>スプライト 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0003</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>初期化処理</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0006</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFFFF</code>
+                    </td>
+                    <td>実行処理</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味を以下に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">サイコロ残り目を無視</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン型属性で、値が 1 のものはこのマスを通過する際、サイコロの残り目に関わらずここで停止することを示す。
+      </p>
+                <p>
+        例えば階段のマスについて、そこで丁度止まらないと盤面移動イベントが発生しない種類のものがある。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">階層変化時でもイベントを処理</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン型属性で、値が 1 のものはすごろく盤面をまたがってマスの間を移動する場合に、
+        このマスが移動先であれば、関連するイベントを引き起こすことを示す。
+      </p>
+                <p>
+        例えば、旅の扉や階段のマスは値が 0 でなければならない。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">スプライト k (k = 0..1)</span>
+              </dt>
+              <dd>
+                <p>
+        このマスに描画するスプライトを指定する値を取る属性だ。
+        上モノと地の部分とに分けられている。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">初期化処理</span>
+              </dt>
+              <dd>
+                <p>
+        このマスに関連するイベントを処理する際の準備を行うコードのアドレスを属性値とする。
+        前項で言うところのイベント引数を動的に決定する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">実行処理</span>
+              </dt>
+              <dd>
+                <p>
+        このマスに関連するイベントを処理するコードのアドレスを属性値とする。
+      </p>
+              </dd>
+            </dl>
+          </div>
+          <p>
+マス分類と内容の対応を次の表に示す。
+</p>
+          <div class="table">
+            <a id="table.dq3.sugoroku.squares"></a>
+            <p class="title">
+              <strong>表 5.83 マス分類</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.sugoroku.squares" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>内容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>n/a</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>草原</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>森</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>山</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>立て札上</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>立て札右</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>立て札下</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>立て札左</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>ゴールド +50</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>ゴールド +100</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>ゴールド +150</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0B</code>
+                    </td>
+                    <td>ゴールド +200</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>ゴールド +250</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0D</code>
+                    </td>
+                    <td>ゴールド +300</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0E</code>
+                    </td>
+                    <td>ゴールド +500</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0F</code>
+                    </td>
+                    <td>ゴールド +1000</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>ゴールド +2000</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$11</code>
+                    </td>
+                    <td>ゴールド +5000</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$12</code>
+                    </td>
+                    <td>ゴールド -50</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$13</code>
+                    </td>
+                    <td>ゴールド -100</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$14</code>
+                    </td>
+                    <td>ゴールド -150</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$15</code>
+                    </td>
+                    <td>ゴールド -200</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$16</code>
+                    </td>
+                    <td>ゴールド -250</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$17</code>
+                    </td>
+                    <td>ゴールド -300</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$18</code>
+                    </td>
+                    <td>ゴールド -500</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$19</code>
+                    </td>
+                    <td>ゴールド -1000</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1A</code>
+                    </td>
+                    <td>ゴールド -2000</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1B</code>
+                    </td>
+                    <td>ゴールド -3000</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1C</code>
+                    </td>
+                    <td>戦闘</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1D</code>
+                    </td>
+                    <td>HP ダメージ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1E</code>
+                    </td>
+                    <td>旅の扉</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1F</code>
+                    </td>
+                    <td>マス移動 +1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$20</code>
+                    </td>
+                    <td>マス移動 +2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$21</code>
+                    </td>
+                    <td>マス移動 +3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$22</code>
+                    </td>
+                    <td>マス移動 +4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$23</code>
+                    </td>
+                    <td>マス移動 +5</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$24</code>
+                    </td>
+                    <td>マス移動 +6</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$25</code>
+                    </td>
+                    <td>マス移動 -1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$26</code>
+                    </td>
+                    <td>マス移動 -2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$27</code>
+                    </td>
+                    <td>マス移動 -3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$28</code>
+                    </td>
+                    <td>マス移動 -4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$29</code>
+                    </td>
+                    <td>マス移動 -5</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2A</code>
+                    </td>
+                    <td>マス移動 -6</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2B</code>
+                    </td>
+                    <td>振り出しに戻る</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2C</code>
+                    </td>
+                    <td>ランダム</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2D</code>
+                    </td>
+                    <td>宿屋</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2E</code>
+                    </td>
+                    <td>よろず屋</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$2F</code>
+                    </td>
+                    <td>階段上り</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$30</code>
+                    </td>
+                    <td>階段下り</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$31</code>
+                    </td>
+                    <td>階段上り</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$32</code>
+                    </td>
+                    <td>階段下り</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$33</code>
+                    </td>
+                    <td>洞くつ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$34</code>
+                    </td>
+                    <td>ふりだし</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$35</code>
+                    </td>
+                    <td>あがり</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$36</code>
+                    </td>
+                    <td>宝箱アイテム</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$37</code>
+                    </td>
+                    <td>宝箱ゴールド</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$38</code>
+                    </td>
+                    <td>宝箱罠</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$39</code>
+                    </td>
+                    <td>つぼアイテム</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$3A</code>
+                    </td>
+                    <td>つぼゴールド</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$3B</code>
+                    </td>
+                    <td>つぼ罠</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$3C</code>
+                    </td>
+                    <td>タンスアイテム</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$3D</code>
+                    </td>
+                    <td>タンスゴールド</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$3E</code>
+                    </td>
+                    <td>タンス罠</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$3F</code>
+                    </td>
+                    <td>落とし穴場外</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$40</code>
+                    </td>
+                    <td>落とし穴場内</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$41</code>
+                    </td>
+                    <td>回復</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$42</code>
+                    </td>
+                    <td>MP ダメージ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$43</code>
+                    </td>
+                    <td>MP 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$44</code>
+                    </td>
+                    <td>サイコロ +1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$45</code>
+                    </td>
+                    <td>サイコロ +2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$46</code>
+                    </td>
+                    <td>サイコロ +3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$47</code>
+                    </td>
+                    <td>サイコロ +5</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$48</code>
+                    </td>
+                    <td>サイコロ -1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$49</code>
+                    </td>
+                    <td>サイコロ -2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$4A</code>
+                    </td>
+                    <td>サイコロ -3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$4B</code>
+                    </td>
+                    <td>数値変化</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$4C</code>
+                    </td>
+                    <td>カギ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$4D</code>
+                    </td>
+                    <td>宝箱</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.sugoroku.structure.C8F188"></a>5.31.1.3. 配列 <code class="varname">$C8F188</code>: すごろくランダムイベントハンドラー</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+すごろくランダムイベントハンドラーとは、すごろくマス「？」で引き起こされるイベントの処理を実行するコードだと定義する。
+アドレス <code class="varname">$C8F188</code> にはそのようなコードの完全アドレスが 36 個配列されている。
+</p>
+          <p>
+以下にイベントハンドラーの ID とイベントの概要を記す。
+各ハンドラーの具体的なアドレスについては、<a class="xref" href="appendix_b.html#appendix.b.dq3" title="SFC 版ドラクエ 3">「SFC 版ドラクエ 3」</a>の CSV に収録した。
+</p>
+          <div class="table">
+            <a id="table.dq3.C8F188"></a>
+            <p class="title">
+              <strong>表 5.84 すごろくランダムイベント一覧</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C8F188" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>メッセージ冒頭</th>
+                    <th>イベント</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>夜空をやきつくす火の山</td>
+                    <td>ちから +2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$01</code>
+                    </td>
+                    <td>大地の神々よりつどいて</td>
+                    <td>ちから +4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>時は風</td>
+                    <td>すばやさ +2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$03</code>
+                    </td>
+                    <td>夜空のきらめき</td>
+                    <td>すばやさ +4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$04</code>
+                    </td>
+                    <td>つかれ知らぬその身体</td>
+                    <td>たいりょく +2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$05</code>
+                    </td>
+                    <td>こぶし１００万回</td>
+                    <td>たいりょく +4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$06</code>
+                    </td>
+                    <td>これを知るをこれ知るとなせ</td>
+                    <td>かしこさ +2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$07</code>
+                    </td>
+                    <td>おろかなる者は教えたがり</td>
+                    <td>かしこさ -3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$08</code>
+                    </td>
+                    <td>しあわせの時は来たれり</td>
+                    <td>うんのよさ +2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$09</code>
+                    </td>
+                    <td>森深き青き泉</td>
+                    <td>うんのよさ +4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0A</code>
+                    </td>
+                    <td>ちからなくうなだれる者</td>
+                    <td>ちから -2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0B</code>
+                    </td>
+                    <td>あまねく星たちのきらめきは見</td>
+                    <td>すばやさ -2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0C</code>
+                    </td>
+                    <td>しゃくねつのさばく</td>
+                    <td>たいりょく -2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0D</code>
+                    </td>
+                    <td>無知を恐るるなかれ</td>
+                    <td>かしこさ -2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0E</code>
+                    </td>
+                    <td>運わるしといたずらになげく者</td>
+                    <td>うんのよさ -2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0F</code>
+                    </td>
+                    <td>時はいつわり</td>
+                    <td>ふりだしに移動</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$10</code>
+                    </td>
+                    <td>それは嵐か</td>
+                    <td>何もない</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$11</code>
+                    </td>
+                    <td>闇に光る巨大な眼</td>
+                    <td>盤面固定戦 0 が発生する</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$12</code>
+                    </td>
+                    <td>降りすさむ雨はやがて大河に</td>
+                    <td>盤面固定戦 1 が発生する</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$13</code>
+                    </td>
+                    <td>おぞましきはばたきの音</td>
+                    <td>盤面固定戦 2 が発生する</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$14</code>
+                    </td>
+                    <td>不注意なる者</td>
+                    <td>所持金の半額 + 1 を失う</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$15</code>
+                    </td>
+                    <td>それは天の恵みか</td>
+                    <td>所持金の半額 + 1 を得る</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$16</code>
+                    </td>
+                    <td>うごめくものどもにひとときの</td>
+                    <td>ランダム戦闘が発生しなくなる</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$17</code>
+                    </td>
+                    <td>過ぎし日の思い出を今いちど</td>
+                    <td>何もない</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$18</code>
+                    </td>
+                    <td>それはならくの底か</td>
+                    <td>落とし穴</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$19</code>
+                    </td>
+                    <td>試練の時は来たれり</td>
+                    <td>すごろくイベント #$4B と同じ</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1A</code>
+                    </td>
+                    <td>深き土の底でねむる物</td>
+                    <td>アイテム入手</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1B</code>
+                    </td>
+                    <td>なにごとも経験なりき</td>
+                    <td>経験値 +1,000</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1C</code>
+                    </td>
+                    <td>なにごとも経験なりき</td>
+                    <td>経験値 +10,000</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1D</code>
+                    </td>
+                    <td>おだやかなる時の流れ</td>
+                    <td>サイコロ残り +10</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1E</code>
+                    </td>
+                    <td>人は人我は我</td>
+                    <td>キャラクターが入れ替わる</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$1F</code>
+                    </td>
+                    <td>小鳥たちつどいて春を歌う</td>
+                    <td>宿屋のマスに移動</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$20</code>
+                    </td>
+                    <td>我なんじの願いかなえる者なり</td>
+                    <td>次のサイコロ出目を指定できる</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$21</code>
+                    </td>
+                    <td>風向きは追い風</td>
+                    <td>マス移動 +6</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$22</code>
+                    </td>
+                    <td>風向きはむかい風</td>
+                    <td>マス移動 -5</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$23</code>
+                    </td>
+                    <td>はげしい炎はすべてを無に帰し</td>
+                    <td>性格が変化する</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.sugoroku.structure.C8F1F4"></a>5.31.1.4. 構造体 <code class="varname">$C8F1F4</code>: すごろくランダムイベント列</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C8F1F4</code> はすごろく盤面にある「？」のマスで発生するランダムイベント ID 48 個の配列 5 個の配列となっている。
+「？」のマスでは、この ID の配列に含まれているイベントしか発生しない。
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.sugoroku.structure.C8F2E4"></a>5.31.1.5. 構造体 <code class="varname">$C8F2E4</code>: すごろく戦闘イベント</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C8F2E4</code> には次の型のオブジェクトが 5 個配列されている。
+このオブジェクトがすごろく中に発生する戦闘の敵陣構成を指定する。
+</p>
+          <div class="table">
+            <a id="table.dq3.C8F2E4"></a>
+            <p class="title">
+              <strong>表 5.85 構造体 $C8F2E4</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C8F2E4" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0000</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000001</code>
+                    </td>
+                    <td>キャラレベル無視</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0000</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FE</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>乱数レベル下限</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0003</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>乱数レベル上限</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0005</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>戦闘レベル下限</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0007</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>戦闘レベル上限</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味を以下に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">キャラレベル無視</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン型属性で、値が 1 のものは敵陣構成を決定するのにプレイキャラクターのレベルを無視することを示す。
+        例えば草原のマスでの戦闘は、常に弱いモンスターしか出現しないようになっている。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">乱数レベル下限, </span>
+                <span class="term">乱数レベル上限</span>
+              </dt>
+              <dd>
+                <p>
+        敵陣構成を決定する際に乱数を発生させるのだが、その下限と上限をそれぞれ値とする属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">戦闘レベル下限, </span>
+                <span class="term">戦闘レベル上限</span>
+              </dt>
+              <dd>
+                <p>
+        キャラレベルを無視する場合には上述の乱数を、考慮する場合はキャラレベルから上述の乱数を引いた差をまず考える。
+        この差をこれらの属性値でクリップする。
+      </p>
+                <p>
+        戦闘決定処理では、クリップされた値と通常戦オブジェクトのレベル属性値とを比較して、
+        最終的に通常戦オブジェクトを決定する。
+        通常戦オブジェクトについては <a class="xref" href="dq3_encounter.html#dq3.encounter.structure.C8ADD1" title="5.30.1.2. 構造体 $C8ADD1: 通常戦">5.30.1.2 構造体 <code class="varname">$C8ADD1</code>: 通常戦</a> で述べる。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.sugoroku.structure.C8F311"></a>5.31.1.6. 配列 <code class="varname">$C8F311</code>: すごろくしらべるイベントハンドラー</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+すごろくしらべるイベントハンドラーとは、すごろくマスで足もとをしらべることで引き起こされるイベントの処理を実行するコードであると定義する。
+アドレス <code class="varname">$C8F311</code> にはそのようなコードの完全アドレスが 5 個配列されている。
+</p>
+          <div class="table">
+            <a id="dq3.table.C8F311"></a>
+            <p class="title">
+              <strong>表 5.86 配列 $C8F311</strong>
+            </p>
+            <div class="table-contents">
+              <table id="dq3.table.C8F311" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>アドレス</th>
+                    <th>イベント</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>0</th>
+                    <td>
+                      <code class="literal">$C1C4F0</code>
+                    </td>
+                    <td>何も見つからない</td>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td>
+                      <code class="literal">$C1C976</code>
+                    </td>
+                    <td>モンスターが出現して戦闘となる</td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td>
+                      <code class="literal">$C1C9B3</code>
+                    </td>
+                    <td>落とし穴が出現して現在の盤面から退場する</td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td>
+                      <code class="literal">$C1C4F4</code>
+                    </td>
+                    <td>アイテム発見抽選処理を実行する</td>
+                  </tr>
+                  <tr>
+                    <th>4</th>
+                    <td>
+                      <code class="literal">$C1C914</code>
+                    </td>
+                    <td>多額のゴールドを発見する</td>
+                  </tr>
+                  <tr>
+                    <th>5</th>
+                    <td>
+                      <code class="literal">$C1C945</code>
+                    </td>
+                    <td>少額のゴールドを発見する</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.sugoroku.structure.C8F323"></a>5.31.1.7. 構造体 <code class="varname">$C8F323</code>: すごろく盤面</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+すごろく盤面とは、次の表で示すようなすごろくゲームの詳細を表現するオブジェクト型のことだ。
+アドレス <code class="varname">$C8F323</code> にこの型のオブジェクトが 10 個配列されている。
+</p>
+          <div class="table">
+            <a id="table.dq3.C8F323"></a>
+            <p class="title">
+              <strong>表 5.87 構造体 $C8F323</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C8F323" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0000</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00001F</code>
+                    </td>
+                    <td>しらべるイベント頻度 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0000</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0003E0</code>
+                    </td>
+                    <td>しらべるイベント頻度 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00007C</code>
+                    </td>
+                    <td>しらべるイベント頻度 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000F80</code>
+                    </td>
+                    <td>しらべるイベント頻度 3</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001F0</code>
+                    </td>
+                    <td>しらべるイベント頻度 4</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0003</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000FC0</code>
+                    </td>
+                    <td>しらべるイベント頻度の和</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0FFFF0</code>
+                    </td>
+                    <td>ゴールド大下限</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0006</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0FFFF0</code>
+                    </td>
+                    <td>ゴールド大上限</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0008</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0FFFF0</code>
+                    </td>
+                    <td>ゴールド小下限</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$000A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0FFFF0</code>
+                    </td>
+                    <td>ゴールド小上限</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$000C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000FF0</code>
+                    </td>
+                    <td>アイテム <code class="literal">#$00</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$000D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000070</code>
+                    </td>
+                    <td>アイテム確率 <code class="literal">#$00</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$000D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007F80</code>
+                    </td>
+                    <td>アイテム <code class="literal">#$01</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$000E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000380</code>
+                    </td>
+                    <td>アイテム確率 <code class="literal">#$01</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$000F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0003FC</code>
+                    </td>
+                    <td>アイテム <code class="literal">#$02</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00001C</code>
+                    </td>
+                    <td>アイテム確率 <code class="literal">#$02</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0010</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001FE0</code>
+                    </td>
+                    <td>アイテム <code class="literal">#$03</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0011</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000E0</code>
+                    </td>
+                    <td>アイテム確率 <code class="literal">#$03</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0012</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>アイテム <code class="literal">#$04</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0013</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000007</code>
+                    </td>
+                    <td>アイテム確率 <code class="literal">#$04</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0013</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007F8</code>
+                    </td>
+                    <td>アイテム <code class="literal">#$05</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0014</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000038</code>
+                    </td>
+                    <td>アイテム確率 <code class="literal">#$05</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0014</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003FC0</code>
+                    </td>
+                    <td>アイテム <code class="literal">#$06</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0015</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001C0</code>
+                    </td>
+                    <td>アイテム確率 <code class="literal">#$06</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0016</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0001FE</code>
+                    </td>
+                    <td>アイテム <code class="literal">#$07</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0017</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00000E</code>
+                    </td>
+                    <td>アイテム確率 <code class="literal">#$07</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0017</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000FF0</code>
+                    </td>
+                    <td>アイテム <code class="literal">#$08</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0018</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000070</code>
+                    </td>
+                    <td>アイテム確率 <code class="literal">#$08</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0018</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$007F80</code>
+                    </td>
+                    <td>アイテム <code class="literal">#$09</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0019</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000380</code>
+                    </td>
+                    <td>アイテム確率 <code class="literal">#$09</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$001A</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0003FC</code>
+                    </td>
+                    <td>アイテム <code class="literal">#$0A</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$001B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00001C</code>
+                    </td>
+                    <td>アイテム確率 <code class="literal">#$0A</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$001B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001FE0</code>
+                    </td>
+                    <td>アイテム <code class="literal">#$0B</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$001C</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000E0</code>
+                    </td>
+                    <td>アイテム確率 <code class="literal">#$0B</code></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$001D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>敵陣グループ固定戦 0</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$001E</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>敵陣グループ固定戦 1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$001F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0000FF</code>
+                    </td>
+                    <td>敵陣グループ固定戦 2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0020</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00000F</code>
+                    </td>
+                    <td>すごろくランダムイベント</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0021</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>すごろくマス範囲下限</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0023</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>すごろくマス範囲上限</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0025</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>サイコロ残り</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0027</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007FF</code>
+                    </td>
+                    <td>終了時復帰座標</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0028</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$003FF8</code>
+                    </td>
+                    <td>落とし穴出口座標</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0029</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000040</code>
+                    </td>
+                    <td>ランダム落とし穴で続行</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0029</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$03FF80</code>
+                    </td>
+                    <td>宿屋座標</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$002B</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001FFC</code>
+                    </td>
+                    <td>ふりだし座標</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$002D</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>マップ視点左</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$002F</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>マップ視点上</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0031</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>マップ視点右</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0033</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFFF</code>
+                    </td>
+                    <td>マップ視点下</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0035</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$000001</code>
+                    </td>
+                    <td>入れ替わり時待機者再描画</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味を以下に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">しらべるイベント頻度 k (k = 0..4)</span>
+              </dt>
+              <dd>
+                <p>
+        しらべるイベント頻度とは、草原、森、山のマスで足もとをしらべるときに引き起こされるイベントの発生頻度を表す属性だ。
+        各確率変数 k とイベントとの対応は次のとおりだ。
+      </p>
+                <div class="table">
+                  <a id="dq3.sugoroku.search.frequencies"></a>
+                  <p class="title">
+                    <strong>表 5.88 しらべる頻度</strong>
+                  </p>
+                  <div class="table-contents">
+                    <table id="dq3.sugoroku.search.frequencies" class="lighttable">
+                      <thead>
+                        <tr>
+                          <th>k</th>
+                          <th>イベント</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>0</td>
+                          <td>落とし穴が出現して現在の盤面から退場する</td>
+                        </tr>
+                        <tr>
+                          <td>1</td>
+                          <td>モンスターが出現して戦闘となる</td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>多額のゴールドを発見する</td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>少額のゴールドを発見する</td>
+                        </tr>
+                        <tr>
+                          <td>4</td>
+                          <td>アイテム発見抽選処理を実行する</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <br class="table-break" />
+              </dd>
+              <dt>
+                <span class="term">しらべるイベント頻度の和</span>
+              </dt>
+              <dd>
+                <p>
+        しらべるイベント頻度 k それぞれと何も見つからないイベントの頻度との和を表す属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ゴールド大下限, </span>
+                <span class="term">ゴールド大上限</span>
+              </dt>
+              <dd>
+                <p>
+        足もとをしらべることで多額のゴールドを発見するイベントが引き起こされた際に獲得するゴールドの範囲を表す属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ゴールド小下限, </span>
+                <span class="term">ゴールド小上限</span>
+              </dt>
+              <dd>
+                <p>
+        足もとをしらべることで少額のゴールドを発見するイベントが引き起こされた際に獲得するゴールドの範囲を表す属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">アイテム k (k=<code class="literal">#$00</code>..<code class="literal">#$0B</code>)</span>
+              </dt>
+              <dd>
+                <p>
+        足もとをしらべることでアイテムを発見するイベントが引き起こされるときに獲得するアイテムの ID を値とする属性だ。
+        アイテムについては <a class="xref" href="dq3_items.html" title="5.23. アイテム">5.23 アイテム</a> で述べる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">アイテム確率 k (k=<code class="literal">#$00</code>..<code class="literal">#$0B</code>)</span>
+              </dt>
+              <dd>
+                <p>
+        足もとをしらべることでアイテムを発見するイベントで、実際に発見するかどうかを抽選するためのオブジェクト、
+        すなわち <a class="xref" href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F551" title="5.31.1.9. 構造体 $C8F551: すごろくアイテム確率">5.31.1.9</a> で述べるオブジェクトの ID を値とする属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">固定戦闘 k (k = 0..2)</span>
+              </dt>
+              <dd>
+                <p>
+        「？」マスのランダムイベント <code class="literal">#$11</code>..<code class="literal">#$13</code> で戦闘になる際の戦闘、
+        すなわち <a class="xref" href="dq3_encounter.html#dq3.encounter.structure.C8B736" title="5.30.1.4. 構造体 $C8B736: 敵陣グループ固定戦">5.30.1.4 構造体 <code class="varname">$C8B736</code>: 敵陣グループ固定戦</a> で述べるオブジェクトの ID を値とする属性だ。
+      </p>
+                <p>
+        各 k と戦闘の意味の対応は次のとおりだ。
+      </p>
+                <div class="table">
+                  <a id="dq3.sugoroku.battles"></a>
+                  <p class="title">
+                    <strong>表 5.89 すごろく固定戦闘表</strong>
+                  </p>
+                  <div class="table-contents">
+                    <table id="dq3.sugoroku.battles" class="lighttable">
+                      <thead>
+                        <tr>
+                          <th>k</th>
+                          <th>戦闘</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>0</th>
+                          <td>闇に光る 巨大な眼</td>
+                        </tr>
+                        <tr>
+                          <th>1</th>
+                          <td>降りすさむ雨は やがて大河に</td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <td>おぞましき はばたきの音</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <br class="table-break" />
+              </dd>
+              <dt>
+                <span class="term">すごろくランダムイベント</span>
+              </dt>
+              <dd>
+                <p>
+        この盤面で発生してもよいランダムイベントを列挙した配列を指定する値、
+        すなわち <a class="xref" href="dq3_sugoroku.html#dq3.sugoroku.structure.C8F1F4" title="5.31.1.4. 構造体 $C8F1F4: すごろくランダムイベント列">5.31.1.4</a>
+        で述べた配列（外側）の添字を取る属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">すごろくマス範囲下限, </span>
+                <span class="term">すごろくマス範囲上限</span>
+              </dt>
+              <dd>
+                <p>
+        この盤面を構成するすごろくマス
+        (<a class="xref" href="dq3_sugoroku.html#dq3.sugoroku.structure.C8D532" title="5.31.1.1. 構造体 $C8D532: すごろくマス">5.31.1.1</a>)
+        オブジェクトの ID の最小値および最大値をそれぞれ取る属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">サイコロ残り</span>
+              </dt>
+              <dd>
+                <p>
+        ゲーム開始時点におけるサイコロを振れる残り回数を表す属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">終了時復帰座標</span>
+              </dt>
+              <dd>
+                <p>
+        ゲームオーバー時の仲間キャラクターの復帰位置を表すオブジェクトの ID を取る属性だ。
+        データによると、どの盤面でも対応するすごろく屋の右隣の位置が設定されている。
+      </p>
+                <p>
+        このような座標オブジェクトについては
+        <a class="xref" href="dq3_locations.html#dq3.locations.structure.C89BB7" title="5.28.1.4. 構造体 $C89BB7: 座標">5.28.1.4 構造体 <code class="varname">$C89BB7</code>: 座標</a> で述べる。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">落とし穴出口座標</span>
+              </dt>
+              <dd>
+                <p>
+        しらべるイベントやランダムイベントで落とし穴にひっかかったときに、
+        パーティーがどこに移動するのかを表すオブジェクトの ID を取る属性だ。
+        すごろく盤面のある階層のすぐ下の階層のどこかが設定されている。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ランダム落とし穴で続行</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン型属性で、値が 1 のものは、
+        しらべるイベントやランダムイベントで落とし穴にひっかかったときでもゲームを続行することを示す。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">宿屋座標</span>
+              </dt>
+              <dd>
+                <p>
+        この盤面内にある宿屋のマスの位置を指定するオブジェクトの ID を取る属性だ。
+        宿屋飛ばしイベントがこの属性値を参照する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">ふりだし座標</span>
+              </dt>
+              <dd>
+                <p>
+        この盤面の所属するすごろく場のふりだしのマスの位置を指定するオブジェクトの ID を取る属性だ。
+        ふりだしに戻るイベントがこの属性値を参照する。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">マップ視点左, </span>
+                <span class="term">マップ視点上, </span>
+                <span class="term">マップ視点右, </span>
+                <span class="term">マップ視点下</span>
+              </dt>
+              <dd>
+                <p>
+        座標系がよくわからないが、すごろくコマンドの「マップをみる」が参照する属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">入れ替わり時待機者再描画</span>
+              </dt>
+              <dd>
+                <p>
+        ブーリアン型属性で、値が 1 のものはキャラクター入れ替わりイベントが発生した際に、ふりだしで待機しているパーティーが再描画される。
+        どうやら盤面がふりだしを含むものでないときに入れ替わりイベントが発生するときには、
+        プログラムはパーティーの再描画の手間を省きたいようだ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.sugoroku.structure.C8F53F"></a>5.31.1.8. 構造体 <code class="varname">$C8F53F</code>: すごろく店屋画像</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+すごろく店屋画像とは画像の一種であり、宿屋またはよろず屋のマスに止まった際に画面中央に描画されるものだ。
+アドレス <code class="varname">$C8F53F</code> に次の表で示される型のオブジェクトが 3 個配列されていて、
+それぞれ対応する分類のマスに止まったときの店屋画像を指定するものだ。
+</p>
+          <div class="table">
+            <a id="table.dq3.C8F53F"></a>
+            <p class="title">
+              <strong>表 5.90 構造体 $C8F53F</strong>
+            </p>
+            <div class="table-contents">
+              <table id="table.dq3.C8F53F" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0000</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0007FF</code>
+                    </td>
+                    <td>店先のスプライト</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0001</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$001FF8</code>
+                    </td>
+                    <td>店先のパレット</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0002</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$00FFE0</code>
+                    </td>
+                    <td>（調査中）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$0004</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$0003FF</code>
+                    </td>
+                    <td>店員のパレット</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+各属性の意味を以下に記す。
+</p>
+          <div class="variablelist">
+            <dl class="variablelist">
+              <dt>
+                <span class="term">店先のスプライト</span>
+              </dt>
+              <dd>
+                <p>
+        店先の画像を表現するスプライト (BG2) の ID を値に取る属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">店先のパレット</span>
+              </dt>
+              <dd>
+                <p>
+        店先のスプライトの色を指定するオブジェクトの ID を値に取る属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">（調査中）</span>
+              </dt>
+              <dd>
+                <p>
+        配列 <code class="varname">$C542A6</code> の ID を値に取る属性だ。
+      </p>
+              </dd>
+              <dt>
+                <span class="term">店員のパレット</span>
+              </dt>
+              <dd>
+                <p>
+        店員のスプライトの色を指定するオブジェクトの ID を値に取る属性だ。
+      </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="dq3.sugoroku.structure.C8F551"></a>5.31.1.9. 構造体 <code class="varname">$C8F551</code>: すごろくアイテム確率</h4>
+              </div>
+            </div>
+          </div>
+          <p>
+アドレス <code class="varname">$C8F551</code> にある配列は、すごろくの足もとをしらべるイベントで何らかのアイテム発見抽選が発生したときに、
+実際にそのアイテムを見つけるかどうかを確定するための値を表現するデータを要素とする。
+各要素の型は次のようになっている。
+</p>
+          <div class="table">
+            <a id="dq3.table.C8F551"></a>
+            <p class="title">
+              <strong>表 5.91 構造体 $C8F551</strong>
+            </p>
+            <div class="table-contents">
+              <table id="dq3.table.C8F551" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>オフセット</th>
+                    <th>桁</th>
+                    <th>属性</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code class="literal">#$00</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>（未使用）</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code class="literal">#$02</code>
+                    </td>
+                    <td>
+                      <code class="literal">#$FFFF</code>
+                    </td>
+                    <td>確率の分母</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+          <p>
+実際には各オブジェクトの末端 2 バイトしか使われていない。それらの表す確率を以下の表に示す。
+</p>
+          <div class="table">
+            <a id="dq3.table.C8F551.values"></a>
+            <p class="title">
+              <strong>表 5.92 すごろくアイテム確率</strong>
+            </p>
+            <div class="table-contents">
+              <table id="dq3.table.C8F551.values" class="lighttable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>確率</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>0</th>
+                    <td align="right">1</td>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td align="right">1/2</td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td align="right">1/4</td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td align="right">1/8</td>
+                  </tr>
+                  <tr>
+                    <th>4</th>
+                    <td align="right">1/16</td>
+                  </tr>
+                  <tr>
+                    <th>5</th>
+                    <td align="right">1/64</td>
+                  </tr>
+                  <tr>
+                    <th>6</th>
+                    <td align="right">1/256</td>
+                  </tr>
+                  <tr>
+                    <th>7</th>
+                    <td align="right">1/1024</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br class="table-break" />
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="dq3.sugoroku.behavior"></a>5.31.2. 振る舞いに関する構成要素</h3>
+            </div>
+          </div>
+        </div>
+        <p>
+TBW
+</p>
+      </div>
+    </div>
+    <div class="navigation"><hr /><table><tr><td class="online-navigation"><a href="dq3_encounter.html" title="5.30. 敵との遭遇"><img src="image/docbook/prev.png" alt="戻る" /></a></td><td class="online-navigation"><a href="dq3.html" title="第 5 章 SFC 版ドラクエ 3 (1996)"><img src="image/docbook/up.png" alt="上に戻る" /></a></td><td class="online-navigation"><a href="dq3_debug.html" title="5.32. デバッグ"><img src="image/docbook/next.png" alt="次へ" /></a></td><td>ドラクエ命</td><td class="online-navigation"><a href="index.html" title="ドラクエ命"><img src="image/docbook/home.png" alt="ホーム" /></a></td><td class="online-navigation"><a href="" title=""><img src="image/docbook/index.png" alt="索引" /></a></td></tr></table><b class="navlabel">Previous: </b><a accesskey="p" class="sectref" href="dq3_encounter.html">5.30. 敵との遭遇</a> <b class="navlabel">Up: </b><a accesskey="u" class="sectref" href="dq3.html">第 5 章 SFC 版ドラクエ 3 (1996)</a> <b class="navlabel">Next: </b><a accesskey="n" class="sectref" href="dq3_debug.html">5.32. デバッグ</a></div>
+  </body>
+</html>
