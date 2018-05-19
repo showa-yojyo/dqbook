@@ -201,6 +201,11 @@
 <para>
   <email><ulink url="mailto:yojyo@hotmail.com">yojyo@hotmail.com</ulink></email>
 </para>
+<caution>
+  <para>
+    本書執筆陣の開発拠点が 2018 年 5 月末に移転するのに伴い、以降音信不通になることが予定されている。
+  </para>
+</caution>
 </simplesect> <!-- preface.contact -->
 
 <simplesect id="preface.acknowledgments">
