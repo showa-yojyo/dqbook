@@ -7,20 +7,23 @@ Dragon Quest series are.
 
 For example, do as follows:
 
-    $ git clone https://github.com/showa-yojyo/dqbook.git
-    $ cd dqbook/src/jp
-    $ make html-chunk
+```console
+bash$ git clone https://github.com/showa-yojyo/dqbook.git
+bash$ cd dqbook/src/jp
+bash$ make html-chunk
+```
 
 If you don't use Git, you have to download the repository archive file from
 the project page.
 
-The document will be generated in the directory `html-chunk`.
+The document will be generated in the directory `dqbook/src/jp/book/html-chunk`.
 
 ### Requirements
 
-* [Docbook][1] (version 4.5)
-* Xsltproc tool
+* [Docbook][1] (version 4.5; docbook, docbook-xsl)
 * Make tool
+* Xsltproc tool
+* `xmllint` program (libxml2-utils)
 
 ## License
 
@@ -29,7 +32,7 @@ See the ``LICENSE`` file under the installation directory.
 ## Authors
 
 * プレハブ小屋
-  * Web site (GitHub): [showa-yojyo (プレハブ小屋)](https://github.com/showa-yojyo/)
+  * Web site (GitHub): [プレハブ小屋](https://github.com/showa-yojyo/)
   * E-mail: yojyo@hotmail.com
   * Twitter: [@showa_yojyo](https://twitter.com/showa_yojyo)
 
