@@ -9,8 +9,10 @@ For example, do as follows:
 
 ```console
 bash$ git clone https://github.com/showa-yojyo/dqbook.git
+bash$ git clone --single-branch --branch https://github.com/showa-yojyo/dqbook.git dqbook-gh-pages # developers only
 bash$ cd dqbook/src/jp
 bash$ make html-chunk
+bash$ src/tools/gh-pages.sh # developers only
 ```
 
 If you don't use Git, you have to download the repository archive file from
