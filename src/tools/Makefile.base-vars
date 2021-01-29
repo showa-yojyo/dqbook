@@ -31,7 +31,8 @@ INSTALL_DATA = cp -ru
 MKDIR = mkdir -p
 RUN_HHC = ~/bin/runhhc.bat
 
-BOOK_VERSION = 1.18dev
+# Drop the suffix 'dev' in release.
+BOOK_VERSION = 1.18
 
 # You should not normally need to edit anything below here.
 SHELL = /bin/sh
@@ -48,7 +49,7 @@ HTML_CHUNK_DIR = $(DIR)/html-chunk
 HTML_HELP_DIR = $(DIR)/html-help
 HTML_TARGET = $(DIR)/$(OUTNAME).html
 
-# In the HTML chunk build, index.html is created last, so serves as an 
+# In the HTML chunk build, index.html is created last, so serves as an
 # acceptable timestamp file for the entire multi-file output.
 HTML_CHUNK_TARGET = $(HTML_CHUNK_DIR)/index.html
 
@@ -83,13 +84,13 @@ INSTALL_SUBDIR = $(INSTALL_DIR)/$(NAME)
 # TODO
 #ENSURE_XSL = if ! test -e "$(TOOLS_DIR)/xsl"; \
 #	     then $(TOOLS_DIR)/bin/find-xsl.py; fi
-ENSURE_XSL = 
+ENSURE_XSL =
 IFIMAGES = if test -n "$(IMAGES)"; then
 ENDIF = ; fi
 
 # Customization hooks for xsltproc options
 HTML_XSLTPROC_OPTS = --xinclude
-FO_XSLTPROC_OPTS = 
+FO_XSLTPROC_OPTS =
 # FO example: --stringparam page.height 9in --stringparam page.width 6.4in
 
 # Uncomment the following line if you'd like to print on A4 paper
