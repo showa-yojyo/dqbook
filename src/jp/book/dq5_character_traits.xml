@@ -45,35 +45,92 @@
   <tbody>
     <tr><td><literal>#$00</literal></td><td></td><td>レベル区間数</td></tr>
     <tr><td><literal>#$01</literal></td><td></td><td>レベル 2 の必要経験値</td></tr>
-    <tr><td><literal>#$02</literal></td><td></td><td>レベル区間境界値 0</td></tr>
-    <tr><td colspan="3">...</td></tr>
-    <tr><td><literal>#$08</literal></td><td></td><td>レベル区間境界値 6</td></tr>
-    <tr><td rowspan="2"><literal>#$09</literal></td><td><literal>#$07</literal></td><td rowspan="2">経験値計算用係数 0</td></tr>
+    <tr><td><literal>#$02</literal></td><td></td><td>レベル区間境界値[0]</td></tr>
+    <tr><td><literal>#$03</literal></td><td></td><td>レベル区間境界値[1]</td></tr>
+    <tr><td><literal>#$04</literal></td><td></td><td>レベル区間境界値[2]</td></tr>
+    <tr><td><literal>#$05</literal></td><td></td><td>レベル区間境界値[3]</td></tr>
+    <tr><td><literal>#$06</literal></td><td></td><td>レベル区間境界値[4]</td></tr>
+    <tr><td><literal>#$07</literal></td><td></td><td>レベル区間境界値[5]</td></tr>
+    <tr><td><literal>#$08</literal></td><td></td><td>レベル区間境界値[6]</td></tr>
+    <tr><td rowspan="2"><literal>#$09</literal></td><td><literal>#$07</literal></td><td rowspan="2">経験値計算用係数[0]</td></tr>
     <tr>                                            <td><literal>#$F8</literal></td></tr>
-    <tr><td colspan="3">...</td></tr>
-    <tr><td rowspan="2"><literal>#$10</literal></td><td><literal>#$07</literal></td><td rowspan="2">経験値計算用係数 7</td></tr>
+    <tr><td rowspan="2"><literal>#$0A</literal></td><td><literal>#$07</literal></td><td rowspan="2">経験値計算用係数[1]</td></tr>
     <tr>                                            <td><literal>#$F8</literal></td></tr>
-    <tr><td><literal>#$11</literal></td><td></td><td>さいだいＨＰ標準値 0</td></tr>
-    <tr><td colspan="3">...</td></tr>
-    <tr><td><literal>#$19</literal></td><td></td><td>さいだいＨＰ標準値 8</td></tr>
-    <tr><td><literal>#$1A</literal></td><td></td><td>さいだいＭＰ標準値 0</td></tr>
-    <tr><td colspan="3">...</td></tr>
-    <tr><td><literal>#$22</literal></td><td></td><td>さいだいＭＰ標準値 8</td></tr>
-    <tr><td><literal>#$23</literal></td><td></td><td>ちから標準値 0</td></tr>
-    <tr><td colspan="3">...</td></tr>
-    <tr><td><literal>#$2B</literal></td><td></td><td>ちから標準値 8</td></tr>
-    <tr><td><literal>#$2C</literal></td><td></td><td>すばやさ標準値 0</td></tr>
-    <tr><td colspan="3">...</td></tr>
-    <tr><td><literal>#$34</literal></td><td></td><td>すばやさ標準値 8</td></tr>
-    <tr><td><literal>#$35</literal></td><td></td><td>みのまもり標準値 0</td></tr>
-    <tr><td colspan="3">...</td></tr>
-    <tr><td><literal>#$3D</literal></td><td></td><td>みのまもり標準値 8</td></tr>
-    <tr><td><literal>#$3E</literal></td><td></td><td>かしこさ標準値 0</td></tr>
-    <tr><td colspan="3">...</td></tr>
-    <tr><td><literal>#$46</literal></td><td></td><td>かしこさ標準値 8</td></tr>
-    <tr><td><literal>#$47</literal></td><td></td><td>うんのよさ標準値 0</td></tr>
-    <tr><td colspan="3">...</td></tr>
-    <tr><td><literal>#$4F</literal></td><td></td><td>うんのよさ標準値 8</td></tr>
+    <tr><td rowspan="2"><literal>#$0B</literal></td><td><literal>#$07</literal></td><td rowspan="2">経験値計算用係数[2]</td></tr>
+    <tr>                                            <td><literal>#$F8</literal></td></tr>
+    <tr><td rowspan="2"><literal>#$0C</literal></td><td><literal>#$07</literal></td><td rowspan="2">経験値計算用係数[3]</td></tr>
+    <tr>                                            <td><literal>#$F8</literal></td></tr>
+    <tr><td rowspan="2"><literal>#$0D</literal></td><td><literal>#$07</literal></td><td rowspan="2">経験値計算用係数[4]</td></tr>
+    <tr>                                            <td><literal>#$F8</literal></td></tr>
+    <tr><td rowspan="2"><literal>#$0E</literal></td><td><literal>#$07</literal></td><td rowspan="2">経験値計算用係数[5]</td></tr>
+    <tr>                                            <td><literal>#$F8</literal></td></tr>
+    <tr><td rowspan="2"><literal>#$0F</literal></td><td><literal>#$07</literal></td><td rowspan="2">経験値計算用係数[6]</td></tr>
+    <tr>                                            <td><literal>#$F8</literal></td></tr>
+    <tr><td rowspan="2"><literal>#$10</literal></td><td><literal>#$07</literal></td><td rowspan="2">経験値計算用係数[7]</td></tr>
+    <tr>                                            <td><literal>#$F8</literal></td></tr>
+    <tr><td><literal>#$11</literal></td><td></td><td>さいだいＨＰ標準値[0]</td></tr>
+    <tr><td><literal>#$12</literal></td><td></td><td>さいだいＨＰ標準値[1]</td></tr>
+    <tr><td><literal>#$13</literal></td><td></td><td>さいだいＨＰ標準値[2]</td></tr>
+    <tr><td><literal>#$14</literal></td><td></td><td>さいだいＨＰ標準値[3]</td></tr>
+    <tr><td><literal>#$15</literal></td><td></td><td>さいだいＨＰ標準値[4]</td></tr>
+    <tr><td><literal>#$16</literal></td><td></td><td>さいだいＨＰ標準値[5]</td></tr>
+    <tr><td><literal>#$17</literal></td><td></td><td>さいだいＨＰ標準値[6]</td></tr>
+    <tr><td><literal>#$18</literal></td><td></td><td>さいだいＨＰ標準値[7]</td></tr>
+    <tr><td><literal>#$19</literal></td><td></td><td>さいだいＨＰ標準値[8]</td></tr>
+    <tr><td><literal>#$1A</literal></td><td></td><td>さいだいＭＰ標準値[0]</td></tr>
+    <tr><td><literal>#$1B</literal></td><td></td><td>さいだいＭＰ標準値[1]</td></tr>
+    <tr><td><literal>#$1C</literal></td><td></td><td>さいだいＭＰ標準値[2]</td></tr>
+    <tr><td><literal>#$1D</literal></td><td></td><td>さいだいＭＰ標準値[3]</td></tr>
+    <tr><td><literal>#$1E</literal></td><td></td><td>さいだいＭＰ標準値[4]</td></tr>
+    <tr><td><literal>#$1F</literal></td><td></td><td>さいだいＭＰ標準値[5]</td></tr>
+    <tr><td><literal>#$20</literal></td><td></td><td>さいだいＭＰ標準値[6]</td></tr>
+    <tr><td><literal>#$21</literal></td><td></td><td>さいだいＭＰ標準値[7]</td></tr>
+    <tr><td><literal>#$22</literal></td><td></td><td>さいだいＭＰ標準値[8]</td></tr>
+    <tr><td><literal>#$23</literal></td><td></td><td>ちから標準値[0]</td></tr>
+    <tr><td><literal>#$24</literal></td><td></td><td>ちから標準値[1]</td></tr>
+    <tr><td><literal>#$25</literal></td><td></td><td>ちから標準値[2]</td></tr>
+    <tr><td><literal>#$26</literal></td><td></td><td>ちから標準値[3]</td></tr>
+    <tr><td><literal>#$27</literal></td><td></td><td>ちから標準値[4]</td></tr>
+    <tr><td><literal>#$28</literal></td><td></td><td>ちから標準値[5]</td></tr>
+    <tr><td><literal>#$29</literal></td><td></td><td>ちから標準値[6]</td></tr>
+    <tr><td><literal>#$2A</literal></td><td></td><td>ちから標準値[7]</td></tr>
+    <tr><td><literal>#$2B</literal></td><td></td><td>ちから標準値[8]</td></tr>
+    <tr><td><literal>#$2C</literal></td><td></td><td>すばやさ標準値[0]</td></tr>
+    <tr><td><literal>#$2D</literal></td><td></td><td>すばやさ標準値[1]</td></tr>
+    <tr><td><literal>#$2E</literal></td><td></td><td>すばやさ標準値[2]</td></tr>
+    <tr><td><literal>#$2F</literal></td><td></td><td>すばやさ標準値[3]</td></tr>
+    <tr><td><literal>#$30</literal></td><td></td><td>すばやさ標準値[4]</td></tr>
+    <tr><td><literal>#$31</literal></td><td></td><td>すばやさ標準値[5]</td></tr>
+    <tr><td><literal>#$32</literal></td><td></td><td>すばやさ標準値[6]</td></tr>
+    <tr><td><literal>#$33</literal></td><td></td><td>すばやさ標準値[7]</td></tr>
+    <tr><td><literal>#$34</literal></td><td></td><td>すばやさ標準値[8]</td></tr>
+    <tr><td><literal>#$35</literal></td><td></td><td>みのまもり標準値[0]</td></tr>
+    <tr><td><literal>#$36</literal></td><td></td><td>みのまもり標準値[1]</td></tr>
+    <tr><td><literal>#$37</literal></td><td></td><td>みのまもり標準値[2]</td></tr>
+    <tr><td><literal>#$38</literal></td><td></td><td>みのまもり標準値[3]</td></tr>
+    <tr><td><literal>#$39</literal></td><td></td><td>みのまもり標準値[4]</td></tr>
+    <tr><td><literal>#$3A</literal></td><td></td><td>みのまもり標準値[5]</td></tr>
+    <tr><td><literal>#$3B</literal></td><td></td><td>みのまもり標準値[6]</td></tr>
+    <tr><td><literal>#$3C</literal></td><td></td><td>みのまもり標準値[7]</td></tr>
+    <tr><td><literal>#$3D</literal></td><td></td><td>みのまもり標準値[8]</td></tr>
+    <tr><td><literal>#$3E</literal></td><td></td><td>かしこさ標準値[0]</td></tr>
+    <tr><td><literal>#$3F</literal></td><td></td><td>かしこさ標準値[1]</td></tr>
+    <tr><td><literal>#$40</literal></td><td></td><td>かしこさ標準値[2]</td></tr>
+    <tr><td><literal>#$41</literal></td><td></td><td>かしこさ標準値[3]</td></tr>
+    <tr><td><literal>#$42</literal></td><td></td><td>かしこさ標準値[4]</td></tr>
+    <tr><td><literal>#$43</literal></td><td></td><td>かしこさ標準値[5]</td></tr>
+    <tr><td><literal>#$44</literal></td><td></td><td>かしこさ標準値[6]</td></tr>
+    <tr><td><literal>#$45</literal></td><td></td><td>かしこさ標準値[7]</td></tr>
+    <tr><td><literal>#$46</literal></td><td></td><td>かしこさ標準値[8]</td></tr>
+    <tr><td><literal>#$47</literal></td><td></td><td>うんのよさ標準値[0]</td></tr>
+    <tr><td><literal>#$48</literal></td><td></td><td>うんのよさ標準値[1]</td></tr>
+    <tr><td><literal>#$49</literal></td><td></td><td>うんのよさ標準値[2]</td></tr>
+    <tr><td><literal>#$4A</literal></td><td></td><td>うんのよさ標準値[3]</td></tr>
+    <tr><td><literal>#$4B</literal></td><td></td><td>うんのよさ標準値[4]</td></tr>
+    <tr><td><literal>#$4C</literal></td><td></td><td>うんのよさ標準値[5]</td></tr>
+    <tr><td><literal>#$4D</literal></td><td></td><td>うんのよさ標準値[6]</td></tr>
+    <tr><td><literal>#$4E</literal></td><td></td><td>うんのよさ標準値[7]</td></tr>
+    <tr><td><literal>#$4F</literal></td><td></td><td>うんのよさ標準値[8]</td></tr>
   </tbody>
 </table>
 <variablelist>
@@ -93,6 +150,7 @@
       <para>
         レベル 2 の必要経験値とは、このオブジェクトに対応するキャラクターが、
         そのレベルが 2 であるときの経験値の下限値を意味する。
+        例えば主人公のデータではこの値は 19 だ。
       </para>
       <para>
         対応キャラクターのレベル最小値が 2 でなくても、この属性には意味があるので注意。
@@ -100,16 +158,16 @@
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>レベル区間境界値 i (i = 0, 1, ..., レベル区間数 - 1)</term>
+    <term>レベル区間境界値[i] (i = 0, 1, ..., レベル区間数 - 1)</term>
     <listitem>
       <para>
-        例えば記号 <code>[1, 5)</code> はレベルの集合 <code>{1, 2, 3, 4}</code> を意味するものとする。
-        この配列型データメンバーは、これらのレベル区間を昇順に並べて、
-        それぞれの区間の上端だけを列挙したものだ。
-
-        論理的には最初のレベル区間は下限値と上限値をそれぞれ 2 とレベル区間境界値 0 の値とする区間と考える。
-        同様に、最後のレベル区間は下限と上限をそれぞれレベル区間境界値ラスト、
-        そのキャラクターの最大レベルを値とする区間となる。
+        この配列型データメンバーは、レベル区間を自然な順序で昇順に並べて、
+        それぞれの区間の上限だけを列挙したものだ。
+      </para>
+      <para>
+        以下、例えば記号 <code>[1, 5)</code> はレベルの集合 <code>{1, 2, 3, 4}</code> を意味するものとする。
+        論理的には最初のレベル区間は <code>[2, レベル区間境界値[0])</code> と考える。
+        同様に、最後のレベル区間は <code>[レベル区間境界値[レベル区間数 - 1], レベル最大値]</code> と考える。
       </para>
       <para>
         例として主人公のレベル区間データを説明する。この配列の値は物理的には次のように定義されている。
@@ -119,9 +177,9 @@
         論理的には次の区間列が定義されているものと考える：
       </para>
 <programlisting>
-//  index
-//  0      1        2         3         4         5         6         7
-  {[1, 5), [5, 10), [10, 15), [15, 20), [20, 30), [30, 45), [45, 60), [60, 100)}
+// index
+// 0      1        2         3         4         5         6         7
+ {[1, 5), [5, 10), [10, 15), [15, 20), [20, 30), [30, 45), [45, 60), [60, 100)}
 </programlisting>
       <para>
         例えば主人公のレベルが 25 に上がるときには、
@@ -134,50 +192,68 @@
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>経験値計算用係数 i (i = 0, 1, ..., レベル区間数 - 1)</term>
+    <term>経験値計算用係数[i]</term>
     <listitem>
       <para>
-        この配列メンバーデータは、到達レベルに対する必要経験値を算出するアルゴリズムが必要とする二種類の係数のペアを要素とする。
-        詳細についてはのちほど説明する。
+        当メンバーデータおよび後続の各メンバーデータに対して、インデックス i の有効範囲はすべて
+        0, 1, ..., レベル区間数 - 1 だ。以降、このことをいちいち断らない。
       </para>
+      <para>
+        この配列メンバーデータは、到達レベルに対する必要経験値を算出するアルゴリズムが必要とする二種類の係数のペアを要素とする。
+        計算の詳細についてはのちほど説明する。
+      </para>
+      <para>
+        例えば主人公に関する経験値計算用係数配列は次のように与えられている。
+        便宜上、後述する説明で用いられる記号 <code>a, b</code>を添えておく。
+        ROM データでは <code>a</code> と <code>b</code> の要素が交互に詰められているが、
+        ここではわかりやすさのために分けた：
+      </para>
+<programlisting>
+// index
+//   0   1   2  3  4  5  6  7
+a = {2,  1,  1, 1, 1, 1, 1, 1};
+b = {2, 18, 10, 6, 4, 3, 0, 0};
+</programlisting>
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>さいだいＨＰ標準値 i (i = 0, 1, ..., レベル区間数)</term>
+    <term>さいだいＨＰ標準値[i]</term>
+    <term>さいだいＭＰ標準値[i]</term>
     <listitem>
       <para>
-        さいだいＨＰ標準値 i とは、対応するキャラクターのレベルがレベル区間境界値 i であるときの、
-        そのキャラクターのさいだいＨＰの値を意味する属性だ。
+        さいだいＨＰ標準値[i] およびさいだいＭＰ標準値[i]とは、対応するキャラクターのレベルがレベル区間境界値[i]に等しいときの、
+        そのキャラクターのさいだいＨＰおよびさいだいＭＰそれぞれの値を意味する属性だ。
         ただし、実際にはその半分の値を保持していて、計算部で倍にする。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>さいだいＭＰ標準値 i (i = 0, 1, ..., レベル区間数)</term>
+    <term>ちから標準値[i]</term>
+    <term>すばやさ標準値[i]</term>
+    <term>みのまもり標準値[i]</term>
+    <term>かしこさ標準値[i]</term>
+    <term>うんのよさ標準値[i]</term>
     <listitem>
       <para>
-        さいだいＭＰ標準値はさいだいＨＰ標準値と同様の扱いの属性だ。
+        ちから標準値[i] とは、対応するキャラクターのレベルがレベル区間境界値[i] の値に等しいときの、
+        そのキャラクターのちからの値を表すメンバーデータだ。
+        さいだいＨＰやさいだいＭＰとは異なり、実際の値を表現している。
       </para>
-    </listitem>
-  </varlistentry>
-  <varlistentry>
-    <term>ちから標準値 i (i = 0, 1, ..., レベル区間数)</term>
-    <listitem>
       <para>
-        ちから標準値とは、対応するキャラクターのレベルがレベル区間境界値 i であるときの、
-        そのキャラクターのちからの値を意味する属性だ。
-        こちらは実際の値を直接表現している。
+        例えば主人公のデータでは、この標準値配列は次のように定義されている。
       </para>
-    </listitem>
-  </varlistentry>
-  <varlistentry>
-    <term>すばやさ標準値 i</term>
-    <term>みのまもり標準値 i</term>
-    <term>かしこさ標準値 i</term>
-    <term>うんのよさ標準値 i</term>
-    <listitem>
+<programlisting>
+{11, 23, 38, 49, 65, 105, 149, 185, 255}
+</programlisting>
       <para>
-        これらの属性の意味はちから標準値のそれに準じる。
+        各要素は先に例示した主人公のレベル区間データの値と対応しており、
+        主人公がレベル 5, 10, 15, 20, 35, 45, 60 であるときには、
+        ちからの値はそれぞれ 11, 23, 38, 49, 65, 105, 149, 185, 255 であるということだ。
+        この配列に含まれない値のレベルに上がるときには、
+        新しいちからの値はレベル区間の隣り合う端点に対応するちから標準値同士から線形補間で得られる。
+      </para>
+      <para>
+        すばやさ、みのまもり、かしこさ、うんのよさ各標準値についてもちからと同様だ。
       </para>
     </listitem>
   </varlistentry>
@@ -222,17 +298,27 @@
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term><code>a[n], b[n]</code></term>
+    <term><code>a, b</code></term>
     <listitem>
       <para>
-        経験値計算用係数配列を検索して得られる、対象レベルに対応する各係数。
-        この配列の各 1 バイト長要素の <code>#$07, #$F8</code> それぞれの桁に対応する値をそれぞれ
+        経験値計算用係数配列の各 1 バイト長要素の <code>#$07, #$F8</code> それぞれの桁に対応する値をそれぞれ
         <code>a, b</code> と呼びたい。
         これらに付けるインデックスは経験値計算用係数配列に対するインデックスではないことに注意して欲しい。
+        次項で述べる。
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term><code>index</code></term>
+    <listitem>
+      <para>
+        経験値計算用係数配列 <code>a, b</code> 用インデックス。
       </para>
       <para>
-        例えば主人公ならば <code>n == 3</code> のとき、経験値計算用係数配列に適用されるインデックスは 0 である。
-        したがって、<code>a[3] == 2, b[3] == 2</code> となる。
+        例えば主人公ならば <code>n == 3</code> のとき、これを含むレベル区間は
+        <code>[1, 5)</code> であると説明した。このインデックスは 0 であるので
+        <code>index = 0</code> とする。
+        したがって、<code>a[index] == 2, b[index] == 2</code> となる。
       </para>
     </listitem>
   </varlistentry>
@@ -245,16 +331,22 @@
   一般ステップのみを説明すれば十分だろう。
 </para>
 <programlisting>
+//
+// ...レベル n が次のレベル区間に移行するタイミングで index の値をインクリメントする処理がここに入る...
+//
+
+// 以降がアルゴリズムの核心部
+
 D[n] = E[n - 1] - E[n - 2];
 F = F[n - 1] + 32 - F[n - 2];
 if(F &gt;= 32){
     F -= 32;
 }
 
-p1 = D[n] * a[n];
-p2 = D[n] * b[n];
-p3 = F * a[n];
-p4 = F * b[n];
+p1 = D[n] * a[i];
+p2 = D[n] * b[i];
+p3 = F * a[i];
+p4 = F * b[i];
 sum = p2 + p3 + p4;
 D = p1 + (sum >> 5);
 
@@ -265,6 +357,10 @@ if(F[n] &gt;= 32){
     F[n] -= 32;
 }
 </programlisting>
+<para>
+  例えば、主人公のレベル 3, 4, 5 に必要な経験値はそれぞれ 58, 139, 269 だ。
+  研究熱心な読者には、このアルゴリズムが本当にこれらの値を出力することを確認してもらいたい。
+</para>
 </section> <!-- dq5.character.traits.progression -->
 
 <section id="dq5.character.traits.abilities">
