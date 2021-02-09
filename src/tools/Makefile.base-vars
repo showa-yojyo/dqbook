@@ -32,7 +32,7 @@ MKDIR = mkdir -p
 RUN_HHC = ~/bin/runhhc.bat
 
 # Drop the suffix 'dev' in release.
-BOOK_VERSION = 1.18.1
+BOOK_VERSION = 1.18.2
 
 # You should not normally need to edit anything below here.
 SHELL = /bin/sh
