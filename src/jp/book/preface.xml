@@ -198,14 +198,10 @@
   その他解析情報や当時の開発者からのタレコミも歓迎する。
   記者への連絡先を以下に示す。
 </para>
-<para>
-  <email><ulink url="mailto:yojyo@hotmail.com">yojyo@hotmail.com</ulink></email>
-</para>
-<caution>
-  <para>
-    本書執筆陣の開発拠点が 2018 年 5 月末に移転するのに伴い、以降音信不通になることが予定されている。
-  </para>
-</caution>
+<simplelist type="vert" columns="1">
+  <member><ulink url="https://twitter.com/showa_yojyo">Twitter - プレハブ小屋 (showa_yojyo)</ulink></member>
+  <member><email><ulink url="mailto:yojyo@hotmail.com">yojyo@hotmail.com</ulink></email></member>
+</simplelist>
 </simplesect> <!-- preface.contact -->
 
 <simplesect id="preface.acknowledgments">
@@ -259,7 +255,21 @@
       </para>
     </listitem>
   </varlistentry>
+
+  <varlistentry>
+    <term>rex 氏</term>
+    <listitem>
+      <para>
+        未執筆のまま放置していたドラクエ 5 の必要経験値算出の記述を促していただいた。
+        また、初稿のアルゴリズムを検証した結果、当初の記述に漏れがあることを執筆陣に発見させていただいた。
+      </para>
+    </listitem>
+  </varlistentry>
 </variablelist>
+<para>
+執筆陣の注意不足により、失礼ながらこの一覧から漏れている方がいるかもしれない。
+我々はこの一覧を完全なものにしたいので、心当たりの方はどうか名乗り出ていただきたい。
+</para>
 </simplesect> <!-- preface.acknowledgments -->
 
 </preface> <!-- preface -->
