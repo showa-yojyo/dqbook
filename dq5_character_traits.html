@@ -734,8 +734,7 @@
               <p>
         論理的には次の区間列が定義されているものと考える：
       </p>
-              <pre class="programlisting">
-// index
+              <pre class="programlisting">// index
 // 0      1        2         3         4         5         6         7
  {[1, 5), [5, 10), [10, 15), [15, 20), [20, 30), [30, 45), [45, 60), [60, 100)}
 </pre>
@@ -766,8 +765,7 @@
         ROM データでは <code class="code">a</code> と <code class="code">b</code> の要素が交互に詰められているが、
         ここではわかりやすさのために分けた：
       </p>
-              <pre class="programlisting">
-// index
+              <pre class="programlisting">// index
 //   0   1   2  3  4  5  6  7
 a = {2,  1,  1, 1, 1, 1, 1, 1};
 b = {2, 18, 10, 6, 4, 3, 0, 0};
@@ -800,9 +798,7 @@ b = {2, 18, 10, 6, 4, 3, 0, 0};
               <p>
         例えば主人公のデータでは、この標準値配列は次のように定義されている。
       </p>
-              <pre class="programlisting">
-{11, 23, 38, 49, 65, 105, 149, 185, 255}
-</pre>
+              <pre class="programlisting">{11, 23, 38, 49, 65, 105, 149, 185, 255}</pre>
               <p>
         各要素は先に例示した主人公のレベル区間データの値と対応しており、
         主人公がレベル 5, 10, 15, 20, 35, 45, 60 であるときには、
@@ -899,8 +895,7 @@ b = {2, 18, 10, 6, 4, 3, 0, 0};
   <code class="code">E[2]</code> はメンバーデータ「レベル 2 の必要経験値」の値を代入する。
   一般ステップのみを説明すれば十分だろう。
 </p>
-        <pre class="programlisting">
-//
+        <pre class="programlisting">//
 // ...レベル n が次のレベル区間に移行するタイミングで index の値をインクリメントする処理がここに入る...
 //
 
@@ -911,19 +906,30 @@ F = F[n - 1] + 32 - F[n - 2];
 if(F &gt;= 32){
     F -= 32;
 }
+else if(D[n] != 0){
+    --D[n];
+}
+else{
+    D[n] = 0xFFFFFFFF;
+}
 
-p1 = D[n] * a[i];
-p2 = D[n] * b[i];
-p3 = F * a[i];
-p4 = F * b[i];
+p1 = D[n] * a[index];
+p2 = D[n] * b[index];
+p3 = F * a[idex];
+p4 = F * b[idex];
 sum = p2 + p3 + p4;
 D = p1 + (sum &gt;&gt; 5);
 
 E[n] = E[n - 1] + D;
-F[n] = F[n - 1] + (s &amp; 31);
+F[n] = F[n - 1] + (sum &amp; 31);
 if(F[n] &gt;= 32){
     ++E[n];
     F[n] -= 32;
+}
+
+if(E[n] &gt; 10000000){
+    E[n] = 10000000;
+    F[n] = 0;
 }
 </pre>
         <p>
