@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>3.11. 仲間キャラクターの特性データ</title>
     <link rel="stylesheet" type="text/css" href="dqbook.css" />
-    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1" />
+    <meta name="generator" content="DocBook XSL Stylesheets Vsnapshot" />
     <link rel="home" href="index.html" title="ドラクエ命" />
     <link rel="up" href="dq5.html" title="第 3 章 SFC 版ドラクエ 5 (1992)" />
     <link rel="prev" href="dq5_shops.html" title="3.10. 店屋" />
@@ -915,8 +915,8 @@ else{
 
 p1 = D[n] * a[index];
 p2 = D[n] * b[index];
-p3 = F * a[idex];
-p4 = F * b[idex];
+p3 = F * a[index];
+p4 = F * b[index];
 sum = p2 + p3 + p4;
 D = p1 + (sum &gt;&gt; 5);
 
@@ -936,6 +936,93 @@ if(E[n] &gt; 10000000){
   例えば、主人公のレベル 3, 4, 5 に必要な経験値はそれぞれ 58, 139, 269 だ。
   研究熱心な読者には、このアルゴリズムが本当にこれらの値を出力することを確認してもらいたい。
 </p>
+        <div class="variablelist">
+          <dl class="variablelist">
+            <dt>
+              <span class="term">
+                <code class="code">n</code>
+              </span>
+            </dt>
+            <dd>
+              <p>
+        レベルを表す値。<code class="code">1 &lt;= n &lt;= 99</code> が成り立つ。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">
+                <code class="code">E[n]</code>
+              </span>
+            </dt>
+            <dd>
+              <p>
+        レベル <code class="code">n</code> に必要な経験値。
+        必要経験値の計算アルゴリズムとは、キャラクタークラスとレベル <code class="code">n</code>
+        を与えて <code class="code">E[n]</code> を計算するものだ。
+      </p>
+              <p>
+        先述の「レベル 2 の必要経験値」とは <code class="code">E[2]</code> が定義されているメンバーデータに他ならない。
+        例えば主人公については <code class="code">E[2] == 19</code>.
+        なお、全キャラクター共通で <code class="code">E[1] == 0</code> と規定されている。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">
+                <code class="code">F[n]</code>
+              </span>
+            </dt>
+            <dd>
+              <p>
+        <code class="code">E[n]</code> を計算するときに用いる調整のための値。
+        アルゴリズムで帰納的に決定される値。
+      </p>
+            </dd>
+            <dt>
+              <span class="term">
+                <code class="code">a[n], b[n]</code>
+              </span>
+            </dt>
+            <dd>
+              <p>
+        経験値計算用係数配列を検索して得られる、対象レベルに対応する各係数。
+        この配列の各 1 バイト長要素の <code class="code">#$07, #$F8</code> それぞれの桁に対応する値をそれぞれ
+        <code class="code">a, b</code> と呼びたい。
+        これらに付けるインデックスは経験値計算用係数配列に対するインデックスではないことに注意して欲しい。
+      </p>
+              <p>
+        例えば主人公ならば <code class="code">n == 3</code> のとき、経験値計算用係数配列に適用されるインデックスは 0 である。
+        したがって、<code class="code">a[3] == 2, b[3] == 2</code> となる。
+      </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+  次に <code class="code">E[n]</code> を計算するアルゴリズムの概略を記す。
+  この値はループを用いて帰納的に計算される。
+  初期ステップは前述のように <code class="code">E[1] = 0</code> であり、
+  <code class="code">E[2]</code> はメンバーデータ「レベル 2 の必要経験値」の値を代入する。
+  一般ステップのみを説明すれば十分だろう。
+</p>
+        <pre class="programlisting">
+D[n] = E[n - 1] - E[n - 2];
+F = F[n - 1] + 32 - F[n - 2];
+if(F &gt;= 32){
+    F -= 32;
+}
+
+p1 = D[n] * a[n];
+p2 = D[n] * b[n];
+p3 = F * a[n];
+p4 = F * b[n];
+sum = p2 + p3 + p4;
+D = p1 + (sum &gt;&gt; 5);
+
+E[n] = E[n - 1] + D;
+F[n] = F[n - 1] + (s &amp; 31);
+if(F[n] &gt;= 32){
+    ++E[n];
+    F[n] -= 32;
+}
+</pre>
       </div>
       <div class="section">
         <div class="titlepage">
