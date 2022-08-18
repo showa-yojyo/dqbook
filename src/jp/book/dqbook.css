@@ -1,9 +1,6 @@
 /* -*- Mode: CSS -*- */
-/** 
+/**
  * Style sheet for DQ documents of DocBook version
- * 
- * The CSS2 specification is available at
- * http://www.w3.org/TR/1998/REC-CSS2-19980512
  */
 
 @import url("./link.css");
@@ -13,54 +10,55 @@
  */
 div.navigation table
 {
-	text-align: center;
-	width: 100%;
-	border-collapse: separate;
-	border-spacing: 0px;
+    text-align: center;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0px;
 }
 div.navigation td
 {
-	background-color: dimgrey;
-	color: white;
-	height: 32px;
-	text-align: center;
-	font-weight: bold;
+    background-color: dimgrey;
+    color: white;
+    line-height: 0.5;
+    text-align: center;
+    font-weight: bold;
 }
 div.navigation td.online-navigation
 {
-	width: 32px;
-	font-size: 1px;  /* HACK */
+    width: 32px;
+    font-size: 1px;  /* HACK */
 }
 div.navigation img
 {
-	width: 32px; height 32px;
-	border: 0px solid black;
-	margin: 0px;
+    width: 32px;
+    height: 32px;
+    border: 0px solid black;
+    margin: 0px;
 }
 
 /** TABLE class memorylayout
  */
 table caption
 {
-	font-size: smaller;
-	font-weight: bold;
-	margin-bottom: 2px;
+    font-size: smaller;
+    font-weight: bold;
+    margin-bottom: 2px;
 }
 table.memorylayout
 {
-	border: 1px solid black;
-	border-collapse: collapse;
+    border: 1px solid black;
+    border-collapse: collapse;
 }
-table.memorylayout thead, 
+table.memorylayout thead,
 table.memorylayout tbody th
 {
-	border: 1px solid black;
-	background-color: dimgrey;
-	color: white;
+    border: 1px solid black;
+    background-color: dimgrey;
+    color: white;
 }
 table.memorylayout td
 {
-	border: 1px solid black;
+    border: 1px solid black;
 }
 
 /* lighttable */
@@ -68,142 +66,138 @@ table.memorylayout td
 table.lighttable,
 div.segmentedlist table
 {
-	border: 1px solid black;
-	border-collapse: collapse;
-	margin-top: 1em;
-	margin-bottom: 1em;
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 table.lighttable thead,
 table.lighttable tbody th,
 div.segmentedlist table thead,
 div.segmentedlist table tbody th
 {
-	border: 1px solid black;
-	background-color: dimgrey;
-	color: white;
+    border: 1px solid black;
+    background-color: dimgrey;
+    color: white;
 }
 table.lighttable thead th,
 div.segmentedlist table thead th
 {
-	padding-left: 8px;
-	padding-right: 8px;
-	text-align: center;
+    padding-left: 8px;
+    padding-right: 8px;
+    text-align: center;
 }
 table.lighttable tbody th,
 div.segmentedlist table tbody th
 {
-	vertical-align: top;
+    vertical-align: top;
 }
 table.lighttable td,
 div.segmentedlist table td
 {
-	border: 1px solid black;
-	padding-left: 16px;
-	padding-right: 16px;
+    border: 1px solid black;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 table.lighttable ul,
 div.segmentedlist table ul
 {
-	margin-top: 0;
-	margin-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 /** body
  */
 body
 {
-	line-height: 1.4;
+    line-height: 1.4;
 }
 div.glosslist dt
 {
-	font-weight: bold;
+    font-weight: bold;
 }
 /** DocBook figure
  */
-div.figure
-{
-	/*text-align: center;*/
-}
 div.figure p.title
 {
-	font-size: smaller;
-	margin-bottom: 2px;
+    font-size: smaller;
+    margin-bottom: 2px;
 }
 div.figure img
 {
-	border: solid black 1px;
+    border: solid black 1px;
 }
 hr
 {
-	border-width: 1px 0px 0px 0px;
-	border-style: solid;
-	border-color: darkgrey;
-	height: 1px;
+    border-width: 1px 0px 0px 0px;
+    border-style: solid;
+    border-color: darkgrey;
+    height: 1px;
 }
 
 pre.screen,
 pre.programlisting
 {
-	background: whitesmoke;
-	padding: 0.5em;
-	line-height: 1.2;
+    background: whitesmoke;
+    padding: 0.5em;
+    line-height: 1.2;
 
-	/* font setting for both IE8 and Firefox */
-	font-size: 10pt;
-	font-family: "courier new", monospace;
+    /* font setting for both IE8 and Firefox */
+    font-size: 10pt;
+    font-family: "courier new", monospace;
 }
 
 code
 {
-	/* font setting for both IE8 and Firefox */
-	font-size: 10pt;
-	font-family: "courier new", monospace;
+    /* font setting for both IE8 and Firefox */
+    font-size: 10pt;
+    font-family: "courier new", monospace;
 }
 
 span.term
 {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 div.caution,
 div.warning,
 div.important
 {
-	margin-top: 2em;
-	margin-bottom: 2em;
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
-	border-top: 2px solid black;
-	border-bottom: 2px solid black;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
 }
 
 address{ font-size: 80%; }
 
 .release-info
 {
-	font-style: italic;
-	font-size: 80%;
+    font-style: italic;
+    font-size: 80%;
 }
 
 em
 {
-	font-style: normal;
-	font-weight: bold;
+    font-style: normal;
+    font-weight: bold;
 }
 /* IE8 and Firefox */
 div.itemizedlist ul
 {
-	margin: 0em auto; /* TR.BL */
+    margin: 0em auto; /* TR.BL */
 }
 div.itemizedlist ul li p
 {
-	margin: 0em auto; /* TR.BL */
+    margin: 0em auto; /* TR.BL */
 }
 div.toc dl
 {
-	margin: 0em auto; /* TR.BL */
+    margin: 0em auto; /* TR.BL */
 }
 ul
 {
-	list-style-type: disc;
+    list-style-type: disc;
 }
