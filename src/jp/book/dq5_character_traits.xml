@@ -346,8 +346,8 @@ else{
 
 p1 = D[n] * a[index];
 p2 = D[n] * b[index];
-p3 = F * a[idex];
-p4 = F * b[idex];
+p3 = F * a[index];
+p4 = F * b[index];
 sum = p2 + p3 + p4;
 D = p1 + (sum >> 5);
 
