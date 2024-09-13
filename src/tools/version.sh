@@ -1,8 +1,9 @@
 #!/bin/bash
 
-TODAY_DATE=$(LANG= date +%Y/%m/%d\ \(%a\))
-TODAY_YEAR=${TODAY_DATE%%/*}
-BOOK_VERSION=${1-"1.12"}
+LANG=
+TODAY_DATE=$(date +%Y-%m-%d\ \(%a\))
+TODAY_YEAR=$(date +%Y)
+BOOK_VERSION=${1-"1.18.5"}
 
 cat <<BOOKINFO
 <?xml version="1.0" encoding="UTF-8"?>
