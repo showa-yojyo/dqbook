@@ -274,6 +274,16 @@
       </para>
     </listitem>
   </varlistentry>
+
+  <varlistentry>
+    <term>矢木羽研（やきうけん）氏</term>
+    <listitem>
+      <para>
+        <ulink url="https://github.com/showa-yojyo/dqbook/issues/56">ドラクエ 5
+        レベルアップ構造体の記述ミス</ulink>を発見していただいた。
+      </para>
+    </listitem>
+  </varlistentry>
 </variablelist>
 <para>
 執筆陣の注意不足により、失礼ながらこの一覧から漏れている方がいるかもしれない。

@@ -104,33 +104,33 @@
     <tr><td><literal>#$32</literal></td><td></td><td>すばやさ標準値[6]</td></tr>
     <tr><td><literal>#$33</literal></td><td></td><td>すばやさ標準値[7]</td></tr>
     <tr><td><literal>#$34</literal></td><td></td><td>すばやさ標準値[8]</td></tr>
-    <tr><td><literal>#$35</literal></td><td></td><td>みのまもり標準値[0]</td></tr>
-    <tr><td><literal>#$36</literal></td><td></td><td>みのまもり標準値[1]</td></tr>
-    <tr><td><literal>#$37</literal></td><td></td><td>みのまもり標準値[2]</td></tr>
-    <tr><td><literal>#$38</literal></td><td></td><td>みのまもり標準値[3]</td></tr>
-    <tr><td><literal>#$39</literal></td><td></td><td>みのまもり標準値[4]</td></tr>
-    <tr><td><literal>#$3A</literal></td><td></td><td>みのまもり標準値[5]</td></tr>
-    <tr><td><literal>#$3B</literal></td><td></td><td>みのまもり標準値[6]</td></tr>
-    <tr><td><literal>#$3C</literal></td><td></td><td>みのまもり標準値[7]</td></tr>
-    <tr><td><literal>#$3D</literal></td><td></td><td>みのまもり標準値[8]</td></tr>
-    <tr><td><literal>#$3E</literal></td><td></td><td>かしこさ標準値[0]</td></tr>
-    <tr><td><literal>#$3F</literal></td><td></td><td>かしこさ標準値[1]</td></tr>
-    <tr><td><literal>#$40</literal></td><td></td><td>かしこさ標準値[2]</td></tr>
-    <tr><td><literal>#$41</literal></td><td></td><td>かしこさ標準値[3]</td></tr>
-    <tr><td><literal>#$42</literal></td><td></td><td>かしこさ標準値[4]</td></tr>
-    <tr><td><literal>#$43</literal></td><td></td><td>かしこさ標準値[5]</td></tr>
-    <tr><td><literal>#$44</literal></td><td></td><td>かしこさ標準値[6]</td></tr>
-    <tr><td><literal>#$45</literal></td><td></td><td>かしこさ標準値[7]</td></tr>
-    <tr><td><literal>#$46</literal></td><td></td><td>かしこさ標準値[8]</td></tr>
-    <tr><td><literal>#$47</literal></td><td></td><td>うんのよさ標準値[0]</td></tr>
-    <tr><td><literal>#$48</literal></td><td></td><td>うんのよさ標準値[1]</td></tr>
-    <tr><td><literal>#$49</literal></td><td></td><td>うんのよさ標準値[2]</td></tr>
-    <tr><td><literal>#$4A</literal></td><td></td><td>うんのよさ標準値[3]</td></tr>
-    <tr><td><literal>#$4B</literal></td><td></td><td>うんのよさ標準値[4]</td></tr>
-    <tr><td><literal>#$4C</literal></td><td></td><td>うんのよさ標準値[5]</td></tr>
-    <tr><td><literal>#$4D</literal></td><td></td><td>うんのよさ標準値[6]</td></tr>
-    <tr><td><literal>#$4E</literal></td><td></td><td>うんのよさ標準値[7]</td></tr>
-    <tr><td><literal>#$4F</literal></td><td></td><td>うんのよさ標準値[8]</td></tr>
+    <tr><td><literal>#$35</literal></td><td></td><td>かしこさ標準値[0]</td></tr>
+    <tr><td><literal>#$36</literal></td><td></td><td>かしこさ標準値[1]</td></tr>
+    <tr><td><literal>#$37</literal></td><td></td><td>かしこさ標準値[2]</td></tr>
+    <tr><td><literal>#$38</literal></td><td></td><td>かしこさ標準値[3]</td></tr>
+    <tr><td><literal>#$39</literal></td><td></td><td>かしこさ標準値[4]</td></tr>
+    <tr><td><literal>#$3A</literal></td><td></td><td>かしこさ標準値[5]</td></tr>
+    <tr><td><literal>#$3B</literal></td><td></td><td>かしこさ標準値[6]</td></tr>
+    <tr><td><literal>#$3C</literal></td><td></td><td>かしこさ標準値[7]</td></tr>
+    <tr><td><literal>#$3D</literal></td><td></td><td>かしこさ標準値[8]</td></tr>
+    <tr><td><literal>#$3E</literal></td><td></td><td>うんのよさ標準値[0]</td></tr>
+    <tr><td><literal>#$3F</literal></td><td></td><td>うんのよさ標準値[1]</td></tr>
+    <tr><td><literal>#$40</literal></td><td></td><td>うんのよさ標準値[2]</td></tr>
+    <tr><td><literal>#$41</literal></td><td></td><td>うんのよさ標準値[3]</td></tr>
+    <tr><td><literal>#$42</literal></td><td></td><td>うんのよさ標準値[4]</td></tr>
+    <tr><td><literal>#$43</literal></td><td></td><td>うんのよさ標準値[5]</td></tr>
+    <tr><td><literal>#$44</literal></td><td></td><td>うんのよさ標準値[6]</td></tr>
+    <tr><td><literal>#$45</literal></td><td></td><td>うんのよさ標準値[7]</td></tr>
+    <tr><td><literal>#$46</literal></td><td></td><td>うんのよさ標準値[8]</td></tr>
+    <tr><td><literal>#$47</literal></td><td></td><td>みのまもり標準値[0]</td></tr>
+    <tr><td><literal>#$48</literal></td><td></td><td>みのまもり標準値[1]</td></tr>
+    <tr><td><literal>#$49</literal></td><td></td><td>みのまもり標準値[2]</td></tr>
+    <tr><td><literal>#$4A</literal></td><td></td><td>みのまもり標準値[3]</td></tr>
+    <tr><td><literal>#$4B</literal></td><td></td><td>みのまもり標準値[4]</td></tr>
+    <tr><td><literal>#$4C</literal></td><td></td><td>みのまもり標準値[5]</td></tr>
+    <tr><td><literal>#$4D</literal></td><td></td><td>みのまもり標準値[6]</td></tr>
+    <tr><td><literal>#$4E</literal></td><td></td><td>みのまもり標準値[7]</td></tr>
+    <tr><td><literal>#$4F</literal></td><td></td><td>みのまもり標準値[8]</td></tr>
   </tbody>
 </table>
 <variablelist>
@@ -220,36 +220,45 @@ b = {2, 18, 10, 6, 4, 3, 0, 0};
     <listitem>
       <para>
         さいだいＨＰ標準値[i] およびさいだいＭＰ標準値[i]とは、対応するキャラクターのレベルがレベル区間境界値[i]に等しいときの、
-        そのキャラクターのさいだいＨＰおよびさいだいＭＰそれぞれの値を意味する属性だ。
+        そのキャラクターのさいだいＨＰおよびさいだいＭＰそれぞれの標準値を意味する属性だ。
         ただし、実際にはその半分の値を保持していて、計算部で倍にする。
+      </para>
+      <para>
+        本項で言う「標準」とは、「キャラクターの装備が裸であり、
+        かつ種や実のたぐいをいっさい与えないでレベルが上がる場合に取る値」
+        くらいの意味に解釈して欲しい。
+        以下、特に断らない限りこの仮定を置くものとする。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
     <term>ちから標準値[i]</term>
     <term>すばやさ標準値[i]</term>
-    <term>みのまもり標準値[i]</term>
     <term>かしこさ標準値[i]</term>
     <term>うんのよさ標準値[i]</term>
+    <term>みのまもり標準値[i]</term>
     <listitem>
       <para>
         ちから標準値[i] とは、対応するキャラクターのレベルがレベル区間境界値[i] の値に等しいときの、
-        そのキャラクターのちからの値を表すメンバーデータだ。
+        そのキャラクターのちからの値の標準値を表すメンバーデータだ。
         さいだいＨＰやさいだいＭＰとは異なり、実際の値を表現している。
       </para>
       <para>
-        例えば主人公のデータでは、この標準値配列は次のように定義されている。
+        例えば主人公のデータでは、この標準値配列は次のように定義されている：
       </para>
 <programlisting>{11, 23, 38, 49, 65, 105, 149, 185, 255}</programlisting>
       <para>
         各要素は先に例示した主人公のレベル区間データの値と対応しており、
-        主人公がレベル 5, 10, 15, 20, 35, 45, 60 であるときには、
-        ちからの値はそれぞれ 11, 23, 38, 49, 65, 105, 149, 185, 255 であるということだ。
+        主人公がレベル
+        1, 5, 10, 15, 20, 30, 45, 60, 99
+        であるときには、ちからの値はそれぞれ
+        11, 23, 38, 49, 65, 105, 149, 185, 255
+        が標準的であるということだ。
         この配列に含まれない値のレベルに上がるときには、
         新しいちからの値はレベル区間の隣り合う端点に対応するちから標準値同士から線形補間で得られる。
       </para>
       <para>
-        すばやさ、みのまもり、かしこさ、うんのよさ各標準値についてもちからと同様だ。
+        すばやさ、かしこさ、うんのよさ、みのまもりについてもちからと同様だ。
       </para>
     </listitem>
   </varlistentry>
