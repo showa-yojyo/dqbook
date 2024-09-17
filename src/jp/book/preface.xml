@@ -270,7 +270,9 @@
     <term>yuilib 氏</term>
     <listitem>
       <para>
-        <ulink url="https://github.com/showa-yojyo/dqbook/issues/55">付録 B の記述ミス</ulink>を発見していただいた。
+        <ulink url="https://github.com/showa-yojyo/dqbook/issues/55">付録 B で一覧が入れ替わっているミス</ulink>を発見していただいた。
+        特に、GitHub に発見報告をいただいてから半年放置したのはたいへん申し訳なかった。
+        深く反省する。
       </para>
     </listitem>
   </varlistentry>
@@ -281,6 +283,8 @@
       <para>
         <ulink url="https://github.com/showa-yojyo/dqbook/issues/56">ドラクエ 5
         レベルアップ構造体の記述ミス</ulink>を発見していただいた。
+        レベルアップ属性値各種の算出方法を追記する契機になりもした（特に
+        1.5 倍ルールを見落とすところだった）。
       </para>
     </listitem>
   </varlistentry>
