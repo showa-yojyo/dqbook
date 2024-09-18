@@ -1,10 +1,3 @@
-html-chunk/
+build/
 www/
-
-*.pdf
-*.html
-*.tar.bz2
-*.xls
-*.zip
-
 version.xml
