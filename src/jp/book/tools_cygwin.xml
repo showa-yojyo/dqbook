@@ -223,7 +223,8 @@ F4240 <co id="tools.cygwin.radix.co.2"/>
 	そこで、以下のようにスクリプトを書いておき、<command>dispel</command> を直接利用するのではなく、
 	これを利用することにすると多少は楽だ。
 </para>
-<programlisting>#!/bin/bash
+<programlisting><![CDATA[
+#!/bin/bash
 #
 # script: disdq3
 # example:
@@ -238,7 +239,7 @@ ROM=~/data/dq3.smc
 #
 # DisPel のバージョンが v1 未満の場合は -n は不要となるので注意
 $DISPEL -n -h -s -p $* "$(cygpath -d $ROM)"
-</programlisting>
+]]></programlisting>
 </section> <!-- tools.cygwin.wrapper -->
 
 </section> <!-- tools.cygwin -->

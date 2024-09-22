@@ -107,7 +107,7 @@ ROM データをダンプして属性値を検討すると、自陣と敵陣と�
 コマンド実行者とコマンドを入力とし、ダメージ量を出力とする関数とみなすのが理解しやすい。
 コードの概要を以下に示す。
 </para>
-<programlisting>
+<programlisting><!-- NO CDATA -->
 C9/0AF7:    08          PHP
 C9/0AF8:    8B          PHB
 C9/0AF9:    C230        REP #$30

@@ -8,7 +8,7 @@
 <section id="dq5.string"><?dbhtml filename="dq5_string.html" ?>
 <title>文字列</title>
 <indexterm id="term.dq5.string"><primary>文字列</primary><secondary>DQ5</secondary></indexterm>
-<para> 
+<para>
 本節では文字列処理について述べる。
 まず、いくつかの基本的な概念を簡単に説明する。
 次に、プログラムがどのように文字列データにアクセスするかを、具体的なコードと併せて示す。
@@ -61,7 +61,7 @@
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>半濁点・濁点処理</term> 
+    <term>半濁点・濁点処理</term>
     <listitem>
       <para>
         データとしては「エ゛ヒル゜フラント」のように
@@ -122,7 +122,7 @@ BRK のオペランドとしては <literal>#$80</literal> ... <literal>#$93</li
 最初の BRK 呼び出しでは現在のさくせんを <varname>$46</varname> に取得する。
 二番目の BRK 呼び出しで対応する文字列を（ここでは説明しないが <varname>$00, ...</varname> に）取得する。
 異なる種類の ID をあらかじめ既定のアドレスに格納してから BRK するのが作法だ。
-<programlisting>
+<programlisting><![CDATA[
 04/B912:    0088        BRK #$88            ; #$88, #$4F: さくせんを参照する
 04/B914:    4F
 04/B915:    A546        LDA $46             ; さくせん ID
@@ -131,7 +131,7 @@ BRK のオペランドとしては <literal>#$80</literal> ... <literal>#$93</li
 04/B91B:    8543        STA $43             ; 上述のアドレステーブル $21955B の ID として 6 を指示（＝さくせん名テーブルアドレス）
 04/B91D:    0088        BRK #$88            ; #$88, #$2B: 指定オブジェクトの名前を得る
 04/B91F:    2B
-</programlisting>
+]]></programlisting>
 </para>
 </section> <!-- dq5.string.access -->
 

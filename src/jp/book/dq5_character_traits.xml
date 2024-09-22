@@ -172,14 +172,14 @@
       <para>
         例として主人公のレベル区間データを説明する。この配列の値は物理的には次のように定義されている。
       </para>
-<programlisting>{5, 10, 15, 20, 30, 45, 60}</programlisting>
+<programlisting><![CDATA[{5, 10, 15, 20, 30, 45, 60}]]></programlisting>
       <para>
         論理的には次の区間列が定義されているものと考える：
       </para>
-<programlisting>// index
+<programlisting><![CDATA[// index
 // 0      1        2         3         4         5         6         7
  {[1, 5), [5, 10), [10, 15), [15, 20), [20, 30), [30, 45), [45, 60), [60, 100)}
-</programlisting>
+]]></programlisting>
       <para>
         例えば主人公のレベルが 25 に上がるときには、
         <code>20 &lt;= 25 &lt; 30</code> であるので、係数配列のインデックスを 4 とする。
@@ -207,11 +207,11 @@
         ROM データでは <code>a</code> と <code>b</code> の要素が交互に詰められているが、
         ここではわかりやすさのために分けた：
       </para>
-<programlisting>// index
+<programlisting><![CDATA[// index
 //   0   1   2  3  4  5  6  7
 a = {2,  1,  1, 1, 1, 1, 1, 1};
 b = {2, 18, 10, 6, 4, 3, 0, 0};
-</programlisting>
+]]></programlisting>
     </listitem>
   </varlistentry>
   <varlistentry>
@@ -246,7 +246,7 @@ b = {2, 18, 10, 6, 4, 3, 0, 0};
       <para>
         例として、主人公のデータにおける標準値配列を次に挙げる：
       </para>
-<programlisting>{11, 23, 38, 49, 65, 105, 149, 185, 255}</programlisting>
+<programlisting><![CDATA[{11, 23, 38, 49, 65, 105, 149, 185, 255}]]></programlisting>
       <para>
         各要素は先に例示した主人公のレベル区間データの値と対応しており、主人公がレベル
         1, 5, 10, 15, 20, 30, 45, 60, 99
@@ -270,7 +270,7 @@ b = {2, 18, 10, 6, 4, 3, 0, 0};
         この仮新属性値が標準値の 1.5 倍以上であると、今までの計算値を破棄して、
         増分値をランダムで高々 1 に抑える役割も果たす（下記コード片）。
       </para>
-<programlisting>
+<programlisting><![CDATA[
 23/EC76:    C220        REP #$20
 23/EC78:    B99709      LDA $0997,Y         ; 属性 X 基準値
 23/EC7B:    4A          LSR A
@@ -292,7 +292,7 @@ b = {2, 18, 10, 6, 4, 3, 0, 0};
                                                 }
                                             }
                                             ; 以下通常処理を経て次の属性へ
-</programlisting>
+]]></programlisting>
       <para>
         ほしふるうでわを装備しているキャラクターや、仲間ゴーレムなど、
         先述の仮定が成り立たない条件下でのすばやさの成長が、このロジックが適用される例であることが知られている。
@@ -375,7 +375,7 @@ b = {2, 18, 10, 6, 4, 3, 0, 0};
   <code>E[2]</code> はメンバーデータ「レベル 2 の必要経験値」の値を代入する。
   一般ステップのみを説明すれば十分だろう。
 </para>
-<programlisting>//
+<programlisting><![CDATA[//
 // ...レベル n が次のレベル区間に移行するタイミングで index の値をインクリメントする処理がここに入る...
 //
 
@@ -411,7 +411,7 @@ if(E[n] &gt; 10000000){
     E[n] = 10000000;
     F[n] = 0;
 }
-</programlisting>
+]]></programlisting>
 <para>
   例えば、主人公のレベル 3, 4, 5 に必要な経験値はそれぞれ 58, 139, 269 だ。
   研究熱心な読者には、このアルゴリズムが本当にこれらの値を出力することを確認してもらいたい。
@@ -472,7 +472,7 @@ if(E[n] &gt; 10000000){
   <code>E[2]</code> はメンバーデータ「レベル 2 の必要経験値」の値を代入する。
   一般ステップのみを説明すれば十分だろう。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 D[n] = E[n - 1] - E[n - 2];
 F = F[n - 1] + 32 - F[n - 2];
 if(F &gt;= 32){
@@ -492,7 +492,7 @@ if(F[n] &gt;= 32){
     ++E[n];
     F[n] -= 32;
 }
-</programlisting>
+]]></programlisting>
 </section> <!-- dq5.character.traits.progression -->
 
 <section id="dq5.character.traits.abilities">
@@ -666,7 +666,7 @@ if(F[n] &gt;= 32){
 まずキャラクターがモンスターであるかどうかを調べ、それから性別配列 <varname>$23C236</varname> を参照する。
 短い配列なので、ここで全データを引用する：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 23/C236:    00 ; 主人公
 23/C237:    00 ; クーパー
 23/C238:    01 ; アニー
@@ -678,7 +678,7 @@ if(F[n] &gt;= 32){
 23/C23E:    00 ; パパス
 23/C23F:    00 ; ヘンリー
 23/C240:    01 ; ベラ
-</programlisting>
+]]></programlisting>
 
 <para>
 人間とモンスターとで異なる属性といえば、移動中の「つよさ」ウィンドウで「せいべつ」欄の真上に表示される部分だ。
@@ -690,7 +690,7 @@ if(F[n] &gt;= 32){
 一応断っておくと、モンスター ID とはモンスターデータテーブル <varname>$238000</varname> の行番号を意味する。
 仲間モンスター ID からモンスター ID への対応は配列 <varname>$23D72D</varname> で定義されている：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 23/D72D:    0E  ; ベビーパンサー
 23/D72E:    59  ; キラーパンサー
 23/D72F:    00  ; スライム
@@ -698,7 +698,7 @@ if(F[n] &gt;= 32){
 ...
 23/D755:    C5  ; ヘルバトラー
 23/D756:    D7  ; ネーレウス
-</programlisting>
+]]></programlisting>
 </section> <!-- dq5.character.traits.specific -->
 
 <section id="dq5.character.traits.name">
@@ -714,7 +714,7 @@ if(F[n] &gt;= 32){
 主人公、息子、娘の名前を示す文字列はアドレス <varname>$7E2001</varname>, <varname>$7E2009</varname>, <varname>$7E2011</varname> に格納される。
 ただし、その既定値はアドレス <varname>$23D6ED</varname> にある、ある種の初期化データの一部で与えられている。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 23/D6ED:    01 ; 00:
 23/D6EE:    01 ; 01:
 23/D6EF:    01 ; 02:
@@ -740,7 +740,7 @@ if(F[n] &gt;= 32){
 23/D703:    01 ; 16:
 23/D704:    01 ; 17:
 23/D705:    01 ; 18:
-</programlisting>
+]]></programlisting>
 
 <para>
 文字列配列 <varname>$23C5CE</varname> および <varname>$23C242</varname> については、

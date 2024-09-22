@@ -115,9 +115,9 @@ P * Q, (where 0 &lt;= P and P &lt; 256; 0 &lt;= Q and Q &lt; 65536)
         ただし、実際のデータとしては、10 のべき乗の数値を格納する配列 <varname>$21A47B</varname> の添字として実現している。
         C 言語風に表せば、次の配列のような定数配列が存在して、その添字そのものだということだ。
       </para>
-<programlisting>
+<programlisting><![CDATA[
 Q[4] = {1, 10, 100, 1000};
-</programlisting>
+]]></programlisting>
     </glossdef>
   </glossentry>
 
@@ -395,9 +395,9 @@ Q[4] = {1, 10, 100, 1000};
         一例を挙げる。例えば「ほのおのリング」の当属性値は <literal>#$1F</literal> だ。
         これが指す配列要素は
       </para>
-<programlisting>
+<programlisting><![CDATA[
 27/820E:    CE EB
-</programlisting>
+]]></programlisting>
       <para>
         となっている。それぞれのメッセージ ID に対応するテキストは
         <xref linkend="appendix.b"/> にある戦闘メッセージ CSV ファイルで確認できるようにしてある。

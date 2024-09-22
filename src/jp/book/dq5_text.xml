@@ -46,7 +46,7 @@
 <para>
 デバッガーによる試行錯誤の結果、以下の処理が戦闘中のメッセージ一つの復号を行っていることが判明した：
 </para>
-<programlisting>
+<programlisting><!-- NO CDATA -->
 24/8687:    JSR $A5D9
 24/868A:    JSR $04991D
 24/868E:    REP #$20
@@ -141,7 +141,7 @@ ID からすぐにアドレスとビット位置を取得できるようにす�
 <para>
 以上の処理をサブルーチン <varname>$248C39</varname> が実装している。
 </para>
-<programlisting>
+<programlisting><!-- NO CDATA -->
 24/8C39:    PHP
 24/8C3A:    PHB
 24/8C3B:    REP #$30
@@ -241,7 +241,7 @@ ID からすぐにアドレスとビット位置を取得できるようにす�
 呼び出し元が順次呼び出すことで、その次の符号の復号が可能だ。
 そのようにして、一メッセージ分の復号が行われる。
 </para>
-<programlisting>
+<programlisting><!-- NO CDATA -->
 24/9E47:    PHP
 24/9E48:    PHB
 24/9E49:    PHK
@@ -423,7 +423,7 @@ ID からすぐにアドレスとビット位置を取得できるようにす�
 この時点でその配列の中身を観察すると、文字、
 すなわち小さいフォント ID が文章を作るように並んでいることが確認できる。
 </para>
-<programlisting>
+<programlisting><!-- NO CDATA -->
 24/8C21:    PHP
 24/8C22:    PHB
 24/8C23:    SEP #$20
@@ -522,7 +522,7 @@ ID からすぐにアドレスとビット位置を取得できるようにす�
 似たような別のサブルーチンの説明をすることに意義はない。
 故に、サブルーチン <varname>$248BAF</varname> を簡単に掲載するだけにとどめる。
 </para>
-<programlisting>
+<programlisting><!-- NO CDATA -->
 24/8BAF:    PHP
 24/8BB0:    PHB
 24/8BB1:    REP #$30
@@ -589,7 +589,7 @@ ID からすぐにアドレスとビット位置を取得できるようにす�
 戦闘モードと同様、移動モード用テキストもハフマン符号化されたビット列としてデータ化されている。
 復号手順は<xref linkend="dq5.text.battle.decode" />で述べたものと同じで、違いは各種定数しかない。
 </para>
-<programlisting>
+<programlisting><!-- NO CDATA -->
 24/9E02:    PHP
 24/9E03:    PHB
 24/9E04:    PHK
@@ -693,7 +693,7 @@ ID からすぐにアドレスとビット位置を取得できるようにす�
 <xref linkend="dq5.text.battle.load" />の移動モードバージョンだ。
 ただし、配列は大きい文字を格納するため 16bit 値を扱う。
 </para>
-<programlisting>
+<programlisting><!-- NO CDATA -->
 24/8B98:    PHP
 24/8B99:    REP #$30            <co id="dq5.text.travel.load.co.1" />
 24/8B9B:    LDX #$0000

@@ -54,13 +54,13 @@ BRK 命令を介した実行についての詳細とその実例は <xref linken
 サブルーチン <varname>$218AFC</varname> の呼び出しに関する依存関係を簡単なアスキーアートで表現する。
 矢印の向きは依存する側から依存される側に向かうものとする。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 $21/8AFC
   ← $21/8A9D: Long 型サブルーチン。未使用。
   ← $21/8AC8: Long 型サブルーチン。未使用。
   ← $21/8AF8: Long 型サブルーチン。
      ← $00/8F80: BRK ハンドラー。
-</programlisting>
+]]></programlisting>
 <para>
 JSL 命令で実行されるはずの二つのサブルーチン <varname>$218A9D</varname> および <varname>$218AC8</varname> については、
 独自の調査の結果で未使用ルーチンであると結論したため、説明を省く。
@@ -73,13 +73,13 @@ JSL 命令で実行されるはずの二つのサブルーチン <varname>$218A9
 <para>
 次に反対側の呼び出し依存関係を示す。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 $21/8AFC
   → $21/907C: この後管理するメモリーを初期化する。
   → $21/8B31: 対象メンバー ($39) を特定する。
   → $21/8B82: この後操作するベースアドレス ($3A:) オフセット ($3D) サイズ ($3E) 実データ ($46:) をセットする。
   → $21/8C3A: 目的 ($38) に応じた処理コードへジャンプする。
-</programlisting>
+]]></programlisting>
 <para>
 最初の三つのサブルーチンはこれ以上の呼び出しを含まない。
 サブルーチン <varname>$21907C</varname> は作業用のメモリーをゼロで初期化するだけのミニルーチンだ。
