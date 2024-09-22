@@ -25,7 +25,7 @@
 <section id="dq3.search.model.C898E2">
 <title>構造体 <varname>$C898E2</varname>: 「しらべる」対象分類</title>
 <para>
-アドレス <varname>$C898E2</varname> には以下に示すメモリレイアウトのオブジェクトが 30 弱配列されている。
+アドレス <varname>$C898E2</varname> には以下に示すメモリーレイアウトのオブジェクトが 30 弱配列されている。
 この構造体は前作の <xref linkend="dq6.search.model.C20000"/> と同じ役割がある。
 </para>
 <table id="table.dq3.search.model.C898E2" class="lighttable">
@@ -157,7 +157,7 @@
 <section id="dq3.search.model.C87067">
 <title>構造体 <varname>$C87067</varname>: アイテム発見</title>
 <para>
-アドレス <varname>$C87067</varname> には以下に示すメモリレイアウトのオブジェクトが 450 弱配列されている。
+アドレス <varname>$C87067</varname> には以下に示すメモリーレイアウトのオブジェクトが 450 弱配列されている。
 この構造体は前作の <xref linkend="dq6.search.model.C83E5C"/> と同じ役割がある。
 </para>
 <table id="table.dq3.search.model.C87067" class="lighttable">
@@ -204,7 +204,7 @@
 <section id="dq3.search.model.C87C99">
 <title>構造体 <varname>$C87C99</varname>: ゴールド発見</title>
 <para>
-アドレス <varname>$C8477E</varname> には以下に示すメモリレイアウトのオブジェクトが 30 以上配列されている。
+アドレス <varname>$C8477E</varname> には以下に示すメモリーレイアウトのオブジェクトが 30 以上配列されている。
 この構造体は前作の <xref linkend="dq6.search.model.C8477E"/> と同じ役割がある。
 </para>
 <table id="table.dq3.search.model.C87C99" class="lighttable">
@@ -239,7 +239,7 @@
 <section id="dq3.search.model.C87DB1">
 <title>構造体 <varname>$C87DB1</varname>: 情報取得</title>
 <para>
-アドレス <varname>$C848B6</varname> には以下に示すメモリレイアウトのオブジェクトが 140 配列されている。
+アドレス <varname>$C848B6</varname> には以下に示すメモリーレイアウトのオブジェクトが 140 配列されている。
 この構造体は前作の <xref linkend="dq6.search.model.C848B6"/> と同じ役割がある。
 </para>
 <table id="table.dq3.search.model.C87DB1" class="lighttable">
@@ -268,7 +268,7 @@
 <section id="dq3.search.model.C88185">
 <title>構造体 <varname>$C88185</varname>: 罠</title>
 <para>
-アドレス <varname>$C85534</varname> には以下に示すメモリレイアウトのオブジェクトが 20 強配列されている。
+アドレス <varname>$C85534</varname> には以下に示すメモリーレイアウトのオブジェクトが 20 強配列されている。
 この構造体は前作の <xref linkend="dq6.search.model.C85534"/> と同じ役割がある。
 </para>
 <table id="table.dq3.search.model.C88185" class="lighttable">
@@ -302,7 +302,7 @@
 <section id="dq3.search.model.C88218">
 <title>構造体 <varname>$C88218</varname>: 特殊イベント</title>
 <para>
-アドレス <varname>$C855AB</varname> には以下に示すメモリレイアウトのオブジェクトが 140 配列されている。
+アドレス <varname>$C855AB</varname> には以下に示すメモリーレイアウトのオブジェクトが 140 配列されている。
 この構造体は前作の <xref linkend="dq6.search.model.C855AB"/> と同じ役割がある。
 </para>
 <table id="table.dq3.search.model.C88218" class="lighttable">

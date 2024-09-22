@@ -21,7 +21,7 @@
 <section id="dq6.character.traits.C8BD12">
 <title>構造体 <varname>$C8BD12</varname>: 仲間キャラクター特性</title>
 <para>
-仲間キャラクター特性構造体とは、サイズが <literal>#$1B</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
+仲間キャラクター特性構造体とは、サイズが <literal>#$1B</literal> バイトであり、オブジェクトのメモリーレイアウトが次の表で示されるような構造体だ。
 この型のオブジェクトがアドレス <varname>$C8BD12</varname> から 82 個直列している。
 </para>
 <para>

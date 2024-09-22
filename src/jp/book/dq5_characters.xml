@@ -34,7 +34,7 @@ RAM の節約に一役買うというわけだ。
 </para>
 <para>
 プログラムはこの構造体をサイズが <literal>#$2A</literal> バイトであるとして処理する。
-メモリレイアウトを次の表に示す。
+メモリーレイアウトを次の表に示す。
 </para>
 
 <table id="table.dq5.7E2040" class="lighttable">
@@ -219,7 +219,7 @@ RAM の節約に一役買うというわけだ。
 </para>
 <para>
 プログラムはこの構造体をサイズが <literal>#$1A</literal> バイトであるとして処理する。
-メモリレイアウトを次の表に示す。
+メモリーレイアウトを次の表に示す。
 </para>
 
 <table id="table.dq5.7E2332" class="lighttable">
@@ -274,7 +274,7 @@ RAM の節約に一役買うというわけだ。
 </para>
 <para>
 プログラムはこの構造体をサイズが <literal>#$20</literal> バイトであるとして処理する。
-メモリレイアウトを次の表に示す。
+メモリーレイアウトを次の表に示す。
 </para>
 
 <table id="table.dq5.7E294A" class="lighttable">

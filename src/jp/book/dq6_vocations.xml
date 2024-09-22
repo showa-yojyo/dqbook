@@ -16,7 +16,7 @@
 <section id="dq6.vocations.C41C3E">
 <title>構造体 <varname>$C41C3E</varname>: 職業構造体</title>
 <para>
-職業構造体とは、サイズが <literal>#$77</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
+職業構造体とは、サイズが <literal>#$77</literal> バイトであり、オブジェクトのメモリーレイアウトが次の表で示されるような構造体だ。
 この型のオブジェクトがアドレス <varname>$C41C3E</varname> から 21 個直列している。
 </para>
 <table id="table.dq6.C41C3E" class="lighttable">

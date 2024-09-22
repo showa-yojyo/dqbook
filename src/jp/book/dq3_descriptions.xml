@@ -21,7 +21,7 @@
 <section id="dq3.descriptions.structure.C2398E">
 <title>構造体 <varname>$C2398E</varname>: コマンドに関する記述</title>
 <para>
-アドレス <varname>$C2398E</varname> から次のメモリレイアウトで構成される 6 バイト長オブジェクトが 73 個配列されている。
+アドレス <varname>$C2398E</varname> から次のメモリーレイアウトで構成される 6 バイト長オブジェクトが 73 個配列されている。
 コマンド一つに対してこのオブジェクト 0 または 1 個が対応する。
 </para>
 <table id="table.dq3.C2398E" class="lighttable">

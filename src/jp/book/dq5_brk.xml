@@ -554,7 +554,7 @@ BRK 命令のオペランドが <literal>#$97</literal> から <literal>#$9D</li
 
 <para>
 実例として、ある <code>BRK #$97</code> の呼び出しを次に示す。
-参考までにメッセージテキストを逆アセンブリコードの右側にコメントしておく。
+参考までにメッセージテキストを逆アセンブリーコードの右側にコメントしておく。
 </para>
 <programlisting>
 06/CE0D:    0097        BRK #$97            ; message #$00B6: よくぞもどられた！[1000][1011]どの。
@@ -580,7 +580,7 @@ BRK 命令のオペランドが <literal>#$9E</literal> から <literal>#$A7</li
 実例として、ある <code>BRK #$9E</code> の呼び出しを次に示す。
 </para>
 <programlisting>
-25/89F5:    009E        BRK #$9E            ; message #$0000: 
+25/89F5:    009E        BRK #$9E            ; message #$0000:
 25/89F7:    00
 25/89F8:    009E        BRK #$9E            ; message #$00B6: しかし [EE][FA]は[FF]これいじょう ものを もてない。
 25/89FA:    B6

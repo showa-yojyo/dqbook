@@ -15,7 +15,7 @@
 	是非詳しい情報を記者にお寄せいただきたい。
 </para>
 <para>
-	記者が改造・解析に使用するツールを専門ツールとユーティリティツールを混ぜて紹介する。
+	記者が改造・解析に使用するツールを専門ツールとユーティリティーツールを混ぜて紹介する。
 	重要度の高い順に紹介する。
 </para>
 <caution>
@@ -34,7 +34,7 @@
     </listitem>
     <listitem><simpara>逆アセンブラーを使いこなそう</simpara></listitem>
     <listitem>
-      <simpara>逆アセンブリコードを上手に取り扱えるようにテキスト処理に慣れよう</simpara>
+      <simpara>逆アセンブリーコードを上手に取り扱えるようにテキスト処理に慣れよう</simpara>
       <itemizedlist>
         <listitem><simpara>良いテキストエディターを使いこなそう</simpara></listitem>
         <listitem><simpara>UNIX/Linux 由来のコマンドラインツールを使いこなそう</simpara></listitem>
