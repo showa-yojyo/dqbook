@@ -135,7 +135,8 @@ clean: clean-html clean-arch clean-fo clean-pdf clean-ps
 
 clean-html:
 	rm -f $(HTML_TARGET)
-	rm -rf $(HTML_CHUNK_DIR)
+	rm -f $(HTML_CHUNK_DIR)/*.html $(HTML_CHUNK_DIR)/*.css
+	rm -rf $(HTML_CHUNK_DIR)/{data,image}
 
 clean-arch:
 	rm -f $(HTML_ARCH_TARGET) $(HTML_CHUNK_ARCH_TARGET)
