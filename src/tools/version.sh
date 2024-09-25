@@ -1,7 +1,7 @@
 #!/bin/bash
 
-LANG=
-TODAY_DATE=$(date +%Y-%m-%d\ \(%a\))
+export TZ=Asia/Tokyo
+TODAY_DATE=$(date -Iseconds)
 TODAY_YEAR=$(date +%Y)
 BOOK_VERSION=${1-"1.18.5"}
 
