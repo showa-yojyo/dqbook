@@ -24,19 +24,19 @@
 ジャンプテーブル <varname>$06DBDB</varname> だ。
 まずは呼び出し側サブルーチンのコードを次に示す：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 06/DBD2:    0A          ASL A
 06/DBD3:    AA          TAX
 06/DBD4:    FCDBDB      JSR ($DBDB,X)       ; 店屋系
 06/DBD7:    9C200F      STZ $0F20           ; 店屋タイプをゼロにしておく
 06/DBDA:    60          RTS
-</programlisting>
+]]></programlisting>
 <para>
 この時点までに店屋の種類に対応する値がジャンプテーブルのインデックスとして設定されている。
 このジャンプテーブルが示すサブルーチンを解読することで、それぞれが店屋のどの種類の処理なのかが判明する。
 次に示すのは、そのようにして得られたジャンプテーブルの詳細だ：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 06/DBDB:    FDDB        ; ダミーコード
 06/DBDD:    04DC        ; 武器屋
 06/DBDF:    1FE0        ; 道具屋
@@ -54,7 +54,7 @@
 06/DBF7:    26F2        ; 格闘場
 06/DBF9:    36E0        ; 教会（尼）
 06/DBFB:    75E3        ; 宿屋（フランク）
-</programlisting>
+]]></programlisting>
 <para>
 以下、店屋の種類ごとにそれぞれの処理の急所を記していく。
 読者自身でコードを解読するのであれば、次に挙げる記述やデータを利用して欲しい：
@@ -71,13 +71,13 @@
 製品版プログラムはこのコードをカバーしない。便宜上存在するだけのダミーコードだ。
 短いので全文引用した上で、適宜コメントを付す：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 06/DBFD:    0095        BRK #$95            ; window #$00: (open)
 06/DBFF:    00
 06/DC00:    0098        BRK #$98            ; message #$01CC: その方向には ダレモイナイ。
 06/DC02:    CC
 06/DC03:    60          RTS
-</programlisting>
+]]></programlisting>
 </section> <!-- dq5.shops.keepers.06DBFD -->
 
 <section id="dq5.shops.keepers.06DC04">
@@ -160,12 +160,12 @@
 最初に店の種別とデータアドレスとの対応表がアドレス <varname>$04FBD5</varname> にあり、それを最初に参照する。
 この対応表については短いのでコードを引用する：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 04/FBD5:    DDFB        ; 道具屋
 04/FBD7:    33FC        ; 防具屋
 04/FBD9:    ABFC        ; 武器の店
 04/FBDB:    2DFD        ; よろず屋
-</programlisting>
+]]></programlisting>
 <para>
 それから店のある地域というか、ルーラの呪文でも使われる ID をキーとした探索操作によって、対応データの格納位置を ROM から特定する。
 対応データの構造が次のような不定長データの配列であることを踏まえて、その店固有の商品群を参照する：
@@ -194,11 +194,11 @@
 店屋種類を表す変数 <varname>$0F20</varname> にゼロをセットし、共有部分の最初の命令にジャンプする。
 ちなみにこの値がゼロであるということは、解読時に台詞の流れを追いやすいことを意味する。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 06/E01F:    7B          TDC                 ; 0: 道具屋
 06/E020:    8D200F      STA $0F20           ; 店屋タイプ
 06/E023:    82E3FB      BRL $DC09           ; 共通部分へジャンプ
-</programlisting>
+]]></programlisting>
 </section> <!-- dq5.shops.keepers.06E01F -->
 
 <section id="dq5.shops.keepers.06E026">
@@ -441,7 +441,7 @@
   <listitem>
     <para>
       当プログラムバンク内にある（店屋処理以外の）いろいろなサブルーチンが
-      「はい・いいえ」ウィンドウの処理をラップした補助サブルーチン <varname>$EBBC</varname> 
+      「はい・いいえ」ウィンドウの処理をラップした補助サブルーチン <varname>$EBBC</varname>
       を利用するのだが、モンスターじいさんの処理中においてもこれを利用する。
     </para>
   </listitem>
@@ -549,14 +549,14 @@
       褒美品のメダル換算率は配列 <varname>$04FD55</varname> で定義されている。
       インデックスは褒美メニュー項目に対するそれと一致する。
     </para>
-<programlisting>
+<programlisting><![CDATA[
 04/FD55:    05  ;  5 せんしのパジャマ
 04/FD56:    0A  ; 10 ふしぎなボレロ
 04/FD57:    10  ; 16 きせきのつるぎ
 04/FD58:    15  ; 21 しんぴのよろい
 04/FD59:    1E  ; 30 はやぶさのけん
 04/FD5A:    2B  ; 43 メタルキングのたて
-</programlisting>
+]]></programlisting>
   </listitem>
   <listitem>
     <para>
@@ -689,14 +689,14 @@
       それを果たすためにサブルーチン <varname>$F05B</varname> を実行する。
       この補助サブルーチンの中身を解読すると、カジノ景品交換率が次で定義されていることがわかる：
     </para>
-<programlisting>
+<programlisting><![CDATA[
 04/FD5B:    2C0100 ;     500 エルフののみぐすり
 04/FD5E:    E80300 ;   1,000 せかいじゅのは
 04/FD61:    881300 ;   5,000 メガンテのうでわ
 04/FD64:    102700 ;  10,000 キラーピアス
 04/FD67:    50C300 ;  50,000 メタルキングのけん
 04/FD6A:    90D003 ; 250,000 グリンガムのムチ
-</programlisting>
+]]></programlisting>
   </listitem>
   <listitem>
     <para>

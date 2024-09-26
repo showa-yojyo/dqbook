@@ -15,23 +15,23 @@
 </figure>
 
 <para>
-	Linux 環境でゲーム機エミュレータが可能な読者は、
+	Linux 環境でゲーム機エミュレーターが可能な読者は、
 	この節を読むのを飛ばして結構だ（そんなに長いものでもないが）。
 </para>
 <para>
 	サイズの巨大な逆アセンブルしたテキストファイルをいくつも抱え込むと、
 	どうしても高度なテキスト処理能力が欲しくなる。
-	そして、それは愛用のテキストエディタが処理する以上の能力がなければ意味がない。
+	そして、それは愛用のテキストエディターが処理する以上の能力がなければ意味がない。
 	そこで、知名度も実績も十二分にあるテキスト処理用の GNU ツールを利用することを考えた。
 	Windows 環境で解析作業をするので、<ulink url="http://cygwin.com/">Cygwin</ulink> をインストールしておく。
 </para>
 <para>
 	各種ツールを利用するのは Cygwin コンソール上からだけとは限らない。
-	現代的な各種 IDE や高水準なテキストエディタが提供する「外部プログラム呼び出し」機能、
+	現代的な各種 IDE や高水準なテキストエディターが提供する「外部プログラム呼び出し」機能、
 	すなわち利用者がコマンドラインを指示し、
 	メニュー項目選択時もしくは即時にそれらを起動するという作りになっている。
 	そこから <command>awk</command>, <command>sed</command> のような軽いテキスト処理コマンドを呼び出してもよし、
-	逆アセンブリコード処理専用のシェルスクリプトを書いて、それを呼び出すもよし、だ。
+	逆アセンブリーコード処理専用のシェルスクリプトを書いて、それを呼び出すもよし、だ。
 </para>
 <para>
 	高水準アプリがマクロ言語によるテキスト処理機能を提供する場合もある。
@@ -102,7 +102,7 @@ F4240 <co id="tools.cygwin.radix.co.2"/>
 	</callout>
 	<callout arearefs="tools.cygwin.seq.co.2">
 		<para>
-			<command>seq</command> に3 つパラメータを渡す場合、それぞれの意味は FIRST, INCREMENT, LAST として処理される。
+			<command>seq</command> に3 つパラメーターを渡す場合、それぞれの意味は FIRST, INCREMENT, LAST として処理される。
 		</para>
 	</callout>
 	<callout arearefs="tools.cygwin.seq.co.3">
@@ -110,7 +110,7 @@ F4240 <co id="tools.cygwin.radix.co.2"/>
 			&dq3_1996; の通称 3925 構造体のアドレスを書きたくなって <command>seq</command> を利用したとする。
 			バンクは皆 $7E なので入力には含めず、出力書式に込めることにした。
 			勇者のアドレスが $7E3925 で、ルイーダの酒場にいる順番に <literal>+$3C</literal> ずつアドレスが増えていくので、
-			FIRST, INCREMENT パラメータは <literal>0x3925</literal>, <literal>0x3C</literal> を与えた。
+			FIRST, INCREMENT パラメーターは <literal>0x3925</literal>, <literal>0x3C</literal> を与えた。
 			LAST には最後の仲間のアドレスを指定するべきだが、それを計算するのが面倒なので、とりあえず値を指定しておく。
 		</para>
 		<para>
@@ -194,14 +194,14 @@ F4240 <co id="tools.cygwin.radix.co.2"/>
 </para>
 </section> <!-- tools.cygwin.od -->
 
-<!-- 
+<!--
 <section id="tools.cygwin.addrconv">
 <title>スーファミ LoROM アドレス変換スクリプトを書く</title>
 
 <para>
-	&dq5_1992; のメモリマッピングは LoROM だ。HiROM とは違って、
+	&dq5_1992; のメモリーマッピングは LoROM だ。HiROM とは違って、
 	ROM イメージファイルで見えたデータのアドレスと、
-	デバッガや逆アセンブリコードでのアドレスの対応が頭の中でパッと出てこないのが困る。
+	デバッガーや逆アセンブリーコードでのアドレスの対応が頭の中でパッと出てこないのが困る。
 	そこで対応早見表を作成しておき、解析作業時に常にそれを見えるようにしておくことになる。
 	以下に変換公式を記す。
 </para>
@@ -223,7 +223,8 @@ F4240 <co id="tools.cygwin.radix.co.2"/>
 	そこで、以下のようにスクリプトを書いておき、<command>dispel</command> を直接利用するのではなく、
 	これを利用することにすると多少は楽だ。
 </para>
-<programlisting>#!/bin/bash
+<programlisting><![CDATA[
+#!/bin/bash
 #
 # script: disdq3
 # example:
@@ -238,7 +239,7 @@ ROM=~/data/dq3.smc
 #
 # DisPel のバージョンが v1 未満の場合は -n は不要となるので注意
 $DISPEL -n -h -s -p $* "$(cygpath -d $ROM)"
-</programlisting>
+]]></programlisting>
 </section> <!-- tools.cygwin.wrapper -->
 
 </section> <!-- tools.cygwin -->

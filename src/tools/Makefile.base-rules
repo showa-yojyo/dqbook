@@ -1,6 +1,8 @@
 # This is a part of the Makefile that generates "dqbook".
 # We filched this build system from svnbook, Subversion document.
 
+.PHONY: all clean valid version
+
 # Grouping targets
 all: all-html pdf ps
 all-html: html html-chunk html-help
@@ -133,7 +135,8 @@ clean: clean-html clean-arch clean-fo clean-pdf clean-ps
 
 clean-html:
 	rm -f $(HTML_TARGET)
-	rm -rf $(HTML_CHUNK_DIR)
+	rm -f $(HTML_CHUNK_DIR)/*.html $(HTML_CHUNK_DIR)/*.css
+	rm -rf $(HTML_CHUNK_DIR)/{data,image}
 
 clean-arch:
 	rm -f $(HTML_ARCH_TARGET) $(HTML_CHUNK_ARCH_TARGET)
@@ -149,7 +152,6 @@ clean-ps:
 
 # Utility targets
 
-# VERSION_SOURCE is $(DIR)/version.xml, which is automatically generated
-# in processing the main target.
+# VERSION_SOURCE is automatically generated in processing the main target.
 valid: $(VERSION_SOURCE)
 	$(XMLLINT) --xinclude --noout --nonet --postvalid $(XML_SOURCE)

@@ -32,9 +32,9 @@
 	<glossdef>
 		<para>
 			<application>Stirling</application> が実装する機能の一つ。
-			バイナリファイルからバイナリデータを検索するコマンドメニューの名前だ。
-			バイナリファイルのテキストダンプは <command>od</command> 等の CLI ツールで行うのだが、
-			バイナリデータのサーチだけは <application>Stirling</application> だけが頼りだ。
+			バイナリーファイルからバイナリーデータを検索するコマンドメニューの名前だ。
+			バイナリーファイルのテキストダンプは <command>od</command> 等の CLI ツールで行うのだが、
+			バイナリーデータのサーチだけは <application>Stirling</application> だけが頼りだ。
 		</para>
 	</glossdef>
 </glossentry> <!-- gloss.bgrep -->
@@ -92,7 +92,7 @@
 	<glossdef>
 		<para>
 			<application>Snes9x</application> にトレースログ機能を含むデバッグ機能を実装したもの。
-			<acronym>SFC</acronym> ドラクエシリーズの解析作業で主に用いるエミュレータだ。
+			<acronym>SFC</acronym> ドラクエシリーズの解析作業で主に用いるエミュレーターだ。
 		</para>
 	</glossdef>
 </glossentry> <!-- gloss.gsd -->
@@ -126,7 +126,7 @@
 	<glossterm>PAR コード</glossterm>
 	<glossdef>
 		<para>
-			略語を展開して表記すると Pro-Action Replay コード。<acronym>RAM</acronym> 領域のメモリ解析の産物だ。
+			略語を展開して表記すると Pro-Action Replay コード。<acronym>RAM</acronym> 領域のメモリー解析の産物だ。
 			プログラムの <acronym>RAM</acronym> 領域の特定のアドレスの値を動的に書き換えるツールを意味する場合と、
 			そのアドレスと値を対にした概念を意味する場合がある。
 		</para>
@@ -172,7 +172,7 @@
 	<glossterm>Snes9x</glossterm>
 	<glossdef>
 		<para>
-			Windows アプリの形で実装したスーファミエミュレータの一つ。
+			Windows アプリの形で実装したスーファミエミュレーターの一つ。
 			これよりも多機能な「子孫」がいるので、解析作業に用いることはもはやないだろう。
 		</para>
 	</glossdef>
@@ -209,7 +209,7 @@
 	<glossterm>オフセット</glossterm>
 	<glossdef>
 		<para>
-			メモリ空間またはロムイメージファイルにおいて、
+			メモリー空間またはロムイメージファイルにおいて、
 			現在注目している位置（アドレス）と、基準となる位置との差を意味する。
 		</para>
 	</glossdef>
@@ -229,15 +229,15 @@
 	<glossterm>ステートセーブ</glossterm>
 	<glossdef>
 		<para>
-			エミュレータでゲームプログラムを実行する場合、
+			エミュレーターでゲームプログラムを実行する場合、
 			ユーザーが期待すれば、任意の時点でプログラムを中断・再開することができる。
-			これは、その時点でのメモリの内容やレジスタの値といった、
+			これは、その時点でのメモリーの内容やレジスターの値といった、
 			「プロセス」の状態をすべて保存して、それを再現することで実現している。
 			この保存をステートセーブと言う。
 		</para>
 		<para>
-			エミュレータは、この「状態」をファイルの形で保存する。
-			このバイナリファイルを差分発見的手法で解析することがある。
+			エミュレーターは、この「状態」をファイルの形で保存する。
+			このバイナリーファイルを差分発見的手法で解析することがある。
 		</para>
 	</glossdef>
 </glossentry> <!-- gloss.state.save -->
@@ -260,7 +260,7 @@
 	<glossdef>
 		<para>
 			HP や MP が戦闘行動の結果として増減するとき、その差のこと。
-			本書ではパラメータの回復方向に変化する値に対しても、それをダメージと呼ぶので、
+			本書ではパラメーターの回復方向に変化する値に対しても、それをダメージと呼ぶので、
 			読者は注意して欲しい。
 		</para>
 	</glossdef>
@@ -331,7 +331,7 @@
 </glossentry> <!-- gloss.baka.image -->
 
 <glossentry id="gloss.parameter">
-	<glossterm>パラメータ</glossterm>
+	<glossterm>パラメーター</glossterm>
 	<glossdef>
 		<para>
 			通常はプログラミング言語の関数における仮引数の意味だが、
@@ -425,10 +425,10 @@
 </glossentry> <!-- gloss.message -->
 
 <glossentry id="gloss.memory.layout">
-	<glossterm>メモリレイアウト</glossterm>
+	<glossterm>メモリーレイアウト</glossterm>
 	<glossdef>
 		<para>
-			本書ローカル用語。構造体解析において、各メンバーのメモリ配置がどのようになっているのかを説明する表。
+			本書ローカル用語。構造体解析において、各メンバーのメモリー配置がどのようになっているのかを説明する表。
 			C 言語でいうビットフィールドが頻出するような、細切れのデータメンバーが寄せ集まった様子を思い描いて欲しい。
 		</para>
 		<glossseealso otherterm="gloss.member"/>
@@ -436,12 +436,12 @@
 </glossentry> <!-- gloss.memory.layout -->
 
 <glossentry id="gloss.memory.space">
-	<glossterm>メモリ空間</glossterm>
+	<glossterm>メモリー空間</glossterm>
 	<glossdef>
 		<para>
-			プログラム部分もデータ部分も <acronym>RAM</acronym> 領域も全部ひっくるめたメモリ領域全体をメモリ空間と（本書は）呼ぶ。
-			<acronym>SFC</acronym> 解析では、<acronym>ROM</acronym> イメージがメモリ空間 4 メガのどのパートに格納されるのかが、
-			ゲームによって決まっている。逆アセンブリ作業はそれを調べるところから開始するのだ。
+			プログラム部分もデータ部分も <acronym>RAM</acronym> 領域も全部ひっくるめたメモリー領域全体をメモリー空間と（本書は）呼ぶ。
+			<acronym>SFC</acronym> 解析では、<acronym>ROM</acronym> イメージがメモリー空間 4 メガのどのパートに格納されるのかが、
+			ゲームによって決まっている。逆アセンブリー作業はそれを調べるところから開始するのだ。
 		</para>
 	</glossdef>
 </glossentry> <!-- gloss.memory.space -->
@@ -559,7 +559,7 @@
 		<para>
 			あらゆるプログラミング言語で存在する概念であるが、
 			解析で配列と言う場合、暗黙の了承の下に C 言語の配列モデルが置かれる。
-			すなわち、同じ長さのバイト列が、メモリ空間内の特定の区間中、
+			すなわち、同じ長さのバイト列が、メモリー空間内の特定の区間中、
 			途切れることなく整列しているものだ。
 		</para>
 		<para>

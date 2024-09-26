@@ -18,7 +18,7 @@
 <section id="dq6.level.FFB6C2">
 <title>構造体 <varname>$FFB6C2</varname>: レベルアップ</title>
 <para>
-レベルアップ構造体とは、サイズが <literal>#$B1</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
+レベルアップ構造体とは、サイズが <literal>#$B1</literal> バイトであり、オブジェクトのメモリーレイアウトが次の表で示されるような構造体だ。
 この型のオブジェクトがアドレス <varname>$FFB6C2</varname> から 27 個直列している。
 </para>
 <table id="table.dq6.FFB6C2" class="lighttable">

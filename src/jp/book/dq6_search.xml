@@ -25,7 +25,7 @@
 <section id="dq6.search.model.C20000">
 <title>構造体 <varname>$C20000</varname>: 「しらべる」対象分類</title>
 <para>
-アドレス <varname>$C20000</varname> には以下に示すメモリレイアウトのオブジェクトが 20 個ほど配列されている。
+アドレス <varname>$C20000</varname> には以下に示すメモリーレイアウトのオブジェクトが 20 個ほど配列されている。
 これらのオブジェクトが表現するのは、宝箱、ツボ、タンス、等々というようなオブジェクトの分類項目だ。
 ゲーム中にバラバラと存在する「しらべる」対象のすべてが、この配列にあるいずれか一つの要素を「共有」している。
 「しらべる」対象のすべてを、この共有オブジェクトにより類別することができる。
@@ -248,7 +248,7 @@
 <section id="dq6.search.model.C83E5C">
 <title>構造体 <varname>$C83E5C</varname>: アイテム発見</title>
 <para>
-アドレス <varname>$C83E5C</varname> には以下に示すメモリレイアウトのオブジェクトが多数配列されている。
+アドレス <varname>$C83E5C</varname> には以下に示すメモリーレイアウトのオブジェクトが多数配列されている。
 これらは「しらべる」対象から何らかのアイテムを一度だけ入手可能であることを表現している。
 </para>
 <table id="table.dq6.C83E5C" class="lighttable">
@@ -298,7 +298,7 @@
 <section id="dq6.search.model.C8477E">
 <title>構造体 <varname>$C8477E</varname>: ゴールド発見</title>
 <para>
-アドレス <varname>$C8477E</varname> には以下に示すメモリレイアウトのオブジェクトが 40 程度配列されている。
+アドレス <varname>$C8477E</varname> には以下に示すメモリーレイアウトのオブジェクトが 40 程度配列されている。
 これらは「しらべる」対象からいくらかのゴールドを一度だけ入手可能であることを表現している。
 </para>
 <table id="table.dq6.C8477E" class="lighttable">
@@ -366,7 +366,7 @@
 <section id="dq6.search.model.C848B6">
 <title>構造体 <varname>$C848B6</varname>: 情報取得</title>
 <para>
-アドレス <varname>$C848B6</varname> には以下に示すメモリレイアウトのオブジェクトが多数配列されている。
+アドレス <varname>$C848B6</varname> には以下に示すメモリーレイアウトのオブジェクトが多数配列されている。
 これらは対象を「しらべる」ことで何らかのテキストメッセージを出力することを表現している。
 もっと強く言うと、中身が空の引き出しやツボといった変哲のないオブジェクトのすべてもここに分類される。
 </para>
@@ -419,7 +419,7 @@
 <section id="dq6.search.model.C85534">
 <title>構造体 <varname>$C85534</varname>: 罠</title>
 <para>
-アドレス <varname>$85534</varname> には以下に示すメモリレイアウトのオブジェクトが十数個配列されている。
+アドレス <varname>$85534</varname> には以下に示すメモリーレイアウトのオブジェクトが十数個配列されている。
 いずれも宝箱やツボがモンスターであるような対象を表現している。
 </para>
 <table id="table.dq6.C85534" class="lighttable">
@@ -463,7 +463,7 @@
 <section id="dq6.search.model.C855AB">
 <title>構造体 <varname>$C855AB</varname>: 特殊イベント</title>
 <para>
-アドレス <varname>$C855AB</varname> には以下に示すメモリレイアウトのオブジェクトが多数配列されている。
+アドレス <varname>$C855AB</varname> には以下に示すメモリーレイアウトのオブジェクトが多数配列されている。
 これらのオブジェクトは、これまで見てきた分類から逸脱した振る舞いを実現するものだ。
 </para>
 <table id="table.dq6.C855AB" class="lighttable">

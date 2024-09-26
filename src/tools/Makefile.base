@@ -2,10 +2,4 @@
 # We filched this build system from svnbook, Subversion document.
 
 include ../tools/Makefile.base-vars
-NAME = dqbook
-OUTNAME = dqbook
-DIR = ./book
-IMAGES = $(DIR)/image/
-TEXTFILES = $(DIR)/data/
-INSTALL_DIR = ../../www
 include ../tools/Makefile.base-rules

@@ -23,7 +23,7 @@
 <section id="dq6.inns.structure.C58E0B">
 <title>構造体 <varname>$C58E0B</varname>: 宿屋</title>
 <para>
-以下に示すメモリレイアウトのオブジェクトがアドレス <varname>$C58E0B</varname> から 37 個配列されている。
+以下に示すメモリーレイアウトのオブジェクトがアドレス <varname>$C58E0B</varname> から 37 個配列されている。
 この 4 バイト長のサイズしかないオブジェクトそれぞれが関係する宿屋のサービスを表現している。
 </para>
 <table id="table.dq6.C58E0B" class="lighttable">

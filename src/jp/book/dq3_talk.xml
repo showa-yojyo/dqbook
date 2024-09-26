@@ -355,7 +355,7 @@ ROM のアドレス <varname>$C893D4</varname> には次の表で示すような
 ここで、サブルーチン <varname>$CDB4CE</varname> では変数 <varname>$001D9A</varname> に本来のはなす処理アドレス値をリロードして、
 ジャンプするという内容だ。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 CD/BC2B:    22D7B4CD    JSR $CDB4D7
 CD/BC2F:    220EB5CD    JSR $CDB50E         ; へんげのつえで魔物に変身しているかテスト
 CD/BC33:    B003        BCS $BC38           if(魔物でない){
@@ -376,15 +376,15 @@ CD/BC52:    4C59BC      JMP $BC59           goto 終了
 CD/BC55:    22CEB4CD    JSR $CDB4CE         ; はなす対象者既定の振る舞い
                                             終了:
 CD/BC59:    6B          RTL
-</programlisting>
+]]></programlisting>
 <para>
 パーティーが透明である場合の処理は次のようになる：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 CD/B6C0:    00550F      BRK #$0F55          ; #$0F55: ここは ルイーダの酒場。[AD]冒険者たちが……[AF][AD]……って なんだ。[AD]だれも いないじゃない。
 CD/B6C3:    22B0B4CD    JSR $CDB4B0
 CD/B6C7:    6B          RTL
-</programlisting>
+]]></programlisting>
 </section> <!-- dq3.talk.process.example -->
 </section> <!-- dq3.talk.process -->
 </section> <!-- dq3.talk -->

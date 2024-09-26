@@ -23,7 +23,7 @@
 <title>構造体 <varname>$C58B93</varname>: 店屋</title>
 <para>
 アドレス <varname>$C58B93</varname> にある配列要素のそれぞれが対応する店屋オブジェクトを表現する。
-以下に示すメモリレイアウトの 8 バイト長のオブジェクトが 80 弱配列されている：
+以下に示すメモリーレイアウトの 8 バイト長のオブジェクトが 80 弱配列されている：
 </para>
 <table id="table.dq6.C58B93" class="lighttable">
   <caption>構造体 $C58B93</caption>

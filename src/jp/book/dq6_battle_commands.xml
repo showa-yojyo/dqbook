@@ -22,7 +22,7 @@
 <section id="dq6.battle.commands.C8C65D">
 <title>構造体 <varname>$C8C65D</varname>: 戦闘コマンド</title>
 <para>
-戦闘コマンド構造体とは、サイズが <literal>#$19</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるようなものだ。
+戦闘コマンド構造体とは、サイズが <literal>#$19</literal> バイトであり、オブジェクトのメモリーレイアウトが次の表で示されるようなものだ。
 この型のオブジェクトがアドレス <varname>$C8C65D</varname> から 410 個直列しているので、本書ではたまに戦闘コマンド構造体のことを表題のように表記することがある。
 </para>
 <table id="table.dq6.C8C65D" class="lighttable">

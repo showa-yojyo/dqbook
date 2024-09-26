@@ -395,7 +395,7 @@ C3/B97B:    3A00E703E703 ; べホマズン
       負数の場合はいわゆる二の補数で表現された値の絶対値を計算してから
       ID <literal>#$16C4</literal> のメッセージを出力する。
       </simpara>
-<programlisting>
+<programlisting><!-- NO CDATA -->
 C3/BE59:    49FFFF      EOR #$FFFF          <co id="dq6.spell.commands.desc.C3BE24.co.1" />
 C3/BE5C:    1A          INC A               <co id="dq6.spell.commands.desc.C3BE24.co.2" />
 C3/BE5D:    8D2E5A      STA $5A2E           <co id="dq6.spell.commands.desc.C3BE24.co.3" />
