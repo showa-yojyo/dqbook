@@ -199,8 +199,9 @@
   記者への連絡先を以下に示す。
 </para>
 <simplelist type="vert" columns="1">
+  <member><ulink url="https://github.com/showa-yojyo/dqbook/issues">GitHub Issues</ulink></member>
   <member><ulink url="https://twitter.com/showa_yojyo">Twitter - プレハブ小屋 (showa_yojyo)</ulink></member>
-  <member><email><ulink url="mailto:yojyo@hotmail.com">yojyo@hotmail.com</ulink></email></member>
+  <member>著者へ<ulink url="mailto:yojyo@hotmail.com">メール</ulink>を送る</member>
 </simplelist>
 </simplesect> <!-- preface.contact -->
 
