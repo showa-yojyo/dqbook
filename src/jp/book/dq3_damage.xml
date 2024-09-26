@@ -26,7 +26,7 @@
 <title>構造体 <varname>$C23BB4</varname>: ダメージ</title>
 <para>
 アドレス <varname>$C23BB4</varname> から 50 個、ダメージパターンが定義されている。
-各要素のサイズは 5 バイトで、メモリレイアウトは次に示すとおりだ：
+各要素のサイズは 5 バイトで、メモリーレイアウトは次に示すとおりだ：
 </para>
 <table id="table.dq3.C23BB4" class="lighttable">
   <caption>構造体 $C23BB4</caption>
@@ -77,7 +77,7 @@ ROM データをダンプして属性値を検討すると、自陣と敵陣と�
 <para>
 ダメージ構造体のフィールドにアクセスする専用サブルーチンはいくつかあるのだが、
 実際にプログラムから参照されているものは <varname>$C2CCF8</varname> サブルーチンだけであるようだ。
-このサブルーチンは 4 byte のパラメータをとり、
+このサブルーチンは 4 byte のパラメーターをとり、
 その意味はいつもと同じようなものなので、説明を省く。
 </para>
 <table id="table.dq3.damage.methods" class="lighttable">
@@ -107,7 +107,7 @@ ROM データをダンプして属性値を検討すると、自陣と敵陣と�
 コマンド実行者とコマンドを入力とし、ダメージ量を出力とする関数とみなすのが理解しやすい。
 コードの概要を以下に示す。
 </para>
-<programlisting>
+<programlisting><!-- NO CDATA -->
 C9/0AF7:    08          PHP
 C9/0AF8:    8B          PHB
 C9/0AF9:    C230        REP #$30

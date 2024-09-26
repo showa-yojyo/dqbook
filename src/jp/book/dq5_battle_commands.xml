@@ -95,7 +95,7 @@
 <para>
 種別が 0 の戦闘コマンドは、一般コマンドの意味で防御系のコマンドをとることが必要のようだ：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 20/8862:    20809F      JSR $9F80           ; $1073,X に戦闘コマンドをセット
 20/8865:    C900        CMP #$00
 20/8867:    F039        BEQ $88A2
@@ -109,7 +109,7 @@
 20/889C:    A900        LDA #$00            ; 戦闘コマンド情報構造体
 20/889E:    206B9F      JSR $9F6B           ; $1037,X に戦闘コマンド情報をセット
 20/88A1:    60          RTS
-</programlisting>
+]]></programlisting>
 </section> <!-- dq5.battle.commands.guard -->
 
 <section id="dq5.battle.commands.general">
@@ -184,7 +184,7 @@ BRK 命令を実行することで、戦闘コマンドの名前にアクセス�
 <para>
 さらに、特殊な MP 消費をするコマンドのために、一部はプログラムで消費量を上書きする：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 26/83A1:    BF658726    LDA $268765,X
 26/83A5:    291F        AND #$1F            ; 必要 MP
 26/83A7:    C91F        CMP #$1F
@@ -206,7 +206,7 @@ BRK 命令を実行することで、戦闘コマンドの名前にアクセス�
 26/83C4:    FA          PLX
                                             }
 26/83C8:    A900        LDA #$00            ; 消費なし
-</programlisting>
+]]></programlisting>
 <para>
 このコードの解析によると、マジックナンバーがかなり多いことがわかる。
 全ビットがオン、つまり MP が 31 ならばそれは呪文コマンドではないという取り扱いになるようだ。
@@ -301,7 +301,7 @@ BRK 命令を実行することで、戦闘コマンドの名前にアクセス�
     </para>
   </listitem>
 </orderedlist>
-<programlisting>
+<programlisting><![CDATA[
 20/8583:    A973        LDA #$73            ; 「こうげき」
 20/8585:    8DF710      STA $10F7           ; 戦闘コマンド ID
 20/8588:    20809F      JSR $9F80           ; コマンドキャラクターの戦闘コマンド ID を設定
@@ -317,7 +317,7 @@ BRK 命令を実行することで、戦闘コマンドの名前にアクセス�
 20/859F:    20D69D      JSR $9DD6           ; 待ち
 20/85A2:    ADF710      LDA $10F7           ; 戦闘コマンド ID
 20/85A5:    82A6FE      BRL $844E           ; （戦闘コマンド ID による分岐）
-</programlisting>
+]]></programlisting>
 <para>
 なお、戦闘コマンド ID を収める変数には、
 そこに「こうげき」を示す値 <literal>#$73</literal> が入るまでは新しく装備する武器のアイテム ID が収められていた。

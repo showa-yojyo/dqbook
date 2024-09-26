@@ -149,12 +149,12 @@ BRK 命令の正規のオペランドと、実際にオペランドを構成す�
 実際の例を借りて説明したい。
 </para>
 
-<programlisting>
+<programlisting><![CDATA[
 BRK #$02
 JSR $8062
 BRK #$03
 RTL
-</programlisting>
+]]></programlisting>
 
 <para>
 このように両 BRK 命令をサンドイッチのように用いる必要がある。
@@ -163,7 +163,7 @@ RTL
 もっともサンドイッチの外に飛び出すような激しい分岐命令やジャンプ命令はないようにする。
 そして上記コードは次の非実在コードと論理的に同値である（実際の実装のほうがやや丁寧に処理しているが）。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 PHP
 REP #$30
 PHA
@@ -179,7 +179,7 @@ PLA
 PLP
 ...                 ; nv--dizc 各ビットを現在のそれで上書きする
 RTL
-</programlisting>
+]]></programlisting>
 </section> <!-- dq5.brk.spec.02-03 -->
 
 <section id="dq5.brk.spec.0B-0D">
@@ -211,7 +211,7 @@ BRK 命令によるフラグ制御の実例を以下にいくつか挙げる。
 フラグのテストは zero レジスターの状態で判定するので、たいてい BEQ または BNE 命令を伴う。
 このコードから <varname>$7E21B3</varname> のビット <literal>#$08</literal> が主人公の妻を表すフラグであることが判明する。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 02/F6D0:    009C        BRK #$9C            ; #$0556: [1003]ルドマン「わっはっは。[1000]やあ ゆかい ゆかい！
 02/F6D2:    56
 02/F6D3:    009C        BRK #$9C            ; #$056B: [1003]ルドマン「魔界の王を たおし[1000]世界に 平和を とりもどして[1000]くれるとはな。
@@ -224,33 +224,33 @@ BRK 命令によるフラグ制御の実例を以下にいくつか挙げる。
 02/F6DF:    8003        BRA $F6E4
 02/F6E1:    009C        BRK #$9C            ; #$056C: [1003]ルドマン「さすが [1012]と[1000]その子供たちじゃ。
 02/F6E3:    6C
-</programlisting>
+]]></programlisting>
 
 <para>
 フラグを立てる処理を引用する。
 物理的にはアドレス <varname>$7E21D2</varname> にある 1 バイト値のビット <literal>#$10</literal> を 1 にする。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 06/B8D8:    009B        BRK #$9B            ; #$04FD: [1003]コリンズ「大切に つかえよ。
 06/B8DA:    FD
 06/B8DB:    000C        BRK #$0C            ; set_bits $7E21D2 #$10: コリンズからかぜのぼうしを入手した
 06/B8DD:    1042
 06/B8DF:    60          RTS
-</programlisting>
+]]></programlisting>
 
 <para>
 最後にフラグを立っていない状態にする処理も挙げておく。
 これはビットマスク <varname>arg1</varname> をそのまま AND することで実現することに注意を要する。
 後続のシリーズのような対象となるビットの EOR ではない。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 12/F185:    000D        BRK #$0D            ; mask_bits $7E21D4 #$7F: てんくうのかぶとを入手した
 12/F187:    7F44
 12/F189:    0097        BRK #$97            ; #$0013: [1006]
 12/F18B:    13
 12/F18C:    009B        BRK #$9B            ; #$0450: [1006][1016]は ふと 気が ついた。[1002][1006]なんと 持ち物が いっぱいだった！[...]
 12/F18E:    50
-</programlisting>
+]]></programlisting>
 <para>
 上のコードはテルパドールでてんくうのかぶとを息子にかぶせるイベントの例外的な処理だ。
 この場合は諸般の事情で先に当該フラグを立ててしまったので、このようなキャンセルを実装している。
@@ -353,28 +353,28 @@ BRK 命令によるフラグ制御の実例を以下にいくつか挙げる。
 <code>BRK #$0F</code> でサウンド <literal>#$23</literal> すなわち呪いの効果音を演奏させる。
 <code>BRK #$98</code> については <xref linkend="dq5.brk.spec.97-9D"/> で述べる。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 25/8211:    000F        BRK #$0F            ; sound #$23: 呪いのモチーフ
 25/8213:    23
 25/8214:    0098        BRK #$98            ; #$01D0: [1006]まことに ざんねんですが[1000]ぼうけんのしょ[1004]は[1000]消えてしまいました。
 25/8216:    D0
-</programlisting>
+]]></programlisting>
 
 <para>
 <code>BRK #$12</code> はてんくうのベル専用の命令のようだ。連続実行することで雰囲気を出す。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 00/CA33:    0012        BRK #$12            ; sound #$44: てんくうのベル音
 00/CA35:    44
 00/CA36:    0012        BRK #$12            ; sound #$44: てんくうのベル音
 00/CA38:    44
-</programlisting>
+]]></programlisting>
 
 <para>
 これはゲーム序盤のパパス同伴戦闘終了時のやりとりだ。
 <code>BRK #$16</code> でサウンド <literal>#$36</literal> すなわち HP 回復の効果音を演奏させる。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 06/CF32:    0098        BRK #$98            ; message #$01E3: [1003]パパス「大丈夫か？ [1012]。
 06/CF34:    E3
 06/CF35:    0098        BRK #$98            ; message #$01E6: [1006]パパスは ホイミを となえた！[1000][1012]の キズが かいふくした！
@@ -383,7 +383,7 @@ BRK 命令によるフラグ制御の実例を以下にいくつか挙げる。
 06/CF3A:    3600
 06/CF3C:    0098        BRK #$98            ; message #$01E5: [1003]パパス「では いくとしよう！
 06/CF3E:    E5
-</programlisting>
+]]></programlisting>
 
 </section> <!-- dq5.brk.spec.0E-19 -->
 
@@ -448,7 +448,7 @@ BRK 命令実行時のオペランド、「余分なオペランド」、レジ�
 簡単に言うと、反復処理で <code>BRK #$89</code> を実行することにより、戦闘中の仲間キャラクターの MP をゼロにするコードだ。
 なお <code>BRK #$A5</code> はメッセージ表示処理であり、これについては <xref linkend="dq5.brk.spec.A4-A6"/> で述べる。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 20/ECBE:    2026EF      JSR $EF26
 20/ECC1:    ADF310      LDA $10F3
 20/ECC4:    8542        STA $42
@@ -465,7 +465,7 @@ BRK 命令実行時のオペランド、「余分なオペランド」、レジ�
 20/ECDD:    CDF410      CMP $10F4
 20/ECE0:    90DF        BCC $ECC1
 20/ECE2:    60          RTS
-</programlisting>
+]]></programlisting>
 </section> <!-- dq5.brk.spec.80-93 -->
 
 <section id="dq5.brk.spec.94">
@@ -513,7 +513,7 @@ BRK 命令のオペランドが <literal>#$94</literal> であれば、
 アイテムが店屋で売れるかどうかを示すビットの値を carry ビットに得る。
 なお <code>BRK #$9B</code> については <xref linkend="dq5.brk.spec.97-9D"/> で述べる。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 11/8463:    0094        BRK #$94            ; #$06: アイテム::鑑定::売却可フラグ
 11/8465:    06
 11/8466:    9005        BCC $846D
@@ -524,7 +524,7 @@ BRK 命令のオペランドが <literal>#$94</literal> であれば、
 11/8470:    225BDF06    JSR $06DF5B         ; アイテムの売値を計算
 11/8474:    009B        BRK #$9B            ; message #$045F: [1006]もし 店屋に 売れば[1000][1004]ゴールドに なるだろう。
 11/8476:    5F
-</programlisting>
+]]></programlisting>
 </section> <!-- dq5.brk.spec.94 -->
 
 <section id="dq5.brk.spec.95-96">
@@ -554,14 +554,14 @@ BRK 命令のオペランドが <literal>#$97</literal> から <literal>#$9D</li
 
 <para>
 実例として、ある <code>BRK #$97</code> の呼び出しを次に示す。
-参考までにメッセージテキストを逆アセンブリコードの右側にコメントしておく。
+参考までにメッセージテキストを逆アセンブリーコードの右側にコメントしておく。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 06/CE0D:    0097        BRK #$97            ; message #$00B6: よくぞもどられた！[1000][1011]どの。
 06/CE0F:    B6
 06/CE10:    0097        BRK #$97            ; message #$00B7: おお 神よ！[1000]この者[1005]に 尊き ご加護の[1000]あらんことを！ アーメン！
 06/CE12:    B7
-</programlisting>
+]]></programlisting>
 
 <para>
 移動中メッセージ処理については <xref linkend="dq5.text.travel" /> を参照。
@@ -579,14 +579,14 @@ BRK 命令のオペランドが <literal>#$9E</literal> から <literal>#$A7</li
 <para>
 実例として、ある <code>BRK #$9E</code> の呼び出しを次に示す。
 </para>
-<programlisting>
-25/89F5:    009E        BRK #$9E            ; message #$0000: 
+<programlisting><![CDATA[
+25/89F5:    009E        BRK #$9E            ; message #$0000:
 25/89F7:    00
 25/89F8:    009E        BRK #$9E            ; message #$00B6: しかし [EE][FA]は[FF]これいじょう ものを もてない。
 25/89FA:    B6
 25/89FB:    009E        BRK #$9E            ; message #$00B7: もちものを すてますか？
 25/89FD:    B7
-</programlisting>
+]]></programlisting>
 
 <para>
 戦闘中メッセージ処理については <xref linkend="dq5.text.battle" /> を参照。
@@ -599,14 +599,14 @@ BRK 命令のオペランドが <literal>#$9E</literal> から <literal>#$A7</li
 こちらも戦闘時メッセージ処理だが、サブルーチン <varname>$2485D4</varname> を用いる。
 実例として、ある <code>BRK #$A1</code> の呼び出しを次に示す。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 26/8452:    9005        BCC $8459
 26/8454:    00A1        BRK #$A1            ; message #$0008: [F7]は こちらが みがまえるまえに[FF]おそいかかってきた！
 26/8456:    08
 26/8457:    8003        BRA $845C
 26/8459:    00A1        BRK #$A1            ; message #$0009: [F7]は[FF]いきなり おそいかかってきた！
 26/845B:    09
-</programlisting>
+]]></programlisting>
 </section> <!-- dq5.brk.spec.A1-A3 -->
 
 <section id="dq5.brk.spec.A4-A6">
@@ -615,7 +615,7 @@ BRK 命令のオペランドが <literal>#$9E</literal> から <literal>#$A7</li
 こちらも戦闘時メッセージ処理だが、サブルーチン <varname>$2485D8</varname> を用いる。
 実例として、ある <code>BRK #$A4</code> の呼び出しを次に示す。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 20/F4D4:    ADF610      LDA $10F6
 20/F4D7:    3005        BMI $F4DE
 20/F4D9:    00A4        BRK #$A4            ; message #$0078: ひかりのかべが じゅもんを はねかえした！
@@ -623,7 +623,7 @@ BRK 命令のオペランドが <literal>#$9E</literal> から <literal>#$A7</li
 20/F4DC:    8003        BRA $F4E1
 20/F4DE:    00A4        BRK #$A4            ; message #$0077: じゅもんは ひかりのかべに はじかれた！
 20/F4E0:    77
-</programlisting>
+]]></programlisting>
 </section> <!-- dq5.brk.spec.A4-A6 -->
 
 <section id="dq5.brk.spec.A7-A9">
@@ -632,7 +632,7 @@ BRK 命令のオペランドが <literal>#$9E</literal> から <literal>#$A7</li
 こちらも戦闘時メッセージ処理だが、サブルーチン <varname>$2485DC</varname> を用いる。
 実例として、ある <code>BRK #$A7</code> と <code>BRK #$A8</code> の呼び出しを次に示す。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 20/F59E:    CD1310      CMP $1013
 20/F5A1:    F005        BEQ $F5A8
 20/F5A3:    00A7        BRK #$A7            ; message #$00A1: [F7]を やっつけた！
@@ -640,7 +640,7 @@ BRK 命令のオペランドが <literal>#$9E</literal> から <literal>#$A7</li
 20/F5A6:    8003        BRA $F5AB
 20/F5A8:    00A8        BRK #$A8            ; message #$0135: [F7]は まけてしまった！
 20/F5AA:    35
-</programlisting>
+]]></programlisting>
 </section> <!-- dq5.brk.spec.A7-A9 -->
 </section> <!-- dq5.brk.spec -->
 </section> <!-- dq5.brk -->

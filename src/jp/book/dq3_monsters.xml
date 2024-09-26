@@ -18,7 +18,7 @@
 <section id="dq3.monsters.C20000">
 <title>構造体 <varname>$C20000</varname>: モンスター</title>
 <para>
-モンスター構造体とは、サイズが <literal>#$25</literal> バイトであり、オブジェクトのメモリレイアウトが次の表で示されるような構造体だ。
+モンスター構造体とは、サイズが <literal>#$25</literal> バイトであり、オブジェクトのメモリーレイアウトが次の表で示されるような構造体だ。
 この型のオブジェクトがアドレス <varname>$C20000</varname> から 160 個直列している。
 </para>
 <para>

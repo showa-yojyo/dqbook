@@ -46,7 +46,7 @@
 <para>
 サブルーチン <varname>$CCED57</varname> の処理コードを以下に示す。
 </para>
-<programlisting>
+<programlisting><!-- NO CDATA -->
 CC/ED57:    AD5435      LDA $3554
 CC/ED5A:    292000      AND #$0020
 CC/ED5D:    D003        BNE $ED62

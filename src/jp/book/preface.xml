@@ -49,7 +49,7 @@
 <title>本書の想定読者</title>
 <para>
   本書が読者として想定しているのは、
-  PC で動作するゲーム機エミュレータでドラクエを遊び、
+  PC で動作するゲーム機エミュレーターでドラクエを遊び、
   さらにその一歩先の「プレイ」をしたいと思っているような、
   意欲のある人々だ。
   そのような読者が本書を読むことで、例えば RAM または ROM イメージの数値データを編集したり、
@@ -139,7 +139,7 @@
 <simplesect id="preface.terminology">
 <title>本書の表記</title>
 <para>
-  本書では、各種アセンブリ言語のニーモニックや、変なプレフィックス・サフィックスを伴っての十六進数表記が頻繁に書かれる。
+  本書では、各種アセンブリー言語のニーモニックや、変なプレフィックス・サフィックスを伴っての十六進数表記が頻繁に書かれる。
   これら特別な意味を持つ用語・数値に関しては、地の文書に使われるフォントとは別のもので表記することにした。
 </para>
 <para>
@@ -199,8 +199,9 @@
   記者への連絡先を以下に示す。
 </para>
 <simplelist type="vert" columns="1">
+  <member><ulink url="https://github.com/showa-yojyo/dqbook/issues">GitHub Issues</ulink></member>
   <member><ulink url="https://twitter.com/showa_yojyo">Twitter - プレハブ小屋 (showa_yojyo)</ulink></member>
-  <member><email><ulink url="mailto:yojyo@hotmail.com">yojyo@hotmail.com</ulink></email></member>
+  <member>著者へ<ulink url="mailto:yojyo@hotmail.com">メール</ulink>を送る</member>
 </simplelist>
 </simplesect> <!-- preface.contact -->
 
@@ -220,7 +221,7 @@
         <xref linkend="dqref.url2"/>
         で、大フォントテーブルを BMP ファイルに出力する機能を実装された。
         本書の各シリーズメッセージ解析では、GSD の文字出力処理のステップ実行時に、
-        アキュームレータの値とフォントを照合するときに利用した。
+        アキュームレーターの値とフォントを照合するときに利用した。
       </para>
     </listitem>
   </varlistentry>
@@ -251,7 +252,7 @@
       <para>
         &dq3_1996; のメッセージ解析の概要を完全に把握されており、
         記者は、主要なデータの構造・配置位置をそのサイトで知った。
-        さらに（別シリーズではあるが）メッセージアセンブリコードの解釈の添削までしていただいた。
+        さらに（別シリーズではあるが）メッセージアセンブリーコードの解釈の添削までしていただいた。
       </para>
     </listitem>
   </varlistentry>
@@ -262,6 +263,29 @@
       <para>
         未執筆のまま放置していたドラクエ 5 の必要経験値算出の記述を促していただいた。
         また、初稿のアルゴリズムを検証した結果、当初の記述に漏れがあることを執筆陣に発見させていただいた。
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>yuilib 氏</term>
+    <listitem>
+      <para>
+        <ulink url="https://github.com/showa-yojyo/dqbook/issues/55">付録 B で一覧が入れ替わっているミス</ulink>を発見していただいた。
+        特に、GitHub に発見報告をいただいてから半年放置したのはたいへん申し訳なかった。
+        深く反省する。
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>矢木羽研（やきうけん）氏</term>
+    <listitem>
+      <para>
+        <ulink url="https://github.com/showa-yojyo/dqbook/issues/56">ドラクエ 5
+        レベルアップ構造体の記述ミス</ulink>を発見していただいた。
+        レベルアップ属性値各種の算出方法を追記する契機になりもした（特に
+        1.5 倍ルールを見落とすところだった）。
       </para>
     </listitem>
   </varlistentry>

@@ -104,33 +104,33 @@
     <tr><td><literal>#$32</literal></td><td></td><td>すばやさ標準値[6]</td></tr>
     <tr><td><literal>#$33</literal></td><td></td><td>すばやさ標準値[7]</td></tr>
     <tr><td><literal>#$34</literal></td><td></td><td>すばやさ標準値[8]</td></tr>
-    <tr><td><literal>#$35</literal></td><td></td><td>みのまもり標準値[0]</td></tr>
-    <tr><td><literal>#$36</literal></td><td></td><td>みのまもり標準値[1]</td></tr>
-    <tr><td><literal>#$37</literal></td><td></td><td>みのまもり標準値[2]</td></tr>
-    <tr><td><literal>#$38</literal></td><td></td><td>みのまもり標準値[3]</td></tr>
-    <tr><td><literal>#$39</literal></td><td></td><td>みのまもり標準値[4]</td></tr>
-    <tr><td><literal>#$3A</literal></td><td></td><td>みのまもり標準値[5]</td></tr>
-    <tr><td><literal>#$3B</literal></td><td></td><td>みのまもり標準値[6]</td></tr>
-    <tr><td><literal>#$3C</literal></td><td></td><td>みのまもり標準値[7]</td></tr>
-    <tr><td><literal>#$3D</literal></td><td></td><td>みのまもり標準値[8]</td></tr>
-    <tr><td><literal>#$3E</literal></td><td></td><td>かしこさ標準値[0]</td></tr>
-    <tr><td><literal>#$3F</literal></td><td></td><td>かしこさ標準値[1]</td></tr>
-    <tr><td><literal>#$40</literal></td><td></td><td>かしこさ標準値[2]</td></tr>
-    <tr><td><literal>#$41</literal></td><td></td><td>かしこさ標準値[3]</td></tr>
-    <tr><td><literal>#$42</literal></td><td></td><td>かしこさ標準値[4]</td></tr>
-    <tr><td><literal>#$43</literal></td><td></td><td>かしこさ標準値[5]</td></tr>
-    <tr><td><literal>#$44</literal></td><td></td><td>かしこさ標準値[6]</td></tr>
-    <tr><td><literal>#$45</literal></td><td></td><td>かしこさ標準値[7]</td></tr>
-    <tr><td><literal>#$46</literal></td><td></td><td>かしこさ標準値[8]</td></tr>
-    <tr><td><literal>#$47</literal></td><td></td><td>うんのよさ標準値[0]</td></tr>
-    <tr><td><literal>#$48</literal></td><td></td><td>うんのよさ標準値[1]</td></tr>
-    <tr><td><literal>#$49</literal></td><td></td><td>うんのよさ標準値[2]</td></tr>
-    <tr><td><literal>#$4A</literal></td><td></td><td>うんのよさ標準値[3]</td></tr>
-    <tr><td><literal>#$4B</literal></td><td></td><td>うんのよさ標準値[4]</td></tr>
-    <tr><td><literal>#$4C</literal></td><td></td><td>うんのよさ標準値[5]</td></tr>
-    <tr><td><literal>#$4D</literal></td><td></td><td>うんのよさ標準値[6]</td></tr>
-    <tr><td><literal>#$4E</literal></td><td></td><td>うんのよさ標準値[7]</td></tr>
-    <tr><td><literal>#$4F</literal></td><td></td><td>うんのよさ標準値[8]</td></tr>
+    <tr><td><literal>#$35</literal></td><td></td><td>かしこさ標準値[0]</td></tr>
+    <tr><td><literal>#$36</literal></td><td></td><td>かしこさ標準値[1]</td></tr>
+    <tr><td><literal>#$37</literal></td><td></td><td>かしこさ標準値[2]</td></tr>
+    <tr><td><literal>#$38</literal></td><td></td><td>かしこさ標準値[3]</td></tr>
+    <tr><td><literal>#$39</literal></td><td></td><td>かしこさ標準値[4]</td></tr>
+    <tr><td><literal>#$3A</literal></td><td></td><td>かしこさ標準値[5]</td></tr>
+    <tr><td><literal>#$3B</literal></td><td></td><td>かしこさ標準値[6]</td></tr>
+    <tr><td><literal>#$3C</literal></td><td></td><td>かしこさ標準値[7]</td></tr>
+    <tr><td><literal>#$3D</literal></td><td></td><td>かしこさ標準値[8]</td></tr>
+    <tr><td><literal>#$3E</literal></td><td></td><td>うんのよさ標準値[0]</td></tr>
+    <tr><td><literal>#$3F</literal></td><td></td><td>うんのよさ標準値[1]</td></tr>
+    <tr><td><literal>#$40</literal></td><td></td><td>うんのよさ標準値[2]</td></tr>
+    <tr><td><literal>#$41</literal></td><td></td><td>うんのよさ標準値[3]</td></tr>
+    <tr><td><literal>#$42</literal></td><td></td><td>うんのよさ標準値[4]</td></tr>
+    <tr><td><literal>#$43</literal></td><td></td><td>うんのよさ標準値[5]</td></tr>
+    <tr><td><literal>#$44</literal></td><td></td><td>うんのよさ標準値[6]</td></tr>
+    <tr><td><literal>#$45</literal></td><td></td><td>うんのよさ標準値[7]</td></tr>
+    <tr><td><literal>#$46</literal></td><td></td><td>うんのよさ標準値[8]</td></tr>
+    <tr><td><literal>#$47</literal></td><td></td><td>みのまもり標準値[0]</td></tr>
+    <tr><td><literal>#$48</literal></td><td></td><td>みのまもり標準値[1]</td></tr>
+    <tr><td><literal>#$49</literal></td><td></td><td>みのまもり標準値[2]</td></tr>
+    <tr><td><literal>#$4A</literal></td><td></td><td>みのまもり標準値[3]</td></tr>
+    <tr><td><literal>#$4B</literal></td><td></td><td>みのまもり標準値[4]</td></tr>
+    <tr><td><literal>#$4C</literal></td><td></td><td>みのまもり標準値[5]</td></tr>
+    <tr><td><literal>#$4D</literal></td><td></td><td>みのまもり標準値[6]</td></tr>
+    <tr><td><literal>#$4E</literal></td><td></td><td>みのまもり標準値[7]</td></tr>
+    <tr><td><literal>#$4F</literal></td><td></td><td>みのまもり標準値[8]</td></tr>
   </tbody>
 </table>
 <variablelist>
@@ -172,14 +172,14 @@
       <para>
         例として主人公のレベル区間データを説明する。この配列の値は物理的には次のように定義されている。
       </para>
-<programlisting>{5, 10, 15, 20, 30, 45, 60}</programlisting>
+<programlisting><![CDATA[{5, 10, 15, 20, 30, 45, 60}]]></programlisting>
       <para>
         論理的には次の区間列が定義されているものと考える：
       </para>
-<programlisting>// index
+<programlisting><![CDATA[// index
 // 0      1        2         3         4         5         6         7
  {[1, 5), [5, 10), [10, 15), [15, 20), [20, 30), [30, 45), [45, 60), [60, 100)}
-</programlisting>
+]]></programlisting>
       <para>
         例えば主人公のレベルが 25 に上がるときには、
         <code>20 &lt;= 25 &lt; 30</code> であるので、係数配列のインデックスを 4 とする。
@@ -207,11 +207,11 @@
         ROM データでは <code>a</code> と <code>b</code> の要素が交互に詰められているが、
         ここではわかりやすさのために分けた：
       </para>
-<programlisting>// index
+<programlisting><![CDATA[// index
 //   0   1   2  3  4  5  6  7
 a = {2,  1,  1, 1, 1, 1, 1, 1};
 b = {2, 18, 10, 6, 4, 3, 0, 0};
-</programlisting>
+]]></programlisting>
     </listitem>
   </varlistentry>
   <varlistentry>
@@ -220,40 +220,89 @@ b = {2, 18, 10, 6, 4, 3, 0, 0};
     <listitem>
       <para>
         さいだいＨＰ標準値[i] およびさいだいＭＰ標準値[i]とは、対応するキャラクターのレベルがレベル区間境界値[i]に等しいときの、
-        そのキャラクターのさいだいＨＰおよびさいだいＭＰそれぞれの値を意味する属性だ。
+        そのキャラクターのさいだいＨＰおよびさいだいＭＰそれぞれの標準値を意味する属性だ。
         ただし、実際にはその半分の値を保持していて、計算部で倍にする。
+      </para>
+      <para>
+        本項で言う「標準」とは、「キャラクターの装備が裸であり、
+        かつ種や実のたぐいをいっさい与えないでレベルが上がる場合に取る値」
+        くらいの意味に解釈して欲しい。「既定値」と解釈してもよいかもしれない。
+        以下、特に断らない限りこの仮定を置くものとする。
       </para>
     </listitem>
   </varlistentry>
   <varlistentry>
     <term>ちから標準値[i]</term>
     <term>すばやさ標準値[i]</term>
-    <term>みのまもり標準値[i]</term>
     <term>かしこさ標準値[i]</term>
     <term>うんのよさ標準値[i]</term>
+    <term>みのまもり標準値[i]</term>
     <listitem>
       <para>
-        ちから標準値[i] とは、対応するキャラクターのレベルがレベル区間境界値[i] の値に等しいときの、
-        そのキャラクターのちからの値を表すメンバーデータだ。
+        各種標準値[i] とは、対応するキャラクターのレベルがレベル区間境界値[i]
+        の値に等しいときの、そのキャラクターの対応属性値の標準値を表すものだ。
         さいだいＨＰやさいだいＭＰとは異なり、実際の値を表現している。
       </para>
       <para>
-        例えば主人公のデータでは、この標準値配列は次のように定義されている。
+        例として、主人公のデータにおける標準値配列を次に挙げる：
       </para>
-<programlisting>{11, 23, 38, 49, 65, 105, 149, 185, 255}</programlisting>
+<programlisting><![CDATA[{11, 23, 38, 49, 65, 105, 149, 185, 255}]]></programlisting>
       <para>
-        各要素は先に例示した主人公のレベル区間データの値と対応しており、
-        主人公がレベル 5, 10, 15, 20, 35, 45, 60 であるときには、
-        ちからの値はそれぞれ 11, 23, 38, 49, 65, 105, 149, 185, 255 であるということだ。
-        この配列に含まれない値のレベルに上がるときには、
-        新しいちからの値はレベル区間の隣り合う端点に対応するちから標準値同士から線形補間で得られる。
+        各要素は先に例示した主人公のレベル区間データの値と対応しており、主人公がレベル
+        1, 5, 10, 15, 20, 30, 45, 60, 99
+        であるときには、ちからの値はそれぞれ
+        11, 23, 38, 49, 65, 105, 149, 185, 255
+        が標準的であるということだ。
+        この配列に含まれない値のレベルに上がるときには、新しいちからの値はレベル
+        区間の隣り合う端点に対応するちから標準値同士から線形補間で得られる。
       </para>
       <para>
-        すばやさ、みのまもり、かしこさ、うんのよさ各標準値についてもちからと同様だ。
+        例。レベル 25 の主人公のちからの値を計算しよう。対応区間は
+        <code>[20, 30)</code> だ。区間端点それぞれのレベルにおけるちから標準値は
+        それぞれ 65, 105 であるので、その差分 <code>105 - 65 == 40</code> を
+        <code>30 - 20 == 10</code> で割る。商は 4 なので、左端点の標準値 65 と
+        <code>4 * (25 - 20) == 20</code> との和を取る。その結果 85 を得る。
+        これがレベル 25 におけるちから標準値となる。
+      </para>
+      <para>
+        なお、実際のレベルアップ処理では、現在のレベルと新しいレベルそれぞれの標準値を計算し、
+        この増分値（上の例でいうところの商 4 のこと）を対象キャラクターの現在の属性値に加算しても許せるか否かを試験するという工程を含む。
+        この仮新属性値が標準値の 1.5 倍以上であると、今までの計算値を破棄して、
+        増分値をランダムで高々 1 に抑える役割も果たす（下記コード片）。
+      </para>
+<programlisting><![CDATA[
+23/EC76:    C220        REP #$20
+23/EC78:    B99709      LDA $0997,Y         ; 属性 X 基準値
+23/EC7B:    4A          LSR A
+23/EC7C:    18          CLC
+23/EC7D:    799709      ADC $0997,Y
+23/EC80:    999709      STA $0997,Y         ; 上限値 := 属性 X 基準値の 150%
+23/EC83:    C8          INY
+23/EC84:    C8          INY
+23/EC85:    A546        LDA $46
+23/EC87:    F012        BEQ $EC9B           if(現在の属性値){
+23/EC89:    D99509      CMP $0995,Y
+23/EC8C:    900D        BCC $EC9B               if(現在の属性値 >= 上限値){
+23/EC8E:    E220        SEP #$20
+23/EC90:    A900        LDA #$00
+23/EC92:    6E9509      ROR $0995
+23/EC95:    6900        ADC #$00
+23/EC97:    9500        STA $00,X                   $00,X = rand(1) ; 属性 X の増分を高々 1 とする
+23/EC99:    8022        BRA $ECBD                   ; 次の属性へ
+                                                }
+                                            }
+                                            ; 以下通常処理を経て次の属性へ
+]]></programlisting>
+      <para>
+        ほしふるうでわを装備しているキャラクターや、仲間ゴーレムなど、
+        先述の仮定が成り立たない条件下でのすばやさの成長が、このロジックが適用される例であることが知られている。
+        仲間ゴーレムの例では、仲間になったレベル 5 の時点ですばやさが 51 ある。
+        すなわち、序盤レベル帯でのすばやさ標準値 32 の 1.5 倍である 48 以上であることによる。
       </para>
     </listitem>
   </varlistentry>
 </variablelist>
+<para>以上でレベルアップ構造体の説明を終わる。</para>
 
 <para>
   ここで必要経験値の計算アルゴリズムについて簡単に述べる。
@@ -326,7 +375,7 @@ b = {2, 18, 10, 6, 4, 3, 0, 0};
   <code>E[2]</code> はメンバーデータ「レベル 2 の必要経験値」の値を代入する。
   一般ステップのみを説明すれば十分だろう。
 </para>
-<programlisting>//
+<programlisting><![CDATA[//
 // ...レベル n が次のレベル区間に移行するタイミングで index の値をインクリメントする処理がここに入る...
 //
 
@@ -334,7 +383,7 @@ b = {2, 18, 10, 6, 4, 3, 0, 0};
 
 D[n] = E[n - 1] - E[n - 2];
 F = F[n - 1] + 32 - F[n - 2];
-if(F &gt;= 32){
+if(F >= 32){
     F -= 32;
 }
 else if(D[n] != 0){
@@ -353,16 +402,16 @@ D = p1 + (sum >> 5);
 
 E[n] = E[n - 1] + D;
 F[n] = F[n - 1] + (sum &amp; 31);
-if(F[n] &gt;= 32){
+if(F[n] >= 32){
     ++E[n];
     F[n] -= 32;
 }
 
-if(E[n] &gt; 10000000){
+if(E[n] > 10000000){
     E[n] = 10000000;
     F[n] = 0;
 }
-</programlisting>
+]]></programlisting>
 <para>
   例えば、主人公のレベル 3, 4, 5 に必要な経験値はそれぞれ 58, 139, 269 だ。
   研究熱心な読者には、このアルゴリズムが本当にこれらの値を出力することを確認してもらいたい。
@@ -423,10 +472,10 @@ if(E[n] &gt; 10000000){
   <code>E[2]</code> はメンバーデータ「レベル 2 の必要経験値」の値を代入する。
   一般ステップのみを説明すれば十分だろう。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 D[n] = E[n - 1] - E[n - 2];
 F = F[n - 1] + 32 - F[n - 2];
-if(F &gt;= 32){
+if(F >= 32){
     F -= 32;
 }
 
@@ -439,11 +488,11 @@ D = p1 + (sum >> 5);
 
 E[n] = E[n - 1] + D;
 F[n] = F[n - 1] + (s &amp; 31);
-if(F[n] &gt;= 32){
+if(F[n] >= 32){
     ++E[n];
     F[n] -= 32;
 }
-</programlisting>
+]]></programlisting>
 </section> <!-- dq5.character.traits.progression -->
 
 <section id="dq5.character.traits.abilities">
@@ -532,7 +581,7 @@ if(F[n] &gt;= 32){
 <para>
 このプログラムは同じ役割を果たす型を、人間キャラクターとモンスターキャラクターとで別々に定義することがよくあるのだが、
 初期状態においてもその手法を採っている。
-モンスターの仲間では、初期状態における所持品と装備品とを考慮せずに済むので、その分のメモリが節約できるということだろう。
+モンスターの仲間では、初期状態における所持品と装備品とを考慮せずに済むので、その分のメモリーが節約できるということだろう。
 </para>
 <para>
 構造体 <varname>$23C014</varname> については <xref linkend="dq5.characters.7E2040"/> で述べたものと同型だ。
@@ -617,7 +666,7 @@ if(F[n] &gt;= 32){
 まずキャラクターがモンスターであるかどうかを調べ、それから性別配列 <varname>$23C236</varname> を参照する。
 短い配列なので、ここで全データを引用する：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 23/C236:    00 ; 主人公
 23/C237:    00 ; クーパー
 23/C238:    01 ; アニー
@@ -629,7 +678,7 @@ if(F[n] &gt;= 32){
 23/C23E:    00 ; パパス
 23/C23F:    00 ; ヘンリー
 23/C240:    01 ; ベラ
-</programlisting>
+]]></programlisting>
 
 <para>
 人間とモンスターとで異なる属性といえば、移動中の「つよさ」ウィンドウで「せいべつ」欄の真上に表示される部分だ。
@@ -641,7 +690,7 @@ if(F[n] &gt;= 32){
 一応断っておくと、モンスター ID とはモンスターデータテーブル <varname>$238000</varname> の行番号を意味する。
 仲間モンスター ID からモンスター ID への対応は配列 <varname>$23D72D</varname> で定義されている：
 </para>
-<programlisting>
+<programlisting><![CDATA[
 23/D72D:    0E  ; ベビーパンサー
 23/D72E:    59  ; キラーパンサー
 23/D72F:    00  ; スライム
@@ -649,7 +698,7 @@ if(F[n] &gt;= 32){
 ...
 23/D755:    C5  ; ヘルバトラー
 23/D756:    D7  ; ネーレウス
-</programlisting>
+]]></programlisting>
 </section> <!-- dq5.character.traits.specific -->
 
 <section id="dq5.character.traits.name">
@@ -665,7 +714,7 @@ if(F[n] &gt;= 32){
 主人公、息子、娘の名前を示す文字列はアドレス <varname>$7E2001</varname>, <varname>$7E2009</varname>, <varname>$7E2011</varname> に格納される。
 ただし、その既定値はアドレス <varname>$23D6ED</varname> にある、ある種の初期化データの一部で与えられている。
 </para>
-<programlisting>
+<programlisting><![CDATA[
 23/D6ED:    01 ; 00:
 23/D6EE:    01 ; 01:
 23/D6EF:    01 ; 02:
@@ -691,7 +740,7 @@ if(F[n] &gt;= 32){
 23/D703:    01 ; 16:
 23/D704:    01 ; 17:
 23/D705:    01 ; 18:
-</programlisting>
+]]></programlisting>
 
 <para>
 文字列配列 <varname>$23C5CE</varname> および <varname>$23C242</varname> については、

@@ -21,12 +21,12 @@
 #
 # Note that this is a Makefile fragment intended for inclusion.  As a result,
 # all relative paths contained within are relative to including Makefile's
-# directory, not to this fragment's directory.  The TOOLS_DIR and DIR variables
-# should be overridden if necessary to ensure proper paths are used.
+# directory, not to this fragment's directory.  The TOOLS_DIR and SOURCE_DIR
+# variables should be overridden if necessary to ensure proper paths are used.
 
 # Paths which you may wish to customize:
-XSLTPROC = xsltproc
-XMLLINT = xmllint
+XSLTPROC = /usr/bin/xsltproc
+XMLLINT = /usr/bin/xmllint
 INSTALL_DATA = cp -ru
 MKDIR = mkdir -p
 RUN_HHC = ~/bin/runhhc.bat
@@ -35,19 +35,21 @@ RUN_HHC = ~/bin/runhhc.bat
 BOOK_VERSION = 1.19dev
 
 # You should not normally need to edit anything below here.
-SHELL = /bin/sh
+SHELL = /bin/bash
 
 NAME = dqbook
-DIR = ./book
-IMAGES = $(DIR)/image/
-TEXTFILES = $(DIR)/data/
+SOURCE_DIR = ./book
+IMAGES = $(SOURCE_DIR)/image/
+TEXTFILES = $(SOURCE_DIR)/data/
+BUILD_DIR = ../../build/jp
 TOOLS_DIR = ../tools
 XSL_DIR = `[ -d stylesheets ] && echo stylesheets || echo $(TOOLS_DIR)`
 OUTNAME = $(NAME)
 
-HTML_CHUNK_DIR = $(DIR)/html-chunk
-HTML_HELP_DIR = $(DIR)/html-help
-HTML_TARGET = $(DIR)/$(OUTNAME).html
+# Output
+HTML_CHUNK_DIR = $(BUILD_DIR)/html-chunk
+HTML_HELP_DIR = $(BUILD_DIR)/html-help
+HTML_TARGET = $(BUILD_DIR)/$(OUTNAME).html
 
 # In the HTML chunk build, index.html is created last, so serves as an
 # acceptable timestamp file for the entire multi-file output.
@@ -61,23 +63,23 @@ ARCH_CMD = tar -jcvf
 ARCH_EXT = .tar.bz2
 HTML_ARCH_BASENAME = $(OUTNAME)-html
 HTML_CHUNK_ARCH_BASENAME = $(OUTNAME)-html-chunk
-HTML_ARCH_TARGET = $(DIR)/$(HTML_ARCH_BASENAME)$(ARCH_EXT)
-HTML_CHUNK_ARCH_TARGET = $(DIR)/$(HTML_CHUNK_ARCH_BASENAME)$(ARCH_EXT)
+HTML_ARCH_TARGET = $(BUILD_DIR)/$(HTML_ARCH_BASENAME)$(ARCH_EXT)
+HTML_CHUNK_ARCH_TARGET = $(BUILD_DIR)/$(HTML_CHUNK_ARCH_BASENAME)$(ARCH_EXT)
 
 # These targets are not available now.
-PDF_TARGET = $(DIR)/$(OUTNAME).pdf
-PS_TARGET = $(DIR)/$(OUTNAME).ps
-FO_TARGET = $(DIR)/$(OUTNAME).fo
+PDF_TARGET = $(BUILD_DIR)/$(OUTNAME).pdf
+PS_TARGET = $(BUILD_DIR)/$(OUTNAME).ps
+FO_TARGET = $(BUILD_DIR)/$(OUTNAME).fo
 
 # This variable depends on the building environment.
 RUN_FOP = /cygdrive/c/fop-0.94/fop.sh
 
-XML_SOURCE = $(DIR)/$(NAME).xml
-VERSION_SOURCE = $(DIR)/version.xml
+XML_SOURCE = $(SOURCE_DIR)/$(NAME).xml
+VERSION_SOURCE = $(SOURCE_DIR)/version.xml
 
-ALL_SOURCE = $(DIR)/*.xml
-STYLESHEET = $(DIR)/*.css
-# TODO: $(DIR)/data might be required.
+ALL_SOURCE = $(SOURCE_DIR)/*.xml
+STYLESHEET = $(SOURCE_DIR)/*.css
+# TODO: $(SOURCE_DIR)/data might be required.
 
 INSTALL_SUBDIR = $(INSTALL_DIR)/$(NAME)
 

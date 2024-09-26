@@ -51,7 +51,7 @@
 <section id="dq7.chara.kiefer.equip">
 <title>強力な装備</title>
 <para>
-	キーファが装備可能な武器、防具のリストで、パラメータが上位に属するものを挙げていく。
+	キーファが装備可能な武器、防具のリストで、パラメーターが上位に属するものを挙げていく。
 </para>
 
 <section id="dq7.chara.kiefer.equip.weapon">
@@ -134,11 +134,11 @@
 </section> <!-- dq7.chara.kiefer.equip -->
 
 <section id="dq7.chara.kiefer.param">
-<title>レベルパラメータ対応表</title>
+<title>レベルパラメーター対応表</title>
 <indexterm id="term.dq7.chara.kiefer.param"><primary>レベル</primary><secondary>DQ7 キーファ</secondary></indexterm>
 <para>
 	キーファの各レベルにおける
-	「ちから」「さいだい HP」などの各種パラメータおよび、
+	「ちから」「さいだい HP」などの各種パラメーターおよび、
 	そのレベルであるために必要な経験値をまとめた。
 	<xref linkend="appendix.b" />
 </para>
