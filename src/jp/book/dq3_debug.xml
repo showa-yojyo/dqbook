@@ -108,8 +108,8 @@
 </para>
 </section> <!-- dq3.debug.structure.C8A3AF -->
 
-<section id="dq3.debug.structure.C8F661">
-<title>構造体 <varname>$C8F661</varname>: フラグショップ</title>
+<section id="dq3.debug.structure.C8F7E5">
+<title>構造体 <varname>$C8F7E5</varname>: フラグショップ</title>
 <para>
 フラグショップとは、デバッグコマンドの一つであり、物語の進行状況を制御することを目的とするものだ。
 </para>
@@ -118,11 +118,11 @@
   <graphic width="240px" fileref="./image/dq3.debug.flagshop.png"/>
 </figure>
 <para>
-アドレス <varname>$C8F661</varname> に配列されているオブジェクトそれぞれがフラグを操作する処理コードのアドレスを保持している。
+アドレス <varname>$C8F7E5</varname> に配列されているオブジェクトそれぞれがフラグを操作する処理コードのアドレスを保持している。
 オブジェクトの型の詳細を次の表に示す。
 </para>
-<table id="table.dq3.C8F661" class="lighttable">
-  <caption>構造体 $C8F661</caption>
+<table id="table.dq3.C8F7E5" class="lighttable">
+  <caption>構造体 $C8F7E5</caption>
   <thead>
     <tr><th>オフセット</th><th>桁</th><th>属性</th></tr>
   </thead>
@@ -134,7 +134,7 @@
 <para>
 各属性の詳細は <xref linkend="dq3.debug.structure.C8D4B0" xrefstyle="select: labelnumber"/> と同様だ。
 </para>
-</section> <!-- dq3.debug.structure.C8F661 -->
+</section> <!-- dq3.debug.structure.C8F7E5 -->
 </section> <!-- dq3.debug.structure -->
 
 <section id="dq3.debug.behavior">
@@ -279,7 +279,7 @@
     <term>フラグショップ</term>
     <listitem>
       <para>
-        <xref linkend="dq3.debug.structure.C8F661" xrefstyle="select: labelnumber"/> の冒頭の説明を参照。
+        <xref linkend="dq3.debug.structure.C8F7E5" xrefstyle="select: labelnumber"/> の冒頭の説明を参照。
       </para>
       <para>
         各項目の詳細は後述する。
