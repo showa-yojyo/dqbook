@@ -27,7 +27,8 @@
 <section id="dq6.encounter.model.C6843C">
 <title>構造体 <varname>$C6843C</varname>: 通常の戦闘用編成</title>
 <para>
-アドレス <varname>$C6843C</varname> にはバイトサイズ <literal>#$16</literal> のオブジェクトが配列されている。
+アドレス <varname>$C6843C</varname> にはバイトサイズ <literal>#$16</literal> のオブジェクトが
+<literal>#$85</literal> 個配列されている。
 自陣パーティーが戦闘地域を移動すると、一定の規則と乱数によって敵と遭遇する。
 この配列はそれを制御するためのオブジェクトからなる。
 それらのオブジェクトの構造を次に示す：
@@ -263,7 +264,8 @@
 <section id="dq6.encounter.model.C58F64">
 <title>構造体 <varname>$C58F64</varname>: 敵陣グループ固定戦</title>
 <para>
-アドレス <varname>$C58F64</varname> にはバイトサイズ <literal>#$06</literal> のオブジェクトが配列されている。
+アドレス <varname>$C58F64</varname> には <literal>#$06</literal> バイト長のオブジェクトが
+<literal>#$23</literal> 個配列されている。
 正規の抽選処理から分岐して、こちらのオブジェクトのいずれかで敵陣を指定するという場合が起こり得る。
 オブジェクトの構造を次に示す：
 </para>
@@ -310,7 +312,8 @@
 <section id="dq6.encounter.model.C88DF4">
 <title>構造体 <varname>$C88DF4</varname>: イベント戦専用編成</title>
 <para>
-アドレス <varname>$C88DF4</varname> にはバイトサイズ <literal>#$0B</literal> のオブジェクトが配列されている。
+アドレス <varname>$C88DF4</varname> にはバイトサイズ <literal>#$0B</literal> のオブジェクトが
+<literal>#$4C</literal> 個配列されている。
 このオブジェクト群は固定戦闘とイベント戦闘の構成を表現するためのものだ。
 それらのオブジェクトの構造を次に示す：
 </para>

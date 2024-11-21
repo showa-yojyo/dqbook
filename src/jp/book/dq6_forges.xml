@@ -20,7 +20,7 @@
 <title>対応 <varname>$C58ECF</varname>: 鍛造前後のアイテムの対応</title>
 <para>
 カジヤが鍛え直すことのできる装備品のアイテム ID の対応関係がアドレス <varname>$C58ECF</varname> に指定されている。
-これは鍛造前後のアイテム ID の組の配列という形式で表現されている。
+これは鍛造前後のアイテム ID の組の配列という形式で表現されている。全部で 25 対定義されている。
 念のため対応表の各項目のメモリーレイアウトを示す：
 </para>
 <table id="table.dq6.C58ECF" class="lighttable">

@@ -22,7 +22,9 @@
 <section id="dq6.items.C4003D">
 <title>構造体 <varname>$C4003D</varname>: アイテム</title>
 <para>
-次の表に示すようなメモリーレイアウトの構造体オブジェクトがアドレス <varname>$C4003D</varname> から 256 個配列されている。
+次の表に示すようなメモリーレイアウトの構造体オブジェクトがアドレス
+<varname>$C4003D</varname> から 256 個配列されている。
+オブジェクトそれぞれのサイズは <literal>0x1A</literal> バイトだ。
 本章ではこの型をアイテム構造体と呼ぶことにする：
 </para>
 <table id="table.dq6.C4003D" class="lighttable">
