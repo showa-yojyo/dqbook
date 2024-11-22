@@ -77,7 +77,7 @@
 言い換えると、&dq5_1992; では、各アイテムの価格を次のような形で物理的に格納している：
 </para>
 <programlisting><![CDATA[
-P * Q, (where 0 &lt;= P and P &lt; 256; 0 &lt;= Q and Q &lt; 65536)
+P * Q, (where 0 <= P and P < 256; 0 <= Q and Q < 65536)
 ]]></programlisting>
 <para>
 このデータ表現を採用することで、消費する ROM が 135 バイトほど節約できる。
