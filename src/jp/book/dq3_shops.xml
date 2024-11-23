@@ -38,7 +38,6 @@
     <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td><td>商品 4</td></tr>
     <tr><td><literal>#$06</literal></td><td><literal>#$00FF</literal></td><td>商品 5</td></tr>
     <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td><td>商品 6</td></tr>
-    <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td><td>商品 7</td></tr>
   </tbody>
 </table>
 <para>
@@ -62,7 +61,7 @@
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term>商品 k (k = 0..7)</term>
+    <term>商品 k (k = 0..6)</term>
     <listitem>
       <para>
         この店屋の商品のアイテム ID を値に取る属性だ。
