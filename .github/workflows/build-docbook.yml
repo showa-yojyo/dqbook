@@ -40,8 +40,9 @@ jobs:
       - name: Build document
         run: make -C ./src/jp html-chunk
 
-      - name: Upload artifact
+      - name: Upload artifacts
         uses: actions/upload-pages-artifact@v3
+        if: ${{ github.ref == 'refs/heads/master' }}
         with:
           path: ./build/jp/html-chunk
 
@@ -53,5 +54,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
+        if: ${{ github.ref == 'refs/heads/master' }}
         id: deployment
         uses: actions/deploy-pages@v4
