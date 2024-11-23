@@ -1,9 +1,9 @@
 #!/bin/bash
 
 export TZ=Asia/Tokyo
-TODAY_DATE=$(date -Iseconds)
-TODAY_YEAR=$(date +%Y)
-BOOK_VERSION=${1-"1.18.5"}
+declare -r TODAY_DATE=$(date -Iseconds)
+declare -r TODAY_YEAR=$(date +%Y)
+declare -r BOOK_VERSION="${1:?:Usage: ${0##*/} VERSION}"
 
 cat <<BOOKINFO
 <?xml version="1.0" encoding="UTF-8"?>
