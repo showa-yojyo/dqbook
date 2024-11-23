@@ -44,7 +44,9 @@
 <section id="dq6.locations.structure.C8997A">
 <title>構造体 <varname>$C8997A</varname>: ルーラ</title>
 <para>
-アドレス <varname>$C8997A</varname> からは次の表が表現する型のオブジェクトが多数配列されている。
+アドレス <varname>$C8997A</varname> からは次の表が表現する
+サイズ <literal>0x0B</literal> バイトの型のオブジェクトが
+<literal>0xB8</literal> 個配列されている。
 これらのオブジェクトはルーラの呪文を実現するのに必要な情報をいくつかの属性として保持する。
 </para>
 
@@ -141,7 +143,8 @@
 <section id="dq6.locations.structure.C8A188">
 <title>構造体 <varname>$C8A188</varname>: 場所</title>
 <para>
-アドレス <varname>$C8A188</varname> からは次の表が表現する型のオブジェクトが多数配列されている。
+アドレス <varname>$C8A188</varname> からは次の表が表現する型の、大きさ 8 バイト長のオブジェクトが
+<literal>0x93</literal> 個配列されている。
 これらのオブジェクトは先述した空間単位構成要素のいくつかを集約する構成要素を表現する。
 </para>
 
@@ -263,8 +266,8 @@
 <section id="dq6.locations.structure.C8B314">
 <title>構造体 <varname>$C8B314</varname>: 座標</title>
 <para>
-アドレス <varname>$C8B314</varname> からは次の表が表現する型のオブジェクトが多数配列されている。
-これらのオブジェクトはパーティーが画面遷移直後に対象空間のどの座標に現れるのかを指定する。
+アドレス <varname>$C8B314</varname> からは次の表が表現する型の 5 バイト長オブジェクトが
+<literal>0x1C9</literal> 個配列されている。これらのオブジェクトはパーティーが画面遷移直後に対象空間のどの座標に現れるのかを指定する。
 </para>
 
 <table id="table.dq6.C8B314" class="lighttable">

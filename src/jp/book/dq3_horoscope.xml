@@ -62,13 +62,13 @@
 星座構造体に関係するサブルーチンを表にまとめておく：
 </para>
 <table id="table.dq3.horoscope.structure.subroutines" class="lighttable">
-  <caption></caption>
+  <caption>星座構造体に関係するサブルーチン</caption>
   <thead>
     <tr><th>サブルーチン</th><th>入力</th><th>出力</th><th>機能</th></tr>
   </thead>
   <tbody>
-    <tr><td align="center">$C932A3</td><td>a</td><td>x</td><td>日付に対応する星座 ID を取得する。</td></tr>
-    <tr><td align="center">$C93311</td><td>x</td><td>a</td><td>星座名を表す文字列 ID を取得する。</td></tr>
+    <tr><td align="center"><varname>$C932A3</varname></td><td>a</td><td>x</td><td>日付に対応する星座 ID を取得する。</td></tr>
+    <tr><td align="center"><varname>$C93311</varname></td><td>x</td><td>a</td><td>星座名を表す文字列 ID を取得する。</td></tr>
   </tbody>
 </table>
 </section> <!-- dq3.horoscope.structure.C31308 -->

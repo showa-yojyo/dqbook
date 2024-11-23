@@ -33,8 +33,8 @@
 <section id="dq5.character.traits.progression">
 <title>レベルアップ構造体</title>
 <para>
-アドレス <varname>$239E41</varname> には次の表が示す、かなりサイズが大きい型のオブジェクトの配列がある。
-本節ではこの型をレベルアップ構造体と呼ぼう：
+アドレス <varname>$239E41</varname> には次の表が示す、サイズ <literal>#$50</literal> バイトのオブジェクト
+<literal>#$2A</literal> 個の配列がある。本節ではこの型をレベルアップ構造体と呼ぼう：
 </para>
 
 <table id="table.dq5.traits.239E41" class="lighttable">
@@ -587,7 +587,8 @@ if(F[n] >= 32){
 構造体 <varname>$23C014</varname> については <xref linkend="dq5.characters.7E2040"/> で述べたものと同型だ。
 </para>
 <para>
-構造体 <varname>$23AED1</varname> は次の表に示すような構成だ：
+構造体 <varname>$23AED1</varname> は <literal>#$09</literal> バイト長の、次の表に示すような構成だ。
+このオブジェクトが <literal>#$2A</literal> 個配列されている。
 </para>
 <table id="table.dq5.traits.23AED1" class="lighttable">
   <caption>構造体 $23AED1: 仲間モンスター初期状態</caption>

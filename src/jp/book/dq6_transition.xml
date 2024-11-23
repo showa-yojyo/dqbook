@@ -146,8 +146,8 @@
 <section id="dq6.transition.structure.FF8072">
 <title>構造体 <varname>$FF8072</varname>: 階段</title>
 <para>
-アドレス <varname>$FF8072</varname> には次のオブジェクト型要素が多数配列されている。
-この型は階段による画面遷移を表現するものであり、移動モードにおいて階段の絵を描画させるものだ。
+アドレス <varname>$FF8072</varname> には次の 7 バイト長オブジェクト型要素が
+<literal>0x1D8</literal> 個配列されている。この型は階段による画面遷移を表現するものであり、移動モードにおいて階段の絵を描画させるものだ。
 </para>
 
 <table id="table.dq6.FF8072" class="lighttable">
@@ -172,8 +172,8 @@
 <section id="dq6.transition.structure.FF8D5A">
 <title>構造体 <varname>$FF8D5A</varname>: 水平帯域</title>
 <para>
-アドレス <varname>$FF8D5A</varname> には次のオブジェクト型要素が多数配列されている。
-この型は主にパーティーが建造物の出入口を通過することによる画面遷移を表現する。
+アドレス <varname>$FF8D5A</varname> には次の 8 バイト長オブジェクト型要素が
+<literal>0x25A</literal> 個配列されている。この型は主にパーティーが建造物の出入口を通過することによる画面遷移を表現する。
 画面遷移を引き起こすためのヒットテストの矩形の縦幅が 1 なので、水平帯域と呼ぶことにする。
 </para>
 
@@ -200,8 +200,8 @@
 <section id="dq6.transition.structure.FFA02A">
 <title>構造体 <varname>$FFA02A</varname>: 垂直帯域</title>
 <para>
-アドレス <varname>$FFA02A</varname> には次のオブジェクト型要素が配列されている。
-この型は主にパーティーが建造物の出入口を通過することによる画面遷移を表現する。
+アドレス <varname>$FFA02A</varname> には次の 8 バイト長オブジェクト型要素が
+<literal>0x12</literal> 個配列されている。この型は主にパーティーが建造物の出入口を通過することによる画面遷移を表現する。
 画面遷移を引き起こすためのヒットテストの矩形の横幅が 1 なので、垂直帯域と呼ぶことにする。
 </para>
 
@@ -228,7 +228,8 @@
 <section id="dq6.transition.structure.FFA0BA">
 <title>構造体 <varname>$FFA0BA</varname>: 矩形領域</title>
 <para>
-アドレス <varname>$FFA0BA</varname> には次のオブジェクト型要素が多数配列されている。
+アドレス <varname>$FFA0BA</varname> には次の 8 バイト長オブジェクト型要素が
+<literal>0x2BB</literal> 個配列されている。
 画面遷移を引き起こすためのヒットテストの矩形が一般の寸法の場合のものだ。
 </para>
 
@@ -255,7 +256,7 @@
 <section id="dq6.transition.structure.FFB692">
 <title>構造体 <varname>$FFB692</varname>: 関所</title>
 <para>
-アドレス <varname>$FFB692</varname> には次のオブジェクト型要素が配列されている。
+アドレス <varname>$FFB692</varname> には次の <literal>0x0C</literal> バイト長オブジェクト型要素が四個配列されている。
 パーティーがフィールドから各関所に画面遷移すると、関所内のどの位置に現れるのかを指定する。
 </para>
 
@@ -299,8 +300,8 @@
 <section id="dq6.transition.structure.C834FC">
 <title>構造体 <varname>$C834FC</varname>: 目的地点</title>
 <para>
-アドレス <varname>$C834FC</varname> には次のオブジェクト型要素が多数配列されている。
-この型は矩形型 (<xref linkend="dq6.transition.structure.FFA0BA" xrefstyle="select: labelnumber"/>)
+アドレス <varname>$C834FC</varname> には次の五バイト長オブジェクト型要素が
+<literal>0x1E0</literal> 個配列されている。この型は矩形型 (<xref linkend="dq6.transition.structure.FFA0BA" xrefstyle="select: labelnumber"/>)
 と関所型 (<xref linkend="dq6.transition.structure.FFB692" xrefstyle="select: labelnumber"/>)
 が参照する画面遷移先座標を表現する。
 </para>

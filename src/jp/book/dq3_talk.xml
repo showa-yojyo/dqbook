@@ -24,7 +24,8 @@
 <section id="dq3.talk.model.C808DA">
 <title>構造体 <varname>$C808DA</varname>: 「はなす」対象</title>
 <para>
-ROM のアドレス <varname>$C808DA</varname> には次の表で示すような型のオブジェクトが配列されている：
+ROM のアドレス <varname>$C808DA</varname> には次の表で示すような型の 12 バイト長オブジェクトが
+<literal>0x056D</literal> 個配列されている：
 </para>
 <table id="table.dq3.talk.model.C808DA" class="lighttable">
   <caption>構造体 $C808DA</caption>
@@ -43,7 +44,7 @@ ROM のアドレス <varname>$C808DA</varname> には次の表で示すような
     <tr><td><literal>#$06</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">歩行処理サブルーチン</td></tr>
     <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td></tr>
     <tr><td><literal>#$09</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">はなす処理サブルーチン</td></tr>
-    <tr><td><literal>#$0A</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$0B</literal></td><td><literal>#$00FF</literal></td></tr>
   </tbody>
 </table>
 <para>
@@ -81,7 +82,8 @@ ROM のアドレス <varname>$C808DA</varname> には次の表で示すような
 <section id="dq3.talk.model.C893D4">
 <title>構造体 <varname>$C893D4</varname>: 「はなす」対象分類</title>
 <para>
-ROM のアドレス <varname>$C893D4</varname> には次の表で示すような型のオブジェクトが配列されている：
+ROM のアドレス <varname>$C893D4</varname> には次の表で示すような型の 9 バイト長オブジェクトが
+<literal>0x7D</literal> 個配列されている：
 </para>
 <table id="table.dq3.talk.model.C893D4" class="lighttable">
   <caption>構造体 $C893D4</caption>
@@ -93,9 +95,9 @@ ROM のアドレス <varname>$C893D4</varname> には次の表で示すような
     <tr><td><literal>#$01</literal></td><td><literal>#$00FE</literal></td><td>声色</td></tr>
     <tr><td><literal>#$02</literal></td><td><literal>#$00FF</literal></td><td>透明時の代理オブジェクトの分類</td></tr>
     <tr><td><literal>#$03</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">変身時の反応</td></tr>
-    <tr><td><literal>#$04</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$05</literal></td><td><literal>#$00FF</literal></td></tr>
     <tr><td><literal>#$06</literal></td><td><literal>#$FFFF</literal></td><td rowspan="2">透明人間への反応</td></tr>
-    <tr><td><literal>#$07</literal></td><td><literal>#$00FF</literal></td></tr>
+    <tr><td><literal>#$08</literal></td><td><literal>#$00FF</literal></td></tr>
   </tbody>
 </table>
 <para>

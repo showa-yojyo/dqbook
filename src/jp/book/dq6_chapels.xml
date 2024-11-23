@@ -22,6 +22,7 @@
 <title>構造体 <varname>$C58E9F</varname>: 教会</title>
 <para>
 アドレス <varname>$C58E9F</varname> にある配列要素のそれぞれが対応する教会オブジェクトを表現する。
+6 バイト長のオブジェクトが 8 個配列されている。
 </para>
 <table id="table.dq6.C58E9F" class="lighttable">
   <caption>構造体 $C58E9F</caption>
