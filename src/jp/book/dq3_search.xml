@@ -204,13 +204,8 @@
 <section id="dq3.search.model.C87C99">
 <title>構造体 <varname>$C87C99</varname>: ゴールド発見</title>
 <para>
-<<<<<<< HEAD
-アドレス <varname>$C8477E</varname> には以下に示すメモリーレイアウトのオブジェクトが 30 以上配列されている。
-この構造体は前作の <xref linkend="dq6.search.model.C8477E"/> と同じ役割がある。
-=======
 アドレス <varname>$C87C99</varname> には以下に示すメモリーレイアウトの 8 バイト長オブジェクトが
 <literal>0x23</literal> 個配列されている。この構造体は前作の <xref linkend="dq6.search.model.C8477E"/> と同じ役割がある。
->>>>>>> fix-dq3-shops
 </para>
 <table id="table.dq3.search.model.C87C99" class="lighttable">
   <caption>構造体 $C87C99</caption>
